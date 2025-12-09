@@ -1,0 +1,8 @@
+firebase-functions
+firebase-admin
+pandas
+numpy
+requests
+PyPortfolioOpt
+cvxopt
+scikit-learn
