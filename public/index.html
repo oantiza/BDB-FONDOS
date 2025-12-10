@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor Quant | Portfolio Intelligence</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Roboto:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="h-screen flex flex-col overflow-hidden bg-gray-100 font-roboto text-slate-800 text-[15px]">
+
+    <div id="formulario-acceso" class="fixed inset-0 z-[100] bg-[#0B2545] flex items-center justify-center p-4">
+        <div class="bg-white w-96 p-8 rounded shadow-2xl border-t-4 border-[#D4AF37]">
+            <h2 class="text-[32px] font-bold text-center mb-6 font-serif text-[#0B2545]">Gestor Quant</h2>
+            <input type="email" id="email" class="w-full border-b-2 p-3 mb-3 outline-none focus:border-[#D4AF37]" placeholder="Usuario">
+            <input type="password" id="password" class="w-full border-b-2 p-3 mb-6 outline-none focus:border-[#D4AF37]" placeholder="Clave">
+            <button onclick="login()" class="w-full bg-[#0B2545] text-white py-3 font-bold hover:bg-[#153e6e] transition-colors">ENTRAR</button>
+        </div>
+    </div>
+
+    <div id="contenido-protegido" class="hidden flex-1 flex flex-col h-full">
+        <header class="h-16 bg-[#0B2545] text-white flex items-center justify-between px-6 shadow-lg border-b border-[#D4AF37] z-20">
+            <div class="flex flex-col">
+                <div class="font-serif text-[22px] font-bold"><span class="text-[#D4AF37]">Gestor</span> Quant</div>
+                <div class="text-[10px] uppercase tracking-[0.2em] text-gray-400">Portfolio Intelligence</div>
+            </div>
+            <div class="flex items-center gap-6">
+                <button id="btn-news-bell" class="font-bold hover:text-[#D4AF37] transition-colors text-[15px]">NEWS</button>
+                <button onclick="logout()" class="border px-3 py-1 rounded hover:bg-white hover:text-[#0B2545] transition-colors text-[13px] font-bold uppercase">Salir</button>
+            </div>
+        </header>
+
+        <div class="flex flex-1 overflow-hidden">
+            <div class="w-80 bg-white border-r shadow-md z-10 p-0 flex flex-col">
+                <div class="p-3 bg-slate-50 font-serif font-bold text-[#0B2545] border-b text-[15px]">Universo de Fondos</div>
+                <div class="p-3 border-b">
+                    <input type="text" id="fund-search" placeholder="Buscar nombre o ISIN..." class="w-full text-[13px] p-2 border rounded shadow-inner outline-none focus:border-[#0B2545] transition-colors">
+                </div>
+                <div id="main-grid-container" class="flex-1 overflow-y-auto scrollbar-thin"></div>
+            </div>
+
+            <main class="flex-1 bg-[#F3F4F6] p-4 overflow-y-auto scrollbar-thin">
+                <div class="grid grid-cols-12 gap-4 h-full min-h-[800px]">
+                    
+                    <div class="col-span-8 flex flex-col gap-4">
+                        <div class="bg-white rounded shadow-md h-96 p-4 flex flex-col border-t-4 border-[#0B2545]">
+                            <h3 class="font-serif font-bold text-[#0B2545] mb-2 text-[17px]">Proyección Monte Carlo (Simulación)</h3>
+                            <div class="flex-1 relative w-full h-full"><canvas id="main-history-chart"></canvas></div>
+                        </div>
+                        
+                        <div class="bg-white rounded shadow-md flex-1 flex flex-col min-h-[300px] border-t-4 border-[#D4AF37]">
+                            <div class="p-3 bg-[#0B2545] text-white flex justify-between items-center text-[15px]">
+                                <span class="font-bold">Composición de Cartera</span>
+                                <div class="text-[13px]">Total: <input type="number" id="investment_amount" value="100000" class="bg-transparent w-24 text-right text-[#D4AF37] font-bold outline-none border-b border-[#D4AF37]"> €</div>
+                            </div>
+                            <div class="flex-1 overflow-auto scrollbar-thin">
+                                <table class="w-full text-left text-[13px]"><tbody id="portfolio-table-body"></tbody></table>
+                            </div>
+                            <div class="p-2 bg-slate-50 text-right text-[13px] font-bold border-t text-slate-700">
+                                Peso: <span id="footer-total-weight">0%</span> | Valor: <span id="footer-total-amount">0 €</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-span-4 flex flex-col gap-4">
+                        <div class="bg-white rounded shadow-md p-5 border-l-4 border-[#10B981]">
+                            <h3 class="font-bold text-[#0B2545] mb-4 text-[17px]">Análisis Instantáneo</h3>
+                            <div class="h-48 relative mb-4"><canvas id="asset-allocation-chart"></canvas></div>
+                            <div class="bg-slate-50 p-3 rounded border mb-4">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] font-bold text-slate-500 uppercase">Style Box (RV)</span>
+                                    <span id="style-box-label" class="text-[10px] font-bold text-[#0B2545]">-</span>
+                                </div>
+                                <div id="style-box-grid" class="grid grid-cols-3 gap-1 h-24 w-24 mx-auto"></div>
+                            </div>
+                            <div class="grid grid-cols-3 gap-2 text-center text-[13px]">
+                                <div class="bg-slate-50 p-2 rounded"><div class="text-slate-500 uppercase text-[10px]">Volatilidad</div><div id="mini-volatility" class="font-bold text-slate-800">-</div></div>
+                                <div class="bg-slate-50 p-2 rounded"><div class="text-slate-500 uppercase text-[10px]">Retorno</div><div id="mini-return" class="font-bold text-emerald-600">-</div></div>
+                                <div class="bg-slate-50 p-2 rounded"><div class="text-slate-500 uppercase text-[10px]">Sharpe</div><div id="mini-sharpe" class="font-bold text-[#D4AF37]">-</div></div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white rounded shadow-md p-5 border-l-4 border-[#0B2545]">
+                            <h3 class="font-bold text-[#0B2545] mb-4 text-[17px]">Estrategia & Control</h3>
+                            <div class="mb-4 pb-4 border-b border-dashed border-slate-200">
+                                <input type="file" id="csv-upload" accept=".csv" class="hidden">
+                                <button onclick="document.getElementById('csv-upload').click()" class="w-full bg-slate-50 border border-slate-300 text-slate-600 text-[13px] font-bold py-2 rounded hover:text-[#0B2545] hover:border-[#0B2545] flex justify-center gap-2 items-center transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg> Importar CSV
+                                </button>
+                            </div>
+                            <form id="portfolio-form" class="space-y-3">
+                                <div>
+                                    <div class="flex justify-between text-[13px] font-bold mb-1 text-slate-600"><span>Perfil de Riesgo</span><span id="risk-display" class="bg-[#0B2545] text-white px-2 rounded">5</span></div>
+                                    <input type="range" id="risk_level" min="1" max="10" value="5" class="w-full accent-[#0B2545] cursor-pointer">
+                                </div>
+                                <div>
+                                    <label class="text-[13px] font-bold mb-1 block text-slate-600">Nº Activos (Recomendación)</label>
+                                    <input type="number" id="number_of_funds" value="5" class="w-full border p-2 rounded text-[13px] outline-none focus:border-[#D4AF37]">
+                                </div>
+                                <div class="grid grid-cols-2 gap-2">
+                                    <button type="button" id="btn-open-tactical" class="border text-slate-600 hover:text-[#0B2545] font-bold py-2 rounded text-[13px] transition-colors bg-white shadow-sm hover:shadow">⚙ Táctica</button>
+                                    <button type="button" id="btn-open-vip-tool" onclick="window.openVipModal()" class="border text-slate-600 hover:text-[#D4AF37] font-bold py-2 rounded text-[13px] transition-colors bg-white shadow-sm hover:shadow">★ Lista VIP</button>
+                                </div>
+                                <div class="pt-2 border-t mt-2">
+                                    <button type="button" id="btn-optimize" class="w-full bg-gradient-to-r from-[#D4AF37] to-[#b8952b] text-[#0B2545] text-[13px] font-bold uppercase py-3 rounded shadow mb-2 hover:shadow-lg transition-all hover:brightness-110">⚡ Optimizar Cartera</button>
+                                    <button type="submit" class="w-full bg-[#0B2545] text-white text-[13px] font-bold uppercase py-3 rounded shadow hover:bg-[#153e6e] transition-all">Generar Manual</button>
+                                </div>
+                            </form>
+                            <div class="grid grid-cols-2 gap-2 mt-4">
+                                <button id="run-backtest-btn" class="border py-2 text-[13px] font-bold rounded hover:bg-slate-50 text-slate-600">📊 X-Ray</button>
+                                <button id="btn-open-costs-tool" class="border py-2 text-[13px] font-bold rounded hover:bg-slate-50 text-slate-600">💰 Costes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div id="analysis-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/95 backdrop-blur-sm items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-7xl h-[95vh] rounded-lg shadow-2xl flex flex-col overflow-hidden m-4">
+            <div class="bg-[#0B2545] text-white px-6 py-4 flex justify-between items-center border-b border-[#D4AF37] shrink-0">
+                <div><h3 class="font-serif font-bold text-[26px]">Informe X-Ray</h3><p class="text-[13px] text-gray-400 uppercase tracking-widest">Análisis Profundo</p></div>
+                <button onclick="closeModal('analysis-modal')" class="text-gray-400 hover:text-white text-3xl transition-colors">&times;</button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-5 bg-slate-50 space-y-5 scrollbar-thin">
+                
+                <div class="bg-white p-4 rounded shadow border border-slate-200">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-2">
+                        <h4 class="font-bold text-[#0B2545] text-[20px] mb-2 sm:mb-0">Evolución Histórica Comparada</h4>
+                        <div class="flex items-center gap-3">
+                            <div class="flex space-x-1 text-[13px]">
+                                <button id="btn-1y" onclick="window.updateXRayTimeframe('1Y')" class="px-3 py-1 rounded bg-white text-slate-500 hover:bg-slate-100 border transition-colors font-bold">1A</button>
+                                <button id="btn-3y" onclick="window.updateXRayTimeframe('3Y')" class="px-3 py-1 rounded bg-[#0B2545] text-white shadow transition-colors font-bold">3A</button>
+                                <button id="btn-5y" onclick="window.updateXRayTimeframe('5Y')" class="px-3 py-1 rounded bg-white text-slate-500 hover:bg-slate-100 border transition-colors font-bold">5A</button>
+                            </div>
+                            <select id="benchmark-selector" class="text-[13px] border p-1 rounded font-bold text-[#0B2545] outline-none" onchange="window.updateBenchmarkSelection(this.value)">
+                                <option value="" disabled selected>Seleccione Benchmark</option>
+                                <option value="conservative">Conservador (100% RF)</option>
+                                <option value="moderate">Moderado (75% RF / 25% RV)</option>
+                                <option value="dynamic">Dinámico (25% RF / 75% RV)</option>
+                                <option value="aggressive">Agresivo (100% RV)</option>
+                            </select>
+                            <input type="hidden" id="xray-period-input" value="3Y">
+                        </div>
+                    </div>
+                    <div class="h-72 w-full relative"><canvas id="backtest-chart"></canvas></div>
+                </div>
+
+                <div class="grid grid-cols-4 gap-4">
+                    <div class="bg-white p-3 rounded shadow border-l-4 border-[#0B2545] text-center">
+                        <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Retorno Anual</div>
+                        <div id="metric-cagr" class="text-[20px] font-mono font-bold text-[#0B2545]">-</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow border-l-4 border-[#D4AF37] text-center">
+                        <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Volatilidad</div>
+                        <div id="metric-volatility" class="text-[20px] font-mono font-bold text-[#0B2545]">-</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow border-l-4 border-emerald-500 text-center">
+                        <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Ratio Sharpe</div>
+                        <div id="metric-sharpe" class="text-[20px] font-mono font-bold text-emerald-600">-</div>
+                    </div>
+                    <div class="bg-white p-3 rounded shadow border-l-4 border-rose-500 text-center">
+                        <div class="text-[11px] text-slate-400 font-bold uppercase tracking-wider">Max Drawdown</div>
+                        <div id="metric-maxdd" class="text-[20px] font-mono font-bold text-rose-600">-</div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded shadow border border-slate-200">
+                    <h4 class="font-bold text-[#0B2545] mb-4 text-[15px] uppercase border-b pb-2">Top 10 Activos Subyacentes (Desglose)</h4>
+                    <div id="top-holdings-container" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4"></div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col h-[450px] md:col-span-2">
+                        <h4 class="font-bold text-[#0B2545] mb-2 text-[17px]">Mapa Riesgo/Retorno</h4>
+                        <div class="flex-1 min-h-0 relative"><div id="riskPlot" class="h-full w-full"></div></div>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col h-[450px] md:col-span-1">
+                         <h4 class="font-bold text-[#0B2545] mb-2 border-b pb-2 text-[15px] uppercase">Análisis de Frontera</h4>
+                         <div id="risk-map-explanation" class="flex-1 text-[15px] text-slate-600 overflow-y-auto pr-2 scrollbar-thin space-y-3">
+                            <p class="text-slate-400 italic mt-10 text-center">Seleccione un periodo para actualizar la explicación.</p>
+                         </div>
+                    </div>
+                </div>
+
+                <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col min-h-[400px]">
+                    <h4 class="font-bold text-[#0B2545] mb-4 text-[15px] uppercase">Matriz de Correlación</h4>
+                    <div id="correlation-matrix-container" class="flex-1 w-full overflow-auto flex justify-center items-center text-[13px]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="comparison-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/90 backdrop-blur-sm items-center justify-center">
+        <div class="bg-white w-full max-w-4xl h-auto rounded-lg shadow-2xl flex flex-col overflow-hidden m-4">
+            <div class="bg-[#0B2545] text-white p-6 border-b border-[#D4AF37] flex justify-between items-center shrink-0">
+                <div><h3 class="font-serif font-bold text-[22px]">Propuesta de Optimización</h3><p class="text-[13px] text-gray-400">Impacto estimado en Cartera</p></div>
+                <button onclick="closeModal('comparison-modal')" class="text-white text-2xl hover:text-[#D4AF37]">&times;</button>
+            </div>
+            <div class="p-6 bg-slate-50 flex-1 scrollbar-thin">
+                <div class="bg-white p-5 rounded shadow-lg border border-slate-200 mb-5">
+                    <h4 class="font-bold text-[#0B2545] mb-4 border-b pb-2 text-[15px] uppercase tracking-wide">Métricas Comparativas</h4>
+                    <table class="w-full">
+                        <thead class="text-slate-400 font-bold text-[13px] uppercase bg-slate-50 border-b">
+                            <tr><th class="p-4 text-left">Indicador</th><th class="p-4 text-right">Cartera Actual</th><th class="p-4 text-right">Optimizada</th><th class="p-4 text-right">Diferencia</th></tr>
+                        </thead>
+                        <tbody class="divide-y divide-slate-100 text-[18px]">
+                            <tr><td class="p-4 font-serif text-[#0B2545] font-semibold">Retorno Anual</td><td class="text-right p-4 font-serif text-slate-600" id="comp-cagr-old">-</td><td class="text-right p-4 font-serif text-[#0B2545] font-bold" id="comp-cagr-new">-</td><td class="text-right p-4 font-serif" id="comp-cagr-diff">-</td></tr>
+                            <tr><td class="p-4 font-serif text-[#0B2545] font-semibold">Volatilidad</td><td class="text-right p-4 font-serif text-slate-600" id="comp-vol-old">-</td><td class="text-right p-4 font-serif text-[#0B2545] font-bold" id="comp-vol-new">-</td><td class="text-right p-4 font-serif" id="comp-vol-diff">-</td></tr>
+                            <tr><td class="p-4 font-serif text-[#0B2545] font-semibold">Ratio Sharpe</td><td class="text-right p-4 font-serif text-slate-600" id="comp-sharpe-old">-</td><td class="text-right p-4 font-serif text-[#0B2545] font-bold" id="comp-sharpe-new">-</td><td class="text-right p-4 font-serif" id="comp-sharpe-diff">-</td></tr>
+                            <tr><td class="p-4 font-serif text-[#0B2545] font-semibold">Max Drawdown</td><td class="text-right p-4 font-serif text-slate-600" id="comp-mdd-old">-</td><td class="text-right p-4 font-serif text-[#0B2545] font-bold" id="comp-mdd-new">-</td><td class="text-right p-4 font-serif" id="comp-mdd-diff">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="bg-white p-5 rounded border border-slate-200">
+                    <h4 class="font-bold text-slate-500 text-[13px] mb-4 uppercase">Estructura de Activos</h4>
+                    <div class="mb-3"><div class="flex justify-between text-[11px] text-slate-400 mb-1"><span>Cartera Actual</span></div><div class="w-full h-4 bg-slate-100 rounded-full flex overflow-hidden shadow-inner" id="comp-bar-old"></div></div>
+                    <div><div class="flex justify-between text-[11px] text-[#0B2545] mb-1"><span>Propuesta Óptima</span></div><div class="w-full h-4 bg-slate-100 rounded-full flex overflow-hidden shadow-inner" id="comp-bar-new"></div></div>
+                    <div class="mt-4 flex gap-6 text-[13px] justify-center font-bold text-slate-600 border-t pt-3 border-slate-50">
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-emerald-500 rounded-full"></span><span>Renta Variable (RV)</span></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-[#0B2545] rounded-full"></span><span>Renta Fija (RF)</span></div>
+                        <div class="flex items-center gap-2"><span class="w-3 h-3 bg-[#D4AF37] rounded-full"></span><span>Liquidez/Otros</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="p-5 bg-white border-t flex justify-end gap-4 shrink-0">
+                <button onclick="closeModal('comparison-modal')" class="text-slate-500 font-bold text-[15px] px-4">Cancelar</button>
+                <button id="btn-accept-optimization" class="bg-[#0B2545] text-white px-8 py-3 rounded font-bold text-[15px] shadow hover:bg-[#153e6e]">Aceptar y Editar</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="advanced-editor-modal" class="hidden fixed inset-0 z-[60] bg-white items-center justify-center">
+        <div class="w-full h-full flex flex-col bg-slate-50">
+            <div class="bg-[#0B2545] text-white px-6 py-4 flex justify-between shadow-md shrink-0">
+                <div><h3 class="font-bold text-[22px] font-serif">Workspace de Rebalanceo</h3><p class="text-[13px] text-gray-400">Ajuste fino y ejecución de órdenes</p></div>
+                <button onclick="closeModal('advanced-editor-modal')" class="text-white text-lg hover:text-[#D4AF37]">&times;</button>
+            </div>
+            <div class="flex-1 overflow-y-auto p-5 scrollbar-thin">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4 mb-4">
+                    <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col">
+                        <h4 class="font-bold text-[#0B2545] mb-3 border-b pb-2 text-[15px] uppercase">Cartera Actual</h4>
+                        <div class="flex-1 overflow-auto max-h-[300px] mb-3 scrollbar-thin">
+                            <table class="w-full text-[13px]"><thead class="text-slate-400 font-bold sticky top-0 bg-white"><tr><th class="text-left py-2">Activo</th><th class="text-right py-2">Peso</th><th class="text-right py-2">Valor</th></tr></thead><tbody id="editor-original-tbody"></tbody></table>
+                        </div>
+                        <div class="bg-slate-50 p-3 rounded border border-slate-100 grid grid-cols-3 gap-2 text-center text-[13px] mt-auto">
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Retorno</span><span id="ws-orig-ret" class="font-bold text-slate-700">-</span></div>
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Volatilidad</span><span id="ws-orig-vol" class="font-bold text-slate-700">-</span></div>
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Sharpe</span><span id="ws-orig-sharpe" class="font-bold text-slate-700">-</span></div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col relative border-l-4 border-l-[#D4AF37]">
+                        <div class="flex justify-between items-center mb-3 border-b pb-2"><h4 class="font-bold text-[#0B2545] text-sm uppercase">Cartera Objetivo</h4><span id="editor-total-weight-display" class="text-[13px] font-bold px-2 py-1 rounded bg-slate-100">Total: 0%</span></div>
+                        <div class="mb-3 relative"><input type="text" id="editor-add-fund-input" placeholder="+ Añadir fondo a la mezcla..." class="w-full p-2 border rounded text-[13px] outline-none focus:border-[#D4AF37] bg-slate-50 focus:bg-white transition-colors"><div id="editor-search-results" class="absolute bg-white shadow-xl w-full z-20 hidden border rounded-b max-h-40 overflow-y-auto"></div></div>
+                        <div class="flex-1 overflow-auto max-h-[250px] mb-3 scrollbar-thin">
+                            <table class="w-full text-[13px]"><thead class="text-slate-400 font-bold sticky top-0 bg-white"><tr><th class="text-left py-2">Activo</th><th class="text-right py-2">Peso Nuevo</th><th class="text-right py-2">Diff</th><th class="text-center py-2"></th></tr></thead><tbody id="editor-proposed-tbody"></tbody></table>
+                        </div>
+                        <div class="bg-[#FDFDEA] p-3 rounded border border-[#F0E68C] grid grid-cols-3 gap-2 text-center text-[13px] mt-auto">
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Retorno</span><span id="ws-prop-ret" class="font-bold text-emerald-600">-</span></div>
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Volatilidad</span><span id="ws-prop-vol" class="font-bold text-slate-700">-</span></div>
+                            <div><span class="text-slate-400 block text-[10px] uppercase">Sharpe</span><span id="ws-prop-sharpe" class="font-bold text-[#D4AF37]">-</span></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                    <div class="bg-white p-4 rounded shadow border border-slate-200 flex flex-col h-[380px]">
+                        <h4 class="font-bold text-[#0B2545] text-[13px] mb-2 uppercase">Proyección Histórica (Backtest 5 Años)</h4>
+                        <div class="flex-1 relative w-full h-full"><canvas id="workspace-chart"></canvas></div>
+                    </div>
+                    <div class="bg-white p-6 rounded shadow border-t-4 border-[#0B2545] flex flex-col h-[380px]">
+                        <h4 class="font-bold text-[#0B2545] text-[15px] uppercase mb-4">Plan de Ejecución (Rebalanceo)</h4>
+                        <div id="rebalancing-orders-container" class="flex-1 overflow-y-auto mb-6 bg-slate-50 p-4 rounded border border-dashed border-slate-300 min-h-[100px] scrollbar-thin"><div class="text-center text-slate-400 text-[13px] italic mt-10">No hay cambios pendientes.</div></div>
+                        <div class="flex flex-col gap-3 mt-auto pt-4 border-t border-slate-100">
+                            <div class="w-full"><button onclick="window.autoRebalance100()" class="w-full text-[13px] bg-blue-50 text-blue-700 font-bold px-4 py-2 rounded hover:bg-blue-100 transition-colors border border-blue-200 text-center">⚖️ Auto-Ajustar al 100%</button></div>
+                            <div class="flex gap-3 justify-end mt-2"><button onclick="closeModal('advanced-editor-modal')" class="text-slate-500 font-bold text-[15px] px-4 hover:text-slate-700">Cancelar</button><button id="btn-save-final-portfolio" class="bg-[#0B2545] text-white font-bold py-2 px-6 text-[15px] rounded shadow hover:bg-[#153e6e] transition-transform active:scale-95">CONFIRMAR CARTERA</button></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="tactical-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/90 backdrop-blur-sm items-center justify-center">
+        <div class="bg-white w-full max-w-4xl rounded p-6 shadow-2xl relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeModal('tactical-modal')" class="absolute top-4 right-6 text-3xl text-slate-400 hover:text-red-500">&times;</button>
+            <h3 class="font-bold text-[#0B2545] text-[22px] mb-6 border-b pb-2">Asignación Táctica (Límites)</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div><h4 class="font-bold text-[18px] text-emerald-600 mb-3 flex items-center gap-2"><span class="w-2 h-8 bg-emerald-600 rounded"></span> Renta Variable</h4><div class="space-y-4"><div class="flex justify-between items-center text-[15px] font-bold bg-slate-50 p-3 rounded border border-slate-100"><span>RV Global Min/Max (%)</span><div class="flex gap-2 w-32"><input type="number" id="rv-min" class="border w-full text-[13px] text-right p-1 rounded" value="20" min="0" max="100"><input type="number" id="rv-max" class="border w-full text-[13px] text-right p-1 rounded" value="80" min="0" max="100"></div></div><p class="text-[13px] font-bold text-slate-400 mt-4 mb-2 uppercase tracking-wide">Geografía</p><div class="space-y-2 text-[13px] bg-white p-3 rounded border border-slate-100"><div class="flex justify-between items-center border-b border-slate-50 pb-2"><span>USA (S&P 500)</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="10"><input type="number" class="border w-full text-right p-1" value="50"></div></div><div class="flex justify-between items-center border-b border-slate-50 pb-2"><span>Europa (EuroStoxx)</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="5"><input type="number" class="border w-full text-right p-1" value="30"></div></div><div class="flex justify-between items-center border-b border-slate-50 pb-2"><span>Asia / Japón</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="0"><input type="number" class="border w-full text-right p-1" value="15"></div></div><div class="flex justify-between items-center"><span>Mercados Emergentes</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="0"><input type="number" class="border w-full text-right p-1" value="15"></div></div></div></div></div>
+                <div><h4 class="font-bold text-[18px] text-blue-600 mb-3 flex items-center gap-2"><span class="w-2 h-8 bg-blue-600 rounded"></span> Renta Fija</h4><div class="space-y-4"><div class="flex justify-between items-center text-[15px] font-bold bg-slate-50 p-3 rounded border border-slate-100"><span>RF Global Min/Max (%)</span><div class="flex gap-2 w-32"><input type="number" id="rf-min" class="border w-full text-[13px] text-right p-1 rounded" value="10" min="0" max="100"><input type="number" id="rf-max" class="border w-full text-[13px] text-right p-1 rounded" value="60" min="0" max="100"></div></div><p class="text-[13px] font-bold text-slate-400 mt-4 mb-2 uppercase tracking-wide">Tipo de Deuda</p><div class="space-y-2 text-[13px] bg-white p-3 rounded border border-slate-100"><div class="flex justify-between items-center border-b border-slate-50 pb-2"><span>Deuda Gobierno</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="20"><input type="number" class="border w-full text-right p-1" value="60"></div></div><div class="flex justify-between items-center border-b border-slate-50 pb-2"><span>Crédito Corp. (IG)</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="5"><input type="number" class="border w-full text-right p-1" value="30"></div></div><div class="flex justify-between items-center"><span>High Yield</span><div class="flex gap-2 w-28"><input type="number" class="border w-full text-right p-1" value="0"><input type="number" class="border w-full text-right p-1" value="10"></div></div></div></div></div>
+            </div>
+            <div class="pt-6 mt-6 border-t flex justify-end gap-3"><button onclick="closeModal('tactical-modal')" class="text-slate-500 font-bold text-[15px] px-4">Cancelar</button><button onclick="closeModal('tactical-modal'); showToast('Configuración guardada', 'success')" class="bg-[#0B2545] text-white font-bold py-2 px-6 text-[15px] rounded shadow hover:bg-[#153e6e]">Aplicar Cambios</button></div>
+        </div>
+    </div>
+
+    <div id="vip-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/90 backdrop-blur-sm items-center justify-center opacity-0 transition-opacity duration-300">
+        <div class="bg-white w-full max-w-2xl rounded p-6 shadow-2xl relative">
+            <button onclick="closeModal('vip-modal')" class="absolute top-4 right-6 text-3xl text-slate-400 hover:text-red-500">&times;</button>
+            <h3 class="font-bold text-[#0B2545] text-[22px] mb-6 border-b pb-2">Gestión de Fondos Ancla (VIP)</h3>
+            <p class="text-[13px] text-slate-600 mb-4">Los fondos VIP son prioritarios en cualquier recomendación de cartera.</p>
+            <div class="grid grid-cols-2 gap-6">
+                <div><h4 class="font-bold text-[15px] text-slate-700 mb-2">Lista Ancla Actual</h4><div id="vip-list-container" class="space-y-2 h-40 overflow-y-auto border p-2 rounded bg-slate-50"><div class="text-center text-slate-400 italic text-[13px] mt-10">Lista vacía.</div></div></div>
+                <div><h4 class="font-bold text-[15px] text-slate-700 mb-2">Buscar y Añadir</h4><div class="relative"><input type="text" id="vip-search-input" placeholder="Buscar ISIN o Nombre..." class="w-full p-2 border rounded text-[13px] outline-none focus:border-[#D4AF37]"><div id="vip-search-results" class="absolute z-10 w-full bg-white border border-t-0 rounded-b shadow-lg hidden max-h-40 overflow-y-auto"></div></div></div>
+            </div>
+            <div class="pt-6 mt-6 border-t flex justify-end"><button id="save-vips-btn" class="bg-[#0B2545] text-white font-bold py-2 px-6 text-[15px] rounded shadow hover:bg-[#153e6e]">Guardar Lista Ancla</button></div>
+        </div>
+    </div>
+
+    <div id="costs-detail-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/90 backdrop-blur-sm items-center justify-center">
+        <div class="bg-white w-full max-w-3xl rounded-lg p-6 relative shadow-2xl">
+            <button onclick="closeModal('costs-detail-modal')" class="absolute top-4 right-6 text-3xl text-slate-400 hover:text-red-500">&times;</button>
+            <div class="flex justify-between items-end mb-6 border-b pb-4">
+                <div><h3 class="font-bold text-[#0B2545] text-[22px]">Calculadora de Retrocesiones</h3><p class="text-[13px] text-slate-500">Estimación de rebates sobre cartera</p></div>
+                <div class="flex items-center gap-2 bg-slate-50 p-2 rounded border border-slate-200"><label for="retro-coefficient" class="text-[13px] font-bold text-slate-600">Coeficiente (%):</label><input type="number" id="retro-coefficient" value="100" min="0" max="100" step="1" oninput="window.renderCosts()" class="w-16 text-right font-mono font-bold text-[#0B2545] outline-none bg-transparent border-b border-slate-300 focus:border-[#D4AF37]"></div>
+            </div>
+            <div class="overflow-y-auto max-h-[50vh] mb-4 scrollbar-thin">
+                <table class="w-full text-[13px]">
+                    <thead class="bg-slate-50 text-slate-500 font-bold uppercase sticky top-0"><tr><th class="p-3 text-left">Fondo</th><th class="p-3 text-right">Peso (%)</th><th class="p-3 text-right">Retrocesión Est. (%)</th><th class="p-3 text-right">Impacto (€)</th></tr></thead>
+                    <tbody id="costs-table-body" class="divide-y divide-slate-100 font-mono text-slate-700"></tbody>
+                </table>
+            </div>
+            
+            <div class="mt-4 bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden">
+                <div class="flex justify-between items-center px-5 py-3 bg-slate-50 border-b border-slate-100">
+                    <span class="text-[12px] font-bold text-slate-400 uppercase tracking-wider">Total Bruto (Cartera)</span>
+                    <div class="flex items-center gap-3">
+                        <span id="total-retro-gross-pct" class="font-mono text-[14px] font-medium text-slate-500">-</span>
+                        <span class="text-slate-300">|</span>
+                        <span id="total-retro-gross" class="font-mono text-[14px] font-bold text-slate-600">-</span>
+                    </div>
+                </div>
+                <div class="flex justify-between items-center px-5 py-5 bg-[#fffdf5] border-l-4 border-l-[#D4AF37]">
+                    <div class="flex flex-col">
+                        <span class="text-[16px] font-black text-[#0B2545] uppercase tracking-wide">Total Neto</span>
+                        <span class="text-[11px] text-[#D4AF37] font-bold uppercase tracking-wider mt-0.5">Coeficiente Aplicado</span>
+                    </div>
+                    <div class="flex items-center gap-6">
+                        <div class="flex flex-col items-end group">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase mb-1 group-hover:text-[#D4AF37] transition-colors">Yield Est.</span>
+                            <span id="total-retro-net-pct" class="text-[26px] font-mono font-bold text-[#D4AF37] leading-none tracking-tight">-</span>
+                        </div>
+                        <div class="h-10 w-px bg-slate-200"></div>
+                        <div class="flex flex-col items-end group">
+                            <span class="text-[10px] text-slate-400 font-bold uppercase mb-1 group-hover:text-[#0B2545] transition-colors">Retorno Anual</span>
+                            <span id="total-retro-net" class="text-[26px] font-mono font-bold text-[#0B2545] leading-none tracking-tight">-</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="news-modal" class="hidden fixed inset-0 z-50 bg-[#0B2545]/90 backdrop-blur-sm items-center justify-center">
+        <div class="bg-white w-full max-w-4xl h-[85vh] rounded-lg flex flex-col shadow-2xl overflow-hidden m-4 relative">
+            <div class="bg-[#0B2545] p-4 flex flex-col gap-4 border-b border-[#D4AF37] shrink-0 relative">
+                <button onclick="closeModal('news-modal')" class="absolute top-4 right-4 text-white text-2xl hover:text-[#D4AF37]">&times;</button>
+                <div class="flex items-center gap-2"><span class="text-2xl">📰</span><h3 class="text-white font-bold text-[22px] font-serif">Market Intelligence</h3></div>
+                <div class="flex flex-col sm:flex-row gap-3 mt-2 w-full max-w-2xl">
+                    <div class="flex-1 relative">
+                        <select id="news-category" class="w-full p-2.5 rounded text-[15px] bg-white/10 text-white border border-white/20 focus:border-[#D4AF37] outline-none appearance-none cursor-pointer hover:bg-white/20 transition-colors">
+                            <option value="general" class="text-slate-800">🌍 Mercado General</option><option value="inflation" class="text-slate-800">📈 Inflación & IPC</option><option value="economy" class="text-slate-800">🏛️ Macroeconomía</option><option value="interest rates" class="text-slate-800">🏦 Tipos de Interés</option><option value="earnings" class="text-slate-800">💰 Resultados (Earnings)</option>
+                        </select>
+                        <span class="absolute right-3 top-2.5 text-white/50 pointer-events-none">▼</span>
+                    </div>
+                    <div class="flex-[2] flex gap-2"><input type="text" id="news-ticker-search" placeholder="Buscar Ticker (ej: AAPL, MSFT)..." class="w-full p-2.5 rounded text-[15px] text-slate-800 outline-none focus:ring-2 focus:ring-[#D4AF37]"><button onclick="window.searchNews()" class="bg-[#D4AF37] text-[#0B2545] font-bold px-6 py-2 rounded text-[15px] hover:brightness-110 transition-transform active:scale-95 shadow-lg">BUSCAR</button></div>
+                </div>
+            </div>
+            <div id="news-general-container" class="flex-1 overflow-y-auto p-6 bg-slate-50 scrollbar-thin">
+                <div class="flex flex-col items-center justify-center h-full text-slate-400 space-y-3"><span class="text-4xl">📡</span><p>Selecciona una categoría o busca una empresa para ver noticias en tiempo real.</p></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+</body>
+</html>
