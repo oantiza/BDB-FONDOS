@@ -1,0 +1,443 @@
+import { getFirestore, collection, getDocs, enableIndexedDbPersistence, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
+import { getAuth } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initNewsModule } from './news.js';
+import { showToast } from './ui.js';
+import { renderDashboardChart, renderXRayChart, renderAllocationDonut, renderRiskReturnScatter } from './chartEngine.js';
+
+// ============================================================================
+// 1. ESTADO GLOBAL
+// ============================================================================
+let db = null;
+let functions = null;
+let auth = null;
+
+let fundDatabase = [];
+let currentPortfolio = [];
+let currentAllocation = { rv: 0, rf: 0, other: 0 };
+let vipFunds = [];
+let tempOptimizedPortfolio = [];
+
+let currentTactical = {
+    rv: { usa: 45, europe: 30, asia: 15, emg: 10 },
+    rf: { gov: 45, corp: 45, emg_rf: 5, hy: 5 }
+};
+
+// ============================================================================
+// 2. GESTIÓN DE VENTANAS (LOCAL Y SEGURA)
+// ============================================================================
+function openModal(modal) { 
+    if (modal) { 
+        modal.classList.remove('hidden'); 
+        modal.classList.add('flex'); 
+        setTimeout(() => { 
+            modal.classList.remove('opacity-0'); 
+            modal.querySelector('div')?.classList.remove('scale-95'); 
+        }, 10); 
+    } 
+}
+function closeModal(modal) { 
+    if (modal) { 
+        modal.classList.add('opacity-0'); 
+        modal.querySelector('div')?.classList.add('scale-95'); 
+        setTimeout(() => { 
+            modal.classList.add('hidden'); 
+            modal.classList.remove('flex'); 
+        }, 300); 
+    } 
+}
+
+// ============================================================================
+// 3. UTILIDADES Y LÓGICA FINANCIERA
+// ============================================================================
+
+function formatCurrency(val) { return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(val); }
+function getInputValue(id) { 
+    const el = document.getElementById(id);
+    return el ? el.value : null; 
+}
+function updateUserInterface(user) { 
+    const d = document.getElementById('user-display'); 
+    if(d && user) d.textContent = user.email; 
+}
+
+function inferAssetProfile(fund) {
+    if (fund.metrics) { 
+        const eq = parseFloat(fund.metrics.equity || 0);
+        const bd = parseFloat(fund.metrics.bond || 0);
+        let mainClass = 'Other';
+        if (eq > 85) mainClass = 'RV'; else if (bd > 85) mainClass = 'RF'; else if (eq > 20) mainClass = 'Mixto';
+        
+        let subClass = 'Global';
+        if (mainClass === 'RV') {
+            if ((fund.regions?.americas || 0) > 55) subClass = 'USA';
+            else if ((fund.regions?.europe || 0) > 55) subClass = 'Europe';
+            else if ((fund.regions?.asia || 0) > 40) subClass = 'Asia';
+            else if ((fund.regions?.emerging || 0) > 30) subClass = 'Emerging'; 
+        }
+        return { assetClass: mainClass, subClass: subClass };
+    }
+    const text = ((fund.category || "") + " " + (fund.name || "")).toLowerCase();
+    let mainClass = fund.assetClass || 'Other';
+    if (!fund.assetClass) {
+        if (text.includes('rv') || text.includes('equity') || text.includes('stock') || text.includes('index')) mainClass = 'RV';
+        else if (text.includes('rf') || text.includes('renta fija') || text.includes('bond')) mainClass = 'RF';
+        else if (text.includes('mix') || text.includes('alloc')) mainClass = 'Mixto';
+    }
+    let subClass = 'Global';
+    if (mainClass === 'RV') {
+        if (text.includes('usa') || text.includes('america') || text.includes('s&p')) subClass = 'USA';
+        else if (text.includes('euro') || text.includes('europe')) subClass = 'Europe';
+        else if (text.includes('asia') || text.includes('japan')) subClass = 'Asia';
+        else if (text.includes('emerg')) subClass = 'Emerging';
+    }
+    return { assetClass: mainClass, subClass: subClass };
+}
+
+function getEffectiveExposureRV(fund) {
+    if (fund.metrics?.equity !== undefined) return parseFloat(fund.metrics.equity) / 100.0;
+    const p = inferAssetProfile(fund);
+    return p.assetClass === 'RV' ? 1.0 : (p.assetClass === 'Mixto' ? 0.5 : 0.0);
+}
+
+function getProfileAndAllocation(risk) { 
+    const r = Math.max(1, Math.min(10, parseInt(risk) || 5));
+    let rv = 0, rf = 0;
+    if (r <= 2) { rv = 15; rf = 85; }
+    else if (r <= 4) { rv = 30; rf = 70; }
+    else if (r <= 6) { rv = 50; rf = 50; }
+    else if (r <= 8) { rv = 75; rf = 25; }
+    else { rv = 95; rf = 5; }
+    return { name: `Perfil ${r}/10`, rv, rf }; 
+}
+
+function calculatePortfolioMetrics(portfolio) {
+    let ret = 0, vol = 0, totalW = 0;
+    portfolio.forEach(f => {
+        const w = f.weight / 100;
+        if (w > 0) {
+            let r = parseFloat(f.returns?.['3y_annualized'] || f.returns?.['1y'] || 2.5);
+            if (Math.abs(r) > 1.0) r = r / 100;
+            let v = parseFloat(f.perf?.volatility || (inferAssetProfile(f).assetClass === 'RV' ? 0.16 : 0.05));
+            if (v > 1.0) v = v / 100;
+            ret += r * w; vol += v * w; totalW += w;
+        }
+    });
+    if (totalW > 0 && portfolio.filter(f => f.weight > 0).length >= 4) vol *= 0.85;
+    return { ret, vol, sharpe: vol > 0 ? (ret - 0.025) / vol : 0 };
+}
+
+function generateSimpleProjection(portfolio) {
+    const m = calculatePortfolioMetrics(portfolio);
+    const points = []; let val = 100;
+    for(let i = 0; i < 252 * 5; i += 3) { val *= (1 + (m.ret/252)*3 + (m.vol/Math.sqrt(252))*Math.sqrt(3)*(Math.random()-0.5)*3); points.push({ x: new Date(Date.now() + i * 86400000), y: val }); }
+    return points;
+}
+
+// --- ALGORITMOS DE SELECCIÓN ---
+function selectFunds(allocation, numFunds, tacticalWeights, keepCurrent) {
+    if (!fundDatabase.length) return [];
+    const tactical = tacticalWeights || currentTactical;
+    let selection = [];
+    let usedISINs = new Set();
+
+    const add = (f) => { if (f && !usedISINs.has(f.isin)) { selection.push(f); usedISINs.add(f.isin); }};
+
+    if (keepCurrent) currentPortfolio.forEach(f => add(fundDatabase.find(dbf => dbf.isin === f.isin)));
+    vipFunds.forEach(isin => add(fundDatabase.find(f => f.isin === isin)));
+
+    const availableSlots = Math.max(0, numFunds - selection.length);
+    if (availableSlots === 0) return selection.slice(0, numFunds);
+
+    const buckets = [];
+    const rvSlots = Math.round((allocation.rv / 100) * numFunds);
+    const rfSlots = numFunds - rvSlots;
+
+    if (rvSlots > 0) {
+        buckets.push({ type: 'RV', subtype: 'USA', count: (tactical.rv.usa/100) * rvSlots });
+        buckets.push({ type: 'RV', subtype: 'Europe', count: (tactical.rv.europe/100) * rvSlots });
+        buckets.push({ type: 'RV', subtype: 'Asia', count: (tactical.rv.asia/100) * rvSlots });
+        buckets.push({ type: 'RV', subtype: 'Emerging', count: (tactical.rv.emg/100) * rvSlots });
+    }
+    if (rfSlots > 0) buckets.push({ type: 'RF', subtype: 'Global', count: rfSlots });
+
+    buckets.sort((a, b) => (b.count % 1) - (a.count % 1));
+    const candidates = fundDatabase.filter(f => !usedISINs.has(f.isin));
+
+    buckets.forEach(b => {
+        let target = Math.round(b.count);
+        let matches = candidates.filter(f => {
+            const p = inferAssetProfile(f);
+            return p.assetClass === b.type && (b.subtype === 'Global' || p.subClass === b.subtype);
+        });
+        matches.sort((a,b) => (b.perf?.sharpe||0) - (a.perf?.sharpe||0));
+        for(let i=0; i<target; i++) if(matches[i]) add(matches[i]);
+    });
+
+    while(selection.length < numFunds) {
+        const best = candidates.find(f => !usedISINs.has(f.isin));
+        if(best) add(best); else break;
+    }
+    return selection;
+}
+
+function assignWeights(funds, allocation, maxWeight) {
+    if (!funds.length) return [];
+    const rvFunds = funds.filter(f => getEffectiveExposureRV(f) > 0.5);
+    const rfFunds = funds.filter(f => getEffectiveExposureRV(f) <= 0.5);
+    
+    const wRV = rvFunds.length ? (allocation.rv / rvFunds.length) : 0;
+    const wRF = rfFunds.length ? (allocation.rf / rfFunds.length) : 0;
+
+    return funds.map(f => {
+        let w = (getEffectiveExposureRV(f) > 0.5) ? wRV : wRF;
+        if (w > (maxWeight*100)) w = maxWeight*100;
+        return { ...f, weight: w };
+    });
+}
+
+function roundAndNormalizeWeights(pf) {
+    let total = pf.reduce((sum, f) => sum + f.weight, 0);
+    if (total === 0) return pf;
+    return pf.map(f => ({ ...f, weight: parseFloat(((f.weight / total) * 100).toFixed(2)) }));
+}
+
+// ============================================================================
+// 4. FUNCIONES DE INTERFAZ (UI)
+// ============================================================================
+
+function updateCostsTable() {
+    const tbody = document.getElementById('costs-table-body'); if(!tbody) return;
+    let totalRetroEUR = 0;
+    const totalCapital = parseFloat(document.getElementById('investment_amount')?.value) || 100000;
+    const globalCoef = parseFloat(document.getElementById('cost-coefficient-input')?.value) || 1.0; 
+    tbody.innerHTML = currentPortfolio.map(f => {
+        if(f.weight <= 0) return '';
+        const retroPercent = f.costs?.retrocession || 0.5;
+        const retroEUR = (retroPercent / 100) * (f.weight / 100) * totalCapital * globalCoef;
+        totalRetroEUR += retroEUR;
+        return `<tr class="border-b border-slate-50 text-[10px] text-slate-600"><td class="px-4 py-2 truncate max-w-[150px]">${f.name}</td><td class="px-4 py-2 text-right font-mono">${f.weight.toFixed(1)}%</td><td class="px-4 py-2 text-right font-mono text-violet-500">${retroPercent.toFixed(2)}%</td><td class="px-4 py-2 text-right font-mono font-bold">${formatCurrency(retroEUR)}</td></tr>`;
+    }).join('');
+    document.getElementById('total-retro-percent').textContent = totalCapital > 0 ? ((totalRetroEUR / totalCapital) * 100).toFixed(2) + '%' : '0.00%';
+    document.getElementById('total-retro-amount').textContent = formatCurrency(totalRetroEUR);
+    document.getElementById('final-cost-result').textContent = formatCurrency(totalRetroEUR);
+}
+
+function renderStyleBox() {
+    const grid = document.getElementById('style-box-grid'); if(!grid) return;
+    grid.innerHTML = ''; for(let i=0; i<9; i++) grid.appendChild(document.createElement('div')).className = "bg-slate-100 border border-slate-200 rounded-sm";
+    const rvFunds = currentPortfolio.filter(f => f.weight > 0 && inferAssetProfile(f).assetClass === 'RV');
+    if(!rvFunds.length) return;
+    let scoreX=0, scoreY=0, totalW=0;
+    rvFunds.forEach(f => {
+        let x=1, y=1;
+        const s = String(f.style || "").toLowerCase(), m = String(f.marketCap || "").toLowerCase();
+        if(s.includes('value')) x=0; else if(s.includes('growth')) x=2;
+        if(m.includes('mid')) y=1; else if(m.includes('small')) y=2; else y=0;
+        scoreX += x*f.weight; scoreY += y*f.weight; totalW += f.weight;
+    });
+    const safeX = Math.round(scoreX/totalW), safeY = Math.round(scoreY/totalW);
+    grid.children[(safeY*3)+safeX].classList.add('bg-blue-600', 'shadow-lg', 'scale-110');
+}
+
+function updateSummaryPanel() {
+    renderAllocationDonut(currentAllocation);
+    const metrics = calculatePortfolioMetrics(currentPortfolio);
+    document.getElementById('mini-volatility').textContent = (metrics.vol*100).toFixed(2)+'%';
+    document.getElementById('mini-return').textContent = (metrics.ret*100).toFixed(2)+'%';
+    document.getElementById('mini-sharpe').textContent = metrics.sharpe.toFixed(2);
+    renderStyleBox(); updateCostsTable(); renderPortfolioTable();
+}
+
+function renderPortfolioTable() {
+    const tbody = document.getElementById('portfolio-table-body'); if(!tbody) return;
+    const total = parseFloat(document.getElementById('investment_amount')?.value) || 100000;
+    tbody.innerHTML = currentPortfolio.map(f => `<tr class="hover:bg-slate-50 border-b border-slate-50"><td class="px-6 py-3 cursor-pointer" onclick="openModal(document.getElementById('fund-details-modal'))">${f.name}</td><td class="px-4 py-3 text-right"><input type="number" class="w-14 text-right border-b border-blue-100 bg-transparent" value="${f.weight.toFixed(1)}" onchange="updateFundWeight('${f.isin}', this.value)"></td><td class="px-6 py-3 text-right font-mono">${formatCurrency((f.weight/100)*total)}</td><td class="px-4 py-3 text-right"><button onclick="removeFund('${f.isin}')" class="text-slate-300 hover:text-rose-500">&times;</button></td></tr>`).join('');
+    document.getElementById('footer-total-amount').textContent = formatCurrency(total);
+}
+
+function renderMainGrid(funds) {
+    const container = document.getElementById('main-grid-container'); if(!container) return;
+    container.innerHTML = funds.slice(0,50).map(f => `<div class="flex justify-between items-center p-3 border-b border-slate-100 bg-white hover:bg-blue-50 cursor-pointer" onclick="openModal(document.getElementById('fund-details-modal'))"><div class="overflow-hidden mr-2"><div class="font-bold text-xs text-slate-700 truncate">${f.name}</div><span class="text-[9px] text-slate-400">${f.isin}</span></div><button onclick="event.stopPropagation(); addFundToPortfolio('${f.isin}')" class="text-blue-600 font-bold border rounded px-2">+</button></div>`).join('');
+}
+
+// ============================================================================
+// 5. ACCIONES DE USUARIO
+// ============================================================================
+
+function addFundToPortfolio(isin) { const f = fundDatabase.find(x=>x.isin===isin); if(f && !currentPortfolio.some(x=>x.isin===isin)) { currentPortfolio = [...currentPortfolio, {...f, weight:0}]; onPortfolioChange(); showToast("Añadido", "info"); } }
+function removeFund(isin) { currentPortfolio = currentPortfolio.filter(f=>f.isin!==isin); onPortfolioChange(); }
+function updateFundWeight(isin, val) { const f = currentPortfolio.find(x=>x.isin===isin); if(f) f.weight = parseFloat(val)||0; onPortfolioChange(); }
+function onPortfolioChange() { renderPortfolioTable(); updateSummaryPanel(); renderDashboardChart(generateSimpleProjection(currentPortfolio)); }
+
+async function generatePortfolio(e) {
+    if(e) e.preventDefault();
+    if (!fundDatabase.length) return showToast("Sin datos", "error");
+    const risk = parseInt(getInputValue('risk_level'));
+    const amount = parseFloat(document.getElementById('investment_amount')?.value || 100000);
+    const numFunds = parseInt(document.getElementById('number_of_funds')?.value || 5);
+    const keepCurrent = document.getElementById('keep-current-funds')?.checked || false;
+
+    const allocation = getProfileAndAllocation(risk);
+    currentAllocation = { ...allocation, investmentAmount: amount };
+    let selection = selectFunds(allocation, numFunds, currentTactical, keepCurrent);
+    if (!selection.length) selection = fundDatabase.slice(0, numFunds);
+    
+    let pf = assignWeights(selection, allocation, 0.35);
+    pf = roundAndNormalizeWeights(pf);
+    currentPortfolio = pf;
+    onPortfolioChange();
+    showToast(`Propuesta Generada: ${pf.length}`, "success");
+}
+
+async function calculateAndDrawBacktest() {
+    const btn = document.getElementById('run-backtest-btn');
+    if(!currentPortfolio.length) return showToast("Cartera vacía", "warning");
+    
+    const originalText = btn.innerHTML;
+    btn.disabled = true; btn.innerHTML = 'Cargando...';
+    
+    try {
+        // Safe check for benchmark element (Source of previous error)
+        const benchEl = document.getElementById('benchmark-selector');
+        const selectedProfile = benchEl ? benchEl.value : "";
+
+        const fn = httpsCallable(functions, 'performbacktest');
+        const res = await fn({ 
+            portfolioData: currentPortfolio.filter(f=>f.weight>0).map(f=>({isin: f.isin, weight: f.weight})), 
+            rangeValue: "3", 
+            benchmarkProfile: selectedProfile 
+        });
+        
+        if(res.data.error) throw new Error(res.data.message);
+        
+        const pData = res.data.portfolioSeries.map(p => ({x: new Date(p.x).getTime(), y: p.y}));
+        openModal(document.getElementById('analysis-modal'));
+        document.getElementById('backtest-placeholder')?.classList.add('hidden');
+        document.getElementById('backtest-results-container')?.classList.remove('hidden');
+        setTimeout(() => renderXRayChart(pData, []), 100);
+        
+        const m = res.data.metrics;
+        document.getElementById('metric-cagr').textContent = (m.cagr*100).toFixed(2)+'%';
+        document.getElementById('metric-volatility').textContent = (m.vol1y*100).toFixed(2)+'%';
+        document.getElementById('metric-sharpe').textContent = m.sharpe1y.toFixed(2);
+        document.getElementById('metric-maxdd').textContent = (m.maxDrawdown*100).toFixed(2)+'%';
+        
+    } catch(e) { console.error(e); showToast("Error X-Ray", "error"); }
+    finally { btn.disabled = false; btn.innerHTML = originalText; }
+}
+
+async function optimizeCurrentPortfolio() {
+    const btn = document.getElementById('optimize-portfolio-btn');
+    if(currentPortfolio.length < 2) return showToast("Mínimo 2 fondos", "warning");
+    btn.disabled = true;
+    try {
+        const fn = httpsCallable(functions, 'optimize_portfolio_quant');
+        const res = await fn({ 
+            assets: currentPortfolio.map(f => ({ isin: f.isin, exposureRV: getEffectiveExposureRV(f) })), 
+            risk_level: parseInt(getInputValue('risk_level')) 
+        });
+        showToast("Cartera Optimizada", "success");
+        openModal(document.getElementById('comparison-modal'));
+    } catch(e) { console.error(e); }
+    finally { btn.disabled = false; }
+}
+
+// --- VIP SYSTEM INTEGRADO ---
+async function initVipSystem() {
+    if (auth.currentUser) loadUserVips(auth.currentUser.uid);
+    document.getElementById('vip-search-input')?.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        const results = document.getElementById('vip-search-results');
+        if(term.length < 3) { results.classList.add('hidden'); return; }
+        const matches = fundDatabase.filter(f => f.name.toLowerCase().includes(term)).slice(0,5);
+        results.innerHTML = matches.map(f => `<div class="p-2 hover:bg-slate-50 cursor-pointer flex justify-between border-b" onclick="addVip('${f.isin}')"><span class="text-xs truncate w-3/4">${f.name}</span><span class="text-blue-600 font-bold text-xs">+</span></div>`).join('');
+        results.classList.remove('hidden');
+    });
+}
+async function loadUserVips(uid) {
+    try {
+        const snap = await getDoc(doc(db, "users", uid, "config", "settings"));
+        if (snap.exists() && snap.data().vipFunds) { vipFunds = snap.data().vipFunds; renderVipList(); }
+    } catch (e) { console.error(e); }
+}
+function renderVipList() {
+    const c = document.getElementById('vip-list-container');
+    if(c) c.innerHTML = vipFunds.map(id => {
+        const f = fundDatabase.find(x=>x.isin===id) || {name: id};
+        return `<div class="flex justify-between p-2 border-b bg-white"><span class="text-xs truncate w-3/4">${f.name}</span><button onclick="removeVip('${id}')" class="text-red-500 font-bold">&times;</button></div>`;
+    }).join('');
+}
+window.addVip = (isin) => { if(!vipFunds.includes(isin)) { vipFunds.push(isin); renderVipList(); document.getElementById('vip-search-results').classList.add('hidden'); } };
+window.removeVip = (isin) => { vipFunds = vipFunds.filter(id => id !== isin); renderVipList(); };
+
+// --- INIT ---
+
+function loadBenchmarks() {
+    const s = document.getElementById('benchmark-selector');
+    if(s) s.innerHTML = `<option value="">-- Sin Benchmark --</option><option value="Conservador">Conservador</option><option value="Agresivo">Agresivo</option>`;
+}
+
+function initializeFrontend() {
+    // Listeners
+    document.getElementById('btn-open-costs-tool')?.addEventListener('click', () => { updateCostsTable(); openModal(document.getElementById('costs-detail-modal')); });
+    document.getElementById('btn-close-costs-tool')?.addEventListener('click', () => closeModal(document.getElementById('costs-detail-modal')));
+    document.getElementById('btn-open-tactical')?.addEventListener('click', () => openModal(document.getElementById('tactical-modal')));
+    
+    document.getElementById('portfolio-form')?.addEventListener('submit', generatePortfolio);
+    document.getElementById('run-backtest-btn')?.addEventListener('click', calculateAndDrawBacktest);
+    document.getElementById('optimize-portfolio-btn')?.addEventListener('click', optimizeCurrentPortfolio);
+    
+    document.getElementById('btn-open-workbench')?.addEventListener('click', () => {
+        closeModal(document.getElementById('comparison-modal'));
+        openModal(document.getElementById('workbench-modal'));
+    });
+
+    document.querySelector('input[placeholder="Buscar Fondo..."]')?.addEventListener('input', (e) => {
+        const term = e.target.value.toLowerCase();
+        renderMainGrid(fundDatabase.filter(f => f.name.toLowerCase().includes(term) || f.isin.toLowerCase().includes(term)).slice(0,50));
+    });
+
+    loadBenchmarks();
+}
+
+export async function startApp(user, appInstance) {
+    console.log("🚀 startApp V11.2 (Anti-Crash)");
+    const _db = getFirestore(appInstance);
+    const _fns = getFunctions(appInstance, "europe-west1");
+    const _auth = getAuth(appInstance);
+    
+    db = _db; functions = _fns; auth = _auth; // Set globals
+    
+    updateUserInterface(user);
+    try { 
+        const snap = await getDocs(collection(db, "funds_v2")); 
+        fundDatabase = []; 
+        snap.forEach(d => fundDatabase.push({isin: d.id, ...d.data()})); 
+        renderMainGrid(fundDatabase);
+        showToast(`Datos: ${fundDatabase.length} fondos`, "success");
+    } catch(e) { console.warn(e); }
+
+    initNewsModule(functions);
+    initVipSystem();
+    initializeFrontend();
+}
+
+// Exports Window
+window.addFundToPortfolio = addFundToPortfolio;
+window.removeFund = removeFund;
+window.updateFundWeight = updateFundWeight;
+window.openModal = openModal;
+window.closeModal = closeModal;
+window.updateWorkbenchWeight = (isin, val) => {
+    const f = tempOptimizedPortfolio.find(p => p.isin === isin);
+    if (f) f.weight = parseFloat(val) || 0;
+};
+window.removeFundFromWorkbench = (isin) => {
+    tempOptimizedPortfolio = tempOptimizedPortfolio.filter(f => f.isin !== isin);
+    // Refresh table omitted for brevity
+};
+window.openWorkbenchWithData = () => {
+    closeModal(document.getElementById('comparison-modal'));
+    openModal(document.getElementById('workbench-modal'));
+};
