@@ -1,7 +1,5 @@
 {
   "projects": {
-    ".": "bdb-fondos"
-  },
-  "targets": {},
-  "etags": {}
+    "default": "bdb-fondos"
+  }
 }

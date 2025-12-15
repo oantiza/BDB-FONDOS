@@ -1,0 +1,49 @@
+@import "tailwindcss";
+
+/* Variables CSS nativas
+  Necesarias porque algunos componentes (KPICards, Controls) usan 
+  var(--color-brand) en lugar de clases directas de Tailwind.
+*/
+:root {
+  --color-brand: #0B2545;
+  --color-accent: #D4AF37;
+  --color-bg-main: #0f172a;
+  --color-bg-card: #1e293b;
+  --color-text-primary: #f1f5f9;
+  --color-text-secondary: #94a3b8;
+}
+
+/* Clases utilitarias personalizadas */
+@layer components {
+  .glass-card {
+    @apply bg-slate-800/50 backdrop-blur-md border border-white/10;
+  }
+}
+
+/* Personalización del Scrollbar (para navegadores Webkit como Chrome/Edge) */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-500;
+}
+
+/* Estilos base del body */
+body {
+  @apply bg-slate-900 text-slate-200 antialiased;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* Evita doble scrollbar si la App maneja el layout */
+}

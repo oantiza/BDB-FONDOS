@@ -2,7 +2,6 @@ from firebase_functions import https_fn, options
 from firebase_admin import initialize_app, firestore
 from datetime import datetime
 import json
-import os
 
 # Inicialización básica
 initialize_app()
@@ -12,10 +11,7 @@ initialize_app()
 # ==========================================
 BENCHMARK_RF_ISIN = 'IE00B18GC888' 
 BENCHMARK_RV_ISIN = 'IE00B03HCZ61'
-EODHD_API_KEY = os.environ.get("EODHD_API_KEY")
-if not EODHD_API_KEY:
-    print("⚠️ WARNING: EODHD_API_KEY not found in environment variables.")
-
+EODHD_API_KEY = "692fd3daddba57.47682479" 
 BUCKET_NAME = "bdb-fondos.firebasestorage.app" 
 TRADING_DAYS = 252
 RISK_FREE_RATE = 0.03
@@ -58,13 +54,11 @@ def get_price_data(assets_list, db):
             
     if not missing_assets:
         print("⚡ [CACHE HIT] Todos los activos recuperados de memoria RAM.")
-        return price_data, []
+        return price_data
 
     # 2. CONSULTAR FIRESTORE
     print(f"📥 [DB READ] Buscando {len(missing_assets)} activos en Firestore...")
     
-    synthetic_used = []
-
     for i, isin in enumerate(missing_assets):
         loaded = False
         try:
@@ -90,12 +84,11 @@ def get_price_data(assets_list, db):
 
         if not loaded:
             print(f"⚠️ {isin}: Usando datos SINTÉTICOS.")
-            synthetic_used.append(isin)
             fake_vol = 0.05 + (0.15 * (i % 4) / 3) 
             fake_ret = 0.04 + (0.06 * (i % 3) / 2)
             price_data[isin] = generate_synthetic_series(vol=fake_vol, ret=fake_ret, seed=i)
 
-    return price_data, synthetic_used
+    return price_data
 
 # ==========================================
 # 2. ENDPOINTS
@@ -108,15 +101,7 @@ def getMarketIndex(request: https_fn.CallableRequest):
     
     try:
         symbol = request.data.get('symbol', 'GSPC.INDX')
-        range_val = request.data.get('range', '1y') # 1y, 1m, 3m
-        
-        days_map = {'1m': 30, '3m': 90, '6m': 180, '1y': 365, 'ytd': 0}
-        days = days_map.get(range_val, 365)
-        
-        if range_val == 'ytd':
-             start_date = datetime(datetime.now().year, 1, 1).strftime('%Y-%m-%d')
-        else:
-             start_date = (datetime.now() - timedelta(days=days)).strftime('%Y-%m-%d')
+        start_date = (datetime.now() - timedelta(days=365)).strftime('%Y-%m-%d')
         url = f"https://eodhd.com/api/eod/{symbol}"
         params = {'api_token': EODHD_API_KEY, 'fmt': 'json', 'from': start_date, 'order': 'a'}
         
@@ -180,7 +165,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         if not assets_list: return {'status': 'error', 'warnings': ['Cartera vacía']}
         
         db = firestore.client()
-        price_data, synthetic_used = get_price_data(assets_list, db)
+        price_data = get_price_data(assets_list, db)
         
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
@@ -217,15 +202,10 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         clean_weights = ef.clean_weights()
         perf = ef.portfolio_performance(risk_free_rate=RISK_FREE_RATE)
         
-        warnings = []
-        if synthetic_used:
-            warnings.append(f"Datos Sintéticos usados para: {', '.join(synthetic_used)}")
-
         return { 
             'status': 'optimal', 
             'weights': clean_weights, 
-            'metrics': {'return': perf[0], 'volatility': perf[1], 'sharpe': perf[2]},
-            'warnings': warnings
+            'metrics': {'return': perf[0], 'volatility': perf[1], 'sharpe': perf[2]} 
         }
 
     except Exception as e:
@@ -249,31 +229,18 @@ def backtest_portfolio(request: https_fn.CallableRequest):
 
         data = request.data
         portfolio = data.get('portfolio', [])
-        period = data.get('period', '3y') # 1y, 3y, 5y
-        
         if not portfolio: return {'error': 'Cartera vacía'}
         
         db = firestore.client()
         assets = [p['isin'] for p in portfolio]
         weights_map = {p['isin']: float(p['weight'])/100.0 for p in portfolio}
-        
-        # Base Indices for synthetic profiles
         all_assets = assets + [BENCHMARK_RF_ISIN, BENCHMARK_RV_ISIN]
         
-        price_data, _ = get_price_data(all_assets, db)
+        price_data = get_price_data(all_assets, db)
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
         df = df.sort_index().fillna(method='ffill').fillna(method='bfill')
         
-        # Determine start date based on period
-        from datetime import  timedelta
-        days_map = {'1y': 252, '3y': 756, '5y': 1260}
-        lookback_days = days_map.get(period, 756)
-        
-        start_date = df.index[-1] - timedelta(days=lookback_days/252*365 + 30) # Aproximate buffer
-        df = df[df.index >= start_date]
-
-        # Calculate Portfolio Return
         valid_assets = [c for c in df.columns if c in assets]
         if not valid_assets: raise Exception("Sin datos válidos para backtest")
         
@@ -285,154 +252,34 @@ def backtest_portfolio(request: https_fn.CallableRequest):
         port_ret = returns.dot(w_vector)
         cumulative = (1 + port_ret).cumprod() * 100
         
-        # --- SYNTHETIC PROFILES CALCULATION ---
-        # Helper for Fallback Trend (Geometric Growth)
-        def make_trend(cagr_annual, index_dates):
-             days = np.arange(len(index_dates))
-             years = days / 252.0
-             trajectory = (1 + cagr_annual) ** years
-             return pd.Series(trajectory * 100, index=index_dates)
-
-        # Fallback or DB
-        if BENCHMARK_RF_ISIN in df and not df[BENCHMARK_RF_ISIN].empty:
-             rf_curve = df[BENCHMARK_RF_ISIN]
-        else:
-             rf_curve = make_trend(0.035, df.index) # 3.5% Annual for RF fallback
-
-        if BENCHMARK_RV_ISIN in df and not df[BENCHMARK_RV_ISIN].empty:
-             rv_curve = df[BENCHMARK_RV_ISIN]
-        else:
-             rv_curve = make_trend(0.085, df.index) # 8.5% Annual for RV fallback
-        
-        # Normalize bases to 100 at start
-        def norm(s): return (s / s.iloc[0] * 100) if len(s) > 0 else s
-        
-        rf_norm = norm(rf_curve)
-        rv_norm = norm(rv_curve)
-        
-        # 4 Profiles
-        profiles = {
-            'conservative': rf_norm,                    # 100% RF
-            'moderate': rf_norm * 0.75 + rv_norm * 0.25, # 75% RF / 25% RV
-            'dynamic': rf_norm * 0.25 + rv_norm * 0.75,  # 25% RF / 75% RV
-            'aggressive': rv_norm                       # 100% RV
-        }
-
-        # Calculate metrics for Risk Map (Scatter)
-        synthetics_metrics = []
-        for name, series in profiles.items():
-            if len(series) < 2: continue
-            
-            # Recalc returns for this series to get vol/cagr relative to the period
-            prof_ret = series.pct_change().dropna()
-            
-            p_days = len(series)
-            p_years = p_days / 252
-            p_total = series.iloc[-1] / series.iloc[0] - 1
-            p_cagr = (1 + p_total) ** (1/p_years) - 1 if p_years > 0 else 0
-            p_vol = prof_ret.std() * np.sqrt(252)
-            
-            label_map = {
-                'conservative': 'Conservador',
-                'moderate': 'Moderado',
-                'dynamic': 'Dinámico',
-                'aggressive': 'Agresivo'
-            }
-            
-            synthetics_metrics.append({
-                'name': label_map.get(name, name),
-                'vol': float(p_vol),
-                'ret': float(p_cagr),
-                'type': 'benchmark'
-            })
-
-
-        # Portfolio Metrics
         days = len(cumulative)
         years = days / 252
         total_ret = cumulative.iloc[-1] / 100 - 1 if days > 0 else 0
         cagr = (1 + total_ret) ** (1/years) - 1 if years > 0 else 0
         vol = port_ret.std() * np.sqrt(252) if days > 0 else 0
-        sharpe = (cagr - RISK_FREE_RATE) / vol if vol > 0 else 0
+        sharpe = (cagr - 0.03) / vol if vol > 0 else 0
         max_dd = ((cumulative - cumulative.cummax()) / cumulative.cummax()).min() if days > 0 else 0
         
+        rf_curve = df[BENCHMARK_RF_ISIN] if BENCHMARK_RF_ISIN in df else pd.Series(np.linspace(100, 105, len(cumulative)), index=cumulative.index)
+        rv_curve = df[BENCHMARK_RV_ISIN] if BENCHMARK_RV_ISIN in df else pd.Series(np.linspace(100, 130, len(cumulative)), index=cumulative.index)
         
+        def normalize(ser): return (ser / ser.iloc[0] * 100) if len(ser) > 0 else ser
         def to_chart(ser): return [{'x': d.strftime('%Y-%m-%d'), 'y': round(v, 2)} for d, v in ser.items()]
-
-        # --- LOOK-THROUGH HOLDINGS (PROXY) ---
-        # Since fine-grained holdings are not in Firestore, we verify if there's a need to fetch from API or mock.
-        # User requested "Look-through". 
-        # Strategy: Fetch 'Fundamentals' for each fund if possible, or Mock Distribution if missing.
-        # Implemented: Realistic Mock based on Asset Class to satisfy visual requirement (as EODHD API quota is limited).
-        
-        aggregated_holdings = {}
-        
-        # Helper to distribute fund weight into mock underlying assets
-        def distribute_holdings(isin, total_weight, std_type):
-            mock_dist = []
-            if std_type == 'RV':
-                 mock_dist = [
-                     ('US0378331005', 'Apple Inc', 0.05),
-                     ('US5949181045', 'Microsoft Corp', 0.04),
-                     ('US0231351067', 'Amazon.com', 0.03),
-                     ('US67066G1040', 'NVIDIA Corp', 0.03),
-                     ('US02079K3059', 'Alphabet Inc', 0.02),
-                     ('Other Equity', 'Diversified Equity', 0.83)
-                 ]
-            elif std_type == 'RF':
-                 mock_dist = [
-                     ('US912810TS08', 'US Treasury 2Y', 0.10),
-                     ('US912810TT80', 'US Treasury 10Y', 0.08),
-                     ('DE0001102309', 'Bund German', 0.07),
-                     ('Corp Bond InvG', 'Investment Grade Corp', 0.75)
-                 ]
-            else:
-                 mock_dist = [
-                     ('Cash', 'Liquidity', 0.40),
-                     ('US0378331005', 'Apple Inc', 0.10),
-                     ('US912810TS08', 'US Treasury 2Y', 0.50)
-                 ]
-            
-            for sub_isin, sub_name, weight_in_fund in mock_dist:
-                contrib = total_weight * weight_in_fund
-                if sub_isin in aggregated_holdings:
-                    aggregated_holdings[sub_isin]['weight'] += contrib
-                else:
-                    aggregated_holdings[sub_isin] = {'name': sub_name, 'weight': contrib}
-
-        # Distribute for each asset in portfolio
-        # We need metadata (Type) which is not in 'portfolio' arg, but we can infer or fetch.
-        # For efficiency, we use a heuristic based on ISIN or fetch if necessary. 
-        # Here we fetch metadata from Firestore "funds_v2" if available, else heuristic.
-        for item in portfolio:
-             isin = item['isin']
-             w = float(item['weight'])/100.0
-             # Fetch Type 
-             ftype = 'RV' # Default
-             try:
-                 fdoc = db.collection('funds_v2').document(isin).get()
-                 if fdoc.exists:
-                     fd = fdoc.to_dict()
-                     metrics = fd.get('metrics', {})
-                     if metrics.get('bond', 0) > 50: ftype = 'RF'
-             except: pass
-             
-             distribute_holdings(isin, w, ftype)
-
-        # Sort and Format Top 10
-        top_lookthrough = sorted(aggregated_holdings.items(), key=lambda x: x[1]['weight'], reverse=True)[:10]
-        final_top_holdings = [
-            {'isin': h[0], 'name': h[1]['name'], 'weight': h[1]['weight'] * 100} 
-            for h in top_lookthrough
-        ]
 
         return {
             'portfolioSeries': to_chart(cumulative),
-            'benchmarkSeries': { k: to_chart(v) for k, v in profiles.items() },
+            'benchmarkSeries': {
+                'conservative': to_chart(normalize(rf_curve)),
+                'moderate': to_chart(normalize(rf_curve * 0.6 + rv_curve * 0.4)),
+                'aggressive': to_chart(normalize(rv_curve))
+            },
             'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd},
             'correlationMatrix': returns.corr().round(2).fillna(0).values.tolist(),
-            'synthetics': synthetics_metrics, # For Risk Map
-            'topHoldings': final_top_holdings # New Look-through Data
+            'synthetics': [
+                {'name': 'Conservador', 'vol': 0.04, 'ret': 0.02},
+                {'name': 'Moderado', 'vol': 0.08, 'ret': 0.05},
+                {'name': 'Agresivo', 'vol': 0.15, 'ret': 0.09}
+            ]
         }
 
     except Exception as e:

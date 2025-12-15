@@ -21,3 +21,11 @@ Thumbs.db
 # IDEs
 .vscode/
 .idea/
+
+# Backups & Legacy
+BACKUP*/
+frontend_LEGACY/
+frontend_react_backup*/
+functions_python_SAFETY*/
+archivos viejos/
+public_legacy/

@@ -1,6 +1,15 @@
 rules_version = '2';
 service firebase.storage {
   match /b/{bucket}/o {
+    
+    // EXCEPCIÓN: Permitir lectura pública al archivo maestro de datos
+    // Esto soluciona el error 403 en app_modern.js
+    match /funds_data.json {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // REGLA GENERAL: Todo lo demás requiere autenticación
     match /{allPaths=**} {
       allow read, write: if request.auth != null;
     }

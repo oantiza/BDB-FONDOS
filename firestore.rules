@@ -1,8 +1,28 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    
+    // 1. Colección de Fondos: Solo lectura para usuarios autenticados
+    // (Solo tú puedes editar esto desde la consola de Firebase o Admin SDK)
+    match /funds_v2/{fundId} {
+      allow read: if request.auth != null;
+      allow write: if false; 
+    }
+    
+    // 2. Histórico de Precios: Solo lectura
+    match /historico_vl_v2/{isin} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // 3. Datos de Usuario: El usuario solo puede leer/escribir SU propio documento
+    match /users/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+    
+    // 4. Regla por defecto (Bloqueo de seguridad)
     match /{document=**} {
-      allow read, write: if request.auth != null;
+      allow read, write: if false;
     }
   }
 }
