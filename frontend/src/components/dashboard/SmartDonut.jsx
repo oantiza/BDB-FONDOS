@@ -17,7 +17,7 @@ export default function SmartDonut({ allocation = [] }) {
     // Prepare Chart Data
     const labels = isEmpty ? ['Sin Datos'] : safeData.map(d => d.label)
     const values = isEmpty ? [1] : safeData.map(d => d.value)
-    const colors = isEmpty ? ['#1e293b'] : safeData.map((_, i) => PALETTE[i % PALETTE.length])
+    const colors = isEmpty ? ['#e5e7eb'] : safeData.map((_, i) => PALETTE[i % PALETTE.length])
 
     const dataAlloc = {
         labels: labels,
@@ -50,7 +50,7 @@ export default function SmartDonut({ allocation = [] }) {
             <div className="flex-1 w-full relative min-h-0">
                 <Doughnut data={dataAlloc} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Activos</span>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Activos</span>
                 </div>
             </div>
             {/* Dynamic Legend */}
@@ -66,6 +66,6 @@ export default function SmartDonut({ allocation = [] }) {
 const LegendItem = ({ color, label }) => (
     <div className="flex items-center gap-1">
         <div className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: color }}></div>
-        <span className="text-[9px] font-bold text-slate-500 uppercase truncate max-w-[80px]" title={label}>{label}</span>
+        <span className="text-[9px] font-bold text-gray-500 uppercase truncate max-w-[80px]" title={label}>{label}</span>
     </div>
 )

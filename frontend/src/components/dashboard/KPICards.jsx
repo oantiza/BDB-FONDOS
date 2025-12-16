@@ -14,21 +14,21 @@ export default function KPICards({ portfolio }) {
 
     return (
         <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-slate-600">
-                <thead className="text-xs uppercase text-slate-500 bg-slate-50 border-b border-slate-200">
+            <table className="w-full text-sm text-left text-gray-600">
+                <thead className="text-xs uppercase text-gray-500 bg-gray-50 border-b border-gray-200">
                     <tr>
-                        <th className="px-3 py-2 rounded-tl">Métrica Clave</th>
+                        <th className="px-3 py-2">Métrica Clave</th>
                         <th className="px-3 py-2">Valor Total</th>
-                        <th className="px-3 py-2 rounded-tr">Tendencia (vs Bmk)</th>
+                        <th className="px-3 py-2">Tendencia (vs Bmk)</th>
                     </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-100">
+                <tbody className="divide-y divide-gray-100">
                     {metrics.map((m, i) => (
-                        <tr key={i} className="hover:bg-slate-50 transition-colors">
-                            <td className="px-3 py-2 font-bold text-slate-700">{m.label}</td>
-                            <td className="px-3 py-2 font-mono font-bold text-slate-800">{m.value}</td>
+                        <tr key={i} className="hover:bg-gray-50 transition-colors">
+                            <td className="px-3 py-2 font-bold text-gray-700">{m.label}</td>
+                            <td className="px-3 py-2 font-mono font-bold text-gray-800">{m.value}</td>
                             <td className={`px-3 py-2 font-mono ${m.trendColor}`}>
-                                {m.trend} <span className="text-xs text-slate-500 font-sans ml-1">{m.trendLabel}</span>
+                                {m.trend} <span className="text-xs text-gray-500 font-sans ml-1">{m.trendLabel}</span>
                             </td>
                         </tr>
                     ))}

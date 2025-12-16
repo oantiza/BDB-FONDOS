@@ -12,13 +12,16 @@
   "dependencies": {
     "chart.js": "^4.5.1",
     "chartjs-adapter-date-fns": "^3.0.0",
+    "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "firebase": "^12.6.0",
+    "lucide-react": "^0.561.0",
     "plotly.js": "^3.3.0",
     "react": "^19.2.0",
     "react-chartjs-2": "^5.3.1",
     "react-dom": "^19.2.0",
-    "react-plotly.js": "^2.6.0"
+    "react-plotly.js": "^2.6.0",
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

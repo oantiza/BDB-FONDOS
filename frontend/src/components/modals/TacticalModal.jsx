@@ -93,17 +93,17 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                     <div className="w-1/2 flex flex-col bg-white relative">
                         {/* Decorative Overlay for Focus */}
                         <div className="absolute top-0 right-0 p-1">
-                            <div className="bg-emerald-500/20 text-emerald-400 text-[9px] font-bold px-2 py-0.5 rounded border border-emerald-500/30 uppercase tracking-widest animate-pulse">
+                            <div className="bg-[#D4AF37]/20 text-[#8A711F] text-[9px] font-bold px-2 py-0.5 rounded border border-[#D4AF37]/30 uppercase tracking-widest animate-pulse">
                                 Recommended
                             </div>
                         </div>
 
-                        <div className="p-3 bg-emerald-900/10 border-b border-emerald-500/20 font-bold text-emerald-400 text-xs uppercase text-center tracking-wider">
+                        <div className="p-3 bg-[#D4AF37]/10 border-b border-[#D4AF37]/20 font-bold text-[#0B2545] text-xs uppercase text-center tracking-wider">
                             Cartera Optimizada (Después)
                         </div>
 
                         {/* Metrics Panel (Highlighted) */}
-                        <div className="p-4 bg-emerald-900/5 border-b border-emerald-500/20 grid grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="p-4 bg-[#0B2545]/5 border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
                             <MetricRow label="Rentabilidad Esp." val={proposedStats.ret} comparisonVal={currentStats.ret} />
                             <MetricRow label="Volatilidad (1Y)" val={proposedStats.vol} comparisonVal={currentStats.vol} inverse={true} />
                             <MetricRow label="Sharpe Ratio" val={proposedStats.ret / proposedStats.vol} isPercent={false} comparisonVal={currentStats.ret / currentStats.vol} />
@@ -122,7 +122,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         </div>
 
                         {/* Total Weight Indicator */}
-                        <div className={`p-2 text-center text-xs font-bold border-t ${Math.abs(totalWeight - 100) > 0.1 ? 'bg-rose-900/20 text-rose-400 border-rose-500/30' : 'bg-emerald-900/20 text-emerald-400 border-emerald-500/30'}`}>
+                        <div className={`p-2 text-center text-xs font-bold border-t ${Math.abs(totalWeight - 100) > 0.1 ? 'bg-rose-900/20 text-rose-400 border-rose-500/30' : 'bg-[#D4AF37]/20 text-[#0B2545] border-[#D4AF37]/30'}`}>
                             Total Asignado: {totalWeight.toFixed(2)}%
                         </div>
                     </div>
@@ -203,7 +203,7 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                                 <div className="font-bold text-slate-700 truncate max-w-[180px]" title={p.name}>{p.name}</div>
                                 <div className="flex gap-2 items-center mt-0.5">
                                     <span className="font-mono text-[9px] text-slate-400">{p.isin}</span>
-                                    {isNew && <span className="text-[8px] bg-emerald-100 text-emerald-600 px-1 rounded font-bold uppercase tracking-wider">NEW</span>}
+                                    {isNew && <span className="text-[8px] bg-[#D4AF37]/20 text-[#8A711F] px-1 rounded font-bold uppercase tracking-wider">NEW</span>}
                                 </div>
                             </td>
                             <td className="p-2 text-right pr-4">
@@ -218,8 +218,8 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                                             onChange={(e) => onWeightChange(p.isin, e.target.value)}
                                         />
                                         {diff !== 0 && !isNew && (
-                                            <span className={`text-[9px] font-bold ${diff > 0 ? 'text-emerald-500' : 'text-rose-500'}`}>
-                                                {diff > 0 ? '+' : ''}{diff.toFixed(1)}%
+                                            <span className={`text-[9px] font-bold ${diff > 0 ? 'text-[#0B2545]' : 'text-rose-500'}`}>
+                                                {diff > 0 ? '+' : ''}{diff.toFixed(2)}%
                                             </span>
                                         )}
                                     </div>

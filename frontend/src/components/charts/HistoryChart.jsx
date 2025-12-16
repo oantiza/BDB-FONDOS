@@ -83,8 +83,18 @@ export default function HistoryChart({ data }) {
             tooltip: { enabled: !isMultiPath }
         },
         scales: {
-            x: { type: 'time', display: false, time: { unit: 'month' } },
-            y: { display: false, min: minY, max: maxY }
+            x: {
+                type: 'time',
+                display: true,
+                time: { unit: 'month' },
+                grid: { display: false },
+                ticks: { font: { size: 10 }, maxTicksLimit: 6 }
+            },
+            y: {
+                display: true,
+                grid: { color: '#f1f5f9' },
+                ticks: { font: { size: 10 } }
+            }
         },
         elements: { point: { radius: 0 } },
         animation: { duration: 0 }

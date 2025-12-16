@@ -1,181 +1,232 @@
-import React, { useMemo, useState } from 'react'
+import { useState } from 'react'
+import { httpsCallable } from 'firebase/functions'
+import { functions } from '../../firebase'
 
-export default function DataAuditModal({ assets, onClose }) {
-    const [filter, setFilter] = useState('all') // all, clean, incomplete
+export default function DataAuditModal({ onClose }) {
+    const [loading, setLoading] = useState(false)
+    const [auditResult, setAuditResult] = useState(null)
+    const [repairResult, setRepairResult] = useState(null)
+    const [error, setError] = useState(null)
 
-    const audit = useMemo(() => {
-        const total = assets.length
-        const incomplete = []
+    const handleRunAudit = async () => {
+        setLoading(true)
+        setError(null)
+        setAuditResult(null)
+        setRepairResult(null)
 
-        // Counters
-        let missingCat = 0
-        let missingClass = 0
-        let missingRegion = 0
-        let missingCompany = 0
-        let lowHistory = 0
-
-        assets.forEach(f => {
-            const extra = f.std_extra || {}
-            const issues = []
-
-            if (!extra.category) {
-                issues.push('Falta Categoría')
-                missingCat++
-            }
-            if (!extra.assetClass) {
-                issues.push('Falta Asset Class')
-                missingClass++
-            }
-            if (!extra.regionDetail) {
-                issues.push('Falta Región Detail')
-                missingRegion++
-            }
-            if (!extra.company || extra.company === 'Unknown') {
-                issues.push('Falta Gestora')
-                missingCompany++
-            }
-
-            const years = extra.yearsHistory || 0
-            if (years < 1) {
-                issues.push('Sin histórico (<1 año)')
-                lowHistory++
-            }
-
-            if (issues.length > 0) {
-                incomplete.push({
-                    isin: f.isin,
-                    name: f.name,
-                    issues: issues
-                })
-            }
-        })
-
-        return {
-            total,
-            cleanCount: total - incomplete.length,
-            incompleteCount: incomplete.length,
-            incompleteList: incomplete,
-            stats: { missingCat, missingClass, missingRegion, missingCompany, lowHistory }
+        try {
+            const analyzeIsin = httpsCallable(functions, 'analyze_isin_health')
+            const result = await analyzeIsin()
+            setAuditResult(result.data)
+        } catch (e) {
+            console.error("Audit failed", e)
+            setError(e.message)
+        } finally {
+            setLoading(false)
         }
-    }, [assets])
+    }
 
-    const showList = filter === 'clean' ? [] : audit.incompleteList
+    const handleGenerateRepair = async () => {
+        setLoading(true)
+        try {
+            const generateRepair = httpsCallable(functions, 'generate_repair_manifest')
+            const result = await generateRepair()
+            setRepairResult(result.data.summary)
+        } catch (e) {
+            console.error("Repair Gen failed", e)
+            setError(e.message)
+        } finally {
+            setLoading(false)
+        }
+    }
 
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
-            <div className="bg-white rounded-xl shadow-2xl w-full max-w-5xl h-[90vh] flex flex-col overflow-hidden border border-slate-200">
-
+        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm font-sans">
+            <div className="bg-white rounded-lg shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden border border-slate-200">
                 {/* Header */}
-                <div className="bg-[#0B2545] p-6 text-white flex justify-between items-center shrink-0">
-                    <div>
-                        <h2 className="text-2xl font-bold flex items-center gap-2">
-                            <span>🩺</span> Auditoría de Datos
-                        </h2>
-                        <p className="text-slate-300 text-sm mt-1">
-                            Validando {audit.total} fondos cargados
-                        </p>
-                    </div>
-                    <button onClick={onClose} className="text-white/70 hover:text-white text-2xl font-bold">&times;</button>
-                </div>
-
-                {/* Content */}
-                <div className="flex-1 overflow-auto p-6 bg-slate-50 flex flex-col gap-6">
-
-                    {/* KPI Cards */}
-                    <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                        <StatCard label="Total Fondos" value={audit.total} color="bg-slate-100 border-slate-200" />
-                        <StatCard label="Datos Completos" value={audit.cleanCount} color="bg-emerald-50 border-emerald-200 text-emerald-700" />
-                        <StatCard label="Incompletos" value={audit.incompleteCount} color="bg-amber-50 border-amber-200 text-amber-700" />
-                        <StatCard label="% Calidad" value={((audit.cleanCount / audit.total) * 100).toFixed(1) + '%'} color="bg-blue-50 border-blue-200 text-blue-700" />
-                    </div>
-
-                    {/* Error Breakdown */}
-                    <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-                        <ErrorBadge label="Sin Categoría" count={audit.stats.missingCat} total={audit.total} />
-                        <ErrorBadge label="Sin Asset Class" count={audit.stats.missingClass} total={audit.total} />
-                        <ErrorBadge label="Sin Región Detalle" count={audit.stats.missingRegion} total={audit.total} />
-                        <ErrorBadge label="Sin Gestora" count={audit.stats.missingCompany} total={audit.total} />
-                        <ErrorBadge label="Falta Histórico" count={audit.stats.lowHistory} total={audit.total} warn />
-                    </div>
-
-                    {/* Table */}
-                    <div className="bg-white rounded-xl shadow border border-slate-200 flex-1 flex flex-col min-h-0">
-                        <div className="p-4 border-b border-slate-100 flex justify-between items-center">
-                            <h3 className="font-bold text-slate-700">Fondos Incompletos ({audit.incompleteList.length})</h3>
-                            <div className="text-xs text-slate-400">
-                                Estos fondos usarán valores 'default' en los gráficos.
-                            </div>
-                        </div>
-                        <div className="overflow-auto flex-1">
-                            <table className="w-full text-sm text-left">
-                                <thead className="bg-slate-50 text-slate-500 font-bold sticky top-0 z-10 shadow-sm">
-                                    <tr>
-                                        <th className="p-3">ISIN</th>
-                                        <th className="p-3">Nombre</th>
-                                        <th className="p-3">Problemas Detectados</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-slate-100">
-                                    {showList.map(item => (
-                                        <tr key={item.isin} className="hover:bg-slate-50 group">
-                                            <td className="p-3 font-mono text-xs text-slate-500">{item.isin}</td>
-                                            <td className="p-3 font-bold text-slate-700">{item.name}</td>
-                                            <td className="p-3">
-                                                <div className="flex flex-wrap gap-1">
-                                                    {item.issues.map((issue, i) => (
-                                                        <span key={i} className="px-2 py-0.5 rounded-full text-[10px] bg-rose-100 text-rose-700 font-bold border border-rose-200">
-                                                            {issue}
-                                                        </span>
-                                                    ))}
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                    {showList.length === 0 && (
-                                        <tr>
-                                            <td colSpan="3" className="p-8 text-center text-emerald-500 font-bold">
-                                                ¡Todos los fondos tienen datos completos! 🎉
-                                            </td>
-                                        </tr>
-                                    )}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                </div>
-
-                {/* Footer */}
-                <div className="p-4 border-t border-slate-200 bg-white flex justify-end">
-                    <button
-                        onClick={onClose}
-                        className="px-6 py-2 bg-slate-800 text-white font-bold rounded hover:bg-slate-700 transition-colors"
-                    >
-                        Cerrar
+                <div className="p-5 border-b flex justify-between items-center bg-white text-brand shrink-0">
+                    <h2 className="text-xl font-bold flex items-center gap-2 text-[#0B2545]">
+                        <span>🛡️</span> Data Integrity Audit
+                    </h2>
+                    <button onClick={onClose} className="text-slate-400 hover:text-red-500 transition-colors">
+                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12"></path></svg>
                     </button>
                 </div>
+
+                {/* Body */}
+                <div className="p-6 overflow-y-auto bg-slate-50 flex-1">
+                    {!auditResult && !loading && (
+                        <div className="flex flex-col items-center justify-center h-64 text-center">
+                            <p className="text-slate-500 mb-6 max-w-md">
+                                This tool will scan the database for corrupted ISINs (truncated IDs, invalid prefixes).
+                                It generates a report in Storage and returns a sample here.
+                            </p>
+                            <button
+                                onClick={handleRunAudit}
+                                className="bg-[#0B2545] text-white px-6 py-3 rounded-lg font-bold shadow-lg hover:bg-slate-800 transition-all flex items-center gap-2"
+                            >
+                                <span>🔍</span> Run ISIN Health Check
+                            </button>
+                        </div>
+                    )}
+
+                    {loading && (
+                        <div className="flex flex-col items-center justify-center h-64">
+                            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#0B2545] mb-4"></div>
+                            <p className="text-slate-500 font-bold animate-pulse">Scanning database...</p>
+                        </div>
+                    )}
+
+                    {error && (
+                        <div className="bg-red-50 text-red-600 p-4 rounded-lg border border-red-200 mb-4">
+                            <strong>Error:</strong> {error}
+                        </div>
+                    )}
+
+                    {auditResult && (
+                        <div className="space-y-6">
+                            {/* Summary Cards */}
+                            <div className="grid grid-cols-3 gap-4">
+                                <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm text-center">
+                                    <div className="text-xs font-bold text-slate-400 uppercase">Total Scanned</div>
+                                    <div className="text-2xl font-mono font-bold text-slate-700">{auditResult.summary.total}</div>
+                                </div>
+                                <div className="bg-white p-4 rounded-lg border border-red-200 shadow-sm text-center">
+                                    <div className="text-xs font-bold text-red-400 uppercase">Corrupted</div>
+                                    <div className="text-2xl font-mono font-bold text-red-600">{auditResult.summary.corrupted}</div>
+                                </div>
+                                <div className="bg-white p-4 rounded-lg border border-emerald-200 shadow-sm text-center">
+                                    <div className="text-xs font-bold text-emerald-400 uppercase">Status</div>
+                                    <div className="text-lg font-bold text-emerald-600">
+                                        {auditResult.summary.corrupted > 0 ? 'Repairs Needed' : 'Healthy'}
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Report Link */}
+                            {auditResult.summary.report_url && (
+                                <div className="bg-blue-50 text-blue-700 px-4 py-2 rounded text-xs border border-blue-200 flex items-center gap-2">
+                                    <span>📄</span>
+                                    Full report saved to: <span className="font-mono">{auditResult.summary.report_url}</span>
+                                </div>
+                            )}
+
+                            {/* PHASE 2: REPAIR GENERATION */}
+                            {auditResult.summary.corrupted > 0 && !repairResult && (
+                                <div className="bg-amber-50 rounded-lg p-6 border border-amber-200 text-center">
+                                    <h3 className="font-bold text-amber-800 mb-2">Phase 2: Repair Strategy</h3>
+                                    <p className="text-sm text-amber-700 mb-4">
+                                        Corrupted records found. Generate a repair plan to query EODHD for correct ISINs.
+                                    </p>
+                                    <button
+                                        onClick={handleGenerateRepair}
+                                        disabled={loading}
+                                        className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg font-bold shadow-md transition-colors"
+                                    >
+                                        🛠️ Generate Repair Manifest
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* REPAIR RESULTS */}
+                            {repairResult && (
+                                <div className="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                    <h3 className="font-bold text-indigo-800 mb-4 flex items-center gap-2">
+                                        <span>📋</span> Repair Manifest Ready
+                                    </h3>
+                                    <div className="grid grid-cols-2 gap-4 mb-4">
+                                        <div className="bg-white p-3 rounded border border-indigo-100">
+                                            <div className="text-xs text-indigo-400 font-bold uppercase">Analyzed</div>
+                                            <div className="text-xl font-mono">{repairResult.total_analyzed}</div>
+                                        </div>
+                                        <div className="bg-white p-3 rounded border border-indigo-100">
+                                            <div className="text-xs text-indigo-400 font-bold uppercase">Auto-Resolvable</div>
+                                            <div className="text-xl font-mono text-emerald-600">{repairResult.resolvable}</div>
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-indigo-600 mb-2">
+                                        Plan saved to: <strong>reports/repair_manifest.json</strong>
+                                    </p>
+                                    <p className="text-xs text-slate-500 italic">
+                                        Review the manifest in Storage or wait for Phase 3 (Execution) implementation.
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* PHASE 2: REPAIR GENERATION */}
+                            {auditResult.summary.corrupted > 0 && !repairResult && (
+                                <div className="bg-amber-50 rounded-lg p-6 border border-amber-200 text-center">
+                                    <h3 className="font-bold text-amber-800 mb-2">Phase 2: Repair Strategy</h3>
+                                    <p className="text-sm text-amber-700 mb-4">
+                                        Corrupted records found. Generate a repair plan to query EODHD for correct ISINs.
+                                    </p>
+                                    <button
+                                        onClick={handleGenerateRepair}
+                                        disabled={loading}
+                                        className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-lg font-bold shadow-md transition-colors"
+                                    >
+                                        🛠️ Generate Repair Manifest
+                                    </button>
+                                </div>
+                            )}
+
+                            {/* REPAIR RESULTS */}
+                            {repairResult && (
+                                <div className="bg-indigo-50 rounded-lg p-6 border border-indigo-200">
+                                    <h3 className="font-bold text-indigo-800 mb-4 flex items-center gap-2">
+                                        <span>📋</span> Repair Manifest Ready
+                                    </h3>
+                                    <div className="grid grid-cols-2 gap-4 mb-4">
+                                        <div className="bg-white p-3 rounded border border-indigo-100">
+                                            <div className="text-xs text-indigo-400 font-bold uppercase">Analyzed</div>
+                                            <div className="text-xl font-mono">{repairResult.total_analyzed}</div>
+                                        </div>
+                                        <div className="bg-white p-3 rounded border border-indigo-100">
+                                            <div className="text-xs text-indigo-400 font-bold uppercase">Auto-Resolvable</div>
+                                            <div className="text-xl font-mono text-emerald-600">{repairResult.resolvable}</div>
+                                        </div>
+                                    </div>
+                                    <p className="text-xs text-indigo-600 mb-2">
+                                        Plan saved to: <strong>reports/repair_manifest.json</strong>
+                                    </p>
+                                    <p className="text-xs text-slate-500 italic">
+                                        Review the manifest in Storage or wait for Phase 3 (Execution) implementation.
+                                    </p>
+                                </div>
+                            )}
+
+                            {/* Corrupted Table */}
+                            {auditResult.sample?.length > 0 && (
+                                <div className="bg-white rounded-lg border border-slate-200 overflow-hidden shadow-sm">
+                                    <div className="bg-slate-100 px-4 py-2 border-b border-slate-200 text-xs font-bold text-slate-500 uppercase flex justify-between items-center">
+                                        <span>Corrupted Sample (Top 20)</span>
+                                    </div>
+                                    <table className="w-full text-sm text-left">
+                                        <thead className="bg-slate-50 text-xs text-slate-500 uppercase font-bold border-b border-slate-200">
+                                            <tr>
+                                                <th className="px-4 py-3">Corrupted ID</th>
+                                                <th className="px-4 py-3">Suggested Ticker</th>
+                                                <th className="px-4 py-3 min-w-[200px]">Asset Name</th>
+                                                <th className="px-4 py-3">Reason</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-100">
+                                            {auditResult.sample.map((row, i) => (
+                                                <tr key={i} className="hover:bg-slate-50 transition-colors">
+                                                    <td className="px-4 py-3 font-mono text-red-600 font-bold">{row.id}</td>
+                                                    <td className="px-4 py-3 font-mono text-emerald-600">{row.eod_ticker || 'MISSING'}</td>
+                                                    <td className="px-4 py-3 text-slate-600 truncate max-w-[200px]" title={row.name}>{row.name}</td>
+                                                    <td className="px-4 py-3 text-xs text-slate-400 bg-slate-50 rounded px-2 py-1">{row.reason}</td>
+                                                </tr>
+                                            ))}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            )}
+                        </div>
+                    )}
+                </div>
             </div>
-        </div>
-    )
-}
-
-function StatCard({ label, value, color }) {
-    return (
-        <div className={`p-4 rounded-lg border ${color} flex flex-col items-center justify-center`}>
-            <div className="text-3xl font-black mb-1">{value}</div>
-            <div className="text-xs uppercase font-bold tracking-wider opacity-70">{label}</div>
-        </div>
-    )
-}
-
-function ErrorBadge({ label, count, total, warn }) {
-    const pct = ((count / total) * 100).toFixed(0)
-    const severity = count > 0 ? (warn ? 'text-amber-600 bg-amber-50 border-amber-200' : 'text-rose-600 bg-rose-50 border-rose-200') : 'text-slate-400 bg-slate-50 border-slate-200'
-
-    return (
-        <div className={`p-2 rounded border flex justify-between items-center ${severity}`}>
-            <span className="text-[10px] font-bold uppercase">{label}</span>
-            <span className="font-mono font-black text-xs">{count} <span className="opacity-50 text-[9px]">({pct}%)</span></span>
         </div>
     )
 }

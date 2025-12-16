@@ -23,7 +23,7 @@ export default function GeoDonut({ allocation = [] }) {
 
     const labels = isEmpty ? ['Sin Datos'] : safeData.map(d => d.label)
     const values = isEmpty ? [1] : safeData.map(d => d.value)
-    const colors = isEmpty ? ['#f1f5f9'] : safeData.map((_, i) => PALETTE[i % PALETTE.length])
+    const colors = isEmpty ? ['#e5e7eb'] : safeData.map((_, i) => PALETTE[i % PALETTE.length])
 
     const data = {
         labels: labels,
@@ -52,14 +52,14 @@ export default function GeoDonut({ allocation = [] }) {
         layout: { padding: 10 }
     }
 
-    if (isEmpty) return <div className="text-xs text-slate-400 text-center flex items-center justify-center h-full">Sin datos</div>
+    if (isEmpty) return <div className="text-xs text-gray-400 text-center flex items-center justify-center h-full">Sin datos</div>
 
     return (
         <div className="flex flex-col h-full w-full items-center justify-between py-1">
             <div className="flex-1 w-full relative min-h-0">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Region</span>
+                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Region</span>
                 </div>
             </div>
             {/* Dynamic Legend */}

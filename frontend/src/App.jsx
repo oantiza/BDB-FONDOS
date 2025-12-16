@@ -26,6 +26,11 @@ import AnalysisModal from './components/modals/AnalysisModal'
 import TacticalModal from './components/modals/TacticalModal'
 import MacroTacticalModal from './components/modals/MacroTacticalModal'
 import OptimizationReviewModal from './components/modals/OptimizationReviewModal'
+import DataAuditModal from './components/modals/DataAuditModal'
+
+
+// Pages
+import MiBoutiquePage from './pages/MiBoutiquePage'
 
 // Utils
 import { generateSmartPortfolio } from './utils/rulesEngine'
@@ -133,8 +138,13 @@ function App() {
   const [showAnalysis, setShowAnalysis] = useState(false)
   const [showTactical, setShowTactical] = useState(false)
   const [showMacro, setShowMacro] = useState(false)
+
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [showAudit, setShowAudit] = useState(false)
+
+
+  // VIEW NAVIGATION
+  const [activeView, setActiveView] = useState('DASHBOARD') // 'DASHBOARD' or 'MIBOUTIQUE'
 
   // Datos visuales Dashboard
   const [historyData, setHistoryData] = useState([])
@@ -166,6 +176,14 @@ function App() {
       })
       setAssets(list)
       console.log("Fondos cargados y normalizados:", list.length)
+      if (list.length > 0) {
+        console.table(list.slice(0, 10).map(f => ({
+          id: f.isin,
+          name: f.name,
+          ticker: f.eod_ticker || 'N/A',
+          company: f.company || 'N/A'
+        })))
+      }
     } catch (error) {
       console.error("Error cargando fondos:", error)
       alert("Error de conexión: " + error.message)
@@ -265,15 +283,61 @@ function App() {
     setPortfolio(portfolio.map(p => p.isin === isin ? { ...p, weight: newWeight } : p))
   }
 
-  const handleManualGenerate = () => {
+  // State for Smart Portfolio
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  // Derive Categories from Assets
+  const categories = [...new Set(assets.map(a => a.std_extra?.category || 'Unknown'))].filter(c => c !== 'Unknown').sort()
+
+  const handleManualGenerate = async () => {
     if (assets.length === 0) {
       alert("Cargando fondos... espera un momento.")
       return
     }
-    const proposal = generateSmartPortfolio(riskLevel, assets, numFunds)
-    setPortfolio(proposal)
-    // setShowTactical(true) // Removed as per user request
-    // alert(`Cartera generada (Nivel ${riskLevel} - ${numFunds} fondos)`)
+
+    // Call Cloud Function
+    try {
+      const generateFn = httpsCallable(functions, 'generateSmartPortfolio')
+      // Show loading state? Using isOptimizing for now or add new state
+      setIsOptimizing(true) // Reuse loader logic roughly
+
+      const response = await generateFn({
+        category: selectedCategory,
+        risk_level: riskLevel,
+        num_funds: numFunds
+      })
+
+      const result = response.data
+      if (result.portfolio) {
+        // Need to merge full asset data into result for UI to work (charts etc need extra fields)
+        // The cloud function returns basic info { isin, name, weight, score }
+        // We find the local asset object and merge
+
+        const enrichedPortfolio = result.portfolio.map(p => {
+          const localAsset = assets.find(a => a.isin === p.isin) || {}
+          return {
+            ...localAsset, // Base data
+            ...p,          // Overwrite weight/score from backend
+            weight: parseFloat(p.weight)
+          }
+        })
+
+        setPortfolio(enrichedPortfolio)
+
+        if (result.warnings?.length > 0) {
+          console.warn("Smart Portfolio Warnings:", result.warnings)
+        }
+        if (result.debug) console.log("Smart Portfolio Debug:", result.debug)
+
+      } else if (result.error) {
+        alert("Error: " + result.error)
+      }
+    } catch (e) {
+      console.error("Smart Portfolio Error:", e)
+      alert("Error generando cartera: " + e.message)
+    } finally {
+      setIsOptimizing(false)
+    }
   }
 
   const handleOptimize = async () => {
@@ -342,25 +406,47 @@ function App() {
     return <Login onLogin={() => setIsAuthenticated(true)} />
   }
 
+  // --- RENDER ---
+  if (activeView === 'MIBOUTIQUE') {
+    return (
+      <div className="h-screen flex flex-col overflow-y-auto bg-slate-50 font-sans text-slate-800 relative">
+        {/* Back Button Overlay */}
+        <button
+          onClick={() => setActiveView('DASHBOARD')}
+          className="fixed top-4 left-4 z-50 bg-white/90 p-2 rounded-full shadow-lg border border-slate-200 hover:bg-slate-100 transition-colors"
+          title="Volver al Dashboard"
+        >
+          🔙
+        </button>
+        <MiBoutiquePage />
+      </div>
+    )
+  }
+
   return (
-    <div className="h-screen flex flex-col overflow-hidden bg-slate-50 font-sans text-slate-800">
-      <Header onLogout={() => auth.signOut()} onOpenNews={() => setShowNews(true)} onOpenAudit={() => setShowAudit(true)} />
+    <div className="h-screen flex flex-col overflow-hidden bg-background font-sans text-text">
+      <Header
+        onLogout={() => auth.signOut()}
+        onOpenNews={() => setShowNews(true)}
+        onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
+        onOpenAudit={() => setShowAudit(true)}
+      />
 
       {/* MAIN CONTAINER: Strict L15% | C60% | R25% Layout */}
       <div className="flex flex-1 overflow-hidden">
 
         {/* COL 1: SIDEBAR (15%) */}
-        <div className="w-[15%] h-full flex flex-col border-r border-slate-200 bg-white">
-          <div className="flex-1 overflow-hidden relative">
+        <div className="w-[15%] h-full flex flex-col bg-slate-100 p-2">
+          <div className="flex-1 overflow-hidden relative rounded-lg border border-slate-200">
             <Sidebar assets={assets} onAddAsset={handleAddAsset} />
           </div>
         </div>
 
         {/* COL 2: CENTER (60%) - Market & Portfolio */}
-        <div className="w-[60%] h-full flex flex-col border-r border-slate-200 bg-slate-50">
+        <div className="w-[60%] h-full flex flex-col bg-slate-100 p-2 gap-2">
 
           {/* TOP SECTION: MARKET CHARTS (Restored) */}
-          <div className="h-1/3 p-2 grid grid-cols-2 gap-2 border-b border-slate-200 shrink-0">
+          <div className="h-1/3 grid grid-cols-2 gap-2 shrink-0">
             {/* Graph 1: Indices */}
             <div className="bg-white rounded-lg flex flex-col border border-slate-200 shadow-sm relative overflow-hidden">
               <div className="p-3 border-b border-slate-200 bg-slate-50 flex justify-between items-center z-10">
@@ -368,7 +454,7 @@ function App() {
                 <select
                   value={marketIndex}
                   onChange={(e) => setMarketIndex(e.target.value)}
-                  className="text-[10px] bg-white border border-slate-200 text-slate-600 rounded px-1 outline-none"
+                  className="text-[10px] bg-white border border-slate-200 text-slate-600 px-1 outline-none"
                 >
                   <option value="GSPC.INDX">S&P 500</option>
                   <option value="IXIC.INDX">Nasdaq</option>
@@ -378,13 +464,13 @@ function App() {
                 <div className="flex gap-1 ml-2">
                   <button
                     onClick={() => setHistoryPeriod('1m')}
-                    className={`text-[9px] px-1.5 py-0.5 rounded font-bold border ${historyPeriod === '1m' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
+                    className={`text-[9px] px-1.5 py-0.5 font-bold border ${historyPeriod === '1m' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
                   >
                     1M
                   </button>
                   <button
                     onClick={() => setHistoryPeriod('1y')}
-                    className={`text-[9px] px-1.5 py-0.5 rounded font-bold border ${historyPeriod === '1y' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
+                    className={`text-[9px] px-1.5 py-0.5 font-bold border ${historyPeriod === '1y' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
                   >
                     1Y
                   </button>
@@ -406,6 +492,7 @@ function App() {
                 >
                   <option value="US">USD</option>
                   <option value="EU">EUR</option>
+                  <option value="EURIBOR">Euribor</option>
                 </select>
               </div>
               <div className="flex-1 w-full min-h-0 relative flex items-center justify-center">
@@ -428,8 +515,8 @@ function App() {
             </div>
           )}
 
-          <div className="flex-1 p-2 overflow-hidden flex flex-col relative">
-            <div className="flex-1 bg-white rounded-lg border border-slate-200 shadow-sm overflow-hidden relative flex flex-col">
+          <div className="flex-1 overflow-hidden flex flex-col relative rounded-lg border border-slate-200">
+            <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden relative flex flex-col">
               <div className="p-3 border-b border-slate-200 bg-slate-50 flex justify-between items-center shrink-0">
                 <h3 className="font-sans font-bold text-slate-700 text-sm uppercase tracking-wider">Cartera de Fondos</h3>
                 <div className="flex items-center gap-2 text-xs">
@@ -438,13 +525,13 @@ function App() {
                     type="number"
                     value={totalCapital}
                     onChange={(e) => setTotalCapital(parseFloat(e.target.value))}
-                    className="bg-white border border-slate-200 text-slate-800 font-mono rounded px-2 py-0.5 w-24 text-right"
+                    className="bg-white border border-slate-200 text-slate-800 font-mono px-2 py-0.5 w-24 text-right"
                   />
                   <span className="text-slate-500 font-bold">€</span>
 
                   <button
                     onClick={() => exportToCSV(portfolio, totalCapital)}
-                    className="ml-2 text-xs bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-700 p-1 rounded border border-slate-200 transition-colors"
+                    className="ml-2 text-xs bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-700 p-1 border border-slate-200 transition-colors"
                     title="Exportar CSV"
                   >
                     📥
@@ -465,44 +552,46 @@ function App() {
 
 
         {/* COL 3: RIGHT (25%) - Analysis & Ops */}
-        <div className="w-[25%] h-full flex flex-col bg-white border-l border-slate-200 p-2 gap-2 overflow-y-auto scrollbar-thin">
+        <div className="w-[25%] h-full flex flex-col bg-slate-100 overflow-y-auto scrollbar-thin p-2 gap-2">
 
           {/* MODULE 1: ANALYSIS */}
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 flex-1">
 
             {/* Drivers/Risks (RESIZED TO h-[19rem]) */}
-            <div className="grid grid-cols-2 gap-1 h-[19rem] shrink-0">
-              <div className="overflow-hidden relative rounded border border-slate-200">
+            <div className="grid grid-cols-2 h-[19rem] shrink-0 gap-2">
+              <div className="overflow-hidden relative rounded-lg border border-slate-200">
                 <MarketDrivers />
               </div>
-              <div className="overflow-hidden relative rounded border border-slate-200">
+              <div className="overflow-hidden relative rounded-lg border border-slate-200">
                 <RiskMonitor />
               </div>
             </div>
 
             {/* MERGED CONTAINER: Donuts (Top) + Metrics (Bottom) */}
-            <div className="bg-white rounded-lg border border-slate-200 shadow-sm p-2 flex flex-col gap-2 shrink-0">
+            <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col gap-2 shrink-0 p-2">
               {/* 1. Donuts Row */}
-              <div className="grid grid-cols-2 gap-1 h-[16rem]">
-                <div className="bg-slate-50 rounded border border-slate-200 p-1 relative flex flex-col items-center justify-center">
+              <div className="grid grid-cols-2 h-[16rem] gap-2">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-1 relative flex flex-col items-center justify-center">
                   <SmartDonut allocation={allocData} />
                 </div>
-                <div className="bg-slate-50 rounded border border-slate-200 p-1 relative flex flex-col items-center justify-center">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-1 relative flex flex-col items-center justify-center">
                   <GeoDonut allocation={geoData} />
                 </div>
               </div>
 
               {/* 2. Metrics Table */}
-              <div>
-                <h4 className="font-sans font-bold text-slate-700 text-sm uppercase tracking-wider mb-2 pl-1">Key Metrics</h4>
+              <div className="p-2">
+
+
                 <KPICards portfolio={portfolio} />
               </div>
             </div>
           </div>
 
           {/* MODULE 2: OPERATIONS (Bottom) */}
-          <div className="mt-auto">
+          <div className="flex-1">
             <Controls
+              className="h-full"
               riskLevel={riskLevel}
               setRiskLevel={setRiskLevel}
               numFunds={numFunds}
@@ -517,6 +606,9 @@ function App() {
                 setShowTactical(true)
               }}
               onOpenMacro={() => setShowMacro(true)}
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
             />
           </div>
 
@@ -527,7 +619,7 @@ function App() {
       {showNews && <NewsModal onClose={() => setShowNews(false)} />}
       {showCosts && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => setShowCosts(false)} />}
       {showAnalysis && <AnalysisModal portfolio={portfolio} fundDatabase={assets} onClose={() => setShowAnalysis(false)} />}
-      {showAudit && <DataAuditModal assets={assets} onClose={() => setShowAudit(false)} />}
+
 
       {
         showTactical && (
@@ -560,6 +652,8 @@ function App() {
           />
         )
       }
+      {/* NEW: Data Audit Modal */}
+      {showAudit && <DataAuditModal onClose={() => setShowAudit(false)} />}
     </div>
   )
 }
