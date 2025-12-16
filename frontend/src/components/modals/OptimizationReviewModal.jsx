@@ -1,32 +1,32 @@
 import React, { useMemo } from 'react'
 import { calcSimpleStats } from '../../utils/analytics'
 
+const StatCard = ({ label, current, proposed, format = 'pct', inverse = false }) => {
+    const isBetter = inverse ? proposed < current : proposed > current
+    const diff = proposed - current
+
+    return (
+        <div className="bg-white rounded p-6 border border-slate-200 flex flex-col items-center shadow-sm">
+            <span className="text-xs uppercase font-bold text-slate-500 mb-2">{label}</span>
+            <div className="flex items-center gap-4 text-base font-mono">
+                <span className="text-slate-500 font-bold">
+                    {format === 'pct' ? (current * 100).toFixed(2) + '%' : current.toFixed(2)}
+                </span>
+                <span className="text-slate-300">➜</span>
+                <span className={`text-2xl font-black ${isBetter ? 'text-blue-600' : 'text-rose-600'}`}>
+                    {format === 'pct' ? (proposed * 100).toFixed(2) + '%' : proposed.toFixed(2)}
+                </span>
+            </div>
+            <div className={`text-xs font-bold mt-1 ${isBetter ? 'text-blue-500' : 'text-rose-400'}`}>
+                {diff > 0 ? '+' : ''}{format === 'pct' ? (diff * 100).toFixed(2) + '%' : diff.toFixed(2)}
+            </div>
+        </div>
+    )
+}
+
 export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, onAccept, onClose }) {
     const currentStats = useMemo(() => calcSimpleStats(currentPortfolio), [currentPortfolio])
     const proposedStats = useMemo(() => calcSimpleStats(proposedPortfolio), [proposedPortfolio])
-
-    const StatCard = ({ label, current, proposed, format = 'pct', inverse = false }) => {
-        const isBetter = inverse ? proposed < current : proposed > current
-        const diff = proposed - current
-
-        return (
-            <div className="bg-white rounded p-6 border border-slate-200 flex flex-col items-center shadow-sm">
-                <span className="text-xs uppercase font-bold text-slate-500 mb-2">{label}</span>
-                <div className="flex items-center gap-4 text-base font-mono">
-                    <span className="text-slate-500 font-bold">
-                        {format === 'pct' ? (current * 100).toFixed(2) + '%' : current.toFixed(2)}
-                    </span>
-                    <span className="text-slate-300">➜</span>
-                    <span className={`text-2xl font-black ${isBetter ? 'text-blue-600' : 'text-rose-600'}`}>
-                        {format === 'pct' ? (proposed * 100).toFixed(2) + '%' : proposed.toFixed(2)}
-                    </span>
-                </div>
-                <div className={`text-xs font-bold mt-1 ${isBetter ? 'text-blue-500' : 'text-rose-400'}`}>
-                    {diff > 0 ? '+' : ''}{format === 'pct' ? (diff * 100).toFixed(2) + '%' : diff.toFixed(2)}
-                </div>
-            </div>
-        )
-    }
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">

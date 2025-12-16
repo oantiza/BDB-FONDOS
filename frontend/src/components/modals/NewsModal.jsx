@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../../firebase'
 
@@ -8,11 +8,7 @@ export default function NewsModal({ onClose }) {
     const [filter, setFilter] = useState('general')
     const [ticker, setTicker] = useState('')
 
-    useEffect(() => {
-        loadNews()
-    }, [filter])
-
-    const loadNews = async () => {
+    const loadNews = useCallback(async () => {
         setLoading(true)
         try {
             const getNews = httpsCallable(functions, 'getFinancialNews')
@@ -30,7 +26,11 @@ export default function NewsModal({ onClose }) {
         } finally {
             setLoading(false)
         }
-    }
+    }, [filter, ticker])
+
+    useEffect(() => {
+        loadNews()
+    }, [filter, loadNews])
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">

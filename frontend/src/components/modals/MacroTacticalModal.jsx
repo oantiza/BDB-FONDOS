@@ -1,6 +1,34 @@
 import { useState, useEffect } from 'react'
 import { Doughnut } from 'react-chartjs-2'
 
+// Helper para clasificar activos (Heurística simple basada en nombre/tipo)
+const classifyAsset = (asset) => {
+    const name = (asset.name || '').toLowerCase()
+    const type = (asset.std_type || 'Mixto')
+    const region = (asset.std_region || '').toLowerCase()
+
+    // COMMODITIES
+    if (name.includes('gold') || name.includes('oro') || name.includes('commodity') || name.includes('materias')) return 'commodities'
+
+    // RENTA VARIABLE
+    if (type === 'RV' || type === 'Equity') {
+        if (region === 'usa' || name.includes('usa') || name.includes('s&p') || name.includes('nasdaq')) return 'rv_usa'
+        if (region === 'europe' || region === 'euro' || name.includes('euro')) return 'rv_eu'
+        if (region === 'emerging' || name.includes('emerg')) return 'rv_em'
+        return 'rv_usa' // Default RV -> USA (simplificación)
+    }
+
+    // RENTA FIJA
+    if (type === 'RF' || type === 'Fixed Income') {
+        if (name.includes('gov') || name.includes('tesoro') || name.includes('govies')) return 'rf_gov'
+        if (name.includes('high yield') || name.includes('hy')) return 'rf_hy'
+        return 'rf_corp' // Default RF -> Corp
+    }
+
+    // CASH / OTHER
+    return 'cash'
+}
+
 export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
     // Estado para los targets (Pesos objetivo)
     const [targets, setTargets] = useState({
@@ -12,35 +40,9 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
         commodities: 0, cash: 0
     })
 
-    const [total, setTotal] = useState(0)
+    const total = Object.values(targets).reduce((a, b) => a + b, 0)
 
-    // Helper para clasificar activos (Heurística simple basada en nombre/tipo)
-    const classifyAsset = (asset) => {
-        const name = (asset.name || '').toLowerCase()
-        const type = (asset.std_type || 'Mixto')
-        const region = (asset.std_region || '').toLowerCase()
 
-        // COMMODITIES
-        if (name.includes('gold') || name.includes('oro') || name.includes('commodity') || name.includes('materias')) return 'commodities'
-
-        // RENTA VARIABLE
-        if (type === 'RV' || type === 'Equity') {
-            if (region === 'usa' || name.includes('usa') || name.includes('s&p') || name.includes('nasdaq')) return 'rv_usa'
-            if (region === 'europe' || region === 'euro' || name.includes('euro')) return 'rv_eu'
-            if (region === 'emerging' || name.includes('emerg')) return 'rv_em'
-            return 'rv_usa' // Default RV -> USA (simplificación)
-        }
-
-        // RENTA FIJA
-        if (type === 'RF' || type === 'Fixed Income') {
-            if (name.includes('gov') || name.includes('tesoro') || name.includes('govies')) return 'rf_gov'
-            if (name.includes('high yield') || name.includes('hy')) return 'rf_hy'
-            return 'rf_corp' // Default RF -> Corp
-        }
-
-        // CASH / OTHER
-        return 'cash'
-    }
 
     // Cargar estado inicial
     useEffect(() => {
@@ -59,11 +61,6 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
         Object.keys(initial).forEach(k => initial[k] = Math.round(initial[k]))
         setTargets(initial)
     }, [portfolio])
-
-    useEffect(() => {
-        const sum = Object.values(targets).reduce((a, b) => a + b, 0)
-        setTotal(sum)
-    }, [targets])
 
     const handleSliderChange = (key, val) => {
         setTargets(prev => ({ ...prev, [key]: parseInt(val) || 0 }))

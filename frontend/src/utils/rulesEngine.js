@@ -1,9 +1,11 @@
-// rulesEngine.js - Portado de public_legacy/portfolio.js
-// Lógica de cliente para selección de fondos y generación de carteras manuales
+// rulesEngine.js - V2 "Hydraulic" Logic & Cost-Agnostic Scoring
+// Implementa Estrategia Macro-Europeísta + Scoring de Calidad Pura
 
 // ============================================================================
-// MATRIZ DE RIESGO
+// 1. CONFIGURACIÓN DE ESTRATEGIA
 // ============================================================================
+
+// Matriz de Riesgo: Define Volatilidad Máxima permitida
 export const RISK_MATRIX = {
     1: { name: "Preservación", maxVol: 0.035, allowed: ['Monetario', 'RF'] },
     2: { name: "Muy Conservador", maxVol: 0.06, allowed: ['RF', 'Monetario', 'Mixto'] },
@@ -17,239 +19,203 @@ export const RISK_MATRIX = {
     10: { name: "High Conviction", maxVol: 1.00, allowed: ['RV', 'Mixto'] }
 };
 
-// ============================================================================
-// ESTRATEGIA GEOGRÁFICA
-// ============================================================================
-const GEO_STRATEGY = {
-    euro_focus: { core: { region: 'Europe', weight: 100 }, satellite: null },
-    balanced: { core: { region: 'Global', weight: 60, alt: 'USA' }, satellite: { region: 'Europe', weight: 40 } },
-    dynamic: { core: { region: 'USA', weight: 70, alt: 'Global' }, satellite: { region: 'Europe', weight: 30 } },
-    aggressive: { core: { region: 'USA', weight: 50 }, satellite: { region: 'Emerging', weight: 30 }, extra: { region: 'Europe', weight: 20 } },
-    high_conviction: { core: { region: 'USA', style: 'Growth', weight: 50 }, satellite: { region: 'Any', style: 'Sector', weight: 50 } }
+// Target Macro "Europeísta" (Objetivo Ideal)
+const MACRO_TARGETS = {
+    europe: 0.40, // 40%
+    usa: 0.35,    // 35%
+    rest: 0.25    // 25% (Asia + EM + Otros)
 };
 
 // ============================================================================
-// SCORING
+// 2. MOTOR DE SCORING V2 (COST-AGNOSTIC)
 // ============================================================================
-// ============================================================================
-// SCORING
-// ============================================================================
-function calculateScore(fund) {
-    const sharpe = fund.std_perf?.sharpe || 0;
+// Fórmula: Score = (0.5 * Sharpe) + (0.4 * Alpha) + (0.1 * Consistency)
+
+function calculateScoreV2(fund) {
+    // Extraer Métricas (con defaults seguros)
+    const sharpe = fund.std_perf?.sharpe || 0.5;
     const alpha = fund.std_perf?.alpha || 0;
-    const vol = fund.std_perf?.volatility || 0.15;
+    const consistency = fund.std_extra?.yearsHistory >= 5 ? 10 : (fund.std_extra?.yearsHistory || 0);
+    // Consistencia normalizada 0-10 (asumimos >5 años es 10/10)
 
-    // New Fields
-    const history = fund.std_extra?.yearsHistory || 0; // Consistency
-    const mgmtFee = fund.std_extra?.mgmtFee || 1.0;    // Efficiency (Cost)
+    // Pesos
+    const w1 = 50; // Sharpe
+    const w2 = 40; // Alpha
+    const w3 = 10; // Consistencia
 
-    // 1. Safety Score (Max 40)
-    // Penalización por volatilidad alta (clave para perfiles bajos)
-    const safetyScore = Math.max(0, (0.20 - vol) * 200);
+    // Normalización aproximada para que los componentes sumen en escalas similares
+    // Sharpe suele ser 0-2 -> x20 -> 0-40 (si w1=50, ajustamos factor)
+    // Alpha suele ser -5 a +5 -> normalizar positivo
 
-    // 2. Consistency Bonus (REMOVED to match Master Spec)
-    // const consistencyScore = Math.min(history, 10) * 2; 
+    // Cálculo Directo Ponderado
+    const scoreSharpe = sharpe * w1;           // Ej: 1.0 * 50 = 50 pts
+    const scoreAlpha = (alpha + 5) * (w2 / 5); // Ej: Alpha 0 -> 5 * 8 = 40 pts. Alpha -2 -> 3 * 8 = 24.
+    const scoreConsist = consistency * (w3 / 10); // Ej: 10 años * 1 = 10 pts
 
-    // 3. Efficiency Penalty (Cost) - REMOVED AS PER USER REQUEST
-    // const costPenalty = mgmtFee * 20;
+    // Penalización oculta de seguridad (Hard Rule implícita en la valoración)
+    // Si volatilidad es extrema para su categoría, reducimos ligeramente, pero ya no prohibimos coste.
 
-    return (sharpe * 40) + (alpha * 20) + Math.min(safetyScore, 40);
+    return scoreSharpe + scoreAlpha + scoreConsist;
 }
 
-// Helper to get fee (Retrocession > Mgmt Fee > OCF)
-function getFee(f) {
-    return (f.costs?.retrocession || f.costs?.management_fee || f.profile?.ongoing_charge || 0);
+// Filtro de Seguridad "Hard Rules" (Volatilidad & Divisa)
+function isSafeCandidate(fund, riskProfile) {
+    if (!profileAllowedType(fund.std_type, riskProfile.allowed)) return false;
+
+    // Filtro Divisa: Preferencia EUR fuerte, pero aceptamos USD si es buen fondo (hedged implícito o explícito)
+    // Para simplificar: Solo EUR o clases Hedged
+    // const isEur = fund.currency === 'EUR' || (fund.name && fund.name.includes('Hedged'));
+    // if (!isEur) return false; 
+
+    // Filtro Volatilidad
+    const vol = fund.std_perf?.volatility || 100;
+    if (vol > riskProfile.maxVol + 0.02) return false; // Margen de tolerancia ligero
+
+    return true;
 }
 
-// ============================================================================
-// SELECCIÓN DE CANDIDATOS
-// ============================================================================
-function getPoolOfCandidates(riskLevel, profile, fundDatabase, minCount = 5) {
-    // INTENTO 1: Filtro Estricto (Solo Tipo + Volatilidad, sin restricción de historia)
-    let candidates = fundDatabase.filter(f => {
-        return profile.allowed.includes(f.std_type) && f.std_perf?.volatility <= profile.maxVol;
-    });
-
-    // INTENTO 2: Expansión de Volatilidad (si no llegamos al mínimo)
-    if (candidates.length < minCount) {
-        console.log(`⚠️ Pool estricto pequeño (${candidates.length}). Relajando volatilidad...`);
-        const needed = minCount - candidates.length;
-        const relaxed = fundDatabase.filter(f => {
-            const relaxedVol = Math.max(profile.maxVol * 1.5, 0.04);
-            // Relax history check here too? Allow > 1 year or missing?
-            // Let's keep filters simple: Just vol and allowed types
-            return profile.allowed.includes(f.std_type) && f.std_perf?.volatility <= relaxedVol;
-        });
-        // Merge unique? Or just replace?
-        // Let's just use the relaxed pool if strict failed to provide enough.
-        candidates = relaxed;
-    }
-
-    // INTENTO 3: Expansión de Categoría (Perfiles bajos)
-    if (candidates.length < minCount && riskLevel <= 4) {
-        console.log(`⚠️ Pool sigue pequeño. Incluyendo Mixtos/RF Globales seguros.`);
-        candidates = fundDatabase.filter(f => {
-            const safeVol = 0.06;
-            const isSafe = f.std_perf?.volatility <= safeVol;
-            const isNotRiskyEquity = f.std_type !== 'RV' || f.std_perf?.volatility < 0.04;
-            return isSafe && isNotRiskyEquity;
-        });
-    }
-
-    // --- DEDUPLICACIÓN POR MAYOR COMISIÓN ---
-    // Agrupar por "Nombre Base", elegir el de mayor comisión
-    const groups = {};
-    candidates.forEach(f => {
-        const base = getBaseName(f.name);
-        if (!groups[base]) groups[base] = [];
-        groups[base].push(f);
-    });
-
-    const uniqueCandidates = Object.values(groups).map(group => {
-        if (group.length === 1) return group[0];
-        // Sort by Fee Descending
-        group.sort((a, b) => getFee(b) - getFee(a));
-        return group[0]; // Pick highest fee
-    });
-
-    // Puntuar y ordenar
-    const scored = uniqueCandidates.map(f => ({ ...f, finalScore: calculateScore(f) }));
-    return scored.sort((a, b) => b.finalScore - a.finalScore);
-}
-
-// Helper to extract "Base Name" to avoid selecting multiple classes of same fund
-function getBaseName(name) {
-    if (!name) return '';
-    let base = name.toUpperCase();
-
-    // Remove common suffixes/prefixes
-    const markers = [
-        ' CLASS', ' CL ', ' ACC', ' INC', ' DIST', ' EUR', ' USD', ' HEDGED',
-        ' (EUR)', ' (USD)', ' A ', ' B ', ' C ', ' I ', ' Y ', ' R ',
-        ' AE-KJ', ' A-ACC', ' A-DIST', ' I-ACC', ' I-DIST'
-    ];
-
-    // Truncate at first occurrence of specific technical markers if usually name is prefix
-    // Or just identifying uniqueness. Simple approach: First 15 chars often unique enough? No.
-    // Better: Remove "Share Class" noise.
-
-    markers.forEach(m => {
-        base = base.replace(m, '');
-    });
-
-    // Remove text inside parenthesis
-    base = base.replace(/\(.*\)/g, '').trim();
-
-    return base.substring(0, 25).trim(); // Limit length to avoid over-specificity
+function profileAllowedType(type, allowedList) {
+    if (!type) return false;
+    // Mapeo flexible
+    if (allowedList.includes('RV') && (type === 'Equity' || type === 'RV')) return true;
+    if (allowedList.includes('RF') && (type === 'Fixed Income' || type === 'RF')) return true;
+    if (allowedList.includes('Mixto') && (type === 'Mixed' || type === 'Mixto' || type === 'Allocation')) return true;
+    if (allowedList.includes('Monetario') && (type === 'Money Market' || type === 'Monetario')) return true;
+    if (allowedList.includes('Retorno Absoluto') && type === 'Alternative') return true;
+    return false;
 }
 
 // ============================================================================
-// MOTOR PRINCIPAL
+// 3. MOTOR DE SELECCIÓN & ORDENAMIENTO
 // ============================================================================
-export function generateSmartPortfolio(riskLevel, fundDatabase, targetCount = 5) {
-    console.log(`⚡ Generando cartera laxa para Nivel ${riskLevel} con ${targetCount} activos.`);
+
+function getRankedCandidates(riskLevel, fundDatabase) {
     const profile = RISK_MATRIX[riskLevel];
-    if (!profile) return [];
 
-    const eligibleFunds = getPoolOfCandidates(riskLevel, profile, fundDatabase, targetCount);
+    // 1. Filtrado Inicial (Hard Rules)
+    const validFunds = fundDatabase.filter(f => isSafeCandidate(f, profile));
 
-    // Selección de Estrategia
-    let strategy;
-    if (riskLevel <= 3) strategy = GEO_STRATEGY.euro_focus;
-    else if (riskLevel <= 5) strategy = GEO_STRATEGY.balanced;
-    else if (riskLevel <= 7) strategy = GEO_STRATEGY.dynamic;
-    else if (riskLevel <= 9) strategy = GEO_STRATEGY.aggressive;
-    else strategy = GEO_STRATEGY.high_conviction;
+    // 2. Scoring "Cost-Agnostic"
+    const scoredFunds = validFunds.map(f => ({
+        ...f,
+        advancedScore: calculateScoreV2(f)
+    }));
 
-    let finalPortfolio = [];
-    const usedISINs = new Set();
-    const usedCompanies = {}; // Track manager concentration
-    // const usedBaseNames = new Set(); // Removed: deduplication is handled in pool selection
-
-    // Calcular cupos por bucket
-    const coreWeight = strategy.core?.weight || 0;
-    const satWeight = strategy.satellite?.weight || 0;
-    const extraWeight = strategy.extra?.weight || 0;
-
-    // Asignación proporcional de slots (mínimo 1 si hay peso)
-    let coreSlots = coreWeight > 0 ? Math.max(1, Math.round(targetCount * (coreWeight / 100))) : 0;
-    let satSlots = satWeight > 0 ? Math.max(1, Math.round(targetCount * (satWeight / 100))) : 0;
-    let extraSlots = extraWeight > 0 ? Math.max(1, Math.round(targetCount * (extraWeight / 100))) : 0;
-
-    // Ajuste fino para coincidir con targetCount
-    let currentSlots = coreSlots + satSlots + extraSlots;
-    while (currentSlots > targetCount && coreSlots > 1) { coreSlots--; currentSlots--; }
-    while (currentSlots < targetCount) { coreSlots++; currentSlots++; }
-
-    // Función auxiliar de filtrado
-    const isCandidateValid = (f) => {
-        if (usedISINs.has(f.isin)) return false;
-
-        // Diversity Rule: Max 2 funds from same company
-        const company = f.std_extra?.company || 'Unknown';
-        // If company is 'Unknown', allow up to 4 to avoid blocking due to bad data
-        const limit = company === 'Unknown' ? 5 : 2;
-
-        if ((usedCompanies[company] || 0) >= limit) return false;
-
-        return true;
-    };
-
-    const fillBucket = (rule, allocation, slots) => {
-        if (!rule || allocation <= 0 || slots <= 0) return;
-
-        // Try strict region match
-        let picks = eligibleFunds.filter(f => isCandidateValid(f) && f.std_region === rule.region);
-
-        if (picks.length < slots) {
-            // Fallback 1: Broad Regions (USA/Europe/Global mixed)
-            picks = eligibleFunds.filter(f => isCandidateValid(f) && (f.std_region === 'Global' || f.std_region === 'USA' || f.std_region === 'Europe'));
-        }
-
-        if (picks.length < slots) {
-            // Fallback 2: Any region (ignore region)
-            picks = eligibleFunds.filter(f => isCandidateValid(f));
-        }
-
-        picks.slice(0, slots).forEach(f => {
-            finalPortfolio.push({ ...f, weight: allocation / slots });
-            usedISINs.add(f.isin);
-
-            // Track Company
-            const comp = f.std_extra?.company || 'Unknown';
-            usedCompanies[comp] = (usedCompanies[comp] || 0) + 1;
-        });
-    };
-
-    fillBucket(strategy.core, strategy.core?.weight || 0, coreSlots);
-    if (strategy.satellite) fillBucket(strategy.satellite, strategy.satellite.weight, satSlots);
-    if (strategy.extra) fillBucket(strategy.extra, strategy.extra.weight, extraSlots);
-
-    // Garantía de mínimos (rellenar si no se encontraron suficientes)
-    if (finalPortfolio.length < targetCount) {
-        console.log("⚠️ Cartera incompleta. Rellenando...");
-        const needed = targetCount - finalPortfolio.length;
-        const filler = eligibleFunds.filter(f => isCandidateValid(f)).slice(0, needed);
-        filler.forEach(f => {
-            finalPortfolio.push({ ...f, weight: 0 }); // se normalizará después
-            usedISINs.add(f.isin);
-        });
-    }
-
-    // Normalizar pesos
-    if (finalPortfolio.length > 0) {
-        const currentSum = finalPortfolio.reduce((s, f) => s + (f.weight || 0), 0);
-
-        // Si hay pesos 0 (relleno) o suma 0
-        if (currentSum === 0 || finalPortfolio.some(f => f.weight === 0)) {
-            finalPortfolio.forEach(f => {
-                if (f.weight === 0) f.weight = 100 / finalPortfolio.length;
-            });
-        }
-
-        const totalW = finalPortfolio.reduce((s, f) => s + f.weight, 0);
-        finalPortfolio.forEach(f => f.weight = (f.weight / totalW) * 100);
-    }
-
-    return finalPortfolio;
+    // 3. Ordenar por Score descendente
+    return scoredFunds.sort((a, b) => b.advancedScore - a.advancedScore);
 }
+
+// ============================================================================
+// 4. MOTOR HIDRÁULICO DE ASIGNACIÓN (Compensación de Pesos)
+// ============================================================================
+
+export function generateSmartPortfolio(riskLevel, fundDatabase, targetCount = 5) {
+    console.log(`⚡ [Hydraulic Engine] Generando cartera Nivel ${riskLevel} - Europe Centric`);
+
+    const candidates = getRankedCandidates(riskLevel, fundDatabase);
+
+    if (candidates.length === 0) return [];
+
+    let portfolio = [];
+    let currentExposure = { europe: 0, usa: 0, rest: 0 };
+    const usedISINs = new Set();
+    const usedCompanies = {};
+
+    // Helper: Estimar exposición real de un fondo
+    // Si no tenemos desglose exacto, usamos heurísticos por región declarada
+    const estimateFundExposure = (fund) => {
+        // Si tuviera datos reales de 'regions', usarlos:
+        // if (fund.regions) return fund.regions; 
+
+        const reg = (fund.std_region || 'Global').toLowerCase();
+
+        if (reg === 'usa' || reg.includes('united states')) return { europe: 0, usa: 1, rest: 0 };
+        if (reg === 'europe' || reg === 'euro') return { europe: 1, usa: 0, rest: 0 };
+        if (reg === 'global') return { europe: 0.20, usa: 0.60, rest: 0.20 }; // El "problema" de los globales standard
+        if (reg === 'emerging' || reg === 'asia') return { europe: 0, usa: 0, rest: 1 };
+
+        return { europe: 0.33, usa: 0.33, rest: 0.33 }; // Fallback mixto
+    };
+
+    // BUCLE DE CONSTRUCCIÓN "HIDRÁULICA"
+    // Intentamos llenar la cartera fondo a fondo, eligiendo el que mejor equilibre la balanza hacia el Target Macro.
+
+    for (let i = 0; i < targetCount; i++) {
+        // Calcular déficit actual (Qué región necesitamos más desesperadamente)
+        // (Normalizamos por el número de fondos que faltan para no pedir todo de golpe)
+
+        // Peso medio que tendrá este nuevo fondo (aprox 1/N)
+        const slotWeight = 1 / targetCount;
+
+        // ¿Cómo quedaría la cartera si añadimos un fondo ideal?
+        // Buscamos el fondo que minimice la distancia al MACRO_TARGETS global.
+
+        let bestCandidate = null;
+        let bestImpactScore = -Infinity;
+
+        // Revisar top 50 candidatos disponibles (para no iterar todo)
+        const topCandidates = candidates.filter(f => !usedISINs.has(f.isin)).slice(0, 50);
+
+        for (const cand of topCandidates) {
+            // Check Diversity implícito
+            const company = cand.std_extra?.company || 'Unknown';
+            if ((usedCompanies[company] || 0) >= 2) continue;
+
+            const exposure = estimateFundExposure(cand);
+
+            // Simular anadir este fondo
+            // const simulatedEurope = currentExposure.europe + (exposure.europe * slotWeight);
+            // const simulatedUsa = currentExposure.usa + (exposure.usa * slotWeight);
+            // ... (rest no crítico para decisión inmediata)
+
+            // Distancia al target ideal (Queremos acercarnos a 40% EU, 35% USA)
+            // Calculamos "Utilidad Marginal": Cuánto reduce el error cuadrático o simple.
+
+            // Simplificación Heurística:
+            // Score = ScoreIntrínseco + BonusPorEncaje
+
+            // Bonus: Si necesito Europa y fondo es Europa -> +++
+            // Déficits actuales (positivos significa que falta)
+            const deficitEurope = MACRO_TARGETS.europe - currentExposure.europe;
+            const deficitUsa = MACRO_TARGETS.usa - currentExposure.usa;
+
+            let fitScore = 0;
+            if (deficitEurope > deficitUsa && exposure.europe > 0.5) fitScore += 50; // Gran bonus si cubre necesidad principal
+            if (deficitUsa > deficitEurope && exposure.usa > 0.5) fitScore += 50;
+            if (exposure.europe > 0.8 && deficitEurope > 0.1) fitScore += 20; // Pure Europe bonus
+
+            // Valoración Final Combinada
+            // Priorizamos calidad (advancedScore) pero el Fit es el "Hydraulic Compensator"
+            const totalUtility = cand.advancedScore + fitScore;
+
+            if (totalUtility > bestImpactScore) {
+                bestImpactScore = totalUtility;
+                bestCandidate = cand;
+            }
+        }
+
+        if (bestCandidate) {
+            // Añadir fondo
+            bestCandidate.weight = (100 / targetCount); // Peso equiponderado inicial
+            portfolio.push(bestCandidate);
+            usedISINs.add(bestCandidate.isin);
+
+            const comp = bestCandidate.std_extra?.company || 'Unknown';
+            usedCompanies[comp] = (usedCompanies[comp] || 0) + 1;
+
+            // Actualizar Exposición Acumulada (aproximada para la siguiente iteración)
+            const exp = estimateFundExposure(bestCandidate);
+            currentExposure.europe += (exp.europe * slotWeight);
+            currentExposure.usa += (exp.usa * slotWeight);
+            currentExposure.rest += (exp.rest * slotWeight);
+
+            console.log(`   > Added ${bestCandidate.name} (Fit: ${bestCandidate.advancedScore.toFixed(0)} + GapBonus). New Exposure: EU ${(currentExposure.europe * 100).toFixed(0)}% / USA ${(currentExposure.usa * 100).toFixed(0)}%`);
+        } else {
+            console.log("   ⚠️ No more valid candidates found to fill slot.");
+            break;
+        }
+    }
+
+    return portfolio;
+}
+
