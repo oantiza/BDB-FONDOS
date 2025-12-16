@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Sidebar({ assets = [], onAddAsset }) {
+export default function Sidebar({ assets = [], onAddAsset, onViewFund }) {
   const [term, setTerm] = useState('')
 
   const filtered = assets.filter(a => {
@@ -31,14 +31,36 @@ export default function Sidebar({ assets = [], onAddAsset }) {
           filtered.map(f => (
             <div
               key={f.isin}
-              onClick={() => onAddAsset(f)}
-              className="p-3 border-b border-gray-100 hover:bg-gray-50 cursor-pointer flex justify-between items-center group transition-colors first:border-t-0"
+              className="p-3 border-b border-gray-100 hover:bg-gray-50 flex justify-between items-center group transition-colors first:border-t-0"
             >
-              <div className="min-w-0 pr-2">
-                <div className="text-sm font-bold text-gray-700 truncate" title={f.name}>{f.name}</div>
+              <div
+                className="min-w-0 pr-2 flex-1 cursor-pointer"
+                onClick={() => onAddAsset(f)}
+                title="Añadir a cartera"
+              >
+                <div className="text-sm font-bold text-gray-700 truncate">{f.name}</div>
                 <div className="text-xs text-gray-400 font-mono">{f.isin}</div>
               </div>
-              <span className="text-[var(--color-accent)] font-bold opacity-0 group-hover:opacity-100 text-lg shrink-0">+</span>
+
+              <div className="flex items-center gap-2 shrink-0">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation()
+                    if (onViewFund) onViewFund(f)
+                  }}
+                  className="text-gray-300 hover:text-blue-500 transition-colors p-1"
+                  title="Ver Ficha"
+                >
+                  ℹ️
+                </button>
+                <span
+                  onClick={() => onAddAsset(f)}
+                  className="text-[var(--color-accent)] font-bold opacity-0 group-hover:opacity-100 text-lg cursor-pointer px-1"
+                  title="Añadir"
+                >
+                  +
+                </span>
+              </div>
             </div>
           ))
         )}

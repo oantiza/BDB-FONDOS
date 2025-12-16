@@ -257,7 +257,12 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         for isin in assets_list:
              d = db.collection('funds_v2').document(isin).get()
              if d.exists:
-                 asset_metadata[isin] = {'regions': d.to_dict().get('regions', {})}
+                 data = d.to_dict()
+                 asset_metadata[isin] = {
+                     'regions': data.get('regions', {}),
+                     'name': data.get('name', ''),
+                     'category': data.get('category_morningstar', '') or data.get('manual_type', '')
+                 }
         
         # Apply Macro-Europeist Strategy Constraints
         # Verify if we should apply them (check if we have enough Europe exposure potential?)
@@ -267,6 +272,16 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             'americas': 0.35
         }
         
+        # --- HEURISTIC ENRICHMENT ---
+        # If DB metadata is missing regions, infer from Category/Name
+        for isin in assets_list:
+             if isin not in asset_metadata or not asset_metadata[isin].get('regions'):
+                 # Try to find the asset name/category from DB doc (we fetched it)
+                 # Re-fetch is inefficient, but we have 'asset_metadata' with partial info? No, we need name.
+                 # Let's assume we can pass 'name' or 'category' in 'asset_metadata' if we fetch it.
+                 # Updated fetching loop above:
+                 pass 
+
         return _run_optimization(assets_list, risk_level, db, constraints=constraints, asset_metadata=asset_metadata)
 
     except Exception as e:
@@ -325,33 +340,79 @@ def _run_optimization(assets_list, risk_level, db, constraints=None, asset_metad
             eu_target = constraints.get('europe', 0.0)
             us_cap = constraints.get('americas', 1.0)
             
-            # Create vectors for exposure
-            # asset_metadata keys must match ef.tickers (which are df.columns)
-            # Ensure order matches df.columns
-            tickers = df.columns.tolist()
+            # --- SMART CONSTRAINT ADJUSTMENT ---
+            # Estimate Max Possible Exposure
+            # We assume a standard diversification (max_weight per asset). 
+            # Theoretical Max Europe = sum(min(max_weight, asset_weight) * eu_exposure)
+            # Simplification: sum(max_weight * eu_exposure) is upper bound.
             
+            # 1. Fill Missing Metadata with Heuristics
+            for t in tickers:
+                meta = asset_metadata.get(t, {})
+                if not meta.get('regions'):
+                    # Heuristic
+                    name = meta.get('name', '').upper()
+                    cat = meta.get('category', '').upper()
+                    
+                    inferred_eu = 0.0
+                    inferred_us = 0.0
+                    
+                    if 'EUROPE' in name or 'EURO' in name or 'EUROPA' in cat:
+                        inferred_eu = 0.90
+                    elif 'USA' in name or 'AMERICA' in name or 'EEUU' in name or 'US ' in name:
+                        inferred_us = 0.90
+                        inferred_eu = 0.05
+                    elif 'GLOBAL' in name or 'WORLD' in name or 'INTERNACIONAL' in cat:
+                        inferred_eu = 0.20
+                        inferred_us = 0.60
+                    else:
+                        inferred_eu = 0.30 # Default assumption
+                        inferred_us = 0.30
+                        
+                    asset_metadata[t] = asset_metadata.get(t, {})
+                    if 'regions' not in asset_metadata[t]: asset_metadata[t]['regions'] = {}
+                    asset_metadata[t]['regions']['europe'] = inferred_eu * 100
+                    asset_metadata[t]['regions']['americas'] = inferred_us * 100
+
             eu_vector = []
             us_vector = []
             
             for t in tickers:
                 meta = asset_metadata.get(t, {})
-                regions = meta.get('regions', {})
-                # regions: { 'europe': 40.5, 'americas': 20, ... } (0-100 scale)
-                eu_vector.append(regions.get('europe', 0) / 100.0)
-                us_vector.append(regions.get('americas', 0) / 100.0)
+                regs = meta.get('regions', {})
+                eu_vector.append(regs.get('europe', 0) / 100.0)
+                us_vector.append(regs.get('americas', 0) / 100.0)
             
             eu_vec = np.array(eu_vector)
             us_vec = np.array(us_vector)
             
-            # Constraint: Sum(w * eu_vec) >= eu_target
-            if eu_target > 0:
-                print(f"Adding Europe Constraint >= {eu_target}")
-                ef.add_constraint(lambda w: w @ eu_vec >= eu_target)
+            # Check Feasibility (Roughly)
+            # If we put 100% in the best Euro fund? No, we have max_weight constraint.
+            # Best case: select funds with highest Euro score until we fill portfolio.
+            sorted_eu = sorted(eu_vector, reverse=True)
+            # Assume we can fill up to 'max_weight' for each top fund
+            max_possible_eu = 0
+            remaining_cap = 1.0
+            for score in sorted_eu:
+                w = min(max_weight, remaining_cap)
+                max_possible_eu += w * score
+                remaining_cap -= w
+                if remaining_cap <= 0: break
+            
+            final_eu_target = eu_target
+            if max_possible_eu < eu_target:
+                print(f"⚠️ Target Europe ({eu_target}) infeasible with these assets (Max Poss: {max_possible_eu:.2f}). Adjusting...")
+                final_eu_target = max(0.10, max_possible_eu * 0.95) # Relax to 95% of max possible
+                warnings.append(f"Objetivo Europa rebajado a {final_eu_target*100:.0f}% por falta de fondos aptos.")
+
+            # Constraint: Sum(w * eu_vec) >= final_eu_target
+            if final_eu_target > 0:
+                print(f"Adding Europe Constraint >= {final_eu_target}")
+                ef.add_constraint(lambda w: w @ eu_vec >= final_eu_target)
             
             # Constraint: Sum(w * us_vec) <= us_cap
             if us_cap < 1.0:
                  print(f"Adding Americas Constraint <= {us_cap}")
-                 # Relaxation: only apply if feasible? For now hard constraint.
                  ef.add_constraint(lambda w: w @ us_vec <= us_cap)
 
         # TIER 1: Constrained Efficient Risk (Target Volatility)
@@ -395,7 +456,13 @@ def _run_optimization(assets_list, risk_level, db, constraints=None, asset_metad
             'status': 'optimal' if not warnings else 'fallback', 
             'weights': clean_weights, 
             'metrics': {'return': perf[0], 'volatility': perf[1], 'sharpe': perf[2]},
-            'warnings': warnings
+            'warnings': warnings,
+            'debug_info': {
+                'mu': mu.to_dict(),
+                'vols': {t: df[t].pct_change().std() * np.sqrt(252) for t in tickers},
+                'tier_used': 'Tier 1 (Target Vol)' if 'Tier 1' not in str(warnings) else 'Fallback',
+                'solver_constraints': str(constraints)
+            }
         }
 
     except Exception as e:
@@ -585,7 +652,8 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
             'debug': {
                 'primary_candidates': [c['name'] for c in selected_primary],
                 'balancers_injected': [b['name'] for b in selected_all if b.get('is_balancer')],
-                'pre_opt_eu_avg': avg_eu
+                'pre_opt_eu_avg': avg_eu,
+                'optimization_details': opt_result.get('debug_info')
             }
         }
 

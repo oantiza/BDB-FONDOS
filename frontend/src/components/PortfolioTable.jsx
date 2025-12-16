@@ -1,4 +1,4 @@
-export default function PortfolioTable({ assets = [], totalCapital = 0, onRemove, onUpdateWeight }) {
+export default function PortfolioTable({ assets = [], totalCapital = 0, onRemove, onUpdateWeight, onViewFund }) {
     if (assets.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-full text-slate-500 text-sm italic p-6">
@@ -16,8 +16,18 @@ export default function PortfolioTable({ assets = [], totalCapital = 0, onRemove
                         const val = (totalCapital * (asset.weight / 100))
                         return (
                             <tr key={asset.isin} className="border-b border-slate-50 hover:bg-slate-50 group transition-colors">
-                                <td className="p-3 truncate max-w-[180px] font-bold text-slate-700 text-sm" title={asset.name}>
-                                    {asset.name}
+                                <td className="p-3 truncate max-w-[180px]">
+                                    <button
+                                        onClick={() => {
+                                            console.log("Clicked fund:", asset.name)
+                                            if (onViewFund) onViewFund(asset)
+                                            else console.warn("onViewFund prop missing")
+                                        }}
+                                        className="font-bold text-slate-700 hover:text-blue-600 hover:underline text-left truncate w-full"
+                                        title="Ver Ficha del Fondo"
+                                    >
+                                        {asset.name}
+                                    </button>
                                 </td>
                                 <td className="p-3 text-right">
                                     <div className="flex items-center justify-end gap-1">

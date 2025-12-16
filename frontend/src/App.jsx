@@ -27,6 +27,7 @@ import TacticalModal from './components/modals/TacticalModal'
 import MacroTacticalModal from './components/modals/MacroTacticalModal'
 import OptimizationReviewModal from './components/modals/OptimizationReviewModal'
 import DataAuditModal from './components/modals/DataAuditModal'
+import FundDetailModal from './components/modals/FundDetailModal'
 
 
 // Pages
@@ -141,6 +142,7 @@ function App() {
 
   const [showReviewModal, setShowReviewModal] = useState(false)
   const [showAudit, setShowAudit] = useState(false)
+  const [selectedFund, setSelectedFund] = useState(null) // For Detail Modal
 
 
   // VIEW NAVIGATION
@@ -355,6 +357,7 @@ function App() {
       })
 
       const result = response.data
+      console.log("FULL OPTIMIZATION RESULT:", result) // DEBUG INJECTION
       if (result.status === 'optimal' || result.status === 'fallback') {
         const weights = result.weights || {}
 
@@ -438,7 +441,11 @@ function App() {
         {/* COL 1: SIDEBAR (15%) */}
         <div className="w-[15%] h-full flex flex-col bg-slate-100 p-2">
           <div className="flex-1 overflow-hidden relative rounded-lg border border-slate-200">
-            <Sidebar assets={assets} onAddAsset={handleAddAsset} />
+            <Sidebar
+              assets={assets}
+              onAddAsset={handleAddAsset}
+              onViewFund={(f) => setSelectedFund(f)}
+            />
           </div>
         </div>
 
@@ -544,6 +551,7 @@ function App() {
                   totalCapital={totalCapital}
                   onRemove={handleRemoveAsset}
                   onUpdateWeight={handleUpdateWeight}
+                  onViewFund={(f) => setSelectedFund(f)}
                 />
               </div>
             </div>
@@ -654,6 +662,14 @@ function App() {
       }
       {/* NEW: Data Audit Modal */}
       {showAudit && <DataAuditModal onClose={() => setShowAudit(false)} />}
+
+      {/* NEW: Fund Detail Modal */}
+      {selectedFund && (
+        <FundDetailModal
+          fund={selectedFund}
+          onClose={() => setSelectedFund(null)}
+        />
+      )}
     </div>
   )
 }
