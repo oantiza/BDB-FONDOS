@@ -1,6 +1,6 @@
 export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, onOpenAudit }) {
     return (
-        <header className="h-16 bg-[#0B2545] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-slate-700">
+        <header className="h-16 bg-[#0B2545] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b-4 border-[#D4AF37]">
             <div className="flex flex-col">
                 <div className="font-serif text-xl font-bold tracking-tight">Gestor de <span className="text-[#D4AF37]">Fondos</span></div>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-gray-400">Portfolio Intelligence</div>

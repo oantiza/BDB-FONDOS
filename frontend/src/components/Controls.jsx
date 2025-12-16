@@ -56,7 +56,7 @@ export default function Controls({
                         <select
                             value={selectedCategory}
                             onChange={(e) => setSelectedCategory(e.target.value)}
-                            className="w-full text-[10px] bg-slate-200 border-none rounded px-2 py-1 outline-none text-slate-700"
+                            className="w-full text-[10px] bg-white border border-slate-200 rounded px-2 py-1 outline-none text-slate-700 shadow-sm focus:border-[var(--color-accent)] transition-colors"
                         >
                             <option value="All">Todas</option>
                             {categories.map(c => (
