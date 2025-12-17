@@ -1,7 +1,13 @@
 {
     "functions": {
         "source": "functions_python",
-        "runtime": "python311"
+        "runtime": "python311",
+        "ignore": [
+            "venv",
+            ".git",
+            "__pycache__",
+            "*.pyc"
+        ]
     },
     "hosting": {
         "public": "frontend/dist",

@@ -1,28 +1,33 @@
-@import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 /* Imports de Fuentes (Roboto & Playfair) */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
 
-/* === THEME VARIABLES === */
+/* Variables CSS nativas (Matching Mi Boutique) */
 :root {
-  /* Light Theme (Default) */
   --color-brand: #0B2545;
   --color-accent: #D4AF37;
   --color-bg-main: #F3F4F6;
+  /* Light Gray */
   --color-bg-card: #FFFFFF;
+  /* White */
   --color-text-primary: #1F2937;
+  /* Dark Gray */
   --color-text-secondary: #6B7280;
-  --color-border: #E5E7EB;
+  /* Gray 500 */
 }
-
-/* Dark Theme Removed */
 
 /* Clases utilitarias personalizadas */
 @layer components {
+
+  /* Glass card adapted for light theme (cleaner look) */
   .glass-card {
     @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm;
   }
 
+  /* Utilities for consistency */
   .card-base {
     @apply bg-white rounded-lg border border-gray-200 shadow-sm;
   }
@@ -48,13 +53,11 @@
 
 /* Estilos base del body */
 body {
-  background-color: var(--color-bg-main);
-  color: var(--color-text-primary);
-  @apply font-sans antialiased;
+  @apply bg-[#F3F4F6] text-[#1F2937] font-sans antialiased;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Evita doble scrollbar si la App maneja el layout */
 }

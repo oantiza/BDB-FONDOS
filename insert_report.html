@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Insert Monthly Report</title>
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { getFunctions, httpsCallable } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-functions.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBvT1dl1cqFQLAAqLfuumKIVzL078LQwmw",
+            authDomain: "bdb-fondos.firebaseapp.com",
+            projectId: "bdb-fondos",
+            storageBucket: "bdb-fondos.firebasestorage.app",
+            messagingSenderId: "224039281626",
+            appId: "1:224039281626:web:058e5268888ce78afa56e3"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const functions = getFunctions(app, 'europe-west1');
+
+        window.insertReport = async function () {
+            const button = document.getElementById('insertBtn');
+            const status = document.getElementById('status');
+
+            button.disabled = true;
+            status.textContent = '⏳ Insertando informe...';
+            status.className = 'status pending';
+
+            try {
+                const insertMonthlyReport = httpsCallable(functions, 'insertMonthlyReport');
+                const result = await insertMonthlyReport({});
+
+                console.log('Result:', result.data);
+
+                if (result.data.success) {
+                    status.textContent = '✅ ¡Informe insertado exitosamente! ID: ' + result.data.doc_id;
+                    status.className = 'status success';
+                } else {
+                    status.textContent = '❌ Error: ' + result.data.error;
+                    status.className = 'status error';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                status.textContent = '❌ Error: ' + error.message;
+                status.className = 'status error';
+                button.disabled = false;
+            }
+        };
+    </script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0B2545;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        button {
+            background: #D4AF37;
+            color: #0B2545;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        button:hover:not(:disabled) {
+            background: #c49d2e;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>📊 Migración de Informe</h1>
+        <p>Este script insertará el informe mensual de diciembre 2025 en la base de datos <code>bdb-fondos</code>.</p>
+        <p><strong>Contenido del informe:</strong></p>
+        <ul>
+            <li>Tipo: MONTHLY_PORTFOLIO</li>
+            <li>Fecha: 2025-12-07</li>
+            <li>7 clases de activos</li>
+            <li>7 drivers clave del mercado</li>
+        </ul>
+        <button id="insertBtn" onclick="insertReport()">🚀 Insertar Informe</button>
+        <div id="status"></div>
+    </div>
+</body>
+
+</html>

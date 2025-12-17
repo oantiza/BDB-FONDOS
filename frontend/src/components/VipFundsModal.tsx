@@ -48,16 +48,16 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
 
     return (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm">
-            <div className="bg-white dark:bg-slate-800 rounded-lg shadow-xl w-full max-w-md border border-slate-200 dark:border-slate-700 flex flex-col max-h-[90vh]">
+            <div className="bg-white rounded-lg shadow-xl w-full max-w-md border border-slate-200 flex flex-col max-h-[90vh]">
 
                 {/* Header */}
-                <div className="flex items-center justify-between p-2 border-b border-slate-100 dark:border-slate-700">
-                    <h3 className="text-xs font-bold text-slate-800 dark:text-slate-100 flex items-center gap-2 uppercase tracking-wider">
+                <div className="flex items-center justify-between p-2 border-b border-slate-100">
+                    <h3 className="text-xs font-bold text-slate-800 flex items-center gap-2 uppercase tracking-wider">
                         💎 Configurar Fondos VIP
                     </h3>
                     <button
                         onClick={onClose}
-                        className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 transition-colors"
+                        className="text-slate-400 hover:text-slate-600 transition-colors"
                     >
                         ✕
                     </button>
@@ -65,7 +65,7 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
 
                 {/* Body */}
                 <div className="p-4 overflow-y-auto flex-1">
-                    <p className="text-sm text-slate-500 dark:text-slate-400 mb-4">
+                    <p className="text-sm text-slate-500 mb-4">
                         Añade los ISINs de los fondos que quieres que <b>siempre</b> se incluyan en la generación de cartera (fondos ancla).
                     </p>
 
@@ -80,7 +80,7 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
                             }}
                             onKeyDown={handleKeyDown}
                             placeholder="Ej: LU1234567890"
-                            className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)] dark:text-white uppercase placeholder:normal-case"
+                            className="flex-1 bg-slate-50 border border-slate-200 rounded px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)] uppercase placeholder:normal-case"
                         />
                         <button
                             onClick={handleAdd}
@@ -101,13 +101,13 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
                         </div>
 
                         {isins.length === 0 ? (
-                            <div className="text-sm text-slate-400 italic py-2 text-center bg-slate-50 dark:bg-slate-900/50 rounded border border-dashed border-slate-200 dark:border-slate-700">
+                            <div className="text-sm text-slate-400 italic py-2 text-center bg-slate-50 rounded border border-dashed border-slate-200">
                                 No has añadido ningún fondo ancla
                             </div>
                         ) : (
                             <div className="flex flex-wrap gap-2 max-h-60 overflow-y-auto">
                                 {isins.map(isin => (
-                                    <div key={isin} className="group flex items-center gap-2 bg-slate-100 dark:bg-slate-700/50 border border-slate-200 dark:border-slate-600 rounded-full px-3 py-1 text-sm text-slate-700 dark:text-slate-200">
+                                    <div key={isin} className="group flex items-center gap-2 bg-slate-100 border border-slate-200 rounded-full px-3 py-1 text-sm text-slate-700">
                                         <span className="font-mono">{isin}</span>
                                         <button
                                             onClick={() => handleRemove(isin)}
@@ -124,16 +124,16 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
                 </div>
 
                 {/* Footer */}
-                <div className="p-4 border-t border-slate-100 dark:border-slate-700 flex justify-end gap-2 bg-slate-50 dark:bg-slate-900/30 rounded-b-lg">
+                <div className="p-4 border-t border-slate-100 flex justify-end gap-2 bg-slate-50 rounded-b-lg">
                     <button
                         onClick={onClose}
-                        className="px-4 py-2 text-sm text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+                        className="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 transition-colors"
                     >
                         Cancelar
                     </button>
                     <button
                         onClick={handleSave}
-                        className="bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 px-6 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity"
+                        className="bg-slate-900 text-white px-6 py-2 rounded text-sm font-bold hover:opacity-90 transition-opacity"
                     >
                         Guardar Cambios
                     </button>

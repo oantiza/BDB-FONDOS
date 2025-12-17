@@ -83,7 +83,7 @@ export default function YieldCurveChart({ data }) {
     }
 
     return (
-        <div style={{ width: '100%', height: '100%' }}>
+        <div className="w-full h-full pb-2 pr-2">
             <Line data={chartData} options={options} />
         </div>
     )

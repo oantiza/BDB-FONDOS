@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
 
 const BASE_DATA = [
-    { id: 'vix', name: 'VIX Index', value: 13.45, change: -2.1, isPct: false, suffix: '' },
-    { id: 'us10y', name: 'US 10Y Yield', value: 4.21, change: 0.05, isPct: true, suffix: '%' },
-    { id: 'sppe', name: 'S&P 500 PE', value: 21.4, change: 0, isNeutral: true, suffix: 'x' }, // Change handled as string "Neutral" usually, but here numeric for ease
-    { id: 'hy', name: 'High Yield Spread', value: 320, change: -5, isPct: false, suffix: 'bps' },
+    { id: 'vix', name: 'VIX Index', value: 13.45, change: -2.1, isPct: false, suffix: '', isNeutral: false },
+    { id: 'us10y', name: 'US 10Y Yield', value: 4.21, change: 0.05, isPct: true, suffix: '%', isNeutral: false },
+    { id: 'sppe', name: 'S&P 500 PE', value: 21.4, change: 0, isNeutral: true, suffix: 'x' },
+    { id: 'hy', name: 'High Yield Spread', value: 320, change: -5, isPct: false, suffix: 'bps', isNeutral: false },
 ]
 
 export function useMarketSimulation() {
@@ -13,12 +13,12 @@ export function useMarketSimulation() {
     useEffect(() => {
         const interval = setInterval(() => {
             setDrivers(prev => prev.map(d => {
-                // Random walk
+                // Random walk logic
                 const move = (Math.random() - 0.5) * (d.value * 0.005) // 0.5% max move
                 const newValue = d.value + move
 
-                // Change tracking (accumulated or instant) - simplified: just show daily change fluctuating
-                const newChange = d.change + (Math.random() - 0.5) * 0.1
+                // Change tracking
+                const newChange = (d.change || 0) + (Math.random() - 0.5) * 0.1
 
                 return {
                     ...d,
@@ -26,7 +26,7 @@ export function useMarketSimulation() {
                     change: parseFloat(newChange.toFixed(2))
                 }
             }))
-        }, 3000) // Update every 3 seconds for visibility without chaos
+        }, 3000)
 
         return () => clearInterval(interval)
     }, [])

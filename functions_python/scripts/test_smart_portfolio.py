@@ -28,10 +28,10 @@ except ImportError:
     import main
 
 class TestSmartPortfolio(unittest.TestCase):
-    @patch('main.firestore.client')
-    @patch('main.get_price_data')
-    @patch('main._run_optimization') 
-    def test_hydraulic_balancer_logic(self, mock_run_opt, mock_get_price, mock_db):
+    @patch('services.optimizer.run_optimization') 
+    @patch('services.data.get_price_data')
+    @patch('services.optimizer.firestore.client')
+    def test_hydraulic_balancer_logic(self, mock_db, mock_get_price, mock_run_opt):
         mock_collection = MagicMock()
         mock_db.return_value.collection.return_value = mock_collection
         

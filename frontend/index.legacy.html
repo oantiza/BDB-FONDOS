@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexus Terminal | Global CIO Office</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+
+    <link rel="stylesheet" href="style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        // Dynamic Slate Palette for Theming
+                        slate: {
+                            900: 'var(--slate-900)', // Main BG
+                            800: 'var(--slate-800)', // Card BG
+                            700: 'var(--slate-700)', // Borders
+                            600: 'var(--slate-600)', // Text Secondary
+                            500: 'var(--slate-500)', // Text Muted
+                            400: 'var(--slate-400)', // Text
+                            300: 'var(--slate-300)', // Text
+                            200: 'var(--slate-200)', // Light Borders
+                            100: 'var(--slate-100)', // Text Primary
+                            50: 'var(--slate-50)'   // Lightest
+                        },
+                        dark: {
+                            900: '#0f172a',
+                            800: '#1e293b',
+                            700: '#334155',
+                        },
+                        accent: {
+                            DEFAULT: 'var(--accent)', // Dynamic Gold
+                            dim: '#b45309',
+                            navy: '#0B2545'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Playfair Display', 'serif'],
+                        mono: ['JetBrains Mono', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body
+    class="h-screen flex flex-col overflow-hidden bg-slate-900 text-slate-100 antialiased selection:bg-accent selection:text-white">
+
+    <!-- LOGIN OVERLAY -->
+    <div id="formulario-acceso"
+        class="fixed inset-0 z-[100] bg-slate-900/90 backdrop-blur-xl flex items-center justify-center p-4 transition-all duration-700">
+        <div
+            class="glass p-10 rounded-2xl shadow-xl w-96 relative overflow-hidden group border border-slate-700 bg-slate-800">
+            <div
+                class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-accent to-transparent opacity-50">
+            </div>
+            <div class="text-center mb-10">
+                <h1 class="font-serif text-4xl font-bold text-slate-100 mb-2">
+                    Nexus Terminal</h1>
+                <p class="text-[10px] uppercase tracking-[0.3em] text-accent font-mono">Global CIO Office</p>
+            </div>
+
+            <div class="space-y-6">
+                <div class="group/input relative">
+                    <input type="email" id="email"
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-sm focus:border-accent focus:ring-1 focus:ring-accent transition-all outline-none text-slate-100 placeholder-slate-500"
+                        placeholder="Identity">
+                </div>
+                <div class="group/input relative">
+                    <input type="password" id="password"
+                        class="w-full bg-slate-900 border border-slate-700 rounded-lg px-4 py-3 text-sm focus:border-accent focus:ring-1 focus:ring-accent transition-all outline-none text-slate-100 placeholder-slate-500"
+                        placeholder="Access Key">
+                </div>
+                <button onclick="login()"
+                    class="w-full bg-accent text-white font-bold py-3 rounded-lg hover:shadow-lg transition-all transform hover:-translate-y-0.5 uppercase tracking-wider text-sm">
+                    Initialize Session
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROTECTED CONTENT -->
+    <div id="contenido-protegido" class="hidden flex-1 flex flex-col h-full opacity-0 transition-opacity duration-1000">
+
+        <!-- HEADER -->
+        <header
+            class="h-14 bg-slate-900/90 backdrop-blur-md border-b border-slate-700 flex items-center justify-between px-6 z-40 shrink-0 shadow-sm">
+            <div class="flex items-center gap-4">
+                <div
+                    class="w-8 h-8 rounded bg-accent flex items-center justify-center text-white font-bold font-serif text-lg shadow-sm">
+                    N</div>
+                <div class="flex flex-col">
+                    <span class="font-serif text-lg font-bold text-slate-100 leading-none">Global <span
+                            class="text-accent">CIO</span></span>
+                </div>
+                <div class="h-6 w-px bg-slate-700 mx-2"></div>
+                <div class="flex items-center gap-2 text-xs font-mono text-slate-400">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+                    SYSTEM ONLINE
+                </div>
+                <!-- Theme Toggle -->
+                <button onclick="toggleTheme()"
+                    class="ml-4 p-2 rounded-full hover:bg-slate-700 text-slate-400 hover:text-accent transition-colors"
+                    title="Toggle Theme">
+                    <span id="theme-icon-moon" class="hidden">🌙</span>
+                    <span id="theme-icon-sun">☀️</span>
+                </button>
+            </div>
+
+            <div class="flex items-center gap-6">
+                <button id="btn-news-bell" class="relative group p-2 hover:bg-slate-800 rounded-full transition-colors">
+                    <svg class="w-5 h-5 text-slate-400 group-hover:text-accent transition-colors" fill="none"
+                        stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
+                        </path>
+                    </svg>
+                    <span class="absolute top-2 right-2 flex h-2 w-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-red-500"></span>
+                    </span>
+                </button>
+                <div class="flex items-center gap-3 pl-6 border-l border-slate-700">
+                    <div class="text-right hidden sm:block">
+                        <div class="text-xs font-bold text-slate-300">Chief Investment Officer</div>
+                        <div class="text-[10px] text-accent">Admin Access</div>
+                    </div>
+                    <button onclick="logout()" class="p-2 hover:text-red-500 transition-colors text-slate-400"
+                        title="Disconnect">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1">
+                            </path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- MAIN LAYOUT -->
+        <div class="flex flex-1 overflow-hidden">
+
+            <!-- SIDEBAR: ASSETS -->
+            <div
+                class="w-72 bg-slate-800 border-r border-slate-700 flex flex-col shrink-0 z-30 transition-all duration-300">
+                <div class="p-4 border-b border-slate-700 bg-slate-800">
+                    <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-3">Asset Universe</h3>
+                    <div class="relative group">
+                        <span
+                            class="absolute left-3 top-2.5 text-slate-400 group-focus-within:text-accent transition-colors">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                            </svg>
+                        </span>
+                        <input type="text" id="fund-search" placeholder="Search ISIN / Name..."
+                            class="w-full bg-slate-900 border border-slate-700 text-slate-200 text-sm rounded-lg py-2 pl-9 pr-3 focus:border-accent focus:ring-1 focus:ring-accent transition-all outline-none shadow-sm">
+                    </div>
+                </div>
+                <div id="main-grid-container" class="flex-1 overflow-y-auto scrollbar-thin p-2 space-y-1 bg-slate-800">
+                    <!-- Funds injected here -->
+                </div>
+            </div>
+
+            <!-- DASHBOARD CONTENT -->
+            <main class="flex-1 bg-slate-900 relative overflow-hidden flex flex-col">
+
+                <div class="w-full h-full p-6 overflow-hidden z-10 grid grid-cols-12 gap-6">
+
+                    <!-- LEFT COLUMN: MARKETS & PORTFOLIO -->
+                    <div class="col-span-8 flex flex-col gap-6 h-full min-h-0">
+
+                        <!-- MARKET OVERVIEW (Top Row) -->
+                        <div class="h-64 grid grid-cols-2 gap-4 shrink-0">
+                            <!-- Market Index -->
+                            <div
+                                class="bg-slate-800 rounded-xl shadow-sm border border-slate-700 p-5 flex flex-col relative overflow-hidden">
+                                <div class="flex justify-between items-center mb-4 z-20">
+                                    <h3 class="font-serif text-accent text-base font-bold flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 bg-accent rounded-full"></span> Global Markets
+                                    </h3>
+                                    <select id="market-index-selector"
+                                        class="bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 text-slate-400 hover:border-accent transition-colors cursor-pointer outline-none">
+                                        <option value="GSPC.INDX">S&P 500</option>
+                                        <option value="IXIC.INDX">Nasdaq 100</option>
+                                        <option value="STOXX50E.INDX">Euro Stoxx 50</option>
+                                        <option value="GDAXI.INDX">DAX 40</option>
+                                        <option value="IBEX.INDX">IBEX 35</option>
+                                    </select>
+                                </div>
+                                <div class="flex-1 relative w-full min-h-0">
+                                    <div id="loader-market"
+                                        class="absolute inset-0 flex items-center justify-center bg-slate-800/80 z-30">
+                                        <span class="animate-spin text-accent">⟳</span>
+                                    </div>
+                                    <canvas id="chart-market-index"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Yield Curve -->
+                            <div
+                                class="bg-slate-800 rounded-xl shadow-sm border border-slate-700 p-5 flex flex-col relative overflow-hidden">
+                                <div class="flex justify-between items-center mb-4 z-20">
+                                    <h3 class="font-serif text-sky-600 text-base font-bold flex items-center gap-2">
+                                        <span class="w-1.5 h-1.5 bg-sky-600 rounded-full"></span> Yield Curve
+                                    </h3>
+                                    <select id="yield-curve-selector"
+                                        class="bg-slate-900 border border-slate-700 text-xs rounded px-2 py-1 text-slate-400 hover:border-sky-600 transition-colors cursor-pointer outline-none">
+                                        <option value="US">US Treasury</option>
+                                        <option value="EU">Euro Bunds</option>
+                                    </select>
+                                </div>
+                                <div class="flex-1 relative w-full min-h-0">
+                                    <div id="loader-yield"
+                                        class="absolute inset-0 flex items-center justify-center bg-slate-800/80 z-30">
+                                        <span class="animate-spin text-sky-600">⟳</span>
+                                    </div>
+                                    <canvas id="chart-yield-curve"></canvas>
+                                </div>
+                            </div>
+                        </div><!-- PORTFOLIO TABLE (Bottom Panel) -->
+<div
+    class="flex-1 bg-slate-800 rounded-xl shadow-sm border border-slate-700 flex flex-col min-h-0 overflow-hidden relative">
+    <!-- Gradient Top Border -->
+    <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-accent via-accent-dim to-slate-400">
+    </div>
+
+    <div class="p-4 flex justify-between items-center shrink-0 border-b border-slate-700 bg-slate-800">
+        <span class="font-serif font-bold text-slate-100 tracking-wide">Active Portfolio</span>
+        <div class="flex items-center gap-3">
+            <span class="text-xs uppercase text-slate-400 font-bold">Total Allocation</span>
+            <div class="flex items-center bg-slate-900 rounded-lg px-3 py-1 border border-slate-700 shadow-sm">
+                <span class="text-accent mr-1">€</span>
+                <input type="number" id="investment_amount" value="100000"
+                    class="bg-transparent w-24 text-right text-slate-100 font-mono font-bold outline-none text-base">
+            </div>
+        </div>
+    </div>
+
+    <div class="flex-1 overflow-y-auto scrollbar-thin">
+        <table class="w-full text-left text-sm">
+            <thead
+                class="bg-slate-900 text-slate-400 uppercase font-bold sticky top-0 backdrop-blur-sm z-10 border-b border-slate-700">
+                <tr>
+                    <th class="py-3 pl-6 font-medium tracking-wider">Asset / ISIN</th>
+                    <th class="py-3 text-right">Type</th>
+                    <th class="py-3 text-right">Region</th>
+                    <th class="py-3 text-right w-32 pr-6">Weight</th>
+                    <th class="py-3 w-10"></th>
+                </tr>
+            </thead>
+            <tbody id="portfolio-table-body" class="divide-y divide-slate-700 font-mono text-slate-300">
+                <!-- Rows injected here -->
+            </tbody>
+        </table>
+    </div>
+
+    <div class="p-3 bg-slate-900 border-t border-slate-700 flex justify-end items-center gap-6 text-xs shrink-0">
+        <div class="flex items-center gap-2">
+            <span class="text-slate-400 uppercase font-bold text-xs">Total Weight</span>
+            <span id="footer-total-weight" class="font-mono font-bold text-slate-100">0%</span>
+        </div>
+        <div class="w-px h-4 bg-slate-600"></div>
+        <div class="flex items-center gap-2">
+            <span class="text-slate-500 uppercase font-bold text-xs">Value</span>
+            <span id="footer-total-amount" class="font-mono font-bold text-emerald-600">0
+                €</span>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<!-- RIGHT COLUMN: COMMAND CENTER -->
+<div class="col-span-4 flex flex-col gap-6 h-full min-h-0 overflow-y-auto scrollbar-thin pr-2">
+
+    <!-- INTELLIGENCE PANEL -->
+    <div class="bg-slate-800 rounded-xl shadow-sm border border-slate-700 p-6 shrink-0 relative overflow-hidden">
+        <h3 class="text-sm font-bold text-accent uppercase tracking-widest mb-6 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z">
+                </path>
+            </svg>
+            Intelligence
+        </h3>
+
+        <!-- Donut Chart -->
+        <div class="h-40 relative mb-6">
+            <canvas id="asset-allocation-chart"></canvas>
+            <!-- Center Text Overlay -->
+            <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                <div class="text-center">
+                    <span class="block text-xs text-slate-400 uppercase">Alloc</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Geographic Distribution Chart -->
+        <div class="bg-slate-900 rounded-lg p-4 border border-slate-700 mb-6">
+            <div class="flex justify-between items-center mb-3">
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Geographic
+                    Dist.</span>
+            </div>
+            <div class="relative h-24 w-full">
+                <canvas id="geo-distribution-chart"></canvas>
+            </div>
+        </div>
+
+        <!-- Quick KPIs -->
+        <div class="grid grid-cols-3 gap-2 text-center text-xs">
+            <div class="bg-slate-900 p-3 rounded border border-slate-700 hover:border-slate-500 transition-colors">
+                <div class="text-[10px] text-slate-400 uppercase mb-1">Vol (Risk)</div>
+                <div id="mini-volatility" class="font-mono font-bold text-slate-200">-</div>
+            </div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-700 hover:border-emerald-500/30 transition-colors">
+                <div class="text-[10px] text-slate-400 uppercase mb-1">Return</div>
+                <div id="mini-return" class="font-mono font-bold text-emerald-600">-</div>
+            </div>
+            <div class="bg-slate-900 p-3 rounded border border-slate-700 hover:border-accent/30 transition-colors">
+                <div class="text-[10px] text-slate-400 uppercase mb-1">Sharpe</div>
+                <div id="mini-sharpe" class="font-mono font-bold text-accent">-</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- STRATEGY & CONTROLS -->
+    <div class="bg-slate-800 rounded-xl shadow-sm border border-slate-700 p-6 shrink-0">
+        <h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 flex items-center gap-2">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4">
+                </path>
+            </svg>
+            Configuration
+        </h3>
+
+        <!-- File Upload -->
+        <div class="mb-6">
+            <input type="file" id="csv-upload" accept=".csv" class="hidden">
+            <button onclick="document.getElementById('csv-upload').click()"
+                class="w-full h-10 border border-dashed border-slate-600 bg-slate-900 text-slate-400 hover:text-accent hover:border-accent hover:bg-slate-800 rounded-lg text-sm font-bold transition-all flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                </svg>
+                Import CSV Portfolio
+            </button>
+        </div>
+
+        <form id="portfolio-form" class="space-y-6">
+            <!-- Risk Slider -->
+            <div>
+                <div class="flex justify-between text-sm font-bold mb-2 text-slate-400">
+                    <span>Risk Appetite</span>
+                    <span id="risk-display" class="bg-accent text-white px-2 py-0.5 rounded font-mono">5</span>
+                </div>
+                <input type="range" id="risk_level" min="1" max="10" value="5"
+                    class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-accent">
+            </div>
+
+            <!-- Num Funds -->
+            <div>
+                <label class="text-sm font-bold mb-2 block text-slate-400">Max Assets</label>
+                <input type="number" id="number_of_funds" value="5"
+                    class="w-full bg-slate-900 border border-slate-700 rounded-lg p-2 text-slate-200 text-sm font-mono outline-none focus:border-accent transition-colors">
+            </div>
+
+            <!-- Action Grid -->
+            <div class="grid grid-cols-2 gap-3">
+                <button type="button" id="btn-open-tactical"
+                    class="bg-slate-700 hover:bg-slate-600 border border-slate-600 text-slate-300 font-bold py-2 rounded-lg text-sm transition-colors">Tactical
+                    View</button>
+                <button type="button" id="btn-open-vip-tool" onclick="window.openVipModal()"
+                    class="bg-slate-700 hover:bg-slate-600 border border-slate-600 text-accent font-bold py-2 rounded-lg text-sm transition-colors">★
+                    VIP List</button>
+            </div>
+
+            <!-- Optimize Button -->
+            <div class="pt-4 border-t border-slate-700">
+                <button type="button" id="btn-optimize"
+                    class="w-full bg-accent text-white font-bold uppercase py-4 rounded-lg shadow-md hover:shadow-lg hover:scale-[1.02] active:scale-95 transition-all text-sm tracking-widest mb-3 relative overflow-hidden group">
+                    <span class="relative z-10 flex items-center justify-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Optimize Quantum
+                    </span>
+                    <div
+                        class="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                </button>
+
+                <button type="submit"
+                    class="w-full bg-slate-700 border border-slate-600 hover:border-slate-500 text-slate-300 font-bold uppercase py-3 rounded-lg text-sm transition-all">Manual
+                    Generation</button>
+            </div>
+        </form>
+
+        <div class="grid grid-cols-2 gap-3 mt-6">
+            <button id="run-backtest-btn"
+                class="bg-slate-700 hover:bg-slate-600 border border-slate-600 text-slate-300 py-2 text-sm font-bold rounded-lg transition-colors">📊
+                X-Ray Analysis</button>
+            <button id="btn-open-costs-tool"
+                class="bg-slate-700 hover:bg-slate-600 border border-slate-600 text-slate-300 py-2 text-sm font-bold rounded-lg transition-colors">💰
+                Fee Analysis</button>
+        </div>
+    </div>
+
+</div>
+
+</div>
+</main>
+</div>
+</div><!-- MODALS -->
+
+<!-- NEWS MODAL -->
+<div id="news-modal"
+    class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[80vh] flex flex-col overflow-hidden">
+        <div class="bg-slate-50 border-b border-slate-100 p-4 flex justify-between items-center">
+            <h3 class="font-serif font-bold text-[#0B2545] text-lg">Market Intelligence</h3>
+            <button onclick="closeModal('news-modal')" class="text-slate-400 hover:text-slate-600 transition-colors">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
+        </div>
+        <div id="news-general-container" class="p-6 overflow-y-auto min-h-0">
+            <!-- News injected -->
+        </div>
+    </div>
+</div>
+
+<!-- FUND DETAILS MODAL -->
+<div id="fund-detail-modal"
+    class="fixed inset-0 z-50 bg-slate-900/80 backdrop-blur-sm hidden flex items-center justify-center p-6 opacity-0 transition-opacity duration-300">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-[90vh] flex flex-col overflow-hidden">
+        <!-- Header -->
+        <div class="bg-[#0B2545] p-6 text-white shrink-0 relative overflow-hidden">
+            <div class="absolute top-0 right-0 p-4 opacity-10">
+                <svg class="w-32 h-32" fill="currentColor" viewBox="0 0 20 20">
+                    <path
+                        d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z">
+                    </path>
+                </svg>
+            </div>
+            <div class="relative z-10 flex justify-between items-start">
+                <div>
+                    <div class="flex items-center gap-3 mb-2">
+                        <span id="modal-fund-type"
+                            class="bg-[#D4AF37] text-[#0B2545] text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Equity</span>
+                        <span id="modal-fund-region"
+                            class="bg-white/20 text-white text-[10px] font-bold px-2 py-0.5 rounded uppercase tracking-wider">Global</span>
+                        <span id="modal-fund-stars" class="text-yellow-400 text-sm">★★★★★</span>
+                        <span id="modal-fund-medalist"
+                            class="ml-2 bg-yellow-100 text-yellow-800 text-[10px] uppercase font-bold px-2 py-0.5 rounded">Gold</span>
+                    </div>
+                    <h2 id="modal-fund-name" class="text-2xl font-serif font-bold leading-tight max-w-2xl">Fund Name
+                    </h2>
+                    <div class="flex items-center gap-4 mt-2 font-mono text-sm text-slate-300">
+                        <span id="modal-fund-isin">ISIN123456</span>
+                        <span id="modal-fund-currency">EUR</span>
+                    </div>
+                </div>
+                <button onclick="closeModal('fund-detail-modal')"
+                    class="text-white/50 hover:text-white transition-colors">
+                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <!-- Body -->
+        <div class="flex-1 overflow-y-auto p-6 bg-slate-50">
+            <div class="grid grid-cols-3 gap-6">
+                <!-- Left: Metrics -->
+                <div class="col-span-1 space-y-4">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-3">Performance (3Y)</h4>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-end">
+                                <span class="text-xs text-slate-500">Return (Ann)</span>
+                                <span id="modal-fund-ret" class="font-mono font-bold text-[#0B2545]">8.5%</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-xs text-slate-500">Volatility</span>
+                                <span id="modal-fund-vol" class="font-mono font-bold text-slate-700">12.2%</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-xs text-slate-500">Sharpe Ratio</span>
+                                <span id="modal-fund-sharpe" class="font-mono font-bold text-emerald-600">1.45</span>
+                            </div>
+                            <div class="flex justify-between items-end pt-2 border-t border-slate-50">
+                                <span class="text-xs text-slate-500">Alpha</span>
+                                <span id="modal-fund-alpha" class="font-mono font-bold text-blue-600">+2.3</span>
+                            </div>
+                            <div class="flex justify-between items-end">
+                                <span class="text-xs text-slate-500">Info Ratio</span>
+                                <span id="modal-fund-info" class="font-mono font-bold text-slate-700">0.8</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-3">Risk & Factors</h4>
+                        <div class="space-y-2">
+                            <div class="flex justify-between">
+                                <span class="text-xs text-slate-500">Max Drawdown</span>
+                                <span id="modal-fund-mdd" class="font-mono font-bold text-rose-500">-15.4%</span>
+                            </div>
+                            <div class="flex justify-between">
+                                <span class="text-xs text-slate-500">Beta</span>
+                                <span id="modal-fund-beta" class="font-mono font-bold text-slate-700">0.95</span>
+                            </div>
+                            <div class="flex justify-between pt-2 border-t border-slate-50">
+                                <span class="text-xs text-slate-500">Sustainability</span>
+                                <span id="modal-fund-esg" class="font-bold text-emerald-600">High</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Right: Charts & Holdings -->
+                <div class="col-span-2 space-y-6">
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100 h-64 relative">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-2">Growth of 10k</h4>
+                        <div class="absolute inset-4 top-8">
+                            <canvas id="modal-fund-chart"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-3">Top Holdings</h4>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-xs text-left">
+                                <tbody id="modal-fund-holdings" class="divide-y divide-slate-100">
+                                    <!-- Injected -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div id="modal-fund-sectors-container"
+                        class="bg-white p-4 rounded-lg shadow-sm border border-slate-100">
+                        <h4 class="text-xs font-bold text-slate-400 uppercase mb-3">Sector Exposure</h4>
+                        <div class="h-40 relative">
+                            <canvas id="modal-fund-sectors-chart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer -->
+        <div class="bg-white border-t border-slate-200 p-4 flex justify-end gap-3">
+            <button onclick="window.removeFund(currentModalFundID); closeModal('fund-detail-modal');"
+                class="px-4 py-2 text-rose-600 hover:bg-rose-50 rounded font-bold text-sm transition-colors uppercase tracking-wider">Remove</button>
+            <button onclick="closeModal('fund-detail-modal')"
+                class="px-6 py-2 bg-[#0B2545] text-white rounded font-bold text-sm hover:bg-[#1e3a5f] transition-colors uppercase tracking-wider">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- COMPARISON MODAL (OPTIMIZATION) -->
+<div id="fund-comparison-modal"
+    class="fixed inset-0 z-50 bg-slate-900/90 backdrop-blur-md hidden flex items-center justify-center p-4">
+    <div class="bg-white w-full max-w-6xl h-[90vh] rounded-2xl shadow-2xl flex flex-col overflow-hidden">
+        <div class="flex-1 grid grid-cols-2 divide-x divide-slate-200 min-h-0">
+            <!-- Current -->
+            <div class="flex flex-col bg-slate-50/50">
+                <div class="p-4 border-b border-slate-200 bg-white">
+                    <h3 class="font-serif font-bold text-slate-400 text-lg">Current Portfolio</h3>
+                    <div class="h-1 w-20 bg-slate-300 mt-1 rounded-full"></div>
+                </div>
+                <div class="p-6 space-y-6 overflow-y-auto flex-1">
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative h-48">
+                        <canvas id="comp-chart-current"></canvas> <!-- Or use shared logic -->
+                    </div>
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div id="comp-bar-old" class="h-4 rounded-full overflow-hidden flex bg-slate-100"></div>
+                        <div class="flex justify-between mt-2 text-xs text-slate-400 font-mono">
+                            <span>Equity</span><span>Fixed Income</span><span>Cash</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proposed -->
+            <div class="flex flex-col bg-white relative">
+                <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-emerald-500 to-teal-400"></div>
+                <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-white/80 backdrop-blur">
+                    <div>
+                        <h3 class="font-serif font-bold text-[#0B2545] text-lg">Quantum Proposal</h3>
+                        <div class="h-1 w-20 bg-accent mt-1 rounded-full"></div>
+                    </div>
+                    <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-3 py-1 rounded-full">AI
+                        Optimized</span>
+                </div>
+                <div class="p-6 space-y-6 overflow-y-auto flex-1">
+                    <!-- Metrics Comparison Table -->
+                    <div class="bg-slate-50 rounded-xl border border-slate-200 overflow-hidden">
+                        <table class="w-full text-sm">
+                            <thead class="bg-slate-100 text-slate-500 text-xs uppercase font-bold">
+                                <tr>
+                                    <th class="py-3 px-6 text-left">Metric</th>
+                                    <th class="py-3 px-6 text-right">Current</th>
+                                    <th class="py-3 px-6 text-right">New</th>
+                                    <th class="py-3 px-6 text-right">Impact</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-200 font-mono text-slate-700">
+                                <tr>
+                                    <td class="py-4 px-6 font-bold text-slate-800">Exp. Return</td>
+                                    <td id="comp-ret-old" class="py-4 px-6 text-right text-slate-500">--</td>
+                                    <td id="comp-ret-new" class="py-4 px-6 text-right font-bold text-[#0B2545]">--
+                                    </td>
+                                    <td id="comp-ret-diff" class="py-4 px-6 text-right font-bold">--</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-6 font-bold text-slate-800">Volatility</td>
+                                    <td id="comp-vol-old" class="py-4 px-6 text-right text-slate-500">--</td>
+                                    <td id="comp-vol-new" class="py-4 px-6 text-right font-bold text-[#0B2545]">--
+                                    </td>
+                                    <td id="comp-vol-diff" class="py-4 px-6 text-right font-bold">--</td>
+                                </tr>
+                                <tr>
+                                    <td class="py-4 px-6 font-bold text-slate-800">Sharpe Ratio</td>
+                                    <td id="comp-sharpe-old" class="py-4 px-6 text-right text-slate-500">--</td>
+                                    <td id="comp-sharpe-new" class="py-4 px-6 text-right font-bold text-[#0B2545]">
+                                        --</td>
+                                    <td id="comp-sharpe-diff" class="py-4 px-6 text-right font-bold">--</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm relative h-48">
+                        <canvas id="comp-chart-optimized"></canvas>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-xl border border-slate-200 shadow-sm">
+                        <div id="comp-bar-new" class="h-4 rounded-full overflow-hidden flex bg-slate-100"></div>
+                        <div class="flex justify-between mt-2 text-xs text-slate-400 font-mono">
+                            <span>Equity</span><span>Fixed Income</span><span>Cash</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer Action -->
+        <div class="p-6 border-t border-slate-200 bg-slate-50 flex justify-between items-center shrink-0">
+            <button onclick="document.getElementById('fund-comparison-modal').classList.add('hidden')"
+                class="px-6 py-3 text-slate-500 hover:text-slate-800 font-bold text-sm uppercase tracking-wider transition-colors">
+                Discard Proposal
+            </button>
+            <div class="flex items-center gap-4">
+                <span class="text-xs text-slate-400 italic">Recommendation generated by Nexus Quant Engine V3.0</span>
+                <button id="btn-apply-optimization"
+                    class="px-8 py-3 bg-accent text-white rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all font-bold text-sm uppercase tracking-widest flex items-center gap-2">
+                    <span>Apply Optimization</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TACTICAL MODAL (Placeholder) -->
+<div id="tactical-modal" class="hidden"></div>
+<div id="analysis-modal" class="hidden"></div>
+<div id="costs-detail-modal" class="hidden"></div>
+
+<script type="module" src="app_modern.js"></script>
+<script type="module" src="auth.js"></script>
+<script>
+    // TOGGLE THEME
+    window.toggleTheme = () => {
+        const html = document.documentElement;
+        if (html.classList.contains('dark')) {
+            html.classList.remove('dark');
+            localStorage.theme = 'light';
+            updateIcons(false);
+        } else {
+            html.classList.add('dark');
+            localStorage.theme = 'dark';
+            updateIcons(true);
+        }
+    };
+
+    function updateIcons(isDark) {
+        const moon = document.getElementById('theme-icon-moon');
+        const sun = document.getElementById('theme-icon-sun');
+        if (isDark) {
+            if (moon) moon.classList.remove('hidden');
+            if (sun) sun.classList.add('hidden');
+        } else {
+            if (moon) moon.classList.add('hidden');
+            if (sun) sun.classList.remove('hidden');
+        }
+    }
+
+    // Init Theme
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+        updateIcons(true);
+    } else {
+        document.documentElement.classList.remove('dark');
+        updateIcons(false);
+    }
+
+    // Listener for Optimize Button defined in app_modern.js (Run Optimize)
+    // But here we can verify connectivity
+    document.addEventListener('DOMContentLoaded', () => {
+        console.log("Nexus Terminal Loaded.");
+    });
+</script>
+</body>
+
+</html>

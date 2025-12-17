@@ -101,5 +101,9 @@ export default function HistoryChart({ data }) {
         animation: { duration: 0 }
     };
 
-    return <Line data={{ datasets }} options={options} />;
+    return (
+        <div className="w-full h-full pr-2">
+            <Line data={{ datasets }} options={options} />
+        </div>
+    );
 }
