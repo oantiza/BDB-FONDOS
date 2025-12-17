@@ -1,7 +1,0 @@
-# .gitignore
-.firebase/
-functions_python/venv/
-functions_python/__pycache__/
-node_modules/
-.DS_Store
-firebase-debug.log

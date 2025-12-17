@@ -1,5 +1,6 @@
 from firebase_functions import https_fn, options
-from firebase_admin import initialize_app, firestore
+from firebase_admin import initialize_app, firestore, storage
+from typing import Any
 from datetime import datetime
 import json
 import os
@@ -358,32 +359,58 @@ def _run_optimization(assets_list, risk_level, db, constraints=None, asset_metad
         try:
             weights = ef.efficient_risk(target_volatility)
         except Exception as e_opt:
-            print(f"⚠️ [Tier 1 Failed] efficient_risk ({e_opt}). Trying Tier 2 (Unconstrained Max Sharpe)...")
+            print(f"⚠️ [Tier 1 Failed] efficient_risk ({e_opt}). Trying Tier 1.5 (Relaxed Constraints)...")
             
-            # TIER 2: Unconstrained Max Sharpe (Maximize Performance, Ignore Geo Constraints if needed)
-            # We first try to KEEP constraints but use max_sharpe
+            # TIER 1.5: Relax Geographic Constraints by 10%
             try:
-                weights = ef.max_sharpe(risk_free_rate=RISK_FREE_RATE)
-            except Exception as e_ms:
-                print(f"⚠️ [Tier 2a Failed] Constrained Max Sharpe ({e_ms}). Trying Tier 2b (Totally Unconstrained)...")
+                if constraints and asset_metadata:
+                    eu_relaxed = max(0.30, constraints.get('europe', 0) - 0.10)
+                    us_relaxed = min(0.45, constraints.get('americas', 1.0) + 0.10)
+                    
+                    # Rebuild EfficientFrontier with relaxed constraints
+                    ef_relaxed = EfficientFrontier(mu, S)
+                    ef_relaxed.add_objective(objective_functions.L2_reg, gamma=0.5)
+                    ef_relaxed.add_constraint(lambda w: w <= max_weight)
+                    ef_relaxed.add_constraint(lambda w: w >= 0.01)
+                    
+                    # Re-apply relaxed geo constraints
+                    if eu_relaxed > 0:
+                        ef_relaxed.add_constraint(lambda w: w @ eu_vec >= eu_relaxed)
+                    if us_relaxed < 1.0:
+                        ef_relaxed.add_constraint(lambda w: w @ us_vec <= us_relaxed)
+                    
+                    weights = ef_relaxed.efficient_risk(target_volatility)
+                    warnings.append(f"ℹ️ Restricciones geográficas relajadas: Europa {eu_relaxed*100:.0f}%, Américas {us_relaxed*100:.0f}%")
+                else:
+                    # No constraints to relax, go to next tier
+                    raise Exception("No constraints to relax")
+                    
+            except Exception as e_relax:
+                print(f"⚠️ [Tier 1.5 Failed] Relaxed efficient_risk ({e_relax}). Trying Tier 2 (Max Sharpe)...")
                 
-                # TIER 2b: CLEAN SLATE (Remove all constraints except bounds)
+                # TIER 2: Unconstrained Max Sharpe
                 try:
-                    ef_clean = EfficientFrontier(mu, S)
-                    ef_clean.add_objective(objective_functions.L2_reg, gamma=0.5)
-                    ef_clean.add_constraint(lambda w: w <= max_weight) 
-                    ef_clean.add_constraint(lambda w: w >= 0.01)
-                    weights = ef_clean.max_sharpe(risk_free_rate=RISK_FREE_RATE)
-                    warnings.append("⚠️ Se han ignorado las restricciones geográficas para poder optimizar.")
-                except Exception as e_final:
-                    # TIER 3: Equal Weight (Total Failure)
-                    print(f"⚠️ [Tier 2b Failed] Unconstrained Max Sharpe ({e_final}). Fallback to Equal Weight.")
-                    return {
-                        'status': 'fallback_error',
-                        'weights': {t: 1.0/len(tickers) for t in tickers},
-                        'metrics': {'return': 0, 'volatility': 0, 'sharpe': 0},
-                        'warnings': ["No se pudo optimizar matemáticamente. Se usa distribución equitativa."]
-                    }
+                    weights = ef.max_sharpe(risk_free_rate=RISK_FREE_RATE)
+                except Exception as e_ms:
+                    print(f"⚠️ [Tier 2 Failed] Constrained Max Sharpe ({e_ms}). Trying Tier 2b (Unconstrained)...")
+                    
+                    # TIER 2b: CLEAN SLATE (Remove all geo constraints)
+                    try:
+                        ef_clean = EfficientFrontier(mu, S)
+                        ef_clean.add_objective(objective_functions.L2_reg, gamma=0.5)
+                        ef_clean.add_constraint(lambda w: w <= max_weight)
+                        ef_clean.add_constraint(lambda w: w >= 0.01)
+                        weights = ef_clean.max_sharpe(risk_free_rate=RISK_FREE_RATE)
+                        warnings.append("⚠️ Restricciones geográficas eliminadas para permitir optimización.")
+                    except Exception as e_final:
+                        # TIER 3: Equal Weight (Total Failure)
+                        print(f"⚠️ [Tier 2b Failed] Unconstrained Max Sharpe ({e_final}). Fallback to Equal Weight.")
+                        return {
+                            'status': 'fallback_error',
+                            'weights': {t: 1.0/len(tickers) for t in tickers},
+                            'metrics': {'return': 0, 'volatility': 0, 'sharpe': 0},
+                            'warnings': ["No se pudo optimizar matemáticamente. Se usa distribución equitativa."]
+                        }
 
         clean_weights = ef.clean_weights()
         perf = ef.portfolio_performance(risk_free_rate=RISK_FREE_RATE)
@@ -425,80 +452,208 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
         category = data.get('category')  # e.g. "RV Sector Tecnologia"
         risk_level = data.get('risk_level', 5)
         num_funds = data.get('num_funds', 5)
+        vip_funds_str = data.get('vip_funds', '')
         
         db = firestore.client()
         funds_ref = db.collection('funds_v2')
         
         # --- 1. SELECTION & SCORING ---
         candidates = []
+        selected_primary = []
+        used_categories = set()
         
         # Helper to process docs
-        def process_fund(doc, is_balancer=False):
+        def process_fund(doc, is_balancer=False, target_vol=0.12):
             f = doc.to_dict()
             isin = f.get('isin')
             if not isin: return None
             
-            # --- COST-AGNOSTIC SCORING ENGINE ---
+            # --- UNIFIED SCORING ENGINE (Frontend + Backend Consistent) ---
             score = 0
             
             perf_data = f.get('perf', {})
             sharpe = perf_data.get('sharpe')
             alpha = perf_data.get('alpha')
-            r2 = perf_data.get('r2', 0)
+            volatility = perf_data.get('volatility', 0.15)
             
-            # 1. Sharpe (50%)
+            # Data for Quality & Momentum
+            history_years = f.get('inception_years', 0)
+            cagr3y = perf_data.get('cagr3y', 0)
+            cagr6m = perf_data.get('cagr6m', cagr3y)  # Fallback to 3y
+            
+            # 1. Sharpe (35% - Risk-adjusted return)
             if sharpe is not None:
-                s_norm = max(-1, min(3, float(sharpe)))
-                score += (s_norm * 10) * 0.50
+                sharpe_norm = max(-1, min(3, float(sharpe)))
+                score += (sharpe_norm / 3) * 35
             
-            # 2. Alpha (40%)
+            # 2. Alpha (25% - Value generation)
             if alpha is not None:
-                a_norm = max(-5, min(5, float(alpha)))
-                score += (a_norm * 2) * 0.40
+                alpha_norm = max(-5, min(5, float(alpha)))
+                score += ((alpha_norm + 5) / 10) * 25
                 
-            # 3. Consistency / R2 (10%)
-            score += (min(100, float(r2)) / 10) * 0.10
+            # 3. Safety (20% - Stability relative to target)
+            try:
+                safety_ratio = max(0, (target_vol - volatility) / target_vol)
+                score += safety_ratio * 100 * 0.20
+            except: pass
             
-            # Hygiene
-            if f.get('metrics', {}).get('sharpe') is not None:
-                 score += 5
+            # 4. Momentum (10% - Trend)
+            if cagr3y != 0 and cagr6m != 0:
+                momentum_ratio = cagr6m / cagr3y
+                score += max(0, min(1, momentum_ratio)) * 10
             
-            # NOT PENALIZING COST ANYMORE
+            # 5. Quality (10% - Data quality)
+            quality_score = min(history_years / 10, 1) * 10
+            score += quality_score
+            
+            # 6. MAX DRAWDOWN PENALTY (NEW - P2 Integration)
+            max_dd = perf_data.get('max_drawdown', 0)  # Esperado como valor absoluto (ej: 0.25 = -25%)
+            if max_dd > 0:
+                # Penalty: -5 points per 1% drawdown (max -50 for 10% dd)
+                dd_penalty = min(abs(max_dd) * 500, 50)
+                score -= dd_penalty
+            
+            # 7. SORTINO BONUS (NEW - P2 Integration)  
+            sortino = perf_data.get('sortino_ratio')
+            if sortino is not None and sortino > 0:
+                # Bonus for funds with good downside risk management
+                # Sortino often higher than Sharpe, so normalize differently
+                sortino_norm = max(0, min(4, float(sortino)))
+                sortino_bonus = (sortino_norm / 4) * 5  # Max 5 points bonus
+                score += sortino_bonus
             
             return {
+
                 'isin': isin,
                 'name': f.get('name'),
                 'score': score,
                 'category': f.get('category_morningstar', 'Unknown'),
                 'regions': f.get('regions', {'europe': 0, 'americas': 0}),
+                'volatility': volatility,
                 'is_balancer': is_balancer
             }
+
+        # --- PROCESS VIP FUNDS (ANCHORS) ---
+        if vip_funds_str:
+            vip_isins = [x.strip() for x in vip_funds_str.split(',') if x.strip()]
+            for vip_isin in vip_isins:
+                # Query by ISIN
+                # Try simple query first if ISIN is document ID (often isin is doc id in some setups, but here it's a field)
+                # Assuming 'isin' field. Index might be needed.
+                q = funds_ref.where(filter=firestore.FieldFilter('isin', '==', vip_isin)).limit(1)
+                docs = q.stream()
+                found = False
+                for doc in docs:
+                    f_processed = process_fund(doc, target_vol=0.12) # Use default vol or specific? Using default for scoring, but inclusion is forced.
+                    if f_processed:
+                        f_processed['is_vip'] = True
+                        selected_primary.append(f_processed)
+                        used_categories.add(f_processed['category'])
+                        found = True
+                
+                if not found:
+                    print(f"Warning: VIP Fund {vip_isin} not found.")
+
+        # Query Primary Candidates
 
         # Query Primary Candidates
         query = funds_ref
         if category and category != 'All':
             query = query.where(filter=firestore.FieldFilter('category_morningstar', '==', category))
 
+
         docs = query.stream()
         for doc in docs:
             c = process_fund(doc)
             if c: candidates.append(c)
             
-        # Select Top N Primary with Variety
-        # Strategy: Take top 3*N candidates, then randomly pick N
-        import random
+        # --- DIVERSIFIED SELECTION (Avoid concentration) ---
+        # Sort all candidates by score
         candidates.sort(key=lambda x: x['score'], reverse=True)
         
-        top_pool_size = min(len(candidates), num_funds * 3)
-        top_pool = candidates[:top_pool_size]
+        # If we have VIP funds, they are already in selected_primary
+        # We need to fill remaining spots until we reach num_funds
         
-        if len(top_pool) < num_funds:
-            selected_primary = top_pool # Take all if not enough
-        else:
-            selected_primary = random.sample(top_pool, num_funds)
+        remaining_slots = num_funds - len(selected_primary)
+        
+        if remaining_slots > 0:
+            if len(candidates) <= remaining_slots:
+                # Add all valid candidates that aren't already included
+                for c in candidates:
+                    # Check for duplicates by ISIN (VIP funds might be in candidates too)
+                    if not any(s['isin'] == c['isin'] for s in selected_primary):
+                        selected_primary.append(c)
+            else:
+                # Greedy diversification filling
+                # If no VIP funds were added, pick the best one to start (if selected_primary is empty)
+                if not selected_primary and candidates:
+                    selected_primary.append(candidates[0])
+                    used_categories.add(candidates[0]['category'])
+                
+                # Helper for diversity penalty (defined above or here)
+                def get_diversity_penalty(candidate, selected):
+                    penalty = 0
+                    # Category overlap: heavy penalty
+                    if candidate['category'] in used_categories:
+                        penalty += 0.3
+                    
+                    # Regional overlap: moderate penalty
+                    if selected:
+                        avg_eu_selected = sum(s['regions'].get('europe', 0) for s in selected) / len(selected)
+                        avg_us_selected = sum(s['regions'].get('americas', 0) for s in selected) / len(selected)
+                        
+                        candidate_eu = candidate['regions'].get('europe', 0)
+                        candidate_us = candidate['regions'].get('americas', 0)
+                        
+                        # Penalize if very similar to average
+                        eu_diff = abs(avg_eu_selected - candidate_eu)
+                        us_diff = abs(avg_us_selected - candidate_us)
+                        
+                        if eu_diff < 10 and us_diff < 10:  # Very similar
+                            penalty += 0.2
+                    
+                    return penalty
+                
+                # Fill remaining slots
+                while len(selected_primary) < num_funds:
+                    best_idx = None
+                    best_adjusted_score = -999
+                    
+                    for idx, candidate in enumerate(candidates):
+                         # Skip if already selected (by ISIN check)
+                        if any(s['isin'] == candidate['isin'] for s in selected_primary):
+                            continue
+                        
+                        penalty = get_diversity_penalty(candidate, selected_primary)
+                        adjusted_score = candidate['score'] * (1 - penalty)
+                        
+                        if adjusted_score > best_adjusted_score:
+                            best_adjusted_score = adjusted_score
+                            best_idx = idx
+                    
+                    if best_idx is not None:
+                        selected_fund = candidates[best_idx]
+                        selected_primary.append(selected_fund)
+                        used_categories.add(selected_fund['category'])
+                    else:
+                        # No more candidates found? Break to avoid infinite loop
+                        break
+                    
+                    penalty = get_diversity_penalty(candidate, selected_primary)
+                    adjusted_score = candidate['score'] * (1 - penalty)
+                    
+                    if adjusted_score > best_adjusted_score:
+                        best_adjusted_score = adjusted_score
+                        best_idx = idx
+                
+                if best_idx is not None:
+                    selected_fund = candidates[best_idx]
+                    selected_primary.append(selected_fund)
+                    used_categories.add(selected_fund['category'])
         
         if not selected_primary:
              return {'error': 'No funds found for criteria', 'criteria': category}
+
 
         # --- 2. HYDRAULIC BALANCER INJECTION ---
         # Calculate current Geographic Exposure of Primary Selection (Equal Weight Est)
@@ -511,10 +666,10 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
         if avg_eu < TARGET_EU:
             print(f"⚠️ Europe avg ({avg_eu}%) below target ({TARGET_EU}%). Injecting Balancers...")
             
+            # Helper set for fast lookup of what we already have
+            existing_isins = set(c['isin'] for c in selected_primary)
+
             # Fetch Balancers: High quality funds from 'RV Europa'
-            # Limitation: We might explicitly need an ID or query. 
-            # Trying to find generic Europe funds.
-            # Try multiple generic European categories
             potential_cats = ['RV Europa', 'RV Europa Cap. Grande Blend', 'RV Europa Cap. Grande Value', 'RV Europa Cap. Grande Growth', 'RV Zona Euro', 'Europe Equity']
             balancers = []
             
@@ -524,8 +679,10 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
                     q = funds_ref.where(filter=firestore.FieldFilter('category_morningstar', '==', cat)).limit(5)
                     for d in q.stream():
                         b = process_fund(d, is_balancer=True)
-                        if b and b['isin'] not in selected_isins: # Avoid dupes
-                            balancers.append(b)
+                        if b and b['isin'] not in existing_isins: # Avoid dupes
+                            # Also check if already in balancers list
+                            if not any(bx['isin'] == b['isin'] for bx in balancers):
+                                balancers.append(b)
                 except: continue
                 
             # If still empty, try Global
@@ -535,7 +692,9 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
                     q = funds_ref.where(filter=firestore.FieldFilter('category_morningstar', '==', 'RV Global Cap. Grande Blend')).limit(3)
                     for d in q.stream():
                         b = process_fund(d, is_balancer=True)
-                        if b and b['isin'] not in selected_isins: balancers.append(b)
+                        if b and b['isin'] not in existing_isins:
+                             if not any(bx['isin'] == b['isin'] for bx in balancers):
+                                 balancers.append(b)
                 except: pass
             
             # Sort balancers by score and pick top 2
@@ -547,11 +706,58 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
             # We don't remove primary funds, we ADD candidates for the optimizer to use.
             selected_all.extend(top_balancers)
             
-        selected_isins = [c['isin'] for c in selected_all]
+        # Deduplicate selected_all before optimization
+        # Logic: If ISIN exists, keep the one with higher score or merging properties?
+        # Simple Logic: First one wins (usually primary selection).
+        # STRICTER: Also check for Name duplicates (same fund, diff ISIN)
+        unique_selection_map = {}
+        seen_names = set()
         
+        for fund in selected_all:
+             # Clean name for comparison (remove class info if desperate? for now exact match)
+             f_name = fund.get('name', '').strip()
+             
+             if fund['isin'] not in unique_selection_map:
+                 if f_name and f_name in seen_names:
+                     print(f"Skipping Duplicate Name: {f_name} ({fund['isin']})")
+                     continue
+                     
+                 unique_selection_map[fund['isin']] = fund
+                 seen_names.add(f_name)
+        
+        # Override lists with unique version
+        selected_all_unique = list(unique_selection_map.values())
+        selected_isins = list(unique_selection_map.keys())
+
         # Metadata map for Optimizer
-        asset_metadata = {c['isin']: {'regions': c['regions']} for c in selected_all}
+        asset_metadata = {f['isin']: {'regions': f['regions']} for f in selected_all_unique}
         
+        # CHECK: Skip Optimization?
+        optimize_now = request.data.get('optimize', True) # Default True for backward compat
+        
+        if not optimize_now:
+             # Return Equal Weight Portfolio directly
+             n = len(selected_all_unique)
+             final_portfolio = []
+             for fund in selected_all_unique:
+                 final_portfolio.append({
+                    'isin': fund['isin'],
+                    'name': fund['name'],
+                    'weight': round(100.0 / n, 2),
+                    'score': round(fund['score'], 1),
+                    'role': 'Balancer' if fund.get('is_balancer') else 'Core'
+                 })
+                 
+             return {
+                'portfolio': final_portfolio,
+                'metrics': None, 
+                'warnings': ["Generación sin optimización (Peso Equitativo)."],
+                'debug': {
+                    'primary_candidates': [c['name'] for c in selected_primary],
+                    'balancers_injected': [b['name'] for b in selected_all if b.get('is_balancer')]
+                }
+             }
+
         # --- 3. CONSTRAINED OPTIMIZATION ---
         constraints = {
             'europe': 0.40,  # 40% Floor
@@ -564,8 +770,8 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
         final_portfolio = []
         weights = opt_result.get('weights', {})
         
-        for fund in selected_all:
-            w = weights.get(fund['isin'], 0)
+        for isin, fund in unique_selection_map.items():
+            w = weights.get(isin, 0)
             if w > 0.001: # Filter dust
                 final_portfolio.append({
                     'isin': fund['isin'],
@@ -783,6 +989,7 @@ def backtest_portfolio(request: https_fn.CallableRequest):
             'benchmarkSeries': { k: to_chart(v) for k, v in profiles.items() },
             'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd},
             'correlationMatrix': returns.corr().round(2).fillna(0).values.tolist(),
+            'effectiveISINs': valid_assets, # List of ISINs used in the matrix
             'synthetics': synthetics_metrics, # For Risk Map
             'topHoldings': final_top_holdings # New Look-through Data
         }
@@ -1074,156 +1281,4 @@ def analyze_isin_health(request: https_fn.CallableRequest):
         d = doc.to_dict()
         fid = doc.id
         
-        # Check ID integrity
-        is_id_valid = len(fid) == 12 and isin_pattern.match(fid)
-        
-        # Check Field Integrity
-        f_isin = d.get('isin', '')
-        is_field_valid = len(f_isin) == 12 and isin_pattern.match(f_isin)
-
-        # Detect SPECIFIC corruption patterns mentioned by user
-        # Starts with 'ISIN', 'INIE', 'IN00' etc and is NOT a valid 12 char ISIN
-        has_bad_prefix = fid.startswith('ISIN') or (fid.startswith('IN') and not fid.startswith('IN')) # Wait, IN is India. 
-        # Actually user said "IN" is bad if it's "INIE..." (Ireland prefixed with IN).
-        # Safe heuristic: proper ISINs don't start with "ISIN".
-        # And "INIE..." is 100% wrong (Ireland is IE).
-        
-        is_corrupted = False
-        reason = []
-
-        if fid.startswith('ISIN'):
-            is_corrupted = True
-            reason.append("Prefix 'ISIN'")
-        
-        if fid.startswith('INIE'): # Corrupted Ireland
-            is_corrupted = True
-            reason.append("Prefix 'INIE'")
-            
-        if len(fid) != 12:
-            is_corrupted = True 
-            reason.append(f"Length {len(fid)}")
-
-        if is_corrupted:
-            corrupted_ids.append(fid)
-            corrupted_data.append({
-                'id': fid,
-                'name': d.get('name', 'UNKNOWN'),
-                'eod_ticker': d.get('eod_ticker', None),
-                'reason': ", ".join(reason)
-            })
-
-    # Generate Report
-    report = {
-        'timestamp': datetime.now().isoformat(),
-        'total_scanned': total,
-        'corrupted_count': len(corrupted_ids),
-        'corrupted_entries': corrupted_data
-    }
-
-    # Save to Storage
-    blob = bucket.blob('reports/isin_health_report.json')
-    blob.upload_from_string(json.dumps(report, indent=2), content_type='application/json')
-
-    print(f"✅ Analysis Complete. found {len(corrupted_ids)} corrupted records.")
-    
-    return {
-        'success': True,
-        'summary': {
-            'total': total,
-            'corrupted': len(corrupted_ids),
-            'report_url': f"gs://{BUCKET_NAME}/reports/isin_health_report.json"
-        },
-        'sample': corrupted_data[:20]  # Return first 20 for immediate UI inspection
-    }
-
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=540, cors=cors_config)
-def generate_repair_manifest(request: https_fn.CallableRequest):
-    """
-    Reads the 'reports/isin_health_report.json'.
-    For each corrupted entry:
-    1. Tries to find correct ISIN via EODHD (using 'eod_ticker' or 'name').
-    2. Generates a mapping: Old_ID -> New_Valid_ID
-    3. Saves 'reports/repair_manifest.json'.
-    """
-    from firebase_admin import storage
-    import requests
-    import json
-    
-    bucket = storage.bucket(BUCKET_NAME)
-    
-    # 1. Load Health Report
-    blob = bucket.blob('reports/isin_health_report.json')
-    if not blob.exists():
-        return {'success': False, 'error': 'Run Audit Analysis first.'}
-        
-    report = json.loads(blob.download_as_string())
-    corrupted_entries = report.get('corrupted_entries', [])
-    
-    actions = []
-    
-    print(f"🔧 Processing {len(corrupted_entries)} corrupted records...")
-    
-    for entry in corrupted_entries:
-        old_id = entry['id']
-        ticker = entry.get('eod_ticker')
-        name = entry.get('name')
-        
-        new_isin = None
-        method = None
-        
-        # Strategy A: Use Ticker (Best)
-        if ticker:
-            # Query EODHD Fundamentals
-            url = f"https://eodhd.com/api/fundamentals/{ticker}"
-            params = {'api_token': EODHD_API_KEY, 'fmt': 'json'}
-            try:
-                r = requests.get(url, params=params, timeout=5)
-                if r.status_code == 200:
-                    data = r.json()
-                    # General -> ISIN
-                    fetched_isin = data.get('General', {}).get('ISIN')
-                    if fetched_isin and len(fetched_isin) == 12:
-                        new_isin = fetched_isin
-                        method = 'Exchanged Ticker Lookup'
-            except Exception as e:
-                print(f"Error lookup ticker {ticker}: {e}")
-                
-        # Strategy B: Search by Name (Fallback)
-        if not new_isin and name:
-            # Simple clean name
-            clean_name = name.split(' - ')[0].split('(')[0].strip()
-            url = "https://eodhd.com/api/search/{}"
-            # Not implemented strictly here to save API calls, but structure is ready.
-            # Using only Strategy A for now as it covers 90% of cases if tickers are valid.
-            pass
-
-        if new_isin:
-            actions.append({
-                'old_id': old_id,
-                'new_id': new_isin,
-                'method': method,
-                'status': 'READY_TO_MIGRATE'
-            })
-        else:
-            actions.append({
-                'old_id': old_id,
-                'status': 'MANUAL_REVIEW_REQUIRED',
-                'reason': 'Could not resolve clean ISIN automatically'
-            })
-            
-    # Save Manifest
-    manifest = {
-        'timestamp': datetime.now().isoformat(),
-        'total_analyzed': len(corrupted_entries),
-        'resolvable': len([a for a in actions if a.get('new_id')]),
-        'actions': actions
-    }
-    
-    man_blob = bucket.blob('reports/repair_manifest.json')
-    man_blob.upload_from_string(json.dumps(manifest, indent=2), content_type='application/json')
-    
-    return {
-        'success': True,
-        'summary': manifest
-    }
+# ==========================================

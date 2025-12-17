@@ -3,31 +3,45 @@
 /* Imports de Fuentes (Roboto & Playfair) */
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;700&display=swap');
 
-/* Variables CSS nativas (Matching Mi Boutique) */
+/* === THEME VARIABLES === */
 :root {
+  /* Light Theme (Default) */
   --color-brand: #0B2545;
   --color-accent: #D4AF37;
   --color-bg-main: #F3F4F6;
-  /* Light Gray */
   --color-bg-card: #FFFFFF;
-  /* White */
   --color-text-primary: #1F2937;
-  /* Dark Gray */
   --color-text-secondary: #6B7280;
-  /* Gray 500 */
+  --color-border: #E5E7EB;
+}
+
+.dark {
+  /* Dark Theme */
+  --color-brand: #1E3A5F;
+  --color-accent: #F0D060;
+  --color-bg-main: #0F172A;
+  --color-bg-card: #1E293B;
+  --color-text-primary: #F1F5F9;
+  --color-text-secondary: #94A3B8;
+  --color-border: #334155;
 }
 
 /* Clases utilitarias personalizadas */
 @layer components {
-
-  /* Glass card adapted for light theme (cleaner look) */
   .glass-card {
     @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm;
   }
 
-  /* Utilities for consistency */
+  .dark .glass-card {
+    @apply bg-slate-800/80 border-slate-700;
+  }
+
   .card-base {
     @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+  }
+
+  .dark .card-base {
+    @apply bg-slate-800 border-slate-700;
   }
 }
 
@@ -45,17 +59,23 @@
   @apply bg-slate-300 rounded-full;
 }
 
+.dark ::-webkit-scrollbar-thumb {
+  @apply bg-slate-600;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   @apply bg-slate-400;
 }
 
 /* Estilos base del body */
 body {
-  @apply bg-[#F3F4F6] text-[#1F2937] font-sans antialiased;
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  @apply font-sans antialiased;
   margin: 0;
   padding: 0;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  /* Evita doble scrollbar si la App maneja el layout */
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
