@@ -9,6 +9,26 @@
             "firebase.json",
             "**/.*",
             "**/node_modules/**"
+        ],
+        "headers": [
+            {
+                "source": "**/*.@(jpg|jpeg|gif|png|css|js|webp)",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "max-age=31536000"
+                    }
+                ]
+            },
+            {
+                "source": "**/*.@(html)",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache, no-store, must-revalidate"
+                    }
+                ]
+            }
         ]
     }
 }

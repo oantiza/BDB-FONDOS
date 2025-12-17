@@ -101,5 +101,5 @@ export default function HistoryChart({ data }) {
         animation: { duration: 0 }
     };
 
-    return <Line data={data} options={options} />;
+    return <Line data={{ datasets }} options={options} />;
 }
