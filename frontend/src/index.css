@@ -15,16 +15,7 @@
   --color-border: #E5E7EB;
 }
 
-.dark {
-  /* Dark Theme */
-  --color-brand: #1E3A5F;
-  --color-accent: #F0D060;
-  --color-bg-main: #0F172A;
-  --color-bg-card: #1E293B;
-  --color-text-primary: #F1F5F9;
-  --color-text-secondary: #94A3B8;
-  --color-border: #334155;
-}
+/* Dark Theme Removed */
 
 /* Clases utilitarias personalizadas */
 @layer components {
@@ -32,16 +23,8 @@
     @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm;
   }
 
-  .dark .glass-card {
-    @apply bg-slate-800/80 border-slate-700;
-  }
-
   .card-base {
     @apply bg-white rounded-lg border border-gray-200 shadow-sm;
-  }
-
-  .dark .card-base {
-    @apply bg-slate-800 border-slate-700;
   }
 }
 
@@ -57,10 +40,6 @@
 
 ::-webkit-scrollbar-thumb {
   @apply bg-slate-300 rounded-full;
-}
-
-.dark ::-webkit-scrollbar-thumb {
-  @apply bg-slate-600;
 }
 
 ::-webkit-scrollbar-thumb:hover {

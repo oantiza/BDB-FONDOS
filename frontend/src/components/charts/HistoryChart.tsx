@@ -88,7 +88,8 @@ export default function HistoryChart({ data }) {
                 display: true,
                 time: { unit: 'month' },
                 grid: { display: false },
-                ticks: { font: { size: 10 }, maxTicksLimit: 6 }
+                ticks: { font: { size: 10 }, maxTicksLimit: 6 },
+                bounds: 'data',
             },
             y: {
                 display: true,
@@ -100,5 +101,5 @@ export default function HistoryChart({ data }) {
         animation: { duration: 0 }
     };
 
-    return <Line data={{ datasets }} options={options} />;
+    return <Line data={data} options={options} />;
 }

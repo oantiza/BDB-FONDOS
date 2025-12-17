@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { calcSimpleStats } from '../../utils/analytics'
+import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 
 export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, onAccept, onApplyDirect, onClose }) {
     const currentStats = useMemo(() => calcSimpleStats(currentPortfolio), [currentPortfolio])
@@ -37,7 +37,7 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                 </div>
 
                 <div className="p-8">
-                    <div className="grid grid-cols-3 gap-6 mb-8">
+                    <div className="grid grid-cols-4 gap-4 mb-8">
                         <StatCard
                             label="Volatilidad (Riesgo)"
                             current={currentStats.vol}
@@ -54,6 +54,19 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                             current={currentStats.ret / currentStats.vol}
                             proposed={proposedStats.ret / proposedStats.vol}
                             format="num"
+                        />
+                        <StatCard
+                            label="Quality Score"
+                            current={currentStats.score}
+                            proposed={proposedStats.score}
+                            format="num"
+                        />
+                        <StatCard
+                            label="Est. Correlation"
+                            current={useMemo(() => calcPortfolioCorrelation(currentPortfolio), [currentPortfolio])}
+                            proposed={useMemo(() => calcPortfolioCorrelation(proposedPortfolio), [proposedPortfolio])}
+                            format="num"
+                            inverse={true}
                         />
                     </div>
 

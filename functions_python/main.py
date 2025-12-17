@@ -917,16 +917,11 @@ def backtest_portfolio(request: https_fn.CallableRequest):
         
         def to_chart(ser): return [{'x': d.strftime('%Y-%m-%d'), 'y': round(v, 2)} for d, v in ser.items()]
 
-        # --- LOOK-THROUGH HOLDINGS (PROXY) ---
-        # Since fine-grained holdings are not in Firestore, we verify if there's a need to fetch from API or mock.
-        # User requested "Look-through". 
-        # Strategy: Fetch 'Fundamentals' for each fund if possible, or Mock Distribution if missing.
-        # Implemented: Realistic Mock based on Asset Class to satisfy visual requirement (as EODHD API quota is limited).
-        
+        # --- LOOK-THROUGH HOLDINGS (REAL + MOCK FALLBACK) ---
         aggregated_holdings = {}
         
         # Helper to distribute fund weight into mock underlying assets
-        def distribute_holdings(isin, total_weight, std_type):
+        def distribute_holdings_mock(isin, total_weight, std_type):
             mock_dist = []
             if std_type == 'RV':
                  mock_dist = [
@@ -959,30 +954,70 @@ def backtest_portfolio(request: https_fn.CallableRequest):
                     aggregated_holdings[sub_isin] = {'name': sub_name, 'weight': contrib}
 
         # Distribute for each asset in portfolio
-        # We need metadata (Type) which is not in 'portfolio' arg, but we can infer or fetch.
-        # For efficiency, we use a heuristic based on ISIN or fetch if necessary. 
-        # Here we fetch metadata from Firestore "funds_v2" if available, else heuristic.
         for item in portfolio:
              isin = item['isin']
              w = float(item['weight'])/100.0
-             # Fetch Type 
+             
+             # Fetch Metadata & Holdings from Firestore
              ftype = 'RV' # Default
+             real_holdings_found = False
+             
              try:
                  fdoc = db.collection('funds_v2').document(isin).get()
                  if fdoc.exists:
                      fd = fdoc.to_dict()
+                     # 1. Type Inference
                      metrics = fd.get('metrics', {})
                      if metrics.get('bond', 0) > 50: ftype = 'RF'
-             except: pass
+                     
+                     # 2. Real Holdings Check
+                     holdings_list = fd.get('holdings', [])
+                     if not holdings_list: 
+                         holdings_list = fd.get('top_holdings', [])
+                         
+                     if holdings_list and isinstance(holdings_list, list) and len(holdings_list) > 0:
+                         real_holdings_found = True
+                         # Sum of weights in the list (usually top 10 sum < 100%)
+                         # We normalize contribution based on the fund's weight in portfolio
+                         for h in holdings_list:
+                             h_name = h.get('name', 'Unknown')
+                             h_w = float(h.get('weight', 0)) / 100.0 # assume stored as percentage e.g. 5.5
+                             h_isin = h.get('isin', h_name) # Use name as ID if ISIN missing
+                             
+                             contrib = w * h_w
+                             
+                             if h_isin in aggregated_holdings:
+                                 aggregated_holdings[h_isin]['weight'] += contrib
+                             else:
+                                 aggregated_holdings[h_isin] = {'name': h_name, 'weight': contrib}
+                                 
+                         # Handle "Others" (Rest of the fund not in top holdings)
+                         total_known = sum(float(h.get('weight', 0)) for h in holdings_list)
+                         if total_known < 100:
+                             others_w = (100 - total_known) / 100.0
+                             contrib_others = w * others_w
+                             if 'OTHERS' in aggregated_holdings:
+                                 aggregated_holdings['OTHERS']['weight'] += contrib_others
+                             else:
+                                 aggregated_holdings['OTHERS'] = {'name': 'Other Holdings', 'weight': contrib_others}
+
+             except Exception as fetch_err:
+                 print(f"⚠️ Error fetching details for {isin}: {fetch_err}")
              
-             distribute_holdings(isin, w, ftype)
+             if not real_holdings_found:
+                 # Fallback to Mock
+                 distribute_holdings_mock(isin, w, ftype)
 
         # Sort and Format Top 10
-        top_lookthrough = sorted(aggregated_holdings.items(), key=lambda x: x[1]['weight'], reverse=True)[:10]
-        final_top_holdings = [
-            {'isin': h[0], 'name': h[1]['name'], 'weight': h[1]['weight'] * 100} 
-            for h in top_lookthrough
-        ]
+        # Filter out OTHERS from top list if we want specific names, or keep it.
+        # Usually valid to show "Others" if it's huge.
+        top_lookthrough = sorted(aggregated_holdings.items(), key=lambda x: x[1]['weight'], reverse=True)[:15] # Take top 15 to filter
+        
+        final_top_holdings = []
+        for h in top_lookthrough:
+             final_top_holdings.append({'isin': h[0], 'name': h[1]['name'], 'weight': h[1]['weight'] * 100})
+             
+        final_top_holdings = final_top_holdings[:10]
 
         return {
             'portfolioSeries': to_chart(cumulative),

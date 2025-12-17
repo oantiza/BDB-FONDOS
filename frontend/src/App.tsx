@@ -451,7 +451,7 @@ function App() {
         {/* COL 1: SIDEBAR (15%) */}
         <div className="w-[15%] h-full flex flex-col bg-slate-100 p-2">
           <div className="flex-1 overflow-hidden relative rounded-lg border border-slate-200">
-            <Sidebar assets={assets} onAddAsset={handleAddAsset} />
+            <Sidebar assets={assets} onAddAsset={handleAddAsset} onViewDetail={setSelectedFund} />
           </div>
         </div>
 

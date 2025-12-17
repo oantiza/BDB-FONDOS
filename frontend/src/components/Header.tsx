@@ -1,4 +1,4 @@
-import { useTheme } from '../hooks/useTheme'
+// import { useTheme } from '../hooks/useTheme' // Removed
 
 interface HeaderProps {
     onLogout: () => void
@@ -8,7 +8,7 @@ interface HeaderProps {
 }
 
 export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: HeaderProps) {
-    const { isDark, toggleTheme } = useTheme()
+    // Theme toggle removed
 
     return (
         <header className="h-16 bg-[var(--color-brand)] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b-4 border-[var(--color-accent)]">
@@ -18,14 +18,7 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: Heade
             </div>
             <div className="flex items-center gap-4">
                 {/* Dark Mode Toggle */}
-                <button
-                    onClick={toggleTheme}
-                    className="p-2 hover:bg-white/10 rounded transition-colors"
-                    title={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'}
-                    aria-label="Toggle theme"
-                >
-                    {isDark ? '☀️' : '🌙'}
-                </button>
+                {/* Dark Mode Toggle Removed */}
 
                 <button
                     onClick={onOpenMiBoutique}
