@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function Sidebar({ assets = [], onAddAsset, onViewDetails }) {
+export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
   const [term, setTerm] = useState('')
 
   const filtered = assets.filter(a => {
@@ -12,7 +12,11 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetails }) {
 
   return (
     <div className="w-full h-full bg-white border-r border-gray-200 shadow-md z-10 p-0 flex flex-col shrink-0 text-gray-800">
-      <div className="p-2 border-b border-gray-200 bg-gray-50 font-sans font-bold text-gray-700 text-xs uppercase tracking-wider">Universo de Fondos</div>
+      <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
+        <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
+          <span className="text-base">🌐</span> Universo de Fondos
+        </h3>
+      </div>
       <div className="p-3 border-b border-gray-200">
         <input
           type="text"
@@ -35,7 +39,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetails }) {
             >
               <div
                 className="min-w-0 pr-2 flex-1"
-                onClick={() => onViewDetails && onViewDetails(f)}
+                onClick={() => onViewDetail && onViewDetail(f)}
                 title="Ver detalles del fondo"
               >
                 <div className="text-sm font-bold text-gray-700 truncate hover:text-[#0B2545] hover:underline transition-colors" title={f.name}>{f.name}</div>

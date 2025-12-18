@@ -1,14 +1,8 @@
 import { useState, useEffect, useRef, lazy, Suspense } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+import { httpsCallable } from 'firebase/functions'
+import { db, functions, auth } from './firebase'
 import { onAuthStateChanged, signInAnonymously } from 'firebase/auth'
-import { auth } from './firebase'
-import { parsePortfolioCSV } from './utils/csvImport'
-
-// Hooks
-import { useDashboardData } from './hooks/useDashboardData'
-import { usePortfolio } from './hooks/usePortfolio'
-import { useAssets } from './hooks/useAssets'
-
-// Components
 import Login from './components/Login'
 import Header from './components/Header'
 import Sidebar from './components/Sidebar'
@@ -17,14 +11,15 @@ import HistoryChart from './components/charts/HistoryChart'
 import YieldCurveChart from './components/charts/YieldCurveChart'
 import PortfolioTable from './components/PortfolioTable'
 
-// Dashboard Components
+// Nexus Dashboard Components
 import SmartDonut from './components/dashboard/SmartDonut'
 import GeoDonut from './components/dashboard/GeoDonut'
 import KPICards from './components/dashboard/KPICards'
+import StyleBox from './components/charts/StyleBox'
 import MarketDrivers from './components/dashboard/MarketDrivers'
 import RiskMonitor from './components/dashboard/RiskMonitor'
 
-// Modals - Lazy Loaded
+// Modals - Lazy Loaded (Code Splitting)
 const NewsModal = lazy(() => import('./components/modals/NewsModal'))
 const CostsModal = lazy(() => import('./components/modals/CostsModal'))
 const AnalysisModal = lazy(() => import('./components/modals/AnalysisModal'))
@@ -34,103 +29,356 @@ const OptimizationReviewModal = lazy(() => import('./components/modals/Optimizat
 import FundDetailModal from './components/FundDetailModal'
 const VipFundsModal = lazy(() => import('./components/VipFundsModal'))
 
+
+
 // Pages
 import MiBoutiquePage from './pages/MiBoutiquePage'
 
+// Utils
+import { generateSmartPortfolio } from './utils/rulesEngine'
+import { parsePortfolioCSV } from './utils/csvImport'
+import { exportToCSV } from './utils/exportList'
+import { normalizeFundData } from './utils/normalizer'
+
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [assets, setAssets] = useState([])
+  const [portfolio, setPortfolio] = useState([])
+  const [proposedPortfolio, setProposedPortfolio] = useState([]) // Para el TacticalModal
+  // State with Persistence Initialization
+  const [riskLevel, setRiskLevel] = useState(() => parseInt(localStorage.getItem('ft_riskLevel')) || 5)
+  const [numFunds, setNumFunds] = useState(() => parseInt(localStorage.getItem('ft_numFunds')) || 7)
+  const [totalCapital, setTotalCapital] = useState(() => parseFloat(localStorage.getItem('ft_totalCapital')) || 100000)
+  const [vipFunds, setVipFunds] = useState(() => localStorage.getItem('ft_vipFunds') || '')
 
-  // --- STATE 1: ASSETS (Managed by Hook with Pagination) ---
-  const { assets, loading: loadingAssets, hasMore: assetsHasMore, loadMore: loadMoreAssets } = useAssets(isAuthenticated)
+  const [isOptimizing, setIsOptimizing] = useState(false)
 
-  // --- STATE 2: HOOKS ---
-  const dashboard = useDashboardData(isAuthenticated)
-  const portfolioState = usePortfolio(assets)
-  const {
-    portfolio, proposedPortfolio, setProposedPortfolio,
-    riskLevel, setRiskLevel, numFunds, setNumFunds,
-    totalCapital, setTotalCapital, vipFunds, setVipFunds,
-    isOptimizing, allocData, geoData,
-    handleAddAsset, handleRemoveAsset, handleUpdateWeight,
-    handleManualGenerate, handleOptimize, cleanPortfolio, setPortfolio
-  } = portfolioState
+  // Nuevo Estado Phase 8
+  const [marketIndex, setMarketIndex] = useState('GSPC.INDX')
+  const [historyPeriod, setHistoryPeriod] = useState('1y')
+  const [yieldRegion, setYieldRegion] = useState('US')
 
-  // --- STATE 3: UI/MODALS ---
+  // Modals visibility
   const [showNews, setShowNews] = useState(false)
   const [showCosts, setShowCosts] = useState(false)
   const [showAnalysis, setShowAnalysis] = useState(false)
   const [showTactical, setShowTactical] = useState(false)
   const [showMacro, setShowMacro] = useState(false)
   const [showVipModal, setShowVipModal] = useState(false)
+
   const [showReviewModal, setShowReviewModal] = useState(false)
-  const [showAudit, setShowAudit] = useState(false)
-  const [selectedFund, setSelectedFund] = useState<any>(null)
+
+  const [selectedFund, setSelectedFund] = useState(null) // For FundDetailPanel
+
 
   // VIEW NAVIGATION
-  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE'>('DASHBOARD')
+  const [activeView, setActiveView] = useState('DASHBOARD') // 'DASHBOARD' or 'MIBOUTIQUE'
 
-  // --- OTHERS ---
-  const [selectedCategory, setSelectedCategory] = useState('All')
-  const categories = [...new Set(assets.map((a: any) => a.std_extra?.category || 'Unknown'))].filter((c: any) => c !== 'Unknown').sort() as string[]
+  // Datos visuales Dashboard
+  const [historyData, setHistoryData] = useState([])
+  const [yieldData, setYieldData] = useState([])
+  const [allocData, setAllocData] = useState([])
+  const [geoData, setGeoData] = useState([])
 
-  // Auth Listener
+  // Cargar fondos al iniciar (SOLO tras autenticación)
   useEffect(() => {
+    console.log("App: Initializing Auth Listener")
+    // Escuchar cambios de Auth
     const unsubscribe = onAuthStateChanged(auth, (user) => {
+      console.log("App: Auth State Changed", user ? user.uid : 'No User')
       setIsAuthenticated(!!user)
+      if (user) {
+        fetchAssets()
+      } else {
+        setAssets([])
+      }
     })
     return () => unsubscribe()
   }, [])
 
-  // --- HANDLERS ---
-  const triggerOptimize = async () => {
-    const result = await handleOptimize(() => {
-      // On Success logic
+  async function fetchAssets() {
+    try {
+      console.log("App: Fetching assets from funds_v2...")
+      const querySnapshot = await getDocs(collection(db, "funds_v2"))
+      console.log("App: Firebase Query Snapshot size:", querySnapshot.size)
+      const list = []
+      querySnapshot.forEach((doc) => {
+        list.push(normalizeFundData({ isin: doc.id, ...doc.data() }))
+      })
+      setAssets(list)
+      console.log("App: Assets loaded and normalized:", list.length)
+      if (list.length > 0) {
+        console.table(list.slice(0, 5).map(f => ({
+          id: f.isin,
+          name: f.name,
+          ticker: f.eod_ticker || 'N/A'
+        })))
+      } else {
+        console.warn("App: Warning - No assets found in collection funds_v2")
+      }
+    } catch (error) {
+      console.error("App: Error loading funds:", error)
+      alert("Error de conexión (Assets): " + error.message)
+    }
+  }
+
+  useEffect(() => {
+    localStorage.setItem('ft_riskLevel', riskLevel)
+    localStorage.setItem('ft_numFunds', numFunds)
+    localStorage.setItem('ft_totalCapital', totalCapital)
+  }, [riskLevel, numFunds, totalCapital])
+
+  // Error Handling
+  const [dashboardError, setDashboardError] = useState(null)
+
+  // Cargar Métricas Dashboard (Async) - Dinámico por selectores
+  useEffect(() => {
+    if (!isAuthenticated) return
+
+    async function loadDashboardData() {
+      setDashboardError(null)
+      try {
+        // Market Index
+        const getIndex = httpsCallable(functions, 'getMarketIndex')
+        const resIndex = await getIndex({ symbol: marketIndex, range: historyPeriod })
+        if (resIndex.data?.series) {
+          setHistoryData(resIndex.data.series.map(d => ({ x: d.x, y: d.y })))
+        }
+
+        // Yield Curve
+        const getCurve = httpsCallable(functions, 'getYieldCurve')
+        const resCurve = await getCurve({ region: yieldRegion })
+        if (resCurve.data?.curve) {
+          setYieldData(resCurve.data.curve)
+        }
+      } catch (e) {
+        console.error("Error cargando dashboard:", e)
+        setDashboardError("Error conectando con el servidor de mercado.")
+      }
+    }
+    loadDashboardData()
+  }, [isAuthenticated, marketIndex, yieldRegion, historyPeriod]) // Re-run on selector change
+
+
+  // Recalcular métricas de reparto y geografía (Detailed)
+  useEffect(() => {
+    const typeMap = {}
+    const geoMap = {}
+
+    portfolio.forEach(p => {
+      const w = parseFloat(p.weight) || 0
+      const extra = p.std_extra || {}
+
+      // Type: Category > Asset Class > Computed Type
+      // Type: High-Level Grouping (per user request)
+      // Map std_type (RV, RF, Monetario, Mixto) to display labels
+      const rawType = p.std_type || 'Mixto'
+      let label = 'Otros'
+      if (rawType === 'RV') label = 'Renta Variable'
+      else if (rawType === 'RF') label = 'Renta Fija'
+      else if (rawType === 'Monetario') label = 'Monetarios'
+
+      typeMap[label] = (typeMap[label] || 0) + w
+
+      // Geo: Specific Region > Computed Region
+      // Use primary_region directly if available (stored in std_extra.regionDetail)
+      const region = extra.regionDetail || p.std_region || 'Global'
+      geoMap[region] = (geoMap[region] || 0) + w
     })
 
-    if (result) {
-      if (!result.hasChanges) {
-        alert("✅ La cartera ya está optimizada para este perfil de riesgo.")
-        setShowTactical(true)
-      } else {
-        setShowReviewModal(true)
+    // Helper to sort and group Top 5 + Other
+    const processMap = (map) => {
+      const entries = Object.entries(map).map(([k, v]) => ({ label: k, value: textToVal(v) }))
+      entries.sort((a, b) => b.value - a.value)
+
+      if (entries.length > 5) {
+        const top = entries.slice(0, 5)
+        const otherVal = entries.slice(5).reduce((s, x) => s + x.value, 0)
+        top.push({ label: 'Otros', value: otherVal })
+        return top
       }
+      return entries
+    }
+
+    const textToVal = (val) => typeof val === 'number' ? val : 0;
+
+    setAllocData(processMap(typeMap))
+    setGeoData(processMap(geoMap))
+
+  }, [portfolio])
+
+  const handleAddAsset = (asset) => {
+    if (portfolio.some(p => p.isin === asset.isin)) return
+    setPortfolio([...portfolio, { ...asset, weight: 0 }])
+  }
+
+  const handleRemoveAsset = (isin) => {
+    setPortfolio(portfolio.filter(p => p.isin !== isin))
+  }
+
+  const handleUpdateWeight = (isin, value) => {
+    const newWeight = parseFloat(value) || 0
+    setPortfolio(portfolio.map(p => p.isin === isin ? { ...p, weight: newWeight } : p))
+  }
+
+  // State for Smart Portfolio
+  const [selectedCategory, setSelectedCategory] = useState('All')
+
+  // Derive Categories from Assets
+  const categories = [...new Set(assets.map(a => a.std_extra?.category || 'Unknown'))].filter(c => c !== 'Unknown').sort()
+
+  const handleManualGenerate = async () => {
+    if (assets.length === 0) {
+      alert("Cargando fondos... espera un momento.")
+      return
+    }
+
+    // Call Cloud Function
+    try {
+      setPortfolio([]) // Clear existing portfolio as per user request
+      const generateFn = httpsCallable(functions, 'generateSmartPortfolio')
+      // Show loading state? Using isOptimizing for now or add new state
+      setIsOptimizing(true) // Reuse loader logic roughly
+
+      const response = await generateFn({
+        category: selectedCategory,
+        risk_level: riskLevel,
+        num_funds: numFunds,
+        vip_funds: vipFunds, // NEW: Anchor funds
+        optimize: false // Decouple Generation from Optimization
+      })
+
+      const result = response.data
+      if (result.portfolio) {
+        // Need to merge full asset data into result for UI to work (charts etc need extra fields)
+        // The cloud function returns basic info { isin, name, weight, score }
+        // We find the local asset object and merge
+
+        const enrichedPortfolio = result.portfolio.map(p => {
+          const localAsset = assets.find(a => a.isin === p.isin) || {}
+          return {
+            ...localAsset, // Base data
+            ...p,          // Overwrite weight/score from backend
+            weight: parseFloat(p.weight)
+          }
+        })
+
+        setPortfolio(enrichedPortfolio)
+
+        if (result.warnings?.length > 0) {
+          console.warn("Smart Portfolio Warnings:", result.warnings)
+        }
+        if (result.debug) console.log("Smart Portfolio Debug:", result.debug)
+
+      } else if (result.error) {
+        alert("Error: " + result.error)
+      }
+    } catch (e) {
+      console.error("Smart Portfolio Error:", e)
+      alert("Error generando cartera: " + e.message)
+    } finally {
+      setIsOptimizing(false)
+    }
+  }
+
+  const handleOptimize = async () => {
+    if (portfolio.length === 0) {
+      alert("Añade fondos a la cartera primero")
+      return
+    }
+
+    setIsOptimizing(true)
+    try {
+      const optimizeFn = httpsCallable(functions, 'optimize_portfolio_quant')
+      const response = await optimizeFn({
+        assets: portfolio.map(p => p.isin),
+        risk_level: riskLevel
+      })
+
+      const result = response.data
+      if (result.status === 'optimal' || result.status === 'fallback') {
+        const weights = result.weights || {}
+        let hasChanges = false
+
+        // Crear propuesta basada en la cartera actual pero con nuevos pesos
+        const optimized = portfolio.map(p => {
+          const newWeight = (weights[p.isin] || 0) * 100
+          if (Math.abs(newWeight - p.weight) > 0.5) hasChanges = true // Ignorar cambios menores a 0.5%
+          return {
+            ...p,
+            weight: newWeight
+          }
+        }).filter(p => p.weight > 0.01)
+
+        if (!hasChanges) {
+          alert("✅ La cartera ya está optimizada para este perfil de riesgo.")
+          setProposedPortfolio(optimized) // Update anyway just in case of micro diffs
+          // Skip review, maybe just flash success?
+          // But if user WANTS to see the modal to tweak, we should probably still show it but with a notice?
+          // User complaint was "nothing updates". Alert solves the confusion.
+          setShowTactical(true) // Go straight to Tactical/Workspace
+        } else {
+          setProposedPortfolio(optimized)
+          setShowReviewModal(true)
+        }
+
+        // Show warning if synthetic data was used
+        if (result.warnings && result.warnings.length > 0) {
+          const hasSynthetic = result.warnings.some(w => w.includes('Sintéticos'))
+          if (hasSynthetic) {
+            console.warn("Avios optimización:", result.warnings)
+            // alert("⚠️ Aviso: Se han utilizado datos simluados...") // Reduce noise if minor
+          }
+        }
+
+      } else {
+        alert("Error en la optimización: " + (result.warnings?.[0] || 'Desconocido'))
+      }
+    } catch (error) {
+      console.error("Critical Error Optimization:", error)
+      alert("Error crítico al contactar el servidor: " + error.message)
+    } finally {
+      setIsOptimizing(false)
     }
   }
 
   const handleApplyDirectly = () => {
     setPortfolio(proposedPortfolio)
     setShowReviewModal(false)
+    // No further modal, stay on main screen
   }
+
+
 
   const handleReviewAccept = () => {
     setShowReviewModal(false)
     setShowTactical(true)
   }
 
-  const handleAcceptPortfolio = (newPortfolio: any[]) => {
+  const handleAcceptPortfolio = (newPortfolio) => {
     setPortfolio(newPortfolio)
     setShowTactical(false)
   }
 
-  const handleMacroApply = (newProposal: any[]) => {
+  const handleMacroApply = (newProposal) => {
     setProposedPortfolio(newProposal)
     setShowMacro(false)
     setShowTactical(true)
   }
 
   // --- CSV IMPORT ---
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const fileInputRef = useRef(null)
 
   const handleImportClick = () => {
-    fileInputRef.current?.click()
+    fileInputRef.current.click()
   }
 
-  const handleFileChange = async (e: any) => {
+  const handleFileChange = async (e) => {
     const file = e.target.files[0]
     if (!file) return
 
     const reader = new FileReader()
-    reader.onload = async (evt: any) => {
+    reader.onload = async (evt) => {
       const text = evt.target.result
       const result = parsePortfolioCSV(text)
 
@@ -139,191 +387,296 @@ function App() {
         return
       }
 
-      if (!result.portfolio || typeof result.totalValue !== 'number') {
-        alert("Error: Datos del CSV inválidos o incompletos.")
-        return
-      }
+      if (window.confirm(`Se han detectado ${result.portfolio.length} fondos con un valor total de ${result.totalValue.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}.\n\n¿Desea reemplazar la cartera actual?`)) {
+        // Need to fetch full asset data for these ISINs to satisfy the app's need for regions/categories etc.
+        // We can match against 'assets' (the full database list loaded in sidebar)
 
-      const valStr = result.totalValue.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' });
-      if (window.confirm(`Se han detectado ${result.portfolio.length} fondos con un valor total de ${valStr}.\n\n¿Desea reemplazar la cartera actual?`)) {
-        const enriched = result.portfolio.map((p: any) => {
-          const known = assets.find((a: any) => a.isin === p.isin) || {}
+        const enriched = result.portfolio.map(p => {
+          const known = assets.find(a => a.isin === p.isin) || {}
           return {
             ...known,
-            ...p,
+            ...p, // Imported vals override defaults
             weight: parseFloat(p.weight)
           }
         })
+
         setPortfolio(enriched)
         setTotalCapital(result.totalValue)
       }
     }
     reader.readAsText(file)
-    e.target.value = ''
+    e.target.value = '' // Reset
   }
 
   if (!isAuthenticated) {
-    return <Login onLogin={() => signInAnonymously(auth).catch((error) => alert("Error iniciando sesión: " + error.message))} />
+    return <Login onLogin={() => {
+      console.log("App: Attempting Anonymous Login")
+      return signInAnonymously(auth).catch((error) => {
+        console.error("App: Login Error", error)
+        alert("Error iniciando sesión: " + error.message)
+        throw error // Re-throw so Login component knows it failed
+      })
+    }} />
+  }
+
+  // --- RENDER ---
+  if (activeView === 'MIBOUTIQUE') {
+    return (
+      <div className="h-screen flex flex-col overflow-y-auto bg-slate-50 font-sans text-slate-800 relative">
+        {/* Back Button Overlay */}
+        <button
+          onClick={() => setActiveView('DASHBOARD')}
+          className="fixed top-4 left-4 z-50 bg-white/90 p-2 rounded-full shadow-lg border border-slate-200 hover:bg-slate-100 transition-colors"
+          title="Volver al Dashboard"
+        >
+          🔙
+        </button>
+        <MiBoutiquePage />
+      </div>
+    )
   }
 
   return (
-    <div className="h-screen w-screen flex flex-col bg-[var(--color-bg-main)] text-[var(--color-text-primary)] font-roboto overflow-hidden">
+    <div className="h-screen flex flex-col overflow-hidden bg-gray-50 font-sans text-gray-900">
       <Header
         onLogout={() => auth.signOut()}
         onOpenNews={() => setShowNews(true)}
         onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
-        onOpenAudit={() => setShowAudit(true)}
+
       />
 
-      <div className="flex-1 flex overflow-hidden">
+      {/* MAIN CONTAINER: Strict L15% | C60% | R25% Layout */}
+      <div className="flex flex-1 overflow-hidden">
+
+        {/* COL 1: SIDEBAR (15%) */}
         <div className="w-[15%] h-full flex flex-col bg-slate-100 p-2">
           <div className="flex-1 overflow-hidden relative rounded-lg border border-slate-200">
-            <Sidebar
-              assets={assets}
-              onAddAsset={handleAddAsset}
-              onViewDetail={setSelectedFund}
-              onLoadMore={() => loadMoreAssets(false)}
-              hasMore={assetsHasMore}
-              loading={loadingAssets}
-            />
+            <Sidebar assets={assets} onAddAsset={handleAddAsset} onViewDetail={setSelectedFund} />
           </div>
         </div>
 
-        <div className="flex-1 flex flex-col min-w-0 bg-slate-50 relative">
+        {/* COL 2: CENTER (60%) - Market & Portfolio */}
+        <div className="w-[60%] h-full flex flex-col bg-slate-100 dark:bg-slate-800 p-2 gap-2">
 
-          {activeView === 'MIBOUTIQUE' && (
-            <div className="absolute inset-0 z-20 bg-white overflow-auto animate-in fade-in duration-300">
+          {/* TOP SECTION: MARKET CHARTS (Restored) */}
+          <div className="h-1/3 grid grid-cols-2 gap-2 shrink-0">
+            {/* Graph 1: Indices */}
+            <div className="bg-white dark:bg-slate-800 rounded-lg flex flex-col border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
+              <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center z-10">
+                <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
+                  <span className="text-base">📈</span> Indices
+                </h3>
+                <select
+                  value={marketIndex}
+                  onChange={(e) => setMarketIndex(e.target.value)}
+                  className="text-[10px] bg-white border border-gray-200 text-gray-600 px-1 outline-none"
+                >
+                  <option value="GSPC.INDX">S&P 500</option>
+                  <option value="IXIC.INDX">Nasdaq</option>
+                  <option value="GDAXI.INDX">DAX</option>
+                  <option value="IBEX.INDX">IBEX 35</option>
+                </select>
+                <div className="flex gap-1 ml-2">
+                  <button
+                    onClick={() => setHistoryPeriod('1m')}
+                    className={`text-[9px] px-1.5 py-0.5 font-bold border ${historyPeriod === '1m' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
+                  >
+                    1M
+                  </button>
+                  <button
+                    onClick={() => setHistoryPeriod('1y')}
+                    className={`text-[9px] px-1.5 py-0.5 font-bold border ${historyPeriod === '1y' ? 'bg-slate-600 text-white border-slate-600' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
+                  >
+                    1Y
+                  </button>
+                </div>
+              </div>
+              <div className="flex-1 w-full min-h-0 relative">
+                <HistoryChart data={historyData} />
+              </div>
+            </div>
+
+            {/* Graph 2: Yield Curve */}
+            <div className="bg-white rounded-lg flex flex-col border border-slate-200 shadow-sm relative overflow-hidden">
+              <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center z-10">
+                <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
+                  <span className="text-base">🏦</span> Yield Curve
+                </h3>
+                <select
+                  value={yieldRegion}
+                  onChange={(e) => setYieldRegion(e.target.value)}
+                  className="text-[10px] bg-white border border-gray-200 text-gray-600 rounded px-1 outline-none"
+                >
+                  <option value="US">USD</option>
+                  <option value="EU">EUR</option>
+                  <option value="EURIBOR">Euribor</option>
+                </select>
+              </div>
+              <div className="flex-1 w-full min-h-0 relative flex items-center justify-center">
+                <YieldCurveChart data={yieldData} />
+              </div>
+            </div>
+          </div>
+
+
+          {/* ERROR BANNER */}
+          {dashboardError && (
+            <div className="bg-red-50 border-l-4 border-red-500 p-2 mx-2 mb-2 text-red-700 text-xs flex justify-between items-center">
+              <span>⚠️ {dashboardError}</span>
               <button
-                onClick={() => setActiveView('DASHBOARD')}
-                className="absolute top-4 right-4 bg-slate-800 text-white px-4 py-2 rounded shadow hover:bg-slate-700 z-50"
+                onClick={() => window.location.reload()}
+                className="underline hover:text-red-900 font-bold"
               >
-                Volver al Dashboard
+                Reintentar
               </button>
-              <MiBoutiquePage />
             </div>
           )}
 
-          {/* MAIN LAYOUT: 2 COLUMNS (Center & Right) - Sidebar is already handled in parent */}
-          <div className="flex-1 flex overflow-hidden">
+          <div className="flex-1 overflow-hidden flex flex-col relative rounded-lg border border-slate-200">
+            <div className="flex-1 bg-white rounded-lg shadow-sm overflow-hidden relative flex flex-col">
+              <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
+                <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
+                  <span className="text-base">💼</span> Cartera de Fondos
+                </h3>
+                <div className="flex items-center gap-2 text-xs">
+                  <span className="text-slate-500 font-bold uppercase">Capital:</span>
+                  <input
+                    type="number"
+                    value={totalCapital}
+                    onChange={(e) => setTotalCapital(parseFloat(e.target.value))}
+                    className="bg-white border border-slate-200 text-slate-800 font-mono px-2 py-0.5 w-24 text-right"
+                  />
+                  <span className="text-slate-500 font-bold">€</span>
 
-            {/* CENTER COLUMN: Charts & Table */}
-            <div className="flex-1 flex flex-col p-4 gap-4 overflow-y-auto custom-scrollbar min-w-0">
+                  <button
+                    onClick={() => exportToCSV(portfolio, totalCapital)}
+                    className="ml-2 text-xs bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-700 p-1 border border-slate-200 transition-colors"
+                    title="Exportar CSV"
+                  >
+                    📥
+                  </button>
 
-              {/* TOP ROW: Charts */}
-              <div className="h-[320px] grid grid-cols-2 gap-4 shrink-0">
-                <div className="glass-card p-3 rounded-xl flex flex-col">
-                  <h3 className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Indices</h3>
-                  <div className="flex-1 min-h-0">
-                    <HistoryChart data={dashboard.historyData} />
-                  </div>
-                </div>
-                <div className="glass-card p-3 rounded-xl flex flex-col">
-                  <h3 className="text-xs font-bold text-slate-500 mb-2 uppercase tracking-wider">Yield Curve</h3>
-                  <div className="flex-1 min-h-0">
-                    <YieldCurveChart data={dashboard.yieldData} />
-                  </div>
+                  <input
+                    type="file"
+                    ref={fileInputRef}
+                    onChange={handleFileChange}
+                    accept=".csv"
+                    className="hidden"
+                  />
+                  <button
+                    onClick={handleImportClick}
+                    className="ml-1 text-xs bg-white hover:bg-slate-50 text-slate-500 hover:text-slate-700 p-1 border border-slate-200 transition-colors"
+                    title="Importar Cartera (CSV)"
+                  >
+                    📂
+                  </button>
                 </div>
               </div>
+              <div className="flex-1 overflow-hidden relative">
+                <PortfolioTable
+                  assets={portfolio}
+                  totalCapital={totalCapital}
+                  onRemove={handleRemoveAsset}
+                  onUpdateWeight={handleUpdateWeight}
+                  onFundClick={setSelectedFund}
+                />
 
-              {/* BOTTOM ROW: Portfolio Table */}
-              <div className="flex-1 glass-card rounded-xl overflow-hidden flex flex-col min-h-[300px]">
-                <div className="p-3 border-b border-slate-100 bg-slate-50">
-                  <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Cartera de Fondos</h3>
-                </div>
-                <div className="flex-1 overflow-auto">
-                  <PortfolioTable
-                    assets={portfolio}
-                    onRemove={handleRemoveAsset}
-                    onUpdateWeight={handleUpdateWeight}
-                    onFundClick={setSelectedFund}
-                    totalCapital={totalCapital}
-                  />
-                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        {/* COL 3: RIGHT (25%) - Analysis & Ops */}
+        <div className="w-[30%] h-full flex flex-col bg-slate-100 overflow-y-auto scrollbar-thin p-2 gap-2">
+
+          {/* MODULE 1: ANALYSIS */}
+          <div className="flex flex-col gap-2 flex-1">
+
+            {/* Drivers/Risks (RESIZED TO h-[14rem]) */}
+            <div className="grid grid-cols-2 h-[14rem] shrink-0 gap-2">
+              <div className="overflow-hidden relative rounded-lg border border-slate-200">
+                <MarketDrivers />
+              </div>
+              <div className="overflow-hidden relative rounded-lg border border-slate-200">
+                <RiskMonitor portfolio={portfolio} />
               </div>
             </div>
 
-            {/* RIGHT COLUMN: Metrics & Controls */}
-            <div className="w-[320px] bg-slate-50 border-l border-slate-200 flex flex-col p-4 gap-4 overflow-y-auto custom-scrollbar shrink-0">
-
-              {/* 1. Market Drivers & Risk Monitor */}
-              <div className="grid grid-cols-2 gap-2 h-[200px] shrink-0">
-                <div className="glass-card p-1 rounded-xl overflow-hidden">
-                  <MarketDrivers />
-                </div>
-                <div className="glass-card p-1 rounded-xl overflow-hidden">
-                  <RiskMonitor portfolio={portfolio} />
-                </div>
-              </div>
-
-              {/* 2. Donuts Row */}
-              <div className="grid grid-cols-2 gap-2 h-[140px]">
-                <div className="glass-card p-2 rounded-xl relative flex flex-col">
+            {/* MERGED CONTAINER: Donuts (Top) + Metrics (Bottom) */}
+            <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col gap-2 shrink-0 p-2">
+              {/* 1. Donuts Row */}
+              <div className="grid grid-cols-2 h-[16rem] gap-2">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-1 relative flex flex-col items-center justify-center">
                   <SmartDonut allocation={allocData} />
                 </div>
-                <div className="glass-card p-2 rounded-xl relative flex flex-col">
+                <div className="bg-slate-50 border border-slate-200 rounded-lg p-1 relative flex flex-col items-center justify-center">
                   <GeoDonut allocation={geoData} />
                 </div>
               </div>
 
-              {/* 3. KPI Cards (Compact) */}
-              <div className="glass-card rounded-xl overflow-hidden">
+              {/* 2. Metrics Table */}
+              <div className="p-2">
+
+
                 <KPICards portfolio={portfolio} />
               </div>
-
-              {/* 4. Controls */}
-              <Controls
-                riskLevel={riskLevel} setRiskLevel={setRiskLevel}
-                numFunds={numFunds} setNumFunds={setNumFunds}
-                vipFunds={vipFunds} setVipFunds={setVipFunds}
-                onManualGenerate={() => handleManualGenerate(selectedCategory)}
-                onOptimize={triggerOptimize}
-                onClean={cleanPortfolio}
-                isOptimizing={isOptimizing}
-                categories={categories}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-                onOpenNews={() => setShowNews(true)}
-                onOpenCosts={() => setShowCosts(true)}
-                onOpenAnalysis={() => setShowAnalysis(true)}
-                onOpenVipModal={() => setShowVipModal(true)}
-                onImportCSV={handleImportClick}
-                onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
-                onOpenXRay={() => alert("Función X-Ray en desarrollo")}
-                onOpenTactical={() => setShowTactical(true)}
-                onOpenMacro={() => setShowMacro(true)}
-                className="w-full"
-              />
             </div>
-
           </div>
+
+          {/* MODULE 2: OPERATIONS (Bottom) */}
+          <div className="flex-1">
+            <Controls
+              className="h-full"
+              riskLevel={riskLevel}
+              setRiskLevel={setRiskLevel}
+              numFunds={numFunds}
+              setNumFunds={setNumFunds}
+              onOptimize={handleOptimize}
+              isOptimizing={isOptimizing}
+              onManualGenerate={handleManualGenerate}
+              onOpenCosts={() => setShowCosts(true)}
+              onOpenXRay={() => setShowAnalysis(true)}
+              onOpenTactical={() => {
+                setProposedPortfolio(portfolio)
+                setShowTactical(true)
+              }}
+              onOpenMacro={() => setShowMacro(true)}
+              categories={categories}
+              selectedCategory={selectedCategory}
+              setSelectedCategory={setSelectedCategory}
+              vipFunds={vipFunds}
+              setVipFunds={setVipFunds}
+              onOpenVipModal={() => setShowVipModal(true)}
+            />
+          </div>
+
         </div>
       </div>
 
-      <input type="file" ref={fileInputRef} onChange={handleFileChange} className="hidden" accept=".csv" />
-
+      {/* MODALS - Lazy Loaded with Suspense */}
       <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center"><div className="text-white">Cargando...</div></div>}>
         {showNews && <NewsModal onClose={() => setShowNews(false)} />}
         {showCosts && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => setShowCosts(false)} />}
-        {showVipModal && (<VipFundsModal vipFundsStr={vipFunds} onSave={(newVal: string) => setVipFunds(newVal)} onClose={() => setShowVipModal(false)} />)}
-        {showAnalysis && <AnalysisModal portfolio={portfolio} fundDatabase={assets} onClose={() => setShowAnalysis(false)} />}
-
-        {showReviewModal && (
-          <OptimizationReviewModal
-            currentPortfolio={portfolio}
-            proposedPortfolio={proposedPortfolio}
-            onAccept={handleReviewAccept}
-            onApplyDirect={handleApplyDirectly}
-            onClose={() => setShowReviewModal(false)}
+        {showVipModal && (
+          <VipFundsModal
+            vipFundsStr={vipFunds}
+            onSave={(newVal) => {
+              setVipFunds(newVal)
+              localStorage.setItem('ft_vipFunds', newVal)
+            }}
+            onClose={() => setShowVipModal(false)}
           />
         )}
+        {showAnalysis && <AnalysisModal portfolio={portfolio} fundDatabase={assets} onClose={() => setShowAnalysis(false)} />}
 
         {showTactical && (
           <TacticalModal
             currentPortfolio={portfolio}
             proposedPortfolio={proposedPortfolio}
-            onClose={() => setShowTactical(false)}
             onAccept={handleAcceptPortfolio}
-            onOpenMacro={() => { setShowTactical(false); setShowMacro(true); }}
+            onClose={() => setShowTactical(false)}
           />
         )}
 
@@ -335,9 +688,23 @@ function App() {
           />
         )}
 
-        {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
-      </Suspense>
+        {showReviewModal && (
+          <OptimizationReviewModal
+            currentPortfolio={portfolio}
+            proposedPortfolio={proposedPortfolio}
+            onAccept={handleReviewAccept}
+            onApplyDirect={handleApplyDirectly}
+            onClose={() => setShowReviewModal(false)}
+          />
+        )}
 
+        {selectedFund && (
+          <FundDetailModal
+            fund={selectedFund}
+            onClose={() => setSelectedFund(null)}
+          />
+        )}
+      </Suspense>
     </div>
   )
 }

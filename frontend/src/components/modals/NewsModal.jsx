@@ -83,27 +83,37 @@ export default function NewsModal({ onClose }) {
                             No se encontraron noticias recientes.
                         </div>
                     ) : (
-                        <div className="flex flex-col gap-2">
+                        <div className="flex flex-col">
                             {articles.map((a, i) => (
-                                <a key={i} href={a.link} target="_blank" rel="noopener noreferrer"
-                                    className="flex flex-col gap-1 bg-white p-3 rounded border border-slate-200 shadow-sm hover:shadow-md hover:border-brand transition-all group">
+                                <a
+                                    key={i}
+                                    href={a.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="flex items-center gap-3 p-2 border-b border-gray-100 hover:bg-slate-50 transition-colors group text-sm"
+                                >
+                                    {/* 1. Source Badge */}
+                                    <span className="bg-slate-100 text-slate-600 text-[10px] font-black px-1.5 py-0.5 rounded uppercase shrink-0 min-w-[60px] text-center">
+                                        {a.source || 'NEWS'}
+                                    </span>
 
-                                    {/* Header: Source & Date */}
-                                    <div className="flex justify-between items-center w-full mb-1">
-                                        <span className="bg-slate-100 text-slate-600 text-[9px] font-black px-2 py-0.5 rounded uppercase">{a.source || 'NEWS'}</span>
-                                        <span className="text-[10px] text-slate-400 font-mono">
-                                            {a.date ? new Date(a.date).toLocaleDateString() : 'Hoy'}
-                                        </span>
-                                    </div>
-
-                                    {/* Content: Title & Summary */}
-                                    <h4 className="text-sm font-bold text-brand group-hover:text-blue-600 transition-colors leading-tight">
+                                    {/* 2. Title */}
+                                    <span className="font-bold text-brand group-hover:text-blue-600 whitespace-nowrap shrink-0 max-w-[250px] truncate" title={a.title}>
                                         {a.title}
-                                    </h4>
+                                    </span>
 
-                                    <p className="text-xs text-slate-500 line-clamp-2 leading-relaxed">
+                                    {/* 3. Helper Separator */}
+                                    <span className="text-slate-300">-</span>
+
+                                    {/* 4. Summary (Truncated) */}
+                                    <span className="text-slate-500 truncate flex-1 min-w-0" title={a.content || a.description}>
                                         {a.content || a.description || "Haz clic para leer la noticia completa..."}
-                                    </p>
+                                    </span>
+
+                                    {/* 5. Date */}
+                                    <span className="text-[10px] text-slate-400 font-mono whitespace-nowrap shrink-0 ml-2">
+                                        {a.date ? new Date(a.date).toLocaleDateString() : 'Hoy'}
+                                    </span>
                                 </a>
                             ))}
                         </div>

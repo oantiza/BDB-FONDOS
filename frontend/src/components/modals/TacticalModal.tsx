@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react'
 import ComparisonChart from '../charts/ComparisonChart'
 import { calcSimpleStats, generateProjectionPoints } from '../../utils/analytics'
 
-export default function TacticalModal({ currentPortfolio, proposedPortfolio, onAccept, onClose, onOpenMacro }) {
+export default function TacticalModal({ currentPortfolio, proposedPortfolio, onAccept, onClose }) {
     const [editedProposal, setEditedProposal] = useState([])
     const [isEditing, setIsEditing] = useState(false) // Manual Rebalance Mode
 
@@ -85,13 +85,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
 
                         {/* Composition Table */}
                         <div className="flex-1 overflow-y-auto p-4">
-                            <TableViewer
-                                portfolio={currentPortfolio}
-                                readOnly={true}
-                                onWeightChange={() => { }}
-                                onRemove={() => { }}
-                                comparisonPortfolio={null}
-                            />
+                            <TableViewer portfolio={currentPortfolio} readOnly={true} />
                         </div>
                     </div>
 
@@ -165,14 +159,6 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         >
                             <span>🔧</span> {isEditing ? 'Finalizar Edición' : 'Ajuste Manual'}
                         </button>
-                        {onOpenMacro && (
-                            <button
-                                onClick={onOpenMacro}
-                                className="bg-slate-100 hover:bg-slate-200 text-slate-600 border border-slate-300 px-4 py-2 rounded text-xs font-bold uppercase transition-colors flex items-center gap-2 shadow-sm"
-                            >
-                                <span>🌐</span> Vista Macro
-                            </button>
-                        )}
                     </div>
 
                     {/* Right: Confirmation */}

@@ -1,4 +1,4 @@
-export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, onOpenAudit }) {
+export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }) {
     return (
         <header className="h-16 bg-[#0B2545] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-slate-700">
             <div className="flex flex-col">
@@ -13,13 +13,7 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, onOpenA
                 >
                     <span>🏦 Mi Boutique</span>
                 </button>
-                <button
-                    onClick={onOpenAudit}
-                    className="font-bold hover:text-red-400 transition-colors flex items-center gap-2 text-xs uppercase tracking-wider"
-                    title="Audit Database Health"
-                >
-                    <span>🛡️ Audit</span>
-                </button>
+
                 <button onClick={onOpenNews} className="font-bold hover:text-[#D4AF37] transition-colors flex items-center gap-2">
                     <span>NEWS</span>
                     <span className="relative flex h-2 w-2">

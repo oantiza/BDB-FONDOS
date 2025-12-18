@@ -1,9 +1,10 @@
+// import { useTheme } from '../hooks/useTheme' // Removed
 
 interface HeaderProps {
     onLogout: () => void
     onOpenNews: () => void
     onOpenMiBoutique: () => void
-    onOpenAudit?: () => void
+
 }
 
 export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: HeaderProps) {
@@ -16,6 +17,9 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: Heade
                 <div className="text-[9px] uppercase tracking-[0.2em] text-gray-400">Portfolio Intelligence</div>
             </div>
             <div className="flex items-center gap-4">
+                {/* Dark Mode Toggle */}
+                {/* Dark Mode Toggle Removed */}
+
                 <button
                     onClick={onOpenMiBoutique}
                     className="font-bold hover:text-[var(--color-accent)] transition-colors flex items-center gap-2 text-xs uppercase tracking-wider"

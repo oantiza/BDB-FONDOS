@@ -87,7 +87,12 @@ export default function NewsModal({ onClose }) {
                         <div className="flex flex-col gap-3">
                             {articles.map((a, i) => (
                                 <a key={i} href={a.link} target="_blank" rel="noopener noreferrer"
-                                    className="flex gap-4 bg-white p-4 rounded-lg border-l-4 border-l-blue-600 border border-slate-200 shadow-sm hover:shadow-md hover:border-brand transition-all group items-start">
+                                    className="flex gap-4 bg-white p-4 rounded-lg border border-slate-200 shadow-sm hover:shadow-md hover:border-brand transition-all group items-start">
+
+                                    {/* Number Circle */}
+                                    <div className="shrink-0 w-8 h-8 rounded-full bg-blue-50 text-brand font-bold flex items-center justify-center text-sm border border-blue-100 group-hover:bg-brand group-hover:text-white transition-colors">
+                                        {i + 1}
+                                    </div>
 
                                     <div className="flex-1 min-w-0">
                                         <div className="flex justify-between items-start mb-1">

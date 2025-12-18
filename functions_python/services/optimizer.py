@@ -164,6 +164,18 @@ def generate_smart_portfolio(category, risk_level, num_funds, vip_funds_str, opt
             isin = f.get('isin')
             if not isin: return None
             
+            # --- EXTRACT DATA ---
+            perf_data = f.get('perf', {})
+            sharpe = perf_data.get('sharpe')
+            alpha = perf_data.get('alpha')
+            volatility = perf_data.get('volatility', 0.15)
+            
+            history_years = f.get('inception_years', 0)
+            cagr3y = perf_data.get('cagr3y', 0)
+            cagr6m = perf_data.get('cagr6m', cagr3y)
+            
+            score = 0
+            
             # --- DYNAMIC SCORING WEIGHTS BASED ON RISK ---
             # Default (Balanced - Risk 4-7)
             w_sharpe = 35

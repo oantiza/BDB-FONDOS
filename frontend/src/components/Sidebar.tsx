@@ -1,22 +1,6 @@
 import { useState } from 'react'
 
-interface SidebarProps {
-  assets: any[]
-  onAddAsset: (asset: any) => void
-  onViewDetail?: (asset: any) => void
-  onLoadMore?: () => void
-  hasMore?: boolean
-  loading?: boolean
-}
-
-export default function Sidebar({
-  assets = [],
-  onAddAsset,
-  onViewDetail,
-  onLoadMore,
-  hasMore = false,
-  loading = false
-}: SidebarProps) {
+export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
   const [term, setTerm] = useState('')
 
   const filtered = assets.filter(a => {
@@ -24,7 +8,7 @@ export default function Sidebar({
     // Blacklist Base Indices
     const isBlacklisted = (a.isin === 'IE00B18GC888' || a.isin === 'IE00B03HCZ61')
     return termMatch && !isBlacklisted
-  })
+  }).slice(0, 50)
 
   return (
     <div className="w-full h-full bg-white border-r border-gray-200 shadow-md z-10 p-0 flex flex-col shrink-0 text-gray-800">
@@ -39,47 +23,35 @@ export default function Sidebar({
         />
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-thin">
-        {assets.length === 0 && loading ? (
+        {assets.length === 0 ? (
           <div className="p-4 text-center text-gray-500 text-sm italic">Cargando fondos...</div>
         ) : filtered.length === 0 ? (
           <div className="p-4 text-center text-gray-500 text-sm italic">Sin resultados</div>
         ) : (
-          <>
-            {filtered.map(f => (
-              <div
-                key={f.isin}
-                className="p-3 border-b border-gray-100 hover:bg-gray-50 flex justify-between items-center group transition-colors first:border-t-0"
-              >
-                <div className="min-w-0 pr-2 flex-1">
-                  <div
-                    onClick={() => onViewDetail && onViewDetail(f)}
-                    className="text-sm font-bold text-gray-700 truncate cursor-pointer hover:text-brand hover:underline"
-                    title="Ver detalle del fondo"
-                  >
-                    {f.name}
-                  </div>
-                  <div className="text-xs text-gray-400 font-mono">{f.isin}</div>
-                </div>
-                <button
-                  onClick={() => onAddAsset(f)}
-                  className="text-[var(--color-accent)] font-bold opacity-0 group-hover:opacity-100 text-lg shrink-0 px-2 hover:bg-slate-200 rounded"
-                  title="Añadir a cartera"
+          filtered.map(f => (
+            <div
+              key={f.isin}
+              className="p-3 border-b border-gray-100 hover:bg-gray-50 flex justify-between items-center group transition-colors first:border-t-0"
+            >
+              <div className="min-w-0 pr-2 flex-1">
+                <div
+                  onClick={() => onViewDetail && onViewDetail(f)}
+                  className="text-sm font-bold text-gray-700 truncate cursor-pointer hover:text-brand hover:underline"
+                  title="Ver detalle del fondo"
                 >
-                  +
-                </button>
+                  {f.name}
+                </div>
+                <div className="text-xs text-gray-400 font-mono">{f.isin}</div>
               </div>
-            ))}
-
-            {onLoadMore && hasMore && !term && (
               <button
-                onClick={onLoadMore}
-                disabled={loading}
-                className="w-full p-2 text-xs text-slate-500 hover:bg-slate-50 border-t border-slate-100 transition-colors disabled:opacity-50"
+                onClick={() => onAddAsset(f)}
+                className="text-[var(--color-accent)] font-bold opacity-0 group-hover:opacity-100 text-lg shrink-0 px-2 hover:bg-slate-200 rounded"
+                title="Añadir a cartera"
               >
-                {loading ? 'Cargando más...' : 'Cargar más fondos...'}
+                +
               </button>
-            )}
-          </>
+            </div>
+          ))
         )}
       </div>
     </div>
