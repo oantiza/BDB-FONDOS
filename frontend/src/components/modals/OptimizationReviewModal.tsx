@@ -56,13 +56,13 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                             format="num"
                         />
                         <StatCard
-                            label="Quality Score"
+                            label="Puntuación Calidad"
                             current={currentStats.score}
                             proposed={proposedStats.score}
                             format="num"
                         />
                         <StatCard
-                            label="Est. Correlation"
+                            label="Correlación Est."
                             current={useMemo(() => calcPortfolioCorrelation(currentPortfolio), [currentPortfolio])}
                             proposed={useMemo(() => calcPortfolioCorrelation(proposedPortfolio), [proposedPortfolio])}
                             format="num"

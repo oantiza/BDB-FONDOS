@@ -3,6 +3,7 @@ export const EXCLUDED_BENCHMARK_ISINS = ['IE00B18GC888', 'IE00B03HCZ61'];
 export const BENCHMARK_PROFILES = {
     'Conservador': { rf: 1.0, rv: 0.0, color: '#10B981', id: 'conservative' },
     'Moderado': { rf: 0.75, rv: 0.25, color: '#3B82F6', id: 'moderate' },
+    'Equilibrado': { rf: 0.50, rv: 0.50, color: '#8B5CF6', id: 'balanced' },
     'Dinámico': { rf: 0.25, rv: 0.75, color: '#F59E0B', id: 'dynamic' },
     'Agresivo': { rf: 0.0, rv: 1.0, color: '#EF4444', id: 'aggressive' }
 };

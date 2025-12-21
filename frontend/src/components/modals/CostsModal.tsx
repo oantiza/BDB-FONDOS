@@ -63,7 +63,7 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
                                     onChange={(e) => setMargin(parseFloat(e.target.value) || 0)}
                                     className="w-24 text-xl font-mono font-bold text-brand bg-white border border-slate-300 rounded px-2 py-1 outline-none focus:border-accent"
                                 />
-                                <span className="text-xs text-slate-400">x Base Ret.</span>
+                                <span className="text-xs text-slate-400">x Retro. Base</span>
                             </div>
                         </div>
 
@@ -111,7 +111,7 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
                         </thead>
                         <tbody className="divide-y divide-slate-100">
                             {costRows.length === 0 ? (
-                                <tr><td colSpan="7" className="p-4 text-center italic text-slate-400">No hay activos en cartera</td></tr>
+                                <tr><td colSpan={7} className="p-4 text-center italic text-slate-400">No hay activos en cartera</td></tr>
                             ) : costRows.map(row => (
                                 <tr key={row.isin} className="hover:bg-slate-50 group transition-colors">
                                     <td className="p-3">
@@ -138,7 +138,7 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
                                 <td className="p-3">TOTAL</td>
                                 <td className="p-3 text-right">{totalWeight.toFixed(2)}%</td>
                                 <td className="p-3 text-right">{totalCapital.toLocaleString('es-ES')} €</td>
-                                <td className="p-3 text-right" colSpan="2"></td>
+                                <td className="p-3 text-right" colSpan={2}></td>
                                 <td className="p-3 text-right">{avgFinalRetroPercent.toFixed(2)}%</td>
                                 <td className="p-3 text-right text-emerald-700 font-black text-sm">
                                     {totalRetroEUR.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}

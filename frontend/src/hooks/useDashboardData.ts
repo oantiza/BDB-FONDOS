@@ -1,68 +1,40 @@
 import { useState, useEffect } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../firebase'
+import { MarketIndexResponse, YieldCurveResponse } from '../types'
 
-export function useDashboardData(isAuthenticated: boolean) {
-    const [marketIndex, setMarketIndex] = useState('GSPC.INDX')
-    const [historyPeriod, setHistoryPeriod] = useState('1y')
-    const [yieldRegion, setYieldRegion] = useState('US')
-
-    const [historyData, setHistoryData] = useState<any[]>([])
-    const [yieldData, setYieldData] = useState<any[]>([])
-
-    // Derived visual data for donuts/metrics is calculated in App or another hook based on Portfolio
-    // This hook focuses on External Market Data (Charts)
-
+export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
+    const [historyData, setHistoryData] = useState<{ x: string; y: number }[]>([])
     const [dashboardError, setDashboardError] = useState<string | null>(null)
-    const [loadingMarket, setLoadingMarket] = useState(false)
 
     useEffect(() => {
-        if (!isAuthenticated) return
+        if (!isAuthenticated || !portfolio || portfolio.length === 0) {
+            setHistoryData([]);
+            return;
+        }
 
         async function loadDashboardData() {
             setDashboardError(null)
-            setLoadingMarket(true)
             try {
-                // Market Index
-                const getIndex = httpsCallable(functions, 'getMarketIndex')
-                const resIndexPromise = getIndex({ symbol: marketIndex, range: historyPeriod })
+                const getBacktest = httpsCallable(functions, 'backtest_portfolio')
+                const res = await getBacktest({ portfolio, period: '5y' })
+                const data = res.data as any;
 
-                // Yield Curve
-                const getCurve = httpsCallable(functions, 'getYieldCurve')
-                const resCurvePromise = getCurve({ region: yieldRegion })
-
-                // Parallel fetch
-                const [resIndex, resCurve] = await Promise.all([resIndexPromise, resCurvePromise])
-
-                const indexData = (resIndex.data as any)?.series || []
-                const curveData = (resCurve.data as any)?.curve || []
-
-                if (indexData.length > 0) {
-                    setHistoryData(indexData.map((d: any) => ({ x: d.x, y: d.y })))
+                if (data.portfolioSeries) {
+                    setHistoryData(data.portfolioSeries);
+                } else if (data.error) {
+                    setDashboardError(data.error);
                 }
-
-                if (curveData.length > 0) {
-                    setYieldData(curveData)
-                }
-
             } catch (e: any) {
                 console.error("Error cargando dashboard:", e)
-                setDashboardError("Error conectando con el servidor de mercado.")
-            } finally {
-                setLoadingMarket(false)
+                setDashboardError("Error calculando el histórico de cartera.")
             }
         }
-
         loadDashboardData()
-    }, [isAuthenticated, marketIndex, yieldRegion, historyPeriod])
+    }, [isAuthenticated, portfolio])
 
     return {
-        marketIndex, setMarketIndex,
-        historyPeriod, setHistoryPeriod,
-        yieldRegion, setYieldRegion,
         historyData,
-        yieldData,
-        dashboardError,
-        loadingMarket
+        dashboardError
     }
 }

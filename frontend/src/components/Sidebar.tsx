@@ -12,7 +12,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
 
   return (
     <div className="w-full h-full bg-white border-r border-gray-200 shadow-md z-10 p-0 flex flex-col shrink-0 text-gray-800">
-      <div className="p-2 border-b border-gray-200 bg-gray-50 font-sans font-bold text-gray-700 text-xs uppercase tracking-wider">Universo de Fondos</div>
+      <div className="p-2 border-b border-gray-200 bg-gray-50 font-sans font-bold text-gray-700 text-xs uppercase tracking-wider">Universo de Inversión</div>
       <div className="p-3 border-b border-gray-200">
         <input
           type="text"

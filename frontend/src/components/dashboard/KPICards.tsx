@@ -1,43 +1,59 @@
 import { useMemo } from 'react'
 import { calcSimpleStats } from '../../utils/analytics'
 
-export default function KPICards({ portfolio, maxDrawdown = null }) {
+interface KPICardsProps {
+    portfolio: any[];
+    maxDrawdown?: number | null;
+}
+
+export default function KPICards({ portfolio, maxDrawdown = null }: KPICardsProps) {
     const stats = useMemo(() => calcSimpleStats(portfolio), [portfolio])
 
-    // Format Max Drawdown - use prop if provided, otherwise estimate from volatility
     const displayMaxDD = maxDrawdown !== null
         ? `${(maxDrawdown * 100).toFixed(2)}%`
-        : `${(-stats.vol * 30).toFixed(2)}%`; // Rough estimate: Vol * 30 (heuristic)
+        : `${(-stats.vol * 30).toFixed(2)}%`;
 
     const metrics = [
-        { label: 'Rentabilidad YTD', value: `${(stats.ret * 100).toFixed(2)}%`, trend: '+0.42%', trendLabel: '(Supera)', trendColor: 'text-emerald-600' },
-        { label: 'Volatilidad (1Y)', value: `${(stats.vol * 100).toFixed(2)}%`, trend: '-1.50%', trendLabel: '(Mejora)', trendColor: 'text-emerald-600' },
-        { label: 'Ratio de Sharpe', value: (stats.vol > 0 ? (stats.ret / stats.vol).toFixed(2) : '0.00'), trend: '+0.05', trendLabel: '', trendColor: 'text-emerald-600' },
-        { label: 'Máximo Drawdown', value: displayMaxDD, trend: 'N/A', trendLabel: '', trendColor: 'text-slate-400' }
+        { label: 'Rentabilidad YTD', value: `${(stats.ret * 100).toFixed(2)}%`, trend: getTrend(stats.ret), trendLabel: '', trendColor: getTrendColor(stats.ret) },
+        { label: 'Volatilidad (1Y)', value: `${(stats.vol * 100).toFixed(2)}%`, trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
+        { label: 'Ratio de Sharpe', value: (stats.vol > 0 ? (stats.ret / stats.vol).toFixed(2) : '0.00'), trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
+        { label: 'Máximo Drawdown', value: displayMaxDD, trend: '-', trendLabel: '', trendColor: 'text-slate-400' }
     ]
 
+    function getTrend(val: number) {
+        if (val > 0) return 'Positivo'
+        if (val < 0) return 'Negativo'
+        return 'Neutro'
+    }
+
+    function getTrendColor(val: number) {
+        if (val > 0) return 'text-emerald-600'
+        if (val < 0) return 'text-rose-600'
+        return 'text-slate-600'
+    }
+
     return (
-        <div className="overflow-x-auto">
-            <table className="w-full text-sm text-left text-gray-600">
-                <thead className="text-xs uppercase text-gray-500 bg-gray-50 border-b border-gray-200">
-                    <tr>
-                        <th className="px-3 py-2">Métrica Clave</th>
-                        <th className="px-3 py-2">Valor Total</th>
-                        <th className="px-3 py-2">Tendencia (vs Bmk)</th>
-                    </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-100">
-                    {metrics.map((m, i) => (
-                        <tr key={i} className="hover:bg-gray-50 transition-colors">
-                            <td className="px-3 py-2 font-bold text-gray-700">{m.label}</td>
-                            <td className="px-3 py-2 font-mono font-bold text-gray-800">{m.value}</td>
-                            <td className={`px-3 py-2 font-mono ${m.trendColor}`}>
-                                {m.trend} <span className="text-xs text-gray-500 font-sans ml-1">{m.trendLabel}</span>
-                            </td>
-                        </tr>
-                    ))}
-                </tbody>
-            </table>
+        <div className="h-full flex flex-col pt-1">
+            <h3 className="font-sans text-[11px] uppercase tracking-widest font-black text-slate-500 mb-2 px-1">
+                Métricas Clave
+            </h3>
+            <div className="h-[1px] w-full bg-slate-200 mb-4" />
+
+            <div className="flex-1 overflow-y-auto">
+                <table className="w-full">
+                    <tbody className="divide-y divide-slate-100">
+                        {metrics.map((m, i) => (
+                            <tr key={i} className="group hover:bg-slate-50/30 transition-colors">
+                                <td className="py-2 text-slate-600 font-bold text-[10px] uppercase tracking-tight">{m.label}</td>
+                                <td className="py-2 text-right font-mono font-black text-slate-900 text-sm pr-4">{m.value}</td>
+                                <td className={`py-2 text-right text-[10px] font-black w-12 ${m.trendColor}`}>
+                                    {m.trend === 'Positivo' ? 'POSITIVO' : m.trend === 'Negativo' ? 'NEGATIVO' : '–'}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            </div>
         </div>
     )
 }

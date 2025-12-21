@@ -94,7 +94,7 @@ export function normalizeFundData(docData) {
             assetClass: docData.asset_class || '',
             regionDetail: docData.primary_region || docData.region || '',
             yearsHistory: yearsHistory,
-            mgmtFee: rawMgmtFee,
+            mgmtFee: rawMgmtFee / 100, // Normalize to decimal like TER
             ter: effectiveTer / 100 // Normalize to decimal
         }
     };

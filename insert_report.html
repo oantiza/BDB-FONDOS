@@ -28,8 +28,22 @@
             status.className = 'status pending';
 
             try {
+                // Capturar valores del formulario
+                const title = document.getElementById('titulo_reporte').value;
+                const type = document.getElementById('tipo_reporte').value;
+                const date = document.getElementById('fecha_reporte').value;
+
+                // Crear payload (JSON)
+                const payload = {
+                    title: title,
+                    type: type,
+                    date: date,
+                    created_at: new Date().toISOString(),
+                    source: 'manual_html_insert'
+                };
+
                 const insertMonthlyReport = httpsCallable(functions, 'insertMonthlyReport');
-                const result = await insertMonthlyReport({});
+                const result = await insertMonthlyReport(payload);
 
                 console.log('Result:', result.data);
 
@@ -123,13 +137,27 @@
     <div class="container">
         <h1>📊 Migración de Informe</h1>
         <p>Este script insertará el informe mensual de diciembre 2025 en la base de datos <code>bdb-fondos</code>.</p>
-        <p><strong>Contenido del informe:</strong></p>
-        <ul>
-            <li>Tipo: MONTHLY_PORTFOLIO</li>
-            <li>Fecha: 2025-12-07</li>
-            <li>7 clases de activos</li>
-            <li>7 drivers clave del mercado</li>
-        </ul>
+        <div style="margin-bottom: 15px;">
+            <label for="titulo_reporte">Título del Reporte:</label><br>
+            <input type="text" id="titulo_reporte" value="Informe Mensual - Diciembre 2025"
+                style="width: 100%; padding: 8px; margin-top: 5px;">
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="tipo_reporte">Tipo de Reporte:</label><br>
+            <select id="tipo_reporte" style="width: 100%; padding: 8px; margin-top: 5px;">
+                <option value="MONTHLY">MONTHLY</option>
+                <option value="WEEKLY">WEEKLY</option>
+                <option value="STRATEGY">STRATEGY</option>
+            </select>
+        </div>
+
+        <div style="margin-bottom: 15px;">
+            <label for="fecha_reporte">Fecha:</label><br>
+            <input type="date" id="fecha_reporte" value="2025-12-21"
+                style="width: 100%; padding: 8px; margin-top: 5px;">
+        </div>
+
         <button id="insertBtn" onclick="insertReport()">🚀 Insertar Informe</button>
         <div id="status"></div>
     </div>

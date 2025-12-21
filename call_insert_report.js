@@ -3,7 +3,7 @@
 
 import { getFunctions, httpsCallable } from 'firebase/functions';
 
-const functions = getFunctions();
+const functions = getFunctions(undefined, 'europe-west1');
 const insertReport = httpsCallable(functions, 'insertMonthlyReport');
 
 insertReport({})

@@ -1,101 +1,107 @@
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useEffect } from 'react'
+import { collection, getDocs } from 'firebase/firestore'
+import { db, auth } from '../firebase'
+import { onAuthStateChanged } from 'firebase/auth'
+import { normalizeFundData } from '../utils/normalizer'
+import { Fund, PortfolioItem, AllocationItem } from '../types'
 
-/**
- * Custom hook for portfolio management operations
- * Extracts common portfolio logic from App.jsx
- */
-export function usePortfolio(initialPortfolio = []) {
-    const [portfolio, setPortfolio] = useState(initialPortfolio)
+export function usePortfolio() {
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
+    const [assets, setAssets] = useState<Fund[]>([])
+    const [portfolio, setPortfolio] = useState<PortfolioItem[]>([])
+    const [proposedPortfolio, setProposedPortfolio] = useState<PortfolioItem[]>([])
 
-    // Add asset to portfolio
-    const addAsset = useCallback((asset) => {
-        setPortfolio(prev => {
-            if (prev.some(a => a.isin === asset.isin)) return prev
-            return [...prev, { ...asset, weight: 100 / (prev.length + 1) }]
+    // Persistence
+    const [riskLevel, setRiskLevel] = useState(() => parseInt(localStorage.getItem('ft_riskLevel') || '5'))
+    const [numFunds, setNumFunds] = useState(() => parseInt(localStorage.getItem('ft_numFunds') || '7'))
+    const [totalCapital, setTotalCapital] = useState(() => parseFloat(localStorage.getItem('ft_totalCapital') || '100000'))
+    const [vipFunds, setVipFunds] = useState(() => localStorage.getItem('ft_vipFunds') || '')
+
+    // Stats
+    const [allocData, setAllocData] = useState<AllocationItem[]>([])
+    const [geoData, setGeoData] = useState<AllocationItem[]>([])
+
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+            setIsAuthenticated(!!user)
+            if (user) fetchAssets()
+            else setAssets([])
         })
+        return () => unsubscribe()
     }, [])
 
-    // Remove asset from portfolio
-    const removeAsset = useCallback((isin) => {
-        setPortfolio(prev => prev.filter(a => a.isin !== isin))
-    }, [])
+    useEffect(() => {
+        localStorage.setItem('ft_riskLevel', riskLevel.toString())
+        localStorage.setItem('ft_numFunds', numFunds.toString())
+        localStorage.setItem('ft_totalCapital', totalCapital.toString())
+        if (vipFunds) localStorage.setItem('ft_vipFunds', vipFunds)
+    }, [riskLevel, numFunds, totalCapital, vipFunds])
 
-    // Update asset weight
-    const updateWeight = useCallback((isin, value) => {
-        const numVal = parseFloat(value) || 0
-        setPortfolio(prev => prev.map(a =>
-            a.isin === isin ? { ...a, weight: numVal } : a
-        ))
-    }, [])
+    async function fetchAssets() {
+        try {
+            const querySnapshot = await getDocs(collection(db, "funds_v2"))
+            const list: Fund[] = []
+            querySnapshot.forEach((doc) => {
+                list.push(normalizeFundData({ isin: doc.id, ...doc.data() }))
+            })
+            setAssets(list)
+        } catch (error) {
+            console.error("usePortfolio: Error loading funds:", error)
+        }
+    }
 
-    // Normalize weights to 100%
-    const normalizeWeights = useCallback(() => {
-        setPortfolio(prev => {
-            const total = prev.reduce((sum, a) => sum + a.weight, 0)
-            if (total === 0) return prev
-            return prev.map(a => ({ ...a, weight: (a.weight / total) * 100 }))
+    // Calculate Stats
+    useEffect(() => {
+        const typeMap: any = {}
+        const geoMap: any = {}
+
+        portfolio.forEach(p => {
+            const w = Number(p.weight) || 0
+            const extra = p.std_extra || {}
+            const rawType = p.std_type || 'Mixto'
+            let label = rawType
+
+            if (rawType === 'RV' || rawType === 'Equity') label = 'Renta Variable'
+            else if (rawType === 'RF' || rawType === 'Fixed Income') label = 'Renta Fija'
+            else if (rawType === 'Monetario' || rawType === 'Cash') label = 'Monetarios'
+            else if (rawType === 'Mixto' || rawType === 'Mixed') label = 'Mixto/Global'
+            else if (rawType === 'Commodities') label = 'Materias Primas'
+            else if (rawType === 'Alt' || rawType === 'Alternative') label = 'Alternativos'
+            else if (rawType === 'Real Estate' || rawType === 'REIT') label = 'Inmobiliario'
+            else label = 'Otros'
+
+            typeMap[label] = (typeMap[label] || 0) + w
+
+            const region = extra.regionDetail || p.std_region || 'Global'
+            geoMap[region] = (geoMap[region] || 0) + w
         })
-    }, [])
 
-    // Replace entire portfolio
-    const replacePortfolio = useCallback((newPortfolio) => {
-        setPortfolio(newPortfolio)
-    }, [])
-
-    // Calculate total weight
-    const totalWeight = portfolio.reduce((sum, a) => sum + (a.weight || 0), 0)
-
-    // Check if weights are balanced (sum to ~100%)
-    const isBalanced = Math.abs(totalWeight - 100) < 0.5
+        const processMap = (map: any): AllocationItem[] => {
+            const textToVal = (val: unknown) => typeof val === 'number' ? val : 0;
+            const entries = Object.entries(map).map(([k, v]) => ({ label: k, value: textToVal(v) }))
+            entries.sort((a, b) => b.value - a.value)
+            if (entries.length > 8) {
+                const top = entries.slice(0, 8)
+                const otherVal = entries.slice(8).reduce((s, x) => s + x.value, 0)
+                top.push({ label: 'Otros', value: otherVal })
+                return top
+            }
+            return entries
+        }
+        setAllocData(processMap(typeMap))
+        setGeoData(processMap(geoMap))
+    }, [portfolio])
 
     return {
-        portfolio,
-        addAsset,
-        removeAsset,
-        updateWeight,
-        normalizeWeights,
-        replacePortfolio,
-        totalWeight,
-        isBalanced
+        isAuthenticated,
+        assets,
+        portfolio, setPortfolio,
+        proposedPortfolio, setProposedPortfolio,
+        riskLevel, setRiskLevel,
+        numFunds, setNumFunds,
+        totalCapital, setTotalCapital,
+        vipFunds, setVipFunds,
+        allocData,
+        geoData
     }
-}
-
-/**
- * Custom hook for asset caching with localStorage persistence
- */
-export function useAssetCache(key = 'ft_assets_cache') {
-    const [cache, setCache] = useState(() => {
-        try {
-            const stored = localStorage.getItem(key)
-            if (stored) {
-                const parsed = JSON.parse(stored)
-                // Check if cache is less than 1 hour old
-                if (Date.now() - parsed.timestamp < 3600000) {
-                    return parsed.data
-                }
-            }
-        } catch (e) {
-            console.warn('Cache read error:', e)
-        }
-        return null
-    })
-
-    const updateCache = useCallback((data) => {
-        try {
-            localStorage.setItem(key, JSON.stringify({
-                data,
-                timestamp: Date.now()
-            }))
-            setCache(data)
-        } catch (e) {
-            console.warn('Cache write error:', e)
-        }
-    }, [key])
-
-    const clearCache = useCallback(() => {
-        localStorage.removeItem(key)
-        setCache(null)
-    }, [key])
-
-    return { cache, updateCache, clearCache }
 }

@@ -61,7 +61,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                 {/* 1. Header (Title Only) */}
                 <div className="bg-white border-b border-slate-200 shrink-0 p-2 flex justify-between items-center">
                     <h2 className="text-xs font-bold text-[#0B2545] flex items-center gap-2 uppercase tracking-wider">
-                        <span className="text-base">⚖️</span> Tactical Optimization Review
+                        <span className="text-base">⚖️</span> Revisión de Optimización Táctica
                     </h2>
                     <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors text-2xl">&times;</button>
                 </div>
@@ -78,14 +78,20 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         {/* Metrics Panel */}
                         <div className="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-2 gap-x-8 gap-y-1">
                             <MetricRow label="Rentabilidad Esp." val={currentStats.ret} />
-                            <MetricRow label="Volatilidad (1Y)" val={currentStats.vol} />
-                            <MetricRow label="Sharpe Ratio" val={currentStats.ret / currentStats.vol} isPercent={false} />
-                            <MetricRow label="Max Drawdown" val={currentStats.vol * -2} /> {/* Est. */}
+                            <MetricRow label="Volatilidad (1A)" val={currentStats.vol} />
+                            <MetricRow label="Ratio Sharpe" val={currentStats.ret / currentStats.vol} isPercent={false} />
+                            <MetricRow label="Máximo Drawdown" val={currentStats.vol * -2} /> {/* Est. */}
                         </div>
 
                         {/* Composition Table */}
                         <div className="flex-1 overflow-y-auto p-4">
-                            <TableViewer portfolio={currentPortfolio} readOnly={true} />
+                            <TableViewer
+                                portfolio={currentPortfolio}
+                                readOnly={true}
+                                onWeightChange={() => { }}
+                                onRemove={() => { }}
+                                comparisonPortfolio={null}
+                            />
                         </div>
                     </div>
 
@@ -94,7 +100,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         {/* Decorative Overlay for Focus */}
                         <div className="absolute top-0 right-0 p-1">
                             <div className="bg-[#D4AF37]/20 text-[#8A711F] text-[9px] font-bold px-2 py-0.5 rounded border border-[#D4AF37]/30 uppercase tracking-widest animate-pulse">
-                                Recommended
+                                Recomendado
                             </div>
                         </div>
 
@@ -105,9 +111,9 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         {/* Metrics Panel (Highlighted) */}
                         <div className="p-4 bg-[#0B2545]/5 border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
                             <MetricRow label="Rentabilidad Esp." val={proposedStats.ret} comparisonVal={currentStats.ret} />
-                            <MetricRow label="Volatilidad (1Y)" val={proposedStats.vol} comparisonVal={currentStats.vol} inverse={true} />
-                            <MetricRow label="Sharpe Ratio" val={proposedStats.ret / proposedStats.vol} isPercent={false} comparisonVal={currentStats.ret / currentStats.vol} />
-                            <MetricRow label="Max Drawdown" val={proposedStats.vol * -2} comparisonVal={currentStats.vol * -2} inverse={true} />
+                            <MetricRow label="Volatilidad (1A)" val={proposedStats.vol} comparisonVal={currentStats.vol} inverse={true} />
+                            <MetricRow label="Ratio Sharpe" val={proposedStats.ret / proposedStats.vol} isPercent={false} comparisonVal={currentStats.ret / currentStats.vol} />
+                            <MetricRow label="Máximo Drawdown" val={proposedStats.vol * -2} comparisonVal={currentStats.vol * -2} inverse={true} />
                         </div>
 
                         {/* Composition Table */}
@@ -203,7 +209,7 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                                 <div className="font-bold text-slate-700 truncate max-w-[180px]" title={p.name}>{p.name}</div>
                                 <div className="flex gap-2 items-center mt-0.5">
                                     <span className="font-mono text-[9px] text-slate-400">{p.isin}</span>
-                                    {isNew && <span className="text-[8px] bg-[#D4AF37]/20 text-[#8A711F] px-1 rounded font-bold uppercase tracking-wider">NEW</span>}
+                                    {isNew && <span className="text-[8px] bg-[#D4AF37]/20 text-[#8A711F] px-1 rounded font-bold uppercase tracking-wider">NUEVO</span>}
                                 </div>
                             </td>
                             <td className="p-2 text-right pr-4">

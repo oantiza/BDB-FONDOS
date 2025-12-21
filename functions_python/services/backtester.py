@@ -3,6 +3,7 @@ import numpy as np
 from datetime import timedelta
 from .data import get_price_data
 from .config import BENCHMARK_RF_ISIN, BENCHMARK_RV_ISIN, RISK_FREE_RATE
+import yfinance as yf
 
 def run_backtest(portfolio, period, db):
     try:
@@ -12,10 +13,13 @@ def run_backtest(portfolio, period, db):
         # Base Indices for synthetic profiles
         all_assets = assets + [BENCHMARK_RF_ISIN, BENCHMARK_RV_ISIN]
         
-        price_data, _ = get_price_data(all_assets, db)
+        price_data, synthetic_used = get_price_data(all_assets, db)
+        if not price_data:
+            raise Exception("No data available for the selected assets.")
+            
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
-        df = df.sort_index().fillna(method='ffill').fillna(method='bfill')
+        df = df.sort_index().ffill().bfill()
         
         days_map = {'1y': 252, '3y': 756, '5y': 1260}
         lookback_days = days_map.get(period, 756)
@@ -34,22 +38,38 @@ def run_backtest(portfolio, period, db):
         port_ret = returns.dot(w_vector)
         cumulative = (1 + port_ret).cumprod() * 100
         
-        # --- SYNTHETIC PROFILES CALCULATION ---
-        def make_trend(cagr_annual, index_dates):
-             days = np.arange(len(index_dates))
-             years = days / 252.0
-             trajectory = (1 + cagr_annual) ** years
-             return pd.Series(trajectory * 100, index=index_dates)
+        # Helper to fetch YF fallback
+        def get_yf_series(ticker, start_date, default_index):
+             try:
+                # Fetch slightly more history to fill gaps
+                yf_data = yf.download(ticker, start=start_date - timedelta(days=10), progress=False)['Close']
+                # Flatten multi-index if present
+                if isinstance(yf_data, pd.DataFrame): yf_data = yf_data.iloc[:, 0]
+                
+                # Reindex to match portfolio df
+                yf_data.index = pd.to_datetime(yf_data.index).normalize()
+                # tz_localize(None) if needed, but usually safe to join
+                if yf_data.index.tz is not None: yf_data.index = yf_data.index.tz_localize(None)
+                
+                aligned = yf_data.reindex(default_index).ffill().bfill()
+                return aligned
+             except Exception as e:
+                print(f"Fallback YF failed for {ticker}: {e}")
+                return pd.Series(index=default_index, dtype=float).fillna(100.0)
 
-        if BENCHMARK_RF_ISIN in df and not df[BENCHMARK_RF_ISIN].empty:
+        # 1. RF CURVE (Bonds)
+        if BENCHMARK_RF_ISIN in df and BENCHMARK_RF_ISIN not in synthetic_used:
              rf_curve = df[BENCHMARK_RF_ISIN]
         else:
-             rf_curve = make_trend(0.035, df.index) 
+             # Fallback to IEF (7-10 Year Treasury) or AGG
+             rf_curve = get_yf_series('IEF', start_date, df.index)
 
-        if BENCHMARK_RV_ISIN in df and not df[BENCHMARK_RV_ISIN].empty:
+        # 2. RV CURVE (Equity)
+        if BENCHMARK_RV_ISIN in df and BENCHMARK_RV_ISIN not in synthetic_used:
              rv_curve = df[BENCHMARK_RV_ISIN]
         else:
-             rv_curve = make_trend(0.085, df.index) 
+             # Fallback to SPY (S&P 500)
+             rv_curve = get_yf_series('SPY', start_date, df.index) 
         
         def norm(s): return (s / s.iloc[0] * 100) if len(s) > 0 else s
         
@@ -59,6 +79,7 @@ def run_backtest(portfolio, period, db):
         profiles = {
             'conservative': rf_norm,                    
             'moderate': rf_norm * 0.75 + rv_norm * 0.25,
+            'balanced': rf_norm * 0.50 + rv_norm * 0.50,
             'dynamic': rf_norm * 0.25 + rv_norm * 0.75, 
             'aggressive': rv_norm                       
         }
@@ -77,6 +98,7 @@ def run_backtest(portfolio, period, db):
             label_map = {
                 'conservative': 'Conservador',
                 'moderate': 'Moderado',
+                'balanced': 'Equilibrado',
                 'dynamic': 'Dinámico',
                 'aggressive': 'Agresivo'
             }
@@ -101,51 +123,23 @@ def run_backtest(portfolio, period, db):
         # --- LOOK-THROUGH HOLDINGS ---
         aggregated_holdings = {}
         
-        def distribute_holdings_mock(isin, total_weight, std_type):
-            mock_dist = []
-            if std_type == 'RV':
-                 mock_dist = [
-                     ('US0378331005', 'Apple Inc', 0.05),
-                     ('US5949181045', 'Microsoft Corp', 0.04),
-                     ('US0231351067', 'Amazon.com', 0.03),
-                     ('US67066G1040', 'NVIDIA Corp', 0.03),
-                     ('US02079K3059', 'Alphabet Inc', 0.02),
-                     ('Other Equity', 'Diversified Equity', 0.83)
-                 ]
-            elif std_type == 'RF':
-                 mock_dist = [
-                     ('US912810TS08', 'US Treasury 2Y', 0.10),
-                     ('US912810TT80', 'US Treasury 10Y', 0.08),
-                     ('DE0001102309', 'Bund German', 0.07),
-                     ('Corp Bond InvG', 'Investment Grade Corp', 0.75)
-                 ]
+        # MOCK REMOVED - Returning 'Unclassified' if no holdings found
+        def distribute_holdings_fallback(isin, total_weight):
+            if 'OTHERS' in aggregated_holdings:
+                aggregated_holdings['OTHERS']['weight'] += total_weight
             else:
-                 mock_dist = [
-                     ('Cash', 'Liquidity', 0.40),
-                     ('US0378331005', 'Apple Inc', 0.10),
-                     ('US912810TS08', 'US Treasury 2Y', 0.50)
-                 ]
-            
-            for sub_isin, sub_name, weight_in_fund in mock_dist:
-                contrib = total_weight * weight_in_fund
-                if sub_isin in aggregated_holdings:
-                    aggregated_holdings[sub_isin]['weight'] += contrib
-                else:
-                    aggregated_holdings[sub_isin] = {'name': sub_name, 'weight': contrib}
+                aggregated_holdings['OTHERS'] = {'name': 'Otras/No Disponible', 'weight': total_weight}
 
         for item in portfolio:
              isin = item['isin']
              w = float(item['weight'])/100.0
              
-             ftype = 'RV' 
              real_holdings_found = False
              
              try:
                  fdoc = db.collection('funds_v2').document(isin).get()
                  if fdoc.exists:
                      fd = fdoc.to_dict()
-                     metrics = fd.get('metrics', {})
-                     if metrics.get('bond', 0) > 50: ftype = 'RF'
                      
                      holdings_list = fd.get('holdings', [])
                      if not holdings_list: 
@@ -172,13 +166,13 @@ def run_backtest(portfolio, period, db):
                              if 'OTHERS' in aggregated_holdings:
                                  aggregated_holdings['OTHERS']['weight'] += contrib_others
                              else:
-                                 aggregated_holdings['OTHERS'] = {'name': 'Other Holdings', 'weight': contrib_others}
+                                 aggregated_holdings['OTHERS'] = {'name': 'Otras/No Disponible', 'weight': contrib_others}
 
              except Exception as fetch_err:
                  print(f"⚠️ Error fetching details for {isin}: {fetch_err}")
              
              if not real_holdings_found:
-                 distribute_holdings_mock(isin, w, ftype)
+                 distribute_holdings_fallback(isin, w)
 
         top_lookthrough = sorted(aggregated_holdings.items(), key=lambda x: x[1]['weight'], reverse=True)[:15] 
         

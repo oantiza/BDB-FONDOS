@@ -55,12 +55,12 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                             Métricas Clave
                         </h3>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <MetricCard label="Sharpe Ratio" value={num(perf.sharpe)} color="blue" />
+                            <MetricCard label="Ratio Sharpe" value={num(perf.sharpe)} color="blue" />
                             <MetricCard label="Volatilidad" value={pct(perf.volatility)} color="amber" />
                             <MetricCard label="CAGR 3Y" value={pct(perf.cagr3y)} color="emerald" />
                             <MetricCard label="Alpha" value={num(perf.alpha)} color="purple" />
                             <MetricCard label="Beta" value={num(perf.beta)} color="slate" />
-                            <MetricCard label="Max Drawdown" value={pct(perf.max_drawdown)} color="red" />
+                            <MetricCard label="Máximo Drawdown" value={pct(perf.max_drawdown)} color="red" />
                             <MetricCard label="TER" value={pct(extra.ter || costs.ter)} color="orange" />
                         </div>
                     </section>
@@ -89,8 +89,8 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                             Costes
                         </h3>
                         <div className="grid grid-cols-3 gap-3">
-                            <InfoRow label="TER" value={pct(extra.ter || costs.ter)} />
-                            <InfoRow label="Gestión" value={pct(costs.management_fee)} />
+                            <InfoRow label="TER" value={pct(extra.ter || (costs.ter ? costs.ter / 100 : 0))} />
+                            <InfoRow label="Gestión" value={pct(extra.mgmtFee || (costs.management_fee ? costs.management_fee / 100 : 0))} />
                         </div>
                     </section>
 
@@ -137,7 +137,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                     {holdings.length > 0 && (
                         <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
                             <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
-                                Top Holdings
+                                Principales Posiciones
                             </h3>
                             <div className="space-y-1">
                                 {holdings.slice(0, 10).map((h: any, i: number) => (
@@ -186,7 +186,7 @@ const MetricCard = ({ label, value, color }: { label: string, value: string, col
         slate: 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300',
         red: 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-700 dark:text-red-300',
         orange: 'bg-orange-50 dark:bg-orange-900/30 border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300',
-    }[color] || colorClasses.slate
+    }[color] || 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300'
 
     return (
         <div className={`p-3 rounded-lg border ${colorClasses}`}>

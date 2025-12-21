@@ -34,7 +34,7 @@ def get_price_data(assets_list, db):
     # 2. CONSULTAR FIRESTORE
     print(f"📥 [DB READ] Buscando {len(missing_assets)} activos en Firestore...")
     
-    synthetic_used = []
+    synthetic_used = [] # Mantener vacio, ya no se usa, pero la firma lo espera
 
     for i, isin in enumerate(missing_assets):
         loaded = False
@@ -60,10 +60,7 @@ def get_price_data(assets_list, db):
             print(f"⚠️ Error leyendo {isin}: {e}")
 
         if not loaded:
-            print(f"⚠️ {isin}: Usando datos SINTÉTICOS.")
-            synthetic_used.append(isin)
-            fake_vol = 0.05 + (0.15 * (i % 4) / 3) 
-            fake_ret = 0.04 + (0.06 * (i % 3) / 2)
-            price_data[isin] = generate_synthetic_series(vol=fake_vol, ret=fake_ret, seed=i)
+            print(f"❌ {isin}: NO DATA FOUND. No se utilizarán datos sintéticos.")
+            # No añadimos nada a price_data, el backtester fallará o ignorará este activo.
 
     return price_data, synthetic_used

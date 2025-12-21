@@ -1,13 +1,14 @@
+
 // import { useTheme } from '../hooks/useTheme' // Removed
 
 interface HeaderProps {
     onLogout: () => void
     onOpenNews: () => void
     onOpenMiBoutique: () => void
-
+    children?: React.ReactNode
 }
 
-export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: HeaderProps) {
+export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, children }: HeaderProps) {
     // Theme toggle removed
 
     return (
@@ -24,7 +25,7 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique }: Heade
                     onClick={onOpenMiBoutique}
                     className="font-bold hover:text-[var(--color-accent)] transition-colors flex items-center gap-2 text-xs uppercase tracking-wider"
                 >
-                    <span>🏦 Mi Boutique</span>
+                    <span>🏦 Macro y Estrategia</span>
                 </button>
 
                 <button onClick={onOpenNews} className="font-bold hover:text-[var(--color-accent)] transition-colors flex items-center gap-2">

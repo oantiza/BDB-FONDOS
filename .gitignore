@@ -4,7 +4,7 @@ __pycache__/
 *$py.class
 venv/
 env/
-.env
+
 
 # Javascript / Node
 node_modules/
@@ -30,3 +30,9 @@ frontend_react_backup*/
 functions_python_SAFETY*/
 archivos viejos/
 public_legacy/
+
+# Credentials & Local Config
+.env
+.env*
+# Backup files
+backup_*/

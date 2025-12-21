@@ -82,8 +82,27 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
             commodities: 0, cash: 0
         }
         portfolio.forEach(p => {
-            currentCheck[classifyAsset(p)] += p.weight
+            currentCheck[classifyAsset(p)] += (parseFloat(p.weight) || 0)
         })
+
+        // Check for Impossible Allocations (Target > 0 but Current == 0)
+        const impossible = []
+        Object.keys(targets).forEach(key => {
+            if (targets[key] > 0 && currentCheck[key] <= 0.01) {
+                impossible.push(key)
+            }
+        })
+
+        if (impossible.length > 0) {
+            const mapNames = {
+                rv_usa: 'RV USA', rv_eu: 'RV Europa', rv_em: 'RV Emergentes',
+                rf_gov: 'RF Gobierno', rf_corp: 'RF Corporativa', rf_hy: 'High Yield',
+                commodities: 'Commodities', cash: 'Liquidez'
+            }
+            const names = impossible.map(k => mapNames[k] || k).join(', ')
+            alert(`⚠️ No puedes asignar peso a: ${names}.\n\nNo tienes ningun fondo de esta categoría en tu cartera actual. Añade primero un fondo de este tipo.`)
+            return
+        }
 
         // 2. Rescalar
         const newPortfolio = portfolio.map(p => {
@@ -91,7 +110,7 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
             const currentWeight = currentCheck[bucket]
             const targetWeight = targets[bucket]
 
-            if (currentWeight <= 0) return p // No se puede escalar algo que no existe
+            if (currentWeight <= 0) return p // Should be caught by check above, but safety first
 
             const factor = targetWeight / currentWeight
             return { ...p, weight: p.weight * factor }
@@ -101,7 +120,7 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
     }
 
     const chartData = {
-        labels: ['USA', 'Europe', 'EM', 'Gov', 'Corp', 'HY', 'Comm', 'Cash'],
+        labels: ['USA', 'Europa', 'Emergentes', 'Gobierno', 'Corporativo', 'HY', 'Comm', 'Cash'],
         datasets: [{
             data: Object.values(targets),
             backgroundColor: [
