@@ -1,7 +1,7 @@
 firebase-functions
 firebase-admin
 pandas
-numpy
+numpy<2.0.0
 requests
 PyPortfolioOpt
 cvxopt

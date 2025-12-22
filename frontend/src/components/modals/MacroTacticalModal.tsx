@@ -135,9 +135,17 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
             <div className="bg-white rounded-lg shadow-xl w-full max-w-2xl overflow-hidden flex flex-col max-h-[90vh]">
-                <div className="p-2 border-b bg-slate-50 flex justify-between items-center shrink-0">
-                    <h3 className="font-sans font-bold text-brand uppercase text-xs tracking-wider">🌐 Macro Asignación Táctica</h3>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600">&times;</button>
+                <div className="bg-gradient-to-r from-gray-900 to-blue-800 border-b border-blue-800 p-2 flex justify-between items-center shrink-0 shadow-sm relative overflow-hidden">
+                    <div className="relative z-10 flex items-center gap-2">
+                        <div className="h-6 w-6 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm">
+                            <span className="text-xs">🌐</span>
+                        </div>
+                        <h3 className="font-sans font-bold text-white uppercase text-xs tracking-wider">Macro Asignación Táctica</h3>
+                    </div>
+                    {/* Decorative noise */}
+                    <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
+
+                    <button onClick={onClose} className="relative z-10 text-blue-300 hover:text-white transition-colors text-2xl leading-none">&times;</button>
                 </div>
 
                 <div className="p-6 overflow-y-auto scrollbar-thin grid grid-cols-12 gap-8">

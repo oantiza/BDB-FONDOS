@@ -6,7 +6,7 @@ import { functions } from '../firebase'
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import Controls from '../components/Controls'
-import HistoryChart from '../components/charts/HistoryChart'
+import EfficientFrontierChart from '../components/charts/EfficientFrontierChart'
 import PortfolioTable from '../components/PortfolioTable'
 import StyleAnalytics from '../components/dashboard/StyleAnalytics'
 
@@ -62,6 +62,10 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
 
     const {
         historyData,
+        frontierData,
+        assetPoints,
+        portfolioPoint,
+        isLoadingFrontier,
         dashboardError
     } = useDashboardData(isAuthenticated, portfolio)
 
@@ -254,14 +258,27 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
 
                 <div className="w-[58%] h-full flex flex-col bg-slate-100 dark:bg-slate-800 gap-2">
                     <div className={`${compactMode ? 'h-[25vh]' : 'h-1/3'} grid grid-cols-2 gap-2 shrink-0`}>
-                        {/* Indices Chart */}
+                        {/* Efficient Frontier Chart */}
                         <div className="bg-white dark:bg-slate-800 rounded-lg flex flex-col border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
                             <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center z-10">
                                 <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
-                                    <span className="text-base">📈</span> Evolución Cartera (5A)
+                                    <span className="text-base">🚀</span>
+                                    <span>Frontera Eficiente</span>
                                 </h3>
                             </div>
-                            <div className="flex-1 w-full min-h-0 relative p-4"><HistoryChart data={historyData} /></div>
+                            <div className="flex-1 w-full min-h-0 relative">
+                                <span className="absolute top-2 left-0 right-0 text-center text-slate-400 font-medium text-[10px] tracking-tight z-10 pointer-events-none">
+                                    RIESGO VS RETORNO (3Y)
+                                </span>
+                                <div className="absolute inset-0 pt-6 pb-2 px-2">
+                                    <EfficientFrontierChart
+                                        frontierPoints={frontierData}
+                                        assetPoints={assetPoints}
+                                        portfolioPoint={portfolioPoint}
+                                        isLoading={isLoadingFrontier}
+                                    />
+                                </div>
+                            </div>
                         </div>
 
                         {/* Style & Structure Analytics */}
@@ -301,10 +318,10 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                 </div>
 
                 <div className="flex-1 h-full flex flex-col bg-slate-100 overflow-y-auto scrollbar-thin gap-2">
-                    <div className="flex flex-col gap-2 flex-1">
+                    <div className="flex flex-col gap-2 flex-[1.4]">
                         <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col shrink-0">
                             <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
-                                <h3 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2">
+                                <h3 className="font-sans font-bold text-[#0B2545] text-xs uppercase tracking-wider flex items-center gap-2">
                                     <span className="text-base">📊</span> Análisis de Cartera
                                 </h3>
                             </div>
@@ -331,7 +348,7 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                         </div>
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-[0.6] shrink-0">
                         <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => setShowCosts(true)} onOpenXRay={() => setShowAnalysis(true)} onOpenTactical={() => { setProposedPortfolio(portfolio); setShowTactical(true); }} onOpenMacro={() => setShowMacro(true)} categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => setShowVipModal(true)} />
                     </div>
                 </div>

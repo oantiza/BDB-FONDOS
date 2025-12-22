@@ -271,3 +271,19 @@ def insertMonthlyReport(request: https_fn.CallableRequest):
     db = firestore.client()
     doc_ref = db.collection('analysis_results').add(request.data)
     return {'success': True, 'doc_id': doc_ref[1].id}
+
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
+def getEfficientFrontier(request: https_fn.CallableRequest):
+    from services.optimizer import generate_efficient_frontier
+    db = firestore.client()
+    
+    # Expected: { assets: [{isin: '...', weight: 20}, ...] }
+    data = request.data
+    portfolio = data.get('portfolio', [])
+    if not portfolio: return {'error': 'Empty portfolio'}
+
+    assets_list = [item['isin'] for item in portfolio]
+    portfolio_weights = {item['isin']: (item.get('weight', 0) / 100.0) for item in portfolio}
+    
+    # 1. Generate Frontier & Portfolio Point
+    return generate_efficient_frontier(assets_list, db, portfolio_weights)

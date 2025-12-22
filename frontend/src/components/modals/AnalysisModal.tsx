@@ -119,11 +119,20 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
         <div className="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center p-4 font-sans text-slate-700">
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden">
                 {/* Header */}
-                <div className="p-2 border-b flex justify-between items-center bg-white text-brand shrink-0">
-                    <h2 className="text-xs font-bold flex items-center gap-2 text-[#0B2545] uppercase tracking-wider">
-                        🔍 Informe X-RAY
-                    </h2>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-4xl leading-none">&times;</button>
+                {/* Header - Corporate Blue Gradient (Same Size) */}
+                <div className="p-2 border-b border-blue-800 flex justify-between items-center bg-gradient-to-r from-gray-900 to-blue-800 text-white shrink-0 shadow-sm relative overflow-hidden">
+                    <div className="relative z-10 flex items-center gap-2">
+                        <div className="h-5 w-5 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm">
+                            <span className="text-[10px]">🔍</span>
+                        </div>
+                        <h2 className="text-xs font-bold flex items-center gap-2 text-white uppercase tracking-wider">
+                            Informe X-RAY
+                        </h2>
+                    </div>
+                    {/* Decorative noise */}
+                    <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
+
+                    <button onClick={onClose} className="relative z-10 text-blue-300 hover:text-white text-3xl leading-none transition-colors">&times;</button>
                 </div>
 
                 <div className="flex-1 overflow-y-auto bg-slate-50 p-6 scrollbar-thin">

@@ -27,8 +27,10 @@ export default function Controls({
 
             {/* 1. HERRAMIENTAS OPERATIVAS */}
             <div>
-                <div className="p-2 border-b border-slate-200 bg-slate-50">
-                    <h4 className="font-sans font-bold text-slate-700 text-xs uppercase tracking-wider">Herramientas Operativas</h4>
+                <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                    <h3 className="font-sans font-bold text-[#0B2545] text-xs uppercase tracking-wider flex items-center gap-2">
+                        <span className="text-base">🛠️</span> Herramientas Operativas
+                    </h3>
                 </div>
                 <div className="p-3 space-y-3">
                     {/* Risk Selector */}

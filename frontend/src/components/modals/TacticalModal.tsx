@@ -58,25 +58,33 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm font-sans">
             <div className="bg-white rounded-xl shadow-2xl w-full h-[95vh] max-w-7xl flex flex-col overflow-hidden border border-slate-200">
 
-                {/* 1. Header (Title Only) */}
-                <div className="bg-white border-b border-slate-200 shrink-0 p-2 flex justify-between items-center">
-                    <h2 className="text-xs font-bold text-[#0B2545] flex items-center gap-2 uppercase tracking-wider">
-                        <span className="text-base">⚖️</span> Revisión de Optimización Táctica
-                    </h2>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 transition-colors text-2xl">&times;</button>
+                {/* 1. Header (Corporate Blue Gradient) */}
+                <div className="bg-gradient-to-r from-gray-900 to-blue-800 border-b border-blue-800 shrink-0 p-2 flex justify-between items-center shadow-sm relative overflow-hidden">
+                    <div className="relative z-10 flex items-center gap-2">
+                        <div className="h-6 w-6 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm">
+                            <span className="text-xs">⚖️</span>
+                        </div>
+                        <h2 className="text-xs font-bold text-white flex items-center gap-2 uppercase tracking-wider">
+                            Revisión de Optimización Táctica
+                        </h2>
+                    </div>
+                    {/* Decorative noise */}
+                    <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
+
+                    <button onClick={onClose} className="relative z-10 text-blue-300 hover:text-white transition-colors text-2xl leading-none">&times;</button>
                 </div>
 
-                {/* 2. DUAL VIEW (Main Content ~7/8) */}
-                <div className="flex-1 flex overflow-hidden">
+                {/* 2. DUAL VIEW (Main Content ~7/8) with Spacing */}
+                <div className="flex-1 flex overflow-hidden bg-slate-100 p-4 gap-4">
 
                     {/* LEFT: ORIGINAL */}
-                    <div className="w-1/2 flex flex-col border-r border-slate-200 bg-slate-50">
-                        <div className="p-3 bg-slate-100 border-b border-slate-200 font-bold text-slate-500 text-xs uppercase text-center tracking-wider">
+                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
+                        <div className="p-3 bg-slate-50 border-b border-slate-200 font-bold text-slate-500 text-xs uppercase text-center tracking-wider">
                             Cartera Original (Antes)
                         </div>
 
                         {/* Metrics Panel */}
-                        <div className="p-4 bg-slate-50 border-b border-slate-200 grid grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="p-4 bg-white border-b border-slate-200 grid grid-cols-2 gap-x-8 gap-y-1">
                             <MetricRow label="Rentabilidad Esp." val={currentStats.ret} />
                             <MetricRow label="Volatilidad (1A)" val={currentStats.vol} />
                             <MetricRow label="Ratio Sharpe" val={currentStats.ret / currentStats.vol} isPercent={false} />
@@ -96,9 +104,9 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                     </div>
 
                     {/* RIGHT: OPTIMIZED */}
-                    <div className="w-1/2 flex flex-col bg-white relative">
+                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
                         {/* Decorative Overlay for Focus */}
-                        <div className="absolute top-0 right-0 p-1">
+                        <div className="absolute top-0 right-0 p-1 z-10">
                             <div className="bg-[#D4AF37]/20 text-[#8A711F] text-[9px] font-bold px-2 py-0.5 rounded border border-[#D4AF37]/30 uppercase tracking-widest animate-pulse">
                                 Recomendado
                             </div>
@@ -109,7 +117,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         </div>
 
                         {/* Metrics Panel (Highlighted) */}
-                        <div className="p-4 bg-[#0B2545]/5 border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="p-4 bg-white border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
                             <MetricRow label="Rentabilidad Esp." val={proposedStats.ret} comparisonVal={currentStats.ret} />
                             <MetricRow label="Volatilidad (1A)" val={proposedStats.vol} comparisonVal={currentStats.vol} inverse={true} />
                             <MetricRow label="Ratio Sharpe" val={proposedStats.ret / proposedStats.vol} isPercent={false} comparisonVal={currentStats.ret / currentStats.vol} />

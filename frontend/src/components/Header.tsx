@@ -12,7 +12,7 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, childre
     // Theme toggle removed
 
     return (
-        <header className="h-16 bg-[var(--color-brand)] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b-4 border-[var(--color-accent)]">
+        <header className="h-16 bg-gradient-to-r from-gray-900 to-blue-800 text-white flex items-center justify-between px-6 z-20 shrink-0 border-b-4 border-[var(--color-accent)]">
             <div className="flex flex-col">
                 <div className="font-serif text-xl font-bold tracking-tight">Gestor de <span className="text-[var(--color-accent)]">Fondos</span></div>
                 <div className="text-[9px] uppercase tracking-[0.2em] text-gray-400">Portfolio Intelligence</div>

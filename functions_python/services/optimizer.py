@@ -147,3 +147,122 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             'metrics': {'return': 0.05, 'volatility': 0.10, 'sharpe': 0.5},
             'warnings': [f"Error cálculo: {str(e)}"]
         }
+
+def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
+    """
+    Calcula puntos de la Frontera Eficiente y métricas de activos individuales.
+    Allows optional portfolio_weights {isin: weight} to calculate specific portfolio point.
+    """
+    import pandas as pd
+    import numpy as np
+    from pypfopt import CLA, risk_models, expected_returns
+
+    try:
+        print(f"🚀 [DEBUG] Starting generate_efficient_frontier for {len(assets_list)} assets.")
+        
+        # 1. Get Data
+        price_data, synthetic_used = get_price_data(assets_list, db)
+        if not price_data: 
+            print("❌ [DEBUG] No price data found.")
+            return {'error': 'No data'}
+        
+        df = pd.DataFrame(price_data)
+        df.index = pd.to_datetime(df.index)
+        df = df.sort_index().ffill().bfill()
+        print(f"✅ [DEBUG] Data loaded. Shape: {df.shape}")
+        
+        if len(df) < 50: 
+            print("❌ [DEBUG] Insufficient history (<50).")
+            return {'error': 'Insufficient history'}
+
+        # 2. Risk Model
+        print("🔄 [DEBUG] Calculating Risk Model (Mu/Cov)...")
+        mu = expected_returns.ema_historical_return(df, span=252)
+        S = risk_models.CovarianceShrinkage(df).ledoit_wolf()
+        print("✅ [DEBUG] Risk Model calculated.")
+
+        # 3. CLA (Critical Line Algorithm) for Frontier
+        print("🔄 [DEBUG] Initializing CLA...")
+        cla = CLA(mu, S)
+        cla.max_sharpe() # Optimize once to set up
+        print("✅ [DEBUG] CLA max_sharpe solved.")
+        
+        # Get frontier points (volatility, returns, weights)
+        frontier_points = []
+        try:
+            print("🔄 [DEBUG] Calculating frontier curve points...")
+            frontier_ret, frontier_vol, _ = cla.efficient_frontier(points=50)
+            
+            for v_raw, r_raw in zip(frontier_vol, frontier_ret):
+                try:
+                    v = v_raw.item() if hasattr(v_raw, 'item') else float(v_raw)
+                    r = r_raw.item() if hasattr(r_raw, 'item') else float(r_raw)
+                    if np.isnan(v) or np.isnan(r): continue
+                    frontier_points.append({'x': round(v, 4), 'y': round(r, 4)})
+                except: continue
+            print(f"✅ [DEBUG] Frontier points generated: {len(frontier_points)}")
+        except Exception as e_cla:
+            print(f"⚠️ [DEBUG] CLA efficient_frontier failed: {e_cla}")
+            # Fallback if CLA fails
+            frontier_ret, frontier_vol = [], []
+
+        # 4. Individual Asset Points (Scatter)
+        asset_points = []
+        try:
+            vol_series = df.pct_change().std() * np.sqrt(252)
+            ret_series = (df.iloc[-1] / df.iloc[0]) ** (252 / len(df)) - 1
+            
+            for ticker in df.columns:
+                try:
+                    v_raw = vol_series.get(ticker, 0)
+                    r_raw = ret_series.get(ticker, 0)
+                    
+                    v = v_raw.item() if hasattr(v_raw, 'item') else float(v_raw)
+                    r = r_raw.item() if hasattr(r_raw, 'item') else float(r_raw)
+                    
+                    asset_points.append({
+                        'label': ticker,
+                        'x': round(v, 4),
+                        'y': round(r, 4)
+                    })
+                except:
+                    continue
+        except:
+            pass
+        print(f"✅ [DEBUG] Asset points generated: {len(asset_points)}")
+            
+        # 5. Current Portfolio Point (Calculated with SAME matrix)
+        portfolio_point = None
+        if portfolio_weights:
+            try:
+                # Align weights with df columns
+                w_vector = []
+                for col in df.columns:
+                    w_vector.append(portfolio_weights.get(col, 0))
+                
+                w_arr = np.array(w_vector)
+
+                port_ret = w_arr @ mu
+                port_vol = np.sqrt(w_arr.T @ S @ w_arr)
+                
+                p_v = port_vol.item() if hasattr(port_vol, 'item') else float(port_vol)
+                p_r = port_ret.item() if hasattr(port_ret, 'item') else float(port_ret)
+                
+                portfolio_point = {'x': round(p_v, 4), 'y': round(p_r, 4)}
+                print(f"✅ [DEBUG] Portfolio point calculated: {portfolio_point}")
+            except Exception as e:
+                print(f"⚠️ [DEBUG] Portfolio avg error: {e}")
+
+        result = {
+            'frontier': frontier_points,
+            'assets': asset_points,
+            'portfolio': portfolio_point
+        }
+        print(f"🏁 [DEBUG] Returning success with {len(frontier_points)} fp, {len(asset_points)} ap.")
+        return result
+
+    except Exception as e:
+        print(f"❌ [DEBUG] CRITICAL Frontier Error: {e}")
+        import traceback
+        traceback.print_exc()
+        return {'error': str(e)}
