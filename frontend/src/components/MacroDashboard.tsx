@@ -17,14 +17,19 @@ export default function MacroDashboard() {
 
   const fetchReport = async () => {
     setLoading(true);
+    console.log("🔍 Fetching reports for tab:", activeTab);
     try {
       const q = query(
         collection(db, 'reports'),
         where('type', '==', activeTab)
       );
       const snapshot = await getDocs(q);
+      console.log(`📊 Found ${snapshot.size} documents for ${activeTab}`);
+
       if (!snapshot.empty) {
-        const docs = snapshot.docs.map(d => d.data() as MacroReport);
+        const docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() } as MacroReport));
+        console.log("📄 First doc sample:", docs[0]);
+
         // Client-side sort to avoid missing index issues
         docs.sort((a, b) => {
           const tA = a.createdAt?.seconds ? a.createdAt.seconds : new Date(a.createdAt || 0).getTime() / 1000;
@@ -33,10 +38,11 @@ export default function MacroDashboard() {
         });
         setReport(docs[0]);
       } else {
+        console.warn(`⚠️ No reports found in Firestore for type: ${activeTab}`);
         setReport(null);
       }
     } catch (err) {
-      console.error("Error cargando informe:", err);
+      console.error("❌ Error cargando informe:", err);
     } finally {
       setLoading(false);
     }
@@ -116,9 +122,10 @@ export default function MacroDashboard() {
 
         {!loading && !report && (
           <div className="bg-white p-12 rounded-xl shadow-lg text-center border-l-4 border-yellow-500">
+            <h2 className="text-xl font-serif font-bold text-[#0B2545] mb-2">Preparado para el Análisis</h2>
             <p className="text-slate-500 mt-2">
-              No se ha encontrado ningún informe {activeTab === 'WEEKLY' ? 'semanal' : activeTab === 'MONTHLY' ? 'mensual' : 'estratégico'}.
-              <br />Deep Research 2.0: Genera un análisis avanzado con Geopolítica y Macro.
+              No se ha encontrado ningún informe {activeTab === 'WEEKLY' ? 'semanal' : activeTab === 'MONTHLY' ? 'mensual' : 'de asignación'}.
+              <br />Activa el Motor de Inteligencia (Gemini 2.0) para analizar el mercado actual y generar una visión estratégica.
             </p>
             <button
               onClick={generateReport}
@@ -128,10 +135,10 @@ export default function MacroDashboard() {
               {generating ? (
                 <>
                   <div className="animate-spin w-4 h-4 border-2 border-[#0B2545] border-t-transparent rounded-full"></div>
-                  Analizando (Deep Research 2.0)...
+                  Procesando Inteligencia (Deep Research 2.0)...
                 </>
               ) : (
-                <>🧠 Generar Estrategia (Gemini 2.0)</>
+                <>🧠 Generar Visión {activeTab === 'STRATEGY' ? 'Estratégica' : 'Macro'} (Gemini 2.0)</>
               )}
             </button>
           </div>

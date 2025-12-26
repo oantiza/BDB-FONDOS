@@ -92,14 +92,14 @@ export function getRiskProfileExplanation(portfolioVol, portfolioRet, synthetics
         if (diff < minDiff) { minDiff = diff; closest = s; }
     });
 
-    let msg = `Your portfolio (${(portfolioVol * 100).toFixed(1)}% Vol) behaves most similarly to the **${closest.name}** profile.`;
+    let msg = `Su cartera (${(portfolioVol * 100).toFixed(1)}% Vol) se comporta similar al perfil **${closest.name}**.`;
 
     if (portfolioRet > closest.ret + 0.01) {
-        msg += ` However, you are generating **Alpha** (Excess Return) of +${((portfolioRet - closest.ret) * 100).toFixed(2)}% relative to it. Good efficiency.`;
+        msg += ` Sin embargo, genera un **Alpha** (Retorno Extra) de +${((portfolioRet - closest.ret) * 100).toFixed(2)}% respecto al mismo. ¡Buena eficiencia!`;
     } else if (portfolioRet < closest.ret - 0.01) {
-        msg += ` But you are lagging by ${((closest.ret - portfolioRet) * 100).toFixed(2)}%. Consider optimizing.`;
+        msg += ` Pero se queda atrás por un ${((closest.ret - portfolioRet) * 100).toFixed(2)}%. Considere optimizar.`;
     } else {
-        msg += ` It is aligned with expected efficiency.`;
+        msg += ` Está alineada con la eficiencia esperada.`;
     }
 
     return { message: msg, closestProfile: closest };

@@ -10,6 +10,6 @@ RISK_VOL_MAP = {
 # Macro-Europeist Strategy Constraints
 # Defines the target allocation for regions
 STRATEGY_CONSTRAINTS = {
-    'europe': 0.40,  # Target 40%
-    'americas': 0.35 # Cap at 35%
+    'europe': 0.35,  # Reduced from 0.40
+    'americas': 0.40 # Increased from 0.35
 }

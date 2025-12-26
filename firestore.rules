@@ -15,12 +15,22 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    // 3. Datos de Usuario: El usuario solo puede leer/escribir SU propio documento
     match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // 4. Informes y Estrategia: Lectura pública (para usuarios autenticados)
+    match /reports/{reportId} {
+      allow read: if request.auth != null;
+      allow write: if false; 
+    }
+
+    match /analysis_results/{docId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
     
-    // 4. Regla por defecto (Bloqueo de seguridad)
+    // 5. Regla por defecto (Bloqueo de seguridad)
     match /{document=**} {
       allow read, write: if false;
     }

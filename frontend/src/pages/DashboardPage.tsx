@@ -8,16 +8,16 @@ import Sidebar from '../components/Sidebar'
 import Controls from '../components/Controls'
 import EfficientFrontierChart from '../components/charts/EfficientFrontierChart'
 import PortfolioTable from '../components/PortfolioTable'
-import StyleAnalytics from '../components/dashboard/StyleAnalytics'
+import PortfolioMetrics from '../components/dashboard/PortfolioMetrics'
+import EquityDistribution from '../components/dashboard/EquityDistribution'
+import FixedIncomeDistribution from '../components/dashboard/FixedIncomeDistribution'
 
 // Dashboard Components
 import SmartDonut from '../components/dashboard/SmartDonut'
 import GeoDonut from '../components/dashboard/GeoDonut'
-import KPICards from '../components/dashboard/KPICards'
-import RiskMonitor from '../components/dashboard/RiskMonitor'
 
 // Utilities & Services
-import { findAlternatives } from '../utils/fundSwapper'
+import { findAlternatives, Alternative } from '../utils/fundSwapper'
 import { generateClientReport } from '../utils/pdfGenerator'
 import { generateSmartPortfolio } from '../utils/rulesEngine'
 import { parsePortfolioCSV } from '../utils/csvImport'
@@ -33,7 +33,7 @@ const NewsModal = lazy(() => import('../components/modals/NewsModal'))
 const CostsModal = lazy(() => import('../components/modals/CostsModal'))
 const AnalysisModal = lazy(() => import('../components/modals/AnalysisModal'))
 const TacticalModal = lazy(() => import('../components/modals/TacticalModal'))
-const MacroTacticalModal = lazy(() => import('../components/modals/MacroTacticalModal'))
+import MacroTacticalModal from '../components/modals/MacroTacticalModal'
 const OptimizationReviewModal = lazy(() => import('../components/modals/OptimizationReviewModal'))
 import FundDetailModal from '../components/FundDetailModal'
 const VipFundsModal = lazy(() => import('../components/VipFundsModal'))
@@ -71,7 +71,24 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
 
     // 2. UI STATE (View-specific)
     const [isOptimizing, setIsOptimizing] = useState(false)
-    const [compactMode, setCompactMode] = useState(false)
+
+    const [riskFreeRate, setRiskFreeRate] = useState(0.0) // State for dynamic Rf
+
+    // Fetch Risk Free Rate on mount
+    React.useEffect(() => {
+        const fetchRf = async () => {
+            try {
+                const fn = httpsCallable(functions, 'getRiskRate');
+                const res = await fn() as any;
+                if (res.data?.rate) setRiskFreeRate(res.data.rate);
+            } catch (e) {
+                console.warn("Failed to fetch RF rate:", e);
+                setRiskFreeRate(0.0); // Fallback
+            }
+        }
+        fetchRf();
+    }, []);
+
 
     // Modals Visibility
     const [showNews, setShowNews] = useState(false)
@@ -86,7 +103,7 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
     // Swapper UI State
     const [isSwapOpen, setIsSwapOpen] = useState(false)
     const [fundToSwap, setFundToSwap] = useState<PortfolioItem | null>(null)
-    const [swapAlternatives, setSwapAlternatives] = useState<Fund[]>([])
+    const [swapAlternatives, setSwapAlternatives] = useState<Alternative[]>([])
 
     // 3. EVENT HANDLERS
     const handleAddAsset = (asset: Fund) => {
@@ -124,9 +141,6 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
         setFundToSwap(null);
     };
 
-    const [selectedCategory, setSelectedCategory] = useState('All')
-    const categories = [...new Set(assets.map(a => a.std_extra?.category || 'Unknown'))].filter(c => c !== 'Unknown').sort()
-
     const handleManualGenerate = async () => {
         if (assets.length === 0) {
             alert("Cargando fondos... espera un momento.")
@@ -135,10 +149,9 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
         try {
             setIsOptimizing(true)
             setPortfolio([])
-            let pool = assets;
-            if (selectedCategory !== 'All') {
-                pool = assets.filter(a => a.std_extra?.category === selectedCategory);
-            }
+            // Siempre usamos todos los assets, eliminamos filtro de categoría
+            const pool = assets;
+
             const generated = generateSmartPortfolio(riskLevel, pool, numFunds);
             if (generated.length === 0) alert("No se encontraron fondos seguros para este perfil estricto.");
             else setPortfolio(generated);
@@ -224,7 +237,7 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
             if (window.confirm(`Se han detectado ${result.portfolio.length} fondos. ¿Reemplazar cartera actual?`)) {
                 const enriched: PortfolioItem[] = result.portfolio.map(p => {
                     const known = assets.find(a => a.isin === p.isin) || { isin: p.isin, name: p.name || 'Unknown', std_type: 'Unknown' } as Fund
-                    return { ...known, ...p, weight: parseFloat(p.weight) }
+                    return { ...known, ...p, weight: p.weight }
                 })
                 setPortfolio(enriched)
                 setTotalCapital(result.totalValue)
@@ -235,21 +248,16 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
     }
 
     return (
-        <div className={`h-screen flex flex-col overflow-hidden bg-gray-50 font-sans text-gray-900 ${compactMode ? 'text-[0.9em]' : ''}`}>
+        <div className="h-screen flex flex-col overflow-hidden bg-gray-50 font-sans text-gray-900">
             <Header
                 onLogout={onLogout}
                 onOpenNews={() => setShowNews(true)}
                 onOpenMiBoutique={onOpenMiBoutique}
             >
-                <button
-                    onClick={() => setCompactMode(!compactMode)}
-                    className={`flex items-center gap-2 px-3 py-1.5 rounded-full border text-xs font-bold transition-all ml-4 ${compactMode ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm' : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'}`}
-                >
-                    {compactMode ? '📱 14"' : '🖥️ Std'}
-                </button>
+                {/* Clean header, no version or toggle */}
             </Header>
 
-            <div className={`flex flex-1 overflow-hidden ${compactMode ? 'p-1 gap-1' : 'p-2 gap-2'}`}>
+            <div className="flex flex-1 overflow-hidden p-2 gap-2">
                 <div className="w-[15%] h-full flex flex-col bg-slate-100">
                     <div className="flex-1 overflow-hidden relative rounded-lg border border-slate-200">
                         <Sidebar assets={assets} onAddAsset={handleAddAsset} onViewDetail={setSelectedFund} />
@@ -257,7 +265,7 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                 </div>
 
                 <div className="w-[58%] h-full flex flex-col bg-slate-100 dark:bg-slate-800 gap-2">
-                    <div className={`${compactMode ? 'h-[25vh]' : 'h-1/3'} grid grid-cols-2 gap-2 shrink-0`}>
+                    <div className="h-1/3 grid grid-cols-2 gap-2 shrink-0">
                         {/* Efficient Frontier Chart */}
                         <div className="bg-white dark:bg-slate-800 rounded-lg flex flex-col border border-slate-200 dark:border-slate-700 shadow-sm relative overflow-hidden">
                             <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center z-10">
@@ -281,9 +289,9 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                             </div>
                         </div>
 
-                        {/* Style & Structure Analytics */}
+                        {/* Style & Structure Analytics -> REPLACED BY METRICS */}
                         <div className="bg-white rounded-lg flex flex-col border border-slate-200 shadow-sm relative overflow-hidden">
-                            <StyleAnalytics portfolio={portfolio} />
+                            <PortfolioMetrics portfolio={portfolio} riskFreeRate={riskFreeRate} />
                         </div>
                     </div>
 
@@ -318,38 +326,40 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                 </div>
 
                 <div className="flex-1 h-full flex flex-col bg-slate-100 overflow-y-auto scrollbar-thin gap-2">
-                    <div className="flex flex-col gap-2 flex-[1.4]">
-                        <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col shrink-0">
+                    <div className="flex flex-col gap-2 flex-1">
+                        <div className="bg-white border border-slate-200 rounded-lg shadow-sm flex flex-col shrink-0 h-full">
                             <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
                                 <h3 className="font-sans font-bold text-[#0B2545] text-xs uppercase tracking-wider flex items-center gap-2">
                                     <span className="text-base">📊</span> Análisis de Cartera
                                 </h3>
                             </div>
 
-                            <div className="grid grid-cols-2 gap-4 p-4 border-b border-slate-100">
-                                {/* Row 1: Risk & KPIs */}
-                                <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-3 h-[16rem] overflow-hidden">
-                                    <RiskMonitor portfolio={portfolio} />
+                            <div className="flex flex-col h-full bg-slate-50">
+                                {/* Row 1: Equity & Fixed Income Distribution (Larger) */}
+                                <div className="grid grid-cols-2 gap-4 p-4 border-b border-slate-100 flex-[1.5] min-h-0">
+                                    <div className="bg-slate-50/50 border border-slate-200 rounded-lg h-full overflow-hidden">
+                                        <EquityDistribution portfolio={portfolio} />
+                                    </div>
+                                    <div className="bg-white border border-slate-200 rounded-lg h-full overflow-hidden">
+                                        <FixedIncomeDistribution portfolio={portfolio} />
+                                    </div>
                                 </div>
-                                <div className="bg-white border border-slate-200 rounded-lg p-3 h-[16rem] overflow-hidden">
-                                    <KPICards portfolio={portfolio} />
-                                </div>
-                            </div>
 
-                            <div className="grid grid-cols-2 gap-4 p-4">
-                                {/* Row 2: Donuts */}
-                                <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-3 h-[18rem] relative flex flex-col items-center justify-center overflow-hidden">
-                                    <SmartDonut allocation={allocData} />
-                                </div>
-                                <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-3 h-[18rem] relative flex flex-col items-center justify-center overflow-hidden">
-                                    <GeoDonut allocation={geoData} />
+                                {/* Row 2: Donuts (Smaller) */}
+                                <div className="grid grid-cols-2 gap-4 p-4 flex-1 min-h-0">
+                                    <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-2 h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                        <SmartDonut allocation={allocData} />
+                                    </div>
+                                    <div className="bg-slate-50/50 border border-slate-200 rounded-lg p-2 h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                        <GeoDonut allocation={geoData} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div className="flex-[0.6] shrink-0">
-                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => setShowCosts(true)} onOpenXRay={() => setShowAnalysis(true)} onOpenTactical={() => { setProposedPortfolio(portfolio); setShowTactical(true); }} onOpenMacro={() => setShowMacro(true)} categories={categories} selectedCategory={selectedCategory} setSelectedCategory={setSelectedCategory} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => setShowVipModal(true)} />
+                    <div className="shrink-0 pb-2">
+                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => setShowCosts(true)} onOpenXRay={() => setShowAnalysis(true)} onOpenTactical={() => { setProposedPortfolio(portfolio); setShowTactical(true); }} onOpenMacro={() => setShowMacro(true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => setShowVipModal(true)} />
                     </div>
                 </div>
             </div>
@@ -359,9 +369,9 @@ export default function DashboardPage({ onLogout, onOpenMiBoutique }: DashboardP
                 {showCosts && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => setShowCosts(false)} />}
                 {showVipModal && <VipFundsModal vipFundsStr={vipFunds} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => setShowVipModal(false)} />}
                 {showAnalysis && <AnalysisModal portfolio={portfolio} fundDatabase={assets} onClose={() => setShowAnalysis(false)} />}
-                {showTactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} onAccept={handleAcceptPortfolio} onClose={() => setShowTactical(false)} />}
+                {showTactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => setShowTactical(false)} />}
                 {showMacro && <MacroTacticalModal portfolio={portfolio} onApply={handleMacroApply} onClose={() => setShowMacro(false)} />}
-                {showReviewModal && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => setShowReviewModal(false)} />}
+                {showReviewModal && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => setShowReviewModal(false)} />}
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
                 <FundSwapModal isOpen={isSwapOpen} originalFund={fundToSwap} alternatives={swapAlternatives} onSelect={performSwap} onClose={() => setIsSwapOpen(false)} />
             </Suspense>

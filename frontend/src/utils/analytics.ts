@@ -1,6 +1,6 @@
 // analytics.js - Portado de app_modern.js
 
-export function calcSimpleStats(portfolio) {
+export function calcSimpleStats(portfolio, riskFreeRate = 0) {
     if (!portfolio || !portfolio.length) return { vol: 0, ret: 0, sharpe: 0, yield: 0, ter: 0, beta: 0 };
     let wVol = 0, wRet = 0, wYield = 0, wTer = 0, wBeta = 0, totalW = 0;
 
@@ -44,7 +44,7 @@ export function calcSimpleStats(portfolio) {
     return {
         vol: finalVol,
         ret: wRet,
-        sharpe: finalVol > 0 ? (wRet - 0.03) / finalVol : 0, // Risk-Free 3%
+        sharpe: finalVol > 0 ? (wRet - riskFreeRate) / finalVol : 0,
         yield: wYield,
         ter: wTer,
         beta: wBeta,

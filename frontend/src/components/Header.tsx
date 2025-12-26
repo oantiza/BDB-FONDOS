@@ -20,6 +20,7 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, childre
             <div className="flex items-center gap-4">
                 {/* Dark Mode Toggle */}
                 {/* Dark Mode Toggle Removed */}
+                {children}
 
                 <button
                     onClick={onOpenMiBoutique}

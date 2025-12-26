@@ -12,9 +12,6 @@ export default function Controls({
     onOpenCosts,
     onOpenTactical,
     onOpenMacro,
-    categories = [],
-    selectedCategory = 'All',
-    setSelectedCategory,
     vipFunds = '',
     setVipFunds,
     onOpenVipModal,
@@ -53,60 +50,41 @@ export default function Controls({
                         </div>
                     </div>
 
-                    {/* Category & VIP Row */}
-                    <div className="grid grid-cols-2 gap-2">
-                        {/* Category Selector */}
-                        <div>
+                    {/* Funds Control Row (Slider 2/3 + VIP 1/3) */}
+                    <div className="flex gap-2 items-end">
+                        {/* Fund Count Selector (2/3) */}
+                        <div className="w-2/3">
                             <div className="flex justify-between text-xs font-bold mb-1 text-slate-500">
-                                <span>Categoría</span>
+                                <span>Num. Fondos</span>
+                                <span className="bg-slate-200 text-slate-700 px-1.5 py-0.5 border border-slate-300 font-mono text-[10px]">{numFunds}</span>
                             </div>
-                            <select
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                                className="w-full text-[10px] bg-white border border-slate-200 rounded px-2 py-2 outline-none text-slate-700 shadow-sm focus:border-[var(--color-accent)] transition-colors"
-                            >
-                                <option value="All">Todas</option>
-                                {categories.map(c => (
-                                    <option key={c} value={c}>{c}</option>
-                                ))}
-                            </select>
+                            <input
+                                type="range"
+                                min="4"
+                                max="20"
+                                step="1"
+                                value={numFunds}
+                                onChange={(e) => setNumFunds(parseInt(e.target.value))}
+                                className="w-full h-1.5 bg-slate-200 appearance-none cursor-pointer accent-slate-400"
+                            />
+                            <div className="flex justify-between text-[10px] text-slate-500 mt-0.5 uppercase font-bold">
+                                <span>Min (4)</span>
+                                <span>Max (20)</span>
+                            </div>
                         </div>
 
-                        {/* VIP Button */}
-                        <div>
-                            <div className="flex justify-between text-xs font-bold mb-1 text-slate-500">
-                                <span>Fondos VIP</span>
-                                <span className="text-[9px] font-normal text-slate-400">
-                                    {vipFunds ? `${vipFunds.split(',').filter(x => x.trim()).length}` : '0'}
-                                </span>
-                            </div>
+                        {/* VIP Button (1/3) */}
+                        <div className="w-1/3">
                             <button
                                 onClick={onOpenVipModal}
-                                className="w-full text-xs bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 border border-slate-200 dark:border-slate-600 text-slate-600 dark:text-slate-300 rounded px-2 py-2 transition-colors flex items-center justify-center gap-2 h-[34px]"
+                                className="w-full h-[34px] text-[10px] bg-indigo-50 hover:bg-indigo-100 border border-indigo-200 text-indigo-700 rounded transition-colors flex flex-col items-center justify-center leading-tight font-bold"
+                                title="Configurar Fondos VIP"
                             >
-                                <span>💎 Configurar</span>
+                                <span className="flex items-center gap-1">
+                                    <span>💎 VIP</span>
+                                    {vipFunds && <span className="bg-indigo-200 text-indigo-800 px-1 rounded-full text-[9px]">{vipFunds.split(',').filter(x => x.trim()).length}</span>}
+                                </span>
                             </button>
-                        </div>
-                    </div>
-
-                    {/* Fund Count Selector */}
-                    <div>
-                        <div className="flex justify-between text-xs font-bold mb-1 text-slate-500">
-                            <span>Num. Fondos</span>
-                            <span className="bg-slate-200 text-slate-700 px-1.5 py-0.5 border border-slate-300 font-mono text-[10px]">{numFunds}</span>
-                        </div>
-                        <input
-                            type="range"
-                            min="4"
-                            max="20"
-                            step="1"
-                            value={numFunds}
-                            onChange={(e) => setNumFunds(parseInt(e.target.value))}
-                            className="w-full h-1.5 bg-slate-200 appearance-none cursor-pointer accent-slate-400"
-                        />
-                        <div className="flex justify-between text-[10px] text-slate-500 mt-0.5 uppercase font-bold">
-                            <span>Min (4)</span>
-                            <span>Max (20)</span>
                         </div>
                     </div>
 

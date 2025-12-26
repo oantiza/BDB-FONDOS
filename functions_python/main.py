@@ -208,6 +208,24 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         assets_list = req_data.get('assets', [])
         risk_level = req_data.get('risk_level', 5)
         if not assets_list: return {'status': 'error', 'warnings': ['Cartera vacía']}
+        # --- NEW: CHALLENGER LOGIC (Add +1 Fund Capability) ---
+        # Fetch Top 5 Funds by Sharpe to potentially replace/add to current portfolio
+        try:
+            challengers = []
+            docs = db.collection('funds_v2').order_by('perf.sharpe', direction=firestore.Query.DESCENDING).limit(5).stream()
+            for d in docs:
+                isin = d.id
+                if isin not in assets_list:
+                    challengers.append(isin)
+            
+            # Add top 2 challengers to the universe
+            candidates = challengers[:2]
+            if candidates:
+                print(f"🚀 Injecting Challengers: {candidates}")
+                assets_list.extend(candidates)
+        except Exception as e_chal:
+            print(f"⚠️ Error fetching challengers: {e_chal}")
+
         asset_metadata = {}
         for isin in assets_list:
              d = db.collection('funds_v2').document(isin).get()
@@ -287,3 +305,10 @@ def getEfficientFrontier(request: https_fn.CallableRequest):
     
     # 1. Generate Frontier & Portfolio Point
     return generate_efficient_frontier(assets_list, db, portfolio_weights)
+
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
+def getRiskRate(request: https_fn.CallableRequest):
+    from services.data import get_dynamic_risk_free_rate
+    db = firestore.client()
+    return {'rate': get_dynamic_risk_free_rate(db)}
+

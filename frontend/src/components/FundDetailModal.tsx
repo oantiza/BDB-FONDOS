@@ -161,6 +161,42 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                             </p>
                         </section>
                     )}
+
+                    {/* Historical Returns (Schema V2) */}
+                    {(fund.returns_history || fund.yearly_returns) && (
+                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
+                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                                Rendimiento Histórico
+                            </h3>
+                            <div className="flex flex-col gap-1">
+                                {(() => {
+                                    // 1. Adapter for Schema V2 (Map) vs Legacy (Array)
+                                    let history: { year: number, value: number }[] = [];
+
+                                    if (fund.returns_history) {
+                                        history = Object.entries(fund.returns_history)
+                                            .map(([y, v]) => ({ year: parseInt(y), value: v as number }))
+                                            .filter(x => !isNaN(x.year))
+                                            .sort((a, b) => b.year - a.year);
+                                    } else if (fund.yearly_returns) {
+                                        history = fund.yearly_returns.map((x: any) => ({ year: x.year, value: x.return }));
+                                    }
+
+                                    return history.slice(0, 5).map((h) => (
+                                        <div key={h.year} className="flex justify-between items-center text-xs px-2 py-1 border-b border-slate-50 dark:border-slate-800 last:border-0">
+                                            <span className="font-mono text-slate-500">{h.year}</span>
+                                            <span className={`font-bold font-mono ${h.value >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                                                {h.value > 0 ? '+' : ''}{h.value.toFixed(2)}%
+                                            </span>
+                                        </div>
+                                    ));
+                                })()}
+                            </div>
+                        </section>
+                    )}
+
+
+
                 </div>
 
                 {/* Footer */}

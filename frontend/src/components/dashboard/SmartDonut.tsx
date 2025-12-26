@@ -5,14 +5,22 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 
 // Paleta Semántica Profesional
 const ASSET_COLORS: Record<string, string> = {
-    'Renta Variable': '#f43f5e', // Rose 500
-    'Renta Fija': '#3b82f6',     // Blue 500
-    'Monetarios': '#10B981',     // Emerald 500
-    'Mixto/Global': '#D4AF37',   // Gold
-    'Materias Primas': '#f97316',// Orange 500
-    'Alternativos': '#8b5cf6',   // Violet 500
-    'Inmobiliario': '#A0522D',   // Sienna
-    'Otros': '#94a3b8'           // Slate 400
+    // RV
+    'RV Norteamérica': '#ef4444', // Red 500
+    'RV Europa': '#3b82f6',       // Blue 500
+    'RV Emergentes/Asia': '#f59e0b', // Amber 500
+    'RV Global': '#ec4899',       // Pink 500
+
+    // RF
+    'Deuda Pública': '#10b981',   // Emerald 500
+    'Crédito Corporativo': '#06b6d4', // Cyan 500
+    'Renta Fija Global': '#6366f1',   // Indigo 500
+
+    // Otros
+    'Monetarios': '#84cc16',      // Lime 500
+    'Retorno Absoluto': '#a855f7', // Purple 500
+    'Materias Primas': '#f97316', // Orange 500
+    'Alternativos/Otros': '#64748b' // Slate 500
 }
 const DEFAULT_PALETTE = ['#64748b', '#94a3b8', '#cbd5e1']
 

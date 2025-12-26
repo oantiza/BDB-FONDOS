@@ -150,7 +150,7 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
                         <div className="space-y-6">
 
                             {/* 1. CHART AREA */}
-                            <div className="bg-slate-50 p-2 rounded border border-slate-200 h-96 flex flex-col">
+                            <div className="bg-slate-50 p-2 rounded border border-slate-200 h-[425px] flex flex-col">
                                 <div className="flex justify-end gap-2 mb-2 px-2">
                                     <select
                                         value={period}
@@ -185,10 +185,11 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
                             </div>
 
                             {/* 2. METRICS GRID (Below Chart) */}
-                            <div className="grid grid-cols-4 gap-4">
+                            <div className="grid grid-cols-5 gap-4">
                                 <MetricCard label="Rentabilidad (CAGR)" value={metrics.metrics?.cagr} fmt="%" color="text-[#0B2545]" />
                                 <MetricCard label="Volatilidad" value={metrics.metrics?.volatility} fmt="%" color="text-[#0B2545]" />
                                 <MetricCard label="Ratio Sharpe" value={metrics.metrics?.sharpe} fmt="num" color="text-[#D4AF37]" />
+                                <MetricCard label="Tasa Libre Riesgo" value={metrics.metrics?.rf_rate} fmt="%" color="text-slate-500" />
                                 <MetricCard label="Máximo Drawdown" value={metrics.metrics?.maxDrawdown} fmt="%" color="text-rose-500" />
                             </div>
 
@@ -209,8 +210,13 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
                             </div>
 
                             {/* 4. RISK MAP (2/3) + EXPLANATION (1/3) */}
+                            {/* 4. RISK MAP (2/3) + EXPLANATION (1/3) */}
                             <div className="flex flex-col md:flex-row gap-4 h-80">
                                 <div className="w-full md:w-2/3 bg-slate-50 rounded border border-slate-200 p-2 relative flex flex-col">
+                                    <h4 className="font-bold text-[#0B2545] mb-2 flex items-center gap-2 text-base px-2 pt-1">
+                                        <svg className="w-5 h-5 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        Perfil Riesgo/Retorno
+                                    </h4>
                                     <RiskMap
                                         portfolioMetrics={{
                                             volatility: metrics.metrics?.volatility,
@@ -223,11 +229,7 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
                                     />
                                 </div>
                                 <div className="w-full md:w-1/3 bg-indigo-50/50 rounded border border-indigo-100 p-5 flex flex-col justify-center">
-                                    <h4 className="font-bold text-[#0B2545] mb-2 flex items-center gap-2 text-base">
-                                        <svg className="w-6 h-6 text-[#D4AF37]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                                        Perfil Riesgo/Retorno
-                                    </h4>
-                                    <p className="text-sm text-slate-600 leading-relaxed mb-3">
+                                    <p className="text-sm text-slate-600 leading-relaxed mb-3 font-sans">
                                         Este mapa compara la eficiencia de su cartera frente a perfiles de modelos estándar.
                                     </p>
                                     <ul className="text-sm space-y-2 text-slate-500 mb-2">
@@ -239,7 +241,7 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
                                         ))}
                                         <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-[#0B2545]"></div> <b>Su Cartera</b></li>
                                     </ul>
-                                    <div className="mt-auto text-xs font-mono p-3 bg-white rounded border border-indigo-100 text-indigo-800 leading-snug"
+                                    <div className="mt-auto text-xs font-sans p-3 bg-white rounded border border-indigo-100 text-indigo-900 leading-relaxed shadow-sm"
                                         dangerouslySetInnerHTML={{ __html: riskExplanation }}
                                     />
                                 </div>

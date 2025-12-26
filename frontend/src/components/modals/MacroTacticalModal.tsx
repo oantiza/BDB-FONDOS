@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Doughnut } from 'react-chartjs-2'
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
+
+ChartJS.register(ArcElement, Tooltip, Legend)
 
 export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
     // Estado para los targets (Pesos objetivo)
@@ -152,8 +155,15 @@ export default function MacroTacticalModal({ portfolio, onApply, onClose }) {
 
                     {/* Visualizer Panel */}
                     <div className="col-span-4 flex flex-col items-center">
-                        <div className="w-40 h-40 mb-4 relative">
-                            <Doughnut data={chartData} options={{ cutout: '60%', plugins: { legend: { display: false } } }} />
+                        <div className="w-full h-40 mb-4 relative flex items-center justify-center min-h-[160px]">
+                            <Doughnut
+                                data={chartData}
+                                options={{
+                                    cutout: '60%',
+                                    maintainAspectRatio: false,
+                                    plugins: { legend: { display: false } }
+                                }}
+                            />
                             <div className="absolute inset-0 flex items-center justify-center flex-col pointer-events-none">
                                 <span className={`text-2xl font-bold ${Math.abs(total - 100) < 1 ? 'text-brand' : 'text-rose-500'}`}>{total}%</span>
                                 <span className="text-[10px] text-slate-400 uppercase">Total</span>

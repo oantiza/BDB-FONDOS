@@ -25,7 +25,8 @@ ChartJS.register(
 export default function ComparisonChart({ currentData, proposedData }) {
     if (!currentData || !proposedData) return <div className="text-xs text-slate-400">Calculando proyección...</div>
 
-    const labels = currentData.map((d, i) => i) // Indices 0...N
+    // Use 'x' property for labels if available (Backtest mode), otherwise use index (Projection mode)
+    const labels = currentData[0]?.x ? currentData.map(d => d.x) : currentData.map((d, i) => i)
 
     const data = {
         labels,

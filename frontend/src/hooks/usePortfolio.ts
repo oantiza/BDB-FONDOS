@@ -59,20 +59,30 @@ export function usePortfolio() {
             const w = Number(p.weight) || 0
             const extra = p.std_extra || {}
             const rawType = p.std_type || 'Mixto'
+            const region = extra.regionDetail || p.std_region || 'Global'
+
             let label = rawType
 
-            if (rawType === 'RV' || rawType === 'Equity') label = 'Renta Variable'
-            else if (rawType === 'RF' || rawType === 'Fixed Income') label = 'Renta Fija'
+            // Lógica Refinada para Subcategorías
+            if (rawType === 'RV' || rawType === 'Equity') {
+                if (region.includes('US') || region.includes('America')) label = 'RV Norteamérica'
+                else if (region.includes('Europe') || region.includes('Euro')) label = 'RV Europa'
+                else if (region.includes('Emerg') || region.includes('Asia')) label = 'RV Emergentes/Asia'
+                else label = 'RV Global'
+            }
+            else if (rawType === 'RF' || rawType === 'Fixed Income') {
+                if (extra.category && extra.category.toLowerCase().includes('gov')) label = 'Deuda Pública'
+                else if (extra.category && extra.category.toLowerCase().includes('corp')) label = 'Crédito Corporativo'
+                else label = 'Renta Fija Global'
+            }
             else if (rawType === 'Monetario' || rawType === 'Cash') label = 'Monetarios'
-            else if (rawType === 'Mixto' || rawType === 'Mixed') label = 'Mixto/Global'
+            else if (rawType === 'Mixto' || rawType === 'Mixed') label = 'Retorno Absoluto'
             else if (rawType === 'Commodities') label = 'Materias Primas'
-            else if (rawType === 'Alt' || rawType === 'Alternative') label = 'Alternativos'
-            else if (rawType === 'Real Estate' || rawType === 'REIT') label = 'Inmobiliario'
-            else label = 'Otros'
+            else label = 'Alternativos/Otros'
 
             typeMap[label] = (typeMap[label] || 0) + w
 
-            const region = extra.regionDetail || p.std_region || 'Global'
+            // Geo Map se mantiene igual
             geoMap[region] = (geoMap[region] || 0) + w
         })
 

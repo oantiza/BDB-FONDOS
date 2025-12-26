@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react'
 import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 
-export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, onAccept, onApplyDirect, onClose }) {
-    const currentStats = useMemo(() => calcSimpleStats(currentPortfolio), [currentPortfolio])
-    const proposedStats = useMemo(() => calcSimpleStats(proposedPortfolio), [proposedPortfolio])
+export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onApplyDirect, onClose }) {
+    const currentStats = useMemo(() => calcSimpleStats(currentPortfolio, riskFreeRate), [currentPortfolio, riskFreeRate])
+    const proposedStats = useMemo(() => calcSimpleStats(proposedPortfolio, riskFreeRate), [proposedPortfolio, riskFreeRate])
 
     const StatCard = ({ label, current, proposed, format = 'pct', inverse = false }) => {
         const isBetter = inverse ? proposed < current : proposed > current
@@ -65,8 +65,8 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                         <div className="w-px bg-slate-100 my-2"></div>
                         <StatCard
                             label="Ratio Sharpe"
-                            current={currentStats.ret / currentStats.vol}
-                            proposed={proposedStats.ret / proposedStats.vol}
+                            current={currentStats.sharpe}
+                            proposed={proposedStats.sharpe}
                             format="num"
                         />
                         <div className="w-px bg-slate-100 my-2"></div>

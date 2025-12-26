@@ -19,6 +19,34 @@
         const app = initializeApp(firebaseConfig);
         const functions = getFunctions(app, 'europe-west1');
 
+        // Default JSON template for Portfolio
+        const defaultPortfolio = [
+            {
+                "assetClass": "Renta Variable Global",
+                "allocationPercentage": 30,
+                "focus": "Calidad y crecimiento sostenible"
+            },
+            {
+                "assetClass": "Renta Fija / Bonos",
+                "allocationPercentage": 40,
+                "focus": "Gobierno y Crédito IG"
+            },
+            {
+                "assetClass": "Alternativos",
+                "allocationPercentage": 20,
+                "focus": "Real Estate y Commodities"
+            },
+            {
+                "assetClass": "Liquidez",
+                "allocationPercentage": 10,
+                "focus": "Táctico"
+            }
+        ];
+
+        window.onload = function() {
+            document.getElementById('model_portfolio').value = JSON.stringify(defaultPortfolio, null, 4);
+        };
+
         window.insertReport = async function () {
             const button = document.getElementById('insertBtn');
             const status = document.getElementById('status');
@@ -28,19 +56,42 @@
             status.className = 'status pending';
 
             try {
-                // Capturar valores del formulario
+                // 1. Basic Metadata
                 const title = document.getElementById('titulo_reporte').value;
                 const type = document.getElementById('tipo_reporte').value;
                 const date = document.getElementById('fecha_reporte').value;
 
-                // Crear payload (JSON)
+                // 2. Content Fields
+                const executive_summary = document.getElementById('executive_summary').value;
+                const marketSentiment = document.getElementById('marketSentiment').value;
+                
+                // 3. Parsing Lists & JSON
+                const keyDriversText = document.getElementById('keyDrivers').value;
+                const keyDrivers = keyDriversText.split('\n').filter(line => line.trim() !== '');
+
+                let model_portfolio = [];
+                try {
+                    model_portfolio = JSON.parse(document.getElementById('model_portfolio').value);
+                } catch (e) {
+                    throw new Error("El JSON de Portfolio Modelo es inválido. Verifica las comillas y comas.");
+                }
+
+                // Create Data Payload matches dashboard.tsx expectations
                 const payload = {
                     title: title,
                     type: type,
                     date: date,
                     created_at: new Date().toISOString(),
-                    source: 'manual_html_insert'
+                    source: 'manual_html_insert',
+                    
+                    // New Fields
+                    executive_summary: executive_summary,
+                    marketSentiment: marketSentiment,
+                    keyDrivers: keyDrivers,
+                    model_portfolio: model_portfolio
                 };
+
+                console.log("Sending Payload:", payload);
 
                 const insertMonthlyReport = httpsCallable(functions, 'insertMonthlyReport');
                 const result = await insertMonthlyReport(payload);
@@ -51,12 +102,12 @@
                     status.textContent = '✅ ¡Informe insertado exitosamente! ID: ' + result.data.doc_id;
                     status.className = 'status success';
                 } else {
-                    status.textContent = '❌ Error: ' + result.data.error;
+                    status.textContent = '❌ Error Backend: ' + result.data.error;
                     status.className = 'status error';
                 }
             } catch (error) {
                 console.error('Error:', error);
-                status.textContent = '❌ Error: ' + error.message;
+                status.textContent = '❌ Error Cliente: ' + error.message;
                 status.className = 'status error';
                 button.disabled = false;
             }
@@ -64,101 +115,156 @@
     </script>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            max-width: 800px;
+            margin: 40px auto;
             padding: 20px;
-            background: #f5f5f5;
+            background: #f0f2f5;
+            color: #333;
         }
 
         .container {
             background: white;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
         }
 
         h1 {
-            color: #0B2545;
-            margin-bottom: 10px;
+            color: #1a202c;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ebf8ff;
+            padding-bottom: 10px;
         }
 
-        p {
-            color: #666;
-            line-height: 1.6;
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 14px;
+            box-sizing: border-box;
+            font-family: inherit;
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .code-input {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #2d3748;
+            color: #e2e8f0;
         }
 
         button {
-            background: #D4AF37;
-            color: #0B2545;
+            background: #3182ce;
+            color: white;
             border: none;
-            padding: 12px 24px;
+            padding: 12px 30px;
             font-size: 16px;
             font-weight: bold;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
-            margin-top: 20px;
+            width: 100%;
+            transition: background 0.2s;
         }
 
         button:hover:not(:disabled) {
-            background: #c49d2e;
+            background: #2b6cb0;
         }
 
         button:disabled {
-            opacity: 0.6;
+            background: #cbd5e0;
             cursor: not-allowed;
         }
 
         .status {
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 15px;
-            border-radius: 4px;
-            font-weight: bold;
+            border-radius: 6px;
+            font-weight: 500;
+            text-align: center;
         }
 
-        .status.pending {
-            background: #fff3cd;
-            color: #856404;
-        }
-
-        .status.success {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .status.error {
-            background: #f8d7da;
-            color: #721c24;
+        .status.pending { background: #feebc8; color: #744210; }
+        .status.success { background: #c6f6d5; color: #22543d; }
+        .status.error { background: #fed7d7; color: #822727; }
+        
+        .help-text {
+            font-size: 12px;
+            color: #718096;
+            margin-top: 4px;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <h1>📊 Migración de Informe</h1>
-        <p>Este script insertará el informe mensual de diciembre 2025 en la base de datos <code>bdb-fondos</code>.</p>
-        <div style="margin-bottom: 15px;">
-            <label for="titulo_reporte">Título del Reporte:</label><br>
-            <input type="text" id="titulo_reporte" value="Informe Mensual - Diciembre 2025"
-                style="width: 100%; padding: 8px; margin-top: 5px;">
+        <h1>📊 GESTOR BBDD: Migración de Informe</h1>
+        <p style="margin-bottom: 30px;">Herramienta para insertar manualmente informes completos en Firestore (BDB Fondos).</p>
+        
+        <!-- Metadata Section -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+            <div class="form-group">
+                <label for="tipo_reporte">Tipo de Reporte:</label>
+                <select id="tipo_reporte">
+                    <option value="MONTHLY_PORTFOLIO">MONTHLY_PORTFOLIO</option>
+                    <option value="WEEKLY_MACRO">WEEKLY_MACRO</option>
+                    <option value="STRATEGY">STRATEGY</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="fecha_reporte">Fecha:</label>
+                <input type="date" id="fecha_reporte" value="2025-12-26">
+            </div>
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="tipo_reporte">Tipo de Reporte:</label><br>
-            <select id="tipo_reporte" style="width: 100%; padding: 8px; margin-top: 5px;">
-                <option value="MONTHLY">MONTHLY</option>
-                <option value="WEEKLY">WEEKLY</option>
-                <option value="STRATEGY">STRATEGY</option>
-            </select>
+        <div class="form-group">
+            <label for="titulo_reporte">Título del Reporte:</label>
+            <input type="text" id="titulo_reporte" value="Informe Mensual - Diciembre 2025" placeholder="Ej: Estrategia Global 2025">
         </div>
 
-        <div style="margin-bottom: 15px;">
-            <label for="fecha_reporte">Fecha:</label><br>
-            <input type="date" id="fecha_reporte" value="2025-12-21"
-                style="width: 100%; padding: 8px; margin-top: 5px;">
+        <!-- Content Section -->
+        <div class="form-group">
+            <label for="executive_summary">Resumen Ejecutivo:</label>
+            <textarea id="executive_summary" rows="4" placeholder="Resumen principal del mes..."></textarea>
         </div>
 
-        <button id="insertBtn" onclick="insertReport()">🚀 Insertar Informe</button>
+        <div class="form-group">
+            <label for="marketSentiment">Sentimiento de Mercado (Texto):</label>
+            <textarea id="marketSentiment" rows="3" placeholder="Ej: Neutral a Cautelosamente Optimista..."></textarea>
+        </div>
+
+        <div class="form-group">
+            <label for="keyDrivers">Key Drivers (Uno por línea):</label>
+            <textarea id="keyDrivers" rows="5" placeholder="- Inflación bajando&#10;- Tipos de interés estables&#10;- Geopolítica"></textarea>
+            <div class="help-text">Cada línea se convertirá en un elemento de la lista.</div>
+        </div>
+
+        <div class="form-group">
+            <label for="model_portfolio">Model Portfolio (JSON):</label>
+            <textarea id="model_portfolio" class="code-input" rows="10"></textarea>
+            <div class="help-text">Edita el JSON directamente. Asegúrate de mantener la estructura correcta.</div>
+        </div>
+
+        <button id="insertBtn" onclick="insertReport()">🚀 Insertar Informe Completo</button>
         <div id="status"></div>
     </div>
 </body>

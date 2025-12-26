@@ -115,7 +115,13 @@ def run_backtest(portfolio, period, db):
         total_ret = cumulative.iloc[-1] / 100 - 1 if days > 0 else 0
         cagr = (1 + total_ret) ** (1/years) - 1 if years > 0 else 0
         vol = port_ret.std() * np.sqrt(252) if days > 0 else 0
-        sharpe = (cagr - RISK_FREE_RATE) / vol if vol > 0 else 0
+
+        
+        from .data import get_dynamic_risk_free_rate
+        rf_rate = get_dynamic_risk_free_rate(db)
+        # rf_rate = 0.0 # Homogeneous Risk Free Rate (0%) for consistency with Dashboard
+        
+        sharpe = (cagr - rf_rate) / vol if vol > 0 else 0
         max_dd = ((cumulative - cumulative.cummax()) / cumulative.cummax()).min() if days > 0 else 0
         
         def to_chart(ser): return [{'x': d.strftime('%Y-%m-%d'), 'y': round(v, 2)} for d, v in ser.items()]
@@ -185,7 +191,7 @@ def run_backtest(portfolio, period, db):
         return {
             'portfolioSeries': to_chart(cumulative),
             'benchmarkSeries': { k: to_chart(v) for k, v in profiles.items() },
-            'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd},
+            'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd, 'rf_rate': rf_rate},
             'correlationMatrix': returns.corr().round(2).fillna(0).values.tolist(),
             'effectiveISINs': valid_assets, 
             'synthetics': synthetics_metrics, 

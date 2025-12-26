@@ -39,7 +39,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             S = risk_models.fix_nonpositive_semidefinite(S)
 
         # Seleccionamos el objetivo correcto. Default seguro: 5%.
-        target_volatility = RISK_TARGETS.get(int(risk_level), 0.05)
+        # MARGEN DE FLEXIBILIDAD: +1.5% para permitir carteras con mejor retorno histórico
+        base_target = RISK_TARGETS.get(int(risk_level), 0.05)
+        target_volatility = base_target + 0.015 
         
         ef = EfficientFrontier(mu, S)
         
@@ -96,7 +98,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 raw_weights = ef.min_volatility()
             except:
                 # Fallback final si todo falla
-                raw_weights = ef.max_sharpe(risk_free_rate=RISK_FREE_RATE)
+                from .data import get_dynamic_risk_free_rate
+                rf_rate = get_dynamic_risk_free_rate()
+                raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
 
         # 6. PODA SUAVE
         cleaned_weights = ef.clean_weights(cutoff=0.015)

@@ -6,15 +6,24 @@ export interface Fund {
     std_perf?: {
         volatility?: number;
         sharpe?: number;
-        returns?: number;
+        returns?: number; // unused?
         max_drawdown?: number;
+        cagr3y?: number;
+        cagr6m?: number;
+        alpha?: number;
+        beta?: number;
     };
     std_extra?: {
         category?: string;
         ter?: number;
         company?: string;
+        yearsHistory?: number;
+        mgmtFee?: number;
+        duration?: number;
         [key: string]: any;
     };
+    returns_history?: Record<string, number>; // Schema V2 (Map)
+    risk_srri?: number; // Schema V2 (Snake Case)
     [key: string]: any;
 }
 

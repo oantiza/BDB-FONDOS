@@ -1,14 +1,65 @@
 import { useState, useEffect, useMemo } from 'react'
 import ComparisonChart from '../charts/ComparisonChart'
-import { calcSimpleStats, generateProjectionPoints } from '../../utils/analytics'
+import { calcSimpleStats } from '../../utils/analytics'
+import { httpsCallable } from 'firebase/functions'
+import { functions } from '../../firebase'
 
-export default function TacticalModal({ currentPortfolio, proposedPortfolio, onAccept, onClose }) {
+export default function TacticalModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onClose }) {
     const [editedProposal, setEditedProposal] = useState([])
     const [isEditing, setIsEditing] = useState(false) // Manual Rebalance Mode
+    const [backtestData, setBacktestData] = useState({
+        current: null,
+        proposed: null,
+        metricsCurrent: null,
+        metricsProposed: null
+    })
+    const [isLoadingBacktest, setIsLoadingBacktest] = useState(false)
 
     useEffect(() => {
         setEditedProposal(JSON.parse(JSON.stringify(proposedPortfolio)))
     }, [proposedPortfolio])
+
+    // --- Backtest Fetcher ---
+    useEffect(() => {
+        const fetchBacktest = async () => {
+            setIsLoadingBacktest(true)
+            try {
+                const backtestFn = httpsCallable(functions, 'backtest_portfolio')
+
+                // Define expected response structure matching Backend
+                interface BacktestResponse {
+                    portfolioSeries: { x: string; y: number }[];
+                    metrics: any;
+                    // ... ignore other fields for now
+                }
+
+                // 1. Backtest Original
+                const resCurrent = await backtestFn({ portfolio: currentPortfolio, period: '5y' })
+                const dataCurrent = resCurrent.data as BacktestResponse
+
+                // 2. Backtest Proposed (Initial)
+                const resProposed = await backtestFn({ portfolio: proposedPortfolio, period: '5y' })
+                const dataProposed = resProposed.data as BacktestResponse
+
+                if (dataCurrent && dataProposed) {
+                    setBacktestData({
+                        current: dataCurrent.portfolioSeries,
+                        proposed: dataProposed.portfolioSeries,
+                        metricsCurrent: dataCurrent.metrics,
+                        metricsProposed: dataProposed.metrics
+                    })
+                }
+            } catch (error) {
+                console.error("Backtest failed", error)
+            } finally {
+                setIsLoadingBacktest(false)
+            }
+        }
+
+        if (currentPortfolio.length > 0 && proposedPortfolio.length > 0) {
+            fetchBacktest()
+        }
+    }, []) // Run once on mount to compare original vs initial proposal
 
     // --- Actions ---
     const handleWeightChange = (isin, val) => {
@@ -27,16 +78,11 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
     }
 
     // --- Analytics ---
-    const currentStats = useMemo(() => calcSimpleStats(currentPortfolio), [currentPortfolio])
-    const proposedStats = useMemo(() => calcSimpleStats(editedProposal), [editedProposal])
+    const currentStats = useMemo(() => calcSimpleStats(currentPortfolio, riskFreeRate), [currentPortfolio, riskFreeRate])
+    const proposedStats = useMemo(() => calcSimpleStats(editedProposal, riskFreeRate), [editedProposal, riskFreeRate])
 
-    const projectionData = useMemo(() => {
-        const currentProj = generateProjectionPoints(currentStats.ret, currentStats.vol)
-        const proposedProj = generateProjectionPoints(proposedStats.ret, proposedStats.vol)
-        return { current: currentProj, proposed: proposedProj }
-    }, [currentStats, proposedStats])
-
-    const totalWeight = editedProposal.reduce((acc, p) => acc + (p.weight || 0), 0)
+    const totalProposedWeight = editedProposal.reduce((acc, p) => acc + (p.weight || 0), 0)
+    const totalCurrentWeight = currentPortfolio.reduce((acc, p) => acc + (p.weight || 0), 0)
 
     // --- Helpers ---
     const MetricRow = ({ label, val, isPercent = true, comparisonVal = null, inverse = false }) => {
@@ -85,10 +131,16 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
 
                         {/* Metrics Panel */}
                         <div className="p-4 bg-white border-b border-slate-200 grid grid-cols-2 gap-x-8 gap-y-1">
-                            <MetricRow label="Rentabilidad Esp." val={currentStats.ret} />
-                            <MetricRow label="Volatilidad (1A)" val={currentStats.vol} />
-                            <MetricRow label="Ratio Sharpe" val={currentStats.ret / currentStats.vol} isPercent={false} />
-                            <MetricRow label="Máximo Drawdown" val={currentStats.vol * -2} /> {/* Est. */}
+                            {isLoadingBacktest ? (
+                                <div className="col-span-2 text-center text-xs text-slate-400 py-4 animate-pulse">Obteniendo datos históricos...</div>
+                            ) : (
+                                <>
+                                    <MetricRow label="Rentabilidad (CAGR)" val={backtestData.metricsCurrent?.cagr || 0} />
+                                    <MetricRow label="Volatilidad (1A)" val={backtestData.metricsCurrent?.volatility || 0} />
+                                    <MetricRow label="Ratio Sharpe" val={backtestData.metricsCurrent?.sharpe || 0} isPercent={false} />
+                                    <MetricRow label="Máximo Drawdown" val={backtestData.metricsCurrent?.maxDrawdown || 0} />
+                                </>
+                            )}
                         </div>
 
                         {/* Composition Table */}
@@ -100,6 +152,11 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                                 onRemove={() => { }}
                                 comparisonPortfolio={null}
                             />
+                        </div>
+                        {/* Total Weight Indicator (NEW) */}
+                        <div className={`p-2 text-center text-xs font-bold border-t bg-slate-50 text-slate-600 border-slate-200 flex justify-between px-4`}>
+                            <span className="text-slate-400 font-normal">Tasa Libre R.: {(backtestData.metricsCurrent?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span>Total Asignado: {totalCurrentWeight.toFixed(2)}%</span>
                         </div>
                     </div>
 
@@ -118,10 +175,25 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
 
                         {/* Metrics Panel (Highlighted) */}
                         <div className="p-4 bg-white border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
-                            <MetricRow label="Rentabilidad Esp." val={proposedStats.ret} comparisonVal={currentStats.ret} />
-                            <MetricRow label="Volatilidad (1A)" val={proposedStats.vol} comparisonVal={currentStats.vol} inverse={true} />
-                            <MetricRow label="Ratio Sharpe" val={proposedStats.ret / proposedStats.vol} isPercent={false} comparisonVal={currentStats.ret / currentStats.vol} />
-                            <MetricRow label="Máximo Drawdown" val={proposedStats.vol * -2} comparisonVal={currentStats.vol * -2} inverse={true} />
+                            {isLoadingBacktest && !isEditing ? (
+                                <div className="col-span-2 text-center text-xs text-slate-400 py-4 animate-pulse">Calculando métricas reales...</div>
+                            ) : (
+                                <>
+                                    <MetricRow label="Rentabilidad (CAGR)"
+                                        val={isEditing ? proposedStats.ret : (backtestData.metricsProposed?.cagr || 0)}
+                                        comparisonVal={backtestData.metricsCurrent?.cagr || 0} />
+                                    <MetricRow label="Volatilidad (1A)"
+                                        val={isEditing ? proposedStats.vol : (backtestData.metricsProposed?.volatility || 0)}
+                                        comparisonVal={backtestData.metricsCurrent?.volatility || 0} inverse={true} />
+                                    <MetricRow label="Ratio Sharpe"
+                                        val={isEditing ? proposedStats.sharpe : (backtestData.metricsProposed?.sharpe || 0)}
+                                        isPercent={false}
+                                        comparisonVal={backtestData.metricsCurrent?.sharpe || 0} />
+                                    <MetricRow label="Máximo Drawdown"
+                                        val={isEditing ? 0 : (backtestData.metricsProposed?.maxDrawdown || 0)} // No calculated DD for manual mode easily
+                                        comparisonVal={backtestData.metricsCurrent?.maxDrawdown || 0} inverse={true} />
+                                </>
+                            )}
                         </div>
 
                         {/* Composition Table */}
@@ -136,20 +208,22 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
                         </div>
 
                         {/* Total Weight Indicator */}
-                        <div className={`p-2 text-center text-xs font-bold border-t ${Math.abs(totalWeight - 100) > 0.1 ? 'bg-rose-900/20 text-rose-400 border-rose-500/30' : 'bg-[#D4AF37]/20 text-[#0B2545] border-[#D4AF37]/30'}`}>
-                            Total Asignado: {totalWeight.toFixed(2)}%
+                        <div className={`p-2 text-center text-xs font-bold border-t flex justify-between px-4 ${Math.abs(totalProposedWeight - 100) > 0.1 ? 'bg-rose-900/20 text-rose-400 border-rose-500/30' : 'bg-[#D4AF37]/20 text-[#0B2545] border-[#D4AF37]/30'}`}>
+                            <span className="opacity-70 font-normal">Tasa Libre R.: {(backtestData.metricsProposed?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span>Total Asignado: {totalProposedWeight.toFixed(2)}%</span>
                         </div>
                     </div>
                 </div>
 
-                {/* 3. CHART AREA (Bottom Fixed - 1/8 Height - Centered 2:1 Aspect) */}
+                {/* 3. CHART AREA */}
                 <div className="shrink-0 h-[24vh] bg-white border-t border-slate-200 flex items-center justify-center p-2 relative">
-                    <div className="absolute top-1 left-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                        Proyección 5 Años
+                    <div className="absolute top-1 left-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
+                        <span>📅 Backtest Histórico (5 Años)</span>
+                        {isLoadingBacktest && <span className="text-blue-500 animate-pulse">Cargando datos...</span>}
                     </div>
-                    {/* Centered Container with max-width for 2:1 appearance */}
+                    {/* Centered Container using live backtest data */}
                     <div className="h-full w-full max-w-3xl flex items-center justify-center">
-                        <ComparisonChart currentData={projectionData.current} proposedData={projectionData.proposed} />
+                        <ComparisonChart currentData={backtestData.current} proposedData={backtestData.proposed} />
                     </div>
                 </div>
 
@@ -193,8 +267,6 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, onA
     )
 }
 
-// Sub-componente simple para la tabla
-// Sub-componente simple para la tabla
 function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparisonPortfolio }) {
     return (
         <table className="w-full text-xs text-left">
