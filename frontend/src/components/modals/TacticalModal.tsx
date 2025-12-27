@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
+import ModalHeader from '../common/ModalHeader'
 import ComparisonChart from '../charts/ComparisonChart'
 import { calcSimpleStats } from '../../utils/analytics'
 import { httpsCallable } from 'firebase/functions'
@@ -104,33 +105,25 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
         <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4 backdrop-blur-sm font-sans">
             <div className="bg-white rounded-xl shadow-2xl w-full h-[95vh] max-w-7xl flex flex-col overflow-hidden border border-slate-200">
 
-                {/* 1. Header (Corporate Blue Gradient) */}
-                <div className="bg-gradient-to-r from-gray-900 to-blue-800 border-b border-blue-800 shrink-0 p-2 flex justify-between items-center shadow-sm relative overflow-hidden">
-                    <div className="relative z-10 flex items-center gap-2">
-                        <div className="h-6 w-6 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm">
-                            <span className="text-xs">⚖️</span>
-                        </div>
-                        <h2 className="text-xs font-bold text-white flex items-center gap-2 uppercase tracking-wider">
-                            Revisión de Optimización Táctica
-                        </h2>
-                    </div>
-                    {/* Decorative noise */}
-                    <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
-
-                    <button onClick={onClose} className="relative z-10 text-blue-300 hover:text-white transition-colors text-2xl leading-none">&times;</button>
-                </div>
+                <ModalHeader
+                    title="Revisión de Optimización Táctica"
+                    icon="⚖️"
+                    onClose={onClose}
+                />
 
                 {/* 2. DUAL VIEW (Main Content ~7/8) with Spacing */}
-                <div className="flex-1 flex overflow-hidden bg-slate-100 p-4 gap-4">
+                <div className="flex-1 flex overflow-hidden bg-white p-6 gap-6">
 
                     {/* LEFT: ORIGINAL */}
-                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
-                        <div className="p-3 bg-slate-50 border-b border-slate-200 font-bold text-slate-500 text-xs uppercase text-center tracking-wider">
-                            Cartera Original (Antes)
+                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:border-slate-200 transition-colors">
+                        <div className="p-4 border-b border-slate-50 flex justify-center items-center bg-[#fcfcfc]">
+                            <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
+                                Cartera Original
+                            </h3>
                         </div>
 
                         {/* Metrics Panel */}
-                        <div className="p-4 bg-white border-b border-slate-200 grid grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="p-4 bg-white border-b border-slate-50 grid grid-cols-2 gap-x-8 gap-y-2">
                             {isLoadingBacktest ? (
                                 <div className="col-span-2 text-center text-xs text-slate-400 py-4 animate-pulse">Obteniendo datos históricos...</div>
                             ) : (
@@ -144,7 +137,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                         </div>
 
                         {/* Composition Table */}
-                        <div className="flex-1 overflow-y-auto p-4">
+                        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
                             <TableViewer
                                 portfolio={currentPortfolio}
                                 readOnly={true}
@@ -154,27 +147,29 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                             />
                         </div>
                         {/* Total Weight Indicator (NEW) */}
-                        <div className={`p-2 text-center text-xs font-bold border-t bg-slate-50 text-slate-600 border-slate-200 flex justify-between px-4`}>
-                            <span className="text-slate-400 font-normal">Tasa Libre R.: {(backtestData.metricsCurrent?.rf_rate * 100).toFixed(2) || '-'}%</span>
-                            <span>Total Asignado: {totalCurrentWeight.toFixed(2)}%</span>
+                        <div className={`p-3 text-center text-xs font-bold border-t bg-[#fcfcfc] text-slate-600 border-slate-50 flex justify-between px-6`}>
+                            <span className="text-slate-400 font-normal uppercase tracking-wider">Rf: {(backtestData.metricsCurrent?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span className="uppercase tracking-wider">Total: {totalCurrentWeight.toFixed(2)}%</span>
                         </div>
                     </div>
 
                     {/* RIGHT: OPTIMIZED */}
-                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden relative">
+                    <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden relative hover:border-slate-200 transition-colors">
                         {/* Decorative Overlay for Focus */}
-                        <div className="absolute top-0 right-0 p-1 z-10">
-                            <div className="bg-[#D4AF37]/20 text-[#8A711F] text-[9px] font-bold px-2 py-0.5 rounded border border-[#D4AF37]/30 uppercase tracking-widest animate-pulse">
+                        <div className="absolute top-0 right-0 p-2 z-10 pointer-events-none">
+                            <div className="bg-[#D4AF37] text-white text-[9px] font-bold px-2 py-0.5 rounded shadow-sm uppercase tracking-widest">
                                 Recomendado
                             </div>
                         </div>
 
-                        <div className="p-3 bg-[#D4AF37]/10 border-b border-[#D4AF37]/20 font-bold text-[#0B2545] text-xs uppercase text-center tracking-wider">
-                            Cartera Optimizada (Después)
+                        <div className="p-4 border-b border-slate-50 flex justify-center items-center bg-[#fcfcfc]">
+                            <h3 className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em]">
+                                Cartera Optimizada
+                            </h3>
                         </div>
 
                         {/* Metrics Panel (Highlighted) */}
-                        <div className="p-4 bg-white border-b border-[#D4AF37]/20 grid grid-cols-2 gap-x-8 gap-y-1">
+                        <div className="p-4 bg-white border-b border-slate-50 grid grid-cols-2 gap-x-8 gap-y-2">
                             {isLoadingBacktest && !isEditing ? (
                                 <div className="col-span-2 text-center text-xs text-slate-400 py-4 animate-pulse">Calculando métricas reales...</div>
                             ) : (
@@ -197,7 +192,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                         </div>
 
                         {/* Composition Table */}
-                        <div className="flex-1 overflow-y-auto p-4">
+                        <div className="flex-1 overflow-y-auto p-4 custom-scrollbar">
                             <TableViewer
                                 portfolio={editedProposal}
                                 readOnly={!isEditing}
@@ -208,53 +203,52 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                         </div>
 
                         {/* Total Weight Indicator */}
-                        <div className={`p-2 text-center text-xs font-bold border-t flex justify-between px-4 ${Math.abs(totalProposedWeight - 100) > 0.1 ? 'bg-rose-900/20 text-rose-400 border-rose-500/30' : 'bg-[#D4AF37]/20 text-[#0B2545] border-[#D4AF37]/30'}`}>
-                            <span className="opacity-70 font-normal">Tasa Libre R.: {(backtestData.metricsProposed?.rf_rate * 100).toFixed(2) || '-'}%</span>
-                            <span>Total Asignado: {totalProposedWeight.toFixed(2)}%</span>
+                        <div className={`p-3 text-center text-xs font-bold border-t flex justify-between px-6 ${Math.abs(totalProposedWeight - 100) > 0.1 ? 'bg-rose-50 text-rose-600 border-rose-100' : 'bg-[#fcfcfc] text-[#0B2545] border-slate-50'}`}>
+                            <span className="opacity-70 font-normal uppercase tracking-wider">Rf: {(backtestData.metricsProposed?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span className="uppercase tracking-wider">Total: {totalProposedWeight.toFixed(2)}%</span>
                         </div>
                     </div>
                 </div>
 
                 {/* 3. CHART AREA */}
-                <div className="shrink-0 h-[24vh] bg-white border-t border-slate-200 flex items-center justify-center p-2 relative">
-                    <div className="absolute top-1 left-2 text-[9px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                        <span>📅 Backtest Histórico (5 Años)</span>
-                        {isLoadingBacktest && <span className="text-blue-500 animate-pulse">Cargando datos...</span>}
-                    </div>
+                <div className="shrink-0 h-[24vh] bg-white border-t border-slate-100 flex items-center justify-center p-4 relative">
+                    <span className="absolute top-3 left-4 text-xs font-bold text-[#A07147] uppercase tracking-[0.2em]">
+                        Backtest Histórico (5 Años)
+                    </span>
+                    {isLoadingBacktest && <span className="absolute top-3 right-4 text-[10px] font-bold text-blue-500 animate-pulse uppercase tracking-wider">Cargando datos...</span>}
+
                     {/* Centered Container using live backtest data */}
-                    <div className="h-full w-full max-w-3xl flex items-center justify-center">
+                    <div className="h-full w-full max-w-4xl flex items-center justify-center pt-4">
                         <ComparisonChart currentData={backtestData.current} proposedData={backtestData.proposed} />
                     </div>
                 </div>
 
                 {/* 4. ACTION MODULE (Footer) */}
-                <div className="h-16 bg-slate-50 border-t border-slate-200 shrink-0 flex items-center justify-between px-8 shadow-[0_-5px_15px_rgba(0,0,0,0.05)] z-20">
+                <div className="h-20 bg-white border-t border-slate-100 shrink-0 flex items-center justify-between px-8 shadow-[0_-5px_20px_rgba(0,0,0,0.03)] z-20">
 
                     {/* Left: Rebalance Controls */}
                     <div className="flex items-center gap-4">
-                        <div className="text-[10px] uppercase text-slate-500 font-bold mr-2">Modo de Rebalanceo:</div>
-
                         <button
                             onClick={handleAutoRebalance}
-                            className="bg-white hover:bg-slate-50 text-slate-700 border border-slate-200 px-4 py-2 rounded text-xs font-bold uppercase transition-colors flex items-center gap-2 shadow-sm"
+                            className="text-slate-500 hover:text-[#003399] border border-slate-200 hover:border-[#003399]/30 px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-2"
                         >
                             <span>🤖</span> Auto-Equilibrar
                         </button>
 
                         <button
                             onClick={() => setIsEditing(!isEditing)}
-                            className={`px-4 py-2 rounded text-xs font-bold uppercase transition-colors flex items-center gap-2 border ${isEditing ? 'bg-amber-50 border-amber-500 text-amber-600' : 'bg-white border-slate-200 text-slate-500 hover:text-slate-700 shadow-sm'}`}
+                            className={`px-4 py-2 rounded-lg text-[10px] font-bold uppercase tracking-widest transition-colors flex items-center gap-2 border ${isEditing ? 'bg-amber-50 border-amber-500 text-amber-600' : 'bg-white border-slate-200 text-slate-500 hover:text-slate-800'}`}
                         >
                             <span>🔧</span> {isEditing ? 'Finalizar Edición' : 'Ajuste Manual'}
                         </button>
                     </div>
 
                     {/* Right: Confirmation */}
-                    <div className="flex items-center gap-4">
-                        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xs font-bold uppercase">Cancelar</button>
+                    <div className="flex items-center gap-6">
+                        <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-xs font-bold uppercase tracking-widest">Cancelar</button>
                         <button
                             onClick={() => onAccept(editedProposal)}
-                            className="bg-brand hover:bg-brand-light text-white px-8 py-2 rounded shadow-lg shadow-brand/20 text-sm font-bold uppercase tracking-wider flex items-center gap-2 transform active:scale-95 transition-all"
+                            className="bg-[#003399] hover:bg-[#002266] text-white px-8 py-3 rounded-xl shadow-lg shadow-blue-900/10 text-xs font-bold uppercase tracking-[0.15em] flex items-center gap-2 transform active:scale-95 transition-all"
                         >
                             <span>Aplicar Estrategia</span>
                             <span>➜</span>

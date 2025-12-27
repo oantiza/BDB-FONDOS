@@ -34,8 +34,9 @@ export function calcSimpleStats(portfolio, riskFreeRate = 0) {
     if (totalW === 0) return { vol: 0, ret: 0, sharpe: 0, yield: 0, ter: 0, beta: 1, score: 0 };
 
     // Simple Diversification Benefit (Heuristic)
+    // Simple Diversification Benefit (Heuristic)
     const diversificationFactor = portfolio.length > 3 ? 0.85 : 1.0;
-    const finalVol = Math.max(0.02, wVol * diversificationFactor);
+    const finalVol = wVol * diversificationFactor;
 
     // Calculate approx weighted score (0-100)
     // Assuming portfolio items have 'score' property. If not, default to 50.

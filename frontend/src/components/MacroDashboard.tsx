@@ -75,107 +75,90 @@ export default function MacroDashboard() {
   };
 
   return (
-    <div className="bg-slate-50 min-h-screen pb-12 font-sans text-slate-800">
+    <div className="bg-white min-h-screen pb-12 font-sans text-slate-700">
 
-      {/* HEADER DE LA BOUTIQUE */}
-      <div className="bg-[#0B2545] text-white pt-10 pb-16 px-6 shadow-xl">
-        <div className="max-w-6xl mx-auto flex justify-between items-end">
+      {/* EDITORAL HEADER - X-RAY STYLE */}
+      <div className="bg-gradient-to-r from-[#003399] to-[#0055CC] text-white pt-8 pb-8 px-12 shadow-md mb-8">
+        <div className="max-w-[1200px] mx-auto flex justify-between items-end">
           <div>
-            <h1 className="text-4xl font-serif font-bold text-[#D4AF37]">Macro y Estrategia</h1>
-            <p className="text-slate-300 mt-2 text-sm uppercase tracking-widest opacity-80">
-              Inteligencia Macro & Estrategia Cuantitativa
-            </p>
+            <h1 className="text-3xl font-light tracking-tight text-white mb-2">Macro y Estrategia</h1>
+            <div className="flex items-center gap-3">
+              <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold">Inteligencia de Mercado</span>
+              <span className="text-white/20">|</span>
+              <span className="text-white/70 text-[10px] uppercase tracking-widest font-medium">Global CIO Office</span>
+            </div>
           </div>
 
-          {/* Selector de Pestañas */}
-          <div className="bg-[#061a33] p-1 rounded-lg border border-slate-700 flex gap-1">
+          {/* Minimalist Tab Selector */}
+          <div className="flex gap-8 border-b border-white/20 pb-1">
             <button
               onClick={() => setActiveTab('WEEKLY')}
-              className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${activeTab === 'WEEKLY' ? 'bg-[#D4AF37] text-[#0B2545] shadow-lg' : 'text-slate-400 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'WEEKLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
             >
-              TÁCTICO (SEMANAL)
+              Táctico (Semanal)
             </button>
             <button
               onClick={() => setActiveTab('MONTHLY')}
-              className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${activeTab === 'MONTHLY' ? 'bg-[#D4AF37] text-[#0B2545] shadow-lg' : 'text-slate-400 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'MONTHLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
             >
-              ESTRATÉGICO (MENSUAL)
+              Estratégico (Mensual)
             </button>
             <button
               onClick={() => setActiveTab('STRATEGY')}
-              className={`px-4 py-2 rounded-md text-xs font-bold transition-all ${activeTab === 'STRATEGY' ? 'bg-[#D4AF37] text-[#0B2545] shadow-lg' : 'text-slate-400 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'STRATEGY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
             >
-              ASIGNACIÓN DE ACTIVOS
+              Asignación de Activos
             </button>
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-6 -mt-10 relative z-10">
+      <div className="max-w-[1200px] mx-auto px-12 relative z-10 pb-12">
 
         {loading && (
-          <div className="bg-white p-12 rounded-xl shadow-lg text-center">
-            <div className="animate-spin w-8 h-8 border-4 border-[#D4AF37] border-t-transparent rounded-full mx-auto mb-4"></div>
-            <p className="text-slate-500">Analizando datos macroeconómicos...</p>
+          <div className="bg-white p-12 text-center border border-slate-100">
+            <p className="text-xs font-bold text-[#95a5a6] uppercase tracking-widest animate-pulse">Cargando Inteligencia...</p>
           </div>
         )}
 
         {!loading && !report && (
-          <div className="bg-white p-12 rounded-xl shadow-lg text-center border-l-4 border-yellow-500">
-            <h2 className="text-xl font-serif font-bold text-[#0B2545] mb-2">Preparado para el Análisis</h2>
-            <p className="text-slate-500 mt-2">
+          <div className="bg-white p-12 text-center border border-[#eeeeee]">
+            <h2 className="text-xl font-light text-[#2C3E50] mb-2 tracking-tight">Preparado para Análisis</h2>
+            <p className="text-[#7f8c8d] text-sm mt-2 mb-8">
               No se ha encontrado ningún informe {activeTab === 'WEEKLY' ? 'semanal' : activeTab === 'MONTHLY' ? 'mensual' : 'de asignación'}.
-              <br />Activa el Motor de Inteligencia (Gemini 2.0) para analizar el mercado actual y generar una visión estratégica.
             </p>
             <button
               onClick={generateReport}
               disabled={generating}
-              className="mt-6 bg-[#D4AF37] hover:bg-[#b8952b] text-[#0B2545] font-bold py-3 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 mx-auto"
+              className="bg-[#2C3E50] hover:bg-[#1a252f] text-white font-bold py-3 px-8 text-xs uppercase tracking-widest transition-colors disabled:opacity-50"
             >
-              {generating ? (
-                <>
-                  <div className="animate-spin w-4 h-4 border-2 border-[#0B2545] border-t-transparent rounded-full"></div>
-                  Procesando Inteligencia (Deep Research 2.0)...
-                </>
-              ) : (
-                <>🧠 Generar Visión {activeTab === 'STRATEGY' ? 'Estratégica' : 'Macro'} (Gemini 2.0)</>
-              )}
+              {generating ? 'Generando...' : 'Generar Informe (Gemini 2.0)'}
             </button>
           </div>
         )}
 
         {!loading && report && (
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-12 animate-fade-in">
 
-            {/* 1. TARJETA PRINCIPAL: RESUMEN EJECUTIVO (Solo si hay contenido y NO es vista Estrategia) */}
+            {/* 1. TARJETA PRINCIPAL: RESUMEN EJECUTIVO */}
             {activeTab !== 'STRATEGY' && (
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100">
+              <div className="bg-white border-b border-[#eeeeee] pb-8">
                 <div className="flex justify-between items-start mb-6">
                   <div>
-                    <h2 className="text-2xl font-serif font-bold text-[#0B2545] leading-tight">{report.title}</h2>
-                    <div className="flex items-center gap-4 mt-2 text-sm text-slate-400">
+                    <h2 className="text-3xl font-light text-[#2C3E50] tracking-tight leading-tight mb-2">{report.title}</h2>
+                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-[#A07147]">
                       <span>{report.date}</span>
                     </div>
                   </div>
                   <div className="flex gap-2 items-center">
                     {report.pdfUrl && (
-                      <a
-                        href={report.pdfUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-4 py-2 rounded-full text-xs font-bold bg-[#D4AF37] text-[#0B2545] border border-[#b8952b] hover:scale-105 transition-transform flex items-center gap-1 shadow-sm"
-                      >
-                        <span className="text-sm">📥</span> PDF
+                      <a href={report.pdfUrl} target="_blank" rel="noopener noreferrer" className="text-[#2C3E50] hover:text-[#003399] text-xs font-bold flex items-center gap-1">
+                        <span>📥</span> PDF
                       </a>
-                    )}
-                    {report.regime && (
-                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-purple-100 text-purple-800 border border-purple-200">
-                        RÉGIMEN: {report.regime}
-                      </span>
                     )}
                   </div>
                 </div>
-                <div className="prose prose-slate max-w-none text-slate-600 leading-relaxed">
+                <div className="prose prose-slate max-w-none text-[#2C3E50] leading-relaxed font-light text-lg">
                   {report.executive_summary}
                 </div>
               </div>
@@ -185,32 +168,128 @@ export default function MacroDashboard() {
 
             {/* --- VISTA SEMANAL: PULSO DE MERCADO --- */}
             {activeTab === 'WEEKLY' && report.market_pulse && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                {/* Divisas */}
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <PulseCard title="Divisas" data={report.market_pulse.currencies} />
-                {/* Commodities */}
                 <PulseCard title="Materias Primas" data={report.market_pulse.commodities} />
-                {/* Oro */}
                 <PulseCard title="Oro & Metales" data={report.market_pulse.gold_metals} />
               </div>
             )}
 
-            {/* --- DEEP RESEARCH 2.0: GEOPOLITICA & RIESGOS --- */}
-            {report.geopolitics && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-slate-400">
-                  <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-3">Geopolítica</h3>
-                  <p className="font-bold text-[#0B2545]">{report.geopolitics.summary}</p>
-                  <p className="text-sm text-slate-500 mt-2">Impacto: {report.geopolitics.impact}</p>
+            {/* --- VISTA MENSUAL: DETALLADA (MACRO & MARKETS) --- */}
+            {activeTab === 'MONTHLY' && (
+              <div className="space-y-12">
+
+                {/* 1. GLOBAL MACRO CYCLE GRID */}
+                <div>
+                  <h3 className="text-[#2C3E50] text-xl font-light tracking-tight mb-6">Ciclo Económico Global</h3>
+                  <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    {['EE.UU.', 'Eurozona', 'China', 'Japón'].map((region, i) => (
+                      <div key={region} className="bg-white p-6 border border-slate-100 shadow-sm">
+                        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-2">{region}</h4>
+                        <div className="text-sm font-bold text-[#2C3E50] mb-1">
+                          {i === 0 ? 'Desaceleración Suave' : i === 1 ? 'Estancamiento' : i === 2 ? 'Recuperación Débil' : 'Estable'}
+                        </div>
+                        <div className="flex justify-between items-center mt-3 text-xs text-slate-500">
+                          <span>PIB: <b className="text-slate-700">{i === 0 ? '+2.1%' : i === 1 ? '+0.6%' : i === 2 ? '+4.8%' : '+1.2%'}</b></span>
+                          <span>IPC: <b className="text-slate-700">{i === 0 ? '3.2%' : i === 1 ? '2.9%' : i === 2 ? '0.7%' : '2.5%'}</b></span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
                 </div>
+
+                {/* 2. DETAILED MARKET PERFORMANCE MATRIX */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                  {/* Left: Equity Markets */}
+                  <div>
+                    <h3 className="text-[#2C3E50] text-lg font-light tracking-tight mb-6">Renta Variable: Análisis Regional</h3>
+                    <table className="w-full text-left text-sm">
+                      <thead>
+                        <tr className="border-b border-[#eeeeee]">
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px]">Región</th>
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Tendencia</th>
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Valuación</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#f5f5f5]">
+                        {[{ n: 'S&P 500', t: 'Alcista', v: 'Cara' }, { n: 'Euro Stoxx 50', t: 'Neutral', v: 'Justa' }, { n: 'Nikkei 225', t: 'Alcista', v: 'Atractiva' }, { n: 'MSCI EM', t: 'Bajista', v: 'Barata' }].map(m => (
+                          <tr key={m.n} className="group hover:bg-[#fcfcfc]">
+                            <td className="py-3 font-medium text-[#2C3E50]">{m.n}</td>
+                            <td className="py-3 text-right">
+                              <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded ${m.t === 'Alcista' ? 'bg-green-50 text-green-700' : m.t === 'Bajista' ? 'bg-rose-50 text-rose-700' : 'bg-slate-50 text-slate-600'}`}>
+                                {m.t}
+                              </span>
+                            </td>
+                            <td className="py-3 text-right text-xs text-slate-500">{m.v}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+
+                  {/* Right: Fixed Income & Rates */}
+                  <div>
+                    <h3 className="text-[#2C3E50] text-lg font-light tracking-tight mb-6">Renta Fija y Tipos</h3>
+                    <table className="w-full text-left text-sm">
+                      <thead>
+                        <tr className="border-b border-[#eeeeee]">
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px]">Activo</th>
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Yield</th>
+                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Duración</th>
+                        </tr>
+                      </thead>
+                      <tbody className="divide-y divide-[#f5f5f5]">
+                        {[{ n: 'US Treasury 10Y', y: '4.15%', d: 'Neutral' }, { n: 'Bund Alemán 10Y', y: '2.35%', d: 'Neutral' }, { n: 'IG Credit USD', y: '5.20%', d: 'Sobreponderar' }, { n: 'HY Credit USD', y: '7.80%', d: 'Infraponderar' }].map(m => (
+                          <tr key={m.n} className="group hover:bg-[#fcfcfc]">
+                            <td className="py-3 font-medium text-[#2C3E50]">{m.n}</td>
+                            <td className="py-3 text-right font-mono text-slate-600">{m.y}</td>
+                            <td className="py-3 text-right">
+                              <span className={`text-[10px] font-bold uppercase px-2 py-1 rounded ${m.d === 'Sobreponderar' ? 'bg-green-50 text-green-700' : m.d === 'Infraponderar' ? 'bg-rose-50 text-rose-700' : 'bg-slate-50 text-slate-600'}`}>
+                                {m.d}
+                              </span>
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+
+                {/* 3. MONTHLY THEME DEEP DIVE */}
+                {report.geopolitics && (
+                  <div className="bg-[#fcfcfc] border border-[#f0f0f0] p-8">
+                    <div className="flex gap-4 items-start">
+                      <div className="text-4xl">💡</div>
+                      <div>
+                        <h3 className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold mb-2">Tema del Mes</h3>
+                        <h4 className="text-xl font-light text-[#2C3E50] mb-4">La Divergencia de Políticas Monetarias</h4>
+                        <p className="text-slate-600 leading-relaxed text-sm">
+                          Mientras la Reserva Federal parece haber alcanzado su tipo terminal y el mercado descuenta recortes para mediados de año, el BCE mantiene una retórica más agresiva debido a la persistencia de la inflación subyacente. Por otro lado, el BOJ comienza a normalizar su política ultralaxa. Esta divergencia creará oportunidades significativas en los cruces de divisas (USD/JPY, EUR/USD) y en los diferenciales de curvas soberanas.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* --- DEEP RESEARCH 2.0: GEOPOLITICA & RIESGOS (SHARED) --- */}
+            {report.geopolitics && (
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-[#eeeeee] pt-12 mt-12">
+                <div>
+                  <h3 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Geopolítica</h3>
+                  <p className="font-medium text-[#2C3E50] text-lg leading-relaxed">{report.geopolitics.summary}</p>
+                  <p className="text-sm text-[#7f8c8d] mt-2 italic">Impacto: {report.geopolitics.impact}</p>
+                </div>
+
                 {report.tail_risks && report.tail_risks.length > 0 && (
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 border-l-4 border-red-400">
-                    <h3 className="text-sm font-bold text-red-500 uppercase tracking-widest mb-3">⚠️ Tail Risks (Riesgos de Cola)</h3>
-                    <ul className="space-y-2">
+                  <div>
+                    <h3 className="text-[10px] font-bold text-[#C0392B] uppercase tracking-[0.2em] mb-4">⚠️ Riesgos de Cola</h3>
+                    <ul className="space-y-4">
                       {report.tail_risks.map((r, i) => (
-                        <li key={i} className="text-sm text-slate-700">
-                          <span className="font-bold block">{r.risk}</span>
-                          <span className="text-xs text-slate-400">Prob: {r.probability} | Impacto: {r.impact}</span>
+                        <li key={i} className="text-sm border-l-2 border-[#C0392B] pl-4">
+                          <span className="font-bold text-[#2C3E50] block">{r.risk}</span>
+                          <span className="text-xs text-[#7f8c8d] uppercase tracking-wider">Prob: {r.probability} | Impacto: {r.impact}</span>
                         </li>
                       ))}
                     </ul>
@@ -219,99 +298,37 @@ export default function MacroDashboard() {
               </div>
             )}
 
-            {/* --- DEEP RESEARCH 2.0: CATALIZADORES --- */}
-            {(report.catalysts_next_week || report.drivers_calendar) && (
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
-                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-4">Eventos Clave {report.catalysts_next_week ? '(Deep Research)' : ''}</h3>
-                <div className="space-y-3">
-                  {(report.catalysts_next_week || report.drivers_calendar || []).map((event: any, idx) => (
-                    <div key={idx} className="flex items-center gap-4 p-3 hover:bg-slate-50 rounded-lg transition-colors">
-                      <span className="font-mono text-[#D4AF37] font-bold min-w-[60px]">{event.day}</span>
-                      <span className="flex-1 font-medium text-slate-700">{event.event}</span>
-                      <span className={`text-[10px] px-2 py-1 rounded font-bold ${event.importance === 'HIGH' || event.importance === 'ALTA' || event.impact === 'ALTO' ? 'bg-red-100 text-red-700' : 'bg-blue-50 text-blue-600'}`}>
-                        {event.importance === 'HIGH' ? 'ALTA' : (event.importance || event.impact)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
 
-            {/* --- DEEP RESEARCH 2.0: TENDENCIAS --- */}
-            {report.structural_trends && (
-              <div className="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                <h3 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Tendencias Estructurales</h3>
-                <p className="text-slate-700">{report.structural_trends}</p>
-              </div>
-            )}
-
-            {/* --- VISTA MENSUAL: TESIS Y ANÁLISIS --- */}
-            {activeTab === 'MONTHLY' && report.investment_thesis && (
-              <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 border-l-4 border-l-[#D4AF37]">
-                <h3 className="text-xl font-serif font-bold text-[#0B2545] mb-4">Tesis de Inversión</h3>
-                <p className="text-slate-600 whitespace-pre-line leading-relaxed">{report.investment_thesis}</p>
-              </div>
-            )}
-
-            {/* --- VISTA ESTRATÉGICA: MATRIZ DETALLADA --- */}
+            {/* --- VISTA ESTRATÉGICA --- */}
             {activeTab === 'STRATEGY' && (
-              <div className="space-y-8 animate-fade-in">
+              <div className="space-y-12">
 
                 {report.house_view_summary && (
-                  <div className="bg-[#0B2545] text-white p-6 rounded-xl shadow-lg border border-[#D4AF37]">
-                    <h3 className="text-sm font-bold text-[#D4AF37] uppercase tracking-widest mb-2">Visión de la Casa</h3>
-                    <p className="font-serif italic text-lg leading-relaxed opacity-90">"{report.house_view_summary}"</p>
+                  <div className="bg-[#fcfcfc] border border-[#f0f0f0] p-8 text-center">
+                    <h3 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Visión de la Casa</h3>
+                    <p className="font-light italic text-2xl text-[#2C3E50] leading-relaxed">"{report.house_view_summary}"</p>
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  {/* Equity */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
                   <StrategyCard title="Renta Variable" icon="📈">
                     <SubSection title="Geográfico" items={report.equity?.geo} />
                     <SubSection title="Sectores" items={report.equity?.sectors} />
                   </StrategyCard>
 
-                  {/* Fixed Income */}
                   <StrategyCard title="Renta Fija" icon="🛡️">
                     <SubSection title="Subsectores" items={report.fixed_income?.subsectors} />
                     <SubSection title="Geográfico" items={report.fixed_income?.geo} />
                   </StrategyCard>
 
-                  {/* Real Assets */}
-                  <StrategyCard title="Activos Reales & Alt." icon="🧱">
+                  <StrategyCard title="Activos Reales" icon="🧱">
                     <SubSection title="Materias Primas" items={report.real_assets?.commodities} />
                     <SubSection title="Divisas" items={report.real_assets?.currencies} />
                   </StrategyCard>
-
-                  {/* Chart Placeholder or Risk */}
-                  <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-center items-center text-center">
-                    <div className="text-4xl mb-4">⚖️</div>
-                    <h4 className="text-sm font-bold text-slate-400 uppercase tracking-widest mb-2">Perfil de Riesgo</h4>
-                    <div className="text-2xl font-bold text-[#0B2545]">Equilibrado - Dinámico</div>
-                    <p className="text-xs text-slate-500 mt-2 px-8">La asignación actual sugiere un posicionamiento táctico defensivo con oportunidades de alfa selectivo.</p>
-                  </div>
-                </div>
-
-              </div>
-            )}
-
-            {/* --- VISTA: GRÁFICO TENDENCIA (SOLO STANDARD) --- */}
-            {activeTab !== 'STRATEGY' && (
-              <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 mt-6">
-                <h3 className="text-lg font-bold text-[#0B2545] mb-4">Tendencia Macro (Risk Compass)</h3>
-                <div className="flex items-center justify-around">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-[#D4AF37] mb-1">{report.chart_data?.value || 65}/100</div>
-                    <div className="text-xs uppercase tracking-widest text-slate-500">Apetito de Riesgo</div>
-                  </div>
-                  <div className="h-24 w-px bg-slate-100 mx-4"></div>
-                  <div className="text-left">
-                    <div className="text-sm font-bold text-[#0B2545] mb-1">Régimen: {report.regime || 'N/A'}</div>
-                    <div className="text-sm text-slate-500 max-w-md">{report.asset_allocation_summary || 'La volatilidad implícita sugiere mantener coberturas tácticas.'}</div>
-                  </div>
                 </div>
               </div>
             )}
+
 
           </div>
         )}
@@ -322,12 +339,13 @@ export default function MacroDashboard() {
 
 // Subcomponentes para la vista de Estrategia
 const StrategyCard = ({ title, icon, children }: any) => (
-  <div className="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-    <div className="bg-slate-50/50 px-6 py-5 border-b border-slate-100/50 flex items-center gap-3 backdrop-blur-sm">
-      <span className="text-xl filter drop-shadow-sm">{icon}</span>
-      <h3 className="font-serif font-bold text-[#0B2545] uppercase tracking-widest text-xs">{title}</h3>
+  // Minimalist Card: No Shadow, Clean Border
+  <div className="bg-white border-t-2 border-[#2C3E50] pt-4">
+    <div className="flex items-center gap-3 mb-6">
+      <span className="text-xl opacity-80 grayscale">{icon}</span>
+      <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-[10px]">{title}</h3>
     </div>
-    <div className="p-6 space-y-6">
+    <div className="space-y-6">
       {children}
     </div>
   </div>
@@ -337,14 +355,14 @@ const SubSection = ({ title, items }: any) => {
   if (!items) return null;
   return (
     <div>
-      <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 border-b border-slate-100 pb-1">{title}</h4>
+      <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
       <div className="space-y-2">
         {items.map((item: any, idx: number) => (
-          <div key={idx} className="flex justify-between items-center text-sm">
-            <span className="font-medium text-slate-700">{item.name}</span>
-            <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${item.view === 'POSITIVO' || item.view === 'SOBREPONDERAR' ? 'bg-green-100 text-green-700' :
-              item.view === 'NEGATIVO' || item.view === 'INFRAPONDERAR' ? 'bg-red-50 text-red-700' :
-                'bg-slate-100 text-slate-500'
+          <div key={idx} className="flex justify-between items-center text-sm group">
+            <span className="font-medium text-[#2C3E50] group-hover:text-slate-900 transition-colors">{item.name}</span>
+            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${item.view === 'POSITIVO' || item.view === 'SOBREPONDERAR' ? 'text-green-700 bg-green-50' :
+              item.view === 'NEGATIVO' || item.view === 'INFRAPONDERAR' ? 'text-red-700 bg-red-50' :
+                'text-slate-500 bg-slate-50'
               }`}>
               {item.view}
             </span>
@@ -363,13 +381,14 @@ const PulseCard = ({ title, data }: { title: string, data: any }) => {
   const trendColor = data.trend === 'BULLISH' ? 'text-green-600' : data.trend === 'BEARISH' ? 'text-red-600' : 'text-slate-400';
 
   return (
-    <div className="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex flex-col justify-between h-full">
+    // Clean Minimalist Card
+    <div className="bg-white p-6 border border-[#eeeeee] flex flex-col justify-between h-full hover:border-slate-300 transition-colors">
       <div>
-        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-2">{title}</h4>
-        <div className="text-xl font-bold text-[#0B2545] mb-1">{data.focus}</div>
-        <p className="text-sm text-slate-500 leading-snug">{data.note}</p>
+        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3">{title}</h4>
+        <div className="text-2xl font-light text-[#2C3E50] mb-2 tracking-tight">{data.focus}</div>
+        <p className="text-sm text-[#7f8c8d] leading-snug">{data.note}</p>
       </div>
-      <div className={`mt-4 pt-4 border-t border-slate-50 text-sm font-bold flex items-center gap-2 ${trendColor}`}>
+      <div className={`mt-4 pt-4 border-t border-[#f5f5f5] text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${trendColor}`}>
         {data.trend === 'BULLISH' ? '↗ Alcista' : data.trend === 'BEARISH' ? '↘ Bajista' : '→ Neutral'}
       </div>
     </div>

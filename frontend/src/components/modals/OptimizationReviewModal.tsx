@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react'
+import ModalHeader from '../common/ModalHeader'
 import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 
 export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onApplyDirect, onClose }) {
@@ -10,18 +11,18 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
         const diff = proposed - current
 
         return (
-            <div className="bg-white rounded p-6 border border-slate-200 flex flex-col items-center shadow-sm">
-                <span className="text-sm uppercase font-bold text-slate-500 mb-2">{label}</span>
-                <div className="flex items-center gap-4 text-lg font-mono">
-                    <span className="text-slate-500 font-bold">
+            <div className="flex flex-col items-center px-4">
+                <span className="text-[10px] uppercase font-bold text-[#A07147] tracking-[0.2em] mb-2">{label}</span>
+                <div className="flex items-center gap-3 text-lg font-mono">
+                    <span className="text-slate-400 font-bold text-sm">
                         {format === 'pct' ? (current * 100).toFixed(2) + '%' : current.toFixed(2)}
                     </span>
-                    <span className="text-slate-300">➜</span>
-                    <span className={`text-4xl font-black ${isBetter ? 'text-blue-600' : 'text-rose-600'}`}>
+                    <span className="text-slate-300">→</span>
+                    <span className={`text-3xl font-light tracking-tighter ${isBetter ? 'text-[#2C3E50]' : 'text-rose-600'}`}>
                         {format === 'pct' ? (proposed * 100).toFixed(2) + '%' : proposed.toFixed(2)}
                     </span>
                 </div>
-                <div className={`text-sm font-bold mt-1 ${isBetter ? 'text-blue-500' : 'text-rose-400'}`}>
+                <div className={`text-[10px] font-bold mt-1 uppercase tracking-wider ${isBetter ? 'text-emerald-600' : 'text-rose-500'}`}>
                     {diff > 0 ? '+' : ''}{format === 'pct' ? (diff * 100).toFixed(2) + '%' : diff.toFixed(2)}
                 </div>
             </div>
@@ -30,26 +31,18 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
 
     return (
         <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
-            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform transition-all flex flex-col max-h-[90vh]">
+            <div className="bg-white rounded-2xl shadow-2xl w-full max-w-5xl overflow-hidden transform transition-all flex flex-col max-h-[90vh] border border-slate-100">
 
-                {/* Header - Matching Main Interface Height (h-16) & Style */}
-                <div className="h-16 bg-gradient-to-r from-gray-900 to-blue-800 shrink-0 flex items-center justify-between px-6 border-b border-blue-700/50 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10 flex items-center gap-3">
-                        <div className="h-8 w-8 bg-white/10 rounded-full flex items-center justify-center backdrop-blur-md border border-white/20">
-                            <span className="text-lg">✨</span>
-                        </div>
-                        <div>
-                            <h2 className="text-white font-serif font-bold text-lg leading-tight tracking-wide">Resultado de Optimización</h2>
-                            <p className="text-blue-200 text-[10px] uppercase tracking-[0.2em] font-medium">Análisis de Impacto</p>
-                        </div>
-                    </div>
-                    {/* Decorative background element */}
-                    <div className="absolute top-0 right-0 w-64 h-full bg-gradient-to-l from-blue-600/20 to-transparent pointer-events-none"></div>
-                </div>
+                <ModalHeader
+                    title="Resultado de Optimización"
+                    subtitle="Análisis de Impacto"
+                    icon="✨"
+                    onClose={onClose}
+                />
 
-                <div className="p-8 overflow-y-auto custom-scrollbar">
+                <div className="p-8 overflow-y-auto custom-scrollbar bg-white">
                     {/* Stats Grid - Centered Flex for 5 items */}
-                    <div className="flex flex-wrap justify-center gap-4 mb-10">
+                    <div className="flex flex-wrap justify-center gap-8 mb-12">
                         <StatCard
                             label="Volatilidad (Riesgo)"
                             current={currentStats.vol}
@@ -86,16 +79,16 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                         />
                     </div>
 
-                    <div className="flex flex-col gap-3 max-w-2xl mx-auto">
+                    <div className="flex flex-col gap-4 max-w-2xl mx-auto">
                         {/* Action Buttons Row */}
-                        <div className="flex gap-3">
+                        <div className="flex gap-4">
                             {/* Rebalanceo (Tactical) */}
                             <button
                                 onClick={onAccept}
-                                className="flex-1 group relative overflow-hidden bg-slate-800 hover:bg-slate-900 text-white py-4 rounded-lg shadow-md transition-all border border-slate-700"
+                                className="flex-1 group relative overflow-hidden bg-white hover:bg-slate-50 text-slate-700 py-4 rounded-xl shadow-sm transition-all border border-slate-200 hover:border-slate-300"
                             >
                                 <div className="relative z-10 flex flex-col items-center justify-center">
-                                    <span className="text-xs uppercase tracking-widest text-slate-400 font-bold mb-1 group-hover:text-blue-300 transition-colors">Ajuste Manual</span>
+                                    <span className="text-[10px] uppercase tracking-[0.2em] text-[#A07147] font-bold mb-1 group-hover:text-[#8d623b] transition-colors">Ajuste Manual</span>
                                     <div className="flex items-center gap-2 font-bold text-lg">
                                         <span>Rebalanceo / Detalle</span>
                                     </div>
@@ -106,13 +99,13 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                             {onApplyDirect && (
                                 <button
                                     onClick={onApplyDirect}
-                                    className="flex-1 group relative overflow-hidden bg-emerald-600 hover:bg-emerald-700 text-white py-4 rounded-lg shadow-lg shadow-emerald-900/20 transition-all border border-emerald-500"
+                                    className="flex-1 group relative overflow-hidden bg-[#003399] hover:bg-[#002266] text-white py-4 rounded-xl shadow-lg shadow-blue-900/10 transition-all border border-transparent"
                                 >
-                                    <div className="absolute inset-0 bg-gradient-to-tr from-emerald-500/0 via-white/10 to-emerald-500/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                                     <div className="relative z-10 flex flex-col items-center justify-center">
-                                        <span className="text-xs uppercase tracking-widest text-emerald-200 font-bold mb-1">Acción Rápida</span>
+                                        <span className="text-[10px] uppercase tracking-[0.2em] text-white/70 font-bold mb-1">Acción Rápida</span>
                                         <div className="flex items-center gap-2 font-bold text-lg">
                                             <span>Aceptar Cartera</span>
+                                            <span>➜</span>
                                         </div>
                                     </div>
                                 </button>
@@ -121,7 +114,7 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
 
                         <button
                             onClick={onClose}
-                            className="mt-2 text-slate-400 hover:text-slate-600 font-medium text-sm py-2 transition-colors uppercase tracking-wider"
+                            className="mt-4 text-slate-400 hover:text-slate-600 font-bold text-xs py-2 transition-colors uppercase tracking-[0.15em]"
                         >
                             Cancelar Operación
                         </button>

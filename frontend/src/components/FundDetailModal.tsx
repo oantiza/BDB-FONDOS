@@ -1,4 +1,6 @@
 import React from 'react'
+import ModalHeader from './common/ModalHeader'
+import MetricCard from './common/MetricCard'
 
 interface FundDetailModalProps {
     fund: any
@@ -23,72 +25,63 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
     const rating = fund.stars || fund.morningstar_rating || fund.rating || 0;
     const renderStars = (n: number) => {
         return Array(5).fill(0).map((_, i) => (
-            <span key={i} className={i < n ? "text-amber-400" : "text-slate-200"}>★</span>
+            <span key={i} className={i < n ? "text-[#D4AF37]" : "text-slate-200"}>★</span>
         ))
     }
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm" onClick={onClose}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" onClick={onClose}>
             <div
-                className="bg-white dark:bg-slate-800 rounded-lg shadow-xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200"
+                className="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col overflow-hidden animate-in fade-in zoom-in-95 duration-200"
                 onClick={(e) => e.stopPropagation()}
             >
-                {/* Header Standardized */}
-                {/* Header Standardized */}
-                <div className="p-2 border-b border-gray-200 bg-gray-50 flex justify-between items-center shrink-0">
-                    <h2 className="font-sans font-bold text-gray-700 text-xs uppercase tracking-wider flex items-center gap-2 truncate pr-4">
-                        <span className="text-base">📝</span>
-                        <span className="truncate" title={fund.name}>{fund.name}</span>
-                    </h2>
-                    <button
-                        onClick={onClose}
-                        className="text-gray-400 hover:text-gray-600 transition-colors text-lg leading-none"
-                    >
-                        ✕
-                    </button>
-                </div>
+                <ModalHeader
+                    title={fund.name}
+                    icon="📝"
+                    onClose={onClose}
+                />
 
-                <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+                <div className="p-8 space-y-8 overflow-y-auto custom-scrollbar bg-white">
                     {/* Key Metrics */}
                     <section>
-                        <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                        <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                             Métricas Clave
                         </h3>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                            <MetricCard label="Ratio Sharpe" value={num(perf.sharpe)} color="blue" />
-                            <MetricCard label="Volatilidad" value={pct(perf.volatility)} color="amber" />
-                            <MetricCard label="CAGR 3Y" value={pct(perf.cagr3y)} color="emerald" />
-                            <MetricCard label="Alpha" value={num(perf.alpha)} color="purple" />
-                            <MetricCard label="Beta" value={num(perf.beta)} color="slate" />
-                            <MetricCard label="Máximo Drawdown" value={pct(perf.max_drawdown)} color="red" />
-                            <MetricCard label="TER" value={pct(extra.ter || costs.ter)} color="orange" />
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <MetricCard label="Ratio Sharpe" value={num(perf.sharpe)} />
+                            <MetricCard label="Volatilidad" value={pct(perf.volatility)} />
+                            <MetricCard label="CAGR 3Y" value={pct(perf.cagr3y)} />
+                            <MetricCard label="Alpha" value={num(perf.alpha)} />
+                            <MetricCard label="Beta" value={num(perf.beta)} />
+                            <MetricCard label="Max Drawdown" value={pct(perf.max_drawdown)} color="text-[#C0392B]" />
+                            <MetricCard label="TER" value={pct(extra.ter || costs.ter)} />
                         </div>
                     </section>
 
+
                     {/* Fund Info */}
-                    <section className="grid grid-cols-2 gap-4 border-t border-slate-100 dark:border-slate-700 pt-4">
+                    <section className="grid grid-cols-2 gap-8 border-t border-[#eeeeee] pt-8">
                         <InfoRow label="Gestora" value={extra.company || 'N/A'} />
                         <InfoRow label="Categoría" value={extra.category || fund.category_morningstar || 'N/A'} />
                         <InfoRow label="Región Principal" value={extra.regionDetail || fund.primary_region || 'Global'} />
                         <InfoRow label="Moneda" value={extra.currency || 'EUR'} />
-                        <InfoRow label="Patrimonio" value={fund.patrimonio || 'N/A'} />
+                        <InfoRow label="Patrimonio" value={fund.patrimonio ? fund.patrimonio.toLocaleString('es-ES') + ' EUR' : 'N/A'} />
 
                         {/* Morningstar Rating */}
                         <div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold mb-1">Morningstar Rating</div>
+                            <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">Morningstar Rating</div>
                             <div className="text-lg flex items-center gap-1">
                                 {renderStars(rating)}
-                                <span className="text-xs text-slate-400 ml-1">({rating})</span>
                             </div>
                         </div>
                     </section>
 
-                    {/* Costs (Simplified as requested: Removed Retrocession) */}
-                    <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                        <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
-                            Costes
+                    {/* Costs */}
+                    <section className="border-t border-[#eeeeee] pt-8">
+                        <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
+                            Estructura de Costes
                         </h3>
-                        <div className="grid grid-cols-3 gap-3">
+                        <div className="grid grid-cols-3 gap-8">
                             <InfoRow label="TER" value={pct(extra.ter || (costs.ter ? costs.ter / 100 : 0))} />
                             <InfoRow label="Gestión" value={pct(extra.mgmtFee || (costs.management_fee ? costs.management_fee / 100 : 0))} />
                         </div>
@@ -96,8 +89,8 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
                     {/* Geographic Distribution */}
                     {Object.keys(regions).length > 0 && (
-                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                        <section className="border-t border-[#eeeeee] pt-8">
+                            <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                                 Distribución Geográfica
                             </h3>
                             <div className="flex flex-wrap gap-2">
@@ -105,29 +98,29 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                                     .filter(([_, weight]) => (weight as number) > 0)
                                     .sort((a, b) => (b[1] as number) - (a[1] as number))
                                     .map(([region, weight]) => (
-                                        <div key={region} className="bg-blue-50 dark:bg-blue-900/30 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-700">
-                                            <div className="text-[10px] text-blue-600 dark:text-blue-400 capitalize font-bold">{region}</div>
-                                            <div className="text-xs font-bold text-blue-800 dark:text-blue-300">{(weight as number).toFixed(1)}%</div>
+                                        <div key={region} className="px-3 py-1 bg-white border border-[#eeeeee] flex items-center gap-2">
+                                            <span className="text-xs font-bold text-[#2C3E50] uppercase tracking-wider">{region}</span>
+                                            <span className="text-xs font-light text-[#7f8c8d]">|</span>
+                                            <span className="text-xs font-bold text-[#A07147]">{(weight as number).toFixed(1)}%</span>
                                         </div>
                                     ))}
                             </div>
                         </section>
                     )}
 
-                    {/* Sectors Distribution (Requested explicitly) */}
+                    {/* Sectors Distribution */}
                     {sectors.length > 0 && (
-                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                        <section className="border-t border-[#eeeeee] pt-8">
+                            <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                                 Distribución Sectorial
                             </h3>
                             <div className="flex flex-wrap gap-2">
                                 {sectors.slice(0, 10).map((sector: any, i: number) => (
-                                    <span
-                                        key={i}
-                                        className="text-xs bg-purple-50 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded border border-purple-200 dark:border-purple-700 font-medium"
-                                    >
-                                        {sector.name || sector.sector}: <span className="font-bold">{sector.weight?.toFixed(1)}%</span>
-                                    </span>
+                                    <div key={i} className="px-3 py-1 bg-white border border-[#eeeeee] flex items-center gap-2">
+                                        <span className="text-xs font-bold text-[#2C3E50] uppercase tracking-wider">{sector.name || sector.sector}</span>
+                                        <span className="text-xs font-light text-[#7f8c8d]">|</span>
+                                        <span className="text-xs font-bold text-[#A07147]">{(sector.weight).toFixed(1)}%</span>
+                                    </div>
                                 ))}
                             </div>
                         </section>
@@ -135,15 +128,15 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
                     {/* Top Holdings */}
                     {holdings.length > 0 && (
-                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                        <section className="border-t border-[#eeeeee] pt-8">
+                            <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                                 Principales Posiciones
                             </h3>
-                            <div className="space-y-1">
+                            <div className="space-y-0 divide-y divide-[#f5f5f5]">
                                 {holdings.slice(0, 10).map((h: any, i: number) => (
-                                    <div key={i} className="flex justify-between items-center text-xs bg-slate-50 dark:bg-slate-700/50 px-3 py-1.5 rounded border border-slate-100 dark:border-slate-700">
-                                        <span className="text-slate-700 dark:text-slate-300 truncate max-w-[80%]">{h.name}</span>
-                                        <span className="font-mono font-bold text-slate-600 dark:text-slate-400 ml-2">{h.weight?.toFixed(2)}%</span>
+                                    <div key={i} className="flex justify-between items-center py-2 hover:bg-[#fcfcfc] transition-colors">
+                                        <span className="text-sm font-medium text-[#2C3E50] truncate max-w-[80%]">{h.name}</span>
+                                        <span className="font-light text-sm text-[#2C3E50] tabular-nums">{h.weight?.toFixed(2)}%</span>
                                     </div>
                                 ))}
                             </div>
@@ -152,27 +145,25 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
                     {/* Description */}
                     {fund.description && (
-                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
-                                Descripción
+                        <section className="border-t border-[#eeeeee] pt-8">
+                            <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
+                                Objetivo de Inversión
                             </h3>
-                            <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed italic">
-                                {fund.description}
+                            <p className="text-sm text-[#2C3E50] leading-relaxed font-light italic border-l-2 border-[#A07147] pl-4">
+                                "{fund.description}"
                             </p>
                         </section>
                     )}
 
-                    {/* Historical Returns (Schema V2) */}
+                    {/* Historical Returns */}
                     {(fund.returns_history || fund.yearly_returns) && (
-                        <section className="border-t border-slate-100 dark:border-slate-700 pt-4">
-                            <h3 className="text-xs font-bold text-slate-400 dark:text-slate-500 uppercase mb-3 flex items-center gap-2 tracking-wider">
+                        <section className="border-t border-[#eeeeee] pt-8">
+                            <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                                 Rendimiento Histórico
                             </h3>
-                            <div className="flex flex-col gap-1">
+                            <div className="grid grid-cols-5 gap-2">
                                 {(() => {
-                                    // 1. Adapter for Schema V2 (Map) vs Legacy (Array)
                                     let history: { year: number, value: number }[] = [];
-
                                     if (fund.returns_history) {
                                         history = Object.entries(fund.returns_history)
                                             .map(([y, v]) => ({ year: parseInt(y), value: v as number }))
@@ -183,27 +174,24 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                                     }
 
                                     return history.slice(0, 5).map((h) => (
-                                        <div key={h.year} className="flex justify-between items-center text-xs px-2 py-1 border-b border-slate-50 dark:border-slate-800 last:border-0">
-                                            <span className="font-mono text-slate-500">{h.year}</span>
-                                            <span className={`font-bold font-mono ${h.value >= 0 ? 'text-emerald-600' : 'text-red-500'}`}>
+                                        <div key={h.year} className="text-center p-2 border border-[#eeeeee] bg-[#fcfcfc]">
+                                            <div className="text-[10px] font-bold text-[#A07147] mb-1">{h.year}</div>
+                                            <div className={`text-sm font-bold ${h.value >= 0 ? 'text-[#2C3E50]' : 'text-[#C0392B]'}`}>
                                                 {h.value > 0 ? '+' : ''}{h.value.toFixed(2)}%
-                                            </span>
+                                            </div>
                                         </div>
                                     ));
                                 })()}
                             </div>
                         </section>
                     )}
-
-
-
                 </div>
 
                 {/* Footer */}
-                <div className="p-3 bg-slate-50 dark:bg-slate-900 border-t border-slate-200 dark:border-slate-700 flex justify-end shrink-0">
+                <div className="p-4 bg-white border-t border-[#eeeeee] flex justify-end shrink-0">
                     <button
                         onClick={onClose}
-                        className="px-4 py-1.5 bg-slate-200 hover:bg-slate-300 text-slate-700 dark:bg-slate-700 dark:text-slate-200 dark:hover:bg-slate-600 font-bold rounded text-xs transition-colors"
+                        className="px-6 py-2 bg-[#f5f5f5] hover:bg-[#e0e0e0] text-[#2C3E50] font-bold text-xs uppercase tracking-[0.1em] transition-colors"
                     >
                         Cerrar
                     </button>
@@ -213,28 +201,11 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
     )
 }
 
-const MetricCard = ({ label, value, color }: { label: string, value: string, color: string }) => {
-    const colorClasses = {
-        blue: 'bg-blue-50 dark:bg-blue-900/30 border-blue-200 dark:border-blue-700 text-blue-700 dark:text-blue-300',
-        amber: 'bg-amber-50 dark:bg-amber-900/30 border-amber-200 dark:border-amber-700 text-amber-700 dark:text-amber-300',
-        emerald: 'bg-emerald-50 dark:bg-emerald-900/30 border-emerald-200 dark:border-emerald-700 text-emerald-700 dark:text-emerald-300',
-        purple: 'bg-purple-50 dark:bg-purple-900/30 border-purple-200 dark:border-purple-700 text-purple-700 dark:text-purple-300',
-        slate: 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300',
-        red: 'bg-red-50 dark:bg-red-900/30 border-red-200 dark:border-red-700 text-red-700 dark:text-red-300',
-        orange: 'bg-orange-50 dark:bg-orange-900/30 border-orange-200 dark:border-orange-700 text-orange-700 dark:text-orange-300',
-    }[color] || 'bg-slate-50 dark:bg-slate-700 border-slate-200 dark:border-slate-600 text-slate-700 dark:text-slate-300'
 
-    return (
-        <div className={`p-3 rounded-lg border ${colorClasses}`}>
-            <div className="text-xs opacity-70 uppercase font-semibold mb-1">{label}</div>
-            <div className="text-lg font-bold font-mono">{value}</div>
-        </div>
-    )
-}
 
 const InfoRow = ({ label, value }: { label: string, value: string }) => (
     <div>
-        <div className="text-xs text-slate-500 dark:text-slate-400 uppercase font-semibold mb-1">{label}</div>
-        <div className="text-sm font-bold text-slate-800 dark:text-slate-200 truncate" title={value}>{value}</div>
+        <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">{label}</div>
+        <div className="text-base font-medium text-[#2C3E50] truncate leading-tight" title={value}>{value}</div>
     </div>
 )

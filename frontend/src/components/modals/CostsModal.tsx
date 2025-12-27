@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import ModalHeader from '../common/ModalHeader'
+import MetricCard from '../common/MetricCard'
 
 export default function CostsModal({ portfolio, totalCapital = 100000, onClose }) {
     const [margin, setMargin] = useState(1.0) // Coeficiente de margen
@@ -34,26 +36,22 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
 
     const avgFinalRetroPercent = totalCapital > 0 ? (totalRetroEUR / totalCapital) * 100 : 0
 
-    // Proyección a N años (Simple)
-    const project5y = totalRetroEUR * 5
-
     return (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div className="bg-white rounded-lg shadow-xl w-full max-w-4xl flex flex-col max-h-[90vh]">
-                <div className="p-2 border-b flex justify-between items-center bg-slate-50 shrink-0">
-                    <h2 className="text-xs font-bold text-brand flex items-center gap-2 uppercase tracking-wider">
-                        ⚖️ Análisis de Retrocesiones
-                    </h2>
-                    <button onClick={onClose} className="text-slate-400 hover:text-slate-600 text-2xl">&times;</button>
-                </div>
+        <div className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+            <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl flex flex-col max-h-[90vh] animate-in fade-in zoom-in-95 duration-200">
+                <ModalHeader
+                    title="Análisis de Retrocesiones"
+                    icon="⚖️"
+                    onClose={onClose}
+                />
 
-                <div className="p-6 overflow-y-auto scrollbar-thin">
+                <div className="p-8 overflow-y-auto custom-scrollbar bg-white">
 
                     {/* Controls & Summary */}
-                    <div className="grid grid-cols-12 gap-6 mb-8">
+                    <div className="grid grid-cols-12 gap-8 mb-8">
                         {/* Input Control */}
-                        <div className="col-span-4 bg-slate-50 p-4 rounded border border-slate-200 flex flex-col justify-center">
-                            <label className="text-xs font-bold text-slate-500 uppercase mb-2 block">Coeficiente de Margen</label>
+                        <div className="col-span-4 bg-white p-6 rounded border border-[#eeeeee] flex flex-col justify-center shadow-sm">
+                            <label className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-2 block">Coeficiente de Margen</label>
                             <div className="flex items-center gap-2">
                                 <input
                                     type="number"
@@ -61,91 +59,93 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
                                     min="0"
                                     value={margin}
                                     onChange={(e) => setMargin(parseFloat(e.target.value) || 0)}
-                                    className="w-24 text-xl font-mono font-bold text-brand bg-white border border-slate-300 rounded px-2 py-1 outline-none focus:border-accent"
+                                    className="w-full text-2xl font-light text-[#2C3E50] border-b border-[#A07147] outline-none pb-1"
                                 />
-                                <span className="text-xs text-slate-400">x Retro. Base</span>
+                                <span className="text-xs font-bold text-[#2C3E50]">x Base</span>
                             </div>
                         </div>
 
                         {/* Summary Metrics */}
                         <div className="col-span-8 grid grid-cols-2 gap-4">
-                            <div className="bg-gradient-to-br from-brand to-slate-800 text-white p-4 rounded shadow-md relative overflow-hidden">
-                                <div className="relative z-10">
-                                    <div className="text-xs font-bold opacity-70 uppercase mb-1">Ingreso Anual Estimado</div>
-                                    <div className="text-3xl font-mono font-bold text-accent">
-                                        {totalRetroEUR.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
-                                    </div>
-                                    <div className="text-[10px] opacity-70 mt-1">Retrocesión Final Acumulada</div>
-                                </div>
-                            </div>
-                            <div className="bg-white p-4 rounded border border-slate-200 shadow-sm flex flex-col justify-center">
-                                <div className="text-xs font-bold text-slate-500 uppercase mb-1">Retrocesión Media (%)</div>
-                                <div className="text-3xl font-mono font-bold text-emerald-600">
-                                    {avgFinalRetroPercent.toFixed(2)}%
-                                </div>
-                                <div className="text-[10px] text-slate-400 mt-1">Sobre Capital Total</div>
-                            </div>
+                            <MetricCard
+                                label="Ingreso Anual Estimado"
+                                value={totalRetroEUR.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                            />
+                            <MetricCard
+                                label="Retrocesión Media"
+                                value={avgFinalRetroPercent.toFixed(2) + '%'}
+                            />
                         </div>
                     </div>
 
                     {/* Logic Explanation */}
-                    <div className="mb-4 bg-blue-50 text-blue-800 px-4 py-2 rounded text-[10px] border border-blue-100 flex gap-2 items-center">
-                        <span className="text-lg">💡</span>
-                        <span>
-                            <b>Cálculo:</b> (Retrocesión Base × Margen) = Retrocesión Final %.
-                            El importe (€) se calcula sobre el capital asignado a cada fondo.
+                    <div className="mb-8 p-4 bg-[#fcfcfc] border-l-2 border-[#003399] text-xs text-[#2C3E50] flex gap-3 items-start italic">
+                        <span className="text-lg not-italic">💡</span>
+                        <span className="leading-relaxed">
+                            <b>Cálculo de Impacto:</b> Se aplica el margen seleccionado sobre la retrocesión base de cada fondo.
+                            El importe monetario (€) se deriva del capital total asignado.
                         </span>
                     </div>
 
-                    <table className="w-full text-xs text-left border-collapse">
-                        <thead className="bg-slate-50 font-serif font-bold text-slate-600 border-y border-slate-200">
-                            <tr>
-                                <th className="p-3">Fondo / Activo</th>
-                                <th className="p-3 text-right">Peso</th>
-                                <th className="p-3 text-right">Capital (€)</th>
-                                <th className="p-3 text-right bg-slate-100/50">Retro. Base</th>
-                                <th className="p-3 text-right bg-slate-100/50">Margen</th>
-                                <th className="p-3 text-right font-bold text-slate-800">Retro. Final %</th>
-                                <th className="p-3 text-right font-bold text-emerald-700">Ingreso Anual (€)</th>
+                    <table className="w-full text-sm text-left border-collapse">
+                        <thead>
+                            <tr className="border-b border-[#eeeeee]">
+                                <th className="py-3 font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Fondo / Activo</th>
+                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Peso</th>
+                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Capital</th>
+                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Base</th>
+                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px] bg-slate-50/50">Margen</th>
+                                <th className="py-3 text-right font-bold text-[#2C3E50] uppercase tracking-[0.1em] text-[10px]">Retro. Final</th>
+                                <th className="py-3 text-right font-bold text-[#2C3E50] uppercase tracking-[0.1em] text-[10px]">Ingreso (€)</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-100">
+                        <tbody className="divide-y divide-[#f5f5f5]">
                             {costRows.length === 0 ? (
-                                <tr><td colSpan={7} className="p-4 text-center italic text-slate-400">No hay activos en cartera</td></tr>
+                                <tr><td colSpan={7} className="p-8 text-center italic text-slate-400">No hay activos en cartera</td></tr>
                             ) : costRows.map(row => (
-                                <tr key={row.isin} className="hover:bg-slate-50 group transition-colors">
-                                    <td className="p-3">
-                                        <div className="font-bold text-brand truncate max-w-[220px]" title={row.name}>{row.name}</div>
-                                        <div className="text-[9px] text-slate-400 font-mono">{row.isin}</div>
+                                <tr key={row.isin} className="hover:bg-[#fcfcfc] group transition-colors">
+                                    <td className="py-3">
+                                        <div className="font-bold text-[#2C3E50] truncate max-w-[220px]" title={row.name}>{row.name}</div>
+                                        <div className="text-[10px] text-slate-400 font-mono tracking-wider">{row.isin}</div>
                                     </td>
-                                    <td className="p-3 text-right font-mono text-slate-600">{row.weight.toFixed(2)}%</td>
-                                    <td className="p-3 text-right font-mono text-slate-400">
+                                    <td className="py-3 text-right font-light text-[#2C3E50] tabular-nums">{row.weight.toFixed(2)}%</td>
+                                    <td className="py-3 text-right font-light text-[#7f8c8d] tabular-nums">
                                         {((row.weight / 100) * totalCapital).toLocaleString('es-ES', { maximumFractionDigits: 0 })} €
                                     </td>
-                                    <td className="p-3 text-right font-mono text-slate-500 bg-slate-50/50">{row.baseRetroPercent.toFixed(2)}%</td>
-                                    <td className="p-3 text-right font-mono text-slate-400 bg-slate-50/50">x{margin}</td>
-                                    <td className="p-3 text-right font-mono font-bold text-brand bg-brand/5">
+                                    <td className="py-3 text-right font-light text-slate-500 tabular-nums">{row.baseRetroPercent.toFixed(2)}%</td>
+                                    <td className="py-3 text-right font-bold text-[#2C3E50] bg-slate-50/50 tabular-nums">x{margin}</td>
+                                    <td className="py-3 text-right font-bold text-[#2C3E50] tabular-nums">
                                         {row.finalRetroPercent.toFixed(2)}%
                                     </td>
-                                    <td className="p-3 text-right font-mono font-bold text-emerald-600 bg-emerald-50/30">
+                                    <td className="py-3 text-right font-bold text-[#003399] tabular-nums">
                                         {row.retroEUR.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                                     </td>
                                 </tr>
                             ))}
                         </tbody>
-                        <tfoot className="bg-slate-50 font-bold border-t-2 border-slate-200 text-slate-700">
+                        <tfoot className="border-t-2 border-[#2C3E50]">
                             <tr>
-                                <td className="p-3">TOTAL</td>
-                                <td className="p-3 text-right">{totalWeight.toFixed(2)}%</td>
-                                <td className="p-3 text-right">{totalCapital.toLocaleString('es-ES')} €</td>
-                                <td className="p-3 text-right" colSpan={2}></td>
-                                <td className="p-3 text-right">{avgFinalRetroPercent.toFixed(2)}%</td>
-                                <td className="p-3 text-right text-emerald-700 font-black text-sm">
+                                <td className="py-4 font-bold text-[#2C3E50] text-lg tracking-tight">TOTAL</td>
+                                <td className="py-4 text-right font-bold text-[#2C3E50]">{totalWeight.toFixed(2)}%</td>
+                                <td className="py-4 text-right font-bold text-[#2C3E50]">{totalCapital.toLocaleString('es-ES')} €</td>
+                                <td className="py-4 text-right" colSpan={2}></td>
+                                <td className="py-4 text-right font-bold text-[#2C3E50] text-lg">{avgFinalRetroPercent.toFixed(2)}%</td>
+                                <td className="py-4 text-right font-bold text-[#003399] text-lg">
                                     {totalRetroEUR.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                                 </td>
                             </tr>
                         </tfoot>
                     </table>
+                </div>
+
+                {/* Footer */}
+                <div className="p-4 bg-white border-t border-[#eeeeee] flex justify-end shrink-0">
+                    <button
+                        onClick={onClose}
+                        className="px-6 py-2 bg-[#f5f5f5] hover:bg-[#e0e0e0] text-[#2C3E50] font-bold text-xs uppercase tracking-[0.1em] transition-colors"
+                    >
+                        Cerrar
+                    </button>
                 </div>
             </div>
         </div>

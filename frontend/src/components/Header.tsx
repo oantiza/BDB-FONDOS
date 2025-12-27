@@ -3,19 +3,19 @@
 
 interface HeaderProps {
     onLogout: () => void
-    onOpenNews: () => void
     onOpenMiBoutique: () => void
+    onOpenXRay?: () => void
     children?: React.ReactNode
 }
 
-export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, children }: HeaderProps) {
+export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, children }: HeaderProps) {
     // Theme toggle removed
 
     return (
-        <header className="h-16 bg-gradient-to-r from-gray-900 to-blue-800 text-white flex items-center justify-between px-6 z-20 shrink-0 border-b-4 border-[var(--color-accent)]">
+        <header className="h-16 bg-gradient-to-r from-[#003399] to-[#0055CC] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-white/10 shadow-md">
             <div className="flex flex-col">
-                <div className="font-serif text-xl font-bold tracking-tight">Gestor de <span className="text-[var(--color-accent)]">Fondos</span></div>
-                <div className="text-[9px] uppercase tracking-[0.2em] text-gray-400">Portfolio Intelligence</div>
+                <div className="font-light text-xl tracking-tight leading-none mb-0.5">Gestor de <span className="font-bold">Fondos</span></div>
+                <div className="text-[9px] uppercase tracking-[0.25em] text-white/70 font-bold">Portfolio Intelligence</div>
             </div>
             <div className="flex items-center gap-4">
                 {/* Dark Mode Toggle */}
@@ -23,21 +23,23 @@ export default function Header({ onLogout, onOpenNews, onOpenMiBoutique, childre
                 {children}
 
                 <button
-                    onClick={onOpenMiBoutique}
-                    className="font-bold hover:text-[var(--color-accent)] transition-colors flex items-center gap-2 text-xs uppercase tracking-wider"
+                    onClick={onOpenXRay}
+                    className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
                 >
-                    <span>🏦 Macro y Estrategia</span>
+                    <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Análisis de Cartera</span>
+                    <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
                 </button>
 
-                <button onClick={onOpenNews} className="font-bold hover:text-[var(--color-accent)] transition-colors flex items-center gap-2">
-                    <span>NEWS</span>
-                    <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--color-accent)] opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--color-accent)]"></span>
-                    </span>
+                <button
+                    onClick={onOpenMiBoutique}
+                    className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
+                >
+                    <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Macro y Estrategia</span>
+                    <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
                 </button>
-                <div className="h-4 w-px bg-slate-500 mx-2"></div>
-                <button onClick={onLogout} className="border border-slate-500 px-3 py-1 rounded hover:bg-white hover:text-[var(--color-brand)] transition-colors text-xs font-bold uppercase">Salir</button>
+
+                <div className="h-4 w-px bg-white/20 mx-2"></div>
+                <button onClick={onLogout} className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors">Salir</button>
             </div>
         </header>
     )

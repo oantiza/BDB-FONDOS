@@ -74,7 +74,7 @@ export default function EquityDistribution({ portfolio = [] }: any) {
     return (
         <div className="flex flex-col h-full overflow-hidden">
             <div className="p-2 border-b border-gray-100 flex justify-between items-center shrink-0">
-                <h3 className="font-sans font-bold text-[#0B2545] text-[10px] uppercase tracking-wider flex items-center gap-2">
+                <h3 className="font-sans font-bold text-[#A07147] text-sm uppercase tracking-wider flex items-center gap-2">
                     <span className="text-sm">🏢</span> Renta Variable
                 </h3>
             </div>

@@ -73,8 +73,8 @@ export default function SmartDonut({ allocation = [] }) {
                 }
             }
         },
-        cutout: '70%', // Anillo un poco más grueso (antes 80%)
-        layout: { padding: 10 }
+        cutout: '65%', // Thicker ring (was 70%)
+        layout: { padding: 5 } // Minimized padding (was 10)
     }
 
     return (
@@ -83,7 +83,7 @@ export default function SmartDonut({ allocation = [] }) {
                 <Doughnut data={dataAlloc} options={options} />
                 {/* Texto Central */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-widest">
+                    <span className="text-sm font-extrabold text-slate-400 uppercase tracking-widest">
                         ACTIVOS
                     </span>
                 </div>

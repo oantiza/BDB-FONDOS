@@ -30,7 +30,7 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
     }
 
     const options = {
-        cutout: '80%',
+        cutout: '65%', // Thicker ring (was 80%)
         plugins: {
             legend: { display: false },
             tooltip: {
@@ -41,7 +41,7 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
             }
         },
         maintainAspectRatio: false,
-        layout: { padding: 10 }
+        layout: { padding: 5 } // Minimized padding
     }
 
     if (isEmpty) return <div className="text-xs text-gray-400 text-center flex items-center justify-center h-full">Sin datos</div>
@@ -51,7 +51,7 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
             <div className="flex-1 w-full relative min-h-0">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Región</span>
+                    <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Región</span>
                 </div>
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center mt-1 px-2 h-auto max-h-[4rem] overflow-y-auto scrollbar-none">

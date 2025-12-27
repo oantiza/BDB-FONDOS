@@ -1,6 +1,8 @@
 import { useState, useEffect, useMemo } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../../firebase'
+import ModalHeader from '../common/ModalHeader'
+import MetricCard from '../common/MetricCard'
 import CorrelationHeatmap from '../charts/CorrelationHeatmap'
 import RiskMap from '../charts/RiskMap'
 import XRayChart from '../charts/XRayChart'
@@ -120,20 +122,11 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-7xl h-[90vh] flex flex-col overflow-hidden">
                 {/* Header */}
                 {/* Header - Corporate Blue Gradient (Same Size) */}
-                <div className="p-2 border-b border-blue-800 flex justify-between items-center bg-gradient-to-r from-gray-900 to-blue-800 text-white shrink-0 shadow-sm relative overflow-hidden">
-                    <div className="relative z-10 flex items-center gap-2">
-                        <div className="h-5 w-5 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm">
-                            <span className="text-[10px]">🔍</span>
-                        </div>
-                        <h2 className="text-xs font-bold flex items-center gap-2 text-white uppercase tracking-wider">
-                            Informe X-RAY
-                        </h2>
-                    </div>
-                    {/* Decorative noise */}
-                    <div className="absolute top-0 right-0 w-32 h-full bg-gradient-to-l from-blue-500/10 to-transparent pointer-events-none"></div>
-
-                    <button onClick={onClose} className="relative z-10 text-blue-300 hover:text-white text-3xl leading-none transition-colors">&times;</button>
-                </div>
+                <ModalHeader
+                    title="Informe X-RAY"
+                    icon="🔍"
+                    onClose={onClose}
+                />
 
                 <div className="flex-1 overflow-y-auto bg-slate-50 p-6 scrollbar-thin">
                     {loading ? (
@@ -186,11 +179,11 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
 
                             {/* 2. METRICS GRID (Below Chart) */}
                             <div className="grid grid-cols-5 gap-4">
-                                <MetricCard label="Rentabilidad (CAGR)" value={metrics.metrics?.cagr} fmt="%" color="text-[#0B2545]" />
-                                <MetricCard label="Volatilidad" value={metrics.metrics?.volatility} fmt="%" color="text-[#0B2545]" />
-                                <MetricCard label="Ratio Sharpe" value={metrics.metrics?.sharpe} fmt="num" color="text-[#D4AF37]" />
-                                <MetricCard label="Tasa Libre Riesgo" value={metrics.metrics?.rf_rate} fmt="%" color="text-slate-500" />
-                                <MetricCard label="Máximo Drawdown" value={metrics.metrics?.maxDrawdown} fmt="%" color="text-rose-500" />
+                                <MetricCard label="Rentabilidad (CAGR)" value={formatVal(metrics.metrics?.cagr, '%')} color="text-[#0B2545]" />
+                                <MetricCard label="Volatilidad" value={formatVal(metrics.metrics?.volatility, '%')} color="text-[#0B2545]" />
+                                <MetricCard label="Ratio Sharpe" value={formatVal(metrics.metrics?.sharpe, 'num')} color="text-[#D4AF37]" />
+                                <MetricCard label="Tasa Libre Riesgo" value={formatVal(metrics.metrics?.rf_rate, '%')} color="text-slate-500" />
+                                <MetricCard label="Máximo Drawdown" value={formatVal(metrics.metrics?.maxDrawdown, '%')} color="text-rose-500" />
                             </div>
 
                             {/* 3. TOP HOLDINGS */}
@@ -269,16 +262,10 @@ export default function AnalysisModal({ portfolio, fundDatabase, onClose }) {
     )
 }
 
-function MetricCard({ label, value, fmt, color }) {
-    let display = '-'
+function formatVal(value, fmt) {
     if (value !== undefined && value !== null) {
-        if (fmt === '%') display = (value * 100).toFixed(2) + '%'
-        else display = value.toFixed(2)
+        if (fmt === '%') return (value * 100).toFixed(2) + '%'
+        return value.toFixed(2)
     }
-    return (
-        <div className="bg-slate-50 p-3 rounded border border-slate-200 text-center">
-            <div className="text-xs uppercase font-bold text-slate-400 tracking-wider mb-1">{label}</div>
-            <div className={`text-2xl font-mono font-bold ${color}`}>{display}</div>
-        </div>
-    )
+    return '-'
 }

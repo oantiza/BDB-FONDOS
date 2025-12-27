@@ -8,7 +8,14 @@ import { Fund, PortfolioItem, AllocationItem } from '../types'
 export function usePortfolio() {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [assets, setAssets] = useState<Fund[]>([])
-    const [portfolio, setPortfolio] = useState<PortfolioItem[]>([])
+    const [portfolio, setPortfolio] = useState<PortfolioItem[]>(() => {
+        try {
+            const saved = localStorage.getItem('ft_activePortfolio')
+            return saved ? JSON.parse(saved) : []
+        } catch (e) {
+            return []
+        }
+    })
     const [proposedPortfolio, setProposedPortfolio] = useState<PortfolioItem[]>([])
 
     // Persistence
@@ -35,7 +42,9 @@ export function usePortfolio() {
         localStorage.setItem('ft_numFunds', numFunds.toString())
         localStorage.setItem('ft_totalCapital', totalCapital.toString())
         if (vipFunds) localStorage.setItem('ft_vipFunds', vipFunds)
-    }, [riskLevel, numFunds, totalCapital, vipFunds])
+        // Auto-save portfolio
+        localStorage.setItem('ft_activePortfolio', JSON.stringify(portfolio))
+    }, [riskLevel, numFunds, totalCapital, vipFunds, portfolio])
 
     async function fetchAssets() {
         try {

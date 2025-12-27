@@ -1,8 +1,8 @@
-export default function PortfolioTable({ 
-    assets = [], 
-    totalCapital = 0, 
-    onRemove, 
-    onUpdateWeight, 
+export default function PortfolioTable({
+    assets = [],
+    totalCapital = 0,
+    onRemove,
+    onUpdateWeight,
     onFundClick,
     onSwap // <--- NUEVA PROPIEDAD
 }) {
@@ -16,12 +16,12 @@ export default function PortfolioTable({
     }
 
     return (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto overflow-y-auto max-h-full h-full custom-scrollbar">
             <table className="w-full text-left text-sm text-slate-600">
                 <tbody className="divide-y divide-slate-100">
                     {assets.map((asset) => {
                         const val = (totalCapital * (asset.weight / 100))
-                        
+
                         // Detectar si el fondo fue elegido manualmente
                         const isManual = asset.manualSwap;
 
@@ -42,7 +42,8 @@ export default function PortfolioTable({
                                         <input
                                             type="number"
                                             className="w-12 text-right bg-transparent outline-none font-bold text-blue-600 text-sm border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors"
-                                            value={asset.weight}
+                                            value={Math.round(asset.weight * 100) / 100}
+                                            step="0.01"
                                             onClick={(e) => e.stopPropagation()}
                                             onChange={(e) => onUpdateWeight && onUpdateWeight(asset.isin, e.target.value)}
                                         />
@@ -52,10 +53,10 @@ export default function PortfolioTable({
                                 <td className="p-3 text-right font-mono text-slate-600 font-bold text-sm">
                                     {val.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 })}
                                 </td>
-                                
+
                                 {/* --- NUEVA COLUMNA SWAP --- */}
                                 <td className="p-3 text-right">
-                                    <button 
+                                    <button
                                         onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
                                         className="text-indigo-600 hover:text-indigo-800 text-xs font-semibold hover:underline bg-indigo-50 hover:bg-indigo-100 px-2 py-1 rounded border border-indigo-200 transition-colors flex items-center gap-1 ml-auto"
                                         title="Buscar alternativas de inversión"
@@ -63,8 +64,6 @@ export default function PortfolioTable({
                                         ⇄ Cambiar
                                     </button>
                                 </td>
-                                {/* -------------------------- */}
-
                                 <td className="p-3 text-right">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onRemove && onRemove(asset.isin); }}
@@ -87,8 +86,8 @@ export default function PortfolioTable({
                         <td className="p-3 text-right font-mono text-emerald-600 text-sm">
                             {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 })}
                         </td>
-                        <td></td> {/* Espacio vacío para la columna Swap */}
-                        <td></td> {/* Espacio vacío para la columna Eliminar */}
+                        <td></td>
+                        <td></td>
                     </tr>
                 </tfoot>
             </table>
