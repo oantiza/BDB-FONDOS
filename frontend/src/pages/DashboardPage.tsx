@@ -29,7 +29,7 @@ import { Fund, PortfolioItem, SmartPortfolioResponse, AllocationItem } from '../
 
 // Modals (Code Splitting)
 const CostsModal = lazy(() => import('../components/modals/CostsModal'))
-// AnalysisModal removed
+
 const TacticalModal = lazy(() => import('../components/modals/TacticalModal'))
 import MacroTacticalModal from '../components/modals/MacroTacticalModal'
 const OptimizationReviewModal = lazy(() => import('../components/modals/OptimizationReviewModal'))
@@ -394,7 +394,6 @@ export default function DashboardPage({
             <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white">Cargando...</div>}>
                 {showCosts && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => setShowCosts(false)} />}
                 {showVipModal && <VipFundsModal vipFundsStr={vipFunds} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => setShowVipModal(false)} />}
-                {/* AnalysisModal removed */}
                 {showTactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => setShowTactical(false)} />}
                 {showMacro && <MacroTacticalModal portfolio={portfolio} onApply={handleMacroApply} onClose={() => setShowMacro(false)} />}
                 {showReviewModal && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => setShowReviewModal(false)} />}

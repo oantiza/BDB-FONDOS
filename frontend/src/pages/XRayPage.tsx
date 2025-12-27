@@ -7,6 +7,7 @@ import XRayChart from '../components/charts/XRayChart'
 
 import DiversificationDonut from '../components/charts/DiversificationDonut'
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS, BENCHMARK_PROFILES } from '../utils/benchmarkUtils'
+import MetricCard from '../components/common/MetricCard'
 import { Fund, PortfolioItem } from '../types'
 
 interface XRayPageProps {
@@ -255,12 +256,12 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                                 <h2 className="text-[#2C3E50] text-3xl font-light tracking-tight">Métricas de Cartera</h2>
                             </div>
                             <div className="grid grid-cols-2 lg:grid-cols-6 gap-8 pb-4">
-                                <MetricCard label="Rentabilidad (CAGR)" value={metrics.metrics?.cagr} fmt="%" color="text-[#2C3E50]" />
-                                <MetricCard label="Volatilidad" value={metrics.metrics?.volatility} fmt="%" color="text-[#2C3E50]" />
-                                <MetricCard label="Ratio Sharpe" value={metrics.metrics?.sharpe} fmt="num" color="text-[#2C3E50]" />
-                                <MetricCard label="Max Drawdown" value={metrics.metrics?.maxDrawdown} fmt="%" color="text-[#C0392B]" />
-                                <MetricCard label="Tasa Libre Riesgo" value={metrics.metrics?.rf_rate} fmt="%" color="text-[#7f8c8d]" />
-                                <MetricCard label="Diversificación" value={metrics.metrics?.diversificationScore} fmt="num" color="text-[#2C3E50]" />
+                                <MetricCard label="Rentabilidad (CAGR)" value={metrics.metrics?.cagr ? (metrics.metrics.cagr * 100).toFixed(2) + "%" : "-"} color="text-[#2C3E50]" />
+                                <MetricCard label="Volatilidad" value={metrics.metrics?.volatility ? (metrics.metrics.volatility * 100).toFixed(2) + "%" : "-"} color="text-[#2C3E50]" />
+                                <MetricCard label="Ratio Sharpe" value={metrics.metrics?.sharpe?.toFixed(2) || "-"} color="text-[#2C3E50]" />
+                                <MetricCard label="Max Drawdown" value={metrics.metrics?.maxDrawdown ? (metrics.metrics.maxDrawdown * 100).toFixed(2) + "%" : "-"} color="text-[#C0392B]" />
+                                <MetricCard label="Tasa Libre Riesgo" value={metrics.metrics?.rf_rate ? (metrics.metrics.rf_rate * 100).toFixed(2) + "%" : "-"} color="text-[#7f8c8d]" />
+                                <MetricCard label="Diversificación" value={metrics.metrics?.diversificationScore?.toFixed(2) || "-"} color="text-[#2C3E50]" />
                             </div>
                         </div>
 
@@ -338,16 +339,4 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     )
 }
 
-function MetricCard({ label, value, fmt, color = "text-[#2C3E50]" }: any) {
-    let display = '-'
-    if (value !== undefined && value !== null) {
-        if (fmt === '%') display = (value * 100).toFixed(2) + '%'
-        else display = value.toFixed(2)
-    }
-    return (
-        <div className="text-center group cursor-default">
-            <div className="text-[10px] uppercase font-bold text-[#A07147] tracking-[0.2em] mb-2 leading-tight opacity-80 group-hover:opacity-100 transition-opacity">{label}</div>
-            <div className={`text-4xl font-light ${color} tracking-tighter`}>{display}</div>
-        </div>
-    )
-}
+
