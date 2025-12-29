@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const PALETTE = ['#0B2545', '#3b82f6', '#f59e0b', '#cbd5e1', '#10B981'] // Navy, Blue, Amber, Slate, Emerald
+const PALETTE = ['#0B2545', '#A07147', '#1E3A8A', '#D4AF37', '#64748B'] // Navy, Gold, Dark Blue, Light Gold, Slate
 
 interface GeoData {
     label: string;
@@ -30,7 +30,7 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
     }
 
     const options = {
-        cutout: '65%', // Thicker ring (was 80%)
+        cutout: '85%', // Thinner ring (Elegance)
         plugins: {
             legend: { display: false },
             tooltip: {
@@ -51,10 +51,10 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
             <div className="flex-1 w-full relative min-h-0">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-sm font-bold text-gray-400 uppercase tracking-widest">Región</span>
+                    <span className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">Región</span>
                 </div>
             </div>
-            <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center mt-1 px-2 h-auto max-h-[4rem] overflow-y-auto scrollbar-none">
+            <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center mt-2 px-2 h-16 overflow-y-auto scrollbar-none shrink-0">
                 {safeData.map((d, i) => (
                     <LegendItem key={i} color={PALETTE[i % PALETTE.length]} label={d.label} />
                 ))}

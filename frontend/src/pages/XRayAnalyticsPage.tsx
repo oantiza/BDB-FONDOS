@@ -4,6 +4,7 @@ import { functions } from '../firebase'
 import CorrelationHeatmap from '../components/charts/CorrelationHeatmap'
 import RiskMap from '../components/charts/RiskMap'
 import XRayChart from '../components/charts/XRayChart'
+
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS } from '../utils/benchmarkUtils'
 import { Fund, PortfolioItem } from '../types'
 
@@ -172,12 +173,14 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase }: XRayAnaly
                                         }))}
                                     />
                                     {riskExplanation && (
-                                        <div className="mt-4 text-xs text-[#7f8c8d] italic leading-relaxed">
-                                            <div dangerouslySetInnerHTML={{ __html: riskExplanation }} />
+                                        <div className="mt-6 text-lg text-[#2C3E50] leading-relaxed">
+                                            <div dangerouslySetInnerHTML={{ __html: riskExplanation.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }} />
                                         </div>
                                     )}
                                 </div>
                             </div>
+
+
 
                             {/* Correlation Matrix */}
                             <div>

@@ -40,7 +40,7 @@ export default function PortfolioMetrics({ portfolio = [], riskFreeRate = 0 }) {
                     {items.map((m, i) => (
                         <div key={i} className="flex flex-col items-start border-l-2 border-slate-100 pl-4 py-1">
                             <span className="text-xs font-bold text-slate-400 uppercase tracking-widest mb-1">{m.label}</span>
-                            <span className={`font-light text-4xl tracking-tighter ${m.color}`}>{m.value}</span>
+                            <span className={`font-medium text-[32px] tracking-tighter ${m.color}`}>{m.value}</span>
                         </div>
                     ))}
                 </div>

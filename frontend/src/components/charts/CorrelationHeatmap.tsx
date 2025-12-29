@@ -31,45 +31,48 @@ export default function CorrelationHeatmap({ matrix, assets }) {
     }
 
     return (
-        <div className="w-full flex flex-col gap-4">
+        <div className="w-full h-full flex flex-col gap-2">
 
-            {/* Scrollable Container */}
-            <div className="w-full overflow-auto scrollbar-thin scrollbar-thumb-slate-700 scrollbar-track-transparent">
-                <div className="min-w-max inline-block align-middle">
+            {/* Responsive Container */}
+            <div className="flex-1 w-full h-full min-h-0 flex flex-col">
+                <div className="flex-1 w-full h-full flex flex-col min-h-0">
                     {/* Header Row */}
-                    <div className="flex mb-1">
-                        <div className="w-24 shrink-0"></div> {/* Spacer for Row Labels */}
+                    <div className="flex w-full shrink-0 mb-1">
+                        <div className="w-[15%] max-w-[100px] shrink-0"></div> {/* Spacer */}
                         {assets.map((asset, i) => (
-                            <div key={i} className="w-16 px-1 flex items-end justify-center pb-1">
-                                <span className="text-[10px] font-bold text-slate-400 truncate w-full text-center" title={asset}>
-                                    {asset.substring(0, 4)}..
+                            <div key={i} className="flex-1 px-0.5 flex items-end justify-center pb-1 min-w-0">
+                                <span className="text-[9px] font-bold text-slate-400 truncate w-full text-center" title={asset}>
+                                    {asset.substring(0, 4)}
                                 </span>
                             </div>
                         ))}
                     </div>
 
                     {/* Matrix Rows */}
-                    {matrix.map((row, i) => (
-                        <div key={i} className="flex items-center mb-1">
-                            {/* Row Label */}
-                            <div className="w-24 shrink-0 pr-3 flex justify-end">
-                                <span className="text-[10px] font-bold text-slate-400 truncate max-w-full" title={assets[i]}>
-                                    {assets[i]}
-                                </span>
-                            </div>
-
-                            {/* Cells */}
-                            {row.map((val, j) => (
-                                <div
-                                    key={j}
-                                    className={`w-16 h-10 flex items-center justify-center text-[10px] font-mono font-bold mx-0.5 rounded transition-all hover:scale-105 hover:z-10 cursor-default ${getColor(val)}`}
-                                    title={`${assets[i]} vs ${assets[j]}: ${val.toFixed(2)}`}
-                                >
-                                    {val.toFixed(2)}
+                    <div className="flex-1 w-full flex flex-col min-h-0">
+                        {matrix.map((row, i) => (
+                            <div key={i} className="flex-1 w-full flex items-center min-h-0">
+                                {/* Row Label */}
+                                <div className="w-[15%] max-w-[100px] shrink-0 pr-2 flex justify-end items-center h-full">
+                                    <span className="text-[9px] font-bold text-slate-400 truncate max-w-full leading-tight" title={assets[i]}>
+                                        {assets[i]}
+                                    </span>
                                 </div>
-                            ))}
-                        </div>
-                    ))}
+
+                                {/* Cells */}
+                                {row.map((val, j) => (
+                                    <div key={j} className="flex-1 h-[90%] flex items-center justify-center px-0.5 min-w-0">
+                                        <div
+                                            className={`w-full h-full flex items-center justify-center text-[9px] font-mono font-bold rounded transition-all hover:scale-105 hover:z-10 cursor-default ${getColor(val)}`}
+                                            title={`${assets[i]} vs ${assets[j]}: ${val.toFixed(2)}`}
+                                        >
+                                            {val.toFixed(2)}
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
 

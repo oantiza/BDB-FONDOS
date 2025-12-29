@@ -1,8 +1,8 @@
 
 const MetricSimple = ({ label, value, color }: any) => (
-    <div className="flex flex-col p-1.5 bg-slate-50 border border-slate-100 rounded">
-        <span className="text-[10px] font-black text-slate-400 uppercase">{label}</span>
-        <span className={`text-[12px] font-mono font-black ${color}`}>{value}</span>
+    <div className="flex flex-col p-0">
+        <span className="text-[9px] font-bold text-[#A07147] uppercase tracking-wider">{label}</span>
+        <span className={`text-base font-bold ${color}`}>{value}</span>
     </div>
 );
 
@@ -73,30 +73,30 @@ export default function FixedIncomeDistribution({ portfolio = [] }: any) {
 
     return (
         <div className="flex flex-col h-full overflow-hidden bg-white">
-            <div className="p-2 border-b border-gray-100 flex justify-between items-center shrink-0">
-                <h3 className="font-sans font-bold text-[#A07147] text-sm uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-sm">🏛️</span> Renta Fija
+            <div className="pt-2 pb-6 px-1 flex justify-between items-center shrink-0">
+                <h3 className="font-sans font-bold text-[#A07147] text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+                    Renta Fija
                 </h3>
             </div>
 
-            <div className="flex-1 p-3 flex flex-col gap-4 overflow-y-auto scrollbar-thin">
+            <div className="flex-1 px-1 flex flex-col gap-6 overflow-y-auto scrollbar-thin">
                 {/* Metrics */}
                 <div className="grid grid-cols-2 gap-2">
-                    <MetricSimple label="Duración (Y)" value={analytics.duration} color="text-indigo-600" />
-                    <MetricSimple label="Vencimiento (Y)" value={analytics.maturity} color="text-blue-600" />
+                    <MetricSimple label="Duración (Y)" value={analytics.duration} color="text-[#0B2545]" />
+                    <MetricSimple label="Vencimiento (Y)" value={analytics.maturity} color="text-[#0B2545]" />
                 </div>
 
                 {/* Breakdown */}
                 <div className="flex flex-col gap-2">
-                    <span className="text-[11px] font-black text-slate-400 uppercase px-1">Distribución</span>
+                    <span className="text-[10px] font-bold text-[#A07147] uppercase tracking-widest px-1">Distribución</span>
                     <div className="flex flex-col gap-1.5">
                         {analytics.rf_sectors.map((sec: any, i: number) => (
                             <div key={i} className="flex flex-col gap-0.5">
-                                <div className="flex justify-between text-[11px] font-black text-slate-600 uppercase tracking-tighter">
+                                <div className="flex justify-between text-[11px] font-bold text-[#2C3E50] uppercase tracking-tighter">
                                     <span>{sec.l}</span><span>{sec.v}%</span>
                                 </div>
                                 <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
-                                    <div className="h-full bg-emerald-500 rounded-full" style={{ width: `${sec.v}%` }} />
+                                    <div className="h-full bg-[#0B2545] rounded-full" style={{ width: `${sec.v}%` }} />
                                 </div>
                             </div>
                         ))}

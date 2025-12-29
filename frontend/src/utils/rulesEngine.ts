@@ -4,75 +4,75 @@
 // MATRIZ DE RIESGO (ESTRICTA)
 // ============================================================================
 export const RISK_MATRIX = {
-    1: { 
-        name: "Preservación", 
-        maxVol: 0.035, 
+    1: {
+        name: "Preservación",
+        maxVol: 0.035,
         maxEquity: 5, // Límite DURO: Máx 5% Bolsa
         allowed: ['Monetario', 'RF'],
         style: 'Defensive_Yield'
     },
-    2: { 
-        name: "Muy Conservador", 
-        maxVol: 0.06, 
+    2: {
+        name: "Muy Conservador",
+        maxVol: 0.06,
         maxEquity: 15, // Límite DURO: Máx 15% Bolsa
         allowed: ['RF', 'Monetario', 'Mixto'],
         style: 'Conservative_Income'
     },
-    3: { 
-        name: "Conservador", 
-        maxVol: 0.08, 
-        maxEquity: 25, 
+    3: {
+        name: "Conservador",
+        maxVol: 0.08,
+        maxEquity: 25,
         allowed: ['RF', 'Mixto'],
         style: 'Balanced_Defensive'
     },
-    4: { 
-        name: "Mod. Defensivo", 
-        maxVol: 0.10, 
-        maxEquity: 40, 
-        allowed: ['RF', 'Mixto', 'Retorno Absoluto'], 
-        style: 'Balanced' 
+    4: {
+        name: "Mod. Defensivo",
+        maxVol: 0.10,
+        maxEquity: 40,
+        allowed: ['RF', 'Mixto', 'Retorno Absoluto'],
+        style: 'Balanced'
     },
-    5: { 
-        name: "Equilibrado", 
-        maxVol: 0.12, 
-        maxEquity: 60, 
-        allowed: ['Mixto', 'RV', 'RF'], 
-        style: 'Balanced_Growth' 
+    5: {
+        name: "Equilibrado",
+        maxVol: 0.12,
+        maxEquity: 60,
+        allowed: ['Mixto', 'RV', 'RF'],
+        style: 'Balanced_Growth'
     },
-    6: { 
-        name: "Crecimiento Mod.", 
-        maxVol: 0.15, 
-        maxEquity: 75, 
-        allowed: ['RV', 'Mixto'], 
-        style: 'Growth_Conservative' 
+    6: {
+        name: "Crecimiento Mod.",
+        maxVol: 0.15,
+        maxEquity: 75,
+        allowed: ['RV', 'Mixto'],
+        style: 'Growth_Conservative'
     },
-    7: { 
-        name: "Dinámico", 
-        maxVol: 0.18, 
-        maxEquity: 90, 
-        allowed: ['RV'], 
-        style: 'Growth' 
+    7: {
+        name: "Dinámico",
+        maxVol: 0.18,
+        maxEquity: 90,
+        allowed: ['RV'],
+        style: 'Growth'
     },
-    8: { 
-        name: "Crecimiento", 
-        maxVol: 0.22, 
-        maxEquity: 100, 
-        allowed: ['RV'], 
-        style: 'Growth_Aggressive' 
+    8: {
+        name: "Crecimiento",
+        maxVol: 0.22,
+        maxEquity: 100,
+        allowed: ['RV'],
+        style: 'Growth_Aggressive'
     },
-    9: { 
-        name: "Agresivo", 
-        maxVol: 0.28, 
-        maxEquity: 100, 
-        allowed: ['RV'], 
-        style: 'High_Beta' 
+    9: {
+        name: "Agresivo",
+        maxVol: 0.28,
+        maxEquity: 100,
+        allowed: ['RV'],
+        style: 'High_Beta'
     },
-    10: { 
-        name: "High Conviction", 
-        maxVol: 1.00, 
-        maxEquity: 100, 
-        allowed: ['RV', 'Mixto'], 
-        style: 'Pure_Alpha' 
+    10: {
+        name: "High Conviction",
+        maxVol: 1.00,
+        maxEquity: 100,
+        allowed: ['RV', 'Mixto'],
+        style: 'Pure_Alpha'
     }
 };
 
@@ -146,14 +146,14 @@ export function isFundSafeForProfile(fund, riskLevel) {
 
     // 2. FILTRO DE EQUITY REAL:
     const equityVal = parseFloat(fund.metrics?.equity || 0);
-    
+
     // Tolerancia mínima para perfiles bajos
     const tolerance = riskLevel <= 3 ? 1.0 : 5.0;
 
     if (equityVal > (profile.maxEquity + tolerance)) {
         return false;
     }
-    
+
     return true;
 }
 
@@ -165,7 +165,7 @@ function getPoolOfCandidates(riskLevel, profile, fundDatabase, minCount = 5) {
     let candidates = fundDatabase.filter(f => {
         const typeAllowed = profile.allowed.includes(f.std_type);
         // Volatilidad con ligero margen, pero equity innegociable
-        const volAllowed = f.std_perf?.volatility <= (profile.maxVol * 1.2); 
+        const volAllowed = f.std_perf?.volatility <= (profile.maxVol * 1.2);
         const equitySafe = isFundSafeForProfile(f, riskLevel);
 
         return typeAllowed && volAllowed && equitySafe;
@@ -174,12 +174,11 @@ function getPoolOfCandidates(riskLevel, profile, fundDatabase, minCount = 5) {
     // 2. INTENTO DE EXPANSIÓN (SOLO SI NO ES PERFIL BAJO)
     // Para perfiles 1 y 2, preferimos devolver pocos fondos seguros que rellenar con riesgo
     if (candidates.length < minCount && riskLevel > 2) {
-        console.log(`⚠️ Pool pequeño. Relajando volatilidad para perfil ${riskLevel}...`);
         candidates = fundDatabase.filter(f => {
             const relaxedVol = Math.max(profile.maxVol * 1.5, 0.05);
             const typeAllowed = profile.allowed.includes(f.std_type);
             const equitySafe = isFundSafeForProfile(f, riskLevel); // Equity SIEMPRE estricto
-            
+
             return typeAllowed && equitySafe && f.std_perf?.volatility <= relaxedVol;
         });
     }
@@ -192,7 +191,7 @@ function getPoolOfCandidates(riskLevel, profile, fundDatabase, minCount = 5) {
         groups[base].push(f);
     });
 
-    const uniqueCandidates = Object.values(groups).map(group => {
+    const uniqueCandidates = Object.values(groups).map((group: any[]) => {
         if (group.length === 1) return group[0];
         group.sort((a, b) => getFee(b) - getFee(a));
         return group[0];
@@ -219,7 +218,6 @@ function getBaseName(name) {
 // MOTOR PRINCIPAL
 // ============================================================================
 export function generateSmartPortfolio(riskLevel, fundDatabase, targetCount = 5) {
-    console.log(`⚡ Generando cartera SEGURA para Nivel ${riskLevel} con ${targetCount} activos.`);
     const profile = RISK_MATRIX[riskLevel];
     if (!profile) return [];
 
@@ -234,7 +232,7 @@ export function generateSmartPortfolio(riskLevel, fundDatabase, targetCount = 5)
 
     let finalPortfolio = [];
     const usedISINs = new Set();
-    const usedCompanies = {}; 
+    const usedCompanies = {};
 
     const coreWeight = strategy.core?.weight || 0;
     const satWeight = strategy.satellite?.weight || 0;
@@ -275,11 +273,10 @@ export function generateSmartPortfolio(riskLevel, fundDatabase, targetCount = 5)
     if (strategy.extra) fillBucket(strategy.extra, strategy.extra.weight, extraSlots);
 
     if (finalPortfolio.length < targetCount) {
-        console.log("⚠️ Cartera incompleta. Rellenando...");
         const needed = targetCount - finalPortfolio.length;
         const filler = eligibleFunds.filter(f => isCandidateValid(f)).slice(0, needed);
         filler.forEach(f => {
-            finalPortfolio.push({ ...f, weight: 0 }); 
+            finalPortfolio.push({ ...f, weight: 0 });
             usedISINs.add(f.isin);
         });
     }

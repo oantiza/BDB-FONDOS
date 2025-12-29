@@ -1,7 +1,7 @@
 
 const SuperSectorBar = ({ label, value, color, bg }: any) => (
     <div className="flex flex-col gap-0.5">
-        <div className="flex justify-between text-[11px] font-black text-slate-600 uppercase tracking-tighter">
+        <div className="flex justify-between text-[10px] font-bold text-[#2C3E50] uppercase tracking-wide">
             <span className={color}>{label}</span>
             <span>{value}%</span>
         </div>
@@ -73,42 +73,42 @@ export default function EquityDistribution({ portfolio = [] }: any) {
 
     return (
         <div className="flex flex-col h-full overflow-hidden">
-            <div className="p-2 border-b border-gray-100 flex justify-between items-center shrink-0">
-                <h3 className="font-sans font-bold text-[#A07147] text-sm uppercase tracking-wider flex items-center gap-2">
-                    <span className="text-sm">🏢</span> Renta Variable
+            <div className="pt-2 pb-6 px-1 flex justify-between items-center shrink-0">
+                <h3 className="font-sans font-bold text-[#A07147] text-xs uppercase tracking-[0.2em] flex items-center gap-2">
+                    Renta Variable
                 </h3>
             </div>
 
-            <div className="flex-1 p-3 flex flex-col gap-4 overflow-y-auto scrollbar-thin">
+            <div className="flex-1 px-1 flex flex-col gap-6 overflow-y-auto scrollbar-thin">
                 {/* Super Sectors */}
-                <div className="flex flex-col gap-2 p-2 bg-slate-50/50 rounded border border-slate-100">
-                    <div className="grid grid-cols-3 gap-1 mb-1">
-                        <span className="text-[10px] font-black text-amber-600 text-center uppercase">Cíclico</span>
-                        <span className="text-[10px] font-black text-blue-600 text-center uppercase">Sensible</span>
-                        <span className="text-[10px] font-black text-emerald-600 text-center uppercase">Defensivo</span>
+                <div className="flex flex-col gap-3 p-0">
+                    <div className="flex justify-between px-2">
+                        <span className="text-[9px] font-bold text-[#A07147] uppercase tracking-wider">Cíclico</span>
+                        <span className="text-[9px] font-bold text-[#0B2545] uppercase tracking-wider">Sensible</span>
+                        <span className="text-[9px] font-bold text-[#64748B] uppercase tracking-wider">Defensivo</span>
                     </div>
                     {/* Visual Bar representation instead of simple list */}
-                    <div className="flex h-3 w-full rounded-full overflow-hidden bg-slate-100">
-                        <div className="h-full bg-amber-500" style={{ width: `${analytics.groups.Cyclical}%` }} title={`Cíclico: ${analytics.groups.Cyclical}%`} />
-                        <div className="h-full bg-blue-500" style={{ width: `${analytics.groups.Sensitive}%` }} title={`Sensible: ${analytics.groups.Sensitive}%`} />
-                        <div className="h-full bg-emerald-500" style={{ width: `${analytics.groups.Defensive}%` }} title={`Defensivo: ${analytics.groups.Defensive}%`} />
+                    <div className="flex h-2 w-full rounded-full overflow-hidden bg-slate-100">
+                        <div className="h-full bg-[#A07147]" style={{ width: `${analytics.groups.Cyclical}%` }} title={`Cíclico: ${analytics.groups.Cyclical}%`} />
+                        <div className="h-full bg-[#0B2545]" style={{ width: `${analytics.groups.Sensitive}%` }} title={`Sensible: ${analytics.groups.Sensitive}%`} />
+                        <div className="h-full bg-[#64748B]" style={{ width: `${analytics.groups.Defensive}%` }} title={`Defensivo: ${analytics.groups.Defensive}%`} />
                     </div>
-                    <div className="flex justify-between px-1">
-                        <span className="text-[10px] font-bold text-slate-500">{analytics.groups.Cyclical}%</span>
-                        <span className="text-[10px] font-bold text-slate-500">{analytics.groups.Sensitive}%</span>
-                        <span className="text-[10px] font-bold text-slate-500">{analytics.groups.Defensive}%</span>
+                    <div className="flex justify-between px-2">
+                        <span className="text-[10px] font-bold text-[#A07147]">{analytics.groups.Cyclical}%</span>
+                        <span className="text-[10px] font-bold text-[#0B2545]">{analytics.groups.Sensitive}%</span>
+                        <span className="text-[10px] font-bold text-[#64748B]">{analytics.groups.Defensive}%</span>
                     </div>
                 </div>
 
                 {/* Specific Sectors */}
                 {analytics.sectors.length > 0 && (
-                    <div className="flex flex-col gap-1">
-                        <span className="text-[11px] font-black text-slate-400 uppercase px-1">Top Sectores</span>
-                        <div className="grid grid-cols-2 gap-2">
+                    <div className="flex flex-col gap-2">
+                        <span className="text-[10px] font-bold text-[#A07147] uppercase tracking-widest px-1">Top Sectores</span>
+                        <div className="grid grid-cols-2 gap-x-6 gap-y-2">
                             {analytics.sectors.map((s: any, i: number) => (
-                                <div key={i} className="flex justify-between items-center p-1.5 bg-white border border-slate-100 rounded shadow-sm">
-                                    <span className="text-[11px] font-bold text-slate-600 truncate" title={s.l}>{s.l}</span>
-                                    <span className="text-[11px] font-mono font-bold text-indigo-600">{s.v}%</span>
+                                <div key={i} className="flex justify-between items-center border-b border-dotted border-slate-200 py-1">
+                                    <span className="text-[11px] font-normal text-[#2C3E50] truncate" title={s.l}>{s.l}</span>
+                                    <span className="text-[11px] font-bold text-[#0B2545]">{s.v}%</span>
                                 </div>
                             ))}
                         </div>

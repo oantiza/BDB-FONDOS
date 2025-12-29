@@ -8,6 +8,7 @@ import XRayChart from '../components/charts/XRayChart'
 import DiversificationDonut from '../components/charts/DiversificationDonut'
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS, BENCHMARK_PROFILES } from '../utils/benchmarkUtils'
 import MetricCard from '../components/common/MetricCard'
+import SimpleStyleBox from '../components/charts/SimpleStyleBox'
 import { Fund, PortfolioItem } from '../types'
 
 interface XRayPageProps {
@@ -146,6 +147,68 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
             .slice(0, 10);
     }, [metrics, portfolio]);
 
+    // CALCULATE STYLE BOX STATS
+    const styleStats = useMemo(() => {
+        if (!portfolio || portfolio.length === 0) return {
+            equity: { style: 'Blend', cap: 'Large' },
+            fi: { duration: 'Medium', credit: 'Med' }
+        };
+
+        // Equity logic
+        const dominantCategory = portfolio[0]?.std_extra?.category || '';
+        let style = 'Blend';
+        let cap = 'Large';
+        if (dominantCategory.includes('Value')) style = 'Value';
+        if (dominantCategory.includes('Growth')) style = 'Growth';
+        if (dominantCategory.includes('Small')) cap = 'Small';
+        if (dominantCategory.includes('Mid')) cap = 'Mid';
+
+        // FI Logic (Simplified for now based on aggregations or keywords)
+        // Ideally loop through portfolio to find weighted duration/credit
+        let wDuration = 0;
+        let totalDurWeight = 0;
+        let weightedCreditScore = 0;
+        let totalCreditWeight = 0;
+
+        portfolio.forEach(p => {
+            const w = p.weight;
+            const dur = p.std_extra?.duration || 0;
+            if (dur > 0) {
+                wDuration += dur * w;
+                totalDurWeight += w;
+            }
+
+            // Credit heuristic
+            const q = p.std_extra?.credit_quality || 'BBB';
+            let score = 2; // BBB
+            if (['AAA', 'AA', 'A'].some(x => q.includes(x))) score = 3;
+            else if (['BB', 'B', 'CCC'].some(x => q.includes(x)) || q.includes('High Yield')) score = 1;
+
+            if (p.std_type === 'RF' || p.std_type === 'Fixed Income') {
+                weightedCreditScore += score * w;
+                totalCreditWeight += w;
+            }
+        });
+
+        const finalDur = totalDurWeight > 0 ? wDuration / totalDurWeight : 0;
+        let durLabel = 'Medium';
+        if (finalDur > 0) {
+            if (finalDur < 3) durLabel = 'Short';
+            else if (finalDur > 7) durLabel = 'Long';
+        }
+
+        const finalCredit = totalCreditWeight > 0 ? weightedCreditScore / totalCreditWeight : 0;
+        let creditLabel = 'Med';
+        if (finalCredit > 2.5) creditLabel = 'High';
+        else if (finalCredit < 1.5 && finalCredit > 0) creditLabel = 'Low';
+
+        return {
+            equity: { style, cap },
+            fi: { duration: durLabel, credit: creditLabel }
+        };
+
+    }, [portfolio]);
+
     return (
         <div className="h-screen flex flex-col bg-white font-sans text-slate-700 overflow-hidden">
             {/* MINIMALIST HEADER (Simplified to match Main Dashboard) */}
@@ -196,55 +259,55 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                         <div>
                             <div className="mb-6 flex justify-between items-end">
                                 <h1 className="text-[#2C3E50] text-3xl font-light tracking-tight">Composición de la Cartera</h1>
-                                <div className="text-right">
-                                    <div className="text-[#2C3E50] font-bold text-3xl tracking-tighter leading-none">{portfolio.length}</div>
-                                    <div className="text-[#A07147] text-[10px] uppercase tracking-widest font-bold">Activos</div>
-                                </div>
                             </div>
                             <table className="w-full text-left border-collapse">
                                 <thead>
-                                    <tr className="border-b border-[#eeeeee] h-10">
-                                        <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
-                                        <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold text-right">Peso</th>
-                                        <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold text-right">Capital</th>
-                                        <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold text-right">Riesgo (Vol)</th>
+                                    <tr className="border-b border-black h-10">
+                                        <th className="py-2 pl-4 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
+                                        <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">Peso</th>
+                                        <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">Capital</th>
+                                        <th className="py-2 pr-4 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">RIESGO</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {portfolio.sort((a, b) => b.weight - a.weight).map((fund) => (
-                                        <tr key={fund.isin} className="border-b border-[#f8f9f9] last:border-0 hover:bg-[#fcfcfc] transition-colors group">
-                                            <td className="py-4 pr-8 align-top">
-                                                <div className="text-[#2C3E50] font-bold text-lg leading-tight mb-1">
-                                                    {fund.name}
-                                                </div>
-                                                <div className="text-[#A07147] text-[10px] uppercase tracking-widest font-medium">
-                                                    {fund.std_extra?.category || fund.std_type || 'General'}
-                                                </div>
-                                            </td>
-                                            <td className="py-4 align-top text-right text-[#2C3E50] font-medium text-lg tabular-nums">
-                                                {fund.weight.toFixed(2)}%
-                                            </td>
-                                            <td className="py-4 align-top text-right text-[#2C3E50] font-medium text-lg tabular-nums">
-                                                {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
-                                            </td>
-                                            <td className="py-4 align-top text-right text-[#7f8c8d] font-normal text-base tabular-nums">
-                                                {(metrics.assets?.[fund.isin]?.volatility !== undefined)
-                                                    ? (metrics.assets[fund.isin].volatility * 100).toFixed(2) + '%'
-                                                    : (fund.std_perf?.volatility !== undefined)
-                                                        ? (fund.std_perf.volatility * 100).toFixed(2) + '%'
-                                                        : '-'}
-                                            </td>
-                                        </tr>
-                                    ))}
+                                    {[...portfolio].sort((a, b) => b.weight - a.weight).map((fund, index, arr) => {
+                                        const isFirst = index === 0;
+                                        const isLast = index === arr.length - 1;
 
-                                    {/* THICK TOTALS ROW */}
-                                    <tr className="border-t-[3px] border-[#2C3E50]">
-                                        <td className="py-6 text-xl font-bold text-[#2C3E50] tracking-tight">TOTAL CARTERA</td>
-                                        <td className="py-6 text-right font-bold text-[#2C3E50] text-xl tabular-nums">100.00%</td>
-                                        <td className="py-6 text-right font-bold text-[#2C3E50] text-xl tabular-nums">
+                                        return (
+                                            <tr key={fund.isin} className="last:border-0 hover:bg-[#fcfcfc] transition-colors group">
+                                                <td className={`pr-8 pl-4 align-top ${isFirst ? 'pt-8 pb-4' : isLast ? 'pt-4 pb-8' : 'py-4'}`}>
+                                                    <div className="text-[#2C3E50] font-[450] text-base leading-tight mb-1">
+                                                        {fund.name}
+                                                    </div>
+                                                    <div className="text-[#A07147] text-[10px] uppercase tracking-widest font-medium">
+                                                        {fund.std_extra?.category || fund.std_type || 'General'}
+                                                    </div>
+                                                </td>
+                                                <td className={`align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums ${isFirst ? 'pt-8 pb-4' : isLast ? 'pt-4 pb-8' : 'py-4'}`}>
+                                                    {fund.weight.toFixed(2)}%
+                                                </td>
+                                                <td className={`align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums ${isFirst ? 'pt-8 pb-4' : isLast ? 'pt-4 pb-8' : 'py-4'}`}>
+                                                    {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
+                                                </td>
+                                                <td className={`align-top text-right pr-4 text-[#2C3E50] font-[450] text-sm tabular-nums ${isFirst ? 'pt-8 pb-4' : isLast ? 'pt-4 pb-8' : 'py-4'}`}>
+                                                    {(metrics.assets?.[fund.isin]?.volatility !== undefined)
+                                                        ? (metrics.assets[fund.isin].volatility * 100).toFixed(2) + '%'
+                                                        : (fund.std_perf?.volatility !== undefined)
+                                                            ? (fund.std_perf.volatility * 100).toFixed(2) + '%'
+                                                            : '-'}
+                                                </td>
+                                            </tr>
+                                        );
+                                    })}
+
+                                    <tr className="border-t border-black">
+                                        <td className="py-6 pl-4 text-xl font-[550] text-[#2C3E50] tracking-tight">TOTAL CARTERA</td>
+                                        <td className="py-6 text-right font-[550] text-[#2C3E50] text-xl tabular-nums">100.00%</td>
+                                        <td className="py-6 text-right font-[550] text-[#2C3E50] text-xl tabular-nums">
                                             {totalCapital.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                                         </td>
-                                        <td className="py-6"></td> {/* EMPTY VOLATILITY CELL AS REQUESTED */}
+                                        <td className="py-6 pr-4"></td> {/* EMPTY VOLATILITY CELL AS REQUESTED */}
                                     </tr>
                                 </tbody>
                             </table>
@@ -265,65 +328,74 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                             </div>
                         </div>
 
-                        {/* SECTION 2b: TOP 10 HOLDINGS & DIVERSIFICATION (Side-by-Side) */}
-                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-y-16 lg:gap-x-0 border-t border-[#eeeeee] pt-12">
+                        {/* SECTION 2b: TOP 10 HOLDINGS & DIVERSIFICATION (Side-by-Side 1/3 - 2/3) */}
+                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-y-16 lg:gap-x-0 border-t border-[#eeeeee] pt-12">
 
                             {/* LEFT COL: Top 10 Holdings */}
                             {sortedHoldings && sortedHoldings.length > 0 && (
-                                <div className="lg:pr-12">
+                                <div className="lg:pr-12 lg:col-span-1">
                                     <div className="flex items-center gap-4 mb-6">
                                         <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">10 Principales Posiciones</h3>
-                                        <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Agregadas</span>
                                     </div>
 
                                     <table className="w-full text-left border-collapse">
                                         <thead>
-                                            <tr className="border-b border-[#eeeeee] h-10">
-                                                <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold w-[60%]">Activo / Sector</th>
-                                                <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold text-right">Peso</th>
-                                                <th className="py-2 text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold text-right">Contribución</th>
+                                            <tr className="border-b border-black h-10">
+                                                <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold w-[75%]">Activo / Sector</th>
+                                                <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">Peso</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {sortedHoldings.map((holding: any, idx: number) => (
-                                                <tr key={idx} className="border-b border-[#f8f9f9] last:border-0 hover:bg-[#fcfcfc] transition-colors group">
+                                                <tr key={idx} className="last:border-0 hover:bg-[#fcfcfc] transition-colors group">
                                                     <td className="py-3 pr-8 align-top">
-                                                        <div className="text-[#2C3E50] font-bold text-base leading-tight mb-1">
+                                                        <div className="text-[#2C3E50] font-normal text-sm leading-tight mb-1">
                                                             {holding.name || holding.isin}
                                                         </div>
                                                         <div className="text-[#A07147] text-[10px] uppercase tracking-widest font-medium">
                                                             {holding.sector || holding.std_type || 'General'}
                                                         </div>
                                                     </td>
-                                                    <td className="py-3 align-top text-right text-[#2C3E50] font-bold text-base tabular-nums">
+                                                    <td className="py-3 align-top text-right text-[#2C3E50] font-[450] text-sm tabular-nums">
                                                         {holding.weight.toFixed(2)}%
-                                                    </td>
-                                                    <td className="py-3 align-top text-right text-[#7f8c8d] font-normal text-sm tabular-nums">
-                                                        {((holding.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
                                                     </td>
                                                 </tr>
                                             ))}
                                             {/* THICK TOTALS ROW FOR TOP 10 */}
-                                            <tr className="border-t-[3px] border-[#2C3E50]">
-                                                <td className="py-4 text-sm font-bold text-[#2C3E50] tracking-tight text-right w-full pr-4" colSpan={1}>TOP 10 TOTAL</td>
-                                                <td className="py-4 text-right font-bold text-[#2C3E50] text-base tabular-nums">
+                                            <tr className="border-t border-black">
+                                                <td className="py-4 text-sm font-[550] text-[#2C3E50] tracking-tight text-right w-full pr-4">TOP 10 TOTAL</td>
+                                                <td className="py-4 text-right font-[550] text-[#2C3E50] text-base tabular-nums">
                                                     {sortedHoldings.reduce((acc: number, h: any) => acc + h.weight, 0).toFixed(2)}%
                                                 </td>
-                                                <td className="py-4"></td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             )}
 
-                            {/* RIGHT COL: Diversification Chart */}
-                            <div className="h-full flex flex-col lg:pl-12 lg:border-l lg:border-[#eeeeee]">
-                                <div className="flex items-center gap-4 mb-6">
-                                    <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación</h3>
-                                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Categorías</span>
-                                </div>
-                                <div className="flex-1 flex items-center justify-center">
-                                    <DiversificationDonut assets={categoryAllocation} />
+                            {/* RIGHT COL: Diversification Chart & Style Boxes */}
+                            <div className="h-full flex flex-col px-8 lg:pl-12 lg:border-l lg:border-[#eeeeee] lg:col-span-2">
+                                {/* Stack Container: Donut (Top) | StyleBoxes (Bottom) */}
+                                <div className="flex flex-col w-full h-full">
+                                    {/* Donut Chart - Top */}
+                                    {/* Title - Fixed at Top */}
+                                    <div className="flex items-center gap-4 mb-2 justify-center shrink-0">
+                                        <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación</h3>
+                                        <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Categorías</span>
+                                    </div>
+
+                                    {/* Content Container - Pushed Down */}
+                                    <div className="w-full flex-col justify-center flex-1 mt-24">
+                                        <div className="w-full h-[240px] flex items-center justify-center relative z-0">
+                                            <DiversificationDonut assets={categoryAllocation} />
+                                        </div>
+                                    </div>
+
+                                    {/* Style Boxes - Bottom (Horizontal Row) */}
+                                    <div className="flex gap-12 items-center justify-center border-t border-slate-100 pt-4 mt-4 shrink-0 pb-2">
+                                        <SimpleStyleBox type="equity" vertical={styleStats.equity.cap} horizontal={styleStats.equity.style} />
+                                        <SimpleStyleBox type="fixed-income" vertical={styleStats.fi.credit === 'High' ? 'High' : styleStats.fi.credit === 'Low' ? 'Low' : 'Med'} horizontal={styleStats.fi.duration} />
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -340,3 +412,5 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 }
 
 
+
+// Force Recompile

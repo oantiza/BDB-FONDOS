@@ -133,10 +133,8 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
     };
 
     return (
-        <div className="relative w-full h-full bg-white p-2 rounded-lg border border-slate-100 shadow-sm">
-            <div className="h-full w-full">
-                <Chart type='scatter' data={data} options={options} />
-            </div>
+        <div className="h-full w-full relative">
+            <Chart type='scatter' data={data} options={options} />
         </div>
     );
 };

@@ -1,15 +1,16 @@
 import React from 'react'
 
 interface ModalHeaderProps {
-    title: string;
+    title: React.ReactNode;
     subtitle?: string;
     onClose: () => void;
     icon?: React.ReactNode;
+    compact?: boolean;
 }
 
-export default function ModalHeader({ title, subtitle, onClose, icon }: ModalHeaderProps) {
+export default function ModalHeader({ title, subtitle, onClose, icon, compact = false }: ModalHeaderProps) {
     return (
-        <div className="p-4 border-b border-white/10 bg-gradient-to-r from-[#003399] to-[#0055CC] flex justify-between items-center shrink-0 shadow-md relative overflow-hidden">
+        <div className={`${compact ? 'p-3' : 'p-4'} border-b border-white/10 bg-gradient-to-r from-[#003399] to-[#0055CC] flex justify-between items-center shrink-0 shadow-md relative overflow-hidden`}>
             <div className="relative z-10 flex items-center gap-3">
                 {icon && (
                     <div className="h-8 w-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm text-white">

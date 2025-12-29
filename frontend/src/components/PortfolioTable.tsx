@@ -19,7 +19,7 @@ export default function PortfolioTable({
         <div className="overflow-x-auto overflow-y-auto max-h-full h-full custom-scrollbar">
             <table className="w-full text-left text-sm text-slate-600">
                 <tbody className="divide-y divide-slate-100">
-                    {assets.map((asset) => {
+                    {assets.map((asset, index) => {
                         const val = (totalCapital * (asset.weight / 100))
 
                         // Detectar si el fondo fue elegido manualmente
@@ -32,26 +32,35 @@ export default function PortfolioTable({
                                 className={`border-b border-slate-50 hover:bg-slate-50 group transition-colors cursor-pointer ${isManual ? 'bg-blue-50/40' : ''}`}
                                 onClick={() => onFundClick && onFundClick(asset)}
                             >
-                                <td className="p-3 truncate max-w-[180px] font-bold text-slate-700 text-sm" title={asset.name}>
-                                    {/* Candado indicador de selección manual */}
-                                    {isManual && <span className="mr-1 text-xs" title="Fondo seleccionado manualmente (Protegido)">🔒</span>}
-                                    {asset.name}
+                                <td className="py-3 pr-3 pl-6 align-middle" title={asset.name}>
+                                    <div className="flex items-center gap-3">
+                                        {/* Candado indicador de selección manual */}
+                                        {isManual && <span className="text-xs shrink-0" title="Fondo seleccionado manualmente (Protegido)">🔒</span>}
+
+                                        <span className="truncate max-w-[320px] text-[#2C3E50] font-[450] text-sm leading-tight">
+                                            {asset.name}
+                                        </span>
+
+                                        <span className="text-[#A07147] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#A07147]/10 px-1.5 py-0.5 rounded">
+                                            {asset.std_type || 'General'}
+                                        </span>
+                                    </div>
                                 </td>
-                                <td className="p-3 text-right">
+                                <td className="p-3 text-right align-middle">
                                     <div className="flex items-center justify-end gap-1">
                                         <input
                                             type="number"
-                                            className="w-12 text-right bg-transparent outline-none font-bold text-blue-600 text-sm border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors"
+                                            className="w-14 text-right bg-transparent outline-none font-[450] text-[#2C3E50] text-sm border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors tabular-nums"
                                             value={Math.round(asset.weight * 100) / 100}
                                             step="0.01"
                                             onClick={(e) => e.stopPropagation()}
                                             onChange={(e) => onUpdateWeight && onUpdateWeight(asset.isin, e.target.value)}
                                         />
-                                        <span className="text-blue-400 font-bold text-sm">%</span>
+                                        <span className="text-[#A07147] font-[450] text-sm">%</span>
                                     </div>
                                 </td>
-                                <td className="p-3 text-right font-mono text-slate-600 font-bold text-sm">
-                                    {val.toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 })}
+                                <td className="p-3 text-right align-middle text-[#2C3E50] font-[450] text-sm tabular-nums">
+                                    {val.toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                                 </td>
 
                                 {/* --- NUEVA COLUMNA SWAP --- */}
@@ -64,7 +73,7 @@ export default function PortfolioTable({
                                         ⇄ Cambiar
                                     </button>
                                 </td>
-                                <td className="p-3 text-right">
+                                <td className="py-3 pl-3 pr-6 text-right">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onRemove && onRemove(asset.isin); }}
                                         className="text-slate-300 hover:text-red-500 transition-colors px-2 py-0.5 text-xs border border-slate-200 hover:border-red-200 rounded"
@@ -77,17 +86,22 @@ export default function PortfolioTable({
                         )
                     })}
                 </tbody>
-                <tfoot className="border-t border-slate-200 font-bold bg-slate-50">
+                <tfoot className="bg-white">
                     <tr>
-                        <td className="p-3 text-slate-500 uppercase text-xs font-bold text-right">TOTAL</td>
-                        <td className="p-3 text-right text-slate-800 text-sm">
+                        <td colSpan={5} className="p-0">
+                            <div className="mx-6 border-t border-black/80"></div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td className="py-4 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">TOTAL</td>
+                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
                             {assets.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0).toFixed(2)}%
                         </td>
-                        <td className="p-3 text-right font-mono text-emerald-600 text-sm">
-                            {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-CO', { style: 'currency', currency: 'COP', minimumFractionDigits: 2 })}
+                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
+                            {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </td>
                         <td></td>
-                        <td></td>
+                        <td className="py-4 pl-3 pr-6"></td>
                     </tr>
                 </tfoot>
             </table>

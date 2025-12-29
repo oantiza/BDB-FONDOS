@@ -26,7 +26,7 @@ export default {
         text: '#1F2937',        // Gray 800
       },
       fontFamily: {
-        sans: ['Roboto', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Roboto Flex', 'Roboto', 'Inter', 'system-ui', 'sans-serif'],
         serif: ['Playfair Display', 'Merriweather', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       }

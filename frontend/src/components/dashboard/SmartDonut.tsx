@@ -4,25 +4,26 @@ import { Doughnut } from 'react-chartjs-2'
 ChartJS.register(ArcElement, Tooltip, Legend)
 
 // Paleta Semántica Profesional
+// Paleta Semántica Profesional (Editorial Premium: Navy & Gold)
 const ASSET_COLORS: Record<string, string> = {
-    // RV
-    'RV Norteamérica': '#ef4444', // Red 500
-    'RV Europa': '#3b82f6',       // Blue 500
-    'RV Emergentes/Asia': '#f59e0b', // Amber 500
-    'RV Global': '#ec4899',       // Pink 500
+    // RV (Navy/Blue Spectrum)
+    'RV Norteamérica': '#0B2545', // Deep Navy
+    'RV Europa': '#1E3A8A',       // Dark Blue
+    'RV Emergentes/Asia': '#3B82F6', // Blue 500
+    'RV Global': '#60A5FA',       // Blue 400
 
-    // RF
-    'Deuda Pública': '#10b981',   // Emerald 500
-    'Crédito Corporativo': '#06b6d4', // Cyan 500
-    'Renta Fija Global': '#6366f1',   // Indigo 500
+    // RF (Gold/Earth Spectrum)
+    'Deuda Pública': '#A07147',   // Gold/Bronze
+    'Crédito Corporativo': '#D4AF37', // Lighter Gold
+    'Renta Fija Global': '#C5A059',   // Pale Gold
 
-    // Otros
-    'Monetarios': '#84cc16',      // Lime 500
-    'Retorno Absoluto': '#a855f7', // Purple 500
-    'Materias Primas': '#f97316', // Orange 500
-    'Alternativos/Otros': '#64748b' // Slate 500
+    // Otros (Slate/Neutral)
+    'Monetarios': '#94A3B8',      // Slate 400
+    'Retorno Absoluto': '#64748B', // Slate 500
+    'Materias Primas': '#475569', // Slate 600
+    'Alternativos/Otros': '#CBD5E1' // Slate 300
 }
-const DEFAULT_PALETTE = ['#64748b', '#94a3b8', '#cbd5e1']
+const DEFAULT_PALETTE = ['#0B2545', '#A07147', '#64748B', '#D4AF37', '#1E3A8A']
 
 export default function SmartDonut({ allocation = [] }) {
     // Verificación de datos
@@ -73,7 +74,7 @@ export default function SmartDonut({ allocation = [] }) {
                 }
             }
         },
-        cutout: '65%', // Thicker ring (was 70%)
+        cutout: '85%', // Thinner ring (Elegance)
         layout: { padding: 5 } // Minimized padding (was 10)
     }
 
@@ -83,14 +84,14 @@ export default function SmartDonut({ allocation = [] }) {
                 <Doughnut data={dataAlloc} options={options} />
                 {/* Texto Central */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-sm font-extrabold text-slate-400 uppercase tracking-widest">
+                    <span className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
                         ACTIVOS
                     </span>
                 </div>
             </div>
 
             {/* Leyenda Dinámica con Valores */}
-            <div className="flex flex-wrap gap-2 justify-center mt-2 px-1 w-full max-h-[4.5rem] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200">
+            <div className="flex flex-wrap gap-2 justify-center mt-2 px-1 w-full h-16 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-200 snap-end shrink-0">
                 {!isEmpty && safeData.map((d, i) => (
                     <LegendItem
                         key={i}

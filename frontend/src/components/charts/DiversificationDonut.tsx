@@ -49,7 +49,7 @@ export default function DiversificationDonut({ assets }: DiversificationDonutPro
     }, [assets]);
 
     return (
-        <div className="w-full h-[400px] flex items-center justify-center">
+        <div className="w-full h-full flex items-center justify-center">
             {/* Chart Area */}
             <div className="w-full h-full relative">
                 <Plot

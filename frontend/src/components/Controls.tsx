@@ -94,21 +94,21 @@ export default function Controls({
                     <div className="grid grid-cols-3 gap-2 pt-2">
                         <button
                             onClick={onOpenCosts}
-                            className="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold py-2 rounded hover:bg-slate-50 hover:text-slate-800 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
+                            className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-bold py-2 rounded hover:bg-blue-100 hover:text-blue-900 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
                         >
                             Costes
                         </button>
                         <button
                             onClick={onOpenTactical}
-                            className="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold py-2 rounded hover:bg-slate-50 hover:text-slate-800 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
+                            className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-bold py-2 rounded hover:bg-blue-100 hover:text-blue-900 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
                         >
                             Revisión
                         </button>
                         <button
                             onClick={onOpenMacro}
-                            className="bg-white border border-slate-200 text-slate-600 text-[10px] font-bold py-2 rounded hover:bg-slate-50 hover:text-slate-800 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
+                            className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-bold py-2 rounded hover:bg-blue-100 hover:text-blue-900 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
                         >
-                            Macro
+                            AJUSTE MANUAL
                         </button>
                     </div>
                 </div>

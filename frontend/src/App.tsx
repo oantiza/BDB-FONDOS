@@ -45,24 +45,14 @@ function App() {
     )
   }
 
-  // Routing for Analytics (simulated via state for now, or true routing if URL based, but App uses state view)
-  // Wait, the user asked for "another new window". In a SPA without Router, new window means new URL.
-  // The current App.tsx does NOT use react-router-dom. It uses conditional rendering `activeView`.
-  // To support "Opening in a new window", the new window will load `index.html` -> `main.tsx` -> `App.tsx`.
-  // `App.tsx` initializes state to DASHBOARD. It doesn't know about URL paths.
-  // I MUST check the URL pathname in `App.tsx` to set the initial state if I want to support new windows.
-  // Or I can add `react-router-dom`.
-  // Given the current simple state-based implementation, the easiest way to support "New Window" is to check `window.location.search` or `window.location.hash` or path.
-  // Let's modify App.tsx to check generic URL params or path.
-  // Since I can't easily install Router without risk, I'll use `window.location.pathname`.
-
+  // Routing for Analytics (simple path check for new window support)
   if (window.location.pathname === '/x-ray/analytics') {
     return (
       <XRayAnalyticsPage
         portfolio={portfolioState.portfolio}
         fundDatabase={portfolioState.assets}
         totalCapital={portfolioState.totalCapital}
-        onBack={() => { }} // No back in new window usually, or just close
+        onBack={() => { }}
       />
     )
   }

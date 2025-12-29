@@ -117,7 +117,6 @@ export default function DashboardPage({
 
     // Modals Visibility
     const [showCosts, setShowCosts] = useState(false)
-    // showAnalysis removed
     const [showTactical, setShowTactical] = useState(false)
     const [showMacro, setShowMacro] = useState(false)
     const [showVipModal, setShowVipModal] = useState(false)
@@ -328,10 +327,12 @@ export default function DashboardPage({
 
                     <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200">
                         <div className="flex-1 bg-white overflow-hidden relative flex flex-col">
-                            <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                            <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0 relative">
+                                <h3 className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
                                     Cartera de Fondos
                                 </h3>
+                                {/* Separator Line with Padding */}
+                                <div className="absolute bottom-0 left-0 right-0 mx-6 border-b border-black/80"></div>
                                 <div className="flex items-center gap-3 text-xs">
                                     <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Capital</span>
                                     <div className="flex items-center border border-slate-200 rounded px-2 py-1 bg-slate-50">
@@ -339,7 +340,7 @@ export default function DashboardPage({
                                         <span className="text-slate-400 text-[10px] font-bold ml-1">EUR</span>
                                     </div>
                                     <div className="h-4 w-px bg-slate-100 mx-1"></div>
-                                    <button onClick={() => generateClientReport(portfolio, totalCapital, riskLevel)} className="text-[#C0392B] hover:text-[#e74c3c] transition-colors font-bold flex items-center gap-1 text-[10px] uppercase tracking-wider" title="Descargar Informe PDF"><span>📄</span> PDF</button>
+                                    <button onClick={() => generateClientReport(portfolio, totalCapital, riskLevel, { volatility: portfolioPoint?.x || 0, return: portfolioPoint?.y || 0 }, historyData, allocData, geoData)} className="text-[#C0392B] hover:text-[#e74c3c] transition-colors font-bold flex items-center gap-1 text-[10px] uppercase tracking-wider" title="Descargar Informe PDF"><span>📄</span> PDF</button>
                                     <button onClick={() => exportToCSV(portfolio, totalCapital)} className="text-slate-400 hover:text-[#003399] transition-colors">📥</button>
                                     <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv" className="hidden" />
                                     <button onClick={handleImportClick} className="text-slate-400 hover:text-[#003399] transition-colors">📂</button>
@@ -357,28 +358,31 @@ export default function DashboardPage({
                         <div className="bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col shrink-0 h-full group hover:border-slate-200 transition-colors">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center">
                                 <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
-                                    Análisis de Cartera
+                                    Distribución de Activos
                                 </h3>
                             </div>
 
                             <div className="flex flex-col h-full bg-white">
-                                {/* Row 1: Equity & Fixed Income Distribution (Larger) */}
-                                <div className="grid grid-cols-2 gap-4 p-4 border-b border-slate-50 flex-[1.5] min-h-0">
-                                    <div className="bg-[#fcfcfc] border border-slate-100 rounded-lg h-full overflow-hidden">
+                                {/* Row 1: Equity & Fixed Income Distribution (Floating with Separator) */}
+                                <div className="flex px-4 pt-4 border-b border-slate-50 flex-[1.5] min-h-0">
+                                    <div className="flex-1 h-full overflow-hidden pr-6 border-r border-slate-100">
                                         <EquityDistribution portfolio={portfolio} />
                                     </div>
-                                    <div className="bg-[#fcfcfc] border border-slate-100 rounded-lg h-full overflow-hidden">
+                                    <div className="flex-1 h-full overflow-hidden pl-6">
                                         <FixedIncomeDistribution portfolio={portfolio} />
                                     </div>
                                 </div>
 
                                 {/* Row 2: Donuts (Smaller) */}
-                                <div className="grid grid-cols-2 gap-4 p-4 flex-1 min-h-0">
-                                    <div className="bg-[#fcfcfc] border border-slate-100 rounded-lg p-2 h-full relative flex flex-col items-center justify-center overflow-hidden">
-                                        <SmartDonut allocation={allocData} />
-                                    </div>
-                                    <div className="bg-[#fcfcfc] border border-slate-100 rounded-lg p-2 h-full relative flex flex-col items-center justify-center overflow-hidden">
-                                        <GeoDonut allocation={geoData} />
+                                {/* Row 2: Donuts (Floating) */}
+                                <div className="flex flex-col px-4 pb-6 min-h-0 flex-1">
+                                    <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                            <SmartDonut allocation={allocData} />
+                                        </div>
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                            <GeoDonut allocation={geoData} />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -400,6 +404,6 @@ export default function DashboardPage({
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
                 <FundSwapModal isOpen={isSwapOpen} originalFund={fundToSwap} alternatives={swapAlternatives} onSelect={performSwap} onClose={() => setIsSwapOpen(false)} />
             </Suspense>
-        </div>
+        </div >
     )
 }

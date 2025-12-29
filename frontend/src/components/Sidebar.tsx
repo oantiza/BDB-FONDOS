@@ -13,7 +13,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
   return (
     <div className="w-full h-full bg-white border-r border-slate-100 shadow-sm z-10 p-0 flex flex-col shrink-0 text-slate-700">
       <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0">
-        <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+        <h3 className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
           Universo de Inversión
         </h3>
       </div>
@@ -25,6 +25,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
           placeholder="Buscar nombre o ISIN..."
           className="w-full text-sm p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-colors placeholder:text-slate-400"
         />
+        <div className="text-[10px] text-slate-400 mt-2 text-center italic">Pincha sobre el fondo para mas detalles.</div>
       </div>
       <div className="flex-1 overflow-y-auto scrollbar-thin">
         {assets.length === 0 ? (
@@ -40,12 +41,12 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }) {
               <div className="min-w-0 pr-2 flex-1">
                 <div
                   onClick={() => onViewDetail && onViewDetail(f)}
-                  className="text-sm font-bold text-slate-700 truncate cursor-pointer hover:text-[#003399] transition-colors"
+                  className="text-sm font-normal text-[#2C3E50] truncate cursor-pointer hover:text-[#003399] transition-colors leading-tight"
                   title="Ver detalle del fondo"
                 >
                   {f.name}
                 </div>
-                <div className="text-xs text-slate-400 font-mono mt-0.5">{f.isin}</div>
+                <div className="text-[10px] text-[#A07147] font-bold uppercase tracking-wider mt-1">{f.isin}</div>
               </div>
               <button
                 onClick={() => onAddAsset(f)}
