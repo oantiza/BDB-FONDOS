@@ -171,13 +171,13 @@ export default function StyleAnalytics({ portfolio = [] }) {
             <div className="flex-1 grid grid-cols-[130px_1fr_120px] gap-4 p-4 items-center overflow-hidden">
                 {/* 1. EQUITY STYLE BOX */}
                 <div className="flex flex-col justify-center">
-                    <span className="text-[9px] font-black text-slate-500 uppercase mb-3 text-center pr-3">Equity Style</span>
+                    <span className="text-[10px] font-black text-slate-500 uppercase mb-3 text-center pr-3">Equity Style</span>
                     <div className="relative">
-                        <div className="flex justify-between pl-6 pr-0.5 mb-1 text-[8px] font-black text-slate-500">
+                        <div className="flex justify-between pl-6 pr-0.5 mb-1 text-[9px] font-black text-slate-500">
                             <span>VAL</span><span>BLN</span><span>GRW</span>
                         </div>
                         <div className="flex">
-                            <div className="flex flex-col justify-between py-2 mr-1.5 text-[8px] font-black text-slate-500 h-24">
+                            <div className="flex flex-col justify-between py-2 mr-1.5 text-[9px] font-black text-slate-500 h-24">
                                 <span>LRG</span><span>MID</span><span>SML</span>
                             </div>
                             <div className="grid grid-cols-3 gap-1 w-24 h-24">
@@ -201,7 +201,7 @@ export default function StyleAnalytics({ portfolio = [] }) {
 
                     {/* Equity Super Sectors */}
                     <div className="flex flex-col gap-2">
-                        <span className="text-[9px] font-black text-indigo-800/70 uppercase text-center border-b border-indigo-100 pb-1">Sectores RV (Estilo)</span>
+                        <span className="text-[10px] font-black text-indigo-800/70 uppercase text-center border-b border-indigo-100 pb-1">Sectores RV (Estilo)</span>
                         <div className="flex flex-col gap-1.5">
                             <SuperSectorBar label="Cíclico" value={analytics.equity_groups.Cyclical} color="text-amber-600" bg="bg-amber-500" />
                             <SuperSectorBar label="Sensible" value={analytics.equity_groups.Sensitive} color="text-blue-600" bg="bg-blue-500" />
@@ -212,10 +212,10 @@ export default function StyleAnalytics({ portfolio = [] }) {
                     {/* Specific Sectors Breakdown (Added by request) */}
                     {analytics.sectors.length > 0 && (
                         <div className="flex flex-col gap-2 mt-1">
-                            <span className="text-[9px] font-black text-indigo-800/50 uppercase text-center border-b border-indigo-50 pb-1">Desglose Top Sectores</span>
+                            <span className="text-[10px] font-black text-indigo-800/50 uppercase text-center border-b border-indigo-50 pb-1">Desglose Top Sectores</span>
                             <div className="grid grid-cols-2 gap-x-2 gap-y-1">
                                 {analytics.sectors.slice(0, 6).map((sec: any, i: number) => (
-                                    <div key={i} className="flex justify-between items-center text-[8px] bg-slate-50 px-1.5 py-1 rounded">
+                                    <div key={i} className="flex justify-between items-center text-[9px] bg-slate-50 px-1.5 py-1 rounded">
                                         <span className="truncate max-w-[50px] text-slate-600 font-bold" title={sec.l}>{sec.l}</span>
                                         <span className="font-mono text-indigo-600 font-bold">{sec.v}%</span>
                                     </div>
@@ -226,11 +226,11 @@ export default function StyleAnalytics({ portfolio = [] }) {
 
                     {/* RF Type */}
                     <div className="flex flex-col gap-2 mt-2">
-                        <span className="text-[9px] font-black text-emerald-800/70 uppercase text-center border-b border-emerald-100 pb-1">Tipo Renta Fija</span>
+                        <span className="text-[10px] font-black text-emerald-800/70 uppercase text-center border-b border-emerald-100 pb-1">Tipo Renta Fija</span>
                         <div className="flex flex-col gap-1.5">
                             {((analytics as any).rf_sectors || []).map((sec: any, i: number) => (
                                 <div key={i} className="flex flex-col gap-0.5">
-                                    <div className="flex justify-between text-[8px] font-black text-slate-600 uppercase tracking-tighter">
+                                    <div className="flex justify-between text-[9px] font-black text-slate-600 uppercase tracking-tight">
                                         <span>{sec.l}</span><span>{sec.v}%</span>
                                     </div>
                                     <div className="h-1 w-full bg-slate-100 rounded-full overflow-hidden">
@@ -249,7 +249,7 @@ export default function StyleAnalytics({ portfolio = [] }) {
 
                     <div className="h-px bg-slate-100 my-1"></div>
 
-                    <span className="text-[8px] font-black text-emerald-800/50 uppercase text-center">Renta Fija</span>
+                    <span className="text-[10px] font-black text-emerald-800/50 uppercase text-center">Renta Fija</span>
                     <MetricBox label="Duración" value={analytics.duration + 'y'} color="indigo" />
                     <MetricBox label="Vencimiento" value={analytics.maturity + 'y'} color="blue" />
                     <MetricBox label="Calidad" value={analytics.credit_quality} color="slate" />
@@ -261,14 +261,14 @@ export default function StyleAnalytics({ portfolio = [] }) {
 
 const MetricBox = ({ label, value, color }: any) => (
     <div className={`flex flex-col border-l-2 pl-3 ${color === 'emerald' ? 'border-emerald-500' : color === 'indigo' ? 'border-indigo-500' : 'border-slate-400'}`}>
-        <span className="text-[9px] font-black text-slate-500 uppercase tracking-tighter">{label}</span>
-        <span className={`font-mono font-black text-[11px] ${color === 'emerald' ? 'text-emerald-700' : 'text-slate-800'}`}>{value}</span>
+        <span className="text-[10px] font-black text-slate-500 uppercase tracking-tight">{label}</span>
+        <span className={`font-mono font-black text-[12px] ${color === 'emerald' ? 'text-emerald-700' : 'text-slate-800'}`}>{value}</span>
     </div>
 );
 
 const SuperSectorBar = ({ label, value, color, bg }: any) => (
     <div className="flex flex-col gap-0.5">
-        <div className="flex justify-between text-[8px] font-black text-slate-600 uppercase tracking-tighter">
+        <div className="flex justify-between text-[9px] font-black text-slate-600 uppercase tracking-tight">
             <span className={color}>{label}</span>
             <span>{value}%</span>
         </div>

@@ -2,7 +2,9 @@ export interface Fund {
     isin: string;
     name: string;
     std_type?: string;
+    category_morningstar?: string; // Correct field from DB
     std_region?: string;
+    primary_region?: string; // Correct field from DB
     std_perf?: {
         volatility?: number;
         sharpe?: number;
@@ -12,6 +14,7 @@ export interface Fund {
         cagr6m?: number;
         alpha?: number;
         beta?: number;
+        sortino_ratio?: number;
     };
     std_extra?: {
         category?: string;
@@ -22,9 +25,15 @@ export interface Fund {
         duration?: number;
         [key: string]: any;
     };
+    costs?: {
+        retrocession?: number;
+        management_fee?: number;
+    };
+    rating_overall?: number; // Morningstar Rating
+    sectors?: Record<string, number>; // Sector distribution
     returns_history?: Record<string, number>; // Schema V2 (Map)
     risk_srri?: number; // Schema V2 (Snake Case)
-    [key: string]: any;
+    holdings?: any[]; // Holdings list
 }
 
 export interface PortfolioItem extends Fund {
@@ -49,6 +58,7 @@ export interface YieldCurveResponse {
 export interface SmartPortfolioResponse {
     portfolio: PortfolioItem[];
     metrics: any;
+    assets?: Record<string, Fund & { volatility?: number }>; // Map of ISIN -> Enriched Fund details
     warnings: string[];
     debug: any;
     status?: string;

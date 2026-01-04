@@ -1,78 +1,74 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
-import { httpsCallable } from 'firebase/functions';
-import { db, functions } from '../firebase';
+import { collection, query, where, limit, getDocs } from 'firebase/firestore'; // Removed orderBy as it was used in client-side sort
+import { db } from '../firebase';
 import { MacroReport } from '../types/MacroReport';
 
-// Iconos simples (puedes usar Lucide o Heroicons si los tienes instalados)
-const TrendingUp = () => <span className="text-green-500">↗</span>;
-const TrendingDown = () => <span className="text-red-500">↘</span>;
-const TrendingFlat = () => <span className="text-gray-400">→</span>;
+import GlobalMacroIntelligence from './GlobalMacroIntelligenceLight';
+
+// Extracted Components
+import { StrategyCard } from './macro/StrategyCard';
+import { SubSection } from './macro/SubSection';
+import { PulseCard } from './macro/PulseCard';
 
 export default function MacroDashboard() {
-  const [activeTab, setActiveTab] = useState<'WEEKLY' | 'MONTHLY' | 'STRATEGY'>('STRATEGY');
+  const [activeTab, setActiveTab] = useState<'WEEKLY' | 'MONTHLY' | 'STRATEGY' | 'GLOBAL_MACRO'>('STRATEGY');
   const [report, setReport] = useState<MacroReport | null>(null);
+  const [reports, setReports] = useState<MacroReport[]>([]);
+  const [empty, setEmpty] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [generating, setGenerating] = useState(false);
+
+
+  // Helper to safely convert different date formats to JS Date
+  const toDate = (dateVal: any): Date => {
+    if (!dateVal) return new Date();
+    if (dateVal instanceof Date) return dateVal;
+    if (dateVal.seconds) return new Date(dateVal.seconds * 1000); // Firestore Timestamp-like
+    if (typeof dateVal === 'string') return new Date(dateVal);
+    return new Date();
+  };
 
   const fetchReport = async () => {
     setLoading(true);
-    console.log("🔍 Fetching reports for tab:", activeTab);
     try {
       const q = query(
         collection(db, 'reports'),
         where('type', '==', activeTab)
       );
       const snapshot = await getDocs(q);
-      console.log(`📊 Found ${snapshot.size} documents for ${activeTab}`);
 
       if (!snapshot.empty) {
         const docs = snapshot.docs.map(d => ({ id: d.id, ...d.data() } as MacroReport));
-        console.log("📄 First doc sample:", docs[0]);
 
         // Client-side sort to avoid missing index issues
         docs.sort((a, b) => {
-          const tA = a.createdAt?.seconds ? a.createdAt.seconds : new Date(a.createdAt || 0).getTime() / 1000;
-          const tB = b.createdAt?.seconds ? b.createdAt.seconds : new Date(b.createdAt || 0).getTime() / 1000;
-          return tB - tA;
+          const dateA = toDate(a.createdAt || a.date);
+          const dateB = toDate(b.createdAt || b.date);
+          return dateB.getTime() - dateA.getTime();
         });
+        setReports(docs);
+        setEmpty(false);
+        // The original code set a single report, let's keep that behavior for now by setting the first one
         setReport(docs[0]);
       } else {
         console.warn(`⚠️ No reports found in Firestore for type: ${activeTab}`);
-        setReport(null);
+        setReports([]);
+        setEmpty(true);
+        setReport(null); // Keep original behavior
       }
     } catch (err) {
       console.error("❌ Error cargando informe:", err);
+      // Fallback to empty state
+      setReports([]);
+      setEmpty(true);
+      setReport(null); // Keep original behavior
     } finally {
       setLoading(false);
-    }
-  };
-
-  const generateReport = async () => {
-    setGenerating(true);
-    try {
-      const generateFn = httpsCallable(functions, 'generate_analysis_report');
-      await generateFn({ type: activeTab }); // Send current tab (WEEKLY/MONTHLY)
-      // Soft-refresh: Re-fetch data without reloading page
-      await fetchReport();
-    } catch (e) {
-      console.error("Error generating report:", e);
-      alert("Error generando informe. Revisa la consola.");
-    } finally {
-      setGenerating(false);
     }
   };
 
   useEffect(() => {
     fetchReport();
   }, [activeTab]);
-
-  // Renderizado de Tendencia
-  const renderTrend = (trend: string) => {
-    if (trend === 'BULLISH' || trend === 'ALCISTA') return <><TrendingUp /> Alcista</>;
-    if (trend === 'BEARISH' || trend === 'BAJISTA') return <><TrendingDown /> Bajista</>;
-    return <><TrendingFlat /> Neutral</>;
-  };
 
   return (
     <div className="bg-white min-h-screen pb-12 font-sans text-slate-700">
@@ -88,6 +84,8 @@ export default function MacroDashboard() {
               <span className="text-white/70 text-[10px] uppercase tracking-widest font-medium">Global CIO Office</span>
             </div>
           </div>
+
+
 
           {/* Minimalist Tab Selector */}
           <div className="flex gap-8 border-b border-white/20 pb-1">
@@ -109,6 +107,13 @@ export default function MacroDashboard() {
             >
               Asignación de Activos
             </button>
+            <button
+              onClick={() => setActiveTab('GLOBAL_MACRO')}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'GLOBAL_MACRO' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
+            >
+              Inteligencia (Macro)
+            </button>
+
           </div>
         </div>
       </div>
@@ -121,21 +126,7 @@ export default function MacroDashboard() {
           </div>
         )}
 
-        {!loading && !report && (
-          <div className="bg-white p-12 text-center border border-[#eeeeee]">
-            <h2 className="text-xl font-light text-[#2C3E50] mb-2 tracking-tight">Preparado para Análisis</h2>
-            <p className="text-[#7f8c8d] text-sm mt-2 mb-8">
-              No se ha encontrado ningún informe {activeTab === 'WEEKLY' ? 'semanal' : activeTab === 'MONTHLY' ? 'mensual' : 'de asignación'}.
-            </p>
-            <button
-              onClick={generateReport}
-              disabled={generating}
-              className="bg-[#2C3E50] hover:bg-[#1a252f] text-white font-bold py-3 px-8 text-xs uppercase tracking-widest transition-colors disabled:opacity-50"
-            >
-              {generating ? 'Generando...' : 'Generar Informe (Gemini 2.0)'}
-            </button>
-          </div>
-        )}
+
 
         {!loading && report && (
           <div className="space-y-12 animate-fade-in">
@@ -332,64 +323,12 @@ export default function MacroDashboard() {
 
           </div>
         )}
-      </div>
-    </div>
-  );
-}
 
-// Subcomponentes para la vista de Estrategia
-const StrategyCard = ({ title, icon, children }: any) => (
-  // Minimalist Card: No Shadow, Clean Border
-  <div className="bg-white border-t-2 border-[#2C3E50] pt-4">
-    <div className="flex items-center gap-3 mb-6">
-      <span className="text-xl opacity-80 grayscale">{icon}</span>
-      <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-[10px]">{title}</h3>
-    </div>
-    <div className="space-y-6">
-      {children}
-    </div>
-  </div>
-);
+        {/* --- GLOBAL MACRO INTELLIGENCE TAB --- */}
+        {activeTab === 'GLOBAL_MACRO' && (
+          <GlobalMacroIntelligence />
+        )}
 
-const SubSection = ({ title, items }: any) => {
-  if (!items) return null;
-  return (
-    <div>
-      <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
-      <div className="space-y-2">
-        {items.map((item: any, idx: number) => (
-          <div key={idx} className="flex justify-between items-center text-sm group">
-            <span className="font-medium text-[#2C3E50] group-hover:text-slate-900 transition-colors">{item.name}</span>
-            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${item.view === 'POSITIVO' || item.view === 'SOBREPONDERAR' ? 'text-green-700 bg-green-50' :
-              item.view === 'NEGATIVO' || item.view === 'INFRAPONDERAR' ? 'text-red-700 bg-red-50' :
-                'text-slate-500 bg-slate-50'
-              }`}>
-              {item.view}
-            </span>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-};
-
-
-
-// Subcomponente para tarjetas
-const PulseCard = ({ title, data }: { title: string, data: any }) => {
-  if (!data) return null;
-  const trendColor = data.trend === 'BULLISH' ? 'text-green-600' : data.trend === 'BEARISH' ? 'text-red-600' : 'text-slate-400';
-
-  return (
-    // Clean Minimalist Card
-    <div className="bg-white p-6 border border-[#eeeeee] flex flex-col justify-between h-full hover:border-slate-300 transition-colors">
-      <div>
-        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3">{title}</h4>
-        <div className="text-2xl font-light text-[#2C3E50] mb-2 tracking-tight">{data.focus}</div>
-        <p className="text-sm text-[#7f8c8d] leading-snug">{data.note}</p>
-      </div>
-      <div className={`mt-4 pt-4 border-t border-[#f5f5f5] text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${trendColor}`}>
-        {data.trend === 'BULLISH' ? '↗ Alcista' : data.trend === 'BEARISH' ? '↘ Bajista' : '→ Neutral'}
       </div>
     </div>
   );

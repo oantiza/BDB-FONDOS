@@ -1,0 +1,109 @@
+import { useState, useEffect, useMemo } from 'react';
+import { httpsCallable } from 'firebase/functions';
+import { functions } from '../firebase';
+import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS } from '../utils/benchmarkUtils';
+import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
+
+interface UseXRayAnalyticsProps {
+    portfolio: PortfolioItem[];
+    fundDatabase: Fund[];
+    initialPeriod?: string;
+}
+
+export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y' }: UseXRayAnalyticsProps) {
+    // State
+    const [metrics, setMetrics] = useState<SmartPortfolioResponse | null>(null);
+    const [loading, setLoading] = useState(true);
+    const [errorMsg, setErrorMsg] = useState<string | null>(null);
+    const [benchmarkId, setBenchmarkId] = useState('moderate');
+    const [period, setPeriod] = useState(initialPeriod);
+    const [riskExplanation, setRiskExplanation] = useState('Analizando perfil...');
+
+    // Computed: Synthetic Profiles
+    const syntheticProfiles = useMemo(() => {
+        if (!fundDatabase || !fundDatabase.length) return [];
+        return generateBenchmarkProfiles(fundDatabase);
+    }, [fundDatabase]);
+
+    // Computed: Risk Explanation
+    useEffect(() => {
+        if (metrics?.metrics && metrics?.metrics?.volatility !== undefined && metrics?.metrics?.cagr !== undefined) {
+            // @ts-ignore - synthetics might be missing in type definition but present in runtime
+            const synthetics = metrics.synthetics || [];
+
+            const analysis = getRiskProfileExplanation(
+                metrics.metrics.volatility,
+                metrics.metrics.cagr,
+                synthetics
+            );
+
+            if (typeof analysis === 'object' && analysis !== null) {
+                setRiskExplanation(analysis.message);
+            } else {
+                setRiskExplanation(analysis as string);
+            }
+        }
+    }, [metrics]);
+
+    // Effect: Run Analysis
+    useEffect(() => {
+        let ismounted = true;
+
+        const runAnalysis = async () => {
+            setErrorMsg(null);
+
+            if (!portfolio || portfolio.length === 0) {
+                if (ismounted) {
+                    setLoading(false);
+                    setErrorMsg("La cartera está vacía. Añade fondos antes de analizar.");
+                }
+                return;
+            }
+
+            if (ismounted) setLoading(true);
+
+            try {
+                const analyzeFn = httpsCallable(functions, 'backtest_portfolio');
+                const res = await analyzeFn({
+                    portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight })),
+                    period: period,
+                    benchmarks: EXCLUDED_BENCHMARK_ISINS
+                });
+
+                const rawData = res.data as any;
+                const syntheticSeries = rawData.benchmarkSeries || {};
+
+                if (ismounted) {
+                    setMetrics({
+                        ...rawData,
+                        containerBenchmarkSeries: syntheticSeries
+                    });
+                }
+
+            } catch (error: any) {
+                console.error("Error X-Ray:", error);
+                if (ismounted) {
+                    setErrorMsg(error.message || "Error desconocido al contactar el servidor");
+                }
+            } finally {
+                if (ismounted) setLoading(false);
+            }
+        };
+
+        runAnalysis();
+
+        return () => { ismounted = false; };
+    }, [portfolio, period]);
+
+    return {
+        metrics,
+        loading,
+        errorMsg,
+        benchmarkId,
+        setBenchmarkId,
+        period,
+        setPeriod,
+        riskExplanation,
+        syntheticProfiles
+    };
+}

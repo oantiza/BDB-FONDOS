@@ -61,7 +61,7 @@ export default function DiversificationDonut({ assets }: DiversificationDonutPro
                             textinfo: 'label+percent', // Show Label + %
                             textposition: 'outside', // Labels outside
                             automargin: true,
-                            hole: 0.65, // Thinner Donut for elegance
+                            hole: 0.75, // Thinner Donut (increased from 0.65)
                             marker: {
                                 colors: colors,
                                 line: { width: 0 } // No borders for cleaner look
@@ -77,7 +77,7 @@ export default function DiversificationDonut({ assets }: DiversificationDonutPro
                     ]}
                     layout={{
                         showlegend: false, // Hide legend (labels are outside)
-                        margin: { t: 20, b: 20, l: 40, r: 40 }, // Reduced margins
+                        margin: { t: 10, b: 10, l: 20, r: 20 }, // Reduced margins for better centering
                         font: { family: 'Roboto, sans-serif', size: 10, color: '#2C3E50' },
                         autosize: true,
                         paper_bgcolor: 'rgba(0,0,0,0)',

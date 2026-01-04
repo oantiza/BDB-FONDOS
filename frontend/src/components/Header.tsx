@@ -5,10 +5,11 @@ interface HeaderProps {
     onLogout: () => void
     onOpenMiBoutique: () => void
     onOpenXRay?: () => void
+    onOpenPositions?: () => void
     children?: React.ReactNode
 }
 
-export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, children }: HeaderProps) {
+export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenPositions, children }: HeaderProps) {
     // Theme toggle removed
 
     return (
@@ -18,8 +19,6 @@ export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, childre
                 <div className="text-[9px] uppercase tracking-[0.25em] text-white/70 font-bold">Portfolio Intelligence</div>
             </div>
             <div className="flex items-center gap-4">
-                {/* Dark Mode Toggle */}
-                {/* Dark Mode Toggle Removed */}
                 {children}
 
                 <button
@@ -38,6 +37,14 @@ export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, childre
                     <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
                 </button>
 
+                <div className="h-4 w-px bg-white/20 mx-2"></div>
+                <button
+                    onClick={onOpenPositions}
+                    className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+                    title="Analizador de Posiciones"
+                >
+                    Posiciones
+                </button>
                 <div className="h-4 w-px bg-white/20 mx-2"></div>
                 <button onClick={onLogout} className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors">Salir</button>
             </div>

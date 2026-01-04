@@ -12,6 +12,7 @@ export default function Controls({
     onOpenCosts,
     onOpenTactical,
     onOpenMacro,
+
     vipFunds = '',
     setVipFunds,
     onOpenVipModal,
@@ -111,6 +112,7 @@ export default function Controls({
                             AJUSTE MANUAL
                         </button>
                     </div>
+
                 </div>
             </div>
 
