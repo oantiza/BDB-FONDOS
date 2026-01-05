@@ -270,3 +270,123 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
         import traceback
         traceback.print_exc()
         return {'error': str(e)}
+
+def generate_smart_portfolio(category=None, risk_level=5, num_funds=5, vip_funds_str='', optimize_now=True, db=None):
+    """
+    Selección Inteligente de Fondos:
+    1. Scoring dinámico basado en perfil (Volatilidad Objetivo).
+    2. Inyección de activos defensivos para perfiles bajos (< 5).
+    3. Balanceo geográfico (Fondo Europeo obligatorio).
+    4. Optimización opcional inmediata.
+    """
+    from .config import RISK_TARGETS, BENCHMARK_RF_ISIN
+
+    selection_target_vol = RISK_TARGETS.get(int(risk_level), 0.12)
+    print(f"🎯 Generando Cartera Inteligente - Perfil {risk_level} (Target Vol: {selection_target_vol})")
+
+    if not db: 
+        from firebase_admin import firestore
+        db = firestore.client()
+
+    # 1. Helper de Scoring
+    def process_fund(fund_data):
+        perf = fund_data.get('std_perf', {})
+        sharpe = perf.get('sharpe', 0)
+        vol = perf.get('volatility', 0.15)
+        # Ratio de seguridad: penaliza desviarse de la volatilidad objetivo del perfil
+        safety_ratio = 1.0 / (1.0 + abs(vol - selection_target_vol))
+        score = (sharpe * 0.4) + (safety_ratio * 0.6)
+        return score
+
+    final_portfolio = []
+    seen_isins = set()
+
+    # 2. VIP FUNDS (Si existen)
+    if vip_funds_str:
+        vips = [v.strip() for v in vip_funds_str.split(',') if len(v.strip()) > 5]
+        for isin in vips:
+            try:
+                doc = db.collection('funds_v2').document(isin).get()
+                if doc.exists:
+                    data = doc.to_dict()
+                    final_portfolio.append({**data, 'isin': isin, 'weight': 0})
+                    seen_isins.add(isin)
+            except: pass
+
+    # 3. BÚSQUEDA DE CANDIDATOS
+    funds_ref = db.collection('funds_v2')
+    query = funds_ref
+    if category and category != 'All':
+        query = query.where('std_extra.category', '==', category)
+    
+    # Filtro básico de salud data
+    query = query.where('std_extra.yearsHistory', '>=', 1)
+    
+    candidates = []
+    for doc in query.limit(50).stream():
+        data = doc.to_dict()
+        isin = doc.id
+        if isin not in seen_isins:
+            score = process_fund(data)
+            candidates.append({**data, 'isin': isin, 'score': score})
+
+    # Ordenar por score y tomar los mejores
+    candidates.sort(key=lambda x: x['score'], reverse=True)
+    needed = max(0, num_funds - len(final_portfolio))
+    for c in candidates[:needed]:
+        final_portfolio.append(c)
+        seen_isins.add(c['isin'])
+
+    # 4. INYECCIÓN DEFENSIVA (Perfiles < 5)
+    if int(risk_level) < 5:
+        print("🛡️ Inyectando Activos Defensivos (Perfil bajo)...")
+        safe_cats = ['RF Diversificada Corto Plazo', 'RF Corporativa', 'Monetario EUR']
+        found_safe = False
+        for scat in safe_cats:
+            safe_query = funds_ref.where('std_extra.category', '==', scat).limit(1).stream()
+            for doc in safe_query:
+                isin = doc.id
+                if isin not in seen_isins:
+                    final_portfolio.append({**doc.to_dict(), 'isin': isin, 'weight': 0})
+                    seen_isins.add(isin)
+                    found_safe = True
+                    break
+            if found_safe: break
+        
+        # Fallback a Benchmark si no hay nada en Firestore
+        if not found_safe and BENCHMARK_RF_ISIN not in seen_isins:
+            final_portfolio.append({'isin': BENCHMARK_RF_ISIN, 'name': 'Euro Government Bond (Safe)', 'weight': 0})
+
+    # 5. BALANCEADOR EUROPA
+    if not any(f.get('std_region') == 'Europe' for f in final_portfolio):
+        eu_ref = funds_ref.where('std_region', '==', 'Europe').limit(3).stream()
+        eu_cands = []
+        for doc in eu_ref:
+            data = doc.to_dict()
+            eu_cands.append({**data, 'isin': doc.id, 'score': process_fund(data)})
+        if eu_cands:
+            best_eu = max(eu_cands, key=lambda x: x['score'])
+            if best_eu['isin'] not in seen_isins:
+                final_portfolio.append(best_eu)
+
+    # 6. OPTIMIZACIÓN FINAL
+    if optimize_now or int(risk_level) < 5:
+        print("⚖️ Ejecutando optimización inmediata...")
+        optimized = run_optimization(
+            assets_list=[f['isin'] for f in final_portfolio],
+            risk_level=risk_level,
+            db=db
+        )
+        if optimized.get('status') == 'optimal':
+            weights = optimized.get('weights', {})
+            result_list = []
+            for f in final_portfolio:
+                w = weights.get(f['isin'], 0) * 100
+                if w > 0.01:
+                    result_list.append({**f, 'weight': round(w, 2)})
+            return result_list
+
+    # Fallback Peso Equitativo
+    if not final_portfolio: return []
+    eq_w = round(100.0 / len(final_portfolio), 2)
+    return [{**f, 'weight': eq_w} for f in final_portfolio]
