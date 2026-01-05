@@ -191,7 +191,7 @@ const drawRiskScatter = (doc: jsPDF, x: number, y: number, w: number, h: number,
         const px = x + ((valX - minX) / rangeX) * w;
         const py = y + h - ((valY - minY) / rangeY) * h;
 
-        // @ts-ignore
+
         doc.setFillColor(color[0], color[1], color[2]);
 
         if (type === 'circle') {
@@ -244,8 +244,50 @@ const drawRiskScatter = (doc: jsPDF, x: number, y: number, w: number, h: number,
     doc.text(footerText, x, y + h + 20 * S);
 };
 
+const drawCorrelationMatrix = (doc: jsPDF, x: number, y: number, w: number, h: number, matrix: number[][], assets: string[], s: number) => {
+    if (!matrix || !assets || matrix.length === 0) return;
+
+    const n = Math.min(matrix.length, 12); // Limit to 12x12
+    const cellSize = Math.min(w / n, h / n);
+
+    doc.setFontSize(6 * s);
+
+    for (let row = 0; row < n; row++) {
+        // Row Label
+        doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]);
+        doc.text(assets[row].substring(0, 15), x - 2 * s, y + row * cellSize + cellSize / 2 + 2, { align: 'right' });
+
+        for (let col = 0; col < n; col++) {
+            const val = matrix[row][col];
+            const px = x + col * cellSize;
+            const py = y + row * cellSize;
+
+            // Simple Color Scale
+            let color = [255, 255, 255];
+            if (val >= 0.8) color = [30, 58, 138];
+            else if (val >= 0.5) color = [217, 119, 6];
+            else if (val > 0) color = [253, 230, 138];
+            else if (val < 0) color = [254, 202, 202]; // Red tint
+
+            // Diagonal (Self)
+            if (row === col) color = [11, 37, 69];
+
+            doc.setFillColor(color[0], color[1], color[2]);
+            doc.rect(px, py, cellSize, cellSize, 'F');
+
+            const textColor = (val > 0.5 || row === col) ? 255 : 50;
+            doc.setTextColor(textColor);
+            doc.setFont('helvetica', 'bold');
+            doc.text(val.toFixed(2), px + cellSize / 2, py + cellSize / 2 + 1.5, { align: 'center' });
+        }
+        // Col Label
+        doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]);
+        doc.text(assets[row].substring(0, 10), x + row * cellSize + cellSize / 2, y - 2 * s, { angle: 90, align: 'left' });
+    }
+};
+
 // --- HELPER: HEADER ---
-const drawPageHeader = (doc: jsPDF, title: string, subtitle: string, s: number, _unusedMargin?: number) => {
+const drawPageHeader = (doc: jsPDF, title: string, subtitle: string, s: number) => {
     // V14.11 Header uses Global Margins
     const y = MARGIN_Y;
 
@@ -347,7 +389,7 @@ const calculateCumulativeReturn = (history: any[], yearCount: number) => {
     return ret;
 };
 
-const drawFooter = (doc: jsPDF, s: number, _unusedMargin?: number) => {
+const drawFooter = (doc: jsPDF, s: number) => {
     const y = PAGE_HEIGHT - 12; // Adjusted to be closer to bottom edge (centered in margin)
 
     doc.setFontSize(8 * s);
@@ -362,15 +404,12 @@ const drawFooter = (doc: jsPDF, s: number, _unusedMargin?: number) => {
 
 
 // --- MAIN EXPORT ---
-export const generateClientReport = (portfolio: any[], totalCapital: number, riskLevel: number, stats?: { volatility: number, return: number }, historyData?: { x: string, y: number }[], allocData?: any[], geoData?: any[]) => {
+export const generateClientReport = (portfolio: any[], totalCapital: number, riskLevel: number, stats?: { volatility: number, return: number }, historyData?: { x: string, y: number }[], allocData?: any[], geoData?: any[], strategyReport?: any | null, correlationMatrix?: number[][]) => {
     const doc = new jsPDF({ orientation: 'landscape' });
     const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     const profile = RISK_MATRIX[riskLevel] || { name: 'Desconocido', maxVol: 0 };
 
     // --- PAGE 1: COVER (PREMIUM REDESIGN) ---
-    const sC = 1.0; // Use close to 1:1 scale for easier layout in mm
-    doc.setFillColor(255, 255, 255); doc.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, 'F');
-
     // 1. Sidebar (Navy Blue)
     const sidebarWidth = 85;
     doc.setFillColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]);
@@ -436,7 +475,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     // --- PAGE 2: COMPOSICIÓN (Refined V5) ---
     doc.addPage();
     // V7 Title: "Composición de la Cartera"
-    drawPageHeader(doc, "Composición de la Cartera", "", 0.9, 20 * 0.9);
+    drawPageHeader(doc, "Composición de la Cartera", "", 0.9);
 
     const groups: Record<string, any[]> = {};
     portfolio.forEach(p => {
@@ -479,7 +518,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
         { content: 'VALOR', styles: { halign: 'right' } }
     ];
 
-    // @ts-ignore
+
     autoTable(doc, {
         startY: MARGIN_Y + 15 * 0.9,
         head: [headRow],
@@ -502,19 +541,19 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     });
 
     // Draw Total with FULL WIDTH lines (V8: extend to endX)
-    const finalY = (doc as any).lastAutoTable.finalY + 2;
+    // const finalY = (doc as any).lastAutoTable.finalY + 2;
     // Manual text removed in favor of autoTable foot
 
 
 
-    drawFooter(doc, 0.9, 20 * 0.9);
+    drawFooter(doc, 0.9);
 
     // --- PAGE 3: PERFORMANCE ---
     doc.addPage();
-    drawPageHeader(doc, "Análisis de Rentabilidad", "Retorno y Evolución", S_STATS, 20 * S_STATS);
+    drawPageHeader(doc, "Análisis de Rentabilidad", "Retorno y Evolución", S_STATS);
 
     // Layout Constants
-    const chartY = 80 * S_STATS;
+    // const chartY = 80 * S_STATS;
     const page3Y = 40 * S_STATS;
 
     const annRet = calculateAnnualReturns(historyData || []);
@@ -556,11 +595,11 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     // V8 fallback for missing annual data - MOVED to bottom left
     drawBarChart(doc, MARGIN_X, histChartY, 110 * S_STATS, histChartH, annRet, "Rentabilidad Anual", S_STATS);
 
-    drawFooter(doc, S_STATS, CENTER_X);
+    drawFooter(doc, S_STATS);
 
     // --- PAGE 4: RISK & DISTRIBUTION (Framed V8) ---
     doc.addPage();
-    drawPageHeader(doc, "Mapa de Riesgo/Retorno", "", S_STATS, 20 * S_STATS);
+    drawPageHeader(doc, "Mapa de Riesgo/Retorno", "", S_STATS);
 
     const rmY = 40 * S_STATS;
     const rmW = 120 * S_STATS, rmH = 70 * S_STATS;
@@ -573,7 +612,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
         ['Sharpe Est.', `${(stats?.volatility ? (ret1y / stats.volatility).toFixed(2) : 'N/A')}`],
         ['VaR 95%', `${((stats?.volatility || 0) * -1.65 * 100).toFixed(2)}%`]
     ];
-    // @ts-ignore
+
     autoTable(doc, {
         startY: rmY,
         margin: { left: MARGIN_X + 160 * S_STATS },
@@ -613,7 +652,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     const cols = [[27, 38, 49], [185, 147, 91], [100, 116, 139], [148, 163, 184]];
 
     subData.forEach(([sub, w], i) => {
-        // @ts-ignore
+
         const slice = (w / totalWSub) * 360;
         const c = cols[i % cols.length] as [number, number, number];
         drawPieSlice(doc, dcX1, dcY1, dcR, stA, stA + slice, c);
@@ -644,7 +683,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     geoDataV3.forEach(([reg, w], i) => {
         const val = (w / totalRegionW) * 360;
         const c = cols[i % cols.length] as [number, number, number];
-        // @ts-ignore
+
         drawPieSlice(doc, dcX2, dcY2, dcR, st, st + val, c);
         st += val;
         doc.setFillColor(c[0], c[1], c[2]); doc.rect(MARGIN_X + 200 * S_STATS, botY + 10 * S_STATS + (i * 8 * S_STATS), 3 * S_STATS, 3 * S_STATS, 'F');
@@ -653,6 +692,24 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     });
     doc.setFillColor(255, 255, 255); doc.circle(dcX2, dcY2, dcR * 0.75, 'F');
 
-    drawFooter(doc, S_STATS, CENTER_X);
-    doc.save(`BDB_Informe_Premium_v8_${new Date().getTime()}.pdf`);
+    drawFooter(doc, S_STATS);
+    // --- PAGE 5: CORRELATION MATRIX (Separated as requested) ---
+    if (correlationMatrix && correlationMatrix.length > 0) {
+        doc.addPage();
+        drawPageHeader(doc, "Matriz de Correlación", "Diversificación y Eficiencia", S_STATS);
+
+        const corrY = 60 * S_STATS;
+        // Asset Names from Portfolio
+        const assets = portfolio.map(p => p.name || p.isin);
+
+        // Draw centered and large enough
+        const matrixSize = 130 * S_STATS; // Maximize width
+        const matrixX = (PAGE_WIDTH - matrixSize) / 2 + 10;
+
+        drawCorrelationMatrix(doc, matrixX, corrY, matrixSize, matrixSize, correlationMatrix, assets, S_STATS);
+
+        drawFooter(doc, S_STATS);
+    }
+
+    doc.save(`BDB_Informe_Premium_v10_${new Date().getTime()}.pdf`);
 };

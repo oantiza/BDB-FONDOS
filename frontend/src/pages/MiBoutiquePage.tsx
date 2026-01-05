@@ -1,5 +1,5 @@
 import React from 'react';
-import MacroDashboard from '../components/MacroDashboard';
+import MacroDashboard from '../components/MacroDashboardV3';
 
 interface MiBoutiquePageProps {
     onBack: () => void;

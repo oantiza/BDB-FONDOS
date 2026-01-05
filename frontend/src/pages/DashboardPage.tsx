@@ -1,6 +1,7 @@
 import React, { useState, useRef, lazy, Suspense } from 'react'
 import { httpsCallable } from 'firebase/functions'
-import { functions } from '../firebase'
+import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore'
+import { db, functions } from '../firebase'
 
 // Components
 import Header from '../components/Header'
@@ -12,20 +13,22 @@ import PortfolioMetrics from '../components/dashboard/PortfolioMetrics'
 import EquityDistribution from '../components/dashboard/EquityDistribution'
 import FixedIncomeDistribution from '../components/dashboard/FixedIncomeDistribution'
 
+
+
 // Dashboard Components
 import SmartDonut from '../components/dashboard/SmartDonut'
 import GeoDonut from '../components/dashboard/GeoDonut'
 
 // Utilities & Services
-import { findAlternatives, Alternative } from '../utils/fundSwapper'
-import { generateClientReport } from '../utils/pdfGenerator'
-import { generateSmartPortfolio } from '../utils/rulesEngine'
-import { parsePortfolioCSV } from '../utils/csvImport'
+
 import { exportToCSV } from '../utils/exportList'
 
 // Hooks & Types
 import { useDashboardData } from '../hooks/useDashboardData'
-import { Fund, PortfolioItem, SmartPortfolioResponse, AllocationItem } from '../types' // Added AllocationItem
+import { usePortfolioActions } from '../hooks/usePortfolioActions'
+import { useToast } from '../context/ToastContext'
+import { Fund, PortfolioItem, SmartPortfolioResponse, AllocationItem } from '../types'
+import { MacroReport } from '../types/MacroReport'
 
 // Modals (Code Splitting)
 const CostsModal = lazy(() => import('../components/modals/CostsModal'))
@@ -37,16 +40,15 @@ import FundDetailModal from '../components/FundDetailModal'
 const VipFundsModal = lazy(() => import('../components/VipFundsModal'))
 import { FundSwapModal } from '../components/FundSwapModal'
 
-interface DashboardPageProps {
-    onLogout: () => void;
-    onOpenMiBoutique: () => void;
-}
+
 
 
 interface DashboardPageProps {
     onLogout: () => void;
     onOpenMiBoutique: () => void;
     onOpenXRay: () => void;
+    onOpenPositions: () => void;
+
     // Portfolio State Props
     isAuthenticated: boolean;
     assets: Fund[];
@@ -70,6 +72,8 @@ export default function DashboardPage({
     onLogout,
     onOpenMiBoutique,
     onOpenXRay,
+    onOpenPositions,
+
     isAuthenticated,
     assets,
     portfolio, setPortfolio,
@@ -81,21 +85,46 @@ export default function DashboardPage({
     allocData,
     geoData
 }: DashboardPageProps) {
-    // 1. BUSINESS LOGIC HOOKS - REMOVED usePortfolio (LIFTED TO APP)
 
-    // Dashboard Data still local
+    // 1. BUSINESS LOGIC HOOKS
+    const {
+        isOptimizing,
+        modals, toggleModal,
+        selectedFund, setSelectedFund,
+        swapper, setSwapper,
+        // Handlers
+        handleAddAsset,
+        handleRemoveAsset,
+        handleUpdateWeight,
+        handleOpenSwap,
+        performSwap,
+        handleManualGenerate,
+        handleOptimize,
+        handleApplyDirectly,
+        handleReviewAccept,
+        handleAcceptPortfolio,
+        handleMacroApply,
+        handleImportCSV
+    } = usePortfolioActions({
+        portfolio, setPortfolio,
+        assets, riskLevel,
+        numFunds,
+        setProposedPortfolio,
+        setTotalCapital,
+        proposedPortfolio
+    });
 
     const {
         historyData,
         frontierData,
         assetPoints,
         portfolioPoint,
-        isLoadingFrontier,
+        isLoading,
         dashboardError
     } = useDashboardData(isAuthenticated, portfolio)
 
     // 2. UI STATE (View-specific)
-    const [isOptimizing, setIsOptimizing] = useState(false)
+    const [strategyReport, setStrategyReport] = useState<MacroReport | null>(null)
 
     const [riskFreeRate, setRiskFreeRate] = useState(0.0) // State for dynamic Rf
 
@@ -114,139 +143,42 @@ export default function DashboardPage({
         fetchRf();
     }, []);
 
+    // Fetch Strategy Report
+    React.useEffect(() => {
+        const fetchStrategy = async () => {
+            try {
+                const q = query(
+                    collection(db, 'reports'),
+                    where('type', '==', 'STRATEGY')
+                );
+                const snapshot = await getDocs(q);
+                if (!snapshot.empty) {
+                    // Cast to MacroReport and find the latest
+                    const docs = snapshot.docs.map(d => d.data() as MacroReport);
 
-    // Modals Visibility
-    const [showCosts, setShowCosts] = useState(false)
-    const [showTactical, setShowTactical] = useState(false)
-    const [showMacro, setShowMacro] = useState(false)
-    const [showVipModal, setShowVipModal] = useState(false)
-    const [showReviewModal, setShowReviewModal] = useState(false)
-    const [selectedFund, setSelectedFund] = useState<Fund | null>(null)
+                    // Helper for date sorting
+                    const getMillis = (d: any) => {
+                        if (!d) return 0;
+                        if (d.seconds) return d.seconds * 1000;
+                        if (d instanceof Date) return d.getTime();
+                        return new Date(d).getTime();
+                    };
 
-    // Swapper UI State
-    const [isSwapOpen, setIsSwapOpen] = useState(false)
-    const [fundToSwap, setFundToSwap] = useState<PortfolioItem | null>(null)
-    const [swapAlternatives, setSwapAlternatives] = useState<Alternative[]>([])
+                    docs.sort((a, b) => {
+                        const tA = getMillis(a.createdAt || a.date);
+                        const tB = getMillis(b.createdAt || b.date);
+                        return tB - tA;
+                    });
 
-    // 3. EVENT HANDLERS
-    const handleAddAsset = (asset: Fund) => {
-        if (portfolio.some(p => p.isin === asset.isin)) return
-        const newItem: PortfolioItem = { ...asset, weight: 0 }
-        setPortfolio([...portfolio, newItem])
-    }
-
-    const handleRemoveAsset = (isin: string) => {
-        setPortfolio(portfolio.filter(p => p.isin !== isin))
-    }
-
-    const handleUpdateWeight = (isin: string, value: string) => {
-        const newWeight = parseFloat(value) || 0
-        setPortfolio(portfolio.map(p => p.isin === isin ? { ...p, weight: newWeight } : p))
-    }
-
-    const handleOpenSwap = (fund: PortfolioItem) => {
-        const alts = findAlternatives(fund, assets, riskLevel);
-        setFundToSwap(fund);
-        setSwapAlternatives(alts);
-        setIsSwapOpen(true);
-    };
-
-    const performSwap = (newFund: Fund) => {
-        if (!fundToSwap) return;
-        const updatedPortfolio = portfolio.map(item => {
-            if (item.isin === fundToSwap.isin) {
-                return { ...newFund, weight: item.weight, manualSwap: true };
-            }
-            return item;
-        });
-        setPortfolio(updatedPortfolio);
-        setIsSwapOpen(false);
-        setFundToSwap(null);
-    };
-
-    const handleManualGenerate = async () => {
-        if (assets.length === 0) {
-            alert("Cargando fondos... espera un momento.")
-            return
-        }
-        try {
-            setIsOptimizing(true)
-            setPortfolio([])
-            // Siempre usamos todos los assets, eliminamos filtro de categoría
-            const pool = assets;
-
-            const generated = generateSmartPortfolio(riskLevel, pool, numFunds);
-            if (generated.length === 0) alert("No se encontraron fondos seguros para este perfil estricto.");
-            else setPortfolio(generated.map(p => ({ ...p, weight: Math.round(p.weight * 100) / 100 })));
-        } catch (e: any) {
-            alert("Error local: " + (e.message || String(e)))
-        } finally {
-            setIsOptimizing(false)
-        }
-    }
-
-    const handleOptimize = async () => {
-        if (portfolio.length === 0) {
-            alert("Añade fondos a la cartera primero")
-            return
-        }
-        setIsOptimizing(true)
-        try {
-            const optimizeFn = httpsCallable(functions, 'optimize_portfolio_quant')
-            const response = await optimizeFn({
-                assets: portfolio.map(p => p.isin),
-                risk_level: riskLevel,
-                locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
-            })
-            const result = response.data as SmartPortfolioResponse
-            if (result.status === 'optimal' || result.status === 'fallback') {
-                const weights = result.weights || {}
-                let hasChanges = false
-                const optimized = portfolio.map(p => {
-                    const rawWeight = (weights[p.isin] || 0) * 100
-                    const newWeight = Math.round(rawWeight * 100) / 100
-                    if (Math.abs(newWeight - p.weight) > 0.5) hasChanges = true
-                    return { ...p, weight: newWeight }
-                }).filter(p => p.weight > 0.01)
-
-                if (!hasChanges) {
-                    alert("✅ La cartera ya está optimizada.")
-                    setProposedPortfolio(optimized)
-                    setShowTactical(true)
-                } else {
-                    setProposedPortfolio(optimized)
-                    setShowReviewModal(true)
+                    setStrategyReport(docs[0]);
                 }
-            } else {
-                alert("Error en la optimización: " + (result.warnings?.[0] || 'Desconocido'))
+            } catch (e) {
+                console.error("Failed to fetch strategy report:", e);
             }
-        } catch (error: any) {
-            alert("Error crítico al contactar el servidor: " + error.message)
-        } finally {
-            setIsOptimizing(false)
-        }
-    }
+        };
+        fetchStrategy();
+    }, []);
 
-    const handleApplyDirectly = () => {
-        setPortfolio(proposedPortfolio)
-        setShowReviewModal(false)
-    }
-
-    const handleReviewAccept = () => {
-        setShowReviewModal(false)
-        setShowTactical(true)
-    }
-
-    const handleAcceptPortfolio = (newPortfolio: PortfolioItem[]) => {
-        setPortfolio(newPortfolio)
-        setShowTactical(false)
-    }
-
-    const handleMacroApply = (newProposal: PortfolioItem[]) => {
-        setProposedPortfolio(newProposal)
-        setShowMacro(false)
-        setShowTactical(true)
-    }
 
     const fileInputRef = useRef<HTMLInputElement>(null)
     const handleImportClick = () => { fileInputRef.current?.click() }
@@ -256,17 +188,8 @@ export default function DashboardPage({
         const reader = new FileReader()
         reader.onload = async (evt) => {
             const text = evt.target?.result as string
-            const result = parsePortfolioCSV(text)
-            if (result.error) { alert(result.error); return }
-            if (window.confirm(`Se han detectado ${result.portfolio.length} fondos. ¿Reemplazar cartera actual?`)) {
-                const enriched: PortfolioItem[] = result.portfolio.map(p => {
-                    const known = assets.find(a => a.isin === p.isin) || { isin: p.isin, name: p.name || 'Unknown', std_type: 'Unknown' } as Fund
-                    return { ...known, ...p, weight: p.weight }
-                })
-                setPortfolio(enriched)
-                setTotalCapital(result.totalValue)
-            }
-        }
+            handleImportCSV(text);
+        };
         reader.readAsText(file)
         e.target.value = ''
     }
@@ -277,6 +200,7 @@ export default function DashboardPage({
                 onLogout={onLogout}
                 onOpenMiBoutique={onOpenMiBoutique}
                 onOpenXRay={onOpenXRay}
+                onOpenPositions={onOpenPositions}
             >
                 {/* Clean header, no version or toggle */}
             </Header>
@@ -306,15 +230,18 @@ export default function DashboardPage({
                                         frontierPoints={frontierData}
                                         assetPoints={assetPoints}
                                         portfolioPoint={portfolioPoint}
-                                        isLoading={isLoadingFrontier}
+                                        isLoading={isLoading}
                                     />
                                 </div>
                             </div>
                         </div>
 
-                        {/* Style & Structure Analytics -> REPLACED BY METRICS */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <PortfolioMetrics portfolio={portfolio} riskFreeRate={riskFreeRate} />
+                            <PortfolioMetrics
+                                portfolio={portfolio}
+                                riskFreeRate={riskFreeRate}
+                                isLoading={isLoading}
+                            />
                         </div>
                     </div>
 
@@ -340,7 +267,7 @@ export default function DashboardPage({
                                         <span className="text-slate-400 text-[10px] font-bold ml-1">EUR</span>
                                     </div>
                                     <div className="h-4 w-px bg-slate-100 mx-1"></div>
-                                    <button onClick={() => generateClientReport(portfolio, totalCapital, riskLevel, { volatility: portfolioPoint?.x || 0, return: portfolioPoint?.y || 0 }, historyData, allocData, geoData)} className="text-[#C0392B] hover:text-[#e74c3c] transition-colors font-bold flex items-center gap-1 text-[10px] uppercase tracking-wider" title="Descargar Informe PDF"><span>📄</span> PDF</button>
+
                                     <button onClick={() => exportToCSV(portfolio, totalCapital)} className="text-slate-400 hover:text-[#003399] transition-colors">📥</button>
                                     <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv" className="hidden" />
                                     <button onClick={handleImportClick} className="text-slate-400 hover:text-[#003399] transition-colors">📂</button>
@@ -351,6 +278,8 @@ export default function DashboardPage({
                             </div>
                         </div>
                     </div>
+
+
                 </div>
 
                 <div className="flex-1 h-full flex flex-col bg-white overflow-y-auto scrollbar-thin gap-6">
@@ -363,6 +292,7 @@ export default function DashboardPage({
                             </div>
 
                             <div className="flex flex-col h-full bg-white">
+
                                 {/* Row 1: Equity & Fixed Income Distribution (Floating with Separator) */}
                                 <div className="flex px-4 pt-4 border-b border-slate-50 flex-[1.5] min-h-0">
                                     <div className="flex-1 h-full overflow-hidden pr-6 border-r border-slate-100">
@@ -390,19 +320,19 @@ export default function DashboardPage({
                     </div>
 
                     <div className="shrink-0 pb-0">
-                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => setShowCosts(true)} onOpenXRay={onOpenXRay} onOpenTactical={() => { setProposedPortfolio(portfolio); setShowTactical(true); }} onOpenMacro={() => setShowMacro(true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => setShowVipModal(true)} />
+                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => toggleModal('costs', true)} onOpenXRay={onOpenXRay} onOpenTactical={() => { setProposedPortfolio(portfolio); toggleModal('tactical', true); }} onOpenMacro={() => toggleModal('macro', true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => toggleModal('vip', true)} />
                     </div>
                 </div>
             </div>
 
             <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white">Cargando...</div>}>
-                {showCosts && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => setShowCosts(false)} />}
-                {showVipModal && <VipFundsModal vipFundsStr={vipFunds} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => setShowVipModal(false)} />}
-                {showTactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => setShowTactical(false)} />}
-                {showMacro && <MacroTacticalModal portfolio={portfolio} onApply={handleMacroApply} onClose={() => setShowMacro(false)} />}
-                {showReviewModal && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => setShowReviewModal(false)} />}
+                {modals.costs && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => toggleModal('costs', false)} />}
+                {modals.vip && <VipFundsModal vipFundsStr={vipFunds} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => toggleModal('vip', false)} />}
+                {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} />}
+                {modals.macro && <MacroTacticalModal portfolio={portfolio} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}
+                {modals.review && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => toggleModal('review', false)} />}
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
-                <FundSwapModal isOpen={isSwapOpen} originalFund={fundToSwap} alternatives={swapAlternatives} onSelect={performSwap} onClose={() => setIsSwapOpen(false)} />
+                <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} />
             </Suspense>
         </div >
     )

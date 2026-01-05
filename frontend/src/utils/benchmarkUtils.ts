@@ -62,7 +62,7 @@ export function generateSyntheticSeries(rawSeriesMap) {
 
     const syntheticSeries = {};
 
-    Object.entries(BENCHMARK_PROFILES).forEach(([name, p]) => {
+    Object.entries(BENCHMARK_PROFILES).forEach(([_name, p]) => {
         // Map over RF series and combine with RV series
         // Assuming series are aligned by date (x) which they usually are from the backend
         const series = rfSeries.map((pt, i) => {

@@ -1,0 +1,133 @@
+import { useMemo } from 'react';
+import { PortfolioItem } from '../types';
+
+interface UsePortfolioStatsProps {
+    portfolio: PortfolioItem[];
+    metrics: any; // Can be improved to SmartPortfolioResponse
+}
+
+export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps) {
+
+    // 1. AGGREGATE CATEGORIES FOR DONUT
+    const categoryAllocation = useMemo(() => {
+        const catMap: Record<string, number> = {};
+        portfolio.forEach(p => {
+            const cat = p.std_extra?.category || p.std_type || 'Otros';
+            // Clean up category names (remove "RV" prefix if redundant or shorten)
+            // Keeping raw for now as per user image which has "RV Global", etc.
+            catMap[cat] = (catMap[cat] || 0) + p.weight;
+        });
+        return Object.entries(catMap).map(([name, value]) => ({ name, value }));
+    }, [portfolio]);
+
+
+    // 2. Top 10 Aggregated Holdings (from real fund.holdings data)
+    const sortedHoldings = useMemo(() => {
+        // If backend provided topHoldings, use them directly
+        if (metrics?.topHoldings && metrics.topHoldings.length > 0) {
+            return metrics.topHoldings;
+        }
+
+        // Otherwise, aggregate from portfolio funds' real holdings
+        const holdingsMap: any = {};
+
+        portfolio.forEach(fund => {
+            const fundWeight = fund.weight / 100; // Normalize fund weight
+            const fundHoldings = fund.holdings || []; // Real holdings array from Firestore
+
+            fundHoldings.forEach((h: any) => {
+                const key = h.name;
+                const contribution = (h.weight / 100) * fundWeight * 100; // Weighted contribution
+
+                if (holdingsMap[key]) {
+                    holdingsMap[key].weight += contribution;
+                } else {
+                    holdingsMap[key] = {
+                        name: h.name,
+                        sector: h.sector || 'Unknown',
+                        weight: contribution
+                    };
+                }
+            });
+        });
+
+        // If no real holdings found, fallback to showing funds themselves
+        if (Object.keys(holdingsMap).length === 0) {
+            return [...portfolio].sort((a, b) => b.weight - a.weight).slice(0, 10);
+        }
+
+        // Sort by weight and take top 10
+        return Object.values(holdingsMap)
+            .sort((a: any, b: any) => b.weight - a.weight)
+            .slice(0, 10);
+    }, [metrics, portfolio]);
+
+
+    // 3. CALCULATE STYLE BOX STATS
+    const styleStats = useMemo(() => {
+        if (!portfolio || portfolio.length === 0) return {
+            equity: { style: 'Blend', cap: 'Large' },
+            fi: { duration: 'Medium', credit: 'Med' }
+        };
+
+        // Equity logic
+        const dominantCategory = portfolio[0]?.std_extra?.category || '';
+        let style = 'Blend';
+        let cap = 'Large';
+        if (dominantCategory.includes('Value')) style = 'Value';
+        if (dominantCategory.includes('Growth')) style = 'Growth';
+        if (dominantCategory.includes('Small')) cap = 'Small';
+        if (dominantCategory.includes('Mid')) cap = 'Mid';
+
+        // FI Logic (Simplified for now based on aggregations or keywords)
+        // Ideally loop through portfolio to find weighted duration/credit
+        let wDuration = 0;
+        let totalDurWeight = 0;
+        let weightedCreditScore = 0;
+        let totalCreditWeight = 0;
+
+        portfolio.forEach(p => {
+            const w = p.weight;
+            const dur = p.std_extra?.duration || 0;
+            if (dur > 0) {
+                wDuration += dur * w;
+                totalDurWeight += w;
+            }
+
+            // Credit heuristic
+            const q = p.std_extra?.credit_quality || 'BBB';
+            let score = 2; // BBB
+            if (['AAA', 'AA', 'A'].some(x => q.includes(x))) score = 3;
+            else if (['BB', 'B', 'CCC'].some(x => q.includes(x)) || q.includes('High Yield')) score = 1;
+
+            if (p.std_type === 'RF' || p.std_type === 'Fixed Income') {
+                weightedCreditScore += score * w;
+                totalCreditWeight += w;
+            }
+        });
+
+        const finalDur = totalDurWeight > 0 ? wDuration / totalDurWeight : 0;
+        let durLabel = 'Medium';
+        if (finalDur > 0) {
+            if (finalDur < 3) durLabel = 'Short';
+            else if (finalDur > 7) durLabel = 'Long';
+        }
+
+        const finalCredit = totalCreditWeight > 0 ? weightedCreditScore / totalCreditWeight : 0;
+        let creditLabel = 'Med';
+        if (finalCredit > 2.5) creditLabel = 'High';
+        else if (finalCredit < 1.5 && finalCredit > 0) creditLabel = 'Low';
+
+        return {
+            equity: { style, cap },
+            fi: { duration: durLabel, credit: creditLabel }
+        };
+
+    }, [portfolio]);
+
+    return {
+        categoryAllocation,
+        sortedHoldings,
+        styleStats
+    };
+}

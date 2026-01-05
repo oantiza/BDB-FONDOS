@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de Carteras de Fondos</title>
+    <!-- Tailwind CSS para estilos rápidos y modernos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- PapaParse para lectura robusta de CSV -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    <!-- Librería de Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+        .drag-active { border-color: #3b82f6; background-color: #eff6ff; }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen text-gray-800">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-2">
+                <i class="fa-solid fa-chart-pie text-blue-600 text-xl"></i>
+                <h1 class="text-xl font-bold text-gray-900">Analizador de Posiciones</h1>
+            </div>
+            <button onclick="window.location.reload()" class="text-sm text-gray-500 hover:text-blue-600 transition">
+                <i class="fa-solid fa-rotate-right mr-1"></i> Reiniciar
+            </button>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        
+        <!-- Sección de Carga -->
+        <div id="upload-section" class="mb-8">
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-8 text-center transition-all duration-200" id="drop-zone">
+                <div class="mb-4">
+                    <div class="w-16 h-16 bg-blue-50 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+                    </div>
+                    <h2 class="text-lg font-semibold text-gray-900">Sube tu archivo de Posiciones (CSV)</h2>
+                    <p class="text-gray-500 mt-1 text-sm">Arrastra el archivo aquí o haz clic para seleccionar</p>
+                </div>
+                
+                <input type="file" id="file-input" accept=".csv,.txt" class="hidden">
+                <button onclick="document.getElementById('file-input').click()" class="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition shadow-sm">
+                    Seleccionar Archivo
+                </button>
+                <p class="text-xs text-gray-400 mt-4">Formato esperado: CSV separado por punto y coma (;)</p>
+            </div>
+        </div>
+
+        <!-- Estado de Carga -->
+        <div id="loading-indicator" class="hidden text-center py-12">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-600">Procesando datos...</p>
+        </div>
+
+        <!-- Sección de Resultados -->
+        <div id="results-section" class="hidden space-y-6">
+            
+            <!-- Tarjetas de Resumen -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Total Patrimonio</p>
+                    <h3 class="text-2xl font-bold text-gray-900" id="total-assets">0,00 €</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <p class="text-sm font-medium text-gray-500 mb-1">Fondos Distintos</p>
+                    <h3 class="text-2xl font-bold text-gray-900" id="total-funds">0</h3>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 flex items-center justify-between">
+                    <div>
+                        <p class="text-sm font-medium text-gray-500 mb-1">Acciones</p>
+                        <h3 class="text-lg font-semibold text-gray-900">Exportar Datos</h3>
+                    </div>
+                    <button onclick="exportTableToCSV('resumen_fondos.csv')" class="bg-green-600 hover:bg-green-700 text-white p-3 rounded-lg transition shadow-sm" title="Descargar CSV">
+                        <i class="fa-solid fa-download"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Tabla -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex justify-between items-center">
+                    <h3 class="font-semibold text-gray-800">Desglose por Fondo de Inversión</h3>
+                    <div class="relative">
+                        <input type="text" id="search-input" placeholder="Buscar fondo o ISIN..." class="pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none w-64">
+                        <i class="fa-solid fa-magnifying-glass absolute left-3 top-2.5 text-gray-400 text-sm"></i>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200" id="funds-table">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable(0)">ISIN <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable(1)">Nombre del Fondo <i class="fa-solid fa-sort ml-1"></i></th>
+                                <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider cursor-pointer hover:bg-gray-100" onclick="sortTable(2)">Cantidad Total <i class="fa-solid fa-sort ml-1"></i></th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200 text-sm" id="table-body">
+                            <!-- Filas generadas por JS -->
+                        </tbody>
+                        <tfoot class="bg-gray-50 font-semibold text-gray-900">
+                            <tr>
+                                <td colspan="2" class="px-6 py-4 text-right">TOTAL GENERAL:</td>
+                                <td class="px-6 py-4 text-right" id="table-footer-total">0,00 €</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mensaje de Error -->
+        <div id="error-message" class="hidden fixed bottom-5 right-5 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-lg max-w-md" role="alert">
+            <p class="font-bold">Error</p>
+            <p id="error-text">Algo salió mal.</p>
+            <button onclick="this.parentElement.classList.add('hidden')" class="absolute top-2 right-2 text-red-500"><i class="fa-solid fa-times"></i></button>
+        </div>
+
+    </main>
+
+    <script>
+        // Variables globales para almacenar los datos procesados
+        let processedData = [];
+
+        // Elementos del DOM
+        const dropZone = document.getElementById('drop-zone');
+        const fileInput = document.getElementById('file-input');
+        const uploadSection = document.getElementById('upload-section');
+        const resultsSection = document.getElementById('results-section');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const tableBody = document.getElementById('table-body');
+        const searchInput = document.getElementById('search-input');
+
+        // Configuración de eventos Drag & Drop
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, preventDefaults, false);
+        });
+
+        function preventDefaults(e) {
+            e.preventDefault();
+            e.stopPropagation();
+        }
+
+        ['dragenter', 'dragover'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.add('drag-active'), false);
+        });
+
+        ['dragleave', 'drop'].forEach(eventName => {
+            dropZone.addEventListener(eventName, () => dropZone.classList.remove('drag-active'), false);
+        });
+
+        dropZone.addEventListener('drop', handleDrop, false);
+        fileInput.addEventListener('change', (e) => handleFiles(e.target.files), false);
+
+        function handleDrop(e) {
+            const dt = e.dataTransfer;
+            const files = dt.files;
+            handleFiles(files);
+        }
+
+        function handleFiles(files) {
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type === "text/csv" || file.name.endsWith('.csv') || file.type === "application/vnd.ms-excel") {
+                    processFile(file);
+                } else {
+                    showError("Por favor, sube un archivo con extensión .csv");
+                }
+            }
+        }
+
+        function processFile(file) {
+            uploadSection.classList.add('hidden');
+            loadingIndicator.classList.remove('hidden');
+
+            // PapaParse para leer CSV
+            // Usamos encoding ISO-8859-1 que es común en bancos españoles para acentos/ñ
+            Papa.parse(file, {
+                header: true,
+                skipEmptyLines: true,
+                encoding: "ISO-8859-1", 
+                delimiter: ";", // El archivo de ejemplo usa ;
+                complete: function(results) {
+                    try {
+                        aggregateData(results.data);
+                        loadingIndicator.classList.add('hidden');
+                        resultsSection.classList.remove('hidden');
+                    } catch (err) {
+                        loadingIndicator.classList.add('hidden');
+                        uploadSection.classList.remove('hidden');
+                        showError("Error al procesar los datos: " + err.message);
+                        console.error(err);
+                    }
+                },
+                error: function(err) {
+                    loadingIndicator.classList.add('hidden');
+                    uploadSection.classList.remove('hidden');
+                    showError("Error de lectura: " + err.message);
+                }
+            });
+        }
+
+        function parseEuropeanNumber(str) {
+            if (!str) return 0;
+            // Si es un número normal de JS (ej: 1000.50)
+            if (typeof str === 'number') return str;
+            
+            // Limpieza: quitamos espacios y posibles símbolos de moneda
+            let cleanStr = str.toString().trim();
+            
+            // En formato español: 1.200,50
+            // 1. Quitar los puntos de miles (si existen)
+            // 2. Reemplazar la coma decimal por punto
+            // Nota: La lógica asume que si hay coma, es decimal.
+            
+            // Caso especial: El archivo podría tener "1.200,50" o "1200,50"
+            cleanStr = cleanStr.replace(/\./g, ''); // Quita puntos
+            cleanStr = cleanStr.replace(',', '.');  // Cambia coma por punto
+            
+            const val = parseFloat(cleanStr);
+            return isNaN(val) ? 0 : val;
+        }
+
+        function aggregateData(data) {
+            const fundsMap = new Map();
+            let totalGeneral = 0;
+
+            // Verificar nombres de columnas
+            if (data.length > 0) {
+                // Normalizar claves para evitar errores por espacios o mayúsculas
+                const firstRow = data[0];
+                // Buscamos las columnas clave, permitiendo ligeras variaciones
+                const keyIsin = Object.keys(firstRow).find(k => k.toUpperCase().includes('ISIN'));
+                const keyInstrumento = Object.keys(firstRow).find(k => k.toUpperCase().includes('INSTRUMENTO'));
+                const keyValor = Object.keys(firstRow).find(k => k.toUpperCase().includes('VALOR DE MERCADO'));
+
+                if (!keyIsin || !keyInstrumento || !keyValor) {
+                    throw new Error("No se encontraron las columnas necesarias (ISIN, INSTRUMENTO, VALOR DE MERCADO). Verifique el formato del CSV.");
+                }
+
+                data.forEach(row => {
+                    const isin = row[keyIsin] ? row[keyIsin].trim() : "";
+                    const nombre = row[keyInstrumento] ? row[keyInstrumento].trim() : "";
+                    const valorRaw = row[keyValor];
+
+                    // Ignorar filas sin ISIN válido (como cabeceras repetidas o pies de página)
+                    if (isin && isin.length > 5) { // Longitud mínima de ISIN
+                        const valor = parseEuropeanNumber(valorRaw);
+                        
+                        if (fundsMap.has(isin)) {
+                            const current = fundsMap.get(isin);
+                            current.total += valor;
+                            fundsMap.set(isin, current);
+                        } else {
+                            fundsMap.set(isin, {
+                                isin: isin,
+                                nombre: nombre,
+                                total: valor
+                            });
+                        }
+                        totalGeneral += valor;
+                    }
+                });
+            }
+
+            // Convertir Mapa a Array
+            processedData = Array.from(fundsMap.values());
+            
+            // Ordenar por nombre inicialmente
+            processedData.sort((a, b) => b.total - a.total); // Ordenar por mayor cantidad
+
+            updateUI(totalGeneral);
+        }
+
+        function formatCurrency(num) {
+            return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(num);
+        }
+
+        function updateUI(totalGeneral) {
+            // Actualizar tarjetas
+            document.getElementById('total-assets').textContent = formatCurrency(totalGeneral);
+            document.getElementById('total-funds').textContent = processedData.length;
+            document.getElementById('table-footer-total').textContent = formatCurrency(totalGeneral);
+
+            renderTable(processedData);
+        }
+
+        function renderTable(data) {
+            tableBody.innerHTML = '';
+            
+            data.forEach(fund => {
+                const tr = document.createElement('tr');
+                tr.className = "hover:bg-gray-50 transition";
+                tr.innerHTML = `
+                    <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-blue-600 font-mono">${fund.isin}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">${fund.nombre}</td>
+                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right font-medium">${formatCurrency(fund.total)}</td>
+                `;
+                tableBody.appendChild(tr);
+            });
+        }
+
+        // Búsqueda
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase();
+            const filtered = processedData.filter(item => 
+                item.isin.toLowerCase().includes(term) || 
+                item.nombre.toLowerCase().includes(term)
+            );
+            
+            // Calcular nuevo total filtrado
+            const newTotal = filtered.reduce((acc, curr) => acc + curr.total, 0);
+            document.getElementById('table-footer-total').textContent = formatCurrency(newTotal);
+            
+            renderTable(filtered);
+        });
+
+        // Ordenación
+        let sortDirection = { column: 2, asc: false }; // Por defecto ordenado por total descendente
+
+        window.sortTable = function(columnIndex) {
+            const isAsc = sortDirection.column === columnIndex ? !sortDirection.asc : true;
+            sortDirection = { column: columnIndex, asc: isAsc };
+
+            const sorted = [...processedData].sort((a, b) => {
+                let valA, valB;
+                if (columnIndex === 0) { valA = a.isin; valB = b.isin; }
+                else if (columnIndex === 1) { valA = a.nombre; valB = b.nombre; }
+                else { valA = a.total; valB = b.total; }
+
+                if (valA < valB) return isAsc ? -1 : 1;
+                if (valA > valB) return isAsc ? 1 : -1;
+                return 0;
+            });
+
+            // Re-aplicar filtro si hay búsqueda
+            const term = searchInput.value.toLowerCase();
+            const finalData = sorted.filter(item => 
+                item.isin.toLowerCase().includes(term) || 
+                item.nombre.toLowerCase().includes(term)
+            );
+
+            renderTable(finalData);
+        }
+
+        // Exportar a CSV
+        window.exportTableToCSV = function(filename) {
+            let csvContent = "data:text/csv;charset=utf-8,\uFEFF"; // UTF-8 BOM
+            csvContent += "ISIN;NOMBRE DEL FONDO;CANTIDAD TOTAL\n";
+
+            processedData.forEach(function(row) {
+                // Formateamos el número como string europeo para el Excel español
+                let totalStr = row.total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                // Envolver nombre en comillas por si tiene ;
+                let rowStr = `${row.isin};"${row.nombre}";"${totalStr}"`;
+                csvContent += rowStr + "\n";
+            });
+
+            const encodedUri = encodeURI(csvContent);
+            const link = document.createElement("a");
+            link.setAttribute("href", encodedUri);
+            link.setAttribute("download", filename);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        function showError(msg) {
+            const errDiv = document.getElementById('error-message');
+            document.getElementById('error-text').innerText = msg;
+            errDiv.classList.remove('hidden');
+            setTimeout(() => {
+                errDiv.classList.add('hidden');
+            }, 5000);
+        }
+
+    </script>
+</body>
+</html>

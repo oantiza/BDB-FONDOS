@@ -22,7 +22,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
     const num = (v: number, decimals = 2) => v ? v.toFixed(decimals) : 'N/A';
 
     // Rating Helper
-    const rating = fund.stars || fund.morningstar_rating || fund.rating || 0;
+    const rating = fund.rating_overall || fund.stars || fund.morningstar_rating || fund.rating || 0;
     const renderStars = (n: number) => {
         return Array(5).fill(0).map((_, i) => (
             <span key={i} className={i < n ? "text-[#D4AF37]" : "text-slate-200"}>★</span>

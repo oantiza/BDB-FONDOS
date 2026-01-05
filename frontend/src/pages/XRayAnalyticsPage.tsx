@@ -15,7 +15,7 @@ interface XRayAnalyticsPageProps {
     onBack: () => void; // Not used really if new window, but good practice
 }
 
-export default function XRayAnalyticsPage({ portfolio, fundDatabase }: XRayAnalyticsPageProps) {
+export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: XRayAnalyticsPageProps) {
 
     const [metrics, setMetrics] = useState<any>(null)
     const [loading, setLoading] = useState(true)
@@ -88,13 +88,7 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase }: XRayAnaly
             <div className="h-16 bg-gradient-to-r from-[#003399] to-[#0055CC] text-white flex items-center justify-between px-6 border-b border-white/10 sticky top-0 z-10 w-full shadow-md">
                 <div className="flex items-center gap-4">
                     <button
-                        onClick={() => {
-                            window.close();
-                            // Fallback if close is blocked
-                            if (!window.closed) {
-                                window.location.href = '/x-ray';
-                            }
-                        }}
+                        onClick={onBack}
                         className="text-white/70 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase tracking-widest font-bold"
                     >
                         ← Volver
@@ -161,19 +155,21 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase }: XRayAnaly
                             {/* Risk Map */}
                             <div>
                                 <h3 className="text-[#2C3E50] text-3xl font-light mb-6 tracking-tight">Mapa de Riesgo/Retorno</h3>
-                                <div className="h-[400px] bg-[#fcfcfc] border border-[#f0f0f0] p-2 relative">
-                                    <RiskMap
-                                        portfolioMetrics={{
-                                            volatility: metrics.metrics?.volatility,
-                                            annual_return: metrics.metrics?.cagr
-                                        }}
-                                        benchmarks={(metrics.synthetics || []).map((s: any) => ({
-                                            ...s,
-                                            color: s.color || '#95a5a6'
-                                        }))}
-                                    />
+                                <div className="bg-[#fcfcfc] border border-[#f0f0f0] p-4 relative">
+                                    <div className="h-[400px]">
+                                        <RiskMap
+                                            portfolioMetrics={{
+                                                volatility: metrics.metrics?.volatility,
+                                                annual_return: metrics.metrics?.cagr
+                                            }}
+                                            benchmarks={(metrics.synthetics || []).map((s: any) => ({
+                                                ...s,
+                                                color: s.color || '#95a5a6'
+                                            }))}
+                                        />
+                                    </div>
                                     {riskExplanation && (
-                                        <div className="mt-6 text-lg text-[#2C3E50] leading-relaxed">
+                                        <div className="mt-8 pt-4 border-t border-slate-100 text-lg text-[#2C3E50] leading-relaxed">
                                             <div dangerouslySetInnerHTML={{ __html: riskExplanation.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }} />
                                         </div>
                                     )}

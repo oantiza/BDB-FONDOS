@@ -10,6 +10,7 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
     const [assetPoints, setAssetPoints] = useState<{ x: number; y: number; label: string }[]>([])
     const [portfolioPoint, setPortfolioPoint] = useState<{ x: number; y: number } | null>(null)
     const [isLoadingFrontier, setIsLoadingFrontier] = useState(false)
+    const [isLoadingHistory, setIsLoadingHistory] = useState(false)
 
     useEffect(() => {
         if (!isAuthenticated || !portfolio || portfolio.length === 0) {
@@ -25,6 +26,7 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
 
             // 1. Load History (Parallel)
             const historyPromise = (async () => {
+                setIsLoadingHistory(true);
                 try {
                     const getBacktest = httpsCallable(functions, 'backtest_portfolio')
                     const res = await getBacktest({ portfolio, period: '5y' })
@@ -34,6 +36,8 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
                 } catch (e: any) {
                     console.error("Backtest error:", e);
                     // Don't block whole dashboard
+                } finally {
+                    setIsLoadingHistory(false);
                 }
             })();
 
@@ -68,7 +72,7 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
         frontierData,
         assetPoints,
         portfolioPoint,
-        isLoadingFrontier,
+        isLoading: isLoadingFrontier || isLoadingHistory,
         dashboardError
     }
 }

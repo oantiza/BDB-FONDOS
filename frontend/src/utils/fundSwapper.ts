@@ -81,3 +81,33 @@ export function findAlternatives(originalFund: any, allFunds: any[], riskLevel: 
 
     return results; // Devolvemos hasta 2 opciones
 }
+
+export function findHomogeneousAlternatives(originalFund: any, allFunds: any[]): any[] {
+    if (!originalFund || !allFunds) return [];
+
+    // 1. Filtrar homogéneos (Misma Categoría y Región)
+    const normalize = (s: string | undefined) => s ? s.trim().toLowerCase() : '';
+
+    const targetCategory = normalize(originalFund.category_morningstar || originalFund.std_type);
+    const targetRegion = normalize(originalFund.primary_region || originalFund.std_region);
+
+    const candidates = allFunds.filter(f => {
+        if (f.isin === originalFund.isin) return false;
+
+        const fCategory = normalize(f.category_morningstar || f.std_type);
+        const fRegion = normalize(f.primary_region || f.std_region);
+
+        // Strict matching (case-insensitive)
+        return fCategory === targetCategory && fRegion === targetRegion;
+    });
+
+    // 2. Ordenar por Mayor Retrocesión (Descendente)
+    candidates.sort((a, b) => {
+        const retroA = parseFloat(a.costs?.retrocession || 0);
+        const retroB = parseFloat(b.costs?.retrocession || 0);
+        return retroB - retroA;
+    });
+
+    // 3. Devolver top 3
+    return candidates.slice(0, 3);
+}

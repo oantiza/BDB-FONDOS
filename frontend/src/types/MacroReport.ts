@@ -56,7 +56,7 @@ export interface MacroReport {
   title: string;
   provider?: string;  // ej: "J.P. Morgan"
   pdfUrl?: string;    // URL público del PDF generado
-  createdAt?: any;    // Firestore Timestamp
+  createdAt?: { seconds: number; nanoseconds: number } | Date;    // Firestore Timestamp or Date
   originalFileName?: string;
 
   // Resumen Global (Común)

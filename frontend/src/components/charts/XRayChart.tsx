@@ -25,16 +25,16 @@ ChartJS.register(
 
 const THEME = { navy: '#0B2545', gold: '#D4AF37', slate: '#64748b', grid: '#f1f5f9' }
 
-export default function XRayChart({ portfolioData = [], benchmarkData = [], benchmarkLabel = 'Benchmark' }) {
+export default function XRayChart({ portfolioData = [], benchmarkData = [], benchmarkLabel = 'Benchmark', portfolioLabel = 'Mi Cartera' }) {
     const datasets = [
         {
-            label: 'Mi Cartera',
+            label: portfolioLabel,
             data: portfolioData,
             borderColor: THEME.navy,
             borderWidth: 2,
             pointRadius: 0,
             tension: 0.1
-        }
+        } as any
     ]
 
     if (benchmarkData && benchmarkData.length > 0 && benchmarkLabel !== 'Seleccione Benchmark') {
@@ -51,7 +51,7 @@ export default function XRayChart({ portfolioData = [], benchmarkData = [], benc
 
     const data = { datasets }
 
-    const options = {
+    const options: any = {
         responsive: true,
         maintainAspectRatio: false,
         parsing: { xAxisKey: 'x', yAxisKey: 'y' },
@@ -60,7 +60,7 @@ export default function XRayChart({ portfolioData = [], benchmarkData = [], benc
             y: { grid: { color: THEME.grid } }
         },
         plugins: {
-            legend: { position: 'top', align: 'end' }
+            legend: { position: 'top' as const, align: 'end' as const }
         }
     }
 

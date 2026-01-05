@@ -36,18 +36,18 @@ export default function SimpleStyleBox({ type, vertical, horizontal }: SimpleSty
             </span>
             <div className="relative">
                 {/* Horizontal Labels (Top) */}
-                <div className="flex justify-between pl-5 pr-1 mb-1.5 text-[9px] font-bold text-slate-400 w-full max-w-[110px] ml-auto">
+                <div className="flex justify-between pl-5 pr-1 mb-1.5 text-[9px] font-bold text-slate-400 w-full max-w-[122px] ml-auto">
                     {cols.map(c => <span key={c}>{c}</span>)}
                 </div>
 
                 <div className="flex">
                     {/* Vertical Labels (Left) */}
-                    <div className="flex flex-col justify-between py-2 mr-1.5 text-[9px] font-bold text-slate-400 h-[100px]">
+                    <div className="flex flex-col justify-between py-2 mr-1.5 text-[9px] font-bold text-slate-400 h-[110px]">
                         {rows.map(r => <span key={r}>{r}</span>)}
                     </div>
 
                     {/* Grid */}
-                    <div className="grid grid-cols-3 gap-1 w-[100px] h-[100px]">
+                    <div className="grid grid-cols-3 gap-1 w-[110px] h-[110px]">
                         {cols.map((cVal, colIdx) => (
                             <div key={colIdx} className="flex flex-col gap-1 h-full">
                                 {rows.map((rVal, rowIdx) => {
