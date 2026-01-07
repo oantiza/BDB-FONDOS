@@ -69,16 +69,25 @@ def scheduleWeeklyResearch(event: scheduler_fn.ScheduledEvent) -> None:
 )
 def scheduleMonthlyResearch(event: scheduler_fn.ScheduledEvent) -> None:
     print(f"⏰ Ejecutando Deep Research MENSUAL Automático: {event.schedule_time}")
-    from services.research import generate_advanced_report
+    from services.research import generate_advanced_report, generate_strategy_report
     db = firestore.client()
     
-    # Generar informe mensual avanzado
+    # 1. Generar informe mensual avanzado
     result = generate_advanced_report(db, 'MONTHLY')
     
     if result.get('success'):
         print("✅ Informe Mensual generado correctamente.")
     else:
         print(f"❌ Error generando informe mensual: {result.get('error')}")
+
+    # 2. Generar Matriz de Estrategia (Asignación de Activos)
+    print("⏰ Ejecutando Generación de Estrategia (Asignación de Activos)...")
+    result_strategy = generate_strategy_report(db)
+    
+    if result_strategy.get('success'):
+        print("✅ Informe de Estrategia generado correctamente.")
+    else:
+        print(f"❌ Error generando informe de estrategia: {result_strategy.get('error')}")
 
 
 @scheduler_fn.on_schedule(

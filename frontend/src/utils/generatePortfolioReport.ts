@@ -3,11 +3,13 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 export const generatePortfolioReport = async (
+    coverPageId: string,
+    tacticalPageId: string,
     page1Id: string,
     page2Id: string,
     page3Id: string,
     page4Id?: string,
-    filename: string = 'Informe_Cartera.pdf'
+    filename: string = 'Informe de Cartera.pdf'
 ) => {
     const doc = new jsPDF('p', 'mm', 'a4');
     const margin = 10; // mm
@@ -71,16 +73,22 @@ export const generatePortfolioReport = async (
         }
     };
 
-    // Page 1: Composition (Portrait)
-    await captureAndAddPage(page1Id, true, 'p');
+    // Page 1: COVER PAGE (Portrait)
+    await captureAndAddPage(coverPageId, true, 'p');
 
-    // Page 2: Metrics + Holdings + Donut (Portrait)
+    // Page 2: TACTICAL ALLOCATION (Portrait)
+    await captureAndAddPage(tacticalPageId, false, 'p');
+
+    // Page 3: Composition (Portrait)
+    await captureAndAddPage(page1Id, false, 'p');
+
+    // Page 4: Metrics + Holdings + Donut (Portrait)
     await captureAndAddPage(page2Id, false, 'p');
 
-    // Page 3: Historical + Risk Map (Portrait)
+    // Page 5: Historical + Risk Map (Portrait)
     await captureAndAddPage(page3Id, false, 'p');
 
-    // Page 4: Correlation Matrix (Landscape) - Optional
+    // Page 6: Correlation Matrix (Landscape) - Optional
     if (page4Id) {
         await captureAndAddPage(page4Id, false, 'l');
     }

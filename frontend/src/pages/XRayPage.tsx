@@ -1,4 +1,4 @@
-import 'react' // Ensure useMemo removed if unused
+import { useState, useMemo, useEffect } from 'react' // Ensure useMemo removed if unused
 import { useXRayAnalytics } from '../hooks/useXRayAnalytics'
 import { usePortfolioStats } from '../hooks/usePortfolioStats'
 import DiversificationDonut from '../components/charts/DiversificationDonut'
@@ -12,6 +12,20 @@ import CorrelationHeatmap from '../components/charts/CorrelationHeatmap'
 import { generatePortfolioReport } from '../utils/generatePortfolioReport'
 
 import { Fund, PortfolioItem } from '../types'
+import { collection, query, where, getDocs, limit, orderBy } from 'firebase/firestore';
+import { db } from '../firebase';
+
+// Simple Interface for limited Macro Data usage
+interface MacroReport {
+    title: string;
+    date: string;
+    executive_summary: string;
+    equity?: { geo: any[]; sectors: any[] };
+    fixed_income?: { subsectors: any[]; geo: any[] };
+    real_assets?: { commodities: any[]; currencies: any[] };
+    market_pulse?: any;
+    house_view_summary?: string;
+}
 
 interface XRayPageProps {
     portfolio: PortfolioItem[];
@@ -38,8 +52,33 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     const { metrics, loading, errorMsg, riskExplanation } = useXRayAnalytics({ portfolio, fundDatabase });
     const { categoryAllocation, sortedHoldings, styleStats } = usePortfolioStats({ portfolio, metrics });
 
+    // --- NEW: FETCH REPORT DATA FOR PDF ---
+    const [strategyReport, setStrategyReport] = useState<MacroReport | null>(null);
+    const [monthlyReport, setMonthlyReport] = useState<MacroReport | null>(null);
+
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                // 1. Get Latest Strategy Report
+                const qStrategy = query(collection(db, 'reports'), where('type', '==', 'STRATEGY'), orderBy('createdAt', 'desc'), limit(1));
+                const snapStrategy = await getDocs(qStrategy);
+                if (!snapStrategy.empty) setStrategyReport(snapStrategy.docs[0].data() as MacroReport);
+
+                // 2. Get Latest Monthly Report (for Macro Context)
+                const qMonthly = query(collection(db, 'reports'), where('type', '==', 'MONTHLY'), orderBy('createdAt', 'desc'), limit(1));
+                const snapMonthly = await getDocs(qMonthly);
+                if (!snapMonthly.empty) setMonthlyReport(snapMonthly.docs[0].data() as MacroReport);
+
+            } catch (err) {
+                console.error("Error fetching PDF data:", err);
+            }
+        };
+        fetchReports();
+    }, []);
+
+
     const handleDownloadReport = () => {
-        generatePortfolioReport('pdf-page-1', 'pdf-page-2', 'pdf-page-3', 'pdf-page-4');
+        generatePortfolioReport('pdf-cover-page', 'pdf-tactical-page', 'pdf-page-1', 'pdf-page-2', 'pdf-page-3', 'pdf-page-4');
     };
 
     return (
@@ -97,6 +136,246 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                     </div>
                 ) : (
                     <div className="max-w-[1200px] mx-auto space-y-12 pb-20">
+
+                        {/* --- PDF PAGE 1: COVER PAGE (Hidden on Screen) --- */}
+                        <div id="pdf-cover-page" style={{ position: 'absolute', left: '-9999px', top: 0, width: '1200px', height: '1600px', background: '#0044CC', color: 'white', overflow: 'hidden' }} className="flex flex-col justify-between p-0">
+
+                            {/* Background Gradients to simulate the curves - Adjusted for softer navy */}
+                            <div style={{ position: 'absolute', top: '-10%', right: '-30%', width: '1200px', height: '1200px', background: 'radial-gradient(circle, #0055DD 0%, transparent 70%)', borderRadius: '50%', opacity: 0.4 }}></div>
+                            <div style={{ position: 'absolute', bottom: '-20%', left: '-20%', width: '1000px', height: '1000px', background: 'radial-gradient(circle, #0055DD 0%, transparent 70%)', borderRadius: '50%', opacity: 0.3 }}></div>
+
+                            {/* Top Brand */}
+                            <div className="relative z-10 p-24">
+                                <div className="flex items-center gap-6 mb-24">
+                                    <div className="w-1.5 h-16 bg-[#FDB913]"></div> {/* Gold Bar */}
+                                    <span className="text-4xl font-light tracking-[0.2em] text-white">BDB FONDOS</span>
+                                </div>
+
+                                <div className="mt-48">
+                                    <h2 className="text-6xl font-light text-white mb-2">Informe de</h2>
+                                    <h1 className="text-8xl font-bold text-[#FDB913] mb-8">Cartera</h1>
+                                    <p className="text-3xl text-white/80 font-light max-w-2xl leading-normal">
+                                        Análisis detallado de composición, métricas de riesgo y proyección histórica.
+                                    </p>
+                                </div>
+                            </div>
+
+                            {/* Footer */}
+                            <div className="relative z-10 p-24 pb-32">
+                                <div className="mb-12">
+                                    <p className="text-[#FDB913] font-bold text-sm uppercase tracking-widest mb-2">FECHA DE EMISIÓN</p>
+                                    <p className="text-4xl text-white font-light">{new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' })}</p>
+                                    <div className="w-full h-px bg-white/20 mt-8 mb-4"></div>
+                                </div>
+
+                                <div className="flex justify-between items-end">
+                                    <div>
+                                        <p className="text-white/60 text-xs font-bold uppercase tracking-widest mb-1">GENERADO POR</p>
+                                        <p className="text-xl text-white font-medium">BDB Analytics Engine</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* --- PDF PAGE 2: TACTICAL ALLOCATION (Hidden on Screen) --- */}
+                        <div id="pdf-tactical-page" style={{ position: 'absolute', left: '-9999px', top: 0, width: '1200px', height: '1600px', background: 'white', padding: '0px' }}>
+                            {/* Header matched to screenshot */}
+                            <div className="h-24 bg-[#0044CC] text-white flex items-center justify-between px-16 w-full mb-16">
+                                <div className="text-3xl tracking-tight">
+                                    <span className="font-light">Macro y </span><span className="font-bold">Estrategia</span>
+                                </div>
+                                <span className="text-[#FDB913] font-bold text-sm uppercase tracking-[0.2em]">ASIGNACIÓN DE ACTIVOS</span>
+                            </div>
+
+                            <div className="px-16 space-y-12">
+                                {/* Quote Box */}
+                                <div className="border-t-2 border-[#FDB913] bg-slate-50 p-12 text-center relative mx-12">
+                                    <p className="text-[#A07147] text-xs font-bold uppercase tracking-[0.2em] mb-6 absolute -top-3 bg-white px-4 left-1/2 -translate-x-1/2">VISIÓN DE LA CASA</p>
+                                    {strategyReport?.house_view_summary ? (
+                                        <p className="text-3xl text-[#2C3E50] font-light italic leading-relaxed">
+                                            "{strategyReport.house_view_summary}"
+                                        </p>
+                                    ) : (
+                                        <p className="text-xl text-gray-400 font-light italic leading-relaxed text-center">
+                                            (Resumen de visión de la casa no disponible)
+                                        </p>
+                                    )}
+                                </div>
+
+                                {/* 3 Columns Grid - Fixed Alignment */}
+                                <div className="grid grid-cols-3 gap-12 mt-16">
+
+                                    {/* COL 1: RENTA VARIABLE */}
+                                    <div>
+                                        <div className="border-b-2 border-[#2C3E50] pb-2 mb-6 flex items-center gap-3">
+                                            <span className="text-2xl">📈</span>
+                                            <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-sm">RENTA VARIABLE</h3>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            {/* Geografico */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">GEOGRÁFICO</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.equity?.geo || []).length > 0 ? (
+                                                            strategyReport?.equity?.geo?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos geográficos no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Sectores */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">SECTORES</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.equity?.sectors || []).length > 0 ? (
+                                                            strategyReport?.equity?.sectors?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos sectoriales no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* COL 2: RENTA FIJA */}
+                                    <div>
+                                        <div className="border-b-2 border-[#2C3E50] pb-2 mb-6 flex items-center gap-3">
+                                            <span className="text-2xl">🛡️</span>
+                                            <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-sm">RENTA FIJA</h3>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            {/* Subsectores */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">SUBSECTORES</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.fixed_income?.subsectors || []).length > 0 ? (
+                                                            strategyReport?.fixed_income?.subsectors?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos de subsectores no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Geografico */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">GEOGRÁFICO</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.fixed_income?.geo || []).length > 0 ? (
+                                                            strategyReport?.fixed_income?.geo?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos geográficos no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* COL 3: ACTIVOS REALES */}
+                                    <div>
+                                        <div className="border-b-2 border-[#2C3E50] pb-2 mb-6 flex items-center gap-3">
+                                            <span className="text-2xl">🧱</span>
+                                            <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-sm">ACTIVOS REALES</h3>
+                                        </div>
+
+                                        <div className="space-y-8">
+                                            {/* Materias Primas */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">MATERIAS PRIMAS</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.real_assets?.commodities || []).length > 0 ? (
+                                                            strategyReport?.real_assets?.commodities?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos de materias primas no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            {/* Divisas */}
+                                            <div>
+                                                <h4 className="text-[#A07147] font-bold uppercase tracking-widest text-[10px] mb-4">DIVISAS</h4>
+                                                <div className="space-y-3">
+                                                    <div className="space-y-3">
+                                                        {(strategyReport?.real_assets?.currencies || []).length > 0 ? (
+                                                            strategyReport?.real_assets?.currencies?.map((item: any, i: number) => (
+                                                                <div key={i} className="flex justify-between items-center py-1">
+                                                                    <span className="text-[#2C3E50] font-medium text-sm">{item.name}</span>
+                                                                    <span className={`text-[9px] font-bold uppercase px-2 py-1 rounded-sm min-w-[80px] text-center
+                                                                ${item.action === 'Sobreponderar' || item.action === 'Positivo' ? 'bg-green-50 text-green-700' :
+                                                                            item.action === 'Infraponderar' || item.action === 'Negativo' ? 'bg-red-50 text-red-700' :
+                                                                                'bg-slate-100 text-slate-500'}`}>
+                                                                        {item.action}
+                                                                    </span>
+                                                                </div>
+                                                            ))
+                                                        ) : <p className="text-xs text-center text-gray-400 italic">Datos de divisas no disponibles</p>}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            {/* Footer Date */}
+                            <div className="absolute bottom-8 left-16 right-16 flex justify-between text-xs text-slate-400 border-t border-slate-100 pt-4">
+                                <span>Informe de Estrategia</span>
+                                <span>{new Date().toLocaleDateString('es-ES')}</span>
+                            </div>
+                        </div>
 
                         {/* SECTION 1: EDITORIAL TABLE (Moved to Top) */}
                         <div id="pdf-page-1" className="bg-white p-8">
@@ -295,12 +574,12 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                                 </div>
 
                                 {/* RIGHT: Diversification Donut */}
-                                <div className="w-[48%] flex flex-col items-center justify-center">
+                                <div className="w-[48%] flex flex-col items-center justify-start"> {/* Removed justify-center to prevent floating */}
                                     <div className="flex items-center gap-4 mb-8 justify-center shrink-0">
                                         <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación</h3>
                                         <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Categorías</span>
                                     </div>
-                                    <div className="w-full h-[350px] flex items-center justify-center relative z-0">
+                                    <div className="w-full h-[350px] flex items-center justify-center relative z-0 mt-[60px]"> {/* Keep margin to force 1.5cm gap */}
                                         <DiversificationDonut assets={categoryAllocation} />
                                     </div>
                                 </div>
