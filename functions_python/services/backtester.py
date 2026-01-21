@@ -18,17 +18,58 @@ def run_backtest(portfolio, period, db):
             raise Exception("No data available for the selected assets.")
             
         df = pd.DataFrame(price_data)
+        
+        # --- FIX: Handle Empty or Disjoint Data ---
+        if df.empty:
+             raise Exception("No common history found for selected assets.")
+
         df.index = pd.to_datetime(df.index)
+        
+        # Identify assets with too many NaNs explicitly before filling
+        missing_assets = []
+        keep_assets = []
+        for col in df.columns:
+            # If asset has < 10% valid points, consider it missing/broken
+            if df[col].count() < (len(df) * 0.1):
+                missing_assets.append(col)
+            else:
+                keep_assets.append(col)
+        
+        if not keep_assets:
+            return {
+                'status': 'no_common_history',
+                'missing_assets': assets,
+                'error': 'No assets with sufficient history.'
+            }
+
+        # Filter valid assets only
+        df = df[keep_assets]
         df = df.sort_index().ffill().bfill()
         
         days_map = {'1y': 252, '3y': 756, '5y': 1260}
         lookback_days = days_map.get(period, 756)
         
-        start_date = df.index[-1] - timedelta(days=lookback_days/252*365 + 30) 
-        df = df[df.index >= start_date]
+        # Calculate start date based on available history
+        if len(df) > 0:
+            start_date = df.index[-1] - timedelta(days=lookback_days/252*365 + 30) 
+            df = df[df.index >= start_date]
+        
+        # Re-check validity after slicing time range
+        if df.empty:
+            return {
+                'status': 'no_common_history',
+                'missing_assets': list(set(assets) - set(keep_assets)),
+                'error': 'Period selected is outside available history range.'
+            }
 
         valid_assets = [c for c in df.columns if c in assets]
-        if not valid_assets: raise Exception("Sin datos válidos para backtest")
+        # Return specific status if we had to drop everything
+        if not valid_assets: 
+             return {
+                'status': 'no_common_history',
+                'missing_assets': assets,
+                'error': 'No intersection of valid history found.'
+             }
         
         df_port = df[valid_assets]
         returns = df_port.pct_change().dropna()
@@ -143,11 +184,13 @@ def run_backtest(portfolio, period, db):
              real_holdings_found = False
              
              try:
-                 fdoc = db.collection('funds_v2').document(isin).get()
+                 fdoc = db.collection('funds_v3').document(isin).get()
                  if fdoc.exists:
                      fd = fdoc.to_dict()
                      
                      holdings_list = fd.get('holdings', [])
+                     if not holdings_list:
+                         holdings_list = fd.get('holdings_top10', [])
                      if not holdings_list: 
                          holdings_list = fd.get('top_holdings', [])
                          

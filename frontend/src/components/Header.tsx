@@ -16,7 +16,6 @@ export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenP
         <header className="h-16 bg-gradient-to-r from-[#003399] to-[#0055CC] text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-white/10 shadow-md">
             <div className="flex flex-col">
                 <div className="font-light text-xl tracking-tight leading-none mb-0.5">Gestor de <span className="font-bold">Fondos</span></div>
-                <div className="text-[9px] uppercase tracking-[0.25em] text-white/70 font-bold">Portfolio Intelligence</div>
             </div>
             <div className="flex items-center gap-4">
                 {children}

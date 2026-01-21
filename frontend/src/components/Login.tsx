@@ -1,16 +1,20 @@
 import { useState } from 'react'
 
-export default function Login({ onLogin }) {
+interface LoginProps { onLogin: (email: string, pass: string) => Promise<any> }
+export default function Login({ onLogin }: LoginProps) {
     const [isLoading, setIsLoading] = useState(false)
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
 
     const handleLogin = async () => {
+        if (!email || !password) return;
         setIsLoading(true)
         try {
-            await onLogin()
+            await onLogin(email, password)
         } catch (e) {
+            console.error(e);
             setIsLoading(false)
         }
-        // Note: onLogin should trigger auth change which unmounts this component
     }
 
     return (
@@ -19,21 +23,24 @@ export default function Login({ onLogin }) {
                 <h2 className="text-3xl font-bold text-center mb-6 font-serif text-brand">Gestor de Fondos</h2>
                 <input
                     type="email"
-                    className="w-full border-b-2 p-3 mb-3 outline-none focus:border-accent"
+                    className="w-full border-b-2 p-3 mb-3 outline-none focus:border-accent text-slate-800"
                     placeholder="Usuario"
-                    defaultValue="demo@gestordefondos.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     disabled={isLoading}
                 />
                 <input
                     type="password"
-                    className="w-full border-b-2 p-3 mb-6 outline-none focus:border-accent"
+                    className="w-full border-b-2 p-3 mb-6 outline-none focus:border-accent text-slate-800"
                     placeholder="Clave"
-                    defaultValue="demo123"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
+                    onKeyDown={(e) => e.key === 'Enter' && handleLogin()}
                 />
                 <button
                     onClick={handleLogin}
-                    disabled={isLoading}
+                    disabled={isLoading || !email || !password}
                     className="w-full bg-brand text-white py-3 font-bold hover:bg-[#153e6e] transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex justify-center items-center"
                 >
                     {isLoading ? (

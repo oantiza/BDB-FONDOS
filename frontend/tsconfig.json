@@ -24,7 +24,8 @@
         /* Type checking - relaxed for migration */
         "allowJs": true,
         "checkJs": false,
-        "noImplicitAny": false
+        "noImplicitAny": true,
+        "strictNullChecks": true
     },
     "include": [
         "src"

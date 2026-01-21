@@ -3,6 +3,7 @@ import Plot from 'react-plotly.js';
 
 interface DiversificationDonutProps {
     assets: { name: string; value: number }[];
+    staticPlot?: boolean;
 }
 
 const CUSTOM_PALETTE = [
@@ -16,11 +17,11 @@ const CUSTOM_PALETTE = [
     '#94A3B8', // Slate 400
 ];
 
-export default function DiversificationDonut({ assets }: DiversificationDonutProps) {
+export default function DiversificationDonut({ assets, staticPlot = false }: DiversificationDonutProps) {
 
     // Group small allocations into "Otros" to avoid glitter
     const { labels, values, colors } = useMemo(() => {
-        // Aggregate by name first (just in case)
+        // ... (unchanged) ...
         const map: Record<string, number> = {};
         assets.forEach(a => {
             const k = a.name || 'Sin Clasificar';
@@ -60,8 +61,8 @@ export default function DiversificationDonut({ assets }: DiversificationDonutPro
                             labels: labels,
                             textinfo: 'label+percent', // Show Label + %
                             textposition: 'outside', // Labels outside
-                            automargin: true,
-                            hole: 0.75, // Thinner Donut (increased from 0.65)
+                            automargin: false, // DISABLE AUTOMARGIN to ensure consistent pie size
+                            hole: 0.65, // Thinner Donut for elegance
                             marker: {
                                 colors: colors,
                                 line: { width: 0 } // No borders for cleaner look
@@ -77,14 +78,14 @@ export default function DiversificationDonut({ assets }: DiversificationDonutPro
                     ]}
                     layout={{
                         showlegend: false, // Hide legend (labels are outside)
-                        margin: { t: 10, b: 10, l: 20, r: 20 }, // Reduced margins for better centering
-                        font: { family: 'Roboto, sans-serif', size: 10, color: '#2C3E50' },
+                        margin: { t: 40, b: 40, l: 80, r: 80 }, // Fixed large margins for labels
+                        font: { family: 'Roboto, sans-serif', size: 12, color: '#2C3E50' },
                         autosize: true,
                         paper_bgcolor: 'rgba(0,0,0,0)',
                         plot_bgcolor: 'rgba(0,0,0,0)',
                     }}
                     style={{ width: '100%', height: '100%' }}
-                    config={{ displayModeBar: false, responsive: true }}
+                    config={{ displayModeBar: false, responsive: true, staticPlot: staticPlot }}
                     useResizeHandler={true}
                 />
             </div>

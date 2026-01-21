@@ -1,0 +1,12 @@
+{
+  "ruleset_version": "assetclass_fill_only_v1",
+  "mode": "DRY_RUN",
+  "collection": "funds_v3",
+  "scanned": 576,
+  "filled": 0,
+  "skipped_existing": 576,
+  "errors": 0,
+  "started_at": "2026-01-16T14:05:11.732Z",
+  "finished_at": "2026-01-16T14:05:12.499Z",
+  "items": []
+}

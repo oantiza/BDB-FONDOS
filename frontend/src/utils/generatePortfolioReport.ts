@@ -3,13 +3,8 @@ import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 
 export const generatePortfolioReport = async (
-    coverPageId: string,
-    tacticalPageId: string,
-    page1Id: string,
-    page2Id: string,
-    page3Id: string,
-    page4Id?: string,
-    filename: string = 'Informe de Cartera.pdf'
+    pageIds: string[],
+    filename: string = 'Informe_Cartera.pdf'
 ) => {
     const doc = new jsPDF('p', 'mm', 'a4');
     const margin = 10; // mm
@@ -35,23 +30,9 @@ export const generatePortfolioReport = async (
                 windowWidth: orientation === 'l' ? 1600 : 1400, // Wider for landscape
                 ignoreElements: (node) => node.classList.contains('no-print'),
                 onclone: (clonedDoc) => {
-                    // SHOW elements meant for PDF only (e.g. Grouped Table)
-                    const pdfShow = clonedDoc.getElementsByClassName('pdf-show-during-capture');
-                    for (let i = 0; i < pdfShow.length; i++) {
-                        (pdfShow[i] as HTMLElement).classList.remove('hidden');
-                        (pdfShow[i] as HTMLElement).style.display = 'block';
-                    }
-
-                    // HIDE elements meant for Screen only (e.g. Flat Table)
-                    const pdfHide = clonedDoc.getElementsByClassName('pdf-hide-during-capture');
-                    for (let i = 0; i < pdfHide.length; i++) {
-                        (pdfHide[i] as HTMLElement).style.display = 'none';
-                    }
-
-                    // Existing logic for headers (renamed or kept as is if used elsewhere)
                     const params = clonedDoc.getElementsByClassName('pdf-visible-only');
                     for (let i = 0; i < params.length; i++) {
-                        (params[i] as HTMLElement).style.display = 'flex';
+                        (params[i] as HTMLElement).style.display = 'flex'; // Restore flex display for headers
                     }
                 }
             });
@@ -73,24 +54,19 @@ export const generatePortfolioReport = async (
         }
     };
 
-    // Page 1: COVER PAGE (Portrait)
-    await captureAndAddPage(coverPageId, true, 'p');
+    // Iterate through provided page IDs
+    for (let i = 0; i < pageIds.length; i++) {
+        // Detect if page should be landscape (e.g. correlation matrix)
+        // Heuristic: if ID contains 'matrix' or 'page-4', use landscape. 
+        // Better: Pass object config, but kept simple for now. 
+        // Current logic: Page 4 (Correlation) is landscape.
+        const isLandscape = pageIds[i].includes('page-4') || pageIds[i].includes('correlation');
 
-    // Page 2: TACTICAL ALLOCATION (Portrait)
-    await captureAndAddPage(tacticalPageId, false, 'p');
-
-    // Page 3: Composition (Portrait)
-    await captureAndAddPage(page1Id, false, 'p');
-
-    // Page 4: Metrics + Holdings + Donut (Portrait)
-    await captureAndAddPage(page2Id, false, 'p');
-
-    // Page 5: Historical + Risk Map (Portrait)
-    await captureAndAddPage(page3Id, false, 'p');
-
-    // Page 6: Correlation Matrix (Landscape) - Optional
-    if (page4Id) {
-        await captureAndAddPage(page4Id, false, 'l');
+        await captureAndAddPage(
+            pageIds[i],
+            i === 0,
+            isLandscape ? 'l' : 'p'
+        );
     }
 
     doc.save(filename);

@@ -12,9 +12,9 @@ const DEFAULT_METRICS = {
 };
 
 interface PortfolioStats {
-    vol: number;
+    vol: number | null;
     ret: number;
-    sharpe: number;
+    sharpe: number | null;
     yield: number;
     ter: number;
     beta: number;
@@ -34,33 +34,63 @@ export function calcSimpleStats(
     portfolio.forEach(f => {
         const w = (f.weight || 0) / 100;
 
-        // Prefer normalized std_perf over raw perf
-        const perf = f.std_perf || (f as any).perf || {};
+        // PRIORITY: std_perf (Canonical Backend Data - Always Decimal)
+        const std = f.std_perf || {};
+        // Legacy fallbacks
+        const itemAny = f as any;
+        const perf = itemAny.perf || {};
         const extra = f.std_extra || {};
-        const metrics = (f as any).metrics || {};
+        const metrics = itemAny.metrics || {};
+        const legacyYearly = itemAny.yearly_returns || {};
 
-        // Data Retrieval - prefer normalized fields
-        const fVol = parseFloat(String(perf.volatility || DEFAULT_METRICS.VOLATILITY));
-        const fRet = parseFloat(String(perf.cagr3y || perf.return || DEFAULT_METRICS.RETURN));
+        // 1. Return (CAGR)
+        let valRet = 0.0;
+        // Fix: 'returns' represents the value in the type definition, fallback to 'return' if loose
+        if ((std as any).returns !== undefined) valRet = parseFloat(String((std as any).returns));
+        else if (std.returns !== undefined) valRet = parseFloat(String(std.returns));
+        else if (perf.cagr3y) valRet = parseFloat(String(perf.cagr3y));
+        else if (perf.return) valRet = parseFloat(String(perf.return));
+        else if (legacyYearly.return) valRet = parseFloat(String(legacyYearly.return));
+        else valRet = DEFAULT_METRICS.RETURN;
 
-        // Use std_extra.ter which already has fallback to management_fee
-        const fTer = parseFloat(String(extra.ter || (f as any).total_expense_ratio || metrics.ter || DEFAULT_METRICS.TER));
+        // Normalize Return: if abs(val) > 1.0 (e.g. 15.5 or even 2.5), assume % and divide by 100
+        // Heuristic: if absolute value > 1.0, treat as percentage.
+        if (Math.abs(valRet) > 1.0) valRet = valRet / 100.0;
 
-        // Yield and Beta from metrics or defaults
-        const fYield = parseFloat(String(perf.yield || metrics.yield || DEFAULT_METRICS.YIELD));
-        const fBeta = parseFloat(String(metrics.beta || (f as any).perf?.beta || DEFAULT_METRICS.BETA));
+        // 2. Volatility
+        let valVol = 0.0;
+        if (std.volatility !== undefined) valVol = parseFloat(String(std.volatility));
+        else if (perf.volatility) valVol = parseFloat(String(perf.volatility));
+        else valVol = DEFAULT_METRICS.VOLATILITY;
 
-        wVol += fVol * w;
-        wRet += fRet * w;
-        wYield += fYield * w;
-        wTer += fTer * w;
-        wBeta += fBeta * w;
+        // Normalize Volatility: Same heuristic
+        if (Math.abs(valVol) > 1.0) valVol = valVol / 100.0;
+
+        // 3. TER
+        let valTer = 0.0;
+        if (extra.ter !== undefined) valTer = parseFloat(String(extra.ter));
+        else if (itemAny.total_expense_ratio) valTer = parseFloat(String(itemAny.total_expense_ratio));
+        else if (metrics.ter) valTer = parseFloat(String(metrics.ter));
+        else valTer = DEFAULT_METRICS.TER;
+
+        // TER usually small decimal. If > 0.5, assume %.
+        if (valTer > 0.5) valTer = valTer / 100.0;
+
+        // 4. Yield / Beta
+        const valYield = parseFloat(String((std as any).yield || perf.yield || metrics.yield || DEFAULT_METRICS.YIELD));
+        const valBeta = parseFloat(String(std.beta || metrics.beta || itemAny.perf?.beta || DEFAULT_METRICS.BETA));
+
+        wVol += valVol * w;
+        wRet += valRet * w;
+        wYield += valYield * w;
+        wTer += valTer * w;
+        wBeta += valBeta * w;
         totalW += w;
     });
 
     if (totalW === 0) return { vol: 0, ret: 0, sharpe: 0, yield: 0, ter: 0, beta: 1, score: 0 };
 
-    // Simple Diversification Benefit (Heuristic)
+    // Simple Diversification Benefit (Heuristic) if no real matrix
     const diversificationFactor = portfolio.length > 3 ? DEFAULT_METRICS.DIVERSIFICATION_FACTOR : 1.0;
 
     // Attempt Real Calculation using History
@@ -77,16 +107,37 @@ export function calcSimpleStats(
         realVol = calculateRealPortfolioVolatility(portfolio);
     }
 
-    const finalVol = realVol !== null ? realVol : wVol * diversificationFactor;
+    let finalVol = realVol !== null ? realVol : wVol * diversificationFactor;
+
+    // VALIDATION: If volatility is unreasonably low (< 0.01%), invalidate it.
+    // This handles cases where data might be missing or effectively zero.
+    if (finalVol < 0.0001) {
+        finalVol = null as any; // Allow null propagation/check later
+    }
 
     // Calculate approx weighted score (0-100)
-    // Assuming portfolio items have 'score' property. If not, default to 50.
     const finalScore = portfolio.reduce((acc, p) => acc + ((p.score || 50) * (p.weight / 100)), 0);
 
+    // Sharpe Calc: (Ret - Rf) / Vol
+    let sharpe: number | null = null;
+
+    // Only calculate Sharpe if we have valid volatility
+    if (finalVol !== null && finalVol > 0.0001) {
+        sharpe = (wRet - riskFreeRate) / finalVol;
+
+        // GUARDRAIL: Absurd Sharpe (> 10)
+        // If Sharpe is unreasonably high, it's likely a data artifact (e.g. extremely low vol).
+        if (!isFinite(sharpe) || Math.abs(sharpe) > 10) {
+            sharpe = null;
+        }
+    } else {
+        sharpe = null;
+    }
+
     return {
-        vol: finalVol,
+        vol: finalVol, // Can be null
         ret: wRet,
-        sharpe: finalVol > 0 ? (wRet - riskFreeRate) / finalVol : 0,
+        sharpe: sharpe,
         yield: wYield,
         ter: wTer,
         beta: wBeta,

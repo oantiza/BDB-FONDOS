@@ -1,4 +1,4 @@
-import React, { useState, useRef, lazy, Suspense } from 'react'
+import React, { useState, useRef, lazy, Suspense, useMemo } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore'
 import { db, functions } from '../firebase'
@@ -9,9 +9,11 @@ import Sidebar from '../components/Sidebar'
 import Controls from '../components/Controls'
 import EfficientFrontierChart from '../components/charts/EfficientFrontierChart'
 import PortfolioTable from '../components/PortfolioTable'
-import PortfolioMetrics from '../components/dashboard/PortfolioMetrics'
+import { PortfolioMetricsCards } from '../components/PortfolioMetricsCards'
+import ComparativeFundHistoryChart from '../components/charts/ComparativeFundHistoryChart'
 import EquityDistribution from '../components/dashboard/EquityDistribution'
 import FixedIncomeDistribution from '../components/dashboard/FixedIncomeDistribution'
+import { DataQualityBadge, gradePortfolioQuality } from '../components/dashboard/DataQualityBadge' // [NEW]
 
 
 
@@ -30,14 +32,24 @@ import { useToast } from '../context/ToastContext'
 import { Fund, PortfolioItem, SmartPortfolioResponse, AllocationItem } from '../types'
 import { MacroReport } from '../types/MacroReport'
 
-// Modals (Code Splitting)
-const CostsModal = lazy(() => import('../components/modals/CostsModal'))
+import { lazyWithRetry } from '../utils/lazyWithRetry'
 
-const TacticalModal = lazy(() => import('../components/modals/TacticalModal'))
-import MacroTacticalModal from '../components/modals/MacroTacticalModal'
-const OptimizationReviewModal = lazy(() => import('../components/modals/OptimizationReviewModal'))
+// Modals (Code Splitting with Retry)
+const CostsModal = lazyWithRetry(() => import('../components/modals/CostsModal'))
+const TacticalModal = lazyWithRetry(() => import('../components/modals/TacticalModal'))
+const MacroTacticalModal = lazyWithRetry(() => import('../components/modals/MacroTacticalModal')) // RESTORED
+const OptimizationReviewModal = lazyWithRetry(() => import('../components/modals/OptimizationReviewModal'))
+const VipFundsModal = lazyWithRetry(() => import('../components/VipFundsModal'))
+const SharpeMaximizerModal = lazyWithRetry(() => import('../components/modals/SharpeMaximizerModal')) // NEW
+const SavedPortfoliosModal = lazyWithRetry(() => import('../components/SavedPortfoliosModal')) // NEW
+
 import FundDetailModal from '../components/FundDetailModal'
-const VipFundsModal = lazy(() => import('../components/VipFundsModal'))
+// ... (imports) ...
+
+// ... (inside DashboardPage) ...
+
+{/* MODALS */ }
+
 import { FundSwapModal } from '../components/FundSwapModal'
 
 
@@ -100,27 +112,28 @@ export default function DashboardPage({
         performSwap,
         handleManualGenerate,
         handleOptimize,
+        handleRebalance,
         handleApplyDirectly,
         handleReviewAccept,
         handleAcceptPortfolio,
         handleMacroApply,
-        handleImportCSV
+        handleImportCSV,
+        handleRoundDecimals // NEW
     } = usePortfolioActions({
         portfolio, setPortfolio,
         assets, riskLevel,
         numFunds,
         setProposedPortfolio,
         setTotalCapital,
-        proposedPortfolio
+        proposedPortfolio,
+        vipFunds,
+        totalCapital // NEW
     });
 
     const {
-        historyData,
-        frontierData,
-        assetPoints,
-        portfolioPoint,
-        isLoading,
-        dashboardError
+        historyData, frontierData, assetPoints, portfolioPoint,
+        metrics1y, xrayMetrics, metrics5y, // New unified metrics
+        isLoading, dashboardError
     } = useDashboardData(isAuthenticated, portfolio)
 
     // 2. UI STATE (View-specific)
@@ -179,6 +192,15 @@ export default function DashboardPage({
         fetchStrategy();
     }, []);
 
+    // --- Performance Optimizations (C) ---
+    // Memoize Portfolio Quality Grade
+    const portfolioGrade = useMemo(() => {
+        return gradePortfolioQuality(portfolio);
+    }, [portfolio]);
+
+    // Memoize expensive sorting/filtering for sidebar if assets list is huge (optional but good practice)
+    // The Sidebar component likely does some filtering, but passing a stable reference can help if Sidebar is memoized.
+    // Here we'll just keep the structure simple as requested (light optimization).
 
     const fileInputRef = useRef<HTMLInputElement>(null)
     const handleImportClick = () => { fileInputRef.current?.click() }
@@ -237,11 +259,19 @@ export default function DashboardPage({
                         </div>
 
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <PortfolioMetrics
-                                portfolio={portfolio}
-                                riskFreeRate={riskFreeRate}
-                                isLoading={isLoading}
-                            />
+                            <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10">
+                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                                    Métricas Clave
+                                </h3>
+                            </div>
+                            <div className="flex-1 min-h-0 relative">
+                                <PortfolioMetricsCards
+                                    metrics1y={metrics1y}
+                                    metrics3y={xrayMetrics}
+                                    metrics5y={metrics5y}
+                                    rfLabel="RF 1.93%"
+                                />
+                            </div>
                         </div>
                     </div>
 
@@ -255,9 +285,14 @@ export default function DashboardPage({
                     <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200">
                         <div className="flex-1 bg-white overflow-hidden relative flex flex-col">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0 relative">
-                                <h3 className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
-                                    Cartera de Fondos
-                                </h3>
+                                <div className="flex items-center gap-3">
+                                    <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                                        Cartera de Fondos <span className="text-slate-400">({portfolio.length})</span>
+                                    </h3>
+                                    {/* [NEW] Data Quality Badge */}
+                                    <DataQualityBadge grade={portfolioGrade.grade} reason={portfolioGrade.reason} compact />
+                                </div>
+
                                 {/* Separator Line with Padding */}
                                 <div className="absolute bottom-0 left-0 right-0 mx-6 border-b border-black/80"></div>
                                 <div className="flex items-center gap-3 text-xs">
@@ -268,9 +303,22 @@ export default function DashboardPage({
                                     </div>
                                     <div className="h-4 w-px bg-slate-100 mx-1"></div>
 
-                                    <button onClick={() => exportToCSV(portfolio, totalCapital)} className="text-slate-400 hover:text-[#003399] transition-colors">📥</button>
+                                    <div className="h-4 w-px bg-slate-100 mx-1"></div>
+
+                                    <button
+                                        onClick={handleRoundDecimals}
+                                        className="flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded border border-emerald-200 transition-colors text-[10px] font-bold uppercase tracking-wider"
+                                        title="Redondear capitales (eliminar decimales)"
+                                    >
+                                        <span>🪄</span> Redondear
+                                    </button>
+                                    <div className="h-4 w-px bg-slate-100 mx-1"></div>
+
+                                    <button onClick={() => exportToCSV(portfolio, totalCapital)} className="text-slate-400 hover:text-[#003399] transition-colors" title="Exportar CSV">📥</button>
                                     <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv" className="hidden" />
                                     <button onClick={handleImportClick} className="text-slate-400 hover:text-[#003399] transition-colors">📂</button>
+                                    <div className="h-4 w-px bg-slate-100 mx-1"></div>
+                                    <button onClick={() => { if (window.confirm('¿Estás seguro de que quieres vaciar toda la cartera?')) setPortfolio([]) }} className="text-slate-400 hover:text-red-600 transition-colors" title="Vaciar Cartera">🗑️</button>
                                 </div>
                             </div>
                             <div className="flex-1 overflow-hidden relative">
@@ -286,7 +334,7 @@ export default function DashboardPage({
                     <div className="flex flex-col gap-6 flex-1">
                         <div className="bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col shrink-0 h-full group hover:border-slate-200 transition-colors">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
+                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
                                     Distribución de Activos
                                 </h3>
                             </div>
@@ -320,17 +368,30 @@ export default function DashboardPage({
                     </div>
 
                     <div className="shrink-0 pb-0">
-                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => toggleModal('costs', true)} onOpenXRay={onOpenXRay} onOpenTactical={() => { setProposedPortfolio(portfolio); toggleModal('tactical', true); }} onOpenMacro={() => toggleModal('macro', true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => toggleModal('vip', true)} />
+                        <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} onRebalance={handleRebalance} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => toggleModal('costs', true)} onOpenXRay={onOpenXRay} onOpenTactical={() => { setProposedPortfolio(portfolio); toggleModal('tactical', true); }} onOpenMacro={() => toggleModal('macro', true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => toggleModal('vip', true)} onOpenSharpeMaximizer={() => toggleModal('sharpeMaximizer', true)} onOpenSavedPortfolios={() => toggleModal('savedPortfolios', true)} />
                     </div>
                 </div>
             </div>
 
             <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white">Cargando...</div>}>
                 {modals.costs && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => toggleModal('costs', false)} />}
-                {modals.vip && <VipFundsModal vipFundsStr={vipFunds} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => toggleModal('vip', false)} />}
+                {modals.vip && <VipFundsModal vipFundsStr={vipFunds} allFunds={assets} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => toggleModal('vip', false)} />}
                 {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} />}
-                {modals.macro && <MacroTacticalModal portfolio={portfolio} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}
+                {modals.macro && <MacroTacticalModal portfolio={portfolio} allFunds={assets} numFunds={numFunds} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}
                 {modals.review && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => toggleModal('review', false)} />}
+                {modals.sharpeMaximizer && <SharpeMaximizerModal isOpen={modals.sharpeMaximizer} onClose={() => toggleModal('sharpeMaximizer', false)} portfolio={portfolio} onAddFund={(fund) => { handleAddAsset(fund); toggleModal('sharpeMaximizer', false); }} currentSharpe={xrayMetrics?.metrics3y?.sharpe || 0} />}
+                {modals.savedPortfolios && (
+                    <SavedPortfoliosModal
+                        isOpen={modals.savedPortfolios}
+                        onClose={() => toggleModal('savedPortfolios', false)}
+                        currentPortfolio={portfolio}
+                        currentTotalCapital={totalCapital}
+                        onLoadPortfolio={(items, cap) => {
+                            setPortfolio(items);
+                            setTotalCapital(cap);
+                        }}
+                    />
+                )}
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
                 <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} />
             </Suspense>

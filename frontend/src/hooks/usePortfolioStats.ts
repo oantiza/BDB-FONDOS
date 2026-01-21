@@ -125,9 +125,94 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
     }, [portfolio]);
 
+    // 4. GLOBAL ALLOCATION (Weighted by Metrics)
+    const globalAllocation = useMemo(() => {
+        let totalEquity = 0;
+        let totalBond = 0;
+        let totalCash = 0;
+        let totalOther = 0;
+
+        let validMetricsWeight = 0;
+        let totalWeight = 0;
+
+        portfolio.forEach(p => {
+            const w = p.weight;
+            if (w <= 0) return;
+            totalWeight += w;
+
+            let e = 0, b = 0, c = 0, o = 0;
+            let success = false;
+
+            // Strategy 1: Use 'metrics' if valid
+            if (p.metrics) {
+                const { equity = 0, bond = 0, cash = 0, other = 0 } = p.metrics;
+                const sum = equity + bond + cash + other;
+
+                // Allow tolerance 95-105 for normalizing
+                if (sum >= 95 && sum <= 105) {
+                    const factor = 100 / sum; // Normalize to EXACTLY 100%
+                    e = (equity * factor);
+                    b = (bond * factor);
+                    c = (cash * factor);
+                    o = (other * factor);
+                    success = true;
+                    validMetricsWeight += w;
+                }
+            }
+
+            // Strategy 2: Fallback to Heuristics (Category/Type)
+            if (!success) {
+                const cat = (p.std_extra?.category || p.std_type || '').toLowerCase();
+                if (cat.includes('renta variable') || cat.includes('equity') || cat.includes('rv')) {
+                    e = 100;
+                    success = true;
+                } else if (cat.includes('renta fija') || cat.includes('fixed income') || cat.includes('rf')) {
+                    b = 100;
+                    success = true;
+                } else if (cat.includes('monetario') || cat.includes('money market') || cat.includes('cash')) {
+                    c = 100;
+                    success = true;
+                } else if (cat.includes('mixto') || cat.includes('allocation')) {
+                    // Primitive heuristic for mixed
+                    e = 50; b = 50;
+                    success = true;
+                } else {
+                    o = 100;
+                    success = true; // Even "Other" is a valid classification
+                }
+            }
+
+            // Mark as covered if we found a strategy
+            if (success) {
+                validMetricsWeight += w;
+            }
+
+            // Accumulate Weighted Contribution
+            // contribution = weight * (allocation / 100)
+            totalEquity += w * (e / 100);
+            totalBond += w * (b / 100);
+            totalCash += w * (c / 100);
+            totalOther += w * (o / 100);
+        });
+
+        // Normalize final result to ensure exactly 100% (floating point errors)
+        const finalSum = totalEquity + totalBond + totalCash + totalOther;
+        const norm = finalSum > 0 ? (100 / finalSum) : 0;
+
+        return {
+            equity: totalEquity * norm,
+            bond: totalBond * norm,
+            cash: totalCash * norm,
+            other: totalOther * norm,
+            coverage: totalWeight > 0 ? (validMetricsWeight / totalWeight) * 100 : 0
+        };
+
+    }, [portfolio]);
+
     return {
         categoryAllocation,
         sortedHoldings,
-        styleStats
+        styleStats,
+        globalAllocation
     };
 }

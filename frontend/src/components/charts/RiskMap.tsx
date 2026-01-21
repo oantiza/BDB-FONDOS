@@ -1,7 +1,13 @@
 import React from 'react'
 import Plot from 'react-plotly.js'
 
-export default function RiskMap({ portfolioMetrics, benchmarks = [] }) {
+interface RiskMapProps {
+    portfolioMetrics: { volatility?: number; annual_return?: number; cagr?: number };
+    benchmarks?: { vol: number; ret: number; name: string; color?: string }[];
+    staticPlot?: boolean;
+}
+
+export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot = false }: RiskMapProps) {
     if (!portfolioMetrics) return <div className="text-xs text-slate-400">Sin datos de métricas</div>
 
     const pVol = (portfolioMetrics.volatility || 0) * 100
@@ -21,6 +27,7 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [] }) {
     const points = benchmarks.length > 0 ? benchmarks : []
     // Safe parse: if backend sends 0.05, we show 5.0. If backend sends 5.0, assume it's already %.
     // Standardize to decimal in utils, so here * 100 safe.
+
 
     const traceBench = {
         x: points.map(b => (b.vol < 1 ? b.vol * 100 : b.vol)),
@@ -81,7 +88,7 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [] }) {
                 }}
                 useResizeHandler={true}
                 style={{ width: '100%', height: '100%' }}
-                config={{ displayModeBar: false, responsive: true }}
+                config={{ displayModeBar: false, responsive: true, staticPlot: staticPlot }}
             />
         </div>
     )

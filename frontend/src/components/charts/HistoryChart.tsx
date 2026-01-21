@@ -27,13 +27,18 @@ ChartJS.register(
 
 const THEME = { navy: '#38bdf8', gold: '#D4AF37', slate: '#94a3b8', grid: '#334155' } // Navy -> Sky Blue for visibility
 
-export default function HistoryChart({ data }) {
+interface DataPoint { x: string | number | Date; y: number; }
+interface HistoryChartProps {
+    data: DataPoint[] | DataPoint[][];
+}
+
+export default function HistoryChart({ data }: HistoryChartProps) {
     if (!data || data.length === 0) return <div className="flex items-center justify-center h-full text-slate-400 text-xs">Sin datos</div>;
 
     // Detect basic single line or multi-path (cone)
     const isMultiPath = Array.isArray(data) && Array.isArray(data[0]);
 
-    let datasets = [];
+    let datasets: any[] = [];
 
     if (isMultiPath) {
         datasets = data.map((simulationPoints) => ({
@@ -49,7 +54,7 @@ export default function HistoryChart({ data }) {
         datasets = [{
             data: data,
             borderColor: THEME.navy,
-            backgroundColor: (context) => {
+            backgroundColor: (context: any) => {
                 const ctx = context.chart.ctx;
                 const gradient = ctx.createLinearGradient(0, 0, 0, 300);
                 gradient.addColorStop(0, 'rgba(56, 189, 248, 0.5)'); // Sky Blue 0.5
@@ -64,11 +69,12 @@ export default function HistoryChart({ data }) {
     }
 
     // Calculate scales (simple approximation)
-    let allY = [];
+    const allY: number[] = [];
     if (isMultiPath) {
-        data.forEach(arr => arr.forEach(p => allY.push(p.y)));
+        (data as DataPoint[][]).forEach(arr => arr.forEach(p => allY.push(p.y)));
     } else {
-        if (datasets[0].data) datasets[0].data.forEach(p => allY.push(p.y));
+        const singleData = data as DataPoint[];
+        if (singleData) singleData.forEach(p => allY.push(p.y));
     }
 
     const minY = allY.length ? Math.min(...allY) * 0.98 : 0;

@@ -1,23 +1,25 @@
 "use client";
 import React, { useState, useEffect } from 'react';
+// @ts-ignore
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { TrendingUp, TrendingDown, Minus, Shield, Globe } from 'lucide-react';
 import DeepResearchSection from './DeepResearchSection';
 
 // --- CONFIGURACIÓN ---
-const COLORES_RV = ['#0f172a', '#334155', '#475569', '#94a3b8']; 
-const COLORES_RF = ['#064e3b', '#065f46', '#059669', '#34d399']; 
+const COLORES_RV = ['#0f172a', '#334155', '#475569', '#94a3b8'];
+const COLORES_RF = ['#064e3b', '#065f46', '#059669', '#34d399'];
 
 // --- SUB-COMPONENTES UI ---
-const BadgeVision = ({ vision }) => {
-  const estilos = {
+const BadgeVision = ({ vision }: { vision: any }) => {
+  const estilos: any = {
     'Sobreponderar': 'bg-emerald-50 text-emerald-700 border-emerald-200',
     'Neutral': 'bg-slate-50 text-slate-600 border-slate-200',
     'Infraponderar': 'bg-rose-50 text-rose-700 border-rose-200',
   };
-  const Icono = {
+  const map = {
     'Sobreponderar': TrendingUp, 'Neutral': Minus, 'Infraponderar': TrendingDown
-  }[vision] || Minus;
+  };
+  const Icono = map[vision as keyof typeof map] || Minus;
 
   return (
     <span className={`flex w-fit items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold border ${estilos[vision] || estilos['Neutral']}`}>
@@ -27,7 +29,7 @@ const BadgeVision = ({ vision }) => {
   );
 };
 
-const TarjetaAssetClass = ({ titulo, icono: Icon, datos, colores, visionGlobal }) => (
+const TarjetaAssetClass = ({ titulo, icono: Icon, datos, colores, visionGlobal }: { titulo: string, icono: any, datos: any[], colores: string[], visionGlobal: string }) => (
   <div className="bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden mb-8">
     <div className="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
       <div className="flex items-center gap-3">
@@ -46,12 +48,12 @@ const TarjetaAssetClass = ({ titulo, icono: Icon, datos, colores, visionGlobal }
       {/* Gráfico Donut - VERSIÓN INFALIBLE (Tamaño Fijo) */}
       <div className="flex justify-center items-center mx-auto mb-6 md:mb-0 relative w-[200px] h-[200px] flex-shrink-0">
         <PieChart width={200} height={200}>
-          <Pie 
-            data={datos} 
-            innerRadius={60} 
-            outerRadius={80} 
-            paddingAngle={5} 
-            dataKey="peso" 
+          <Pie
+            data={datos}
+            innerRadius={60}
+            outerRadius={80}
+            paddingAngle={5}
+            dataKey="peso"
             stroke="none"
           >
             {datos.map((entry, index) => (
@@ -60,7 +62,7 @@ const TarjetaAssetClass = ({ titulo, icono: Icon, datos, colores, visionGlobal }
           </Pie>
           <Tooltip />
         </PieChart>
-        
+
         {/* Texto central */}
         <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
           <span className="text-3xl font-bold text-slate-800">100<span className="text-sm">%</span></span>
@@ -103,7 +105,7 @@ const TarjetaAssetClass = ({ titulo, icono: Icon, datos, colores, visionGlobal }
 );
 
 // --- COMPONENTE PRINCIPAL ---
-export default function InformeMensual({ datos }) {
+export default function InformeMensual({ datos }: { datos: any }) {
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -114,7 +116,7 @@ export default function InformeMensual({ datos }) {
 
   const { meta, asignacion_tactica, macro_analysis } = datos;
 
-  if (!isClient) return null; 
+  if (!isClient) return null;
 
   return (
     <div className="max-w-6xl mx-auto p-6 md:p-12 bg-slate-50 min-h-screen font-sans">
@@ -133,7 +135,7 @@ export default function InformeMensual({ datos }) {
             <span className="text-xs font-bold text-slate-600">Sistema Online</span>
           </div>
         </div>
-        
+
         <div className="bg-white p-6 rounded-xl shadow-sm border border-l-4 border-slate-200 border-l-blue-600">
           <h3 className="text-sm font-bold text-blue-900 mb-2 uppercase tracking-wide">Resumen Ejecutivo</h3>
           <p className="text-slate-600 leading-relaxed text-lg font-light">{meta?.resumen_ia || datos.executive_summary}</p>
@@ -142,16 +144,16 @@ export default function InformeMensual({ datos }) {
 
       {asignacion_tactica && (
         <>
-          <TarjetaAssetClass 
-            titulo="Renta Variable (Equity)" 
+          <TarjetaAssetClass
+            titulo="Renta Variable (Equity)"
             icono={Globe}
             visionGlobal={asignacion_tactica.renta_variable?.peso_global || "Neutral"}
             datos={asignacion_tactica.renta_variable?.desglose || []}
             colores={COLORES_RV}
           />
 
-          <TarjetaAssetClass 
-            titulo="Renta Fija (Fixed Income)" 
+          <TarjetaAssetClass
+            titulo="Renta Fija (Fixed Income)"
             icono={Shield}
             visionGlobal={asignacion_tactica.renta_fija?.peso_global || "Neutral"}
             datos={asignacion_tactica.renta_fija?.desglose || []}
@@ -162,11 +164,11 @@ export default function InformeMensual({ datos }) {
 
       {/* Si no hay asignacion_tactica, usamos el fallback de portfolio */}
       {!asignacion_tactica && datos.model_portfolio && (
-         <div className="mb-12">
-            <h3 className="font-bold text-slate-800 text-xl mb-4">Cartera Modelo</h3>
-            {/* Aquí podrías renderizar una tabla simplificada si no llega la estructura compleja */}
-            <p>Datos de cartera cargados correctamente.</p>
-         </div>
+        <div className="mb-12">
+          <h3 className="font-bold text-slate-800 text-xl mb-4">Cartera Modelo</h3>
+          {/* Aquí podrías renderizar una tabla simplificada si no llega la estructura compleja */}
+          <p>Datos de cartera cargados correctamente.</p>
+        </div>
       )}
 
       {macro_analysis && <DeepResearchSection data={macro_analysis} />}

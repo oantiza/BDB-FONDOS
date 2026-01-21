@@ -1,36 +1,41 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    
-    // 1. Colección de Fondos: Solo lectura para usuarios autenticados
-    // (Solo tú puedes editar esto desde la consola de Firebase o Admin SDK)
+
+    // 1) Fondos: solo lectura para usuarios autenticados
     match /funds_v2/{fundId} {
-      allow read: if request.auth != null;
-      allow write: if false; 
-    }
-    
-    // 2. Histórico de Precios: Solo lectura
-    match /historico_vl_v2/{isin} {
       allow read: if request.auth != null;
       allow write: if false;
     }
 
+    match /funds_v3/{fundId} {
+      allow read: if true; 
+      allow write: if request.auth != null && request.auth.token.email == 'oantiza@gmail.com';
+    }
+
+    // 2) Histórico de precios: solo lectura (escritura admin)
+    match /historico_vl_v2/{isin} {
+      allow read: if request.auth != null;
+      allow write: if request.auth != null && request.auth.token.email == 'oantiza@gmail.com';
+    }
+
+    // 3) Datos privados de usuario
     match /users/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
 
-    // 4. Informes y Estrategia: Lectura pública (para usuarios autenticados)
+    // 4) Informes / análisis: solo lectura
     match /reports/{reportId} {
       allow read: if request.auth != null;
-      allow write: if false; 
+      allow write: if false;
     }
 
     match /analysis_results/{docId} {
       allow read: if request.auth != null;
       allow write: if false;
     }
-    
-    // 5. Regla por defecto (Bloqueo de seguridad)
+
+    // 5) Regla por defecto: bloqueo total
     match /{document=**} {
       allow read, write: if false;
     }

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { db, auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { normalizeFundData } from '../utils/normalizer'
+import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer'
 import { Fund, PortfolioItem, AllocationItem } from '../types'
 
 export function usePortfolio() {
@@ -48,12 +48,30 @@ export function usePortfolio() {
 
     async function fetchAssets() {
         try {
-            const querySnapshot = await getDocs(collection(db, "funds_v2"))
+            const querySnapshot = await getDocs(collection(db, "funds_v3"))
             const list: Fund[] = []
             querySnapshot.forEach((doc) => {
-                list.push(normalizeFundData({ isin: doc.id, ...doc.data() }))
+                list.push(normalizeFundData(adaptFundV3ToLegacy({ isin: doc.id, ...doc.data() })))
             })
             setAssets(list)
+
+            // Auto-audit for missing categories & ratings & metrics
+            const missingCat = list.filter(f => !f.category_morningstar && (!f.std_extra?.category || f.std_extra.category === 'Sin Clasificar'));
+            const missingRating = list.filter(f => !f.rating_overall && !f.std_extra?.rating);
+            const missingMetrics = list.filter(f => {
+                const p = f.std_perf || {};
+                return (!p.alpha && p.alpha !== 0) || (!p.beta && p.beta !== 0) || (!p.max_drawdown && p.max_drawdown !== 0);
+            });
+
+            if (missingCat.length > 0) {
+                console.warn(`Found ${missingCat.length} funds with missing Morningstar Category:`, missingCat.map(f => f.isin));
+            }
+            if (missingRating.length > 0) {
+                console.warn(`Found ${missingRating.length} funds with missing Morningstar Rating (0 stars):`, missingRating.map(f => f.isin));
+            }
+            if (missingMetrics.length > 0) {
+                console.warn(`Found ${missingMetrics.length} funds with missing Metrics (Alpha/Beta/MDD):`, missingMetrics.map(f => f.isin));
+            }
         } catch (error) {
             console.error("usePortfolio: Error loading funds:", error)
         }
@@ -67,8 +85,11 @@ export function usePortfolio() {
         portfolio.forEach(p => {
             const w = Number(p.weight) || 0
             const extra = p.std_extra || {}
-            const rawType = p.std_type || 'Mixto'
-            const region = extra.regionDetail || p.std_region || 'Global'
+
+            // STRICT MODE: Handle nulls by grouping them as 'Sin Clasificar' / 'Sin datos'
+            // effectively moving "inference" to the presentation layer only.
+            const rawType = p.std_type || 'Sin Clasificar'
+            const region = extra.regionDetail || p.std_region || 'Sin asignar'
 
             let label = rawType
 
@@ -87,11 +108,12 @@ export function usePortfolio() {
             else if (rawType === 'Monetario' || rawType === 'Cash') label = 'Monetarios'
             else if (rawType === 'Mixto' || rawType === 'Mixed') label = 'Retorno Absoluto'
             else if (rawType === 'Commodities') label = 'Materias Primas'
+            else if (rawType === 'Sin Clasificar') label = 'Sin Clasificar'
             else label = 'Alternativos/Otros'
 
             typeMap[label] = (typeMap[label] || 0) + w
 
-            // Geo Map se mantiene igual
+            // Geo Map
             geoMap[region] = (geoMap[region] || 0) + w
         })
 

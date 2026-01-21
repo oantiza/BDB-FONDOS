@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
+import { unwrapResult } from '../utils/api';
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS } from '../utils/benchmarkUtils';
 import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
 
@@ -70,7 +71,17 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
                     benchmarks: EXCLUDED_BENCHMARK_ISINS
                 });
 
-                const rawData = res.data as any;
+                const rawData = unwrapResult<any>(res.data);
+
+                // Check if backend returned a logical error (e.g., "no_common_history")
+                if (rawData.error) {
+                    throw new Error(rawData.error);
+                }
+
+                if (rawData.status === 'no_common_history') {
+                    throw new Error(`Datos históricos insuficientes. Activos faltantes: ${rawData.missing_assets?.join(', ') || 'Desconocidos'}`);
+                }
+
                 const syntheticSeries = rawData.benchmarkSeries || {};
 
                 if (ismounted) {

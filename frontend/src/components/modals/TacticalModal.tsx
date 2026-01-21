@@ -5,10 +5,27 @@ import { calcSimpleStats } from '../../utils/analytics'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../../firebase'
 
-export default function TacticalModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onClose }) {
-    const [editedProposal, setEditedProposal] = useState([])
+export default function TacticalModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onClose }: { currentPortfolio: any[], proposedPortfolio: any[], riskFreeRate?: number, onAccept: (p: any[]) => void, onClose: () => void }) {
+    const [editedProposal, setEditedProposal] = useState<any[]>([])
+    const [filteredFunds, setFilteredFunds] = useState<any[]>([]);
     const [isEditing, setIsEditing] = useState(false) // Manual Rebalance Mode
-    const [backtestData, setBacktestData] = useState({
+    interface BacktestMetrics {
+        cagr?: number;
+        volatility?: number;
+        sharpe?: number;
+        maxDrawdown?: number;
+        score?: number;
+        rf_rate?: number;
+    }
+
+    interface BacktestDataState {
+        current: { x: string; y: number }[] | null;
+        proposed: { x: string; y: number }[] | null;
+        metricsCurrent: BacktestMetrics | null;
+        metricsProposed: BacktestMetrics | null;
+    }
+
+    const [backtestData, setBacktestData] = useState<BacktestDataState>({
         current: null,
         proposed: null,
         metricsCurrent: null,
@@ -63,12 +80,12 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
     }, []) // Run once on mount to compare original vs initial proposal
 
     // --- Actions ---
-    const handleWeightChange = (isin, val) => {
-        const newVal = parseFloat(val) || 0
+    const handleWeightChange = (isin: string, val: string | number) => {
+        const newVal = parseFloat(String(val)) || 0
         setEditedProposal(prev => prev.map(p => p.isin === isin ? { ...p, weight: newVal } : p))
     }
 
-    const handleRemove = (isin) => {
+    const handleRemove = (isin: string) => {
         setEditedProposal(prev => prev.filter(p => p.isin !== isin))
     }
 
@@ -86,11 +103,15 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
     const totalCurrentWeight = currentPortfolio.reduce((acc, p) => acc + (p.weight || 0), 0)
 
     // --- Helpers ---
-    const MetricRow = ({ label, val, isPercent = true, comparisonVal = null, inverse = false }) => {
-        const formatted = isPercent ? (val * 100).toFixed(2) + '%' : val.toFixed(2)
+    const MetricRow = ({ label, val, isPercent = true, comparisonVal = null, inverse = false }: { label: string, val: number, isPercent?: boolean, comparisonVal?: number | null, inverse?: boolean }) => {
+        const isValid = val !== null && val !== undefined;
+        const safeVal = val ?? 0;
+
+        const formatted = !isValid ? '—' : (isPercent ? (safeVal * 100).toFixed(2) + '%' : safeVal.toFixed(2))
+
         let color = 'text-slate-600'
-        if (comparisonVal !== null) {
-            const isBetter = inverse ? val < comparisonVal : val > comparisonVal
+        if (comparisonVal !== null && isValid) {
+            const isBetter = inverse ? safeVal < comparisonVal : safeVal > comparisonVal
             color = isBetter ? 'text-emerald-600' : 'text-rose-600'
         }
         return (
@@ -149,12 +170,12 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                                 readOnly={true}
                                 onWeightChange={() => { }}
                                 onRemove={() => { }}
-                                comparisonPortfolio={null}
+                                comparisonPortfolio={undefined}
                             />
                         </div>
                         {/* Total Weight Indicator (NEW) */}
                         <div className={`p-3 text-center text-xs font-bold border-t bg-[#fcfcfc] text-slate-500 border-slate-50 flex justify-between px-6`}>
-                            <span className="font-normal uppercase tracking-wider">Rf: {(backtestData.metricsCurrent?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span className="font-normal uppercase tracking-wider">Rf: {((backtestData.metricsCurrent?.rf_rate || 0) * 100).toFixed(2) || '-'}%</span>
                             <span className="uppercase tracking-wider">Total: {totalCurrentWeight.toFixed(2)}%</span>
                         </div>
                     </div>
@@ -181,13 +202,13 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                             ) : (
                                 <>
                                     <MetricRow label="Rentabilidad"
-                                        val={isEditing ? proposedStats.ret : (backtestData.metricsProposed?.cagr || 0)}
+                                        val={isEditing ? (proposedStats?.ret ?? 0) : (backtestData.metricsProposed?.cagr || 0)}
                                         comparisonVal={backtestData.metricsCurrent?.cagr || 0} />
                                     <MetricRow label="Volatilidad"
-                                        val={isEditing ? proposedStats.vol : (backtestData.metricsProposed?.volatility || 0)}
+                                        val={isEditing ? (proposedStats?.vol ?? 0) : (backtestData.metricsProposed?.volatility || 0)}
                                         comparisonVal={backtestData.metricsCurrent?.volatility || 0} inverse={true} />
                                     <MetricRow label="Ratio Sharpe"
-                                        val={isEditing ? proposedStats.sharpe : (backtestData.metricsProposed?.sharpe || 0)}
+                                        val={isEditing ? (proposedStats?.sharpe ?? 0) : (backtestData.metricsProposed?.sharpe || 0)}
                                         isPercent={false}
                                         comparisonVal={backtestData.metricsCurrent?.sharpe || 0} />
                                     <MetricRow label="Max Drawdown"
@@ -210,7 +231,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
 
                         {/* Total Weight Indicator */}
                         <div className={`p-3 text-center text-xs font-bold border-t flex justify-between px-6 ${Math.abs(totalProposedWeight - 100) > 0.1 ? 'bg-rose-50 text-rose-600 border-rose-100' : 'bg-[#fcfcfc] text-[#0B2545] border-slate-50'}`}>
-                            <span className="opacity-70 font-normal uppercase tracking-wider">Rf: {(backtestData.metricsProposed?.rf_rate * 100).toFixed(2) || '-'}%</span>
+                            <span className="opacity-70 font-normal uppercase tracking-wider">Rf: {((backtestData.metricsProposed?.rf_rate || 0) * 100).toFixed(2) || '-'}%</span>
                             <span className="uppercase tracking-wider">Total: {totalProposedWeight.toFixed(2)}%</span>
                         </div>
                     </div>
@@ -225,7 +246,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
 
                     {/* Centered Container using live backtest data */}
                     <div className="h-full w-full max-w-5xl flex items-center justify-center pt-2">
-                        <ComparisonChart currentData={backtestData.current} proposedData={backtestData.proposed} />
+                        <ComparisonChart currentData={backtestData.current || []} proposedData={backtestData.proposed || []} />
                     </div>
                 </div>
 
@@ -267,7 +288,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
     )
 }
 
-function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparisonPortfolio }) {
+function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparisonPortfolio }: { portfolio: any[], readOnly?: boolean, onWeightChange?: (isin: string, w: number) => void, onRemove?: (isin: string) => void, comparisonPortfolio?: any[] }) {
     return (
         <table className="w-full text-sm text-left">
             <thead className="text-slate-500 border-b border-slate-200 sticky top-0 z-10 bg-slate-50">
@@ -301,7 +322,7 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                                             type="number"
                                             className="w-14 text-right font-bold text-slate-700 bg-white border border-slate-300 rounded px-1 py-0.5 focus:border-[var(--color-accent)] outline-none text-sm transition-colors"
                                             value={p.weight}
-                                            onChange={(e) => onWeightChange(p.isin, e.target.value)}
+                                            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onWeightChange?.(p.isin, parseFloat(e.target.value) || 0)}
                                         />
                                         {diff !== 0 && !isNew && (
                                             <span className={`text-[10px] font-bold ${diff > 0 ? 'text-[#0B2545]' : 'text-rose-500'}`}>
@@ -313,7 +334,7 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                             </td>
                             {!readOnly && (
                                 <td className="p-2 text-center">
-                                    <button onClick={() => onRemove(p.isin)} className="text-slate-600 hover:text-rose-400 transition-colors">&times;</button>
+                                    <button onClick={() => onRemove?.(p.isin)} className="text-slate-600 hover:text-rose-400 transition-colors">&times;</button>
                                 </td>
                             )}
                         </tr>

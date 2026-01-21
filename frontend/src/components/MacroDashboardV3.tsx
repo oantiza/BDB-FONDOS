@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
-import { collection, query, where, limit, getDocs } from 'firebase/firestore'; // Removed orderBy as it was used in client-side sort
+import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { MacroReport } from '../types/MacroReport';
 
-import GlobalMacroIntelligence from './GlobalMacroIntelligenceLight';
 
-// Extracted Components
-import { StrategyCard } from './macro/StrategyCard';
-import { SubSection } from './macro/SubSection';
-import { PulseCard } from './macro/PulseCard';
+import GlobalMacroIntelligence from './GlobalMacroIntelligenceLight';
+// Iconos simples (puedes usar Lucide o Heroicons si los tienes instalados)
+const TrendingUp = () => <span className="text-green-500">↗</span>;
+const TrendingDown = () => <span className="text-red-500">↘</span>;
+const TrendingFlat = () => <span className="text-gray-400">→</span>;
 
 export default function MacroDashboard() {
   const [activeTab, setActiveTab] = useState<'WEEKLY' | 'MONTHLY' | 'STRATEGY' | 'GLOBAL_MACRO'>('STRATEGY');
-  const [report, setReport] = useState<MacroReport | null>(null);
-  const [reports, setReports] = useState<MacroReport[]>([]);
-  const [empty, setEmpty] = useState(false);
+  const [report, setReport] = useState<MacroReport | null>(null); // Keep this for now, but the new logic uses 'reports'
+  const [reports, setReports] = useState<MacroReport[]>([]); // New state for multiple reports
+  const [empty, setEmpty] = useState(false); // New state to indicate if reports are empty
   const [loading, setLoading] = useState(true);
 
 
@@ -69,6 +69,13 @@ export default function MacroDashboard() {
   useEffect(() => {
     fetchReport();
   }, [activeTab]);
+
+  // Renderizado de Tendencia
+  const renderTrend = (trend: string) => {
+    if (trend === 'BULLISH' || trend === 'ALCISTA') return <><TrendingUp /> Alcista</>;
+    if (trend === 'BEARISH' || trend === 'BAJISTA') return <><TrendingDown /> Bajista</>;
+    return <><TrendingFlat /> Neutral</>;
+  };
 
   return (
     <div className="bg-white min-h-screen pb-12 font-sans text-slate-700">
@@ -329,6 +336,64 @@ export default function MacroDashboard() {
           <GlobalMacroIntelligence />
         )}
 
+      </div>
+    </div>
+  );
+}
+
+// Subcomponentes para la vista de Estrategia
+const StrategyCard = ({ title, icon, children }: any) => (
+  // Minimalist Card: No Shadow, Clean Border
+  <div className="bg-white border-t-2 border-[#2C3E50] pt-4">
+    <div className="flex items-center gap-3 mb-6">
+      <span className="text-xl opacity-80 grayscale">{icon}</span>
+      <h3 className="font-bold text-[#2C3E50] uppercase tracking-widest text-[10px]">{title}</h3>
+    </div>
+    <div className="space-y-6">
+      {children}
+    </div>
+  </div>
+);
+
+const SubSection = ({ title, items }: any) => {
+  if (!items) return null;
+  return (
+    <div>
+      <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
+      <div className="space-y-2">
+        {items.map((item: any, idx: number) => (
+          <div key={idx} className="flex justify-between items-center text-sm group">
+            <span className="font-medium text-[#2C3E50] group-hover:text-slate-900 transition-colors">{item.name}</span>
+            <span className={`px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider ${item.view === 'POSITIVO' || item.view === 'SOBREPONDERAR' ? 'text-green-700 bg-green-50' :
+              item.view === 'NEGATIVO' || item.view === 'INFRAPONDERAR' ? 'text-red-700 bg-red-50' :
+                'text-slate-500 bg-slate-50'
+              }`}>
+              {item.view}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+
+
+// Subcomponente para tarjetas
+const PulseCard = ({ title, data }: { title: string, data: any }) => {
+  if (!data) return null;
+  const trendColor = data.trend === 'BULLISH' ? 'text-green-600' : data.trend === 'BEARISH' ? 'text-red-600' : 'text-slate-400';
+
+  return (
+    // Clean Minimalist Card
+    <div className="bg-white p-6 border border-[#eeeeee] flex flex-col justify-between h-full hover:border-slate-300 transition-colors">
+      <div>
+        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3">{title}</h4>
+        <div className="text-2xl font-light text-[#2C3E50] mb-2 tracking-tight">{data.focus}</div>
+        <p className="text-sm text-[#7f8c8d] leading-snug">{data.note}</p>
+      </div>
+      <div className={`mt-4 pt-4 border-t border-[#f5f5f5] text-xs font-bold uppercase tracking-wider flex items-center gap-2 ${trendColor}`}>
+        {data.trend === 'BULLISH' ? '↗ Alcista' : data.trend === 'BEARISH' ? '↘ Bajista' : '→ Neutral'}
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { BarChart2, Activity, PieChart, Layers, Zap, BookOpen } from 'lucide-react';
 
-const DeepResearchSection = ({ data }) => {
+const DeepResearchSection = ({ data }: { data: any }) => {
   if (!data) return <div className="p-8 text-center text-gray-500 animate-pulse">Generando Deep Research con Gemini...</div>;
 
   const sections = [
@@ -31,7 +31,7 @@ const DeepResearchSection = ({ data }) => {
         {sections.map((sec) => {
           const content = data[sec.id];
           const Icon = sec.icon;
-          
+
           return (
             <div key={sec.id} className="bg-white rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition-all duration-300 overflow-hidden group">
               <div className={`px-5 py-3 border-l-4 ${sec.border} ${sec.bg} flex justify-between items-center`}>
@@ -57,10 +57,10 @@ const DeepResearchSection = ({ data }) => {
         <div className="md:col-span-2 mt-2">
           <div className="bg-gradient-to-r from-slate-900 to-slate-800 rounded-xl p-8 text-white shadow-xl relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-yellow-500 opacity-5 rounded-full blur-3xl -mr-16 -mt-16"></div>
-            
+
             <div className="relative z-10">
               <h3 className="text-lg font-bold text-yellow-400 mb-4 font-serif flex items-center gap-2">
-                <Zap size={20} className="fill-yellow-400 text-yellow-400" /> 
+                <Zap size={20} className="fill-yellow-400 text-yellow-400" />
                 TESIS DE INVERSIÓN CENTRAL
               </h3>
               <p className="text-xl text-slate-200 leading-relaxed font-light italic border-l-2 border-yellow-500/30 pl-6">

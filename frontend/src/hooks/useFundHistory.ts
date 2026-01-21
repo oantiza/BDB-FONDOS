@@ -7,63 +7,91 @@ export interface HistoryPoint {
     price: number;
 }
 
+
+// Simple in-memory cache to prevent re-fetching the same history
+const GLOBAL_CACHE: Record<string, HistoryPoint[]> = {};
+
 export function useFundHistory(isins: string[]) {
-    const [historyData, setHistoryData] = useState<Record<string, HistoryPoint[]>>({});
+    // Initialize state with cached data if available
+    const [historyData, setHistoryData] = useState<Record<string, HistoryPoint[]>>(() => {
+        const initial: Record<string, HistoryPoint[]> = {};
+        isins.forEach(isin => {
+            if (GLOBAL_CACHE[isin]) {
+                initial[isin] = GLOBAL_CACHE[isin];
+            }
+        });
+        return initial;
+    });
+
     const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchHistory = async () => {
-            if (isins.length === 0) return;
+            // Filter out ISINs we already have in cache/state
+            const missingIsins = isins.filter(isin => !GLOBAL_CACHE[isin] && !historyData[isin]);
+
+            if (missingIsins.length === 0) {
+                // If we have everything, just ensure state is synced (already done in init, but for updates)
+                // Actually, if missingIsins is empty, we are done.
+                return;
+            }
 
             setLoading(true);
             const newHistory: Record<string, HistoryPoint[]> = {};
 
-            // Only fetch what we don't have? Or just simple fetch for now.
-            // Check cache or state? For now, fetch all selected.
-
-            await Promise.all(isins.map(async (isin) => {
-                if (historyData[isin]) {
-                    newHistory[isin] = historyData[isin];
-                    return;
-                }
-
+            await Promise.all(missingIsins.map(async (isin) => {
                 try {
                     const docRef = doc(db, 'historico_vl_v2', isin);
                     const snap = await getDoc(docRef);
 
                     if (snap.exists()) {
                         const data = snap.data();
-                        const rawSeries = data.series || [];
+                        const rawSeries = data.history || data.series || [];
 
-                        // Parse series: [{date: '2023-01-01', price: 100}, ...]
-                        const parsedSeries = rawSeries.map((item: any) => {
-                            // Handle various date formats if needed, usually string 'YYYY-MM-DD' or Timestamp
+                        // Optimize parsing loop
+                        const parsedSeries = new Array(rawSeries.length);
+                        let validCount = 0;
+
+                        for (let i = 0; i < rawSeries.length; i++) {
+                            const item = rawSeries[i];
+                            // Date Parsing - fast path for Firestore Timestamp
                             let d: Date;
-                            if (item.date?.toDate) d = item.date.toDate();
-                            else if (typeof item.date === 'string') d = new Date(item.date);
-                            else d = new Date(item.date); // Timestamp or number
+                            if (item.date && typeof item.date.toDate === 'function') {
+                                d = item.date.toDate();
+                            } else {
+                                d = new Date(item.date);
+                            }
 
-                            return {
-                                date: d,
-                                price: Number(item.price)
-                            };
-                        }).sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
+                            const val = item.nav !== undefined ? +item.nav : +item.price;
+
+                            if (!isNaN(val) && val > 0) {
+                                parsedSeries[validCount++] = { date: d, price: val };
+                            }
+                        }
+
+                        // Trim and sort
+                        parsedSeries.length = validCount;
+                        parsedSeries.sort((a: any, b: any) => a.date.getTime() - b.date.getTime());
 
                         newHistory[isin] = parsedSeries;
-                    } else {
-                        // console.warn(`No history found for ${isin} in historico_vl_v2`);
+                        // Update Cache
+                        GLOBAL_CACHE[isin] = parsedSeries;
                     }
                 } catch (err) {
                     console.error(`Error fetching history for ${isin}:`, err);
                 }
             }));
 
-            setHistoryData(prev => ({ ...prev, ...newHistory }));
+            // Only update state if we actually fetched something new
+            if (Object.keys(newHistory).length > 0) {
+                setHistoryData(prev => ({ ...prev, ...newHistory }));
+            }
             setLoading(false);
         };
 
         fetchHistory();
-    }, [isins]); // Re-run when selection changes
+    }, [isins]); // Dependency array usually stable
 
     return { historyData, loading };
 }
+

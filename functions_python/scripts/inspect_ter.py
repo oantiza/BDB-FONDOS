@@ -16,8 +16,8 @@ def check_ter():
     
     db = firestore.client()
     
-    print("Querying funds_v2 (limit 100)...")
-    docs = db.collection('funds_v2').limit(100).stream()
+    print("Querying funds_v3 (limit 100)...")
+    docs = db.collection('funds_v3').limit(100).stream()
     
     total = 0
     with_ter = 0

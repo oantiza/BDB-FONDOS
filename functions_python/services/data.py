@@ -31,37 +31,63 @@ def get_price_data(assets_list, db):
         print("⚡ [CACHE HIT] Todos los activos recuperados de memoria RAM.")
         return price_data, []
 
-    # 2. CONSULTAR FIRESTORE
-    print(f"📥 [DB READ] Buscando {len(missing_assets)} activos en Firestore...")
-    
-    synthetic_used = [] # Mantener vacio, ya no se usa, pero la firma lo espera
+    # 2. CONSULTAR FIRESTORE (BATCH READ OPTIMIZATION)
+    if missing_assets:
+        print(f"📥 [DB READ] Buscando {len(missing_assets)} activos en Firestore (Batch)...")
+        synthetic_used = [] 
 
-    for i, isin in enumerate(missing_assets):
-        loaded = False
         try:
-            doc = db.collection('historico_vl_v2').document(isin).get()
-            if doc.exists:
-                data = doc.to_dict()
-                series = data.get('series', [])
-                if len(series) > 50:
+            # Create list of references
+            refs = [db.collection('historico_vl_v2').document(isin) for isin in missing_assets]
+            
+            # Fetch all in parallel/batch
+            docs = db.get_all(refs)
+
+            for doc in docs:
+                isin = doc.id
+                if not doc.exists:
+                    print(f"❌ {isin}: NO DATA FOUND.")
+                    continue
+                
+                try:
+                    data = doc.to_dict()
+                    
+                    # PRIORITY 1: CANONICAL HISTORY (V3)
+                    history_list = data.get('history', [])
                     clean_series = {}
-                    for p in series:
-                        if p.get('date') and p.get('price'):
-                            d_val = p['date']
-                            if hasattr(d_val, 'strftime'): d_str = d_val.strftime('%Y-%m-%d')
-                            else: d_str = str(d_val).split('T')[0]
-                            clean_series[d_str] = float(p['price'])
+                    
+                    if history_list and isinstance(history_list, list):
+                            for item in history_list:
+                                if not isinstance(item, dict): continue
+                                d_val = item.get('date')
+                                n_val = item.get('nav')
+                                if d_val and n_val is not None:
+                                    clean_series[str(d_val)] = float(n_val)
+
+                    # PRIORITY 2: LEGACY SERIES (Fallback)
+                    if not clean_series: 
+                        series = data.get('series', [])
+                        if len(series) > 10:
+                            for p in series:
+                                if p.get('date') and p.get('price'):
+                                    d_val = p['date']
+                                    if hasattr(d_val, 'strftime'): d_str = d_val.strftime('%Y-%m-%d')
+                                    else: d_str = str(d_val).split('T')[0]
+                                    clean_series[d_str] = float(p['price'])
                     
                     if len(clean_series) > 50:
                         price_data[isin] = clean_series
                         PRICE_CACHE[isin] = clean_series 
-                        loaded = True
-        except Exception as e:
-            print(f"⚠️ Error leyendo {isin}: {e}")
+                    else:
+                         print(f"⚠️ {isin}: Historia insuficiente ({len(clean_series)})")
 
-        if not loaded:
-            print(f"❌ {isin}: NO DATA FOUND. No se utilizarán datos sintéticos.")
-            # No añadimos nada a price_data, el backtester fallará o ignorará este activo.
+                except Exception as e_proc:
+                    print(f"⚠️ Error procesando {isin}: {e_proc}")
+
+        except Exception as e_batch:
+            print(f"⚠️ Error Crítico en Batch Read: {e_batch}")
+            # Fallback to sequential? No, if batch fails likely DB issue.
+            pass
 
     return price_data, synthetic_used
 
@@ -111,39 +137,59 @@ def get_dynamic_risk_free_rate(db=None):
              return _rf_cache['rate']
 
     # 3. Fetch from ECB (ESTR - Euro Short-Term Rate)
-    # Series Key: "EST.B.EU000A2X2A25.WT"
-    url = "https://data-api.ecb.europa.eu/service/data/EST/B.EU000A2X2A25.WT?lastNObservations=1&format=jsondata"
-    
-    rate = 0.03 # Default Fallback
-    
+    # Nota: la key interna de series (p.ej. '0:0:0:0') NO es estable.
+    # Por eso seleccionamos dinámicamente la primera serie y la última observación disponible.
+    url = "https://data-api.ecb.europa.eu/service/data/EST/B.EU000A2X2A25.WT?lastNObservations=10&format=jsondata"
+
+    fallback_rate = 0.03
     try:
         import requests
         print("🌍 [ECB] Fetching Real Risk Free Rate (ESTR)...")
-        r = requests.get(url, timeout=5)
-        if r.status_code == 200:
-            data = r.json()
-            val = data['dataSets'][0]['series']['0:0:0:0']['observations']['0'][0]
-            rate = float(val) / 100.0
-            print(f"✅ [ECB] Rate updated: {rate*100:.3f}%")
-            
-            # Update Memory Cache
-            _rf_cache = {'rate': rate, 'timestamp': now}
-            
-            # Update Firestore Cache
-            if db:
-                try:
-                    db.collection('system_settings').document('risk_free_rate').set({
-                        'rate': rate,
-                        'updated_at': now,
-                        'source': 'ECB',
-                        'cycle': cycle_start.isoformat()
-                    })
-                except Exception as w_err:
-                     print(f"⚠️ Error writing DB cache: {w_err}")
-                     
-            return rate
+        headers = {
+            "Accept": "application/json",
+            "User-Agent": "bdb-fondos/1.0 (risk_free_rate_fetch)"
+        }
+        r = requests.get(url, headers=headers, timeout=8)
+        r.raise_for_status()
+        data = r.json()
+
+        series_dict = data.get('dataSets', [{}])[0].get('series', {})
+        if not series_dict:
+            raise KeyError('No series found in ECB response')
+
+        series_key = next(iter(series_dict.keys()))
+        observations = series_dict[series_key].get('observations', {})
+        if not observations:
+            raise KeyError('No observations found in ECB response')
+
+        obs_keys_sorted = sorted(observations.keys(), key=lambda x: int(x))
+        last_obs_key = obs_keys_sorted[-1]
+        val = observations[last_obs_key][0]
+        rate = float(val) / 100.0
+
+        print(f"✅ [ECB] Rate updated: {rate*100:.3f}% (series={series_key}, obs={last_obs_key})")
+
+        # Update Memory Cache
+        _rf_cache = {'rate': rate, 'timestamp': now}
+
+        # Update Firestore Cache
+        if db:
+            try:
+                db.collection('system_settings').document('risk_free_rate').set({
+                    'rate': rate,
+                    'updated_at': now,
+                    'source': 'ECB',
+                    'cycle': cycle_start.isoformat(),
+                    'series_key': series_key,
+                    'obs_key': last_obs_key,
+                })
+            except Exception as w_err:
+                print(f"⚠️ Error writing DB cache: {w_err}")
+
+        return rate
+
     except Exception as e:
         print(f"⚠️ [ECB] Error fetching rate: {e}")
-        
-    print("⚠️ [ECB] Using Fallback Rate: 3.0%")
-    return 0.03
+
+    print(f"⚠️ [ECB] Using Fallback Rate: {fallback_rate*100:.1f}%")
+    return float(fallback_rate)

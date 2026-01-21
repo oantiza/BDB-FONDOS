@@ -11,12 +11,12 @@ export default function KPICards({ portfolio, maxDrawdown = null }: KPICardsProp
 
     const displayMaxDD = maxDrawdown !== null
         ? `${(maxDrawdown * 100).toFixed(2)}%`
-        : `${(-stats.vol * 30).toFixed(2)}%`;
+        : (stats && stats.vol != null ? `${(-stats.vol * 30).toFixed(2)}%` : '-');
 
     const metrics = [
-        { label: 'Rentabilidad YTD', value: `${(stats.ret * 100).toFixed(2)}%`, trend: getTrend(stats.ret), trendLabel: '', trendColor: getTrendColor(stats.ret) },
-        { label: 'Volatilidad (1Y)', value: `${(stats.vol * 100).toFixed(2)}%`, trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
-        { label: 'Ratio de Sharpe', value: (stats.vol > 0 ? (stats.ret / stats.vol).toFixed(2) : '0.00'), trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
+        { label: 'Retorno Anual (1Y)', value: stats?.ret != null ? `${(stats.ret * 100).toFixed(2)}%` : '-', trend: stats?.ret != null ? getTrend(stats.ret) : '-', trendLabel: 'vs benchmark', trendColor: stats?.ret != null ? getTrendColor(stats.ret) : 'text-slate-400' },
+        { label: 'Volatilidad (1Y)', value: stats?.vol != null ? `${(stats.vol * 100).toFixed(2)}%` : '-', trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
+        { label: 'Ratio de Sharpe', value: (stats?.vol && stats.vol > 0 && stats?.ret != null) ? (stats.ret / stats.vol).toFixed(2) : '0.00', trend: '-', trendLabel: '', trendColor: 'text-slate-400' },
         { label: 'Máximo Drawdown', value: displayMaxDD, trend: '-', trendLabel: '', trendColor: 'text-slate-400' }
     ]
 

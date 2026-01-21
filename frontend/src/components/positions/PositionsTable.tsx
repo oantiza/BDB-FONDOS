@@ -76,7 +76,7 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
 
         sortedData.forEach(function (row) {
             let totalStr = row.total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            let retroStr = row.retrocession !== undefined ? `${row.retrocession.toFixed(2)}%` : 'N/A';
+            let retroStr = row.retrocession !== undefined ? `${(row.retrocession * 100).toFixed(2)}%` : 'N/A';
             let rowStr = `${row.isin};"${row.nombre}";"${retroStr}";"${totalStr}"`;
             csvContent += rowStr + "\n";
         });
@@ -206,7 +206,7 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
                                     <td className="px-6 py-3.5 whitespace-nowrap text-right">
                                         {fund.fundFound ? (
                                             <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
-                                                {fund.retrocession !== undefined ? `${fund.retrocession.toFixed(2)}%` : '0.00%'}
+                                                {fund.retrocession !== undefined ? `${(fund.retrocession * 100).toFixed(2)}%` : '0.00%'}
                                             </span>
                                         ) : (
                                             <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 uppercase tracking-wide border border-slate-200">

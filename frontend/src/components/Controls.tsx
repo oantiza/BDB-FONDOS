@@ -6,6 +6,7 @@ export default function Controls({
     numFunds,
     setNumFunds,
     onOptimize,
+    onRebalance,
     isOptimizing,
     onManualGenerate,
     onOpenXRay,
@@ -16,7 +17,28 @@ export default function Controls({
     vipFunds = '',
     setVipFunds,
     onOpenVipModal,
+    onOpenSharpeMaximizer, // FIXED
+    onOpenSavedPortfolios, // NEW
     className = ''
+}: {
+    riskLevel: number,
+    setRiskLevel: (v: number) => void,
+    numFunds: number,
+    setNumFunds: (v: number) => void,
+    onOptimize: () => void,
+    onRebalance: () => void,
+    isOptimizing: boolean,
+    onManualGenerate: () => void,
+    onOpenXRay?: () => void,
+    onOpenCosts: () => void,
+    onOpenTactical: () => void,
+    onOpenMacro: () => void,
+    vipFunds?: string,
+    setVipFunds?: (v: string) => void,
+    onOpenVipModal: () => void,
+    onOpenSharpeMaximizer?: () => void,
+    onOpenSavedPortfolios?: () => void,
+    className?: string
 }) {
 
 
@@ -91,13 +113,19 @@ export default function Controls({
 
 
 
-                    {/* Secondary Tools: Costs, Tactical, Macro */}
-                    <div className="grid grid-cols-3 gap-2 pt-2">
+                    {/* Secondary Tools: Costs, Tactical, Macro, Saved */}
+                    <div className="grid grid-cols-2 gap-2 pt-2">
                         <button
                             onClick={onOpenCosts}
                             className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] font-bold py-2 rounded hover:bg-blue-100 hover:text-blue-900 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
                         >
                             Costes
+                        </button>
+                        <button
+                            onClick={onOpenSavedPortfolios}
+                            className="bg-amber-50 border border-amber-100 text-amber-700 text-[10px] font-bold py-2 rounded hover:bg-amber-100 hover:text-amber-900 transition-colors uppercase tracking-widest flex items-center justify-center gap-1"
+                        >
+                            📂 Mis Carteras
                         </button>
                         <button
                             onClick={onOpenTactical}
@@ -133,6 +161,24 @@ export default function Controls({
                             variant="highlight"
                             active={isOptimizing}
                         />
+                        <ControlButton
+                            icon="⚖️"
+                            label="Rebalancear"
+                            onClick={onRebalance}
+                            variant="standard"
+                            active={isOptimizing}
+                            className="" // Remove col-span-2 to make room
+                            compact={true}
+                        />
+                        <ControlButton
+                            icon="⚡"
+                            label="BUSCAR SHARPE"
+                            onClick={() => {
+
+                                onOpenSharpeMaximizer && onOpenSharpeMaximizer();
+                            }}
+                            variant="highlight"
+                        />
                     </div>
                 </div>
             </div>
@@ -140,8 +186,8 @@ export default function Controls({
     )
 }
 
-function ControlButton({ icon, label, onClick, active = false, variant = 'standard' }) {
-    const baseClasses = "flex flex-col items-center justify-center p-3 rounded-lg transition-all group border"
+function ControlButton({ icon, label, onClick, active = false, variant = 'standard', className = '', compact = false }: { icon: string, label: string, onClick: () => void, active?: boolean, variant?: 'standard' | 'highlight' | 'dark', className?: string, compact?: boolean }) {
+    const baseClasses = `flex items-center justify-center rounded-lg transition-all group border ${compact ? 'flex-row gap-2 p-2' : 'flex-col p-3'}`
 
     // Gold/Blue style for Optimize/Highlight
     if (variant === 'highlight') {
@@ -149,10 +195,10 @@ function ControlButton({ icon, label, onClick, active = false, variant = 'standa
             <button
                 onClick={onClick}
                 disabled={active}
-                className={`${baseClasses} bg-[#D4AF37] border-[#b8952b] hover:bg-[#b8952b] shadow-md`}
+                className={`${baseClasses} bg-[#D4AF37] border-[#b8952b] hover:bg-[#b8952b] shadow-md ${className}`}
             >
-                <span className="text-xl text-[#0B2545] group-hover:scale-110 transition-transform">{icon}</span>
-                <span className="text-xs font-bold text-[#0B2545] mt-1 uppercase tracking-wider">{label}</span>
+                <span className={`${compact ? 'text-sm' : 'text-xl'} text-[#0B2545] group-hover:scale-110 transition-transform`}>{icon}</span>
+                <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-bold text-[#0B2545] uppercase tracking-wider`}>{label}</span>
             </button>
         )
     }
@@ -163,10 +209,10 @@ function ControlButton({ icon, label, onClick, active = false, variant = 'standa
             <button
                 onClick={onClick}
                 disabled={active}
-                className={`${baseClasses} bg-slate-800 border-slate-900 hover:bg-slate-700 shadow-md`}
+                className={`${baseClasses} bg-slate-800 border-slate-900 hover:bg-slate-700 shadow-md ${className}`}
             >
-                <span className="text-xl text-white group-hover:scale-110 transition-transform">{icon}</span>
-                <span className="text-xs font-bold text-white mt-1 uppercase tracking-wider">{label}</span>
+                <span className={`${compact ? 'text-sm' : 'text-xl'} text-white group-hover:scale-110 transition-transform`}>{icon}</span>
+                <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-bold text-white uppercase tracking-wider`}>{label}</span>
             </button>
         )
     }
@@ -175,10 +221,10 @@ function ControlButton({ icon, label, onClick, active = false, variant = 'standa
     return (
         <button
             onClick={onClick}
-            className={`${baseClasses} bg-white hover:bg-slate-50 border-slate-100 hover:border-slate-200`}
+            className={`${baseClasses} bg-white hover:bg-slate-50 border-slate-100 hover:border-slate-200 ${className}`}
         >
-            <span className="text-xl opacity-60 group-hover:scale-110 transition-transform grayscale group-hover:grayscale-0">{icon}</span>
-            <span className="text-xs font-bold text-slate-400 mt-1 group-hover:text-slate-700 uppercase tracking-wider">{label}</span>
+            <span className={`${compact ? 'text-lg opacity-80' : 'text-xl opacity-60'} group-hover:scale-110 transition-transform grayscale group-hover:grayscale-0`}>{icon}</span>
+            <span className={`${compact ? 'text-[10px] mt-0 tabular-nums' : 'text-xs mt-1'} font-bold text-slate-400 group-hover:text-slate-700 uppercase tracking-wider`}>{label}</span>
         </button>
     )
 }
