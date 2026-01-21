@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 
-export default function StyleAnalytics({ portfolio = [] }) {
+export default function StyleAnalytics({ portfolio = [] }: { portfolio?: any[] }) {
     const analytics = useMemo(() => {
         if (!portfolio.length) return {
             style: 'Blend', cap: 'Large', currency: 'EUR', esg: 'A', duration: '0.0',
@@ -259,14 +259,14 @@ export default function StyleAnalytics({ portfolio = [] }) {
     );
 }
 
-const MetricBox = ({ label, value, color }: any) => (
+const MetricBox = ({ label, value, color }: { label: string, value: string | number, color: string }) => (
     <div className={`flex flex-col border-l-2 pl-3 ${color === 'emerald' ? 'border-emerald-500' : color === 'indigo' ? 'border-indigo-500' : 'border-slate-400'}`}>
         <span className="text-[10px] font-black text-slate-500 uppercase tracking-tight">{label}</span>
         <span className={`font-mono font-black text-[12px] ${color === 'emerald' ? 'text-emerald-700' : 'text-slate-800'}`}>{value}</span>
     </div>
 );
 
-const SuperSectorBar = ({ label, value, color, bg }: any) => (
+const SuperSectorBar = ({ label, value, color, bg }: { label: string, value: number, color: string, bg: string }) => (
     <div className="flex flex-col gap-0.5">
         <div className="flex justify-between text-[9px] font-black text-slate-600 uppercase tracking-tight">
             <span className={color}>{label}</span>

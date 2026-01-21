@@ -1,194 +1,250 @@
 // normalizer.js - Fund Data Normalization Utility
 // Extracted from App.jsx for better code organization
 
+function toNumber(x: any): number | null {
+  if (x === null || x === undefined || x === '') return null
+  const n = typeof x === 'number' ? x : parseFloat(x)
+  return Number.isFinite(n) ? n : null
+}
+
+// Helper para normalizar porcentaje: formateo estricto
+// Si > 1.5 => asumimos que es base 100 (ej: 8.5 -> 0.085)
+// Si <= 1.5 => asumimos que es decimal (ej: 0.085 -> 0.085)
+// Retorna NULL si no es un número válido. NUNCA default.
+export function asDecimalPct(v: any): number | null {
+  const n = toNumber(v)
+  if (n === null) return null
+  return Math.abs(n) > 1.5 ? n / 100 : n
+}
+
+// Max drawdown a decimal negativo: -0.14/0.14/-14/14 -> -0.14
+// Retorna NULL si no es válido.
+function maxDdToDecimalNegative(value: any): number | null {
+  const val = asDecimalPct(value)
+  if (val === null) return null
+  const absVal = Math.abs(val)
+  return absVal === 0 ? 0 : -absVal
+}
+
+function normalizeStars(v: any): number | null {
+  const n = toNumber(v)
+  if (n === null) return null
+  // Morningstar stars válidas: 0..5 (0 a veces significa “sin rating” en algunos exports)
+  if (n < 0 || n > 5) return null
+  return Math.round(n)
+}
+
+/**
+ * Adapts strict V3 structure to Legacy format for UI compatibility.
+ * READ-ONLY: No default values, no inventions.
+ */
+export function adaptFundV3ToLegacy(docData: any) {
+  if (!docData) return {}
+
+  const derived = docData.derived || {}
+  const ms = docData.ms || {}
+  const manual = docData.manual || {}
+  const quality = docData.quality || {}
+  const costs = manual.costs || {}
+
+  return {
+    ...docData, // Preserve other fields just in case (e.g. name, isin)
+
+    // Mapping Permitted (Strict)
+    asset_class: derived.asset_class ?? null,
+    primary_region: derived.primary_region ?? null,
+    ruleset_version: derived.ruleset_version ?? null,
+    confidence: derived.confidence ?? null,
+
+    category_morningstar: ms.category_morningstar ?? null,
+    category: ms.category_morningstar ?? null, // alias legacy
+
+    // ⭐ IMPORTANT: ensure numeric or null (no null->0)
+    rating_stars: normalizeStars(ms.rating_stars),
+    rating_overall: toNumber(ms.rating_overall), // si existe, lo dejamos tal cual (0..5 o null)
+
+    ter: costs.ter ?? null,
+    retrocession: costs.retrocession ?? null,
+
+    warnings: quality.warnings ?? null,
+
+    // legacy-like costs object
+    costs: {
+      ...docData.costs,
+      ter: costs.ter ?? null,
+      retrocession: costs.retrocession ?? null,
+    },
+
+    // keep ms object for any UI that reads it
+    ms: ms,
+  }
+}
+
 /**
  * Normalizes raw fund data from Firestore into a standardized format
- * with computed fields for std_type, std_region, std_perf, and std_extra.
+ * with computed fields for std_type, std_region, std_perf_norm, and std_extra.
+ * STRICT MODE: No heuristics, no defaults.
  */
-export function normalizeFundData(docData) {
-    let tipoCalc = 'Mixto';
-    const eq = parseFloat(docData.metrics?.equity || 0);
-    const bd = parseFloat(docData.metrics?.bond || 0);
-    const cash = parseFloat(docData.metrics?.cash || 0);
+export function normalizeFundData(docDataInput: any) {
+  // IMPORTANT: aquí asumimos que ya llega adaptado o al menos compatible.
+  const docData = docDataInput
 
-    // 1. Basic Type Inference
-    if (eq >= 60) tipoCalc = 'RV';
-    else if (bd >= 60) tipoCalc = 'RF';
-    else if (cash >= 60) tipoCalc = 'Monetario';
+  // 1. Asset Class & Region (Strict from adapter/docData)
+  const std_type = docData.asset_class ?? null
+  const std_region = docData.primary_region ?? null
 
-    if (tipoCalc === 'Mixto' && docData.manual_type) {
-        const mt = docData.manual_type.toUpperCase();
-        if (mt.includes('RENTA VARIABLE') || mt.includes('EQUITY')) tipoCalc = 'RV';
-        else if (mt.includes('RENTA FIJA') || mt.includes('DEUDA')) tipoCalc = 'RF';
-        else if (mt.includes('MONETARIO')) tipoCalc = 'Monetario';
+  // 2. Perf / Stats (Strict formatting only)
+  // Check MS V3 location first (Risk Volatility)
+  const msRisk = docData?.ms?.risk_volatility || {};
+
+  const stdVol = docData?.std_perf?.volatility
+  const msVol = docData?.perf?.volatility // Legacy fallback source
+  const riskVol = msRisk.std_dev_3y // New V3 source
+
+  const rawVol = stdVol !== undefined && stdVol !== null ? stdVol : (riskVol !== undefined ? riskVol : msVol)
+  const vol = asDecimalPct(rawVol)
+
+  const sharpe = toNumber(docData?.std_perf?.sharpe ?? msRisk.sharpe_ratio_3y ?? docData?.perf?.sharpe)
+  const alpha = toNumber(docData?.std_perf?.alpha ?? msRisk.alpha_3y ?? docData?.perf?.alpha)
+  const beta = toNumber(docData?.std_perf?.beta ?? msRisk.beta_3y ?? docData?.perf?.beta)
+
+  // CAGR 3Y: Strict. No calculation from returns_history.
+  const cagrRaw =
+    (docData?.std_perf?.cagr3y ?? docData?.std_perf?.return) ??
+    (docData?.perf?.cagr3y ?? docData?.perf?.return)
+  const ret3y = asDecimalPct(cagrRaw)
+
+  // Max Drawdown
+  const mddRaw =
+    (docData?.std_perf?.max_drawdown ?? docData?.std_perf?.maxDrawdown) ??
+    (docData?.perf?.max_drawdown ?? docData?.perf?.maxDrawdown)
+  const max_drawdown = maxDdToDecimalNegative(mddRaw)
+
+  // History Years (Calculated only if history_start exists OR from returns_history keys)
+  let yearsHistory: number | null = null
+  if (docData.history_start) {
+    try {
+      const startDate = docData.history_start.toDate
+        ? docData.history_start.toDate()
+        : new Date(docData.history_start)
+      const now = new Date()
+      if (!isNaN(startDate.getTime())) {
+        yearsHistory = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+      }
+    } catch {
+      /* ignore */
     }
+  } else if (docData.returns_history && typeof docData.returns_history === 'object') {
+    const years = Object.keys(docData.returns_history).filter((k) => !isNaN(parseInt(k)))
+    if (years.length > 0) yearsHistory = years.length
+  } else if (Array.isArray(docData.yearly_returns)) {
+    if (docData.yearly_returns.length > 0) yearsHistory = docData.yearly_returns.length
+  }
 
-    // 1b. Use new Asset Class if available to refine
-    if (docData.asset_class) {
-        const ac = docData.asset_class.toUpperCase();
-        if (ac.includes('EQUITY')) tipoCalc = 'RV';
-        else if (ac.includes('BOND') || ac.includes('FIXED')) tipoCalc = 'RF';
-        else if (ac.includes('MONEY') || ac.includes('CASH')) tipoCalc = 'Monetario';
+  // Costs (Strict)
+  const ter = asDecimalPct(docData.costs?.ter)
+  const mgmtFee = asDecimalPct(docData.costs?.management_fee)
+
+  // Sectors (Format array if needed, else null)
+  let finalSectors: any = docData.sectors || docData.holding_breakdown?.sectors || docData.ms?.sectors || null
+  if (finalSectors && !Array.isArray(finalSectors) && typeof finalSectors === 'object') {
+    finalSectors = Object.entries(finalSectors).map(([k, v]) => ({
+      name: String(k).replace(/_/g, ' '),
+      weight: v,
+    }))
+  }
+
+  // Holdings (Map top10 if available)
+  const holdings = docData.holdings || docData.holdings_top10 || [];
+
+  // Duration / Maturity (Strict)
+  const duration = toNumber(
+    docData.metrics?.duration ||
+    docData.metrics?.effective_duration ||
+    docData.risk?.effective_duration ||
+    docData.fixed_income?.effective_duration
+  )
+
+  const effectiveMaturity = toNumber(
+    docData.metrics?.effective_maturity ||
+    docData.metrics?.maturity ||
+    docData.fixed_income?.effective_maturity
+  )
+
+  // Credit Quality (Strict)
+  const crQuality: any =
+    docData.credit_quality ||
+    docData.risk?.credit_quality ||
+    docData.fixed_income?.avg_credit_quality ||
+    null
+
+  // ⭐ Ratings (Strict)
+  const mstarStars = normalizeStars(docData.rating_stars ?? docData?.ms?.rating_stars)
+  const overallRaw = docData.rating_overall ?? docData?.ms?.rating_overall ?? docData.rating ?? null
+  const mstarOverall = normalizeStars(overallRaw)
+
+  const srriRaw = docData.risk_srri ?? docData.riskSrri ?? docData.srri
+  let riskSrri: number | null = toNumber(srriRaw)
+  if (riskSrri !== null) {
+    if (riskSrri < 0 || riskSrri > 7) riskSrri = null
+  }
+
+  // Patrimonio (Strict)
+  const patrimonioRaw =
+    docData.patrimonio ?? docData?.std_extra?.patrimonio ?? docData?.extra?.patrimonio ?? docData?.aum
+  const patrimonioNum = toNumber(patrimonioRaw)
+
+  return {
+    ...docData,
+    sectors: finalSectors,
+    holdings: holdings,
+
+    // Normalized Fields (can be null)
+    std_type: std_type,
+    std_region: std_region,
+
+    // ⭐ devolvemos ambos: así la UI tiene el que esté usando
+    rating_stars: mstarStars,
+    rating_overall: mstarOverall,
+
+    risk_srri: riskSrri,
+    patrimonio: patrimonioNum,
+
+    std_perf_norm: {
+      volatility: vol,
+      cagr3y: ret3y,
+      sharpe: sharpe,
+      alpha: alpha,
+      beta: beta,
+      max_drawdown: max_drawdown,
+    },
+
+    std_extra: {
+      patrimonio: patrimonioNum,
+      currency: docData.currency || null,
+      company: docData.fund_company || docData.company || null,
+      category: docData.category_morningstar || docData.category || null,
+      assetClass: std_type,
+      regionDetail: std_region,
+      yearsHistory: yearsHistory,
+      mgmtFee: mgmtFee, // strictly flattened
+      ter: ter, // strictly flattened
+      duration: duration,
+      credit_quality: crQuality,
+      effective_maturity: effectiveMaturity,
+      yield_to_maturity: toNumber(docData.metrics?.yield || docData.metrics?.ytm),
+
+      // ✅ CLAVE: muchas pantallas leen rating desde std_extra
+      rating_stars: mstarStars,
+      rating_overall: mstarOverall,
+    },
+
+    // ✅ DATA QUALITY ADAPTER (Frontend Shim)
+    // Permite que componentes UI vean 'points_count' aunque venga como 'history_points'
+    data_quality: {
+      ...(docData.data_quality || {}),
+      points_count: (docData.data_quality?.points_count ?? docData.data_quality?.history_points ?? 0),
+      history_points: (docData.data_quality?.history_points ?? 0)
     }
-
-    // 2. Region Inference
-    let regionCalc = 'Global';
-    if (docData.primary_region) {
-        const pr = docData.primary_region.toUpperCase();
-        if (pr === 'USA' || pr === 'ESTADOS UNIDOS' || pr === 'EEUU') regionCalc = 'USA';
-        else if (pr === 'EUROPE' || pr === 'EUROZONA' || pr === 'EURO') regionCalc = 'Europe';
-        else if (pr === 'ASIA' || pr === 'EMERGING' || pr === 'LATAM') regionCalc = 'Emerging';
-    } else if (docData.regions) {
-        if ((docData.regions.americas || 0) > 60) regionCalc = 'USA';
-        else if ((docData.regions.europe || 0) > 60) regionCalc = 'Europe';
-    }
-
-    // 3. Stats & History
-    const vol = (docData.perf?.volatility || 15) / 100;
-    const sharpe = docData.perf?.sharpe || 0;
-    const alpha = docData.perf?.alpha || 0;
-
-    // FIX: Calculate 3Y CAGR from returns_history MAP (Schema V2)
-    let ret3y = 0;
-    if (docData.returns_history) {
-        // Objeto { "2023": 12.5, "2022": -4.0, ... }
-        // Extraemos años, ordenamos descendente numéricamente
-        const years = Object.keys(docData.returns_history)
-            .map(y => parseInt(y))
-            .filter(y => !isNaN(y))
-            .sort((a, b) => b - a);
-
-        const last3 = years.slice(0, 3);
-
-        if (last3.length === 3) {
-            // Geometric Mean: ((1+r1)*(1+r2)*(1+r3))^(1/3) - 1
-            const product = last3.reduce((acc, yr) => {
-                const val = docData.returns_history[yr.toString()];
-                return acc * (1 + (val / 100));
-            }, 1);
-            ret3y = Math.pow(product, 1 / 3) - 1;
-        }
-    } else if (docData.yearly_returns && Array.isArray(docData.yearly_returns)) {
-        // Fallback for legacy schema (just in case mixed data)
-        const sorted = [...docData.yearly_returns].sort((a, b) => b.year - a.year);
-        const last3 = sorted.slice(0, 3);
-        if (last3.length === 3) {
-            const product = last3.reduce((acc, yr) => acc * (1 + (yr.return / 100)), 1);
-            ret3y = Math.pow(product, 1 / 3) - 1;
-        }
-    } else if (docData.perf?.cagr3y) {
-        ret3y = docData.perf.cagr3y > 1 ? docData.perf.cagr3y / 100 : docData.perf.cagr3y;
-    }
-
-    // New: Calculate History Years for consistency
-    let yearsHistory = 0;
-    if (docData.history_start) {
-        try {
-            const startDate = docData.history_start.toDate ? docData.history_start.toDate() : new Date(docData.history_start);
-            const now = new Date();
-            yearsHistory = (now - startDate) / (1000 * 60 * 60 * 24 * 365.25);
-        } catch (e) { console.warn("Date parse error", e); }
-    }
-
-    // FIX: TER fallback to management_fee if TER is 0
-    const rawTer = parseFloat(docData.costs?.ter || 0);
-    const rawMgmtFee = parseFloat(docData.costs?.management_fee || 0);
-    const effectiveTer = rawTer > 0 ? rawTer : rawMgmtFee;
-
-    // normalizer.ts updates
-
-    // FIX: Normalize Sectors (Handle Object vs Array)
-    let finalSectors = docData.sectors || docData.holding_breakdown?.sectors || [];
-    if (finalSectors && !Array.isArray(finalSectors) && typeof finalSectors === 'object') {
-        finalSectors = Object.entries(finalSectors).map(([k, v]) => ({
-            name: k.replace(/_/g, ' '),
-            weight: v
-        }));
-    }
-
-    // FIX: Calculate Duration/Maturity from Buckets if missing
-    let duration = parseFloat(docData.metrics?.duration || docData.metrics?.effective_duration || docData.risk?.effective_duration || docData.fixed_income?.effective_duration || 0);
-    let effectiveMaturity = parseFloat(docData.metrics?.effective_maturity || docData.metrics?.maturity || docData.fixed_income?.effective_maturity || 0);
-
-    // Fallback Calculation from Maturity Allocation
-    if ((duration === 0 || effectiveMaturity === 0) && docData.fixed_income?.maturity_allocation) {
-        const alloc = docData.fixed_income.maturity_allocation;
-        // Weighted average using midpoints
-        let wSum = 0;
-        let wMat = 0;
-
-        const buckets = {
-            '1_3_years': 2,
-            '3_5_years': 4,
-            '5_7_years': 6,
-            '7_10_years': 8.5,
-            'over_10_years': 15, // Conservative estimate
-            '10_15_years': 12.5,
-            '15_20_years': 17.5,
-            'over_20_years': 25,
-            '1_3_yr': 2, '3_5_yr': 4, '5_7_yr': 6, '7_10_yr': 8.5, 'over_10_yr': 15
-        };
-
-        Object.entries(alloc).forEach(([key, val]) => {
-            const v = Number(val) || 0;
-            if (v > 0) {
-                // Try to find matching bucket
-                const k = key.toLowerCase();
-                let years = 0;
-                if (buckets[k]) years = buckets[k];
-                else if (k.includes('1_3')) years = 2;
-                else if (k.includes('3_5')) years = 4;
-                else if (k.includes('5_7')) years = 6;
-                else if (k.includes('7_10')) years = 8.5;
-                else if (k.includes('10')) years = 15;
-
-                if (years > 0) {
-                    wMat += years * v;
-                    wSum += v;
-                }
-            }
-        });
-
-        if (wSum > 0) {
-            const avgMat = wMat / wSum;
-            if (effectiveMaturity === 0) effectiveMaturity = avgMat;
-            if (duration === 0) duration = avgMat * 0.9; // Rule of thumb: Duration ~ 90% of Maturity
-        }
-    }
-
-    // Capture Credit Quality
-    let crQuality = docData.credit_quality || docData.risk?.credit_quality || docData.fixed_income?.avg_credit_quality;
-    if (!crQuality && docData.fixed_income?.credit_quality) {
-        // Find dominant quality
-        const cq = docData.fixed_income.credit_quality;
-        const best = Object.entries(cq).sort((a: any, b: any) => b[1] - a[1])[0];
-        if (best) crQuality = best[0].toUpperCase();
-    }
-
-    return {
-        ...docData,
-        sectors: finalSectors,
-        std_type: tipoCalc,
-        std_region: regionCalc,
-        std_perf: {
-            volatility: vol,
-            cagr3y: ret3y,
-            sharpe: sharpe,
-            alpha: alpha
-        },
-        std_extra: {
-            currency: docData.currency || 'EUR',
-            company: docData.fund_company || docData.company || 'Unknown',
-            category: docData.category_morningstar || docData.morningstar_category || docData.category || 'Sin Clasificar',
-            assetClass: docData.asset_class || '',
-            regionDetail: docData.primary_region || docData.region || '',
-            yearsHistory: yearsHistory,
-            mgmtFee: rawMgmtFee / 100,
-            ter: effectiveTer / 100,
-            duration: duration,
-            credit_quality: crQuality || 'BBB',
-            effective_maturity: effectiveMaturity,
-            yield_to_maturity: parseFloat(docData.metrics?.yield || docData.metrics?.ytm || 0)
-        }
-    };
+  }
 }

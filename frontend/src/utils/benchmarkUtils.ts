@@ -12,17 +12,17 @@ export const BENCHMARK_PROFILES = {
  * Generates static metadata for the benchmark profiles (Risk/Return points).
  * Requires the full fund database to find the base indices.
  */
-export function generateBenchmarkProfiles(fundDatabase) {
+export function generateBenchmarkProfiles(fundDatabase: any[]) {
     // Try specific indices first, then fallback to generic types
-    let rfIndex = fundDatabase.find(f => f.isin === 'IE00B18GC888');
-    let rvIndex = fundDatabase.find(f => f.isin === 'IE00B03HCZ61');
+    let rfIndex = fundDatabase.find((f: any) => f.isin === 'IE00B18GC888');
+    let rvIndex = fundDatabase.find((f: any) => f.isin === 'IE00B03HCZ61');
 
-    if (!rfIndex) rfIndex = fundDatabase.find(f => f.std_type === 'RF' && f.std_perf.volatility < 0.05);
-    if (!rvIndex) rvIndex = fundDatabase.find(f => f.std_type === 'RV' && f.std_perf.volatility > 0.12);
+    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => f.std_type === 'RF' && (f.std_perf?.volatility || 0) < 0.05);
+    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => f.std_type === 'RV' && (f.std_perf?.volatility || 0) > 0.12);
 
-    // Last resort fallback to ANY RF/RV
-    if (!rfIndex) rfIndex = fundDatabase.find(f => f.std_type === 'RF');
-    if (!rvIndex) rvIndex = fundDatabase.find(f => f.std_type === 'RV');
+    // Last resort fallback to ANY RF/RV with valid volatility
+    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => f.std_type === 'RF' && f.std_perf?.volatility !== undefined);
+    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => f.std_type === 'RV' && f.std_perf?.volatility !== undefined);
 
     if (!rfIndex || !rvIndex) {
         // Absolute fallback if database is empty or weird
@@ -31,12 +31,17 @@ export function generateBenchmarkProfiles(fundDatabase) {
         rvIndex = { std_perf: { volatility: 0.15, cagr3y: 0.08 } }
     }
 
-    const synthetics = [];
+    const synthetics: any[] = [];
 
     Object.entries(BENCHMARK_PROFILES).forEach(([name, p]) => {
         // Approximate Vol and Ret using weighted averages of the base funds' static metrics
-        const combinedVol = (rfIndex.std_perf.volatility * p.rf) + (rvIndex.std_perf.volatility * p.rv);
-        const combinedRet = (rfIndex.std_perf.cagr3y * p.rf) + (rvIndex.std_perf.cagr3y * p.rv);
+        const rfVol = rfIndex.std_perf?.volatility || 0.02;
+        const rvVol = rvIndex.std_perf?.volatility || 0.15;
+        const rfRet = rfIndex.std_perf?.cagr3y || 0.02;
+        const rvRet = rvIndex.std_perf?.cagr3y || 0.08;
+
+        const combinedVol = (rfVol * p.rf) + (rvVol * p.rv);
+        const combinedRet = (rfRet * p.rf) + (rvRet * p.rv);
 
         synthetics.push({
             name,
@@ -54,18 +59,18 @@ export function generateBenchmarkProfiles(fundDatabase) {
  * Generates time series for synthetic benchmarks based on base fund series.
  * @param {Object} rawSeriesMap - Map of ISIN -> Array of {x, y} points
  */
-export function generateSyntheticSeries(rawSeriesMap) {
+export function generateSyntheticSeries(rawSeriesMap: Record<string, any[]>) {
     const rfSeries = rawSeriesMap['IE00B18GC888'];
     const rvSeries = rawSeriesMap['IE00B03HCZ61'];
 
     if (!rfSeries || !rvSeries || rfSeries.length === 0) return {};
 
-    const syntheticSeries = {};
+    const syntheticSeries: Record<string, any[]> = {};
 
-    Object.entries(BENCHMARK_PROFILES).forEach(([_name, p]) => {
+    Object.entries(BENCHMARK_PROFILES).forEach(([name, p]) => {
         // Map over RF series and combine with RV series
         // Assuming series are aligned by date (x) which they usually are from the backend
-        const series = rfSeries.map((pt, i) => {
+        const series = rfSeries.map((pt: any, i: number) => {
             const rvVal = rvSeries[i] ? rvSeries[i].y : 0;
             // Weighted average of the normalized price or returns? 
             // The backend usually returns normalized prices (start=100).
@@ -81,13 +86,13 @@ export function generateSyntheticSeries(rawSeriesMap) {
     return syntheticSeries;
 }
 
-export function getRiskProfileExplanation(portfolioVol, portfolioRet, synthetics) {
+export function getRiskProfileExplanation(portfolioVol: number, portfolioRet: number, synthetics: any[]) {
     if (!synthetics || !synthetics.length) return "Analysis unavailable.";
 
     let closest = synthetics[0];
     let minDiff = 999;
 
-    synthetics.forEach(s => {
+    synthetics.forEach((s: any) => {
         const diff = Math.sqrt(Math.pow(s.vol - portfolioVol, 2) + Math.pow(s.ret - portfolioRet, 2));
         if (diff < minDiff) { minDiff = diff; closest = s; }
     });

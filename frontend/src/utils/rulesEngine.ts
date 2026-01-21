@@ -1,313 +1,420 @@
-// rulesEngine.ts - Lógica de cliente para selección de fondos y generación de carteras
-import { Fund, PortfolioItem } from '../types';
+import { Fund, PortfolioItem } from "../types";
 
-export interface RiskProfile {
-    name: string;
-    maxVol: number;
-    maxEquity: number;
-    allowed: string[];
-    style: string;
+// ============================================================================
+// KONFIGURACIÓN Y TIPOS
+// ============================================================================
+
+export type AssetClass = "RV" | "RF" | "Monetario" | "Mixto" | "Retorno Absoluto" | "Otros";
+export type Region = "Europe" | "USA" | "Emerging" | "Global";
+
+interface BucketConfig {
+  min: number; // % minimo (0-100)
+  max: number; // % maximo (0-100)
 }
 
-// ============================================================================
-// MATRIZ DE RIESGO (ESTRICTA)
-// ============================================================================
-export const RISK_MATRIX: Record<number, RiskProfile> = {
-    1: {
-        name: "Preservación",
-        maxVol: 0.035,
-        maxEquity: 5, // Límite DURO: Máx 5% Bolsa
-        allowed: ['Monetario', 'RF'],
-        style: 'Defensive_Yield'
+interface RiskProfileConfig {
+  name: string;
+  buckets: Record<AssetClass, BucketConfig>;
+  // Preferencia de estilo para el ranking dentro del bucket
+  bias: "Safety" | "Balanced" | "Growth" | "Aggressive";
+}
+
+// DEFINICIÓN DE ESTRUCTURAS POR RIESGO (HARD TARGETS)
+export const RISK_PROFILES: Record<number, RiskProfileConfig> = {
+  1: {
+    name: "Preservación",
+    buckets: {
+      "Monetario": { min: 40, max: 80 },
+      "RF": { min: 20, max: 60 },
+      "Mixto": { min: 0, max: 20 },
+      "RV": { min: 0, max: 10 },
+      "Retorno Absoluto": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 0 }
     },
-    2: {
-        name: "Muy Conservador",
-        maxVol: 0.06,
-        maxEquity: 15, // Límite DURO: Máx 15% Bolsa
-        allowed: ['RF', 'Monetario', 'Mixto'],
-        style: 'Conservative_Income'
+    bias: "Safety"
+  },
+  2: {
+    name: "Muy Conservador",
+    buckets: {
+      "Monetario": { min: 20, max: 50 },
+      "RF": { min: 40, max: 70 },
+      "Mixto": { min: 0, max: 20 },
+      "RV": { min: 0, max: 15 },
+      "Retorno Absoluto": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 0 }
     },
-    3: {
-        name: "Conservador",
-        maxVol: 0.08,
-        maxEquity: 25,
-        allowed: ['RF', 'Mixto'],
-        style: 'Balanced_Defensive'
+    bias: "Safety"
+  },
+  3: {
+    name: "Conservador",
+    buckets: {
+      "Monetario": { min: 10, max: 30 },
+      "RF": { min: 40, max: 70 },
+      "Mixto": { min: 10, max: 30 },
+      "RV": { min: 10, max: 25 },
+      "Retorno Absoluto": { min: 0, max: 15 },
+      "Otros": { min: 0, max: 5 }
     },
-    4: {
-        name: "Mod. Defensivo",
-        maxVol: 0.10,
-        maxEquity: 40,
-        allowed: ['RF', 'Mixto', 'Retorno Absoluto'],
-        style: 'Balanced'
+    bias: "Balanced"
+  },
+  4: {
+    name: "Moderado Defensivo",
+    buckets: {
+      "Monetario": { min: 0, max: 20 },
+      "RF": { min: 30, max: 60 },
+      "Mixto": { min: 20, max: 40 },
+      "RV": { min: 20, max: 40 },
+      "Retorno Absoluto": { min: 0, max: 20 },
+      "Otros": { min: 0, max: 10 }
     },
-    5: {
-        name: "Equilibrado",
-        maxVol: 0.12,
-        maxEquity: 60,
-        allowed: ['Mixto', 'RV', 'RF'],
-        style: 'Balanced_Growth'
+    bias: "Balanced"
+  },
+  5: {
+    name: "Equilibrado",
+    buckets: {
+      "Monetario": { min: 0, max: 10 },
+      "RF": { min: 20, max: 40 },
+      "Mixto": { min: 20, max: 50 },
+      "RV": { min: 40, max: 60 },
+      "Retorno Absoluto": { min: 0, max: 15 },
+      "Otros": { min: 0, max: 10 }
     },
-    6: {
-        name: "Crecimiento Mod.",
-        maxVol: 0.15,
-        maxEquity: 75,
-        allowed: ['RV', 'Mixto'],
-        style: 'Growth_Conservative'
+    bias: "Balanced"
+  },
+  6: {
+    name: "Crecimiento Moderado",
+    buckets: {
+      "Monetario": { min: 0, max: 10 },
+      "RF": { min: 10, max: 30 },
+      "Mixto": { min: 10, max: 40 },
+      "RV": { min: 50, max: 75 },
+      "Retorno Absoluto": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 10 }
     },
-    7: {
-        name: "Dinámico",
-        maxVol: 0.18,
-        maxEquity: 90,
-        allowed: ['RV'],
-        style: 'Growth'
+    bias: "Growth"
+  },
+  7: {
+    name: "Dinámico",
+    buckets: {
+      "Monetario": { min: 0, max: 5 },
+      "RF": { min: 0, max: 20 },
+      "Mixto": { min: 0, max: 20 },
+      "RV": { min: 70, max: 90 },
+      "Retorno Absoluto": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 10 }
     },
-    8: {
-        name: "Crecimiento",
-        maxVol: 0.22,
-        maxEquity: 100,
-        allowed: ['RV'],
-        style: 'Growth_Aggressive'
+    bias: "Growth"
+  },
+  8: {
+    name: "Crecimiento",
+    buckets: {
+      "Monetario": { min: 0, max: 0 },
+      "RF": { min: 0, max: 10 },
+      "Mixto": { min: 0, max: 10 },
+      "RV": { min: 85, max: 100 },
+      "Retorno Absoluto": { min: 0, max: 5 },
+      "Otros": { min: 0, max: 10 }
     },
-    9: {
-        name: "Agresivo",
-        maxVol: 0.28,
-        maxEquity: 100,
-        allowed: ['RV'],
-        style: 'High_Beta'
+    bias: "Aggressive"
+  },
+  9: {
+    name: "Agresivo",
+    buckets: {
+      "Monetario": { min: 0, max: 0 },
+      "RF": { min: 0, max: 5 },
+      "Mixto": { min: 0, max: 5 },
+      "RV": { min: 95, max: 100 },
+      "Retorno Absoluto": { min: 0, max: 0 },
+      "Otros": { min: 0, max: 5 }
     },
-    10: {
-        name: "High Conviction",
-        maxVol: 1.00,
-        maxEquity: 100,
-        allowed: ['RV', 'Mixto'],
-        style: 'Pure_Alpha'
-    }
+    bias: "Aggressive"
+  },
+  10: {
+    name: "High Conviction",
+    buckets: {
+      "Monetario": { min: 0, max: 0 },
+      "RF": { min: 0, max: 0 },
+      "Mixto": { min: 0, max: 0 },
+      "RV": { min: 100, max: 100 },
+      "Retorno Absoluto": { min: 0, max: 0 },
+      "Otros": { min: 0, max: 0 }
+    },
+    bias: "Aggressive"
+  }
 };
 
-interface GeoAllocation {
-    region: string;
-    weight: number;
-    style?: string;
-    alt?: string;
+// ============================================================================
+// 1) NORMALIZACIÓN ROBUSTA
+// ============================================================================
+
+function normalizeAssetClass(raw: any): AssetClass {
+  if (!raw || typeof raw !== "string") return "Otros";
+  const s = raw.trim().toUpperCase();
+
+  if (s.includes("MONETARIO") || s.includes("CASH") || s.includes("LIQUIDEZ") || s.includes("MONEY MARKET")) return "Monetario";
+  if (s.includes("FIJA") || s.includes("FIXED") || s.includes("BOND") || s.includes("CREDIT") || s.includes("DEBT")) return "RF";
+  if (s.includes("VARIABLE") || s.includes("EQUITY") || s.includes("STOCK") || s.includes("ACCION") || s.includes("RV")) return "RV";
+  if (s.includes("MIXTO") || s.includes("MIXED") || s.includes("MULTI") || s.includes("BALANCED") || s.includes("ALLOCATION")) return "Mixto";
+  if (s.includes("ABSOLUTO") || s.includes("HEDGE") || s.includes("ALTERNATIVE") || s.includes("LONG/SHORT")) return "Retorno Absoluto";
+
+  return "Otros";
 }
 
-interface Strategy {
-    core: GeoAllocation;
-    satellite: GeoAllocation | null;
-    extra?: GeoAllocation;
-}
-
-// ============================================================================
-// ESTRATEGIA GEOGRÁFICA
-// ============================================================================
-const GEO_STRATEGY: Record<string, Strategy> = {
-    euro_focus: { core: { region: 'Europe', weight: 100 }, satellite: null },
-    balanced: { core: { region: 'Global', weight: 60, alt: 'USA' }, satellite: { region: 'Europe', weight: 40 } },
-    dynamic: { core: { region: 'USA', weight: 70, alt: 'Global' }, satellite: { region: 'Europe', weight: 30 } },
-    aggressive: { core: { region: 'USA', weight: 50 }, satellite: { region: 'Emerging', weight: 30 }, extra: { region: 'Europe', weight: 20 } },
-    high_conviction: { core: { region: 'USA', style: 'Growth', weight: 50 }, satellite: { region: 'Any', style: 'Sector', weight: 50 } }
-};
-
-// ============================================================================
-// UNIFIED SCORING
-// ============================================================================
-export function calculateScore(fund: Fund, targetVol: number = 0.12): number {
-    const sharpe = fund.std_perf?.sharpe || 0;
-    const alpha = fund.std_perf?.alpha || 0;
-    const vol = fund.std_perf?.volatility || 0.15;
-    const history = fund.std_extra?.yearsHistory || 0;
-    const cagr3y = fund.std_perf?.cagr3y || 0;
-    const cagr6m = fund.std_perf?.cagr6m || cagr3y;
-
-    const sharpeNorm = Math.max(-1, Math.min(3, sharpe));
-    const sharpeScore = (sharpeNorm / 3) * 35;
-
-    const alphaNorm = Math.max(-5, Math.min(5, alpha));
-    const alphaScore = ((alphaNorm + 5) / 10) * 25;
-
-    const safetyScore = Math.max(0, ((targetVol - vol) / targetVol) * 100) * 0.20;
-
-    let momentumScore = 0;
-    if (cagr3y !== 0) {
-        const momentumRatio = cagr6m / cagr3y;
-        momentumScore = Math.max(0, Math.min(1, momentumRatio)) * 10;
-    }
-
-    const qualityScore = Math.min(history / 10, 1) * 10;
-
-    const maxDrawdown = fund.std_perf?.max_drawdown || (fund as any).perf?.max_drawdown || 0;
-    let drawdownPenalty = 0;
-    if (maxDrawdown > 0) {
-        drawdownPenalty = Math.min(Math.abs(maxDrawdown) * 500, 50);
-    }
-
-    const sortino = fund.std_perf?.sortino_ratio || (fund as any).perf?.sortino_ratio || 0;
-    let sortinoBonus = 0;
-    if (sortino > 0) {
-        const sortinoNorm = Math.max(0, Math.min(4, sortino));
-        sortinoBonus = (sortinoNorm / 4) * 5;
-    }
-
-    return sharpeScore + alphaScore + safetyScore + momentumScore + qualityScore - drawdownPenalty + sortinoBonus;
-}
-
-function getFee(f: Fund): number {
-    return (f.costs?.retrocession || f.costs?.management_fee || (f as any).profile?.ongoing_charge || 0);
-}
-
-// ============================================================================
-// VALIDACIÓN DE SEGURIDAD (HARD CAPS - VERSIÓN ESTRICTA)
-// ============================================================================
-export function isFundSafeForProfile(fund: Fund, riskLevel: number): boolean {
-    const profile = RISK_MATRIX[riskLevel];
-    if (!profile) return true;
-
-    // 1. FILTRO DE TIPO: Prohibir RV en perfiles de preservación
-    if (riskLevel <= 2 && fund.std_type === 'RV') return false;
-
-    // 2. FILTRO DE EQUITY REAL:
-    const equityVal = parseFloat((fund as any).metrics?.equity || '0');
-
-    // Tolerancia mínima para perfiles bajos
-    const tolerance = riskLevel <= 3 ? 1.0 : 5.0;
-
-    if (equityVal > (profile.maxEquity + tolerance)) {
-        return false;
-    }
-
-    return true;
-}
-
-// ============================================================================
-// SELECCIÓN DE CANDIDATOS
-// ============================================================================
-function getPoolOfCandidates(riskLevel: number, profile: RiskProfile, fundDatabase: Fund[], minCount: number = 5): (Fund & { finalScore: number })[] {
-    // 1. FILTRO ESTRICTO
-    let candidates = fundDatabase.filter(f => {
-        const typeAllowed = profile.allowed.includes(f.std_type || '');
-        // Volatilidad con ligero margen, pero equity innegociable
-        const volAllowed = (f.std_perf?.volatility || 1) <= (profile.maxVol * 1.2);
-        const equitySafe = isFundSafeForProfile(f, riskLevel);
-
-        return typeAllowed && volAllowed && equitySafe;
-    });
-
-    // 2. INTENTO DE EXPANSIÓN (SOLO SI NO ES PERFIL BAJO)
-    // Para perfiles 1 y 2, preferimos devolver pocos fondos seguros que rellenar con riesgo
-    if (candidates.length < minCount && riskLevel > 2) {
-        candidates = fundDatabase.filter(f => {
-            const relaxedVol = Math.max(profile.maxVol * 1.5, 0.05);
-            const typeAllowed = profile.allowed.includes(f.std_type || '');
-            const equitySafe = isFundSafeForProfile(f, riskLevel); // Equity SIEMPRE estricto
-
-            return typeAllowed && equitySafe && (f.std_perf?.volatility || 1) <= relaxedVol;
-        });
-    }
-
-    // --- DEDUPLICACIÓN ---
-    const groups: Record<string, Fund[]> = {};
-    candidates.forEach(f => {
-        const base = getBaseName(f.name);
-        if (!groups[base]) groups[base] = [];
-        groups[base].push(f);
-    });
-
-    const uniqueCandidates = Object.values(groups).map((group) => {
-        if (group.length === 1) return group[0];
-        group.sort((a, b) => getFee(b) - getFee(a));
-        return group[0];
-    });
-
-    const scored = uniqueCandidates.map(f => ({ ...f, finalScore: calculateScore(f, profile.maxVol) }));
-    return scored.sort((a, b) => b.finalScore - a.finalScore);
+function getAssetClass(f: Fund): AssetClass {
+  const raw = (f as any)?.derived?.asset_class ??
+    (f as any)?.asset_class ??
+    (f as any)?.assetClass ??
+    (f as any)?.std_type ??
+    (f as any)?.type ?? "";
+  return normalizeAssetClass(raw);
 }
 
 function getBaseName(name: string): string {
-    if (!name) return '';
-    let base = name.toUpperCase();
-    const markers = [
-        ' CLASS', ' CL ', ' ACC', ' INC', ' DIST', ' EUR', ' USD', ' HEDGED',
-        ' (EUR)', ' (USD)', ' A ', ' B ', ' C ', ' I ', ' Y ', ' R ',
-        ' AE-KJ', ' A-ACC', ' A-DIST', ' I-ACC', ' I-DIST'
-    ];
-    markers.forEach(m => { base = base.replace(m, ''); });
-    base = base.replace(/\(.*\)/g, '').trim();
-    return base.substring(0, 25).trim();
+  if (!name) return "";
+  let base = name.toUpperCase();
+  base = base.replace(/\(.*\)/g, "").trim();
+  base = base.replace(/\s+(CLASS|CL)\s+[A-Z0-9]+$/i, "");
+  base = base.replace(/\s+(ACC|INC|DIST)\b/i, "");
+  base = base.replace(/\s+(EUR|USD)\b/i, "");
+  base = base.replace(/\s+HEDGED\b/i, "");
+  return base.trim().substring(0, 30);
+}
+
+// ============================================================================
+// 2) SCORING CON BIAS
+// ============================================================================
+
+export function calculateScore(fund: Fund, riskOrBias: number | string): number {
+  let bias = "Balanced";
+  if (typeof riskOrBias === 'number') {
+    const profile = RISK_PROFILES[riskOrBias] || RISK_PROFILES[5];
+    bias = profile.bias;
+  } else {
+    bias = riskOrBias as string;
+  }
+
+  const perf = (fund as any)?.std_perf || {};
+  const sharpe = Number(perf.sharpe ?? 0);
+  const vol = Number(perf.volatility ?? 0.10);
+  const cagr = Number(perf.cagr3y ?? perf.return ?? 0);
+  // Coste implicito
+  const cost = Number((fund as any)?.costs?.ter ?? 1.5);
+
+  let score = 0;
+
+  // Base score: Sharpe + Momentum (Coste penalization removed)
+  score += (Math.max(0, Math.min(3, sharpe)) * 10);
+  score += (Math.max(-0.2, Math.min(0.4, cagr)) * 100);
+  // score -= (cost * 10); // Removed per user request
+
+  // Ajustes por BIAS
+  if (bias === "Safety") {
+    // Penaliza volatilidad fuertemente
+    if (vol > 0.05) score -= (vol - 0.05) * 200;
+    // Premia consistencia (drawdown bajo si hay dato)
+  } else if (bias === "Growth" || bias === "Aggressive") {
+    // Premia retorno puro y momentum, tolera volatilidad
+    score += (cagr * 50);
+    // Si es agresivo, ignoramos penalización de vol baja, pero penalizamos vol EXTREMA (>40%)
+    if (vol > 0.40) score -= 50;
+  }
+
+  return score;
 }
 
 // ============================================================================
 // MOTOR PRINCIPAL
 // ============================================================================
-export function generateSmartPortfolio(riskLevel: number, fundDatabase: Fund[], targetCount: number = 5): PortfolioItem[] {
-    const profile = RISK_MATRIX[riskLevel];
-    if (!profile) return [];
 
-    const eligibleFunds = getPoolOfCandidates(riskLevel, profile, fundDatabase, targetCount);
+export function generateSmartPortfolio(
+  riskLevel: number,
+  allFunds: Fund[],
+  targetNumFunds: number = 8
+): PortfolioItem[] {
 
-    let strategy: Strategy;
-    if (riskLevel <= 3) strategy = GEO_STRATEGY.euro_focus;
-    else if (riskLevel <= 5) strategy = GEO_STRATEGY.balanced;
-    else if (riskLevel <= 7) strategy = GEO_STRATEGY.dynamic;
-    else if (riskLevel <= 9) strategy = GEO_STRATEGY.aggressive;
-    else strategy = GEO_STRATEGY.high_conviction;
 
-    const finalPortfolio: PortfolioItem[] = [];
-    const usedISINs = new Set<string>();
-    const usedCompanies: Record<string, number> = {};
+  const profile = RISK_PROFILES[riskLevel] || RISK_PROFILES[5];
 
-    const coreWeight = strategy.core?.weight || 0;
-    const satWeight = strategy.satellite?.weight || 0;
-    const extraWeight = strategy.extra?.weight || 0;
+  // 1. Clasificar universo en buckets
+  const universe: Record<AssetClass, Fund[]> = {
+    "RV": [], "RF": [], "Monetario": [], "Mixto": [], "Retorno Absoluto": [], "Otros": []
+  };
 
-    let coreSlots = coreWeight > 0 ? Math.max(1, Math.round(targetCount * (coreWeight / 100))) : 0;
-    const satSlots = satWeight > 0 ? Math.max(1, Math.round(targetCount * (satWeight / 100))) : 0;
-    const extraSlots = extraWeight > 0 ? Math.max(1, Math.round(targetCount * (extraWeight / 100))) : 0;
+  let validCandidates = 0;
 
-    let currentSlots = coreSlots + satSlots + extraSlots;
-    while (currentSlots > targetCount && coreSlots > 1) { coreSlots--; currentSlots--; }
-    while (currentSlots < targetCount) { coreSlots++; currentSlots++; }
+  allFunds.forEach(f => {
+    // FILTRO PERMISIVO
+    // Solo excluimos si los flags son EXPLÍCITAMENTE negativos.
+    // Si son undefined/null, el fondo PASA.
+    const dq = (f as any)?.data_quality ?? {};
 
-    const isCandidateValid = (f: Fund) => {
-        if (usedISINs.has(f.isin)) return false;
-        const company = f.std_extra?.company || 'Unknown';
-        const limit = company === 'Unknown' ? 5 : 2;
-        if ((usedCompanies[company] || 0) >= limit) return false;
-        return true;
-    };
+    // checks explicit failing conditions
+    const isExplicitlyBad =
+      dq.has_history === false ||
+      (f as any)?.metrics_invalid === true ||
+      dq.history_ok === false;
 
-    const fillBucket = (rule: GeoAllocation, allocation: number, slots: number) => {
-        if (!rule || allocation <= 0 || slots <= 0) return;
-        let picks = eligibleFunds.filter(f => isCandidateValid(f) && f.std_region === rule.region);
-        if (picks.length < slots) picks = eligibleFunds.filter(f => isCandidateValid(f) && (f.std_region === 'Global' || f.std_region === 'USA' || f.std_region === 'Europe'));
-        if (picks.length < slots) picks = eligibleFunds.filter(f => isCandidateValid(f));
+    if (isExplicitlyBad) return;
 
-        picks.slice(0, slots).forEach(f => {
-            finalPortfolio.push({ ...f, weight: allocation / slots });
-            usedISINs.add(f.isin);
-            const comp = f.std_extra?.company || 'Unknown';
-            usedCompanies[comp] = (usedCompanies[comp] || 0) + 1;
-        });
-    };
+    validCandidates++;
+    const type = getAssetClass(f);
+    universe[type].push(f);
+  });
 
-    fillBucket(strategy.core, strategy.core?.weight || 0, coreSlots);
-    if (strategy.satellite) fillBucket(strategy.satellite, strategy.satellite.weight, satSlots);
-    if (strategy.extra) fillBucket(strategy.extra, strategy.extra.weight, extraSlots);
 
-    if (finalPortfolio.length < targetCount) {
-        const needed = targetCount - finalPortfolio.length;
-        const filler = eligibleFunds.filter(f => isCandidateValid(f)).slice(0, needed);
-        filler.forEach(f => {
-            finalPortfolio.push({ ...f, weight: 0 }); // Temporary 0 weight
-            usedISINs.add(f.isin);
-        });
+
+  // 2. Definir Targets (% del portfolio)
+  let targetPcts: Record<AssetClass, number> = {
+    "RV": 0, "RF": 0, "Monetario": 0, "Mixto": 0, "Retorno Absoluto": 0, "Otros": 0
+  };
+
+  let totalScore = 0;
+  (Object.keys(targetPcts) as AssetClass[]).forEach(cls => {
+    const limits = profile.buckets[cls];
+    let target = (limits.min + limits.max) / 2;
+    targetPcts[cls] = target;
+    totalScore += target;
+  });
+
+  if (totalScore === 0) targetPcts["RF"] = 100;
+  else {
+    (Object.keys(targetPcts) as AssetClass[]).forEach(cls => {
+      targetPcts[cls] = (targetPcts[cls] / totalScore) * 100;
+    });
+  }
+
+  // 3. Asignar Slots
+  let slots: Record<AssetClass, number> = {
+    "RV": 0, "RF": 0, "Monetario": 0, "Mixto": 0, "Retorno Absoluto": 0, "Otros": 0
+  };
+  let assignedSlots = 0;
+  (Object.keys(slots) as AssetClass[]).forEach(cls => {
+    const w = targetPcts[cls];
+    let n = Math.round((w / 100) * targetNumFunds);
+    if (w > 10 && n === 0) n = 1;
+    slots[cls] = n;
+    assignedSlots += n;
+  });
+
+  if (assignedSlots !== targetNumFunds) {
+    let diff = targetNumFunds - assignedSlots;
+    const dominant = (Object.keys(targetPcts) as AssetClass[]).reduce((a, b) => targetPcts[a] > targetPcts[b] ? a : b);
+    slots[dominant] += diff;
+    if (slots[dominant] < 0) slots[dominant] = 0;
+  }
+
+  // 4. Selección de Fondos
+  const portfolio: PortfolioItem[] = [];
+  const usedISINs = new Set<string>();
+  const usedNames = new Set<string>();
+
+  (Object.keys(slots) as AssetClass[]).forEach(cls => {
+    const numSlots = slots[cls];
+    if (numSlots <= 0) return;
+
+    let candidates = universe[cls];
+    candidates = candidates.map(f => ({ f, score: calculateScore(f, profile.bias) }))
+      .sort((a, b) => b.score - a.score)
+      .map(wrapper => wrapper.f);
+
+    let selectedCount = 0;
+    for (const fund of candidates) {
+      if (selectedCount >= numSlots) break;
+      const baseName = getBaseName(fund.name);
+      if (!usedISINs.has(fund.isin) && !usedNames.has(baseName)) {
+        portfolio.push({ ...fund, weight: 0 });
+        usedISINs.add(fund.isin);
+        usedNames.add(baseName);
+        selectedCount++;
+      }
+    }
+  });
+
+  // FALLBACK CRÍTICO: Si la cartera está vacía pero había candidatos válidos
+  // Rellenamos con los mejores fondos globales (sin mirar buckets)
+  if (portfolio.length === 0) {
+    console.warn("[SmartEngine] Empty portfolio after bucket fill. Triggering FALLBACK to top scored funds.");
+
+    // First try: Valid candidates only (ignoring buckets)
+    let allCandidates = Object.values(universe).flat()
+      .map(f => ({ f, score: calculateScore(f, profile.bias) }))
+      .sort((a, b) => b.score - a.score);
+
+    // Second try: Panic Universe (Everything! Ignoring data quality)
+    if (allCandidates.length === 0) {
+      console.error("[SmartEngine] PANIC: No valid candidates found. Using raw universe (ignoring quality flags).");
+      allCandidates = allFunds
+        .map(f => ({ f, score: calculateScore(f, profile.bias) }))
+        .sort((a, b) => b.score - a.score);
     }
 
-    if (finalPortfolio.length > 0) {
-        const totalW = finalPortfolio.reduce((s, f) => s + f.weight, 0);
-        if (totalW > 0) finalPortfolio.forEach(f => f.weight = (f.weight / totalW) * 100);
-        else finalPortfolio.forEach(f => f.weight = 100 / finalPortfolio.length);
+    for (const item of allCandidates) {
+      if (portfolio.length >= targetNumFunds) break;
+      if (!usedISINs.has(item.f.isin)) {
+        portfolio.push({ ...item.f, weight: 0 });
+        usedISINs.add(item.f.isin);
+      }
     }
+  }
 
-    return finalPortfolio;
+  // 5. Pesos Finales Equal-Weight per bucket (o simple si es fallback)
+  if (portfolio.length > 0) {
+    // Si se generó por buckets
+    let bucketBased = false;
+    portfolio.forEach(item => {
+      const cls = getAssetClass(item);
+      if (targetPcts[cls] > 0) bucketBased = true;
+    });
+
+    if (bucketBased) {
+      portfolio.forEach(item => {
+        const cls = getAssetClass(item);
+        const fundsInClass = portfolio.filter(p => getAssetClass(p) === cls).length;
+        if (fundsInClass > 0) {
+          item.weight = targetPcts[cls] / fundsInClass;
+        }
+      });
+    } else {
+      // Fallback simple allocation
+      const w = 100 / portfolio.length;
+      portfolio.forEach(p => p.weight = w);
+    }
+  }
+
+  // 6. Normalización Final
+  const finalTotal = portfolio.reduce((sum, p) => sum + p.weight, 0);
+  if (finalTotal > 0) {
+    portfolio.forEach(p => p.weight = (p.weight / finalTotal) * 100);
+  }
+  portfolio.forEach(p => p.weight = Math.round(p.weight * 100) / 100);
+
+  // Verificación Integrity
+  if (riskLevel >= 9) {
+    const rvWeight = portfolio.filter(p => getAssetClass(p) === "RV").reduce((s, p) => s + p.weight, 0);
+    if (rvWeight < 90) {
+      console.warn(`[SmartEngine] Risk ${riskLevel} got low equity (${rvWeight}%). Universe might be short on RV.`);
+    }
+  }
+
+  // =======================
+  // HARD GUARANTEE: Always return exactly targetNumFunds if universe is sufficient
+  // =======================
+  if (portfolio.length < targetNumFunds) {
+    const globalCandidates = Object.values(universe)
+      .flat()
+      .map(f => ({ f, score: calculateScore(f, profile.bias) }))
+      .sort((a, b) => b.score - a.score)
+      .map(x => x.f);
+
+    for (const f of globalCandidates) {
+      if (portfolio.length >= targetNumFunds) break;
+      if (!usedISINs.has(f.isin)) {
+        portfolio.push({ ...f, weight: 0 });
+        usedISINs.add(f.isin);
+        usedNames.add(getBaseName(f.name));
+      }
+    }
+  }
+
+  return portfolio;
 }

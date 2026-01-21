@@ -2,7 +2,13 @@ import React, { useState } from 'react'
 import ModalHeader from '../common/ModalHeader'
 import MetricCard from '../common/MetricCard'
 
-export default function CostsModal({ portfolio, totalCapital = 100000, onClose }) {
+interface CostsModalProps {
+    portfolio: any[];
+    totalCapital?: number;
+    onClose: () => void;
+}
+
+export default function CostsModal({ portfolio, totalCapital = 100000, onClose }: CostsModalProps) {
     const [margin, setMargin] = useState(1.0) // Coeficiente de margen
 
     // Cálculo agregado
@@ -14,7 +20,12 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
         if (weight <= 0) return null
 
         // Sin TER, solo retrocesiones
-        const baseRetroPercent = asset.costs?.retrocession || 0.60 // Fallback realista 0.60%
+        // Read retrocession from decimal (0.0122 -> 1.22%)
+        // Priority: manual.costs.retrocession (DB canonical) -> costs.retrocession (legacy/flat) -> retrocession (flat)
+        const rawRetro = asset.manual?.costs?.retrocession ?? asset.costs?.retrocession ?? asset.retrocession ?? asset.costs?.retrocesion;
+        const baseRetroPercent = rawRetro !== undefined && rawRetro !== null
+            ? rawRetro * 100
+            : 0.60; // Fallback 0.60%
         const finalRetroPercent = baseRetroPercent * margin
 
         // Impacto en Euros: (% Final / 100) * (Peso / 100 * CapitalTotal)

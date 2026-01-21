@@ -25,7 +25,8 @@ const ASSET_COLORS: Record<string, string> = {
 }
 const DEFAULT_PALETTE = ['#0B2545', '#A07147', '#64748B', '#D4AF37', '#1E3A8A']
 
-export default function SmartDonut({ allocation = [] }) {
+interface AssetAllocation { label: string; value: number }
+export default function SmartDonut({ allocation = [] }: { allocation?: AssetAllocation[] }) {
     // Verificación de datos
     const safeData = Array.isArray(allocation) ? allocation : []
     const totalAlloc = safeData.reduce((s, x) => s + (x.value || 0), 0)

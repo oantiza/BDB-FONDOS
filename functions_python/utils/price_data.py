@@ -43,17 +43,30 @@ def get_price_data(assets_list, db):
             doc = db.collection('historico_vl_v2').document(isin).get()
             if doc.exists:
                 data = doc.to_dict()
-                series = data.get('series', [])
-                if len(series) > 50:
-                    clean_series = {}
-                    for p in series:
-                        if p.get('date') and p.get('price'):
-                            d_val = p['date']
-                            if hasattr(d_val, 'strftime'): d_str = d_val.strftime('%Y-%m-%d')
-                            else: d_str = str(d_val).split('T')[0]
-                            clean_series[d_str] = float(p['price'])
-                    
-                    if len(clean_series) > 50:
+                
+                # PRIORITY 1: CANONICAL HISTORY
+                history_list = data.get('history', [])
+                clean_series = {}
+                if history_list and isinstance(history_list, list):
+                     for item in history_list:
+                         if not isinstance(item, dict): continue
+                         d_val = item.get('date')
+                         n_val = item.get('nav')
+                         if d_val and n_val is not None:
+                              clean_series[str(d_val)] = float(n_val)
+
+                # PRIORITY 2: LEGACY SERIES
+                if not clean_series:
+                    series = data.get('series', [])
+                    if len(series) > 10:
+                        for p in series:
+                            if p.get('date') and p.get('price'):
+                                d_val = p['date']
+                                if hasattr(d_val, 'strftime'): d_str = d_val.strftime('%Y-%m-%d')
+                                else: d_str = str(d_val).split('T')[0]
+                                clean_series[d_str] = float(p['price'])
+
+                if len(clean_series) > 50:
                         price_data[isin] = clean_series
                         PRICE_CACHE[isin] = clean_series 
                         loaded = True

@@ -24,7 +24,7 @@ const formatCurrency = (val: number) => new Intl.NumberFormat('es-ES', { style: 
 // Helper to format percentage correctly based on DB format (e.g. 0.75 -> 0.75%)
 const formatRetro = (val: number | undefined) => {
     if (val === undefined || val === null) return '--';
-    return `${val.toFixed(2)}%`;
+    return `${(val * 100).toFixed(2)}%`;
 };
 
 // Helper for Star Rating
@@ -131,7 +131,8 @@ export const RetrocessionComparisonModal: React.FC<ComparisonModalProps> = ({ is
                             ) : (
                                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 h-full">
                                     {alternatives.map((alt: any, idx) => {
-                                        const diff = (alt.costs?.retrocession || 0) - (originalFund.retrocession || 0);
+                                        const altRetroRaw = alt.manual?.costs?.retrocession ?? alt.costs?.retrocession ?? 0;
+                                        const diff = altRetroRaw - (originalFund.retrocession || 0);
                                         return (
                                             <div key={alt.isin} className="bg-white p-5 rounded-xl border border-emerald-100 shadow-sm hover:shadow-md transition-shadow relative ring-1 ring-emerald-900/5 flex flex-col h-full">
                                                 <div className="absolute top-0 left-0 w-full h-1 bg-emerald-500"></div>
@@ -153,13 +154,13 @@ export const RetrocessionComparisonModal: React.FC<ComparisonModalProps> = ({ is
                                                         <div>
                                                             <p className="text-xs text-slate-500 uppercase">Retrocesión</p>
                                                             <p className="text-2xl font-bold text-emerald-600">
-                                                                {formatRetro(alt.costs?.retrocession)}
+                                                                {formatRetro(altRetroRaw)}
                                                             </p>
                                                         </div>
                                                         {diff > 0 && (
                                                             <div className="text-right">
                                                                 <p className="text-xs text-emerald-600 font-bold mb-1">
-                                                                    +{diff.toFixed(2)}%
+                                                                    +{(diff * 100).toFixed(2)}%
                                                                 </p>
                                                             </div>
                                                         )}

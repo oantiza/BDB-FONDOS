@@ -1,9 +1,20 @@
 import { useState, useEffect } from 'react'
 
-export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
-    const [isins, setIsins] = useState([])
+interface VipFundsModalProps {
+    vipFundsStr: string;
+    onSave: (str: string) => void;
+    onClose: () => void;
+    allFunds?: any[];
+}
+
+export default function VipFundsModal({ vipFundsStr, onSave, onClose, allFunds = [] }: VipFundsModalProps) {
+    const [isins, setIsins] = useState<string[]>([])
     const [inputValue, setInputValue] = useState('')
-    const [error, setError] = useState(null)
+    const [error, setError] = useState<string | null>(null)
+
+    // Search Logic
+    const [searchTerm, setSearchTerm] = useState('')
+    const [filteredFunds, setFilteredFunds] = useState<any[]>([]);
 
     useEffect(() => {
         if (vipFundsStr) {
@@ -11,11 +22,23 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
         }
     }, [vipFundsStr])
 
-    const handleAdd = () => {
-        const val = inputValue.trim().toUpperCase()
+    useEffect(() => {
+        if (!searchTerm || searchTerm.length < 2) {
+            setFilteredFunds([])
+            return
+        }
+        const lower = searchTerm.toLowerCase()
+        const matches = allFunds
+            .filter(f => (f.name && f.name.toLowerCase().includes(lower)) || (f.isin && f.isin.toLowerCase().includes(lower)))
+            .slice(0, 10) // Limit results
+        setFilteredFunds(matches)
+    }, [searchTerm, allFunds])
+
+    const handleAdd = (overrideIsin?: string) => {
+        const val = (typeof overrideIsin === 'string' ? overrideIsin : inputValue).trim().toUpperCase()
         if (!val) return
 
-        if (isins.includes(val)) {
+        if (isins.includes((val as never))) {
             setError('Este ISIN ya está en la lista')
             return
         }
@@ -25,12 +48,18 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
             return
         }
 
-        setIsins([...isins, val])
+        setIsins([...isins, val] as never[])
         setInputValue('')
         setError(null)
     }
 
-    const handleRemove = (isinToRemove) => {
+    const handleSelectFund = (fund: any) => {
+        setSearchTerm('') // Clear search
+        setFilteredFunds([])
+        handleAdd(fund.isin)
+    }
+
+    const handleRemove = (isinToRemove: string) => {
         setIsins(isins.filter(i => i !== isinToRemove))
     }
 
@@ -39,10 +68,10 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
         onClose()
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             e.preventDefault()
-            handleAdd()
+            handleAdd(undefined)
         }
     }
 
@@ -69,6 +98,36 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
                         Añade los ISINs de los fondos que quieres que <b>siempre</b> se incluyan en la generación de cartera (fondos ancla).
                     </p>
 
+                    {/* SEARCH BY NAME */}
+                    <div className="mb-4">
+                        <label className="text-xs font-bold text-slate-400 uppercase mb-1 block">Buscar por Nombre</label>
+                        <input
+                            type="text"
+                            value={searchTerm}
+                            onChange={(e) => setSearchTerm(e.target.value)}
+                            placeholder="Buscar fondo..."
+                            className="w-full bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)] dark:text-white"
+                        />
+                        {/* Results List (In-Flow) */}
+                        {filteredFunds.length > 0 && (
+                            <div className="mt-1 bg-white border border-slate-200 rounded max-h-48 overflow-y-auto">
+                                {filteredFunds.map(f => (
+                                    <button
+                                        key={f.isin}
+                                        onClick={() => handleSelectFund(f)}
+                                        className="w-full text-left px-3 py-2 text-xs hover:bg-slate-50 border-b border-slate-50 last:border-0 flex justify-between items-center group"
+                                    >
+                                        <div className="flex flex-col truncate max-w-[70%]">
+                                            <span className="font-semibold text-slate-700 truncate">{f.name}</span>
+                                        </div>
+                                        <span className="text-slate-400 font-mono group-hover:text-[var(--color-accent)]">{f.isin}</span>
+                                    </button>
+                                ))}
+                            </div>
+                        )}
+                    </div>
+
+
                     {/* Input Area */}
                     <div className="flex gap-2 mb-2">
                         <input
@@ -79,11 +138,11 @@ export default function VipFundsModal({ vipFundsStr, onSave, onClose }) {
                                 setError(null)
                             }}
                             onKeyDown={handleKeyDown}
-                            placeholder="Ej: LU1234567890"
-                            className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)] dark:text-white uppercase placeholder:normal-case"
+                            placeholder="ISIN (Ej: LU1234567890)"
+                            className="flex-1 bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded px-3 py-2 text-sm outline-none focus:border-[var(--color-accent)] dark:text-white uppercase placeholder:normal-case font-mono"
                         />
                         <button
-                            onClick={handleAdd}
+                            onClick={() => handleAdd(undefined)}
                             className="bg-[var(--color-accent)] text-white px-4 py-2 rounded text-sm font-medium hover:opacity-90 transition-opacity"
                         >
                             Añadir

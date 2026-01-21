@@ -1,0 +1,224 @@
+path;types;occurrence_count;occurrence_pct;example_value
+currency;string;576;100;EUR
+derived;object;576;100;{Object}
+derived.asset_class;string;576;100;RF
+derived.confidence;number;576;100;0.99
+derived.primary_region;string;576;100;USA
+derived.reasons;Array;576;100;[Array]
+derived.reasons[*];string;2157;374,48;ms.category_morningstar
+derived.ruleset_version;string;576;100;class_v1.0
+derived.subcategories;Array;576;100;[Array]
+derived.subcategories[*];string;475;82,47;sector_concentrated:technology
+derived.top_sector;null|string;576;100;technology
+derived.top_sector_weight;null|number;576;100;50.65
+isin;string;576;100;BE0943877671
+manual;object;79;13,72;{Object}
+manual.costs;object;79;13,72;{Object}
+manual.costs.retrocession;number;79;13,72;0.008
+manual.costs.retrocession_source;string;79;13,72;exportar_retros_dedup.xlsx
+manual.costs.retrocession_updatedAt;Timestamp;79;13,72;Timestamp
+ms;object;576;100;{Object}
+ms.category_morningstar;string|null;576;100;RF Deuda Pública EUR
+ms.costs;object;576;100;{Object}
+ms.costs.entry_fee;null|number;576;100;1
+ms.costs.exit_fee;number|null;576;100;0
+ms.costs.management_fee;number|null;576;100;0.4
+ms.costs.retrocession;number|null;576;100;0
+ms.costs.ter;null;576;100;
+ms.equity_style;object;496;86,11;{Object}
+ms.equity_style.market_cap;object|null;496;86,11;{Object}
+ms.equity_style.market_cap.giant;number|null;420;72,92;0
+ms.equity_style.market_cap.large;number|null;420;72,92;0
+ms.equity_style.market_cap.micro;number|null;420;72,92;0
+ms.equity_style.market_cap.mid;number|null;420;72,92;0
+ms.equity_style.market_cap.small;number|null;420;72,92;0
+ms.equity_style.style;object|null;496;86,11;{Object}
+ms.equity_style.style.blend;number|null;398;69,1;0
+ms.equity_style.style.growth;number|null;398;69,1;0
+ms.equity_style.style.value;number|null;398;69,1;0
+ms.equity_style.style_box_cell;null|string;496;86,11;Large-Blend
+ms.fixed_income;object;568;98,61;{Object}
+ms.fixed_income.avg_credit_quality;null|string;568;98,61;BB
+ms.fixed_income.coupon_allocation;object|null;567;98,44;{Object}
+ms.fixed_income.coupon_allocation.0;number|null;539;93,58;17.77
+ms.fixed_income.coupon_allocation.0_4;number|null;539;93,58;65.84
+ms.fixed_income.coupon_allocation.4_6;number|null;539;93,58;16.04
+ms.fixed_income.coupon_allocation.over_6;number|null;539;93,58;0.35
+ms.fixed_income.credit_quality;object|null;565;98,09;{Object}
+ms.fixed_income.credit_quality.a;number|null;506;87,85;0
+ms.fixed_income.credit_quality.aa;number|null;506;87,85;0
+ms.fixed_income.credit_quality.aaa;number|null;506;87,85;0
+ms.fixed_income.credit_quality.b;number|null;506;87,85;0
+ms.fixed_income.credit_quality.bb;number|null;506;87,85;0
+ms.fixed_income.credit_quality.bbb;number|null;506;87,85;0
+ms.fixed_income.credit_quality.below_b;number|null;506;87,85;0
+ms.fixed_income.credit_quality.not_rated;number|null;506;87,85;0
+ms.fixed_income.effective_duration;null|number;568;98,61;0
+ms.fixed_income.effective_maturity;null|number;568;98,61;0
+ms.fixed_income.maturity_allocation;object|null;567;98,44;{Object}
+ms.fixed_income.maturity_allocation.1_3;number|null;539;93,58;8.58
+ms.fixed_income.maturity_allocation.3_5;number|null;539;93,58;16.8
+ms.fixed_income.maturity_allocation.5_7;number|null;539;93,58;16.31
+ms.fixed_income.maturity_allocation.7_10;number|null;539;93,58;24.66
+ms.fixed_income.maturity_allocation.over_10;number|null;539;93,58;32.25
+ms.holdings_stats;object;576;100;{Object}
+ms.holdings_stats.holdings_count_bond;number;576;100;96
+ms.holdings_stats.holdings_count_equity;number;576;100;0
+ms.holdings_stats.top10_weight;number;576;100;37.59
+ms.holdings_top10;Array;576;100;[Array]
+ms.holdings_top10[*];object;2864;497,22;{Object}
+ms.holdings_top10[*].name;string;2864;497,22;Germany (Federal Republic Of) 0%2030-02-15
+ms.holdings_top10[*].sector;null|string;2864;497,22;technology
+ms.holdings_top10[*].weight;number;2864;497,22;5.99
+ms.medalist_rating;null|string;576;100;Gold
+ms.objective;string|null;576;100;El objetivo del fondo consiste en ofrecerle, mediante una gestión activa de la cartera, una exposición en los títulos de deuda denominados en euros. El fondo invierte principalmente (sin ningún tipo de restricción sectorial) en obligaciones y/u otros títulos de deuda, de tipo fijo o variable, denominados en euros y emitidos o garantizados por Estados Miembros de la Unión Europea.
+ms.portfolio;object;576;100;{Object}
+ms.portfolio.as_of;string|null;576;100;2025-10-30
+ms.portfolio.asset_allocation;object;576;100;{Object}
+ms.portfolio.asset_allocation.bond;number;576;100;96.51
+ms.portfolio.asset_allocation.cash;number;576;100;3.49
+ms.portfolio.asset_allocation.equity;number;576;100;0
+ms.portfolio.asset_allocation.other;number;576;100;0
+ms.rating_source;string;79;13,72;MorningstarIWT_ExcelExport (1).csv
+ms.rating_stars;number|null;576;100;4
+ms.rating_updatedAt;Timestamp;79;13,72;Timestamp
+ms.regions;object;521;90,45;{Object}
+ms.regions.detail;object;521;90,45;{Object}
+ms.regions.detail.America;number|object;4;0,69;0
+ms.regions.detail.America.Canada;number;1;0,17;4.95
+ms.regions.detail.America.Latin America;number;1;0,17;0
+ms.regions.detail.America.United States;number;1;0,17;62.46
+ms.regions.detail.Americas;number;1;0,17;2.88
+ms.regions.detail.América;number|object;61;10,59;0
+ms.regions.detail.América.Canadá;number;1;0,17;1.28
+ms.regions.detail.América.Estados Unidos;number;1;0,17;0
+ms.regions.detail.América.Iberoamérica;number;1;0,17;97.98
+ms.regions.detail.Asia;number|object;66;11,46;0
+ms.regions.detail.Asia - Desarrollada;number;337;58,51;9.92
+ms.regions.detail.Asia - Developed;number;1;0,17;5.3
+ms.regions.detail.Asia - Emergente;number;337;58,51;3.32
+ms.regions.detail.Asia.Asia - Desarrollada;number;1;0,17;0
+ms.regions.detail.Asia.Asia - Emergente;number;1;0,17;0
+ms.regions.detail.Asia.Australasia;number;2;0,35;0
+ms.regions.detail.Asia.Developed Asia;number;1;0,17;0
+ms.regions.detail.Asia.Emerging Asia;number;1;0,17;0
+ms.regions.detail.Asia.Japan;number;1;0,17;0
+ms.regions.detail.Asia.Japón;number;1;0,17;0
+ms.regions.detail.Australasia;number;340;59,03;0
+ms.regions.detail.Canada;number;11;1,91;0
+ms.regions.detail.Canadá;number;335;58,16;0
+ms.regions.detail.Developed Asia;number;7;1,22;0
+ms.regions.detail.Emerging Asia;number;7;1,22;100
+ms.regions.detail.Emerging Europe;number;7;1,22;0
+ms.regions.detail.Estados Unidos;number;339;58,85;72.93
+ms.regions.detail.Europa;number;1;0,17;94.96
+ms.regions.detail.Europa - ex Euro;number;339;58,85;0.84
+ms.regions.detail.Europa emergente;number;337;58,51;0.95
+ms.regions.detail.Europa/O. Medio/Africa;number|object;61;10,59;100
+ms.regions.detail.Europa/O. Medio/Africa.Europa - ex Euro;number;1;0,17;0
+ms.regions.detail.Europa/O. Medio/Africa.Europa emergente;number;1;0,17;0
+ms.regions.detail.Europa/O. Medio/Africa.Oriente Medio / África;number;1;0,17;0
+ms.regions.detail.Europa/O. Medio/Africa.Reino Unido;number;1;0,17;0.75
+ms.regions.detail.Europa/O. Medio/Africa.Zona Euro;number;1;0,17;0
+ms.regions.detail.Europe - ex Euro;number;7;1,22;0
+ms.regions.detail.Europe/Middle East/Africa;number|object;5;0,87;0
+ms.regions.detail.Europe/Middle East/Africa.Emerging Europe;number;1;0,17;0
+ms.regions.detail.Europe/Middle East/Africa.Europe - ex Euro;number;1;0,17;0.42
+ms.regions.detail.Europe/Middle East/Africa.Eurozone;number;1;0,17;22.71
+ms.regions.detail.Europe/Middle East/Africa.Middle East / Africa;number;1;0,17;0
+ms.regions.detail.Europe/Middle East/Africa.United Kingdom;number;1;0,17;0.06
+ms.regions.detail.Eurozone;number;8;1,39;0
+ms.regions.detail.Iberoamerica;number;3;0,52;0
+ms.regions.detail.Iberoamérica;number;336;58,33;0.86
+ms.regions.detail.Japan;number;7;1,22;0
+ms.regions.detail.Japon;number;4;0,69;0
+ms.regions.detail.Japón;number;335;58,16;0
+ms.regions.detail.Latin America;number;7;1,22;0
+ms.regions.detail.Middle East / Africa;number;7;1,22;0
+ms.regions.detail.Oriente Medio;number;1;0,17;0
+ms.regions.detail.Oriente Medio / Africa;number;2;0,35;0
+ms.regions.detail.Oriente Medio / África;number;337;58,51;1.09
+ms.regions.detail.Reino Unido;number;339;58,85;2.74
+ms.regions.detail.United Kingdom;number;7;1,22;0
+ms.regions.detail.United States;number;8;1,39;0
+ms.regions.detail.Zona Euro;number;339;58,85;7.36
+ms.regions.detail.america;number|object;3;0,52;75.5
+ms.regions.detail.america.canada;number;1;0,17;0
+ms.regions.detail.america.latin_america;number;1;0,17;1.76
+ms.regions.detail.america.united_states;number;1;0,17;0
+ms.regions.detail.americas;number;1;0,17;0
+ms.regions.detail.americas_total;number;1;0,17;0
+ms.regions.detail.asia;number|object;4;0,69;100
+ms.regions.detail.asia.australasia;number;1;0,17;0
+ms.regions.detail.asia.developed_asia;number;1;0,17;0
+ms.regions.detail.asia.emerging_asia;number;1;0,17;0
+ms.regions.detail.asia.japan;number;1;0,17;0
+ms.regions.detail.asia_desarrollada;number;35;6,08;0
+ms.regions.detail.asia_developed;number;2;0,35;0
+ms.regions.detail.asia_emergente;number;35;6,08;0
+ms.regions.detail.asia_emerging;number;2;0,35;0
+ms.regions.detail.asia_total;number;1;0,17;0
+ms.regions.detail.australasia;number;57;9,9;0
+ms.regions.detail.canada;number;56;9,72;0
+ms.regions.detail.canadá;number;1;0,17;5.27
+ms.regions.detail.developed_asia;number;21;3,65;0
+ms.regions.detail.emerging_asia;number;21;3,65;0
+ms.regions.detail.emerging_europe;number;21;3,65;0
+ms.regions.detail.estados_unidos;number;38;6,6;100
+ms.regions.detail.euro_zone;number;9;1,56;10.49
+ms.regions.detail.europa___ex_euro;number;1;0,17;0.22
+ms.regions.detail.europa_emergente;number;36;6,25;0
+ms.regions.detail.europa_ex_euro;number;35;6,08;0
+ms.regions.detail.europa_o_medio_africa;number;2;0,35;16.31
+ms.regions.detail.europe_emerging;number;2;0,35;0
+ms.regions.detail.europe_ex_euro;number;23;3,99;0
+ms.regions.detail.europe_me_africa;number;1;0,17;0
+ms.regions.detail.europe_me_africa_total;number;1;0,17;100
+ms.regions.detail.europe_middle_east_africa;object;1;0,17;{Object}
+ms.regions.detail.europe_middle_east_africa.emerging_europe;number;1;0,17;0
+ms.regions.detail.europe_middle_east_africa.euro_zone;number;1;0,17;95.36
+ms.regions.detail.europe_middle_east_africa.europe_ex_euro;number;1;0,17;0
+ms.regions.detail.europe_middle_east_africa.middle_east_africa;number;1;0,17;0
+ms.regions.detail.europe_middle_east_africa.united_kingdom;number;1;0,17;2.88
+ms.regions.detail.eurozone;number;15;2,6;0
+ms.regions.detail.iberiamerica;number;1;0,17;0
+ms.regions.detail.iberoamerica;number;37;6,42;0
+ms.regions.detail.japan;number;23;3,99;100
+ms.regions.detail.japon;number;35;6,08;0
+ms.regions.detail.latam;number;1;0,17;0
+ms.regions.detail.latin_america;number;20;3,47;0
+ms.regions.detail.middle_east_africa;number;23;3,99;0
+ms.regions.detail.oriente_medio_africa;number;35;6,08;0
+ms.regions.detail.reino_unido;number;37;6,42;0
+ms.regions.detail.united_kingdom;number;23;3,99;0
+ms.regions.detail.united_states;number;22;3,82;0
+ms.regions.detail.zona_euro;number;37;6,42;0
+ms.regions.detail.África;number;1;0,17;0
+ms.regions.macro;object|null;521;90,45;{Object}
+ms.regions.macro.americas;number|null;435;75,52;0
+ms.regions.macro.asia;number|null;435;75,52;0
+ms.regions.macro.europe_me_africa;number|null;435;75,52;0
+ms.report_date;string;576;100;2025-12-11
+ms.sectors;object;514;89,24;{Object}
+ms.sectors.basic_materials;number|null;430;74,65;1.69
+ms.sectors.communication_services;number|null;430;74,65;10.21
+ms.sectors.consumer_cyclical;number|null;430;74,65;11.08
+ms.sectors.consumer_defensive;number|null;430;74,65;0.81
+ms.sectors.energy;number|null;430;74,65;0
+ms.sectors.financial_services;number|null;430;74,65;7.73
+ms.sectors.healthcare;number|null;430;74,65;10.5
+ms.sectors.industrials;number|null;430;74,65;6.53
+ms.sectors.real_estate;number|null;430;74,65;0.8
+ms.sectors.technology;number|null;430;74,65;50.65
+ms.sectors.utilities;number|null;430;74,65;0
+name;string;576;100;DPAM B - Bonds Eur Government B Cap
+quality;object;576;100;{Object}
+quality.last_repaired_at;Timestamp;136;23,61;Timestamp
+quality.ok;boolean;576;100;true
+quality.parsed_at;Timestamp;576;100;Timestamp
+quality.parser_version;string;576;100;ms_pdf_v3_gemini-2.5-flash
+quality.repair_version;string;136;23,61;mark_v1.0_stars_not_extractable
+quality.source_pdf_hash;string;576;100;76b0d0715b4acf176a8bf48013ddd55e
+quality.warnings;Array;576;100;[Array]
+quality.warnings[*];string;513;89,06;missing_category_morningstar
+updatedAt;Timestamp;576;100;Timestamp

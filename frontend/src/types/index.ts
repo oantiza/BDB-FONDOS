@@ -2,6 +2,7 @@ export interface Fund {
     isin: string;
     name: string;
     std_type?: string;
+    asset_class?: string; // Correct field from DB (v3)
     category_morningstar?: string; // Correct field from DB
     std_region?: string;
     primary_region?: string; // Correct field from DB
@@ -31,9 +32,28 @@ export interface Fund {
     };
     rating_overall?: number; // Morningstar Rating
     sectors?: Record<string, number>; // Sector distribution
+    metrics?: {
+        equity: number;
+        bond: number;
+        cash: number;
+        other?: number;
+        [key: string]: number | undefined;
+    };
     returns_history?: Record<string, number>; // Schema V2 (Map)
     risk_srri?: number; // Schema V2 (Snake Case)
     holdings?: any[]; // Holdings list
+    data_quality?: {
+        history_ok?: boolean;
+        points_count?: number;
+    };
+    manual?: {
+        costs?: {
+            retrocession?: number;
+            ter?: number;
+            [key: string]: any;
+        };
+        [key: string]: any;
+    };
 }
 
 export interface PortfolioItem extends Fund {
@@ -64,6 +84,14 @@ export interface SmartPortfolioResponse {
     status?: string;
     weights?: any;
     error?: string;
+    used_assets?: string[];
+    feasibility?: {
+        equity_floor_requested: number;
+        equity_max_achievable: number;
+        min_100pct_equity_funds_needed: number;
+        note: string;
+    };
+    suggestion?: string;
 }
 
 export interface AllocationItem {

@@ -2,13 +2,34 @@ import React, { useMemo } from 'react'
 import ModalHeader from '../common/ModalHeader'
 import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 
-export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onApplyDirect, onClose }) {
+interface OptimizationReviewModalProps {
+    currentPortfolio: any[];
+    proposedPortfolio: any[];
+    riskFreeRate?: number;
+    onAccept: () => void;
+    onApplyDirect?: () => void;
+    onClose: () => void;
+}
+
+export default function OptimizationReviewModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onApplyDirect, onClose }: OptimizationReviewModalProps) {
     const currentStats = useMemo(() => calcSimpleStats(currentPortfolio, riskFreeRate), [currentPortfolio, riskFreeRate])
     const proposedStats = useMemo(() => calcSimpleStats(proposedPortfolio, riskFreeRate), [proposedPortfolio, riskFreeRate])
 
-    const StatCard = ({ label, current, proposed, format = 'pct', inverse = false }) => {
-        const isBetter = inverse ? proposed < current : proposed > current
-        const diff = proposed - current
+    const StatCard = ({ label, current, proposed, format = 'pct', inverse = false }: { label: string, current: number, proposed: number, format?: 'pct' | 'num', inverse?: boolean }) => {
+        // Safe access helpers
+        const safeCurrent = current ?? 0;
+        const safeProposed = proposed ?? 0;
+        const isValidCurrent = current !== null && current !== undefined;
+        const isValidProposed = proposed !== null && proposed !== undefined;
+
+        const isBetter = inverse ? safeProposed < safeCurrent : safeProposed > safeCurrent
+        const diff = safeProposed - safeCurrent
+
+        const formatVal = (val: number, isValid: boolean) => {
+            if (!isValid) return '—';
+            if (format === 'pct') return (val * 100).toFixed(2) + '%';
+            return val.toFixed(2);
+        }
 
         return (
             <div className="flex flex-col items-center px-6">
@@ -16,17 +37,19 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                 {/* Main Numbers: Standard Sans-Serif as requested */}
                 <div className="flex items-center gap-3 text-lg font-sans font-bold">
                     <span className="text-slate-400 text-sm decoration-slate-200">
-                        {format === 'pct' ? (current * 100).toFixed(2) + '%' : current.toFixed(2)}
+                        {formatVal(safeCurrent, isValidCurrent)}
                     </span>
                     <span className="text-slate-300">→</span>
                     <span className={`text-3xl font-bold tracking-tight ${isBetter ? 'text-[#0B2545]' : 'text-rose-600'}`}>
-                        {format === 'pct' ? (proposed * 100).toFixed(2) + '%' : proposed.toFixed(2)}
+                        {formatVal(safeProposed, isValidProposed)}
                     </span>
                 </div>
                 {/* Diffs: New Font (Sans), Larger, Pill style */}
-                <div className={`text-sm font-sans font-black mt-2 uppercase tracking-wide px-3 py-1 rounded-full shadow-sm ${isBetter ? 'text-emerald-700 bg-emerald-100' : 'text-rose-700 bg-rose-100'}`}>
-                    {diff > 0 ? '+' : ''}{format === 'pct' ? (diff * 100).toFixed(2) + '%' : diff.toFixed(2)}
-                </div>
+                {isValidCurrent && isValidProposed && (
+                    <div className={`text-sm font-sans font-black mt-2 uppercase tracking-wide px-3 py-1 rounded-full shadow-sm ${isBetter ? 'text-emerald-700 bg-emerald-100' : 'text-rose-700 bg-rose-100'}`}>
+                        {diff > 0 ? '+' : ''}{format === 'pct' ? (diff * 100).toFixed(2) + '%' : diff.toFixed(2)}
+                    </div>
+                )}
             </div>
         )
     }
@@ -53,26 +76,26 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                     <div className="flex flex-wrap justify-center gap-0 mb-12 divide-x divide-slate-100 w-full"> {/* Moved dividers to parent class */}
                         <StatCard
                             label="Volatilidad (Riesgo)"
-                            current={currentStats.vol}
-                            proposed={proposedStats.vol}
+                            current={currentStats?.vol ?? 0}
+                            proposed={proposedStats?.vol ?? 0}
                             inverse={true}
                         />
                         {/* Removed manual dividers */}
                         <StatCard
                             label="Retorno Esperado"
-                            current={currentStats.ret}
-                            proposed={proposedStats.ret}
+                            current={currentStats?.ret ?? 0}
+                            proposed={proposedStats?.ret ?? 0}
                         />
                         <StatCard
                             label="Ratio Sharpe"
-                            current={currentStats.sharpe}
-                            proposed={proposedStats.sharpe}
+                            current={currentStats?.sharpe ?? 0}
+                            proposed={proposedStats?.sharpe ?? 0}
                             format="num"
                         />
                         <StatCard
                             label="Puntuación Calidad"
-                            current={currentStats.score}
-                            proposed={proposedStats.score}
+                            current={currentStats?.score ?? 0}
+                            proposed={proposedStats?.score ?? 0}
                             format="num"
                         />
                         <StatCard

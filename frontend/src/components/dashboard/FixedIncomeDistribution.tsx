@@ -1,15 +1,16 @@
 
-const MetricSimple = ({ label, value, color }: any) => (
+interface MetricSimpleProps { label: string; value: string | number; color: string; }
+const MetricSimple = ({ label, value, color }: MetricSimpleProps) => (
     <div className="flex flex-col p-0">
         <span className="text-[9px] font-bold text-[#A07147] uppercase tracking-wider">{label}</span>
         <span className={`text-base font-bold ${color}`}>{value}</span>
     </div>
 );
 
-export default function FixedIncomeDistribution({ portfolio = [] }: any) {
+export default function FixedIncomeDistribution({ portfolio = [] }: { portfolio?: any[] }) {
     const analytics = (() => {
         if (!portfolio.length) return {
-            rf_sectors: [],
+            rf_sectors: [] as any[],
             duration: '-', maturity: '-', credit: '-'
         };
 

@@ -1,6 +1,24 @@
 {
   "indexes": [
     {
+      "collectionGroup": "funds_v3",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "derived.asset_class",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "derived.primary_region",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "std_perf.sharpe",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "reports",
       "queryScope": "COLLECTION",
       "fields": [
@@ -10,6 +28,20 @@
         },
         {
           "fieldPath": "createdAt",
+          "order": "DESCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "funds_v3",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "derived.asset_class",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "std_perf.sharpe",
           "order": "DESCENDING"
         }
       ]

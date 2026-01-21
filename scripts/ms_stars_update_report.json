@@ -1,0 +1,402 @@
+{
+  "mode": "APPLY",
+  "input": ".\\MorningstarIWT_ExcelExport (1).csv",
+  "updates_preview": [
+    {
+      "isin": "LU0171306680",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0117859560",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0128521001",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0133267202",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0141113037",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "IE00BMD7ZB71",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "DE0008490962",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "IE0031333341",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "ES0184949016",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0141991002",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0094557526",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0175604000",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0093503497",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "ES0184894006",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0115769746",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0117884675",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "FR0010859769",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "FR0010286013",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0133264522",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "IE00BJ7B9456",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "IE0031575271",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0165142003",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "FR0010829697",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0145656715",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "FR0011365212",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0155598008",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "FR0010950055",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "FR0050000860",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0155598032",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0137009238",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "ES0170865002",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "ES0165242001",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0157179127",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "BE0947853660",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0121204431",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0115759606",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "IE00B2NXKW18",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "IE00BDH6RQ67",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0188151095",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1120766388",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "LU1299311834",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0321373184",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0594300096",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0628612748",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1883340322",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "LU0592699093",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0986194024",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0260085492",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0282719219",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0404220724",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU1244895394",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0345361124",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1670708764",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU1391767586",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1103307408",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0607512935",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1670724373",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0712123511",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0455556406",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "LU0189895229",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0438336694",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1022658667",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1838941372",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1353951376",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "LU0329430986",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1442549025",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0267388220",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0187079347",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU1917163617",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0554840230",
+      "from": null,
+      "to": 2
+    },
+    {
+      "isin": "LU0264738294",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0391944815",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU0918140210",
+      "from": null,
+      "to": 4
+    },
+    {
+      "isin": "LU0920839429",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU1529955046",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU1340702932",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0270905242",
+      "from": null,
+      "to": 3
+    },
+    {
+      "isin": "LU2295319300",
+      "from": null,
+      "to": 1
+    },
+    {
+      "isin": "LU0333810850",
+      "from": null,
+      "to": 3
+    }
+  ],
+  "missing_sample": []
+}

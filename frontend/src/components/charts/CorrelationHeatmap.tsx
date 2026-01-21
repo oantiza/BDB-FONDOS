@@ -1,6 +1,11 @@
 import React from 'react'
 
-export default function CorrelationHeatmap({ matrix, assets }) {
+interface CorrelationHeatmapProps {
+    matrix: number[][];
+    assets: string[];
+}
+
+export default function CorrelationHeatmap({ matrix, assets }: CorrelationHeatmapProps) {
     if (!matrix || !assets || matrix.length !== assets.length) {
         return (
             <div className="flex items-center justify-center h-full text-slate-500 text-xs italic bg-slate-900/50 rounded-lg border border-slate-700">
@@ -11,7 +16,7 @@ export default function CorrelationHeatmap({ matrix, assets }) {
 
     // Palette: Blue-Gray (Negative) -> Beige-Ochre (Positive)
     // Dark Mode Compatible
-    const getColor = (val) => {
+    const getColor = (val: number) => {
         if (val === 1) return 'bg-[#0B2545] text-slate-300 ring-1 ring-[#1e3a8a]' // Diagonal (Self)
 
         // Positive (Beige -> Ochre)
@@ -50,7 +55,7 @@ export default function CorrelationHeatmap({ matrix, assets }) {
 
                     {/* Matrix Rows */}
                     <div className="flex-1 w-full flex flex-col min-h-0">
-                        {matrix.map((row, i) => (
+                        {matrix.map((row: number[], i: number) => (
                             <div key={i} className="flex-1 w-full flex items-center min-h-0">
                                 {/* Row Label */}
                                 <div className="w-[15%] max-w-[100px] shrink-0 pr-2 flex justify-end items-center h-full">
@@ -60,7 +65,7 @@ export default function CorrelationHeatmap({ matrix, assets }) {
                                 </div>
 
                                 {/* Cells */}
-                                {row.map((val, j) => (
+                                {row.map((val: number, j: number) => (
                                     <div key={j} className="flex-1 h-[90%] flex items-center justify-center px-0.5 min-w-0">
                                         <div
                                             className={`w-full h-full flex items-center justify-center text-[9px] font-mono font-bold rounded transition-all hover:scale-105 hover:z-10 cursor-default ${getColor(val)}`}

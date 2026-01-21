@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { collection, query, orderBy, limit, startAfter, getDocs, QueryDocumentSnapshot } from 'firebase/firestore'
 import { db } from '../firebase'
-import { normalizeFundData } from '../utils/normalizer'
+import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer'
 
 export function useAssets(isAuthenticated: boolean) {
     const [assets, setAssets] = useState<any[]>([])
@@ -21,7 +21,7 @@ export function useAssets(isAuthenticated: boolean) {
         setError(null)
 
         try {
-            const fundsRef = collection(db, 'funds_v2')
+            const fundsRef = collection(db, 'funds_v3')
 
             let q = query(fundsRef, orderBy('name'), limit(FUNDS_PER_PAGE))
 
@@ -42,7 +42,7 @@ export function useAssets(isAuthenticated: boolean) {
 
             const newAssets: any[] = []
             snapshot.forEach(doc => {
-                newAssets.push(normalizeFundData({ isin: doc.id, ...doc.data() }))
+                newAssets.push(normalizeFundData(adaptFundV3ToLegacy({ isin: doc.id, ...doc.data() })))
             })
 
             setAssets(prev => isInitial ? newAssets : [...prev, ...newAssets])

@@ -25,13 +25,15 @@ interface EfficientFrontierProps {
     assetPoints: Point[];
     portfolioPoint: Point | null;
     isLoading?: boolean;
+    animate?: boolean;
 }
 
 const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
     frontierPoints,
     assetPoints,
     portfolioPoint,
-    isLoading = false
+    isLoading = false,
+    animate = true
 }) => {
     // Note: Loading state handled by parent or overlay, keeping this simple.
 
@@ -78,6 +80,7 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
 
     const options: ChartOptions<'scatter'> = {
         responsive: true,
+        animation: animate ? {} : false,
         maintainAspectRatio: false,
         plugins: {
             legend: {

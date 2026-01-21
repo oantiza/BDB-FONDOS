@@ -25,7 +25,7 @@ def initialize():
 def inspect_fund():
     db = initialize()
     # Get first 5 funds
-    docs = db.collection('funds_v2').limit(5).stream()
+    docs = db.collection('funds_v3').limit(5).stream()
     
     for doc in docs:
         data = doc.to_dict()

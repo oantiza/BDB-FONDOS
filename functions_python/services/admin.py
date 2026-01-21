@@ -5,7 +5,7 @@ from .config import BUCKET_NAME, EODHD_API_KEY
 
 def clean_duplicates_logic(db):
     try:
-        docs = db.collection('funds_v2').stream()
+        docs = db.collection('funds_v3').stream()
         all_funds = []
         for d in docs:
             data = d.to_dict()
@@ -58,7 +58,7 @@ def clean_duplicates_logic(db):
                 preserved_count += 1
                 
                 for loser in losers:
-                    ref = db.collection('funds_v2').document(loser['doc_id'])
+                    ref = db.collection('funds_v3').document(loser['doc_id'])
                     batch.delete(ref)
                     batch_ops += 1
                     deleted_count += 1
@@ -81,7 +81,7 @@ def clean_duplicates_logic(db):
 
 def restore_historico_logic(db):
     try:
-        funds_ref = db.collection('funds_v2')
+        funds_ref = db.collection('funds_v3')
         docs = funds_ref.stream()
         
         updated_count = 0
@@ -114,24 +114,54 @@ def restore_historico_logic(db):
                     data = r.json()
                     
                     if isinstance(data, list) and len(data) > 0:
-                        series = []
+                        history_list = []
                         for p in data:
-                            if p.get('date') and p.get('close'):
-                                series.append({
-                                    'date': p['date'], 
-                                    'price': float(p['close'])
-                                })
+                            date_str = p.get('date')
+                            # Prefer adjusted_close, then close.
+                            price_val = p.get('adjusted_close') or p.get('close')
+                            
+                            # Validation: Must have date and price
+                            if not date_str or price_val is None: 
+                                continue
+                                
+                            try:
+                                price_num = float(price_val)
+                                if price_num <= 0: continue # Invalid price
+                            except:
+                                continue
+
+                            history_list.append({
+                                'date': date_str, 
+                                'nav': price_num
+                            })
                         
-                        ref = db.collection('historico_vl_v2').document(isin)
-                        batch.set(ref, {'series': series, 'last_updated': datetime.now()})
-                        batch_counter += 1
-                        updated_count += 1
-                        
-                        if batch_counter >= BATCH_LIMIT:
-                            batch.commit()
-                            batch = db.batch()
-                            batch_counter = 0
-                            print(f"Committed batch. Total so far: {updated_count}")
+                        if history_list:
+                            # Use canonical writer (it validates and formats)
+                            # Pass batch object for efficient writing
+                            from .history_writer import write_history_canonical
+                            write_history_canonical(
+                                db=db, 
+                                isin=isin, 
+                                history_list=history_list, 
+                                source="EODHD", 
+                                source_format="canonical",
+                                batch=batch
+                            )
+                            
+                            batch_counter += 1
+                            updated_count += 1
+                            
+                            # Optional: Update funds_v3 metadata for quality
+                            # We can do this in a separate loop or here if we have refs.
+                            # For now, let's stick to history restoration.
+                            
+                            if batch_counter >= BATCH_LIMIT:
+                                batch.commit()
+                                batch = db.batch()
+                                batch_counter = 0
+                                print(f"Committed batch. Total so far: {updated_count}")
+                        else:
+                             errors.append(f"{isin}: Valid history empty after filtering")
                             
                 else:
                     errors.append(f"{isin}: EODHD status {r.status_code}")
@@ -156,7 +186,7 @@ def analyze_isin_health_logic(db, bucket):
     
     print("🔍 Starting ISIN Health Check...")
 
-    funds_ref = db.collection('funds_v2')
+    funds_ref = db.collection('funds_v3')
     docs = funds_ref.stream()
 
     total = 0

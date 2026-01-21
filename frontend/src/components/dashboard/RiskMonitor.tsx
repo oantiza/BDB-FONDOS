@@ -1,10 +1,10 @@
 import { useMemo } from 'react'
 
-const MatrixCell = ({ active, color }) => (
+const MatrixCell = ({ active, color }: { active: boolean, color: string }) => (
     <div className={`w-full h-full rounded-[2px] border border-gray-200 ${active ? color : 'bg-transparent'}`} />
 )
 
-export default function RiskMonitor({ portfolio = [] }) {
+export default function RiskMonitor({ portfolio = [] }: { portfolio?: any[] }) {
     // Calculate dynamic risk scores based on portfolio composition
     const risks = useMemo(() => {
         if (!portfolio || portfolio.length === 0) {
@@ -36,7 +36,7 @@ export default function RiskMonitor({ portfolio = [] }) {
         const maxRegionWeight = Math.max(...Object.values(regionMap));
         const geoScore = maxRegionWeight > 70 ? 5 : maxRegionWeight > 50 ? 4 : maxRegionWeight > 40 ? 3 : 2;
 
-        const getZone = (score) => score >= 4 ? 'orange' : score >= 3 ? 'yellow' : 'green';
+        const getZone = (score: number) => score >= 4 ? 'orange' : score >= 3 ? 'yellow' : 'green';
 
         return [
             { label: 'Concentración (Max)', score: concentrationScore, zone: getZone(concentrationScore) },

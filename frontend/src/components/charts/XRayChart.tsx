@@ -25,7 +25,15 @@ ChartJS.register(
 
 const THEME = { navy: '#0B2545', gold: '#D4AF37', slate: '#64748b', grid: '#f1f5f9' }
 
-export default function XRayChart({ portfolioData = [], benchmarkData = [], benchmarkLabel = 'Benchmark', portfolioLabel = 'Mi Cartera' }) {
+interface XRayChartProps {
+    portfolioData?: { x: string | number | Date; y: number }[];
+    benchmarkData?: { x: string | number | Date; y: number }[];
+    benchmarkLabel?: string;
+    portfolioLabel?: string;
+    staticPlot?: boolean;
+}
+
+export default function XRayChart({ portfolioData = [], benchmarkData = [], benchmarkLabel = 'Benchmark', portfolioLabel = 'Mi Cartera', staticPlot = false }: XRayChartProps) {
     const datasets = [
         {
             label: portfolioLabel,
@@ -54,6 +62,7 @@ export default function XRayChart({ portfolioData = [], benchmarkData = [], benc
     const options: any = {
         responsive: true,
         maintainAspectRatio: false,
+        animation: staticPlot ? false : undefined,
         parsing: { xAxisKey: 'x', yAxisKey: 'y' },
         scales: {
             x: { type: 'time', grid: { display: false }, time: { unit: 'month' } },

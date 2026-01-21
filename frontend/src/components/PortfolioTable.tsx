@@ -1,3 +1,14 @@
+import { PortfolioItem } from '../types';
+
+interface PortfolioTableProps {
+    assets?: any[];
+    totalCapital?: number;
+    onRemove?: (isin: string) => void;
+    onUpdateWeight?: (isin: string, val: string | number) => void;
+    onFundClick?: (asset: any) => void;
+    onSwap?: (asset: any) => void;
+}
+
 export default function PortfolioTable({
     assets = [],
     totalCapital = 0,
@@ -5,7 +16,7 @@ export default function PortfolioTable({
     onUpdateWeight,
     onFundClick,
     onSwap // <--- NUEVA PROPIEDAD
-}) {
+}: PortfolioTableProps) {
     if (assets.length === 0) {
         return (
             <div className="flex flex-col items-center justify-center h-full text-slate-500 text-sm italic p-6">
@@ -59,8 +70,25 @@ export default function PortfolioTable({
                                         <span className="text-[#A07147] font-[450] text-sm">%</span>
                                     </div>
                                 </td>
-                                <td className="p-3 text-right align-middle text-[#2C3E50] font-[450] text-sm tabular-nums">
-                                    {val.toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                                <td className="p-3 text-right align-middle">
+                                    <div className="flex items-center justify-end gap-1">
+                                        <input
+                                            type="number"
+                                            className="w-20 text-right bg-transparent outline-none font-[450] text-[#2C3E50] text-sm border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors tabular-nums"
+                                            value={(totalCapital * (asset.weight / 100)).toFixed(2)}
+                                            step="100"
+                                            onClick={(e) => e.stopPropagation()}
+                                            onChange={(e) => {
+                                                const newCapital = parseFloat(e.target.value) || 0;
+                                                // Avoid division by zero
+                                                if (totalCapital > 0) {
+                                                    const newWeight = (newCapital / totalCapital) * 100;
+                                                    onUpdateWeight && onUpdateWeight(asset.isin, newWeight);
+                                                }
+                                            }}
+                                        />
+                                        <span className="text-[#A07147] font-[450] text-sm">€</span>
+                                    </div>
                                 </td>
 
                                 {/* --- NUEVA COLUMNA SWAP --- */}
@@ -104,7 +132,7 @@ export default function PortfolioTable({
                         <td className="py-4 pl-3 pr-6"></td>
                     </tr>
                 </tfoot>
-            </table>
-        </div>
+            </table >
+        </div >
     )
 }
