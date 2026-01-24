@@ -60,6 +60,7 @@ interface DashboardPageProps {
     onOpenMiBoutique: () => void;
     onOpenXRay: () => void;
     onOpenPositions: () => void;
+    onOpenRetirement: () => void;
 
     // Portfolio State Props
     isAuthenticated: boolean;
@@ -85,6 +86,7 @@ export default function DashboardPage({
     onOpenMiBoutique,
     onOpenXRay,
     onOpenPositions,
+    onOpenRetirement,
 
     isAuthenticated,
     assets,
@@ -223,6 +225,7 @@ export default function DashboardPage({
                 onOpenMiBoutique={onOpenMiBoutique}
                 onOpenXRay={onOpenXRay}
                 onOpenPositions={onOpenPositions}
+                onOpenRetirement={onOpenRetirement}
             >
                 {/* Clean header, no version or toggle */}
             </Header>
@@ -355,10 +358,10 @@ export default function DashboardPage({
                                 {/* Row 2: Donuts (Floating) */}
                                 <div className="flex flex-col px-4 pb-6 min-h-0 flex-1">
                                     <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden pb-10">
                                             <SmartDonut allocation={allocData} />
                                         </div>
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden pb-10">
                                             <GeoDonut allocation={geoData} />
                                         </div>
                                     </div>
