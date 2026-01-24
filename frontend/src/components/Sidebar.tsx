@@ -247,11 +247,15 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
               >
                 <div className="min-w-0 pr-2 flex-1">
                   <div
-                    onClick={() => onViewDetail && onViewDetail(f)}
-                    className="text-sm font-normal text-[#2C3E50] truncate cursor-pointer hover:text-[#003399] transition-colors leading-tight flex items-center gap-2"
+                    className="text-sm font-normal text-[#2C3E50] truncate leading-tight flex items-center gap-2"
                     title="Ver detalle del fondo"
                   >
-                    {f.name}
+                    <span
+                      onClick={() => onViewDetail && onViewDetail(f)}
+                      className="cursor-pointer hover:text-[#003399] hover:underline"
+                    >
+                      {f.name}
+                    </span>
                     {showWarn && (
                       <span
                         className="text-[9px] px-1 bg-gray-100 text-gray-500 rounded border border-gray-200 cursor-help"

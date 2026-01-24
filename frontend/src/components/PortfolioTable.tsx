@@ -40,15 +40,17 @@ export default function PortfolioTable({
                             <tr
                                 key={asset.isin}
                                 // Si es manual, le damos un fondo azul muy suave para destacarlo
-                                className={`border-b border-slate-50 hover:bg-slate-50 group transition-colors cursor-pointer ${isManual ? 'bg-blue-50/40' : ''}`}
-                                onClick={() => onFundClick && onFundClick(asset)}
+                                className={`border-b border-slate-50 hover:bg-slate-50 group transition-colors ${isManual ? 'bg-blue-50/40' : ''}`}
                             >
                                 <td className="py-3 pr-3 pl-6 align-middle" title={asset.name}>
                                     <div className="flex items-center gap-3">
                                         {/* Candado indicador de selección manual */}
                                         {isManual && <span className="text-xs shrink-0" title="Fondo seleccionado manualmente (Protegido)">🔒</span>}
 
-                                        <span className="truncate max-w-[320px] text-[#2C3E50] font-[450] text-sm leading-tight">
+                                        <span
+                                            onClick={() => onFundClick && onFundClick(asset)}
+                                            className="truncate max-w-[320px] text-[#2C3E50] font-[450] text-sm leading-tight cursor-pointer hover:text-[#003399] hover:underline"
+                                        >
                                             {asset.name}
                                         </span>
 

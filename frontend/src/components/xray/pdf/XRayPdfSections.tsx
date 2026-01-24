@@ -540,7 +540,7 @@ export default function XRayPdfSections({
                     <span className="font-light text-xl tracking-tight leading-none">Análisis <span className="font-bold">Avanzado</span></span>
                 </div>
 
-                <div className="space-y-12">
+                <div className="space-y-24">
                     {/* Historical Evolution - Fixed 5Y/Moderate */}
                     <div className="h-[450px]">
                         <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight mb-6">Evolución Histórica <span className="text-lg text-slate-400 font-normal">(Backtest 5 Años)</span></h3>
