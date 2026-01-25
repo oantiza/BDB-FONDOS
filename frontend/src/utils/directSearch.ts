@@ -15,19 +15,19 @@ import { db } from '../firebase';
  */
 export async function findDirectAlternativesV3(
     targetFund: any,
-    options: { excludeIsins?: string[]; desired?: number } = {}
+    options: { excludeIsins?: string[]; desired?: number; assetClass?: string; region?: string } = {}
 ) {
-    const { excludeIsins = [], desired = 3 } = options;
+    const { excludeIsins = [], desired = 3, assetClass, region } = options;
 
-    // 1. Validar que tenga el campo derived.asset_class
-    const targetClass = targetFund?.derived?.asset_class || targetFund?.asset_class;
+    // 1. Validar clase de activo (Prioridad al filtro explícito)
+    const targetClass = assetClass || targetFund?.derived?.asset_class || targetFund?.asset_class;
 
     if (!targetClass) {
         console.warn("[DirectSearch] El fondo objetivo no tiene derived.asset_class", targetFund);
         return [];
     }
 
-    const targetRegion = targetFund?.derived?.primary_region || targetFund?.primary_region;
+    const targetRegion = region || targetFund?.derived?.primary_region || targetFund?.primary_region;
     const targetCategory = targetFund?.ms?.category_morningstar; // Opcional, para ranking
 
     // 2. Query simple a funds_v3 por asset_class
@@ -53,10 +53,13 @@ export async function findDirectAlternativesV3(
             if (excludeIsins.includes(isin)) return;
 
             // Region rule:
+            // If explicit region 'all' -> no filter
             // If target is GLOBAL -> do not filter by region
             // If target is NOT GLOBAL -> require same region when present
             // EXCEPTION: "Monetario" usually has mixed regions or Global data, so we skip strict check to find candidates
-            if (targetRegion && targetRegion !== "GLOBAL" && targetClass !== "Monetario") {
+            const skipRegionCheck = (targetRegion === 'all' || targetRegion === "GLOBAL" || targetClass === "Monetario");
+
+            if (targetRegion && !skipRegionCheck) {
                 const candRegion = data.derived?.primary_region || data.primary_region;
                 if (candRegion && candRegion !== targetRegion) return;
             }
@@ -93,7 +96,7 @@ export async function findDirectAlternativesV3(
         let matchCat: any[] = [];
         let others: any[] = [];
 
-        if (targetCategory) {
+        if (targetCategory && !assetClass) { // Solo priorizamos categoria si NO hemos forzado una clase de activo distinta
             candidates.forEach(c => {
                 const cCat = c.ms?.category_morningstar;
                 if (cCat === targetCategory) matchCat.push(c);
@@ -110,6 +113,10 @@ export async function findDirectAlternativesV3(
 
         // 6. Merge & Slice
         const finalPool = [...matchCat, ...others];
+
+        // Final fallback: shuffle everything if pool is small
+        if (finalPool.length < 3) shuffle(finalPool);
+
         return finalPool.slice(0, desired);
 
     } catch (e) {

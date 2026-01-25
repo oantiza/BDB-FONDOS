@@ -5,6 +5,7 @@ import { db } from '../../firebase';
 import { Fund, PortfolioItem } from '../../types';
 import { backtestPortfolio } from '../../engine/portfolioAnalyticsEngine';
 import { useToast } from '../../context/ToastContext';
+import { REGION_DISPLAY_LABELS } from '../../utils/normalizer';
 
 interface SharpeMaximizerModalProps {
     isOpen: boolean;
@@ -33,7 +34,7 @@ export default function SharpeMaximizerModal({
 
     // Filters
     const [assetClass, setAssetClass] = useState<string>('RV');
-    const [region, setRegion] = useState<string>('GLOBAL');
+    const [region, setRegion] = useState<string>('all');
 
     // Results
     const [results, setResults] = useState<CandidateResult[]>([]);
@@ -93,26 +94,24 @@ export default function SharpeMaximizerModal({
         setProgress(0);
 
         try {
-            const isGlobal = region === 'GLOBAL';
+            const isAllRegions = region === 'all';
 
             // REGION CONFIGURATION 
             type RegionConfig = { field: string; op: any; val: string; valEnd?: string };
             const REGION_CONFIGS: Record<string, RegionConfig> = {
-                'EUROPA': { field: 'derived.primary_region', op: '==', val: 'Europa' },
-                'ASIA': { field: 'derived.primary_region', op: '==', val: 'Asia' },
-                'USA': { field: 'derived.primary_region', op: '==', val: 'USA' },
-                // EMERGING MARKETS: Use Morningstar Category 
-                'EMERGENTES': { field: 'ms.category_morningstar', op: '==', val: 'Morningstar Emerging Markets' }
+                // Special mapping for Emerging if needed, otherwise uses derived.primary_region
+                'EMERGENTES_LEGACY': { field: 'ms.category_morningstar', op: '==', val: 'Morningstar Emerging Markets' }
             };
             const config = REGION_CONFIGS[region];
-            const activeConfig = config || (isGlobal ? null : { field: 'derived.primary_region', op: '==', val: region });
+            const activeConfig = config || (isAllRegions ? null : { field: 'derived.primary_region', op: '==', val: region });
 
             let candidates: any[] = [];
 
             try {
                 // PRIMARY STRATEGY
-                // Fix for Emerging Markets: They are often classified as 'Otros', so we include 'Otros' if RV + Emerging.
-                const targetAssets = (region === 'EMERGENTES' && assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
+                // Fix for Emerging Markets: They are often classified as 'Otros', so we include 'Otros' if it's an emerging region and RV.
+                const isEmerging = region.includes('emerging') || region === 'china' || region === 'latin_america';
+                const targetAssets = (isEmerging && assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
 
                 let constraints: any[] = [
                     where('derived.asset_class', 'in', targetAssets)
@@ -133,18 +132,13 @@ export default function SharpeMaximizerModal({
                 candidates = snap.docs.map(d => ({ isin: d.id, ...d.data() }));
 
                 if (candidates.length === 0) {
-                    console.warn("Primary query returned 0. Force fallback.");
                     throw new Error("ForceFallback");
                 }
-
             } catch (fetchErr: any) {
-                // FALLBACK STRATEGY
                 const isIndexError = fetchErr.code === 'failed-precondition' || fetchErr.message?.includes('index');
                 const isForceFallback = fetchErr.message === 'ForceFallback';
 
                 if (isIndexError || isForceFallback) {
-                    if (isIndexError) console.warn("Index missing/complex. Switching to Fallback.");
-
                     const targetAssets = (region === 'EMERGENTES' && assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
 
                     let fallbackConstraints: any[] = [
@@ -167,7 +161,8 @@ export default function SharpeMaximizerModal({
             }
 
             // [NEW] Secondary Logic for EMERGING: Search by name "Emerging" 
-            if (region === 'EMERGENTES') {
+            const isEmergingForSecondary = region.includes('emerging') || region === 'china' || region === 'latin_america';
+            if (isEmergingForSecondary) {
                 try {
                     // Reuse targetAssets logic but explicitly for this check
                     const targetAssets = (assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
@@ -205,7 +200,6 @@ export default function SharpeMaximizerModal({
 
             if (candidates.length === 0) {
                 const msg = `Sin resultados. Filtros: ${assetClass} + ${activeConfig ? activeConfig.val : 'ALL'}.`;
-                console.warn(msg);
                 toast.error(msg);
                 setStep('FILTER');
                 return;
@@ -279,6 +273,7 @@ export default function SharpeMaximizerModal({
                                     >
                                         <option value="RV">Renta Variable</option>
                                         <option value="RF">Renta Fija</option>
+                                        <option value="Monetario">Monetario</option>
                                         <option value="Mixto">Mixto</option>
                                         <option value="Retorno Absoluto">Retorno Absoluto</option>
                                     </select>
@@ -289,11 +284,10 @@ export default function SharpeMaximizerModal({
                                         value={region} onChange={e => setRegion(e.target.value)}
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold focus:outline-none focus:border-emerald-500 transition-colors"
                                     >
-                                        <option value="GLOBAL">Global</option>
-                                        <option value="USA">Estados Unidos</option>
-                                        <option value="EUROPA">Europa</option>
-                                        <option value="EMERGENTES">Emergentes</option>
-                                        <option value="ASIA">Asia</option>
+                                        <option value="all">Todas las Regiones</option>
+                                        {Object.entries(REGION_DISPLAY_LABELS).map(([key, label]) => (
+                                            <option key={key} value={key}>{label}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>

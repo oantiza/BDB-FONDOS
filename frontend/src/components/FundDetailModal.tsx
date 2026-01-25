@@ -2,6 +2,7 @@ import React from 'react';
 import ModalHeader from './common/ModalHeader';
 import MetricCard from './common/MetricCard';
 import { DataQualityBadge, gradeFundQuality } from './dashboard/DataQualityBadge';
+import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
 
 // Lazy load to save bundle size
 const HistoricalChartModal = React.lazy(() => import('./modals/HistoricalChartModal'));
@@ -72,14 +73,6 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
     fund.rating_overall ??
     0
   );
-  console.log('[FundDetailModal] Rating Check:', {
-    name: fund.name,
-    rating_stars: fund.rating_stars,
-    std_extra_stars: fund.std_extra?.rating_stars,
-    ms_stars: fund.ms?.rating_stars,
-    rating_overall: fund.rating_overall,
-    FINAL_CALC: ratingRaw
-  });
   const rating = Math.round(Math.max(0, Math.min(5, isValidNum(ratingRaw) ? ratingRaw : 0)));
 
   const renderStars = (n: number) =>
@@ -211,7 +204,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                         className="px-3 py-1 bg-white border border-[#eeeeee] flex items-center gap-2"
                       >
                         <span className="text-xs font-bold text-[#2C3E50] uppercase tracking-wider">
-                          {region}
+                          {REGION_DISPLAY_LABELS[region] || region.replace(/_/g, ' ')}
                         </span>
                         <span className="text-xs font-light text-[#7f8c8d]">|</span>
                         <span className="text-xs font-bold text-[#A07147]">

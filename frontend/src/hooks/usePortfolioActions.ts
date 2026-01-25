@@ -119,13 +119,17 @@ export function usePortfolioActions({
     }, [portfolio, setPortfolio]);
 
     // 2. Swapper Handlers
-    const handleOpenSwap = useCallback(async (fund: PortfolioItem) => {
+    const handleOpenSwap = useCallback(async (fund: PortfolioItem, filters: { assetClass?: string; region?: string } = {}) => {
         // toast.info("🔎 Buscando alternativas (Directo V3)..."); // SILENCED
 
         // --- NEW DIRECT LOGIC (Requested by User) ---
         try {
             const excludeIsins = portfolio.map(p => p.isin);
-            const rawAlts = await findDirectAlternativesV3(fund, { excludeIsins, desired: 3 });
+            const rawAlts = await findDirectAlternativesV3(fund, {
+                excludeIsins,
+                desired: 3,
+                ...filters
+            });
 
             // Map raw results to the UI's expected format (Alternative[])
             // We normalize HERE just for display (so the modal shows stats), 
@@ -141,10 +145,10 @@ export function usePortfolioActions({
                 };
             });
 
-            if (alts.length === 0) {
+            if (alts.length === 0 && !filters.assetClass) {
                 toast.error("No se encontraron alternativas similares.");
-            } else {
-                // toast.success(`Encontradas ${alts.length} alternativas.`); // SILENCED
+            } else if (alts.length === 0) {
+                toast.info("No se encontraron fondos con los filtros seleccionados.");
             }
 
             setSwapper({
@@ -157,7 +161,7 @@ export function usePortfolioActions({
             console.error(error);
             toast.error("Error buscando alternativas.");
         }
-    }, [riskLevel]);
+    }, [portfolio, toast]);
 
     const performSwap = useCallback((newFund: Fund) => {
         if (!swapper.fund) return;

@@ -9,20 +9,20 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
     // Estado para los targets (Pesos objetivo)
     const [targets, setTargets] = useState<{ [key: string]: number }>({
         // RV
-        rv_usa: 0, rv_eu: 0, rv_em: 0, rv_global: 0, rv_sector: 0,
+        rv_usa: 0, rv_eurozone: 0, rv_europe_ex: 0, rv_china: 0, rv_asia_em: 0, rv_latam: 0, rv_global: 0, rv_sector: 0,
         // RF
-        rf_gov: 0, rf_corp: 0, rf_hy: 0,
+        rf_gov: 0, rf_corp: 0, rf_hy: 0, rf_money: 0,
         // Other
-        commodities: 0, cash: 0
+        commodities: 0
     })
 
     const [total, setTotal] = useState(0)
 
-    // Helper para clasificar activos (Robustecida con campos normalizados)
+    // Helper para clasificar activos (Robustecida con campos normalizados V3)
     const classifyAsset = (asset: any) => {
-        const type = (asset.std_type || 'Mixto');
-        const region = (asset.std_region || 'Global').toLowerCase();
-        const category = (asset.std_extra?.category || '').toLowerCase();
+        const type = (asset.derived?.asset_class || asset.std_type || 'Mixto');
+        const region = (asset.derived?.primary_region || asset.std_region || 'all');
+        const category = (asset.ms?.category_morningstar || '').toLowerCase();
         const name = (asset.name || '').toLowerCase();
 
         // 1. COMMODITIES / ALTERNATIVES
@@ -30,7 +30,12 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
             return 'commodities';
         }
 
-        // 2. RENTA VARIABLE
+        // 2. MONETARIO
+        if (type === 'Monetario' || category.includes('money market') || category.includes('liquidez')) {
+            return 'rf_money';
+        }
+
+        // 3. RENTA VARIABLE
         if (type === 'RV' || type === 'Equity' || category.includes('rv ') || category.includes('equity')) {
             // Sectorial check (High priority)
             if (create_regex('tech|tecnolog|health|salud|energy|energi|real estate|inmobiliari|gold|oro|robot|ai|cyber|ciber|fintech|bio|farm').test(category) ||
@@ -38,41 +43,25 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
                 return 'rv_sector';
             }
 
-            // Global check (before specific regions if explicitly marked global)
-            // But usually we want specific regions first? 
-            // User request: "add global and sectorial".
-            // Implementation: If it hits specific regions like USA/EU/EM, we stick to those. 
-            // If it's explicit Global/World and NOT specific region, it goes to Global.
+            // Region direct mapping based on V3 normalized keys
+            if (region === 'united_states') return 'rv_usa';
+            if (region === 'eurozone') return 'rv_eurozone';
+            if (region === 'europe_ex_euro' || region === 'united_kingdom') return 'rv_europe_ex';
+            if (region === 'china' || region === 'japan') return 'rv_china'; // Japan usually Asia, grouping for simplicity in macro or expand
+            if (region === 'asia_emerging' || region === 'developed_asia') return 'rv_asia_em';
+            if (region === 'latin_america') return 'rv_latam';
 
-            if (region === 'usa' || create_regex('usa|eeuu').test(category)) return 'rv_usa';
-            if (region === 'europe' || create_regex('europe|euro').test(category)) return 'rv_eu';
-            if (region === 'emerging' || create_regex('emerg|asia|latam').test(category)) return 'rv_em';
-
-            if (region === 'global' || create_regex('global|world|mundial|internacional').test(category) || create_regex('global|world|mundial').test(name)) {
-                return 'rv_global';
-            }
-
-            // Fallback for Equity -> Default to Global now
             return 'rv_global';
         }
 
-        // 3. RENTA FIJA
-        if (type === 'RF' || type === 'Fixed Income' || category.includes('rf ') || category.includes('fixed income') || category.includes('deuda')) {
-            // High Yield
+        // 4. RENTA FIJA
+        if (type === 'RF' || type === 'Fixed Income') {
             if (category.includes('high yield') || name.includes('high yield') || name.includes('hy')) return 'rf_hy';
-            // Government
             if (category.includes('government') || category.includes('publica') || name.includes('gov') || name.includes('tesoro')) return 'rf_gov';
-            // Corporate (Default RF)
             return 'rf_corp';
         }
 
-        // 4. CASH / LIQUIDEZ
-        if (type === 'Monetario' || type === 'Cash' || category.includes('monetario') || category.includes('money market') || category.includes('liquidez')) {
-            return 'cash';
-        }
-
-        // Fallback for Mixtures/Others
-        return 'cash';
+        return 'rf_money'; // Default to cash for undefined
     }
 
     // Helper
@@ -81,9 +70,9 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
     // Cargar estado inicial
     useEffect(() => {
         const initial: { [key: string]: number } = {
-            rv_usa: 0, rv_eu: 0, rv_em: 0, rv_global: 0, rv_sector: 0,
-            rf_gov: 0, rf_corp: 0, rf_hy: 0,
-            commodities: 0, cash: 0
+            rv_usa: 0, rv_eurozone: 0, rv_europe_ex: 0, rv_china: 0, rv_asia_em: 0, rv_latam: 0, rv_global: 0, rv_sector: 0,
+            rf_gov: 0, rf_corp: 0, rf_hy: 0, rf_money: 0,
+            commodities: 0
         }
 
         portfolio.forEach((p: any) => {
@@ -91,11 +80,7 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
             if (initial[bucket] !== undefined) {
                 initial[bucket] += (parseFloat(p.weight) || 0)
             } else {
-                // Safety: if new buckets added but classify logic misses, dump to cash or global?
-                // classifyAsset guarantees a return string. If it returns something not in initial keys, we have a problem.
-                // Current classifyAsset returns: commodities, rv_sector, rv_usa, rv_eu, rv_em, rv_global, rf_hy, rf_gov, rf_corp, cash.
-                // All covered.
-                initial['cash'] += (parseFloat(p.weight) || 0)
+                initial['rf_money'] += (parseFloat(p.weight) || 0)
             }
         })
 
@@ -121,9 +106,9 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
 
         // 1. Identify funds by bucket currently in portfolio
         const currentFundsByBucket: { [key: string]: any[] } = {
-            rv_usa: [], rv_eu: [], rv_em: [], rv_global: [], rv_sector: [],
-            rf_gov: [], rf_corp: [], rf_hy: [],
-            commodities: [], cash: []
+            rv_usa: [], rv_eurozone: [], rv_europe_ex: [], rv_china: [], rv_asia_em: [], rv_latam: [], rv_global: [], rv_sector: [],
+            rf_gov: [], rf_corp: [], rf_hy: [], rf_money: [],
+            commodities: []
         };
 
         portfolio.forEach((p: any) => {
@@ -135,42 +120,31 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
 
         // 2. Determine Target Count per Bucket based on NumFunds
         const newFundsToAdd: any[] = [];
-        const finalBuckets = { ...currentFundsByBucket };
-
         Object.keys(targets).forEach(bucket => {
             const weight = targets[bucket];
             if (weight > 0) {
-                // Determine how many funds this bucket should have proportional to weight
-                let targetCount = Math.round((weight / 100) * numFunds!); // Assert numFunds is there
-                if (targetCount < 1) targetCount = 1; // Minimum 1 fund if allocated
+                let targetCount = Math.round((weight / 100) * numFunds!);
+                if (targetCount < 1) targetCount = 1;
 
                 const existingCount = currentFundsByBucket[bucket].length;
                 const needed = targetCount - existingCount;
 
-                if (needed > 0 && allFunds!.length > 0) { // Assert allFunds
-                    // Find candidates
+                if (needed > 0 && allFunds!.length > 0) {
                     const candidates = allFunds!.filter((f: any) => classifyAsset(f) === bucket);
-                    // Filter out funds already in portfolio
                     const availableCandidates = candidates.filter(c => !portfolio.find((p: any) => p.isin === c.isin));
 
                     if (availableCandidates.length > 0) {
-                        // Sort by Rating (Stars) DESC, then Sharpe DESC
                         availableCandidates.sort((a: any, b: any) => {
                             const rateA = a.rating_overall || 0;
                             const rateB = b.rating_overall || 0;
                             if (rateB !== rateA) return rateB - rateA;
-                            return (b.std_perf?.sharpe || 0) - (a.std_perf?.sharpe || 0);
+                            return (b.std_perf_norm?.sharpe || b.std_perf?.sharpe || 0) - (a.std_perf_norm?.sharpe || a.std_perf?.sharpe || 0);
                         });
 
-                        // Take top 'needed'
                         const toAdd = availableCandidates.slice(0, needed);
                         toAdd.forEach(f => {
-                            newFundsToAdd.push({
-                                ...f,
-                                weight: 0, // Assigned later
-                                locked: false
-                            });
-                            finalBuckets[bucket].push(f);
+                            newFundsToAdd.push({ ...f, weight: 0, locked: false });
+                            currentFundsByBucket[bucket].push(f);
                         });
                     }
                 }
@@ -186,26 +160,15 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
         });
 
         const rescaledPortfolio: any[] = [];
-
         Object.keys(targets).forEach(bucket => {
             const targetTotalWeight = targets[bucket];
-
-            // Re-filter from final list to ensure we capture all intended funds
             const fundsInBucket = finalPortfolioList.filter((p: any) => classifyAsset(p) === bucket);
 
             if (fundsInBucket.length > 0) {
-                if (targetTotalWeight === 0) {
-                    // Weight 0
-                    fundsInBucket.forEach((f: any) => {
-                        rescaledPortfolio.push({ ...f, weight: 0 });
-                    });
-                } else {
-                    // Equal Weighting: Target / Count
-                    const weightPerFund = targetTotalWeight / fundsInBucket.length;
-                    fundsInBucket.forEach((f: any) => {
-                        rescaledPortfolio.push({ ...f, weight: weightPerFund });
-                    });
-                }
+                const weightPerFund = targetTotalWeight === 0 ? 0 : targetTotalWeight / fundsInBucket.length;
+                fundsInBucket.forEach((f: any) => {
+                    rescaledPortfolio.push({ ...f, weight: weightPerFund });
+                });
             }
         });
 
@@ -213,13 +176,13 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
     }
 
     const chartData = {
-        labels: ['USA', 'Europa', 'Emergentes', 'Global', 'Sectorial', 'Gobierno', 'Corporativo', 'HY', 'Comm', 'Cash'],
+        labels: ['USA', 'Zona Euro', 'Eur ex-Euro', 'China/Japón', 'Asia Em', 'Latam', 'Global', 'Sectorial', 'Gobierno', 'Corporativo', 'HY', 'Monetario', 'Comm'],
         datasets: [{
             data: Object.values(targets),
             backgroundColor: [
-                '#0f172a', '#1e293b', '#334155', '#475569', '#64748b', // RV (Azules/Grises)
-                '#b8952b', '#d4af37', '#fcd34d', // RF (Dorados)
-                '#be123c', '#94a3b8' // Comm (Rose), Cash (Slate)
+                '#0f172a', '#1e293b', '#334155', '#475569', '#64748b', '#94a3b8', '#cbd5e1', '#e2e8f0', // RV
+                '#b8952b', '#d4af37', '#fcd34d', '#fef3c7', // RF
+                '#be123c' // Comm
             ],
             borderWidth: 0
         }]
@@ -276,10 +239,13 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
                         {/* Renta Variable Section */}
                         <div>
                             <h4 className="text-xs font-bold text-brand border-b border-brand/20 pb-1 mb-3 uppercase tracking-wider">Renta Variable</h4>
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                                 <SliderRow label="USA" val={targets.rv_usa} onChange={v => handleSliderChange('rv_usa', v)} />
-                                <SliderRow label="Europa" val={targets.rv_eu} onChange={v => handleSliderChange('rv_eu', v)} />
-                                <SliderRow label="Emergentes" val={targets.rv_em} onChange={v => handleSliderChange('rv_em', v)} />
+                                <SliderRow label="Zona Euro" val={targets.rv_eurozone} onChange={v => handleSliderChange('rv_eurozone', v)} />
+                                <SliderRow label="Eur ex-Euro" val={targets.rv_europe_ex} onChange={v => handleSliderChange('rv_europe_ex', v)} />
+                                <SliderRow label="China/Japón" val={targets.rv_china} onChange={v => handleSliderChange('rv_china', v)} />
+                                <SliderRow label="Asia Emerg." val={targets.rv_asia_em} onChange={v => handleSliderChange('rv_asia_em', v)} />
+                                <SliderRow label="Iberoamérica" val={targets.rv_latam} onChange={v => handleSliderChange('rv_latam', v)} />
                                 <SliderRow label="Global" val={targets.rv_global} onChange={v => handleSliderChange('rv_global', v)} color="slate-600" />
                                 <SliderRow label="Sectorial" val={targets.rv_sector} onChange={v => handleSliderChange('rv_sector', v)} color="slate-600" />
                             </div>
@@ -288,19 +254,19 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
                         {/* Renta Fija Section */}
                         <div>
                             <h4 className="text-xs font-bold text-accent border-b border-accent/20 pb-1 mb-3 uppercase tracking-wider">Renta Fija / Crédito</h4>
-                            <div className="space-y-3">
+                            <div className="space-y-2">
                                 <SliderRow label="Gobierno" val={targets.rf_gov} onChange={v => handleSliderChange('rf_gov', v)} color="accent" />
                                 <SliderRow label="Corporativo" val={targets.rf_corp} onChange={v => handleSliderChange('rf_corp', v)} color="accent" />
                                 <SliderRow label="High Yield" val={targets.rf_hy} onChange={v => handleSliderChange('rf_hy', v)} color="accent" />
+                                <SliderRow label="Monetario" val={targets.rf_money} onChange={v => handleSliderChange('rf_money', v)} color="accent" />
                             </div>
                         </div>
 
                         {/* Alternativos Section */}
                         <div>
                             <h4 className="text-xs font-bold text-slate-500 border-b border-slate-200 pb-1 mb-3 uppercase tracking-wider">Alternativos</h4>
-                            <div className="space-y-3">
-                                <SliderRow label="Commodities" val={targets.commodities} onChange={v => handleSliderChange('commodities', v)} color="rose-500" />
-                                <SliderRow label="Liquidez / Otros" val={targets.cash} onChange={v => handleSliderChange('cash', v)} color="slate-400" />
+                            <div className="space-y-2">
+                                <SliderRow label="Commodities / Retorno Absoluto" val={targets.commodities} onChange={v => handleSliderChange('commodities', v)} color="rose-500" />
                             </div>
                         </div>
                     </div>

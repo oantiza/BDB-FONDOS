@@ -5,7 +5,7 @@ import { calcSimpleStats } from '../../utils/analytics'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../../firebase'
 
-export default function TacticalModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onClose }: { currentPortfolio: any[], proposedPortfolio: any[], riskFreeRate?: number, onAccept: (p: any[]) => void, onClose: () => void }) {
+export default function TacticalModal({ currentPortfolio, proposedPortfolio, riskFreeRate = 0, onAccept, onClose, onSwap }: { currentPortfolio: any[], proposedPortfolio: any[], riskFreeRate?: number, onAccept: (p: any[]) => void, onClose: () => void, onSwap: (f: any) => void }) {
     const [editedProposal, setEditedProposal] = useState<any[]>([])
     const [filteredFunds, setFilteredFunds] = useState<any[]>([]);
     const [isEditing, setIsEditing] = useState(false) // Manual Rebalance Mode
@@ -226,6 +226,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                                 onWeightChange={handleWeightChange}
                                 onRemove={handleRemove}
                                 comparisonPortfolio={currentPortfolio}
+                                onSwap={onSwap}
                             />
                         </div>
 
@@ -288,7 +289,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
     )
 }
 
-function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparisonPortfolio }: { portfolio: any[], readOnly?: boolean, onWeightChange?: (isin: string, w: number) => void, onRemove?: (isin: string) => void, comparisonPortfolio?: any[] }) {
+function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparisonPortfolio, onSwap }: { portfolio: any[], readOnly?: boolean, onWeightChange?: (isin: string, w: number) => void, onRemove?: (isin: string) => void, comparisonPortfolio?: any[], onSwap?: (f: any) => void }) {
     return (
         <table className="w-full text-sm text-left">
             <thead className="text-slate-500 border-b border-slate-200 sticky top-0 z-10 bg-slate-50">
@@ -307,7 +308,18 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                     return (
                         <tr key={p.isin} className="hover:bg-slate-50 group transition-colors">
                             <td className="p-2 pl-4">
-                                <div className="font-normal text-sm text-[#2C3E50] truncate max-w-[180px]" title={p.name}>{p.name}</div>
+                                <div className="flex items-center gap-2">
+                                    <div className="font-normal text-sm text-[#2C3E50] truncate max-w-[180px]" title={p.name}>{p.name}</div>
+                                    {!readOnly && onSwap && (
+                                        <button
+                                            onClick={() => onSwap(p)}
+                                            className="text-blue-500 hover:text-blue-700 transition-colors text-xs"
+                                            title="Cambiar este fondo"
+                                        >
+                                            🔄
+                                        </button>
+                                    )}
+                                </div>
                                 <div className="flex gap-2 items-center mt-0.5">
                                     <span className="font-mono text-[10px] text-slate-400">{p.isin}</span>
                                     {isNew && <span className="text-[9px] bg-[#D4AF37]/20 text-[#8A711F] px-1 rounded font-bold uppercase tracking-wider">NUEVO</span>}
