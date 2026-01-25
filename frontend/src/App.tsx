@@ -9,6 +9,7 @@ import DashboardPage from './pages/DashboardPage'
 import MiBoutiquePage from './pages/MiBoutiquePage'
 import XRayPage from './pages/XRayPage'
 import XRayAnalyticsPage from './pages/XRayAnalyticsPage'
+import RetirementCalculatorPage from './pages/RetirementCalculatorPage'
 
 import { PositionsAnalyzer } from './components/positions/PositionsAnalyzer'
 
@@ -17,7 +18,7 @@ import { usePortfolio } from './hooks/usePortfolio'
 
 function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
-  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS'>('DASHBOARD')
+  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT'>('DASHBOARD')
 
   // Lifted State
   const portfolioState = usePortfolio()
@@ -64,6 +65,10 @@ function App() {
       return <PositionsAnalyzer key="positions" assets={portfolioState.assets} onBack={() => setActiveView('DASHBOARD')} />
     }
 
+    if (activeView === 'RETIREMENT') {
+      return <RetirementCalculatorPage key="retirement" onBack={() => setActiveView('DASHBOARD')} />
+    }
+
     // Routing for Analytics (simple path check for new window support)
     if (window.location.pathname === '/x-ray/analytics') {
       return (
@@ -86,6 +91,7 @@ function App() {
         onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
         onOpenXRay={() => setActiveView('XRAY')}
         onOpenPositions={() => setActiveView('POSITIONS')}
+        onOpenRetirement={() => setActiveView('RETIREMENT')}
 
         {...portfolioState}
       />

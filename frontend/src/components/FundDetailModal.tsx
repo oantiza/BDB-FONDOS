@@ -139,10 +139,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                 <MetricCard label="Ratio Sharpe" value={num(perf.sharpe)} />
                 <MetricCard label="Volatilidad" value={pct(perf.volatility)} />
                 <MetricCard label="CAGR 3Y" value={pct(perf.cagr3y)} />
-                <MetricCard label="Alpha" value={num(perf.alpha)} />
-                <MetricCard label="Beta" value={num(perf.beta)} />
                 <MetricCard label="Max Drawdown" value={pct(perf.max_drawdown)} color="text-[#C0392B]" />
-                <MetricCard label="TER" value={pct(extra.ter ?? costs.ter)} />
               </div>
             </section>
 
