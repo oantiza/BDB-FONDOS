@@ -34,6 +34,27 @@ function normalizeStars(v: any): number | null {
   return Math.round(n)
 }
 
+export const REGION_DISPLAY_LABELS: Record<string, string> = {
+  united_states: "EE.UU.",
+  canada: "Canadá",
+  latin_america: "Iberoamérica",
+  eurozone: "Zona Euro",
+  europe_ex_euro: "Europa (ex-Euro)",
+  united_kingdom: "Reino Unido",
+  europe_emerging: "Europa Emergente",
+  japan: "Japón",
+  developed_asia: "Asia Desarrollada",
+  china: "China",
+  asia_emerging: "Asia Emergente",
+  middle_east: "Oriente Medio",
+  africa: "África",
+  australasia: "Australasia",
+  americas: "Américas",
+  europe_me_africa: "EMEA",
+  asia: "Asia",
+  other: "Otros"
+};
+
 /**
  * Adapts strict V3 structure to Legacy format for UI compatibility.
  * READ-ONLY: No default values, no inventions.
@@ -44,39 +65,17 @@ export function adaptFundV3ToLegacy(docData: any) {
   const derived = docData.derived || {}
   const ms = docData.ms || {}
   const manual = docData.manual || {}
-  const quality = docData.quality || {}
   const costs = manual.costs || {}
 
   return {
-    ...docData, // Preserve other fields just in case (e.g. name, isin)
-
-    // Mapping Permitted (Strict)
-    asset_class: derived.asset_class ?? null,
-    primary_region: derived.primary_region ?? null,
-    ruleset_version: derived.ruleset_version ?? null,
-    confidence: derived.confidence ?? null,
-
-    category_morningstar: ms.category_morningstar ?? null,
-    category: ms.category_morningstar ?? null, // alias legacy
-
-    // ⭐ IMPORTANT: ensure numeric or null (no null->0)
-    rating_stars: normalizeStars(ms.rating_stars),
-    rating_overall: toNumber(ms.rating_overall), // si existe, lo dejamos tal cual (0..5 o null)
-
-    ter: costs.ter ?? null,
-    retrocession: costs.retrocession ?? null,
-
-    warnings: quality.warnings ?? null,
-
-    // legacy-like costs object
-    costs: {
-      ...docData.costs,
-      ter: costs.ter ?? null,
-      retrocession: costs.retrocession ?? null,
-    },
-
-    // keep ms object for any UI that reads it
-    ms: ms,
+    ...docData,
+    asset_class: derived.asset_class || docData.asset_class || null,
+    primary_region: derived.primary_region || docData.primary_region || null,
+    category_morningstar: ms.category_morningstar || docData.category_morningstar || null,
+    rating_stars: normalizeStars(ms.rating_stars || docData.rating_stars),
+    ter: costs.ter || docData.ter || null,
+    retrocession: costs.retrocession || docData.retrocession || null,
+    ms: ms
   }
 }
 

@@ -2,14 +2,38 @@ export interface Fund {
     isin: string;
     name: string;
     std_type?: string;
-    asset_class?: string; // Correct field from DB (v3)
-    category_morningstar?: string; // Correct field from DB
+    asset_class?: string;
+    category_morningstar?: string;
     std_region?: string;
-    primary_region?: string; // Correct field from DB
+    primary_region?: string;
+
+    // V3 Canonical Fields
+    derived?: {
+        asset_class?: string;
+        primary_region?: string;
+        subcategories?: string[];
+        top_sector?: string;
+        top_sector_weight?: number;
+        confidence?: number;
+    };
+    ms?: {
+        category_morningstar?: string;
+        rating_stars?: number;
+        sectors?: Record<string, number>;
+        regions?: any;
+        equity_style?: any;
+        fixed_income?: any;
+        holdings_top10?: any[];
+        holdings_stats?: any;
+        costs?: any;
+        objective?: string;
+        [key: string]: any;
+    };
+
     std_perf?: {
         volatility?: number;
         sharpe?: number;
-        returns?: number; // unused?
+        returns?: number;
         max_drawdown?: number;
         cagr3y?: number;
         cagr6m?: number;
@@ -30,8 +54,8 @@ export interface Fund {
         retrocession?: number;
         management_fee?: number;
     };
-    rating_overall?: number; // Morningstar Rating
-    sectors?: Record<string, number>; // Sector distribution
+    rating_overall?: number;
+    sectors?: Record<string, number>;
     metrics?: {
         equity: number;
         bond: number;
@@ -39,9 +63,9 @@ export interface Fund {
         other?: number;
         [key: string]: number | undefined;
     };
-    returns_history?: Record<string, number>; // Schema V2 (Map)
-    risk_srri?: number; // Schema V2 (Snake Case)
-    holdings?: any[]; // Holdings list
+    returns_history?: Record<string, number>;
+    risk_srri?: number;
+    holdings?: any[];
     data_quality?: {
         history_ok?: boolean;
         points_count?: number;
@@ -78,7 +102,7 @@ export interface YieldCurveResponse {
 export interface SmartPortfolioResponse {
     portfolio: PortfolioItem[];
     metrics: any;
-    assets?: Record<string, Fund & { volatility?: number }>; // Map of ISIN -> Enriched Fund details
+    assets?: Record<string, Fund & { volatility?: number }>;
     warnings: string[];
     debug: any;
     status?: string;

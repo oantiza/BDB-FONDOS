@@ -130,7 +130,6 @@ export default function PortfolioMetrics({
             }
         }
 
-        console.log("Fallback to SimpleStats");
         // C) Fallback to SimpleStats (Heuristic / Local Daily)
         const stats = calcSimpleStats(portfolio, riskFreeRate, localCovMatrix);
         return {

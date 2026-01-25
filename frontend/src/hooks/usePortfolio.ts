@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { collection, getDocs } from 'firebase/firestore'
 import { db, auth } from '../firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer'
+import { normalizeFundData, adaptFundV3ToLegacy, REGION_DISPLAY_LABELS } from '../utils/normalizer'
 import { Fund, PortfolioItem, AllocationItem } from '../types'
 
 export function usePortfolio() {
@@ -55,66 +55,51 @@ export function usePortfolio() {
             })
             setAssets(list)
 
-            // Auto-audit for missing categories & ratings & metrics
-            const missingCat = list.filter(f => !f.category_morningstar && (!f.std_extra?.category || f.std_extra.category === 'Sin Clasificar'));
-            const missingRating = list.filter(f => !f.rating_overall && !f.std_extra?.rating);
-            const missingMetrics = list.filter(f => {
-                const p = f.std_perf || {};
-                return (!p.alpha && p.alpha !== 0) || (!p.beta && p.beta !== 0) || (!p.max_drawdown && p.max_drawdown !== 0);
-            });
-
-            if (missingCat.length > 0) {
-                console.warn(`Found ${missingCat.length} funds with missing Morningstar Category:`, missingCat.map(f => f.isin));
-            }
-            if (missingRating.length > 0) {
-                console.warn(`Found ${missingRating.length} funds with missing Morningstar Rating (0 stars):`, missingRating.map(f => f.isin));
-            }
-            if (missingMetrics.length > 0) {
-                console.warn(`Found ${missingMetrics.length} funds with missing Metrics (Alpha/Beta/MDD):`, missingMetrics.map(f => f.isin));
+            // Silent Audit: Solo loguear resumen si hay problemas graves en desarrollo
+            if (process.env.NODE_ENV === 'development') {
+                const missingCat = list.filter(f => !f.category_morningstar);
+                if (missingCat.length > 50) console.warn(`[Audit] ${missingCat.length} fondos sin categoría Morningstar.`);
             }
         } catch (error) {
             console.error("usePortfolio: Error loading funds:", error)
         }
     }
 
-    // Calculate Stats
+    // Calculate Stats (Aligned with Canonical DB structure)
     useEffect(() => {
         const typeMap: any = {}
         const geoMap: any = {}
 
         portfolio.forEach(p => {
             const w = Number(p.weight) || 0
-            const extra = p.std_extra || {}
 
-            // STRICT MODE: Handle nulls by grouping them as 'Sin Clasificar' / 'Sin datos'
-            // effectively moving "inference" to the presentation layer only.
-            const rawType = p.std_type || 'Sin Clasificar'
-            const region = extra.regionDetail || p.std_region || 'Sin asignar'
+            // 1. Usar Asset Class directo de Derived (ya normalizado por el robot)
+            const assetClass = p.derived?.asset_class || p.asset_class || 'Sin Clasificar'
+            const regionKey = p.derived?.primary_region || p.primary_region || 'other'
+            const regionLabel = REGION_DISPLAY_LABELS[regionKey] || regionKey
 
-            let label = rawType
-
-            // Lógica Refinada para Subcategorías
-            if (rawType === 'RV' || rawType === 'Equity') {
-                if (region.includes('US') || region.includes('America')) label = 'RV Norteamérica'
-                else if (region.includes('Europe') || region.includes('Euro')) label = 'RV Europa'
-                else if (region.includes('Emerg') || region.includes('Asia')) label = 'RV Emergentes/Asia'
+            // 2. Mapear a etiquetas visuales del SmartDonut
+            let label = assetClass
+            if (assetClass === 'RV' || assetClass === 'Equity') {
+                if (regionKey === 'united_states' || regionKey === 'USA') label = 'RV Norteamérica'
+                else if (regionKey === 'eurozone' || regionKey === 'europe_ex_euro' || regionKey === 'Europa' || regionKey === 'united_kingdom') label = 'RV Europa'
+                else if (regionKey === 'asia_emerging' || regionKey === 'china' || regionKey === 'Emergentes' || regionKey === 'Asia') label = 'RV Emergentes/Asia'
                 else label = 'RV Global'
             }
-            else if (rawType === 'RF' || rawType === 'Fixed Income') {
-                if (extra.category && extra.category.toLowerCase().includes('gov')) label = 'Deuda Pública'
-                else if (extra.category && extra.category.toLowerCase().includes('corp')) label = 'Crédito Corporativo'
+            else if (assetClass === 'RF' || assetClass === 'Fixed Income') {
+                const category = (p.ms?.category_morningstar || "").toLowerCase()
+                if (category.includes('gov') || category.includes('publica')) label = 'Deuda Pública'
+                else if (category.includes('corp')) label = 'Crédito Corporativo'
                 else label = 'Renta Fija Global'
             }
-            else if (rawType === 'Monetario' || rawType === 'Cash') label = 'Monetarios'
-            else if (rawType === 'Mixto' || rawType === 'Mixed') label = 'Retorno Absoluto'
-            else if (rawType === 'Commodities') label = 'Materias Primas'
-            else if (rawType === 'Sin Clasificar') label = 'Sin Clasificar'
+            else if (assetClass === 'Monetario') label = 'Monetarios'
+            else if (assetClass === 'Retorno Absoluto') label = 'Retorno Absoluto'
+            else if (assetClass === 'Commodities') label = 'Materias Primas'
+            else if (assetClass === 'Mixto') label = 'Retorno Absoluto' // Agrupamos Mixtos en RA o Alternativos en UI
             else label = 'Alternativos/Otros'
 
             typeMap[label] = (typeMap[label] || 0) + w
-
-            // Geo Map
-            geoMap[region] = (geoMap[region] || 0) + w
+            geoMap[regionLabel] = (geoMap[regionLabel] || 0) + w
         })
 
         const processMap = (map: any): AllocationItem[] => {

@@ -132,6 +132,12 @@ export default function DashboardPage({
         totalCapital // NEW
     });
 
+    // Handle global exposure for Modal communication (to avoid prop drilling / complex state)
+    React.useEffect(() => {
+        (window as any).refreshSwapAlternatives = handleOpenSwap;
+        return () => { delete (window as any).refreshSwapAlternatives; };
+    }, [handleOpenSwap]);
+
     const {
         historyData, frontierData, assetPoints, portfolioPoint,
         metrics1y, xrayMetrics, metrics5y, // New unified metrics
@@ -379,7 +385,7 @@ export default function DashboardPage({
             <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white">Cargando...</div>}>
                 {modals.costs && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => toggleModal('costs', false)} />}
                 {modals.vip && <VipFundsModal vipFundsStr={vipFunds} allFunds={assets} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => toggleModal('vip', false)} />}
-                {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} />}
+                {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} onSwap={handleOpenSwap} />}
                 {modals.macro && <MacroTacticalModal portfolio={portfolio} allFunds={assets} numFunds={numFunds} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}
                 {modals.review && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => toggleModal('review', false)} />}
                 {modals.sharpeMaximizer && <SharpeMaximizerModal isOpen={modals.sharpeMaximizer} onClose={() => toggleModal('sharpeMaximizer', false)} portfolio={portfolio} onAddFund={(fund) => { handleAddAsset(fund); toggleModal('sharpeMaximizer', false); }} currentSharpe={xrayMetrics?.metrics3y?.sharpe || 0} />}
