@@ -203,6 +203,20 @@ def insertMonthlyReport(request: https_fn.CallableRequest):
     return {'success': True, 'doc_id': doc_ref[1].id}
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
+def generateSmartPortfolio(request: https_fn.CallableRequest):
+    from services.optimizer import generate_smart_portfolio
+    db = firestore.client()
+    data = request.data
+    return generate_smart_portfolio(
+        category=data.get('category'),
+        risk_level=data.get('risk_level', 5),
+        num_funds=data.get('num_funds', 5),
+        vip_funds_str=data.get('vip_funds', ''),
+        optimize_now=data.get('optimize', True),
+        db=db
+    )
+
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def getEfficientFrontier(request: https_fn.CallableRequest):
     from services.optimizer import generate_efficient_frontier
     db = firestore.client()
