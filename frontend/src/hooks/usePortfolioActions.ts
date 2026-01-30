@@ -120,7 +120,7 @@ export function usePortfolioActions({
 
     // 2. Swapper Handlers
     const handleOpenSwap = useCallback(async (fund: PortfolioItem, filters: { assetClass?: string; region?: string } = {}) => {
-        // toast.info("🔎 Buscando alternativas (Directo V3)..."); // SILENCED
+        toast.info("🔎 Buscando alternativas (Directo V3)...");
 
         // --- NEW DIRECT LOGIC (Requested by User) ---
         try {
@@ -193,7 +193,7 @@ export function usePortfolioActions({
                 // WE WANT ALL THE MEAT! (2500 limit should cover almost everything active)
                 const fundsRef = collection(db, 'funds_v3');
                 const q = query(fundsRef, limit(2500));
-                // toast.info("🥩 Cargando TODO el universo (2.5k fondos) para máxima precisión..."); 
+                toast.info("🥩 Cargando TODO el universo (2.5k fondos) para máxima precisión...");
                 const snapshot = await getDocs(q);
 
                 // Helper to normalize (duplicated from useAssets to avoid circular deps if not exported)

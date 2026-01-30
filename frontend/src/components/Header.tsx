@@ -9,11 +9,12 @@ interface HeaderProps {
     onOpenXRay?: () => void
     onOpenPositions?: () => void
     onOpenRetirement?: () => void
+    onOpenComparator?: () => void
     onBack?: () => void
     children?: React.ReactNode
 }
 
-export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenPositions, onOpenRetirement, onBack, children }: HeaderProps) {
+export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenPositions, onOpenRetirement, onOpenComparator, onBack, children }: HeaderProps) {
     // Theme toggle removed
 
     return (
@@ -63,6 +64,15 @@ export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenP
                 >
                     Jubilación
                 </button>
+                <div className="h-4 w-px bg-white/20 mx-2"></div>
+
+                <button
+                    onClick={onOpenComparator}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 transition-all border border-white/10 text-xs font-bold uppercase tracking-widest text-white"
+                >
+                    <span className="text-amber-300">★</span> Comparador
+                </button>
+
                 <div className="h-4 w-px bg-white/20 mx-2"></div>
                 <button onClick={onLogout} className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors">Salir</button>
             </div>

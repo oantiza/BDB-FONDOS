@@ -1,5 +1,15 @@
 import React from 'react'
-import Plot from 'react-plotly.js'
+import {
+    Chart as ChartJS,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Tooltip,
+    Legend
+} from 'chart.js'
+import { Scatter } from 'react-chartjs-2'
+
+ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend)
 
 interface RiskMapProps {
     portfolioMetrics: { volatility?: number; annual_return?: number; cagr?: number };
@@ -13,83 +23,74 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
     const pVol = (portfolioMetrics.volatility || 0) * 100
     const pRet = (portfolioMetrics.annual_return || portfolioMetrics.cagr || 0) * 100
 
-    const tracePort = {
-        x: [pVol],
-        y: [pRet],
-        text: ['<b>TU CARTERA</b>'],
-        mode: 'markers+text',
-        textposition: 'top center',
-        name: 'Cartera',
-        marker: { size: 18, color: '#0B2545', line: { color: '#D4AF37', width: 2 } },
-        type: 'scatter'
+    const data = {
+        datasets: [
+            {
+                label: 'Tu Cartera',
+                data: [{ x: pVol, y: pRet }],
+                backgroundColor: '#0B2545',
+                borderColor: '#D4AF37',
+                borderWidth: 2,
+                pointRadius: 8, // Highlighted
+                pointHoverRadius: 10
+            },
+            {
+                label: 'Benchmarks',
+                data: benchmarks.map(b => ({
+                    x: b.vol < 1 ? b.vol * 100 : b.vol,
+                    y: b.ret < 1 ? b.ret * 100 : b.ret,
+                    name: b.name // Custom property for tooltip
+                })),
+                backgroundColor: (ctx: any) => {
+                    // Map colors from data if possible, or use default
+                    const idx = ctx.dataIndex;
+                    return benchmarks[idx]?.color || '#94a3b8';
+                },
+                pointStyle: 'rectRot', // Diamond-ish
+                pointRadius: 5,
+                pointHoverRadius: 7
+            }
+        ]
     }
 
-    const points = benchmarks.length > 0 ? benchmarks : []
-    // Safe parse: if backend sends 0.05, we show 5.0. If backend sends 5.0, assume it's already %.
-    // Standardize to decimal in utils, so here * 100 safe.
-
-
-    const traceBench = {
-        x: points.map(b => (b.vol < 1 ? b.vol * 100 : b.vol)),
-        y: points.map(b => (b.ret < 1 ? b.ret * 100 : b.ret)),
-        text: points.map(b => `<b>${b.name}</b>`),
-        mode: 'markers+text',
-        textposition: 'bottom center',
-        name: 'Benchmarks',
-        marker: {
-            size: 12,
-            color: points.map(b => b.color || '#94a3b8'),
-            symbol: 'diamond',
-            line: { color: 'white', width: 1 }
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                title: { display: true, text: 'Riesgo (Volatilidad) %', font: { size: 10 } },
+                grid: { color: '#f1f5f9' },
+                ticks: { font: { size: 10 } },
+                beginAtZero: true
+            },
+            y: {
+                title: { display: true, text: 'Retorno Anual %', font: { size: 10 } },
+                grid: { color: '#f1f5f9' },
+                ticks: { font: { size: 10 } }
+                // beginAtZero: false // Allow negative returns
+            }
         },
-        type: 'scatter'
+        plugins: {
+            legend: {
+                display: !staticPlot,
+                position: 'bottom' as const,
+                labels: { boxWidth: 10, font: { size: 10 } }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context: any) {
+                        const d = context.raw;
+                        const name = context.datasetIndex === 0 ? 'Tu Cartera' : (d.name || context.dataset.label);
+                        return `${name}: Vol ${d.x.toFixed(2)}% / Ret ${d.y.toFixed(2)}%`;
+                    }
+                }
+            }
+        }
     }
-
-    // Calculate dynamic ranges to force X start at 0
-    const allX = [...traceBench.x, ...tracePort.x];
-    const allY = [...traceBench.y, ...tracePort.y];
-    const maxX = Math.max(...allX, 5) * 1.15; // Buffer space
-    const minY = Math.min(...allY, 0); // Include 0 if all positive, or lowest neg
-    const maxY = Math.max(...allY, 5);
-
-    // Ensure symmetric Y if needed or just padding
-    const rangeY = [Math.min(minY, 0) - 2, maxY + 2];
-    const rangeX = [0, maxX];
 
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <Plot
-                data={[traceBench, tracePort]}
-                layout={{
-                    font: { family: 'sans-serif', size: 10 },
-                    margin: { t: 20, b: 40, l: 40, r: 20 },
-                    xaxis: {
-                        title: 'Riesgo (Volatilidad) %',
-                        showgrid: true,
-                        gridcolor: '#f1f5f9',
-                        zeroline: true,
-                        zerolinecolor: '#cbd5e1',
-                        range: rangeX,  // Explicit constraint
-                        fixedrange: true // Prevent zoom out to negative
-                    },
-                    yaxis: {
-                        title: 'Retorno Anual %',
-                        showgrid: true,
-                        gridcolor: '#f1f5f9',
-                        zeroline: true,
-                        zerolinecolor: '#cbd5e1',
-                        range: rangeY  // Apply calculated range instead of scaleanchor
-                    },
-                    showlegend: false,
-                    autosize: true,
-                    paper_bgcolor: 'rgba(0,0,0,0)',
-                    plot_bgcolor: 'rgba(0,0,0,0)',
-                    hovermode: 'closest'
-                }}
-                useResizeHandler={true}
-                style={{ width: '100%', height: '100%' }}
-                config={{ displayModeBar: false, responsive: true, staticPlot: staticPlot }}
-            />
+            <Scatter data={data} options={options} />
         </div>
     )
 }

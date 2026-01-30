@@ -3,7 +3,7 @@ from firebase_admin import firestore
 from datetime import datetime
 import pandas as pd
 import numpy as np
-from .data import get_dynamic_risk_free_rate
+from .data_fetcher import DataFetcher
 
 def _calculate_metrics(prices_df, risk_free_rate):
     """
@@ -56,8 +56,9 @@ def _calculate_metrics(prices_df, risk_free_rate):
 def backfill_std_perf_logic(db):
     print("🚀 Starting Std Perf Backfill (Phase 4)...")
     
-    # 1. Get Risk Free Rate
-    rf_rate = get_dynamic_risk_free_rate(db)
+    # 1. Get Risk Free Rate (Via DataFetcher)
+    fetcher = DataFetcher(db)
+    rf_rate = fetcher.get_dynamic_risk_free_rate()
     print(f"💰 Risk Free Rate used: {rf_rate*100:.2f}%")
     
     # 2. Iterate Funds

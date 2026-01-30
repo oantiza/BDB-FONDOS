@@ -18,7 +18,12 @@ const StatRow = ({ label, value, delta, isPercentage }: any) => {
     );
 };
 
-export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, onClose }: any) => {
+const normalizeRetro = (val: number | undefined | null) => {
+    if (val === undefined || val === null) return 0;
+    return val > 0.1 ? val : val * 100;
+};
+
+export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, onClose, onRefresh }: any) => {
     const [assetClass, setAssetClass] = useState('RV');
     const [region, setRegion] = useState('all');
     const [isSearching, setIsSearching] = useState(false);
@@ -79,14 +84,15 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             value={region} onChange={e => setRegion(e.target.value)}
                             className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:outline-none focus:border-blue-500"
                         >
-                            <option value="all">Todas las Regiones</option>
-                            {Object.entries(REGION_DISPLAY_LABELS).map(([key, label]) => (
-                                <option key={key} value={key}>{label}</option>
-                            ))}
+                            <option value="all">Global</option>
+                            <option value="united_states">Estados Unidos</option>
+                            <option value="europe_broad">Europa</option>
+                            <option value="asia_broad">Asia, Japón y China</option>
+                            <option value="emerging_broad">Emergentes</option>
                         </select>
                     </div>
                     <button
-                        onClick={() => (window as any).refreshSwapAlternatives?.(originalFund, { assetClass, region })}
+                        onClick={() => onRefresh?.(originalFund, { assetClass, region })}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-sm transition-all text-sm h-[42px] px-6"
                     >
                         Refrescar Candidatos 🔎
@@ -111,12 +117,19 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             />
                             <StatRow
                                 label="Sharpe"
-                                value={originalFund.std_perf?.sharpe !== undefined ? originalFund.std_perf.sharpe.toFixed(2) : '-'}
+                                value={originalFund.std_perf?.sharpe != null ? originalFund.std_perf.sharpe.toFixed(2) : '-'}
                             />
                             <StatRow
                                 label="Coste (TER)"
                                 value={originalFund.std_extra?.ter || '-'}
                                 isPercentage
+                            />
+                            <StatRow
+                                label="Retrocesión"
+                                value={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)
+                                    ? normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)?.toFixed(2)
+                                    : '-'}
+                                isPercentage={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined}
                             />
                         </div>
 
@@ -149,9 +162,9 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                     />
                                     <StatRow
                                         label="Sharpe"
-                                        value={alt.fund.std_perf_norm?.sharpe !== undefined
+                                        value={alt.fund.std_perf_norm?.sharpe != null
                                             ? alt.fund.std_perf_norm.sharpe.toFixed(2)
-                                            : (alt.fund.std_perf?.sharpe !== undefined ? alt.fund.std_perf.sharpe.toFixed(2) : '-')}
+                                            : (alt.fund.std_perf?.sharpe != null ? alt.fund.std_perf.sharpe.toFixed(2) : '-')}
                                         delta={
                                             ((alt.fund.std_perf_norm?.sharpe || alt.fund.std_perf?.sharpe) !== undefined && originalFund.std_perf?.sharpe !== undefined)
                                                 ? (alt.fund.std_perf_norm?.sharpe || alt.fund.std_perf?.sharpe) - originalFund.std_perf.sharpe
@@ -163,6 +176,17 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                         value={alt.fund.std_extra?.ter || '-'}
                                         delta={alt.deltaFee}
                                         isPercentage
+                                    />
+                                    <StatRow
+                                        label="Retrocesión"
+                                        value={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession)
+                                            ? normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession)?.toFixed(2)
+                                            : '-'}
+                                        isPercentage={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined}
+                                        delta={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined
+                                            ? (normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) ?? 0) - (normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) ?? 0)
+                                            : undefined
+                                        }
                                     />
                                 </div>
 

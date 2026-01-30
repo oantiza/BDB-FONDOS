@@ -23,8 +23,8 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
         // Read retrocession from decimal (0.0122 -> 1.22%)
         // Priority: manual.costs.retrocession (DB canonical) -> costs.retrocession (legacy/flat) -> retrocession (flat)
         const rawRetro = asset.manual?.costs?.retrocession ?? asset.costs?.retrocession ?? asset.retrocession ?? asset.costs?.retrocesion;
-        const baseRetroPercent = rawRetro !== undefined && rawRetro !== null
-            ? rawRetro * 100
+        const baseRetroPercent = (rawRetro !== undefined && rawRetro !== null)
+            ? (rawRetro > 0.1 ? rawRetro : rawRetro * 100)
             : 0.60; // Fallback 0.60%
         const finalRetroPercent = baseRetroPercent * margin
 

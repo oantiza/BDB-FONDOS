@@ -83,7 +83,7 @@ export default function XRayPdfSections({
                                                 </div>
                                             </td>
                                             <td className="align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums py-3">
-                                                {fund.weight.toFixed(2)}%
+                                                {(fund.weight || 0).toFixed(2)}%
                                             </td>
                                             <td className="align-top text-right pr-4 text-[#2C3E50] font-[450] text-base tabular-nums py-3">
                                                 {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
@@ -137,7 +137,7 @@ export default function XRayPdfSections({
                                         </div>
                                     </td>
                                     <td className="align-top text-right text-black font-[450] text-xl tabular-nums py-3">
-                                        {fund.weight.toFixed(2)}%
+                                        {(fund.weight || 0).toFixed(2)}%
                                     </td>
                                     <td className="align-top text-right pr-4 text-black font-[450] text-xl tabular-nums py-3">
                                         {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}

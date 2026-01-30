@@ -1,3 +1,58 @@
+// --- Helper Interfaces ---
+
+export interface RegionBreakdown {
+    americas?: number;
+    europe?: number;
+    asia_developed?: number;
+    asia_emerging?: number;
+    japan?: number;
+    australasia?: number;
+    uk?: number;
+    latin_america?: number;
+    [key: string]: number | undefined;
+}
+
+export interface EquityStyle {
+    large_growth?: number;
+    large_value?: number;
+    large_core?: number;
+    mid_growth?: number;
+    mid_value?: number;
+    mid_core?: number;
+    small_growth?: number;
+    small_value?: number;
+    small_core?: number;
+    [key: string]: number | undefined;
+}
+
+export interface FixedIncomeStyle {
+    effective_duration?: number;
+    credit_quality?: string; // e.g. "BBB"
+    yield_to_maturity?: number;
+    [key: string]: any;
+}
+
+export interface HoldingItem {
+    isin?: string;
+    name: string;
+    weight: number;
+    sector?: string;
+    country?: string;
+}
+
+export interface PortfolioMetrics {
+    cagr: number;
+    volatility: number;
+    sharpe: number;
+    maxDrawdown: number;
+    rf_rate?: number;
+    alpha?: number;
+    beta?: number;
+    sortino?: number;
+}
+
+// --- Main Interfaces ---
+
 export interface Fund {
     isin: string;
     name: string;
@@ -20,11 +75,11 @@ export interface Fund {
         category_morningstar?: string;
         rating_stars?: number;
         sectors?: Record<string, number>;
-        regions?: any;
-        equity_style?: any;
-        fixed_income?: any;
-        holdings_top10?: any[];
-        holdings_stats?: any;
+        regions?: RegionBreakdown;
+        equity_style?: EquityStyle;
+        fixed_income?: FixedIncomeStyle;
+        holdings_top10?: HoldingItem[];
+        holdings_stats?: any; // To allow flexibility for now
         costs?: any;
         objective?: string;
         [key: string]: any;
@@ -65,7 +120,7 @@ export interface Fund {
     };
     returns_history?: Record<string, number>;
     risk_srri?: number;
-    holdings?: any[];
+    holdings?: HoldingItem[];
     data_quality?: {
         history_ok?: boolean;
         points_count?: number;
@@ -101,12 +156,12 @@ export interface YieldCurveResponse {
 
 export interface SmartPortfolioResponse {
     portfolio: PortfolioItem[];
-    metrics: any;
+    metrics: PortfolioMetrics;
     assets?: Record<string, Fund & { volatility?: number }>;
     warnings: string[];
     debug: any;
     status?: string;
-    weights?: any;
+    weights?: Record<string, number>;
     error?: string;
     used_assets?: string[];
     feasibility?: {
@@ -116,6 +171,9 @@ export interface SmartPortfolioResponse {
         note: string;
     };
     suggestion?: string;
+    portfolioSeries?: { x: string; y: number }[];
+    benchmarkSeries?: Record<string, { x: string; y: number }[]>;
+    synthetics?: any[];
 }
 
 export interface AllocationItem {

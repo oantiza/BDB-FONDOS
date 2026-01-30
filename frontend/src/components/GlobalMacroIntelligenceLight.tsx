@@ -1,9 +1,41 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
-import Plot from 'react-plotly.js';
+// Chart.js Migration
+import { Line } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    TimeScale
+} from 'chart.js';
+import 'chartjs-adapter-date-fns'; // Adapter for dates
 import { Loader2, Globe, TrendingUp, Table as TableIcon, RefreshCw, Download, ChevronDown, Check } from 'lucide-react';
 import { clsx } from 'clsx';
+import { es } from 'date-fns/locale';
+
+ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+    TimeScale
+);
+
+// Constants
+const CHART_COLORS = [
+    '#0B2545', '#C5A059', '#4F46E5', '#64748B',
+    '#D97706', '#059669', '#DC2626', '#7C3AED',
+    '#DB2777', '#2563EB'
+];
 
 // Lista ampliada de países (G20 + Europa)
 const ALL_COUNTRIES = [
@@ -187,16 +219,61 @@ export default function GlobalMacroIntelligence() {
         }
     };
 
-    // Preparar datos para Plotly
-    const chartData = data?.chart_series ? Object.entries(data.chart_series).map(([name, series]: [any, any]) => ({
-        x: series.map((p: any) => p.x),
-        y: series.map((p: any) => p.y),
-        type: 'scatter',
-        mode: 'lines',
-        name: name,
-        line: { shape: 'spline', width: 2.5 },
-        hovertemplate: '<b>%{x}</b><br>%{y:.2f}<extra></extra>'
-    })) : [];
+    // Preparar datos para Chart.js
+    const chartData = React.useMemo(() => {
+        if (!data?.chart_series) return { datasets: [] };
+
+        const datasets = Object.entries(data.chart_series).map(([name, series]: [string, any[]], idx) => ({
+            label: name,
+            data: series.map(p => ({ x: p.x, y: p.y })),
+            borderColor: CHART_COLORS[idx % CHART_COLORS.length],
+            backgroundColor: CHART_COLORS[idx % CHART_COLORS.length],
+            borderWidth: 2,
+            tension: 0.3, // Spline effect
+            pointRadius: 0,
+            pointHoverRadius: 5
+        }));
+
+        return { datasets };
+    }, [data]);
+
+    const chartOptions: any = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'year',
+                    displayFormats: { year: 'yyyy' }
+                },
+                grid: { color: '#f1f5f9' },
+                ticks: { color: '#64748b', font: { size: 10 } }
+            },
+            y: {
+                grid: { color: '#f1f5f9' },
+                ticks: { color: '#64748b', font: { size: 10 } }
+            }
+        },
+        plugins: {
+            legend: {
+                position: 'bottom',
+                labels: { boxWidth: 12, font: { size: 11, family: 'Inter' }, color: '#64748b' }
+            },
+            tooltip: {
+                mode: 'index',
+                intersect: false,
+                callbacks: {
+                    label: (context: any) => `${context.dataset.label}: ${typeof context.raw.y === 'number' ? context.raw.y.toFixed(2) : context.raw.y}`
+                }
+            }
+        },
+        interaction: {
+            mode: 'nearest',
+            axis: 'x',
+            intersect: false
+        }
+    };
 
     const countryOptions = ALL_COUNTRIES.map(c => ({ id: c, label: c }));
 
@@ -296,40 +373,9 @@ export default function GlobalMacroIntelligence() {
                         </div>
                     )}
 
-                    {chartData.length > 0 ? (
+                    {chartData.datasets.length > 0 ? (
                         <div className="h-[500px] w-full">
-                            <Plot
-                                data={chartData}
-                                layout={{
-                                    autosize: true,
-                                    margin: { t: 20, b: 60, l: 50, r: 20 },
-                                    hovermode: 'x unified',
-                                    showlegend: true,
-                                    legend: {
-                                        orientation: 'h',
-                                        y: -0.15,
-                                        x: 0.5,
-                                        xanchor: 'center',
-                                        font: { family: 'Inter, sans-serif', size: 11, color: '#64748b' }
-                                    },
-                                    paper_bgcolor: 'rgba(0,0,0,0)',
-                                    plot_bgcolor: 'rgba(0,0,0,0)',
-                                    xaxis: {
-                                        gridcolor: '#f1f5f9',
-                                        zeroline: false,
-                                        tickfont: { color: '#64748b', size: 10 }
-                                    },
-                                    yaxis: {
-                                        gridcolor: '#f1f5f9',
-                                        zeroline: false,
-                                        tickfont: { color: '#64748b', size: 10 }
-                                    },
-                                    font: { family: 'Inter, sans-serif', color: '#2C3E50' }
-                                }}
-                                config={{ responsive: true, displayModeBar: false }}
-                                style={{ width: '100%', height: '100%' }}
-                                useResizeHandler
-                            />
+                            <Line data={chartData} options={chartOptions} />
                         </div>
                     ) : !loading && (
                         <div className="h-full flex flex-col items-center justify-center text-slate-400 space-y-4">

@@ -327,7 +327,7 @@ function TableViewer({ portfolio, readOnly, onWeightChange, onRemove, comparison
                             </td>
                             <td className="p-2 text-right pr-4">
                                 {readOnly ? (
-                                    <span className="font-mono font-bold text-slate-400">{p.weight.toFixed(2)}%</span>
+                                    <span className="font-mono font-bold text-slate-400">{(p.weight || 0).toFixed(2)}%</span>
                                 ) : (
                                     <div className="flex flex-col items-end gap-1">
                                         <input

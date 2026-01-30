@@ -1,5 +1,13 @@
 import React, { useMemo } from 'react';
-import Plot from 'react-plotly.js';
+import { Doughnut } from 'react-chartjs-2';
+import {
+    Chart as ChartJS,
+    ArcElement,
+    Tooltip,
+    Legend
+} from 'chart.js';
+
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 interface DiversificationDonutProps {
     assets: { name: string; value: number }[];
@@ -21,7 +29,6 @@ export default function DiversificationDonut({ assets, staticPlot = false }: Div
 
     // Group small allocations into "Otros" to avoid glitter
     const { labels, values, colors } = useMemo(() => {
-        // ... (unchanged) ...
         const map: Record<string, number> = {};
         assets.forEach(a => {
             const k = a.name || 'Sin Clasificar';
@@ -33,8 +40,8 @@ export default function DiversificationDonut({ assets, staticPlot = false }: Div
             .map(([name, value]) => ({ name, value }))
             .sort((a, b) => b.value - a.value);
 
-        // Separate main vs small
-        const main = sorted.slice(0, 8); // Top 8
+        // Separate main vs small (Top 8)
+        const main = sorted.slice(0, 8);
         const others = sorted.slice(8);
         const otherSum = others.reduce((acc, curr) => acc + curr.value, 0);
 
@@ -49,45 +56,53 @@ export default function DiversificationDonut({ assets, staticPlot = false }: Div
         };
     }, [assets]);
 
+    const data = {
+        labels,
+        datasets: [
+            {
+                data: values,
+                backgroundColor: colors,
+                borderWidth: 0, // Cleaner look
+                hoverOffset: 4
+            },
+        ],
+    };
+
+    const options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        cutout: '65%', // Thinner donut
+        plugins: {
+            legend: {
+                display: !staticPlot, // Hide legend if static (small view)
+                position: 'right' as const,
+                labels: {
+                    boxWidth: 12,
+                    font: {
+                        size: 10,
+                        family: 'Roboto'
+                    },
+                    color: '#64748b'
+                }
+            },
+            tooltip: {
+                callbacks: {
+                    label: function (context: any) {
+                        return ` ${context.label}: ${context.raw.toFixed(2)}%`;
+                    }
+                }
+            }
+        },
+        animation: {
+            animateScale: true,
+            animateRotate: true
+        }
+    };
+
     return (
-        <div className="w-full h-full flex items-center justify-center">
-            {/* Chart Area */}
+        <div className="w-full h-full flex items-center justify-center p-2">
             <div className="w-full h-full relative">
-                <Plot
-                    data={[
-                        {
-                            type: 'pie',
-                            values: values,
-                            labels: labels,
-                            textinfo: 'label+percent', // Show Label + %
-                            textposition: 'outside', // Labels outside
-                            automargin: false, // DISABLE AUTOMARGIN to ensure consistent pie size
-                            hole: 0.65, // Thinner Donut for elegance
-                            marker: {
-                                colors: colors,
-                                line: { width: 0 } // No borders for cleaner look
-                            },
-                            hoverinfo: 'label+percent+value',
-                            hoverlabel: {
-                                bgcolor: '#2C3E50',
-                                font: { color: 'white', family: 'Roboto' }
-                            },
-                            // Connect lines styling
-                            insidetextorientation: 'horizontal'
-                        } as any
-                    ]}
-                    layout={{
-                        showlegend: false, // Hide legend (labels are outside)
-                        margin: { t: 40, b: 40, l: 80, r: 80 }, // Fixed large margins for labels
-                        font: { family: 'Roboto, sans-serif', size: 12, color: '#2C3E50' },
-                        autosize: true,
-                        paper_bgcolor: 'rgba(0,0,0,0)',
-                        plot_bgcolor: 'rgba(0,0,0,0)',
-                    }}
-                    style={{ width: '100%', height: '100%' }}
-                    config={{ displayModeBar: false, responsive: true, staticPlot: staticPlot }}
-                    useResizeHandler={true}
-                />
+                <Doughnut data={data} options={options} />
             </div>
         </div>
     );

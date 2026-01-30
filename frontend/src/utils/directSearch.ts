@@ -1,17 +1,32 @@
 import { query, collection, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
 
+// [CONFIG] Search Variants (Shared Logic with SharpeMaximizer)
+const ASSET_VARIANTS: Record<string, string[]> = {
+    'RV': ['RV', 'Equity', 'Renta Variable', 'Stock', 'EQ', 'Renta Variable Global'],
+    'RF': ['RF', 'Fixed Income', 'Renta Fija', 'Bond', 'FI', 'Deuda'],
+    'Monetario': ['Monetario', 'Money Market', 'Cash', 'Liquidez', 'MM'],
+    'Mixto': ['Mixto', 'Mixed', 'Balanced', 'Allocation', 'Multi-Asset'],
+    'Retorno Absoluto': ['Retorno Absoluto', 'Alternative', 'Absolute Return', 'Hedge']
+};
+
+const getRegionVariants = (key: string): string[] => {
+    const map: Record<string, string[]> = {
+        'united_states': ['united_states', 'United States', 'USA', 'North America', 'US', 'EE.UU.'],
+        'europe_broad': ['eurozone', 'europe_ex_euro', 'united_kingdom', 'europe_emerging', 'Europe', 'Europa', 'Eurozone', 'Zona Euro', 'UK', 'Germany', 'France'],
+        'asia_broad': ['japan', 'china', 'asia_emerging', 'developed_asia', 'Asia', 'Japan', 'China', 'Japón', 'Pacific'],
+        'emerging_broad': ['latin_america', 'emerging_markets', 'asia_emerging', 'europe_emerging', 'middle_east', 'africa', 'Emerging', 'Emergentes', 'Mercados Emergentes', 'BRIC']
+    };
+    const specific = map[key] || [];
+    if (specific.length > 0) return specific;
+
+    const generic = [key, key.replace(/_/g, ' '), key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')];
+    return Array.from(new Set([...specific, ...generic]));
+};
+
 /**
  * BUSQUEDA DIRECTA V3 (SOLICITED BY USER)
- * No transformaciones legacy. Solo busca coincidecias de asset_class.
- */
-/**
- * BUSQUEDA DIRECTA V3 (SOLICITED BY USER)
- * No transformaciones legacy. Solo busca coincidecias de asset_class (y region/category).
- */
-/**
- * BUSQUEDA DIRECTA V3 (SOLICITED BY USER)
- * No transformaciones legacy. Solo busca coincidecias de asset_class (y region/category).
+ * Supports Broad Regions and Asset Variants
  */
 export async function findDirectAlternativesV3(
     targetFund: any,
@@ -19,7 +34,7 @@ export async function findDirectAlternativesV3(
 ) {
     const { excludeIsins = [], desired = 3, assetClass, region } = options;
 
-    // 1. Validar clase de activo (Prioridad al filtro explícito)
+    // 1. Validar clase de activo
     const targetClass = assetClass || targetFund?.derived?.asset_class || targetFund?.asset_class;
 
     if (!targetClass) {
@@ -28,14 +43,28 @@ export async function findDirectAlternativesV3(
     }
 
     const targetRegion = region || targetFund?.derived?.primary_region || targetFund?.primary_region;
-    const targetCategory = targetFund?.ms?.category_morningstar; // Opcional, para ranking
+    const targetCategory = targetFund?.ms?.category_morningstar;
 
-    // 2. Query simple a funds_v3 por asset_class
-    // Traemos un pull grande (Fixed 600) para poder filtrar en memoria por region y exclusions
+    // Expand Asset Class
+    const targetAssets = ASSET_VARIANTS[targetClass] || [targetClass];
+    // Special 'Otros' logic for Emerging RV (Mirroring SharpeMaximizer)
+    const isEmerging = targetRegion && (targetRegion.includes('emerging') || targetRegion === 'china' || targetRegion === 'latin_america' || targetRegion === 'asia_broad');
+    if (isEmerging && targetClass === 'RV') {
+        targetAssets.push('Otros');
+        targetAssets.push('Other');
+    }
+
+    // Expand Region
+    let allowedRegions: string[] = [];
+    if (targetRegion) {
+        allowedRegions = getRegionVariants(targetRegion);
+    }
+
+    // 2. Query simple a funds_v3 por asset_class (Expanded)
     const q = query(
         collection(db, 'funds_v3'),
-        where("derived.asset_class", "==", targetClass),
-        limit(600)
+        where("derived.asset_class", "in", targetAssets),
+        limit(800)
     );
 
     try {
@@ -47,24 +76,18 @@ export async function findDirectAlternativesV3(
             const data = doc.data();
             const isin = doc.id;
 
-            // Excluir el propio target
             if (isin === (targetFund?.isin || targetFund?.id)) return;
-            // Excluir blacklist (ISINs ya en cartera)
             if (excludeIsins.includes(isin)) return;
 
-            // Region rule:
-            // If explicit region 'all' -> no filter
-            // If target is GLOBAL -> do not filter by region
-            // If target is NOT GLOBAL -> require same region when present
-            // EXCEPTION: "Monetario" usually has mixed regions or Global data, so we skip strict check to find candidates
+            // Region rule
             const skipRegionCheck = (targetRegion === 'all' || targetRegion === "GLOBAL" || targetClass === "Monetario");
 
-            if (targetRegion && !skipRegionCheck) {
+            if (!skipRegionCheck && allowedRegions.length > 0) {
                 const candRegion = data.derived?.primary_region || data.primary_region;
-                if (candRegion && candRegion !== targetRegion) return;
+                if (!candRegion || !allowedRegions.includes(candRegion)) return;
             }
 
-            // EXCEPTION 2: If we pulled this from "RF" but target is "Monetario", verify it is Ultra-Short
+            // EXCEPTION 2: Monetario vs RF Ultra-Short
             const candClass = data.derived?.asset_class || data.asset_class;
             if (targetClass === "Monetario" && candClass === "RF") {
                 const cat = (data.ms?.category_morningstar || "").toUpperCase();
@@ -84,19 +107,20 @@ export async function findDirectAlternativesV3(
         if (targetClass === "Monetario") {
             const qRF = query(
                 collection(db, 'funds_v3'),
-                where("derived.asset_class", "==", "RF"),
-                limit(300) // Limitado para no sobrecargar
+                where("derived.asset_class", "==", "RF"), // RF logic still strict here? Maybe expand too?
+                // Expanding RF variants here is safer
+                where("derived.asset_class", "in", ASSET_VARIANTS['RF'] || ['RF']),
+                limit(300)
             );
             const snapRF = await getDocs(qRF);
             snapRF.forEach(processDoc);
         }
 
         // 4. Ranking (Prefer same Morningstar Category)
-        // Separamos en dos grupos: match exacto de categoria vs resto
         let matchCat: any[] = [];
         let others: any[] = [];
 
-        if (targetCategory && !assetClass) { // Solo priorizamos categoria si NO hemos forzado una clase de activo distinta
+        if (targetCategory && !assetClass) {
             candidates.forEach(c => {
                 const cCat = c.ms?.category_morningstar;
                 if (cCat === targetCategory) matchCat.push(c);
@@ -106,15 +130,13 @@ export async function findDirectAlternativesV3(
             others = candidates;
         }
 
-        // 5. Shuffle in groups (Randomness)
+        // 5. Shuffle in groups
         const shuffle = (arr: any[]) => arr.sort(() => Math.random() - 0.5);
         shuffle(matchCat);
         shuffle(others);
 
         // 6. Merge & Slice
         const finalPool = [...matchCat, ...others];
-
-        // Final fallback: shuffle everything if pool is small
         if (finalPool.length < 3) shuffle(finalPool);
 
         return finalPool.slice(0, desired);

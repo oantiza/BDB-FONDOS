@@ -61,6 +61,7 @@ interface DashboardPageProps {
     onOpenXRay: () => void;
     onOpenPositions: () => void;
     onOpenRetirement: () => void;
+    onOpenComparator: () => void;
 
     // Portfolio State Props
     isAuthenticated: boolean;
@@ -87,6 +88,7 @@ export default function DashboardPage({
     onOpenXRay,
     onOpenPositions,
     onOpenRetirement,
+    onOpenComparator,
 
     isAuthenticated,
     assets,
@@ -132,11 +134,7 @@ export default function DashboardPage({
         totalCapital // NEW
     });
 
-    // Handle global exposure for Modal communication (to avoid prop drilling / complex state)
-    React.useEffect(() => {
-        (window as any).refreshSwapAlternatives = handleOpenSwap;
-        return () => { delete (window as any).refreshSwapAlternatives; };
-    }, [handleOpenSwap]);
+    // Removed global exposure hack
 
     const {
         historyData, frontierData, assetPoints, portfolioPoint,
@@ -232,6 +230,7 @@ export default function DashboardPage({
                 onOpenXRay={onOpenXRay}
                 onOpenPositions={onOpenPositions}
                 onOpenRetirement={onOpenRetirement}
+                onOpenComparator={onOpenComparator}
             >
                 {/* Clean header, no version or toggle */}
             </Header>
@@ -402,7 +401,7 @@ export default function DashboardPage({
                     />
                 )}
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
-                <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} />
+                <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} onRefresh={handleOpenSwap} />
             </Suspense>
         </div >
     )

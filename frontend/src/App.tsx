@@ -8,6 +8,7 @@ import Login from './components/Login'
 import DashboardPage from './pages/DashboardPage'
 import MiBoutiquePage from './pages/MiBoutiquePage'
 import XRayPage from './pages/XRayPage'
+import ComparatorPage from './pages/ComparatorPage'
 import XRayAnalyticsPage from './pages/XRayAnalyticsPage'
 import RetirementCalculatorPage from './pages/RetirementCalculatorPage'
 
@@ -18,7 +19,7 @@ import { usePortfolio } from './hooks/usePortfolio'
 
 function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
-  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT'>('DASHBOARD')
+  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT' | 'COMPARATOR'>('DASHBOARD')
 
   // Lifted State
   const portfolioState = usePortfolio()
@@ -69,6 +70,21 @@ function App() {
       return <RetirementCalculatorPage key="retirement" onBack={() => setActiveView('DASHBOARD')} />
     }
 
+    if (activeView === 'COMPARATOR') {
+      return (
+        <ComparatorPage
+          key="comparator"
+          onBack={() => setActiveView('DASHBOARD')}
+          onLogout={() => auth.signOut()}
+          onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
+          onOpenXRay={() => setActiveView('XRAY')}
+          onOpenPositions={() => setActiveView('POSITIONS')}
+          onOpenRetirement={() => setActiveView('RETIREMENT')}
+          onOpenComparator={() => setActiveView('COMPARATOR')}
+        />
+      )
+    }
+
     // Routing for Analytics (simple path check for new window support)
     if (window.location.pathname === '/x-ray/analytics') {
       return (
@@ -92,6 +108,7 @@ function App() {
         onOpenXRay={() => setActiveView('XRAY')}
         onOpenPositions={() => setActiveView('POSITIONS')}
         onOpenRetirement={() => setActiveView('RETIREMENT')}
+        onOpenComparator={() => setActiveView('COMPARATOR')}
 
         {...portfolioState}
       />

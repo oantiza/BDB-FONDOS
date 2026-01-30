@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 from datetime import timedelta
-from .data import get_price_data
+from .data_fetcher import DataFetcher
 from .config import BENCHMARK_RF_ISIN, BENCHMARK_RV_ISIN, RISK_FREE_RATE
 import yfinance as yf
 
@@ -13,11 +13,15 @@ def run_backtest(portfolio, period, db):
         # Base Indices for synthetic profiles
         all_assets = assets + [BENCHMARK_RF_ISIN, BENCHMARK_RV_ISIN]
         
-        price_data, synthetic_used = get_price_data(all_assets, db)
-        if not price_data:
+        # --- MIGRATION: USE DataFetcher ---
+        fetcher = DataFetcher(db)
+        # Use strict=False to get all available data (Outer Join equivalent) and let logic below handle gaps
+        price_data_df, synthetic_used = fetcher.get_price_data(all_assets, resample_freq='W-FRI', strict=False)
+        
+        if price_data_df.empty:
             raise Exception("No data available for the selected assets.")
             
-        df = pd.DataFrame(price_data)
+        df = price_data_df # It's already a DataFrame
         
         # --- FIX: Handle Empty or Disjoint Data ---
         if df.empty:
@@ -158,8 +162,7 @@ def run_backtest(portfolio, period, db):
         vol = port_ret.std() * np.sqrt(252) if days > 0 else 0
 
         
-        from .data import get_dynamic_risk_free_rate
-        rf_rate = get_dynamic_risk_free_rate(db)
+        rf_rate = fetcher.get_dynamic_risk_free_rate()
         # rf_rate = 0.0 # Homogeneous Risk Free Rate (0%) for consistency with Dashboard
         
         sharpe = (cagr - rf_rate) / vol if vol > 0 else 0

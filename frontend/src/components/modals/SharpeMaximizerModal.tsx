@@ -93,144 +93,147 @@ export default function SharpeMaximizerModal({
         setResults([]);
         setProgress(0);
 
-        try {
-            const isAllRegions = region === 'all';
+        let candidates: any[] = [];
 
-            // REGION CONFIGURATION 
-            type RegionConfig = { field: string; op: any; val: string; valEnd?: string };
-            const REGION_CONFIGS: Record<string, RegionConfig> = {
-                // Special mapping for Emerging if needed, otherwise uses derived.primary_region
-                'EMERGENTES_LEGACY': { field: 'ms.category_morningstar', op: '==', val: 'Morningstar Emerging Markets' }
+        // [CONFIG] Search Variants
+        const ASSET_VARIANTS: Record<string, string[]> = {
+            'RV': ['RV', 'Equity', 'Renta Variable', 'Stock', 'EQ', 'Renta Variable Global'],
+            'RF': ['RF', 'Fixed Income', 'Renta Fija', 'Bond', 'FI', 'Deuda'],
+            'Monetario': ['Monetario', 'Money Market', 'Cash', 'Liquidez', 'MM'],
+            'Mixto': ['Mixto', 'Mixed', 'Balanced', 'Allocation', 'Multi-Asset'],
+            'Retorno Absoluto': ['Retorno Absoluto', 'Alternative', 'Absolute Return', 'Hedge']
+        };
+
+        const REGION_CONFIGS: Record<string, any> = {
+            'EMERGENTES_LEGACY': { field: 'ms.category_morningstar', op: '==', val: 'Morningstar Emerging Markets' }
+        };
+
+        const isAllRegions = region === 'all';
+        const isEmerging = region.includes('emerging') || region === 'china' || region === 'latin_america' || region === 'asia_broad';
+        const isStandardRegion = !isAllRegions && !REGION_CONFIGS[region];
+
+        // [CONFIG] Assets
+        let targetAssets = ASSET_VARIANTS[assetClass] || [assetClass];
+        if (isEmerging && assetClass === 'RV') {
+            targetAssets = [...targetAssets, 'Otros', 'Other'];
+        }
+
+        // [CONFIG] Region
+        const getRegionVariants = (key: string): string[] => {
+            const map: Record<string, string[]> = {
+                'united_states': ['united_states', 'United States', 'USA', 'North America', 'US', 'EE.UU.'],
+                'europe_broad': ['eurozone', 'europe_ex_euro', 'united_kingdom', 'europe_emerging', 'Europe', 'Europa', 'Eurozone', 'Zona Euro', 'UK', 'Germany', 'France'],
+                'asia_broad': ['japan', 'china', 'asia_emerging', 'developed_asia', 'Asia', 'Japan', 'China', 'Japón', 'Pacific'],
+                'emerging_broad': ['latin_america', 'emerging_markets', 'asia_emerging', 'europe_emerging', 'middle_east', 'africa', 'Emerging', 'Emergentes', 'Mercados Emergentes', 'BRIC']
             };
-            const config = REGION_CONFIGS[region];
-            const activeConfig = config || (isAllRegions ? null : { field: 'derived.primary_region', op: '==', val: region });
+            const specific = map[key] || [];
+            if (specific.length > 0) return specific;
 
-            let candidates: any[] = [];
+            const generic = [key, key.replace(/_/g, ' '), key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')];
+            return Array.from(new Set([...specific, ...generic]));
+        };
 
-            try {
-                // PRIMARY STRATEGY
-                // Fix for Emerging Markets: They are often classified as 'Otros', so we include 'Otros' if it's an emerging region and RV.
-                const isEmerging = region.includes('emerging') || region === 'china' || region === 'latin_america';
-                const targetAssets = (isEmerging && assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
+        let activeConfig: any = null;
+        if (!isStandardRegion) {
+            activeConfig = REGION_CONFIGS[region] || null;
+        }
 
-                let constraints: any[] = [
-                    where('derived.asset_class', 'in', targetAssets)
-                ];
+        try {
+            let queryPromises: Promise<any>[] = [];
 
+            if (isStandardRegion) {
+                const variants = getRegionVariants(region);
+                for (const v of variants) {
+                    const constraints: any[] = [
+                        where('derived.asset_class', 'in', targetAssets),
+                        where('derived.primary_region', '==', v),
+                        orderBy('std_perf.sharpe', 'desc'),
+                        limit(20)
+                    ];
+                    queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
+                }
+            } else {
+                let constraints: any[] = [where('derived.asset_class', 'in', targetAssets)];
                 if (activeConfig) {
                     constraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
-                    if (activeConfig.valEnd) {
-                        constraints.push(where(activeConfig.field, '<=', activeConfig.valEnd));
-                    }
+                    if (activeConfig.valEnd) constraints.push(where(activeConfig.field, '<=', activeConfig.valEnd));
                 }
-
                 constraints.push(orderBy('std_perf.sharpe', 'desc'));
                 constraints.push(limit(50));
 
-                const q = query(collection(db, 'funds_v3'), ...constraints);
-                const snap = await getDocs(q);
-                candidates = snap.docs.map(d => ({ isin: d.id, ...d.data() }));
-
-                if (candidates.length === 0) {
-                    throw new Error("ForceFallback");
-                }
-            } catch (fetchErr: any) {
-                const isIndexError = fetchErr.code === 'failed-precondition' || fetchErr.message?.includes('index');
-                const isForceFallback = fetchErr.message === 'ForceFallback';
-
-                if (isIndexError || isForceFallback) {
-                    const targetAssets = (region === 'EMERGENTES' && assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
-
-                    let fallbackConstraints: any[] = [
-                        where('derived.asset_class', 'in', targetAssets)
-                    ];
-                    if (activeConfig) {
-                        fallbackConstraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
-                        if (activeConfig.valEnd) {
-                            fallbackConstraints.push(where(activeConfig.field, '<=', activeConfig.valEnd));
-                        }
-                    }
-                    fallbackConstraints.push(limit(200));
-
-                    const qFallback = query(collection(db, 'funds_v3'), ...fallbackConstraints);
-                    const snapFallback = await getDocs(qFallback);
-                    candidates = snapFallback.docs.map(d => ({ isin: d.id, ...d.data() }));
-                } else {
-                    throw fetchErr;
-                }
+                queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
             }
 
-            // [NEW] Secondary Logic for EMERGING: Search by name "Emerging" 
-            const isEmergingForSecondary = region.includes('emerging') || region === 'china' || region === 'latin_america';
-            if (isEmergingForSecondary) {
-                try {
-                    // Reuse targetAssets logic but explicitly for this check
-                    const targetAssets = (assetClass === 'RV') ? ['RV', 'Otros'] : [assetClass];
+            const snapshots = await Promise.all(queryPromises);
+            const allDocs = snapshots.flatMap(s => s.docs);
 
-                    const qBroad = query(
-                        collection(db, 'funds_v3'),
-                        where('derived.asset_class', 'in', targetAssets),
-                        orderBy('std_perf.sharpe', 'desc'),
-                        limit(100)
-                    );
-                    const snapBroad = await getDocs(qBroad);
-                    const nameMatches = snapBroad.docs
-                        .map(d => ({ isin: d.id, ...d.data() }))
-                        .filter(f => (f as any).name?.toLowerCase().includes('emerging'));
-
-                    // Merge Unique
-                    const seen = new Set(candidates.map(c => c.isin));
-                    let added = 0;
-                    for (const f of nameMatches) {
-                        if (!seen.has((f as any).isin)) {
-                            candidates.push(f);
-                            seen.add((f as any).isin);
-                            added++;
-                        }
-                    }
-                    if (added > 0) console.log(`[SharpeMaximizer] Added ${added} extra Emerging funds by name.`);
-                } catch (eBroad) {
-                    console.warn("Secondary Emerging search failed (likely missing index for broad sort):", eBroad);
+            const seenIds = new Set();
+            for (const d of allDocs) {
+                if (!seenIds.has(d.id)) {
+                    seenIds.add(d.id);
+                    candidates.push({ isin: d.id, ...d.data() });
                 }
             }
-
-            // Manual Sort 
-            candidates.sort((a, b) => ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0));
-            candidates = candidates.slice(0, 10);
 
             if (candidates.length === 0) {
-                const msg = `Sin resultados. Filtros: ${assetClass} + ${activeConfig ? activeConfig.val : 'ALL'}.`;
-                toast.error(msg);
-                setStep('FILTER');
-                return;
+                throw new Error("ForceFallback");
             }
-
-            // Process candidates using the helper
-            await processCandidates(candidates);
 
         } catch (e: any) {
             console.error(e);
 
-            // Auto-Fallback on Index Error
-            if (e.code === 'failed-precondition' || e.message?.includes('index')) {
-                console.warn("Retrying with Name Fallback...");
+            // Simplified Fallback strategy (ignore index errors, just try broad asset class search if standard region fails)
+            const isIndexError = e.code === 'failed-precondition' || e.message?.includes('index');
+            const isForceFallback = e.message === 'ForceFallback';
+
+            if (isIndexError || isForceFallback) {
+                // If standard region failed, we revert to All Regions (Asset only) or maybe skip this? 
+                // Let's rely on simple asset search if standard region fails (better than nothing)
                 try {
-                    const qFallback = query(collection(db, 'funds_v3'), orderBy('name'), limit(20));
+                    let fallbackConstraints = [where('derived.asset_class', 'in', targetAssets)];
+                    if (activeConfig) {
+                        fallbackConstraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
+                    }
+                    fallbackConstraints.push(limit(100));
+                    const qFallback = query(collection(db, 'funds_v3'), ...fallbackConstraints);
                     const snapFallback = await getDocs(qFallback);
-                    const fallbackCandidates = snapFallback.docs.map(d => ({ isin: d.id, ...d.data() }));
-
-                    await processCandidates(fallbackCandidates);
-                    return;
-
-                } catch (fallbackErr) {
-                    console.error("Fallback failed:", fallbackErr);
-                    toast.error("Error crítico en modo compatibilidad.");
-                }
+                    candidates = snapFallback.docs.map(d => ({ isin: d.id, ...d.data() }));
+                } catch (fbErr) { console.warn("Fallback failed", fbErr); }
             } else {
                 toast.error(`Error buscando fondos: ${e.message}`);
+                setStep('FILTER');
+                return;
             }
-            setStep('FILTER');
         }
+
+        // Secondary Logic (Emerging by Name)
+        if (isEmerging) {
+            try {
+                const qBroad = query(collection(db, 'funds_v3'), where('derived.asset_class', 'in', targetAssets), orderBy('std_perf.sharpe', 'desc'), limit(100));
+                const snapBroad = await getDocs(qBroad);
+                const nameMatches = snapBroad.docs.map(d => ({ isin: d.id, ...d.data() })).filter(f => (f as any).name?.toLowerCase().includes('emerging'));
+                const seen = new Set(candidates.map(c => c.isin));
+                for (const f of nameMatches) {
+                    if (!seen.has((f as any).isin)) { candidates.push(f); seen.add((f as any).isin); }
+                }
+            } catch (e) {
+                console.warn("Secondary Emerging search failed (likely missing index for broad sort):", e);
+            }
+        }
+
+        // Sorting & Slicing
+        candidates.sort((a, b) => ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0));
+        candidates = candidates.slice(0, 10);
+
+        if (candidates.length === 0) {
+            const msg = `Sin resultados. Filtros: ${assetClass} + ${activeConfig ? activeConfig.val : region}.`;
+            toast.error(msg);
+            setStep('FILTER');
+            return;
+        }
+
+        await processCandidates(candidates);
+
     };
 
     return createPortal(
@@ -284,10 +287,11 @@ export default function SharpeMaximizerModal({
                                         value={region} onChange={e => setRegion(e.target.value)}
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold focus:outline-none focus:border-emerald-500 transition-colors"
                                     >
-                                        <option value="all">Todas las Regiones</option>
-                                        {Object.entries(REGION_DISPLAY_LABELS).map(([key, label]) => (
-                                            <option key={key} value={key}>{label}</option>
-                                        ))}
+                                        <option value="all">Global</option>
+                                        <option value="united_states">Estados Unidos</option>
+                                        <option value="europe_broad">Europa</option>
+                                        <option value="asia_broad">Asia, Japón y China</option>
+                                        <option value="emerging_broad">Emergentes</option>
                                     </select>
                                 </div>
                             </div>
@@ -340,6 +344,11 @@ export default function SharpeMaximizerModal({
                                                 <div className="flex items-center gap-4 text-xs text-slate-500">
                                                     <span>ISIN: {res.fund.isin}</span>
                                                     <span>Sharpe: <strong className="text-slate-700">{res.individualSharpe.toFixed(2)}</strong></span>
+                                                    <span>Retro: <strong className="text-slate-700">
+                                                        {(res.fund.manual?.costs?.retrocession ?? res.fund.costs?.retrocession)
+                                                            ? `${((val => val > 0.1 ? val : val * 100)(res.fund.manual?.costs?.retrocession ?? res.fund.costs?.retrocession)).toFixed(2)}%`
+                                                            : 'N/A'}
+                                                    </strong></span>
                                                 </div>
                                                 <div className="flex gap-1 mt-1">
                                                     <span className="text-[10px] bg-blue-50 text-blue-600 px-1 rounded border border-blue-100 uppercase">

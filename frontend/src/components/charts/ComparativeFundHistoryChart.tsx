@@ -62,25 +62,42 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
         const startDate = new Date();
         startDate.setFullYear(now.getFullYear() - 10);
 
-        const datasets = selectedIsins.map((isin, idx) => {
+        // 1. Pre-process: Filter valid series relative to the 10-year window
+        const validSeries = selectedIsins.map((isin) => {
             const fund = funds.find(f => f.isin === isin);
             const series = historyData[isin];
 
             if (!fund || !series || series.length === 0) return null;
 
-            const filtered = series.filter(item => item.date >= startDate && item.price > 0);
+            // Filter points within the last 10 years
+            const filtered = series.filter(item => item.date >= startDate && item.price > 0 && !isNaN(item.price));
 
             if (filtered.length === 0) return null;
 
-            const startPrice = filtered[0].price;
+            return {
+                isin,
+                name: fund.name,
+                data: filtered,
+                startDate: filtered[0].date
+            };
+        }).filter((item): item is NonNullable<typeof item> => item !== null);
 
-            const dataPoints = filtered.map(item => ({
-                x: item.date,
-                y: (item.price / startPrice) * 10000
+        if (validSeries.length === 0) return { datasets: [] };
+
+        // 3. Build Datasets - Independent Normalization (Start at 0%)
+        // Each fund starts at 0% at its first point IN THE WINDOW.
+        // If it existed 10 years ago, it starts at 0% then.
+        // If it started 2 years ago, it starts at 0% then.
+        const datasets = validSeries.map((item, idx) => {
+            const basePrice = item.data[0].price;
+
+            const dataPoints = item.data.map(d => ({
+                x: d.date,
+                y: ((d.price / basePrice) - 1) * 100
             }));
 
             return {
-                label: fund.name,
+                label: item.name,
                 data: dataPoints,
                 borderColor: COLORS[idx % COLORS.length],
                 backgroundColor: COLORS[idx % COLORS.length],
@@ -89,9 +106,10 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
                 pointRadius: 0,
                 pointHoverRadius: 4,
                 pointHoverBorderWidth: 2,
-                tension: 0.1
+                tension: 0.1,
+                spanGaps: true
             };
-        }).filter(Boolean) as any[];
+        });
 
         return { datasets };
     }, [funds, selectedIsins, period, historyData]);
@@ -141,7 +159,7 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
                     borderDash: [4, 4],
                 },
                 ticks: {
-                    callback: (val: any) => val.toLocaleString('es-ES'),
+                    callback: (val: any) => val.toFixed(0) + '%',
                     color: '#64748b',
                     font: { family: 'Inter, sans-serif', size: 10 }
                 },
@@ -166,7 +184,9 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
                         let label = context.dataset.label || '';
                         if (label) label += ': ';
                         if (context.parsed.y !== null) {
-                            label += new Intl.NumberFormat('es-ES', { maximumFractionDigits: 0 }).format(context.parsed.y) + ' €';
+                            const val = context.parsed.y;
+                            const sign = val > 0 ? '+' : '';
+                            label += `${sign}${val.toFixed(2)}%`;
                         }
                         return label;
                     }
@@ -186,7 +206,7 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
             <div className="mb-6 flex justify-between items-end border-b border-black pb-2">
                 <div>
                     <span className="text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold block mb-1">Análisis Histórico</span>
-                    <h3 className="text-[#2C3E50] text-xl font-light tracking-tight">Evolución Comparativa <span className="text-gray-400 text-sm">(Base 10k)</span></h3>
+                    <h3 className="text-[#2C3E50] text-xl font-light tracking-tight">Rentabilidad Acumulada <span className="text-gray-400 text-sm">(10 Años)</span></h3>
                 </div>
                 {/* Period Stamp */}
                 <span className="text-[#2C3E50] bg-gray-100 px-3 py-1 text-xs font-bold tracking-widest uppercase rounded-sm">10 AÑOS</span>

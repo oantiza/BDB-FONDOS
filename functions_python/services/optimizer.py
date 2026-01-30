@@ -1,5 +1,7 @@
 from firebase_admin import firestore
-from .data import get_price_data, get_dynamic_risk_free_rate
+from firebase_admin import firestore
+from .data_fetcher import DataFetcher
+# from .data import get_price_data, get_dynamic_risk_free_rate (DEPRECATED)
 from .config import (
     RISK_TARGETS,
     MAX_WEIGHT_DEFAULT,
@@ -119,8 +121,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         auto_complete_source = None
         rejected_candidates = []
         
-        # 1) Cargar datos
-        price_data, synthetic_used = get_price_data(assets_list, db)
+        # 1) Cargar datos (Using New DataFetcher)
+        fetcher = DataFetcher(db)
+        # Note: resample_freq='W-FRI' aligns data to Fridays, improving correlation quality
+        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='W-FRI', strict=True)
+        
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
         df = df.sort_index().ffill().bfill()
@@ -138,7 +143,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     if cfg.exists: candidates_list = cfg.to_dict().get('equity90_isins', FALLBACK_CANDIDATES_DEFAULT)
                 except: pass
                 
-                prices_check, _ = get_price_data(candidates_list, db)
+                prices_check, _ = fetcher.get_price_data(candidates_list, resample_freq='W-FRI', strict=True)
                 valid_candidates = [k for k, v in prices_check.items() if len(v) >= 50]
                 
                 if not valid_candidates:
@@ -184,7 +189,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             S = risk_models.sample_cov(df)
             S = risk_models.fix_nonpositive_semidefinite(S)
 
-        rf_rate = float(get_dynamic_risk_free_rate(db))
+        rf_rate = float(fetcher.get_dynamic_risk_free_rate())
 
         # 3) Parámetros
         max_weight = float(MAX_WEIGHT_DEFAULT)
@@ -395,7 +400,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     
                     # Batch check history (get_price_data handles batching internally roughly)
                     if candidates_unique:
-                        prices_check, _ = get_price_data(candidates_unique, db)
+                        prices_check, _ = fetcher.get_price_data(candidates_unique, resample_freq='W-FRI', strict=True)
                         # Only keep those with >= 50 data points (simple check)
                         for isin, p_series in prices_check.items():
                             if len(p_series) >= 20: # Relaxed slightly for robustness, but implies real data
@@ -682,18 +687,25 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
         print(f"🚀 [DEBUG] Starting generate_efficient_frontier for {len(assets_list)} assets.")
         
         # 1. Get Data
-        price_data, synthetic_used = get_price_data(assets_list, db)
-        if not price_data: 
-            print("❌ [DEBUG] No price data found.")
+        # 1. Get Data
+        fetcher = DataFetcher(db)
+        # RELAXED: strict=False allows union of data (filled later)
+        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='W-FRI', strict=False)
+        
+        # FIX: Handle DataFrame boolean ambiguity
+        is_empty = price_data.empty if hasattr(price_data, 'empty') else not price_data
+        
+        if is_empty: 
+            print("❌ [DEBUG] No price data found (Empty DataFrame).")
             return {'error': 'No data'}
         
-        df = pd.DataFrame(price_data)
+        df = pd.DataFrame(price_data) # Copy/Ensure DF
         df.index = pd.to_datetime(df.index)
         df = df.sort_index().ffill().bfill()
         print(f"✅ [DEBUG] Data loaded. Shape: {df.shape}")
         
-        if len(df) < 50: 
-            print("❌ [DEBUG] Insufficient history (<50).")
+        if len(df) < 10: 
+            print("❌ [DEBUG] Insufficient history (<10).")
             return {'error': 'Insufficient history'}
 
         # 2. Risk Model
