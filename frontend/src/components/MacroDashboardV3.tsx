@@ -3,15 +3,12 @@ import { collection, query, where, orderBy, limit, getDocs } from 'firebase/fire
 import { db } from '../firebase';
 import { MacroReport } from '../types/MacroReport';
 
-
-import GlobalMacroIntelligence from './GlobalMacroIntelligenceLight';
 // Iconos simples (puedes usar Lucide o Heroicons si los tienes instalados)
 const TrendingUp = () => <span className="text-green-500">↗</span>;
 const TrendingDown = () => <span className="text-red-500">↘</span>;
 const TrendingFlat = () => <span className="text-gray-400">→</span>;
-
 export default function MacroDashboard() {
-  const [activeTab, setActiveTab] = useState<'WEEKLY' | 'MONTHLY' | 'STRATEGY' | 'GLOBAL_MACRO'>('STRATEGY');
+  const [activeTab, setActiveTab] = useState<'WEEKLY' | 'MONTHLY' | 'STRATEGY'>('STRATEGY');
   const [report, setReport] = useState<MacroReport | null>(null); // Keep this for now, but the new logic uses 'reports'
   const [reports, setReports] = useState<MacroReport[]>([]); // New state for multiple reports
   const [empty, setEmpty] = useState(false); // New state to indicate if reports are empty
@@ -113,12 +110,6 @@ export default function MacroDashboard() {
               className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'STRATEGY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
             >
               Asignación de Activos
-            </button>
-            <button
-              onClick={() => setActiveTab('GLOBAL_MACRO')}
-              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'GLOBAL_MACRO' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
-            >
-              Inteligencia (Macro)
             </button>
 
           </div>
@@ -331,10 +322,6 @@ export default function MacroDashboard() {
           </div>
         )}
 
-        {/* --- GLOBAL MACRO INTELLIGENCE TAB --- */}
-        {activeTab === 'GLOBAL_MACRO' && (
-          <GlobalMacroIntelligence />
-        )}
 
       </div>
     </div>

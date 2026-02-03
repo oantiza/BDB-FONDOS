@@ -15,13 +15,15 @@ def run_backtest(portfolio, period, db):
         
         # --- MIGRATION: USE DataFetcher ---
         fetcher = DataFetcher(db)
-        # Use strict=False to get all available data (Outer Join equivalent) and let logic below handle gaps
-        price_data_df, synthetic_used = fetcher.get_price_data(all_assets, resample_freq='W-FRI', strict=False)
+        # Professional standard: Daily Frequency
+        price_data_df, synthetic_used = fetcher.get_price_data(all_assets, resample_freq='D', strict=False)
+        print(f"🔍 [DEBUG] Price data fetched. Shape: {price_data_df.shape if hasattr(price_data_df, 'shape') else 'N/A'}")
         
         if price_data_df.empty:
+            print("❌ [DEBUG] Price data is empty after fetch.")
             raise Exception("No data available for the selected assets.")
             
-        df = price_data_df # It's already a DataFrame
+        df = price_data_df 
         
         # --- FIX: Handle Empty or Disjoint Data ---
         if df.empty:
@@ -49,14 +51,17 @@ def run_backtest(portfolio, period, db):
         # Filter valid assets only
         df = df[keep_assets]
         df = df.sort_index().ffill().bfill()
+        print(f"🔍 [DEBUG] Data aligned and filled. Shape: {df.shape}")
         
-        days_map = {'1y': 252, '3y': 756, '5y': 1260}
-        lookback_days = days_map.get(period, 756)
+        # Standard: 3-Year (36 Months) analysis window
+        # We force 3y (1095 days) to align with Morningstar rating standards
+        lookback_days = 1095 
         
         # Calculate start date based on available history
         if len(df) > 0:
-            start_date = df.index[-1] - timedelta(days=lookback_days/252*365 + 30) 
+            start_date = df.index[-1] - timedelta(days=lookback_days) 
             df = df[df.index >= start_date]
+            print(f"🔍 [DEBUG] Data sliced to 3Y window. New Shape: {df.shape}")
         
         # Re-check validity after slicing time range
         if df.empty:
@@ -82,6 +87,7 @@ def run_backtest(portfolio, period, db):
         
         port_ret = returns.dot(w_vector)
         cumulative = (1 + port_ret).cumprod() * 100
+        print(f"🔍 [DEBUG] Cumulative returns calculated. Days: {len(cumulative)}")
         
         # Helper to fetch YF fallback
         def get_yf_series(ticker, start_date, default_index):
@@ -138,7 +144,10 @@ def run_backtest(portfolio, period, db):
             p_years = p_days / 252
             p_total = series.iloc[-1] / series.iloc[0] - 1
             p_cagr = (1 + p_total) ** (1/p_years) - 1 if p_years > 0 else 0
-            p_vol = prof_ret.std() * np.sqrt(252)
+            
+            # Aligned to daily frequency and log-returns for professionalism
+            p_log_ret = np.log(series / series.shift(1)).dropna()
+            p_vol = p_log_ret.std() * np.sqrt(252)
             
             label_map = {
                 'conservative': 'Conservador',
@@ -155,25 +164,77 @@ def run_backtest(portfolio, period, db):
                 'type': 'benchmark'
             })
 
-        days = len(cumulative)
-        years = days / 252
-        total_ret = cumulative.iloc[-1] / 100 - 1 if days > 0 else 0
+        days_count = len(cumulative)
+        if days_count > 1:
+            # Use real date difference for years to be frequency-agnostic
+            start_date = cumulative.index[0]
+            end_date = cumulative.index[-1]
+            years = max((end_date - start_date).days / 365.25, 1/252) # Safety floor
+        else:
+            years = 0
+        
+        total_ret = cumulative.iloc[-1] / 100 - 1 if days_count > 0 else 0
+        # Geometric Mean (CAGR)
         cagr = (1 + total_ret) ** (1/years) - 1 if years > 0 else 0
-        vol = port_ret.std() * np.sqrt(252) if days > 0 else 0
+        
+        # Morningstar Methodology: Volatility (Log-returns)
+        log_returns = np.log(cumulative / cumulative.shift(1)).dropna()
+        vol = log_returns.std() * np.sqrt(252) if days_count > 1 else 0
 
+        # Morningstar Methodology: Sharpe (Excess Daily Return)
+        rf_rate_annual = fetcher.get_dynamic_risk_free_rate()
+        rf_daily = rf_rate_annual / 252
         
-        rf_rate = fetcher.get_dynamic_risk_free_rate()
-        # rf_rate = 0.0 # Homogeneous Risk Free Rate (0%) for consistency with Dashboard
+        # Excess returns over Risk-Free (Daily)
+        if days_count > 1:
+            excess_ret = port_ret - rf_daily
+            if len(excess_ret) > 1 and excess_ret.std() > 0:
+                sharpe = (float(excess_ret.mean()) / float(excess_ret.std())) * np.sqrt(252)
+            else:
+                sharpe = 0
+        max_dd = ((cumulative - cumulative.cummax()) / cumulative.cummax()).min() if days_count > 0 else 0
         
-        sharpe = (cagr - rf_rate) / vol if vol > 0 else 0
-        max_dd = ((cumulative - cumulative.cummax()) / cumulative.cummax()).min() if days > 0 else 0
+        print(f"🔍 [DEBUG] Final Metrics - CAGR: {cagr:.4f}, Vol: {vol:.4f}, Sharpe: {sharpe:.4f}, MaxDD: {max_dd:.4f}")
         
         def to_chart(ser): return [{'x': d.strftime('%Y-%m-%d'), 'y': round(v, 2)} for d, v in ser.items()]
 
-        # --- LOOK-THROUGH HOLDINGS ---
+        # --- LOOK-THROUGH HOLDINGS & REGIONS ---
         aggregated_holdings = {}
         
-        # MOCK REMOVED - Returning 'Unclassified' if no holdings found
+        # Morningstar Regions Mapping
+        region_stats = {
+            'united_states': 0,
+            'canada': 0,
+            'latin_america': 0,
+            'united_kingdom': 0,
+            'eurozone': 0,
+            'europe_ex_euro': 0,
+            'europe_emerging': 0,
+            'africa': 0,
+            'middle_east': 0,
+            'japan': 0,
+            'australasia': 0,
+            'asia_developed': 0,
+            'asia_emerging': 0
+        }
+
+        region_labels = {
+            'united_states': 'EE.UU.',
+            'canada': 'Canadá',
+            'latin_america': 'Latinoamérica',
+            'united_kingdom': 'Reino Unido',
+            'eurozone': 'Eurozona',
+            'europe_ex_euro': 'Europa (No Euro)',
+            'europe_emerging': 'Europa Emergente',
+            'africa': 'África',
+            'middle_east': 'Oriente Medio',
+            'japan': 'Japón',
+            'australasia': 'Australasia',
+            'asia_developed': 'Asia Desarrollada',
+            'asia_emerging': 'Asia Emergente'
+        }
+        total_region_weight = 0
+        
         def distribute_holdings_fallback(isin, total_weight):
             if 'OTHERS' in aggregated_holdings:
                 aggregated_holdings['OTHERS']['weight'] += total_weight
@@ -191,12 +252,13 @@ def run_backtest(portfolio, period, db):
                  if fdoc.exists:
                      fd = fdoc.to_dict()
                      
+                     # 1. HOLDINGS AGGREGATION
                      holdings_list = fd.get('holdings', [])
                      if not holdings_list:
                          holdings_list = fd.get('holdings_top10', [])
                      if not holdings_list: 
                          holdings_list = fd.get('top_holdings', [])
-                         
+                          
                      if holdings_list and isinstance(holdings_list, list) and len(holdings_list) > 0:
                          real_holdings_found = True
                          for h in holdings_list:
@@ -220,6 +282,26 @@ def run_backtest(portfolio, period, db):
                              else:
                                  aggregated_holdings['OTHERS'] = {'name': 'Otras/No Disponible', 'weight': contrib_others}
 
+                     # 2. REGION AGGREGATION (Robust Mapping)
+                     # We check multiple possible keys for region data
+                     regions = fd.get('regions') or fd.get('ms', {}).get('regions') or fd.get('derived', {}).get('regions')
+                     
+                     if regions and isinstance(regions, dict):
+                         for r_key, r_val in regions.items():
+                             if r_key in region_stats:
+                                 try:
+                                     # Handle both 0-1 and 0-100 formats if necessary, 
+                                     # but usually they are 0-100 in MS
+                                     val = float(r_val)
+                                     # If value is already > 1, assume 0-100 scale
+                                     if val > 1.0: val = val / 100.0
+                                     
+                                     contribution = w * val
+                                     region_stats[r_key] += contribution
+                                     total_region_weight += contribution
+                                 except (ValueError, TypeError):
+                                     continue
+
              except Exception as fetch_err:
                  print(f"⚠️ Error fetching details for {isin}: {fetch_err}")
              
@@ -234,14 +316,27 @@ def run_backtest(portfolio, period, db):
              
         final_top_holdings = final_top_holdings[:10]
 
+        # Prepare Region Allocation (Sorted and normalized to 100% of regions found)
+        region_list = []
+        
+        for k, v in region_stats.items():
+            if v > 0.0001:  # Lower threshold to capture small allocations
+                label = region_labels.get(k, k.replace('_', ' ').capitalize())
+                # Normalize values if total_region_weight > 0
+                norm_val = (v / total_region_weight * 100.0) if total_region_weight > 0 else 0
+                region_list.append({'name': label, 'value': round(norm_val, 2)})
+        
+        region_list = sorted(region_list, key=lambda x: x['value'], reverse=True)
+
         return {
             'portfolioSeries': to_chart(cumulative),
             'benchmarkSeries': { k: to_chart(v) for k, v in profiles.items() },
-            'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd, 'rf_rate': rf_rate},
+            'metrics': {'cagr': cagr, 'volatility': vol, 'sharpe': sharpe, 'maxDrawdown': max_dd, 'rf_rate': rf_rate_annual},
             'correlationMatrix': returns.corr().round(2).fillna(0).values.tolist(),
             'effectiveISINs': valid_assets, 
             'synthetics': synthetics_metrics, 
-            'topHoldings': final_top_holdings 
+            'topHoldings': final_top_holdings,
+            'regionAllocation': region_list
         }
 
     except Exception as e:

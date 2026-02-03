@@ -379,22 +379,39 @@ def getEfficientFrontier(request: https_fn.CallableRequest):
     from services.optimizer import generate_efficient_frontier
     db = firestore.client()
     
-    # Expected: { assets: [{isin: '...', weight: 20}, ...] }
-    data = request.data
-    portfolio = data.get('portfolio', [])
-    if not portfolio: return {'error': 'Empty portfolio'}
+    try:
+        # Expected: { portfolio: [{isin: '...', weight: 20}, ...] }
+        data = request.data or {}
+        portfolio = data.get('portfolio', [])
+        if not portfolio: 
+            print("⚠️ [getEfficientFrontier] Cartera vacía recibida.")
+            return {'error': 'Empty portfolio'}
 
-    assets_list = [item['isin'] for item in portfolio]
-    portfolio_weights = {item['isin']: (item.get('weight', 0) / 100.0) for item in portfolio}
-    
-    # 1. Generate Frontier & Portfolio Point
-    return generate_efficient_frontier(assets_list, db, portfolio_weights)
+        assets_list = [item['isin'] for item in portfolio]
+        portfolio_weights = {item['isin']: (float(item.get('weight', 0)) / 100.0) for item in portfolio}
+        
+        print(f"🚀 [getEfficientFrontier] Calculando para {len(assets_list)} activos: {assets_list}")
+        
+        # 1. Generate Frontier & Portfolio Point
+        result = generate_efficient_frontier(assets_list, db, portfolio_weights)
+        
+        if 'error' in result:
+            print(f"❌ [getEfficientFrontier] Error en lógica interna: {result['error']}")
+        
+        return result
+        
+    except Exception as e:
+        print(f"🔥 [getEfficientFrontier] Error crítico en endpoint: {e}")
+        import traceback
+        traceback.print_exc()
+        return {'status': 'error', 'error': str(e)}
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def getRiskRate(request: https_fn.CallableRequest):
-    from services.data import get_dynamic_risk_free_rate
+    from services.data_fetcher import DataFetcher
     db = firestore.client()
-    return {'rate': get_dynamic_risk_free_rate(db)}
+    fetcher = DataFetcher(db)
+    return {'rate': fetcher.get_dynamic_risk_free_rate()}
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540, cors=cors_config)
 def audit_database(request: https_fn.CallableRequest):
@@ -531,365 +548,7 @@ def migrate_historico_endpoint(request: https_fn.CallableRequest):
 
 
 # ==============================================================================
-# 5. GLOBAL MACRO INTELLIGENCE (FRED API)
+# 5. REMOVED
 # ==============================================================================
-
-FRED_MAPPING = {
-    "USA": { 
-        "GDP": "GDP", 
-        "CPI": "CPIAUCSL", 
-        "UNEMPLOYMENT": "UNRATE", 
-        "INTEREST_RATE": "FEDFUNDS",
-        "GDP_PER_CAPITA": "A939RX0Q048SBEA", 
-        "GDP_PPP": "PPPGDPUSA", 
-        "TRADE_BALANCE": "BOPGSTB", 
-        "GOVT_DEBT": "GFDEGDQ188S" 
-    },
-    "Euro Area": { 
-        "GDP": "CLVMEURSCAB1GQEA19", 
-        "CPI": "CP0000EZ19M086NEST", 
-        "UNEMPLOYMENT": "LRHUTTTTEZM156S", 
-        "INTEREST_RATE": "IRSTCI01EZM156N",
-        "GDP_PER_CAPITA": "CLVMEURSCAB1GQEA19", # Proxy or missing specific per capita in high freq
-        "GDP_PPP": "PPPGDPEUA", # World Bank Annual usually
-        "TRADE_BALANCE": "BOPGSTEZM", # Balance of payments
-        "GOVT_DEBT": "GFDGDPE19" # Debt to GDP
-    },
-    "China": { 
-        "GDP": "CHNGDPNQDSMEI", 
-        "CPI": "CHNCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LMUNRRTTCNM156S", 
-        "INTEREST_RATE": "INTDSRCNM193N",
-        "GDP_PER_CAPITA": "MKTGDPCNKA646NWDB", # World Bank Annual
-        "GDP_PPP": "PPPGDPCNA",
-        "TRADE_BALANCE": "XTEXVA01CNM667S", # Exports vs Imports check needed
-        "GOVT_DEBT": "GGXWDG_NGDP_CHN" # IMF data via FRED often available
-    },
-    "Germany": { 
-        "GDP": "CLVMNACSCAB1GQDE", 
-        "CPI": "DEUCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTDEM156S", 
-        "INTEREST_RATE": "IRSTCI01DEM156N",
-        "GDP_PER_CAPITA": "DEUGDPPCAP",
-        "GDP_PPP": "PPPGDPDEA",
-        "TRADE_BALANCE": "BOPGSTDEM",
-        "GOVT_DEBT": "BPGDDT01DEA188N"
-    },
-    "Japan": { 
-        "GDP": "JPNRGDPEXP", 
-        "CPI": "JPNCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTJPM156S", 
-        "INTEREST_RATE": "IRSTCI01JPM156N",
-        "GDP_PER_CAPITA": "JPNGDPPCAP",
-        "GDP_PPP": "PPPGDPJPA",
-        "TRADE_BALANCE": "BOPGSTJPM",
-        "GOVT_DEBT": "GGXWDG_NGDP_JPN"
-    },
-    "UK": { 
-        "GDP": "UKNGDP", 
-        "CPI": "GBRCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTGBM156S", 
-        "INTEREST_RATE": "IRSTCI01GBM156N",
-        "GDP_PER_CAPITA": "UKGDPPCAP",
-        "GDP_PPP": "PPPGDPGBA",
-        "TRADE_BALANCE": "BOPGSTGBM",
-        "GOVT_DEBT": "BPGDDT01GBA188N"
-    },
-    "France": { 
-        "GDP": "CLVMNACSCAB1GQFR", 
-        "CPI": "FRACPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTFRM156S", 
-        "INTEREST_RATE": "IRSTCI01FRM156N",
-        "GDP_PER_CAPITA": "FRAGDPPCAP",
-        "GDP_PPP": "PPPGDPFRA",
-        "TRADE_BALANCE": "BOPGSTFRM",
-        "GOVT_DEBT": "BPGDDT01FRA188N"
-    },
-    "Italy": { 
-        "GDP": "CLVMNACSCAB1GQIT", 
-        "CPI": "ITACPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTITM156S", 
-        "INTEREST_RATE": "IRSTCI01ITM156N",
-        "GDP_PER_CAPITA": "ITAGDPPCAP",
-        "GDP_PPP": "PPPGDPITA",
-        "TRADE_BALANCE": "BOPGSTITM",
-        "GOVT_DEBT": "BPGDDT01ITA188N"
-    },
-    "Spain": { 
-        "GDP": "CLVMNACSCAB1GQES", 
-        "CPI": "ESPCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTESM156S", 
-        "INTEREST_RATE": "IRSTCI01ESM156N",
-        "GDP_PER_CAPITA": "ESPGDPPCAP",
-        "GDP_PPP": "PPPGDPESA",
-        "TRADE_BALANCE": "BOPGSTESM",
-        "GOVT_DEBT": "BPGDDT01ESA188N"
-    },
-    "Brazil": { 
-        "GDP": "BRAGDPNQDSMEI", 
-        "CPI": "BRACPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTBRA156S", 
-        "INTEREST_RATE": "INTDSRBRM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDBRA", # World Bank
-        "GDP_PPP": "PPPGDPBRA",
-        "TRADE_BALANCE": "BOPGSTBRM",
-        "GOVT_DEBT": "GGXWDG_NGDP_BRA"
-    },
-    "India": { 
-        "GDP": "INDGDPNQDSMEI", 
-        "CPI": "INDCPIALLMINMEI", 
-        "UNEMPLOYMENT": "SLUEM1524ZSIND", 
-        "INTEREST_RATE": "INTDSRINM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDIND", 
-        "GDP_PPP": "PPPGDPINA",
-        "TRADE_BALANCE": "BOPGSTINM", # Check availability
-        "GOVT_DEBT": "GGXWDG_NGDP_IND"
-    },
-    "Canada": { 
-        "GDP": "CANGDPNQDSMEI", 
-        "CPI": "CANCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTCAM156S", 
-        "INTEREST_RATE": "IRSTCI01CAM156N",
-        "GDP_PER_CAPITA": "CANSGDPPCAP",
-        "GDP_PPP": "PPPGDPCAA",
-        "TRADE_BALANCE": "BOPGSTCAM",
-        "GOVT_DEBT": "GGXWDG_NGDP_CAN"
-    },
-    "South Korea": { 
-        "GDP": "KORGDPNQDSMEI", 
-        "CPI": "KORCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTKRM156S", 
-        "INTEREST_RATE": "INTDSRKRM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDKOR",
-        "GDP_PPP": "PPPGDPKRA",
-        "TRADE_BALANCE": "BOPGSTKRM",
-        "GOVT_DEBT": "GGXWDG_NGDP_KOR"
-    },
-    "Australia": { 
-        "GDP": "AUSGDPNQDSMEI", 
-        "CPI": "AUSCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTAUM156S", 
-        "INTEREST_RATE": "IRSTCI01AUM156N",
-        "GDP_PER_CAPITA": "AUSGDPPCAP",
-        "GDP_PPP": "PPPGDPAUA",
-        "TRADE_BALANCE": "BOPGSTAUM",
-        "GOVT_DEBT": "GGXWDG_NGDP_AUS"
-    },
-    "Mexico": { 
-        "GDP": "MEXGDPNQDSMEI", 
-        "CPI": "MEXCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTMXM156S", 
-        "INTEREST_RATE": "INTDSRMXM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDMEX",
-        "GDP_PPP": "PPPGDPMXA",
-        "TRADE_BALANCE": "BOPGSTMXM",
-        "GOVT_DEBT": "GGXWDG_NGDP_MEX"
-    },
-    "Indonesia": { 
-        "GDP": "IDNGDPNQDSMEI", 
-        "CPI": "IDNCPIALLMINMEI", 
-        "UNEMPLOYMENT": "SLUEM1524ZSIDN", 
-        "INTEREST_RATE": "INTDSRIDM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDIDN",
-        "GDP_PPP": "PPPGDPIDA",
-        "TRADE_BALANCE": "BOPGSTIDM",
-        "GOVT_DEBT": "GGXWDG_NGDP_IDN"
-    },
-    "Turkey": { 
-        "GDP": "TURGDPNQDSMEI", 
-        "CPI": "TURCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTTUM156S", 
-        "INTEREST_RATE": "INTDSRTUM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDTUR",
-        "GDP_PPP": "PPPGDPTUA",
-        "TRADE_BALANCE": "BOPGSTTUM",
-        "GOVT_DEBT": "GGXWDG_NGDP_TUR"
-    },
-    "Saudi Arabia": { 
-        "GDP": "SAUGDPNQDSMEI", 
-        "CPI": "SAUCPIALLMINMEI", 
-        "UNEMPLOYMENT": "SLUEM1524ZSSAU", 
-        "INTEREST_RATE": "INTDSRSAM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDSAU",
-        "GDP_PPP": "PPPGDPSAA",
-        "TRADE_BALANCE": "BOPGSTSAM",
-        "GOVT_DEBT": "GGXWDG_NGDP_SAU"
-    },
-    "South Africa": { 
-        "GDP": "ZAFGDPNQDSMEI", 
-        "CPI": "ZAFCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTZAM156S", 
-        "INTEREST_RATE": "INTDSRZAM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDZAF",
-        "GDP_PPP": "PPPGDPZAA",
-        "TRADE_BALANCE": "BOPGSTZAM",
-        "GOVT_DEBT": "GGXWDG_NGDP_ZAF"
-    },
-    "Russia": { 
-        "GDP": "RUSGDPNQDSMEI", 
-        "CPI": "RUSCPIALLMINMEI", 
-        "UNEMPLOYMENT": "LRHUTTTTRUM156S", 
-        "INTEREST_RATE": "INTDSRRUM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDRUS",
-        "GDP_PPP": "PPPGDPRUA",
-        "TRADE_BALANCE": "BOPGSTRUM",
-        "GOVT_DEBT": "GGXWDG_NGDP_RUS"
-    },
-    "Argentina": { 
-        "GDP": "ARGGDPNQDSMEI", 
-        "CPI": "ARGCPIALLMINMEI", 
-        "UNEMPLOYMENT": "SLUEM1524ZSARG", 
-        "INTEREST_RATE": "INTDSRARM193N",
-        "GDP_PER_CAPITA": "NYGDPPCAPKDARG",
-        "GDP_PPP": "PPPGDPARA",
-        "TRADE_BALANCE": "BOPGSTARM",
-        "GOVT_DEBT": "GGXWDG_NGDP_ARG"
-    }
-}
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
-def fetch_macro_data(request: https_fn.CallableRequest):
-    """
-    Obtiene datos macroeconómicos de FRED para países e indicadores seleccionados.
-    Incluye caché en Firestore por 24h.
-    """
-    # 1. SETUP & IMPORTS SEGURIZADOS
-    try:
-        from fredapi import Fred
-        import pandas as pd
-        from datetime import datetime
-        
-        # 'firestore' se importa a nivel global en este archivo (from firebase_admin import firestore)
-        # Inicializamos el cliente.
-        db = firestore.client()
-    except ImportError as e:
-        return {"error": f"Import Error (Missing Library): {str(e)}"}
-    except Exception as e:
-        return {"error": f"Initialization Error: {str(e)}"}
-
-    # 2. LÓGICA PRINCIPAL
-    try:
-        # Intento de obtener API Key de diversas fuentes de entorno
-        api_key = os.environ.get('FRED_API_KEY') or os.environ.get('fred.key')
-        
-        # DEBUG: Imprimir claves de entorno disponibles
-        # print(f"DEBUG keys: {[k for k in os.environ.keys() if 'KEY' in k or 'fred' in k.lower()]}")
-
-        if not api_key:
-             return {"error": "FRED API Key not configured in environment (checked FRED_API_KEY and fred.key)"}
-
-        fred = Fred(api_key=api_key)
-        
-        # Obtener datos del request
-        req_data = request.data if request.data else {}
-        countries = req_data.get('countries', [])
-        indicators = req_data.get('indicators', [])
-        start_date_str = req_data.get('start_date') # YYYY-MM-DD
-        
-        results = {
-            "chart_series": {},
-            "table_data": []
-        }
-        
-        now = datetime.now()
-        
-        # Lógica de fecha de inicio
-        if start_date_str:
-            try:
-                datetime.strptime(start_date_str, '%Y-%m-%d')
-                observation_start = start_date_str
-            except:
-                observation_start = f"{now.year - 10}-01-01"
-        else:
-            observation_start = f"{now.year - 10}-01-01"
-        
-        for country in countries:
-            if country not in FRED_MAPPING:
-                continue
-                
-            country_table_row = {"country": country}
-            
-            for indicator in indicators:
-                if indicator not in FRED_MAPPING[country]:
-                    continue
-                
-                series_id = FRED_MAPPING[country][indicator]
-                cache_key = f"{country}_{indicator}".replace(" ", "_").upper()
-                
-                # 1. Verificar Caché en Firestore
-                data_series = None
-                try:
-                    cache_ref = db.collection('macro_cache').document(cache_key)
-                    cache_doc = cache_ref.get()
-                    if cache_doc and cache_doc.exists:
-                        cache_data = cache_doc.to_dict()
-                        last_updated = cache_data.get('last_updated')
-                        # Validar caducidad (24h)
-                        if last_updated:
-                            # Asegurar que es datatime
-                            try:
-                                ts = last_updated.timestamp()
-                                now_ts = now.timestamp()
-                                if (now_ts - ts) < 86400:
-                                    data_series = pd.Series(cache_data['data'], index=pd.to_datetime(cache_data['index']))
-                            except:
-                                pass # Error timestamp, se descarga de nuevo
-                except Exception as e:
-                    print(f"Firestore Cache Error (Ignored): {e}")
-                    # Continuamos sin caché
-
-                # 2. Si no hay caché o es viejo, descargar de FRED
-                if data_series is None:
-                    try:
-                        print(f"Fetching from FRED: {series_id}")
-                        data_series = fred.get_series(series_id, observation_start=observation_start)
-                        # Guardar en caché (Async best effort, no await en python sync)
-                        try:
-                            cache_ref.set({
-                                'data': data_series.tolist(),
-                                'index': [i.strftime('%Y-%m-%d') for i in data_series.index],
-                                'last_updated': firestore.SERVER_TIMESTAMP
-                            })
-                        except:
-                            pass
-                    except Exception as e:
-                        print(f"❌ Error descargando FRED {series_id}: {e}")
-                        # Intentar seguir con otros
-                        continue
-
-                # 3. Procesamiento
-                if data_series is not None and not data_series.empty:
-                    # Chart
-                    results["chart_series"][f"{country} - {indicator}"] = [
-                        {"x": d.strftime('%Y-%m-%d'), "y": round(float(v), 2)} 
-                        for d, v in data_series.items() if pd.notna(v)
-                    ]
-                    
-                    # Table
-                    try:
-                        resampled = data_series.resample('YE').last()
-                    except:
-                        try:
-                            resampled = data_series.resample('A').last()
-                        except:
-                            resampled = pd.Series()
-
-                    for date_idx, val in resampled.items():
-                        year_val = date_idx.year
-                        val_num = round(float(val), 2) if pd.notna(val) else None
-                        
-                        if 2021 <= year_val < now.year:
-                            country_table_row[f"{indicator}_{year_val}"] = val_num
-                        elif year_val == now.year:
-                            country_table_row[f"{indicator}_YTD"] = val_num
-
-            results["table_data"].append(country_table_row)
-
-        return results
-        
-    except Exception as e:
-        import traceback
-        # Retornamos el error como JSON 200 para verlo en el frontend en lugar de un 500 opaco
-        return {"error": f"Unhandled Runtime Error: {str(e)}"}
 
 

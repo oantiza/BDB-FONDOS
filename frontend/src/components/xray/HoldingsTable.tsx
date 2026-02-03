@@ -45,7 +45,7 @@ export default function HoldingsTable({ portfolio, totalCapital, getVolatilitySa
                                         </div>
                                     </td>
                                     <td className="align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums py-3">
-                                        {(fund.weight || 0).toFixed(2)}%
+                                        {Number(fund.weight || 0).toFixed(2)}%
                                     </td>
                                     <td className="align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums py-3">
                                         {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}

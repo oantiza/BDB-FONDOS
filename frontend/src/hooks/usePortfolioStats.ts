@@ -209,8 +209,14 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
     }, [portfolio]);
 
+    // 5. REGION ALLOCATION (from backend metrics)
+    const regionAllocation = useMemo(() => {
+        return metrics?.regionAllocation || [];
+    }, [metrics]);
+
     return {
         categoryAllocation,
+        regionAllocation,
         sortedHoldings,
         styleStats,
         globalAllocation

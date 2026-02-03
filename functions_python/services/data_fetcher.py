@@ -14,11 +14,10 @@ class DataFetcher:
     def __init__(self, db_client):
         self.db = db_client
 
-    def get_price_data(self, assets_list: list, resample_freq='W-FRI', strict=True):
+    def get_price_data(self, assets_list: list, resample_freq='D', strict=True):
         """
         Fetches price history for assets.
-        Applies Strict Resampling (e.g., Weekly Friday) to alignment.
-        :param strict: If True, drops rows with any NaN (Intersection). If False, keeps all (Outer).
+        Standardizes to Daily Frequency ('D') and aligns to Business Day Calendar ('B').
         """
         price_data = {}
         missing_assets = []
@@ -35,8 +34,6 @@ class DataFetcher:
         if missing_assets:
             print(f"📥 [DataFetcher] Batch reading {len(missing_assets)} assets...")
             refs = [self.db.collection('historico_vl_v2').document(isin) for isin in missing_assets]
-            
-            # Generator to List
             docs = self.db.get_all(refs)
             
             for doc in docs:
@@ -49,40 +46,42 @@ class DataFetcher:
                     data = doc.to_dict()
                     series_clean = self._parse_doc_history(data)
                     
+                    print(f"📡 [DataFetcher] {isin} retrieved. Points: {len(series_clean)}")
+                    
                     if len(series_clean) > 20:
                         price_data[isin] = series_clean
-                        PRICE_CACHE[isin] = series_clean # Update Cache
+                        PRICE_CACHE[isin] = series_clean
                     else:
                         print(f"⚠️ {isin}: Insufficient history ({len(series_clean)})")
                         
                 except Exception as e:
                     print(f"⚠️ Error parsing {isin}: {e}")
 
-        # 3. Pandas Alignment & Resampling
         if not price_data:
             return pd.DataFrame(), []
 
+        # 3. Pandas Alignment & Professional Cleaning
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
+        df = df.sort_index()
+
+        # Step A: Resample to Daily to fill any missing calendar days
+        df = df.resample('D').last()
+
+        # Step B: Reindex to Business Day calendar ('B') to normalize series intersection
+        if not df.empty:
+            b_range = pd.date_range(start=df.index[0], end=df.index[-1], freq='B')
+            df = df.reindex(b_range)
+
+        # Step C: Fill Gaps (Professional ffill/bfill sequence)
+        # We allow broad ffill to avoid zero drops in portfolio charts
+        df = df.ffill().bfill()
         
-        # Strict Resampling: Downsample to Weekly (Friday)
-        # This eliminates the "mixed frequency" bias.
-        if resample_freq:
-            df_aligned = df.resample(resample_freq).last()
-        else:
-            df_aligned = df # Keep original frequency (Daily)
-        
-        # Forward fill allowed strictly for small gaps (holidays), NOT lengthy missing data
-        df_weekly = df_aligned.ffill(limit=2) 
-        
-        # Condition: Strict vs Loose
+        # Step D: Strict vs Loose
         if strict:
-            # Drop rows where any asset is still NaN (Common History only)
-            # This prevents "Ghost Correlation"
-            df_final = df_weekly.dropna()
+            df_final = df.dropna()
         else:
-            # Keep all data (Charts need this)
-            df_final = df_weekly
+            df_final = df
         
         return df_final, synthetic_used
 

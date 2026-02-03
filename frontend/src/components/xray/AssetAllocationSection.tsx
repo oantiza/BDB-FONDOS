@@ -10,10 +10,10 @@ interface AssetAllocationSectionProps {
         other: number;
         coverage: number;
     };
-    categoryAllocation: { name: string; value: number; color?: string }[];
+    regionAllocation: { name: string; value: number }[];
 }
 
-export default function AssetAllocationSection({ globalAllocation, categoryAllocation }: AssetAllocationSectionProps) {
+export default function AssetAllocationSection({ globalAllocation, regionAllocation }: AssetAllocationSectionProps) {
     return (
         <div className="pt-20 border-t border-[#eeeeee] flex items-start justify-between">
             {/* LEFT: Global Composition */}
@@ -51,11 +51,11 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
             <div className="w-[50%] flex flex-col items-center justify-start">
                 <div className="flex items-center gap-4 mb-4 justify-center shrink-0">
                     <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación</h3>
-                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Categoría / Tipo</span>
+                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Geografía (RV)</span>
                 </div>
                 <div className="hidden"></div>
                 <div className="mt-8 w-full max-w-[550px]">
-                    <DiversificationBars assets={categoryAllocation} />
+                    <DiversificationBars assets={regionAllocation} />
                 </div>
             </div>
         </div>

@@ -12,6 +12,7 @@ import XRayAnalyticsPage from './XRayAnalyticsPage';
 
 import SimpleStyleBox from '../components/charts/SimpleStyleBox';
 import ComparativeFundHistoryChart from '../components/charts/ComparativeFundHistoryChart';
+import EfficientFrontierChart from '../components/charts/EfficientFrontierChart';
 
 
 interface XRayPageProps {
@@ -28,6 +29,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
         loading,
         errorMsg,
         categoryAllocation,
+        regionAllocation,
         styleStats,
         globalAllocation,
         strategyReport,
@@ -155,7 +157,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
                         <AssetAllocationSection
                             globalAllocation={globalAllocation}
-                            categoryAllocation={categoryAllocation}
+                            regionAllocation={regionAllocation}
                         />
 
                         <div className="mt-20 flex justify-center items-center border-t border-[#eeeeee] pt-20">
@@ -176,6 +178,26 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                         />
                     </div>
 
+                    {/* SECTION 4: EFFICIENT FRONTIER (New Screen Visualization) */}
+                    <div className="border-t border-[#eeeeee] pt-20 mt-20 mb-20 pb-20">
+                        <div className="flex justify-between items-center mb-10">
+                            <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Frontera Eficiente</h3>
+                            <div className="text-xs font-bold text-[#A07147] uppercase tracking-[0.2em] bg-slate-50 px-3 py-1 rounded">Optimización Markowitz</div>
+                        </div>
+                        <div className="h-[450px] w-full bg-[#fcfcfc] border border-[#f0f0f0] p-6 relative">
+                            <EfficientFrontierChart
+                                frontierPoints={frontierData}
+                                assetPoints={assetPoints}
+                                portfolioPoint={portfolioPoint}
+                                isLoading={loading}
+                                animate={true}
+                            />
+                            <div className="mt-6 text-sm text-slate-400 italic font-light">
+                                * Puntos calculados en base a la covarianza histórica de los últimos 3 años. El punto <span className="text-[#D4AF37] font-bold">Dorado</span> representa su selección actual.
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -185,7 +207,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                 totalCapital={totalCapital}
                 metrics={metrics}
                 globalAllocation={globalAllocation}
-                categoryAllocation={categoryAllocation}
+                regionAllocation={regionAllocation}
                 frontierData={frontierData}
                 assetPoints={assetPoints}
                 portfolioPoint={portfolioPoint}

@@ -17,7 +17,7 @@ interface XRayPdfSectionsProps {
         other: number;
         coverage: number;
     };
-    categoryAllocation: { name: string; value: number; color?: string }[];
+    regionAllocation: { name: string; value: number; color?: string }[];
     frontierData: { x: number; y: number }[];
     assetPoints: { x: number; y: number; label: string }[];
     portfolioPoint: { x: number; y: number } | null;
@@ -33,7 +33,7 @@ export default function XRayPdfSections({
     totalCapital,
     metrics,
     globalAllocation,
-    categoryAllocation,
+    regionAllocation,
     frontierData,
     assetPoints,
     portfolioPoint,
@@ -83,7 +83,7 @@ export default function XRayPdfSections({
                                                 </div>
                                             </td>
                                             <td className="align-top text-right text-[#2C3E50] font-[450] text-base tabular-nums py-3">
-                                                {(fund.weight || 0).toFixed(2)}%
+                                                {Number(fund.weight || 0).toFixed(2)}%
                                             </td>
                                             <td className="align-top text-right pr-4 text-[#2C3E50] font-[450] text-base tabular-nums py-3">
                                                 {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
@@ -137,7 +137,7 @@ export default function XRayPdfSections({
                                         </div>
                                     </td>
                                     <td className="align-top text-right text-black font-[450] text-xl tabular-nums py-3">
-                                        {(fund.weight || 0).toFixed(2)}%
+                                        {Number(fund.weight || 0).toFixed(2)}%
                                     </td>
                                     <td className="align-top text-right pr-4 text-black font-[450] text-xl tabular-nums py-3">
                                         {((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}
@@ -199,10 +199,10 @@ export default function XRayPdfSections({
                         </div>
                         <div className="w-[50%] flex flex-col items-center">
                             <h3 className="text-black text-4xl font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
-                                Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Categoría / Tipo</span>
+                                Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4">
-                                <DiversificationBars assets={categoryAllocation} animate={false} />
+                                <DiversificationBars assets={regionAllocation} animate={false} />
                             </div>
                         </div>
                     </div>
@@ -266,10 +266,10 @@ export default function XRayPdfSections({
                         </div>
                         <div className="w-[50%] flex flex-col items-center">
                             <h3 className="text-black text-4xl font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
-                                Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Categoría / Tipo</span>
+                                Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4">
-                                <DiversificationBars assets={categoryAllocation} animate={false} />
+                                <DiversificationBars assets={regionAllocation} animate={false} />
                             </div>
                         </div>
                     </div>

@@ -67,7 +67,10 @@ export default function PortfolioTable({
                                             value={Math.round(asset.weight * 100) / 100}
                                             step="0.01"
                                             onClick={(e) => e.stopPropagation()}
-                                            onChange={(e) => onUpdateWeight && onUpdateWeight(asset.isin, e.target.value)}
+                                            onChange={(e) => {
+                                                const val = parseFloat(e.target.value) || 0;
+                                                onUpdateWeight && onUpdateWeight(asset.isin, val);
+                                            }}
                                         />
                                         <span className="text-[#A07147] font-[450] text-sm">%</span>
                                     </div>

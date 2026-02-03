@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getFunctions } from "firebase/functions";
-import { getAuth } from "firebase/auth";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { connectFunctionsEmulator, getFunctions } from "firebase/functions";
+import { connectAuthEmulator, getAuth } from "firebase/auth";
 
 const firebaseConfig = {
     apiKey: "AIzaSyBvT1dl1cqFQLAAqLfuumKIVzL078LQwmw",
@@ -17,3 +17,9 @@ const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 export const functions = getFunctions(app, "europe-west1");
 export const auth = getAuth(app);
+
+// Enable emulators in local dev
+if (window.location.hostname === "localhost") {
+    connectFunctionsEmulator(functions, "localhost", 5001);
+    console.log("🔌 Connected to Local Firebase Functions Emulator");
+}

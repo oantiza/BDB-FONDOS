@@ -121,13 +121,18 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         auto_complete_source = None
         rejected_candidates = []
         
-        # 1) Cargar datos (Using New DataFetcher)
+        # 1) Cargar datos (Daily frequency + Loose intersection for robustness)
         fetcher = DataFetcher(db)
-        # Note: resample_freq='W-FRI' aligns data to Fridays, improving correlation quality
-        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='W-FRI', strict=True)
+        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False)
         
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
+        
+        # Enforce 3-Year Window (Standard for asset management)
+        if not df.empty:
+            start_date = df.index[-1] - pd.Timedelta(days=1095)
+            df = df[df.index >= start_date]
+            
         df = df.sort_index().ffill().bfill()
 
         if df.empty or len(df) < 50:
@@ -143,7 +148,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     if cfg.exists: candidates_list = cfg.to_dict().get('equity90_isins', FALLBACK_CANDIDATES_DEFAULT)
                 except: pass
                 
-                prices_check, _ = fetcher.get_price_data(candidates_list, resample_freq='W-FRI', strict=True)
+                prices_check, _ = fetcher.get_price_data(candidates_list, resample_freq='D', strict=True)
                 valid_candidates = [k for k, v in prices_check.items() if len(v) >= 50]
                 
                 if not valid_candidates:
@@ -181,12 +186,17 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         universe = list(df.columns)
         missing_assets = [a for a in assets_list if a not in universe]
 
-        # 2) Modelo de retornos/riesgo
-        mu = expected_returns.ema_historical_return(df, span=252)
+        # 2) Modelo de retornos/riesgo (frequency=252 for Daily data)
+        if df.empty or len(df) < 5:
+            # Fallback if no data survived slicing
+            return {'error': 'Insuficiente histórico en la ventana de 3 años.'}
+
+        mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
         try:
-            S = risk_models.CovarianceShrinkage(df).ledoit_wolf()
+            S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
         except Exception:
-            S = risk_models.sample_cov(df)
+            # Manually annualize sample cov if ledoit_wolf fails
+            S = risk_models.sample_cov(df) * 252
             S = risk_models.fix_nonpositive_semidefinite(S)
 
         rf_rate = float(fetcher.get_dynamic_risk_free_rate())
@@ -461,11 +471,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     df = df.sort_index().ffill().bfill()
                     
                     universe = list(df.columns)
-                    mu = expected_returns.ema_historical_return(df, span=252)
+                    mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
                     try:
-                        S = risk_models.CovarianceShrinkage(df).ledoit_wolf()
+                        S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
                     except:
-                        S = risk_models.sample_cov(df)
+                        S = risk_models.sample_cov(df) * 252
                         S = risk_models.fix_nonpositive_semidefinite(S)
                     
                     # Re-calc allocated vectors for constraints
@@ -686,11 +696,10 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
     try:
         print(f"🚀 [DEBUG] Starting generate_efficient_frontier for {len(assets_list)} assets.")
         
-        # 1. Get Data
-        # 1. Get Data
+        # 1. Get Data (Professional Daily Alignment)
         fetcher = DataFetcher(db)
         # RELAXED: strict=False allows union of data (filled later)
-        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='W-FRI', strict=False)
+        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False)
         
         # FIX: Handle DataFrame boolean ambiguity
         is_empty = price_data.empty if hasattr(price_data, 'empty') else not price_data
@@ -701,6 +710,12 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
         
         df = pd.DataFrame(price_data) # Copy/Ensure DF
         df.index = pd.to_datetime(df.index)
+        
+        # Enforce 3-Year Window
+        if not df.empty:
+            start_date = df.index[-1] - pd.Timedelta(days=1095)
+            df = df[df.index >= start_date]
+            
         df = df.sort_index().ffill().bfill()
         print(f"✅ [DEBUG] Data loaded. Shape: {df.shape}")
         
@@ -708,10 +723,10 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
             print("❌ [DEBUG] Insufficient history (<10).")
             return {'error': 'Insufficient history'}
 
-        # 2. Risk Model
+        # 2. Risk Model (frequency=252 for Daily data)
         print("🔄 [DEBUG] Calculating Risk Model (Mu/Cov)...")
-        mu = expected_returns.ema_historical_return(df, span=252)
-        S = risk_models.CovarianceShrinkage(df).ledoit_wolf()
+        mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
+        S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
         print("✅ [DEBUG] Risk Model calculated.")
 
         # 3. CLA (Critical Line Algorithm) for Frontier
@@ -739,10 +754,11 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
             # Fallback if CLA fails
             frontier_ret, frontier_vol = [], []
 
-        # 4. Individual Asset Points (Scatter)
+        # 4. Individual Asset Points (Scatter) - Professional Log-ret metrics
         asset_points = []
         try:
-            vol_series = df.pct_change().std() * np.sqrt(252)
+            log_returns = np.log(df / df.shift(1)).dropna()
+            vol_series = log_returns.std() * np.sqrt(252)
             ret_series = (df.iloc[-1] / df.iloc[0]) ** (252 / len(df)) - 1
             
             for ticker in df.columns:
