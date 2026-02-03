@@ -20,6 +20,7 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
     const [searchTerm, setSearchTerm] = useState('');
     const [filterStatus, setFilterStatus] = useState<'all' | 'found' | 'missing'>('all');
     const [sortConfig, setSortConfig] = useState<{ key: keyof PositionData; direction: 'asc' | 'desc' }>({ key: 'total', direction: 'desc' });
+    const [coefficient, setCoefficient] = useState<number>(1.0);
 
     const formatCurrency = (amount: number) => {
         return new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR' }).format(amount);
@@ -70,21 +71,38 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
         return filteredData.reduce((acc, curr) => acc + curr.total, 0);
     }, [filteredData]);
 
+    const totalIngresoEstimado = useMemo(() => {
+        return filteredData.reduce((acc, curr) => {
+            const retro = curr.retrocession || 0;
+            const cesion = retro * coefficient;
+            const ingreso = curr.total * (cesion / 100);
+            return acc + ingreso;
+        }, 0);
+    }, [filteredData, coefficient]);
+
     const exportToCSV = () => {
         let csvContent = "data:text/csv;charset=utf-8,\uFEFF";
-        csvContent += "ISIN;NOMBRE DEL FONDO;RETROCESION;CANTIDAD TOTAL\n";
+        csvContent += `ISIN;NOMBRE DEL FONDO;RETROCESION;COEFICIENTE;CESION;CANTIDAD TOTAL;INGRESO ESTIMADO\n`;
 
         sortedData.forEach(function (row) {
             let totalStr = row.total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            let retroStr = row.retrocession !== undefined ? `${(row.retrocession * 100).toFixed(2)}%` : 'N/A';
-            let rowStr = `${row.isin};"${row.nombre}";"${retroStr}";"${totalStr}"`;
+            let retroStr = row.retrocession !== undefined ? `${Number(row.retrocession).toFixed(2)}%` : 'N/A';
+
+            const retroVal = row.retrocession || 0;
+            const cesionVal = retroVal * coefficient;
+            const ingresoVal = row.total * (cesionVal / 100);
+
+            const cesionStr = `${cesionVal.toFixed(2)}%`;
+            const ingresoStr = ingresoVal.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+            let rowStr = `${row.isin};"${row.nombre}";"${retroStr}";"${coefficient}";"${cesionStr}";"${totalStr}";"${ingresoStr}"`;
             csvContent += rowStr + "\n";
         });
 
         const encodedUri = encodeURI(csvContent);
         const link = document.createElement("a");
         link.setAttribute("href", encodedUri);
-        link.setAttribute("download", "resumen_fondos_retrocesion.csv");
+        link.setAttribute("download", "resumen_fondos_cesion.csv");
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -93,14 +111,29 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
     return (
         <div className="space-y-6 animate-in fade-in duration-500">
             {/* Summary Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <div className="bg-white p-6 rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 ring-1 ring-slate-900/5">
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Coeficiente Cesión</p>
+                    <div className="flex items-center gap-2">
+                        <input
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            value={coefficient}
+                            onChange={(e) => setCoefficient(parseFloat(e.target.value) || 0)}
+                            className="text-2xl font-bold text-slate-900 w-full outline-none border-b border-slate-200 focus:border-blue-500 transition-colors py-1"
+                        />
+                        <span className="text-slate-400 font-bold text-lg">x</span>
+                    </div>
+                </div>
+
                 <div className="bg-white p-6 rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 ring-1 ring-slate-900/5">
                     <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Total Patrimonio</p>
                     <h3 className="text-2xl font-bold text-slate-900">{formatCurrency(totalGeneral)}</h3>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 ring-1 ring-slate-900/5">
-                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Fondos Distintos</p>
-                    <h3 className="text-2xl font-bold text-slate-900">{data.length}</h3>
+                    <p className="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Ingreso Estimado Total</p>
+                    <h3 className="text-2xl font-bold text-emerald-600">{formatCurrency(totalIngresoEstimado)}</h3>
                 </div>
                 <div className="bg-white p-6 rounded-xl shadow-[0_2px_8px_-2px_rgba(0,0,0,0.05)] border border-slate-100 ring-1 ring-slate-900/5 flex items-center justify-between">
                     <div>
@@ -186,6 +219,12 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
                                 </th>
                                 <th
                                     scope="col"
+                                    className="px-6 py-3 text-right text-xs font-semibold text-blue-600 uppercase tracking-wider"
+                                >
+                                    Cesión Total
+                                </th>
+                                <th
+                                    scope="col"
                                     className="px-6 py-3 text-right text-xs font-semibold text-slate-500 uppercase tracking-wider cursor-pointer hover:bg-slate-100/50 transition-colors"
                                     onClick={() => handleSort('total')}
                                 >
@@ -193,47 +232,67 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
                                         Valor <ArrowUpDown className="w-3 h-3 text-slate-400" />
                                     </div>
                                 </th>
+                                <th
+                                    scope="col"
+                                    className="px-6 py-3 text-right text-xs font-semibold text-emerald-600 uppercase tracking-wider"
+                                >
+                                    Ingreso Est.
+                                </th>
                                 <th scope="col" className="px-6 py-3 relative">
                                     <span className="sr-only">Analizar</span>
                                 </th>
                             </tr>
                         </thead>
                         <tbody className="bg-white divide-y divide-slate-50 text-sm">
-                            {sortedData.map((fund, idx) => (
-                                <tr key={fund.isin} className={`hover:bg-slate-50/80 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}>
-                                    <td className="px-6 py-3.5 whitespace-nowrap text-xs font-medium text-slate-500 font-mono">{fund.isin}</td>
-                                    <td className="px-6 py-3.5 whitespace-nowrap text-sm text-slate-900 font-medium">{fund.nombre}</td>
-                                    <td className="px-6 py-3.5 whitespace-nowrap text-right">
-                                        {fund.fundFound ? (
-                                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800 border border-emerald-200 shadow-sm">
-                                                {fund.retrocession !== undefined ? `${(fund.retrocession * 100).toFixed(2)}%` : '0.00%'}
-                                            </span>
-                                        ) : (
-                                            <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 uppercase tracking-wide border border-slate-200">
-                                                --
-                                            </span>
-                                        )}
-                                    </td>
-                                    <td className="px-6 py-3.5 whitespace-nowrap text-sm text-slate-900 text-right font-medium tracking-tight">
-                                        {formatCurrency(fund.total)}
-                                    </td>
-                                    <td className="px-6 py-3.5 whitespace-nowrap text-right text-sm font-medium">
-                                        {fund.fundFound && (
-                                            <button
-                                                onClick={() => onAnalyze(fund)}
-                                                className="text-blue-600 hover:text-blue-900 font-semibold text-xs uppercase tracking-wide hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors border border-transparent hover:border-blue-100"
-                                            >
-                                                Analizar
-                                            </button>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
+                            {sortedData.map((fund, idx) => {
+                                const retroVal = fund.retrocession || 0;
+                                const cesionTotal = retroVal * coefficient;
+                                const ingresoEst = fund.total * (cesionTotal / 100);
+
+                                return (
+                                    <tr key={fund.isin} className={`hover:bg-slate-50/80 transition-colors ${idx % 2 === 0 ? 'bg-white' : 'bg-slate-50/30'}`}>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-xs font-medium text-slate-500 font-mono">{fund.isin}</td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-sm text-slate-900 font-medium">{fund.nombre}</td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-right">
+                                            {fund.fundFound ? (
+                                                <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-slate-100 text-slate-600 border border-slate-200">
+                                                    {fund.retrocession !== undefined ? `${Number(fund.retrocession).toFixed(2)}%` : '0.00%'}
+                                                </span>
+                                            ) : (
+                                                <span className="inline-flex items-center px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-100 text-slate-500 uppercase tracking-wide border border-slate-200">
+                                                    --
+                                                </span>
+                                            )}
+                                        </td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-right text-sm font-bold text-blue-600">
+                                            {fund.fundFound ? `${cesionTotal.toFixed(2)}%` : '--'}
+                                        </td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-sm text-slate-900 text-right font-medium tracking-tight">
+                                            {formatCurrency(fund.total)}
+                                        </td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-right text-sm font-bold text-emerald-600">
+                                            {fund.fundFound ? formatCurrency(ingresoEst) : '--'}
+                                        </td>
+                                        <td className="px-6 py-3.5 whitespace-nowrap text-right text-sm font-medium">
+                                            {fund.fundFound && (
+                                                <button
+                                                    onClick={() => onAnalyze(fund)}
+                                                    className="text-blue-600 hover:text-blue-900 font-semibold text-xs uppercase tracking-wide hover:bg-blue-50 px-3 py-1.5 rounded-lg transition-colors border border-transparent hover:border-blue-100"
+                                                >
+                                                    Analizar
+                                                </button>
+                                            )}
+                                        </td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                         <tfoot className="bg-slate-50 font-bold text-slate-900 sticky bottom-0 z-10 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.05)] border-t border-slate-200">
                             <tr>
-                                <td colSpan={2} className="px-6 py-4 text-right text-xs uppercase tracking-wider text-slate-500">Total Cartera:</td>
-                                <td colSpan={2} className="px-6 py-4 text-right text-lg text-slate-800 font-bold tracking-tight">{formatCurrency(filteredTotal)}</td>
+                                <td colSpan={4} className="px-6 py-4 text-right text-xs uppercase tracking-wider text-slate-500">Total Cartera:</td>
+                                <td className="px-6 py-4 text-right text-lg text-slate-800 font-bold tracking-tight">{formatCurrency(filteredTotal)}</td>
+                                <td className="px-6 py-4 text-right text-lg text-emerald-600 font-bold tracking-tight">{formatCurrency(totalIngresoEstimado)}</td>
+                                <td></td>
                             </tr>
                         </tfoot>
                     </table>

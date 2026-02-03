@@ -24,7 +24,7 @@ const formatCurrency = (val: number) => new Intl.NumberFormat('es-ES', { style: 
 // Helper to format percentage correctly based on DB format (e.g. 0.75 -> 0.75%)
 const formatRetro = (val: number | undefined) => {
     if (val === undefined || val === null) return '--';
-    return `${(val * 100).toFixed(2)}%`;
+    return `${Number(val).toFixed(2)}%`;
 };
 
 // Helper for Star Rating
@@ -160,7 +160,7 @@ export const RetrocessionComparisonModal: React.FC<ComparisonModalProps> = ({ is
                                                         {diff > 0 && (
                                                             <div className="text-right">
                                                                 <p className="text-xs text-emerald-600 font-bold mb-1">
-                                                                    +{(diff * 100).toFixed(2)}%
+                                                                    +{(diff).toFixed(2)}%
                                                                 </p>
                                                             </div>
                                                         )}

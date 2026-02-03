@@ -120,11 +120,6 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                 value={originalFund.std_perf?.sharpe != null ? originalFund.std_perf.sharpe.toFixed(2) : '-'}
                             />
                             <StatRow
-                                label="Coste (TER)"
-                                value={originalFund.std_extra?.ter || '-'}
-                                isPercentage
-                            />
-                            <StatRow
                                 label="Retrocesión"
                                 value={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)
                                     ? normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)?.toFixed(2)
@@ -170,12 +165,6 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                                 ? (alt.fund.std_perf_norm?.sharpe || alt.fund.std_perf?.sharpe) - originalFund.std_perf.sharpe
                                                 : undefined
                                         }
-                                    />
-                                    <StatRow
-                                        label="Ahorro Coste"
-                                        value={alt.fund.std_extra?.ter || '-'}
-                                        delta={alt.deltaFee}
-                                        isPercentage
                                     />
                                     <StatRow
                                         label="Retrocesión"

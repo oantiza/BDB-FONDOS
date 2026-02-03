@@ -17,9 +17,8 @@ import { DataQualityBadge, gradePortfolioQuality } from '../components/dashboard
 
 
 
-// Dashboard Components
-import SmartDonut from '../components/dashboard/SmartDonut'
-import GeoDonut from '../components/dashboard/GeoDonut'
+import SmartBars from '../components/dashboard/SmartBars'
+import GeoBars from '../components/dashboard/GeoBars'
 
 // Utilities & Services
 
@@ -350,7 +349,7 @@ export default function DashboardPage({
                             <div className="flex flex-col h-full bg-white">
 
                                 {/* Row 1: Equity & Fixed Income Distribution (Floating with Separator) */}
-                                <div className="flex px-4 pt-4 border-b border-slate-50 flex-[1.5] min-h-0">
+                                <div className="flex px-4 pt-4 border-b border-slate-50 flex-[1.1] min-h-0">
                                     <div className="flex-1 h-full overflow-hidden pr-6 border-r border-slate-100">
                                         <EquityDistribution portfolio={portfolio} />
                                     </div>
@@ -363,11 +362,11 @@ export default function DashboardPage({
                                 {/* Row 2: Donuts (Floating) */}
                                 <div className="flex flex-col px-4 pb-6 min-h-0 flex-1">
                                     <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden pb-10">
-                                            <SmartDonut allocation={allocData} />
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                            <SmartBars allocation={allocData} />
                                         </div>
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden pb-10">
-                                            <GeoDonut allocation={geoData} />
+                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
+                                            <GeoBars allocation={geoData} />
                                         </div>
                                     </div>
                                 </div>
