@@ -70,6 +70,7 @@ export interface Fund {
         top_sector?: string;
         top_sector_weight?: number;
         confidence?: number;
+        equity_regions_total?: Record<string, number>;
     };
     ms?: {
         category_morningstar?: string;
@@ -140,6 +141,9 @@ export interface PortfolioItem extends Fund {
     score?: number;
     role?: string;
     manualSwap?: boolean;
+    // Fallback data for robust charts
+    regions?: Record<string, number>;
+    ms?: any;
 }
 
 export interface MarketIndexResponse {

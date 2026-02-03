@@ -1,6 +1,6 @@
 import React from 'react';
 import DiversificationDonut from '../charts/DiversificationDonut';
-import DiversificationBars from '../charts/DiversificationBars';
+import EquityRegionChart from '../charts/EquityRegionChart';
 
 interface AssetAllocationSectionProps {
     globalAllocation: {
@@ -10,10 +10,10 @@ interface AssetAllocationSectionProps {
         other: number;
         coverage: number;
     };
-    regionAllocation: { name: string; value: number }[];
+    equityRegionAllocation: { name: string; value: number; absoluteValue?: number }[];
 }
 
-export default function AssetAllocationSection({ globalAllocation, regionAllocation }: AssetAllocationSectionProps) {
+export default function AssetAllocationSection({ globalAllocation, equityRegionAllocation }: AssetAllocationSectionProps) {
     return (
         <div className="pt-20 border-t border-[#eeeeee] flex items-start justify-between">
             {/* LEFT: Global Composition */}
@@ -47,15 +47,15 @@ export default function AssetAllocationSection({ globalAllocation, regionAllocat
                 </div>
             </div>
 
-            {/* RIGHT: Diversification Bars */}
+            {/* RIGHT: Diversification Bars (Equity Regions) */}
             <div className="w-[50%] flex flex-col items-center justify-start">
                 <div className="flex items-center gap-4 mb-4 justify-center shrink-0">
-                    <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación</h3>
-                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Geografía (RV)</span>
+                    <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación (RV)</h3>
+                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Geografía</span>
                 </div>
                 <div className="hidden"></div>
                 <div className="mt-8 w-full max-w-[550px]">
-                    <DiversificationBars assets={regionAllocation} />
+                    <EquityRegionChart data={equityRegionAllocation} />
                 </div>
             </div>
         </div>

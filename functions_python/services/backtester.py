@@ -165,36 +165,43 @@ def run_backtest(portfolio, period, db):
             })
 
         days_count = len(cumulative)
+        # 3-Year Window Strategy (Strict 1095 days)
+        if days_count > 0:
+            start_date_bound = cumulative.index[-1] - pd.Timedelta(days=1095)
+            # Re-slice if needed to be absolutely sure we use 3Y
+            cumulative = cumulative[cumulative.index >= start_date_bound]
+            port_ret = port_ret[port_ret.index >= start_date_bound]
+            days_count = len(cumulative)
+
         if days_count > 1:
-            # Use real date difference for years to be frequency-agnostic
-            start_date = cumulative.index[0]
-            end_date = cumulative.index[-1]
-            years = max((end_date - start_date).days / 365.25, 1/252) # Safety floor
+            years = (cumulative.index[-1] - cumulative.index[0]).days / 365.25
         else:
             years = 0
         
-        total_ret = cumulative.iloc[-1] / 100 - 1 if days_count > 0 else 0
-        # Geometric Mean (CAGR)
-        cagr = (1 + total_ret) ** (1/years) - 1 if years > 0 else 0
+        # SENIOR MATH ENGINE ALIGNMENT: 
+        # For EF Coherence, we use Arithmetic Mean and Arithmetic Volatility
         
-        # Morningstar Methodology: Volatility (Log-returns)
-        log_returns = np.log(cumulative / cumulative.shift(1)).dropna()
-        vol = log_returns.std() * np.sqrt(252) if days_count > 1 else 0
-
-        # Morningstar Methodology: Sharpe (Excess Daily Return)
+        # 1. Arithmetic Annualized Return (Mean of Daily * 252)
+        # This matches weights.T @ mu
+        cagr = float(port_ret.mean() * 252) if days_count > 1 else 0
+        
+        # 2. Arithmetic Annualized Volatility (Std of Daily * sqrt(252))
+        # This matches sqrt(weights.T @ S @ weights)
+        vol = float(port_ret.std() * np.sqrt(252)) if days_count > 1 else 0
+        
+        # 3. Sharpe (Arithmetic Excess)
         rf_rate_annual = fetcher.get_dynamic_risk_free_rate()
         rf_daily = rf_rate_annual / 252
         
-        # Excess returns over Risk-Free (Daily)
-        if days_count > 1:
-            excess_ret = port_ret - rf_daily
-            if len(excess_ret) > 1 and excess_ret.std() > 0:
-                sharpe = (float(excess_ret.mean()) / float(excess_ret.std())) * np.sqrt(252)
-            else:
-                sharpe = 0
+        excess_ret = port_ret - rf_daily
+        if days_count > 1 and excess_ret.std() > 0:
+            sharpe = (float(excess_ret.mean()) / float(excess_ret.std())) * np.sqrt(252)
+        else:
+            sharpe = 0
+            
         max_dd = ((cumulative - cumulative.cummax()) / cumulative.cummax()).min() if days_count > 0 else 0
         
-        print(f"🔍 [DEBUG] Final Metrics - CAGR: {cagr:.4f}, Vol: {vol:.4f}, Sharpe: {sharpe:.4f}, MaxDD: {max_dd:.4f}")
+        print(f"🔍 [Senior Metrics] Ret: {cagr:.4f}, Vol: {vol:.4f}, Sharpe: {sharpe:.4f}, MaxDD: {max_dd:.4f}")
         
         def to_chart(ser): return [{'x': d.strftime('%Y-%m-%d'), 'y': round(v, 2)} for d, v in ser.items()]
 

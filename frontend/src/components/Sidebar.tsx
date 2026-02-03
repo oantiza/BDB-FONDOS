@@ -206,9 +206,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
           <div className="mt-2 text-[11px] text-slate-400">
             {checking ? (
               <>Comprobando histórico real… {progress.done}/{progress.total}</>
-            ) : (
-              <>Histórico real verificado (historico_vl_v2) — caché 7 días</>
-            )}
+            ) : null}
           </div>
         )}
       </div>

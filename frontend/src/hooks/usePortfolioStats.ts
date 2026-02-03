@@ -214,11 +214,102 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
         return metrics?.regionAllocation || [];
     }, [metrics]);
 
+    // 6. EQUITY REGION ALLOCATION (Front-end aggregation from derived data)
+    const equityRegionAllocation = useMemo(() => {
+        const rawMap: Record<string, number> = {};
+        let totalEquityVal = 0;
+
+        portfolio.forEach(fund => {
+            const w = fund.weight;
+            // Access derived data safely
+            // Access derived data safely with Fallbacks
+            // Priority: 1. Derived (Calculated) -> 2. Root Regions (Imported) -> 3. MS Regions (Raw)
+            // Priority: 1. Derived -> 2. Root Regions -> 3. MS Regions -> 4. Inference
+            let regions = fund.derived?.equity_regions_total;
+
+            if (!regions || Object.keys(regions).length === 0) {
+                // @ts-ignore
+                regions = fund.regions?.detail || fund.regions || {};
+            }
+
+            if (!regions || Object.keys(regions).length === 0) {
+                // @ts-ignore
+                regions = fund.ms?.regions?.detail || fund.ms?.regions || {};
+            }
+
+            // Inference
+            if (!regions || Object.keys(regions).length === 0) {
+                const text = (fund.name + ' ' + (fund.std_extra?.category || '')).toLowerCase();
+                if (text.includes('usa') || text.includes('us ') || text.includes('american')) regions = { 'united_states': 100 };
+                else if (text.includes('europe') || text.includes('euro')) regions = { 'europe': 100 };
+                else if (text.includes('asia') || text.includes('japan')) regions = { 'asia_emerging': 100 };
+                else if (text.includes('global') || text.includes('world')) regions = { 'united_states': 60, 'europe': 20, 'asia_emerging': 20 };
+            }
+
+
+            if (regions) {
+                Object.entries(regions).forEach(([region, val]) => {
+                    // Safe cast
+                    const v = Number(val);
+                    if (isNaN(v)) return;
+
+                    // Contribution to total portfolio
+                    const contribution = (v / 100) * w;
+
+                    // Normalize Key to Snake Case for Chart Compatibility
+                    // e.g. "United States" -> "united_states"
+                    const normalizedKey = region.trim().toLowerCase().replace(/\s+/g, '_');
+
+                    rawMap[normalizedKey] = (rawMap[normalizedKey] || 0) + contribution;
+                });
+            }
+        });
+
+        // Calculate Total RV (sum of all regions excluding 'other' to verify?)
+        // Let's filter 'other' if it's too big? 
+        // User said: "Ignora la clave other si su valor es igual a la suma total de equity".
+        // This likely implies checking PER FUND. 
+        // But let's look at the aggregated result.
+
+        // Remove 'other' if we have detailed regions? 
+        // Let's keep it simple: normalize what we have.
+
+        const finalMap: { name: string; value: number; absoluteValue?: number }[] = [];
+        let sumForNorm = 0;
+
+        Object.entries(rawMap).forEach(([region, val]) => {
+            if (region === 'other' || region === 'others') {
+                // Optional: specific logic?
+            }
+            if (val > 0.01) sumForNorm += val;
+        });
+
+        // Create list with Drill-down normalization (relative to Equity part)
+        // Formula: (Valor_Region / Total_RV_Cartera) * 100
+        // Total_RV_Cartera here is sumForNorm (allocations found).
+
+        if (sumForNorm > 0) {
+            Object.entries(rawMap).forEach(([region, val]) => {
+                if (val > 0.01) {
+                    finalMap.push({
+                        name: region,
+                        value: (val / sumForNorm) * 100, // Relative %
+                        absoluteValue: val // Absolute % in portfolio
+                    });
+                }
+            });
+        }
+
+        return finalMap.sort((a, b) => b.value - a.value);
+
+    }, [portfolio]);
+
     return {
         categoryAllocation,
         regionAllocation,
         sortedHoldings,
         styleStats,
-        globalAllocation
+        globalAllocation,
+        equityRegionAllocation
     };
 }

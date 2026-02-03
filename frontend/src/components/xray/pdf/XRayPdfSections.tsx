@@ -1,7 +1,7 @@
 import React from 'react';
 import { PortfolioItem } from '../../../types';
 import DiversificationDonut from '../../charts/DiversificationDonut';
-import DiversificationBars from '../../charts/DiversificationBars';
+import EquityRegionChart from '../../charts/EquityRegionChart';
 import EfficientFrontierChart from '../../charts/EfficientFrontierChart';
 import XRayChart from '../../charts/XRayChart';
 import RiskMap from '../../charts/RiskMap';
@@ -202,7 +202,7 @@ export default function XRayPdfSections({
                                 Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4">
-                                <DiversificationBars assets={regionAllocation} animate={false} />
+                                <EquityRegionChart data={regionAllocation} />
                             </div>
                         </div>
                     </div>
@@ -269,7 +269,7 @@ export default function XRayPdfSections({
                                 Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4">
-                                <DiversificationBars assets={regionAllocation} animate={false} />
+                                <EquityRegionChart data={regionAllocation} />
                             </div>
                         </div>
                     </div>

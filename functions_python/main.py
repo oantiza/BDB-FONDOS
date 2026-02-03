@@ -214,12 +214,17 @@ def generate_analysis_report(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=120, cors=cors_config)
 def optimize_portfolio_quant(request: https_fn.CallableRequest):
-    from services.optimizer import run_optimization
-    db = firestore.client()
-    from services.strategies import STRATEGY_CONSTRAINTS
     req_data = request.data
+    db = firestore.client()
+    
     if req_data.get('warmup') is True: return {'status': 'warmed_up'}
+    
     try:
+        # Move imports INSIDE try to catch ImportError/ModuleNotFoundError
+        from services.optimizer import run_optimization
+        # from services.strategies import STRATEGY_CONSTRAINTS  <-- MISSING MODULE
+        STRATEGY_CONSTRAINTS = {} 
+        
         assets_list = req_data.get('assets', [])
         risk_level = req_data.get('risk_level', 5)
         locked_assets = req_data.get('locked_assets', []) or []
@@ -548,7 +553,34 @@ def migrate_historico_endpoint(request: https_fn.CallableRequest):
 
 
 # ==============================================================================
-# 5. REMOVED
+# 5. DEBUG ENDPOINTS
 # ==============================================================================
+
+@https_fn.on_request(region="europe-west1", timeout_sec=60, memory=options.MemoryOption.GB_1)
+def test_frontier_debug(req: https_fn.Request) -> https_fn.Response:
+    """
+    Endpoint temporal de DEBUG para frontera eficiente.
+    Uso: /test_frontier_debug
+    """
+    from services.optimizer import generate_efficient_frontier
+    import json
+    db = firestore.client()
+    
+    # ISINs de prueba (World + S&P 500)
+    assets = ['IE00B03HCZ61', 'IE00B4L5Y983'] 
+    
+    try:
+        req_json = req.get_json(silent=True)
+        if req_json and 'assets' in req_json:
+            assets = req_json['assets']
+    except: pass
+
+    print(f"🔬 DEBUG START: Testing Frontier for {assets}")
+    try:
+        res = generate_efficient_frontier(assets, db)
+        return https_fn.Response(json.dumps(res, default=str), status=200, mimetype='application/json')
+    except Exception as e:
+        import traceback
+        return https_fn.Response(f"CRITICAL ERROR: {str(e)}\n{traceback.format_exc()}", status=500)
 
 

@@ -5,52 +5,72 @@ import pandas as pd
 import numpy as np
 from .data_fetcher import DataFetcher
 
-def _calculate_metrics(prices_df, risk_free_rate):
+def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
     """
-    Calculates Annualized Return, Volatility, and Sharpe.
-    prices_df: DataFrame with 'date' and 'price' columns, sorted by date.
+    Calculates Annualized Return, Volatility, and Sharpe using Morningstar Methodology.
+    prices_df: DataFrame with 'date' and 'price' columns.
     risk_free_rate: float (yearly rate, e.g. 0.03)
+    force_3y: bool, if True, slices to last 1095 days.
     """
     try:
-        # Calculate daily returns
-        prices_df['return'] = prices_df['price'].pct_change()
+        # 1. Sanitization: Ensure Timeseries Index & Business Days
+        df = prices_df.copy()
+        df['date'] = pd.to_datetime(df['date'])
+        df = df.set_index('date').sort_index()
         
-        # Filter first NaN
-        returns = prices_df['return'].dropna()
-        if len(returns) < 50: return None
+        # Resample to Daily and Reindex to Business Days
+        df = df.resample('D').last()
+        if not df.empty:
+            b_range = pd.date_range(start=df.index[0], end=df.index[-1], freq='B')
+            df = df.reindex(b_range)
         
-        # Annualized Volatility
-        vol_daily = returns.std()
-        vol_annual = vol_daily * np.sqrt(252)
+        # Fill Gaps (Professional ffill/bfill)
+        df = df.ffill().bfill()
         
-        # Annualized Return (CAGR)
-        start_price = prices_df['price'].iloc[0]
-        end_price = prices_df['price'].iloc[-1]
-        start_date = prices_df['date'].iloc[0]
-        end_date = prices_df['date'].iloc[-1]
+        # 2. Optional: 3-Year Window (1095 days)
+        if force_3y and not df.empty:
+            start_date = df.index[-1] - pd.Timedelta(days=1095)
+            df = df[df.index >= start_date]
+
+        if len(df) < 50: return None
         
-        days = (end_date - start_date).days
-        years = days / 365.25
-        if years <= 0: return None
+        # 3. Arithmetic Excess Return Methodology
+        # Daily Returns
+        returns_daily = df['price'].pct_change().dropna()
+        if len(returns_daily) < 1: return None
         
-        cagr = (end_price / start_price) ** (1 / years) - 1
+        # Excess returns over daily Risk-Free
+        rf_daily = risk_free_rate / 252.0
+        excess_returns = returns_daily - rf_daily
         
-        # Sharpe Ratio
-        # sharpe = (Rp - Rf) / sigma_p
-        if vol_annual > 0:
-            sharpe = (cagr - risk_free_rate) / vol_annual
+        # Morningstar Sharpe: (Mean Excess / Std Excess) * sqrt(252)
+        if excess_returns.std() > 0:
+            sharpe = (excess_returns.mean() / excess_returns.std()) * np.sqrt(252)
         else:
             sharpe = 0.0
+            
+        # 4. Annualized Volatility (Standard on Returns)
+        vol_annual = returns_daily.std() * np.sqrt(252)
+        
+        # 5. Annualized Return (Arithmetic Mean Alignment)
+        # Sincronizamos con weights.T @ mu (Senior Methodology)
+        cagr = float(returns_daily.mean() * 252)
+        
+        # Real Years for context
+        days = (df.index[-1] - df.index[0]).days
+        years = max(days / 365.25, 0.1) 
             
         return {
             'return': round(float(cagr), 4),
             'volatility': round(float(vol_annual), 4),
             'sharpe': round(float(sharpe), 4),
             'years': round(years, 2),
-            'points': len(prices_df)
+            'points': len(df)
         }
     except Exception as e:
         print(f"Metrics Calc Error: {e}")
+        import traceback
+        traceback.print_exc()
         return None
 
 def backfill_std_perf_logic(db):

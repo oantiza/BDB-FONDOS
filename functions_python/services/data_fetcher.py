@@ -5,6 +5,9 @@ import requests
 from firebase_admin import firestore
 from .config import PRICE_CACHE
 
+# Global RAM Cache for Risk Free Rate
+_rf_cache = {'rate': None, 'timestamp': None}
+
 class DataFetcher:
     """
     Data Access Layer.

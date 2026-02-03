@@ -8,7 +8,7 @@ import { functions } from '../firebase';
 export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
     // 1. Core Analytics Hooks
     const { metrics, loading, errorMsg, riskExplanation } = useXRayAnalytics({ portfolio, fundDatabase });
-    const { categoryAllocation, regionAllocation, sortedHoldings, styleStats, globalAllocation } = usePortfolioStats({ portfolio, metrics });
+    const { categoryAllocation, regionAllocation, sortedHoldings, styleStats, globalAllocation, equityRegionAllocation } = usePortfolioStats({ portfolio, metrics });
 
     // 2. Macro Strategy Report State
     const [strategyReport, setStrategyReport] = useState<any | null>(null);
@@ -135,6 +135,8 @@ export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
         // Helpers
         getVolatilitySafe,
         // Pagination
-        compositionPages
+        // Pagination
+        compositionPages,
+        equityRegionAllocation
     };
 }

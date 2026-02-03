@@ -24,7 +24,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
     """
     import pandas as pd
     import numpy as np
-    from pypfopt import EfficientFrontier, risk_models, expected_returns, objective_functions
+    from pypfopt import EfficientFrontier, risk_models, expected_returns, objective_functions, CLA
 
     def _to_float(x, default=0.0):
         try:
@@ -113,6 +113,12 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         'IE00B5BXRH53', # iShares Core S&P 500
         'LU1135865084', # Fidelity Funds - Global Dividend
     ]
+    
+    # Init safe defaults (Handler for UnboundLocalError in except block)
+    price_data = {}
+    universe = []
+    missing_assets = []
+    synthetic_used = []
 
     try:
         solver_path = None
@@ -121,25 +127,28 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         auto_complete_source = None
         rejected_candidates = []
         
-        # 1) Cargar datos (Daily frequency + Loose intersection for robustness)
+        # 1) Carga de Datos (Strict Senior Methodology)
         fetcher = DataFetcher(db)
+        # RELAXED: strict=False allows union of data (filled later)
         price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False)
         
-        df = pd.DataFrame(price_data)
+        df = pd.DataFrame(price_data) # Ensure DataFrame
         df.index = pd.to_datetime(df.index)
         
-        # Enforce 3-Year Window (Standard for asset management)
+        # SANITIZACIÓN INMEDIATA (Morningstar Standard)
+        # Apply .ffill() IMMEDIATELY after loading
+        df = df.sort_index().ffill().bfill()
+        
+        # FILTRO TEMPORAL ESTRICTO: 3 Años (1095 días)
         if not df.empty:
             start_date = df.index[-1] - pd.Timedelta(days=1095)
             df = df[df.index >= start_date]
-            
-        df = df.sort_index().ffill().bfill()
 
         if df.empty or len(df) < 50:
             # --- EMERGENCY AUTO-EXPAND ---
             auto_expand = constraints.get('auto_expand_universe', False) if constraints else False
             if auto_expand:
-                print("🚀 Emergency Auto-Expand triggered due to insufficient history...")
+                print("⚠️ Emergency Auto-Expand triggered due to insufficient history...")
                  # A) Fallback Candidates
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
                 try:
@@ -162,8 +171,12 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 
                 df = pd.DataFrame(price_data)
                 df.index = pd.to_datetime(df.index)
-                df = df.sort_index().ffill().bfill()
                 
+                # Senior Pipeline: Fill then Slice
+                df = df.sort_index().ffill().bfill()
+                start_date = df.index[-1] - pd.Timedelta(days=1095)
+                df = df[df.index >= start_date]
+
                 universe = list(df.columns)
                 solver_path = 'emergency_auto_expand'
                 print(f"✅ Emergency Expansion Applied. New Universe: {universe}")
@@ -186,18 +199,25 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         universe = list(df.columns)
         missing_assets = [a for a in assets_list if a not in universe]
 
-        # 2) Modelo de retornos/riesgo (frequency=252 for Daily data)
-        if df.empty or len(df) < 5:
-            # Fallback if no data survived slicing
-            return {'error': 'Insuficiente histórico en la ventana de 3 años.'}
+        
+        # 2) Standard Markowitz Inputs (Visual Coherence Refactor)
+        # Mu = Mean Historical Return (No BL)
+        # S = Sample Covariance
+        mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+        S = risk_models.sample_cov(df, frequency=252)
+        S = risk_models.fix_nonpositive_semidefinite(S)
 
-        mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
+        # 3) Generate Efficient Frontier Curve (50 points) - Internal coherence check
+        print("⚙️ [Optimizer] Generating Internal Coherence Frontier...")
+        frontier_points = []
         try:
-            S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
-        except Exception:
-            # Manually annualize sample cov if ledoit_wolf fails
-            S = risk_models.sample_cov(df) * 252
-            S = risk_models.fix_nonpositive_semidefinite(S)
+            cla = CLA(mu, S)
+            f_ret, f_vol, _ = cla.efficient_frontier(points=50)
+            for v_raw, r_raw in zip(f_vol, f_ret):
+                if np.isnan(v_raw) or np.isnan(r_raw): continue
+                frontier_points.append({'x': round(float(v_raw), 4), 'y': round(float(r_raw), 4)})
+        except Exception as e_cla:
+            print(f"⚠️ Frontier gen warning: {e_cla}")
 
         rf_rate = float(fetcher.get_dynamic_risk_free_rate())
 
@@ -352,7 +372,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     }
                 else:
                     # 5.2) AUTO-EXPAND EXECUTION (STRICT PHASE 2.1)
-                    print("🚀 Auto-Expanding Universe (Strict Production Mode)...")
+                    print("⚠️ Auto-Expanding Universe (Strict Production Mode)...")
                     
                     # A) Helper: Get candidates from DB or Config
                     candidates_list = []
@@ -410,7 +430,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     
                     # Batch check history (get_price_data handles batching internally roughly)
                     if candidates_unique:
-                        prices_check, _ = fetcher.get_price_data(candidates_unique, resample_freq='W-FRI', strict=True)
+                        prices_check, _ = fetcher.get_price_data(candidates_unique, resample_freq='D', strict=True)
                         # Only keep those with >= 50 data points (simple check)
                         for isin, p_series in prices_check.items():
                             if len(p_series) >= 20: # Relaxed slightly for robustness, but implies real data
@@ -567,12 +587,23 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         # dropped_assets: en universe con peso ~0
         dropped_assets = [t for t in universe if float(weights.get(t, 0.0)) <= 0.0]
 
-        # 7) Métricas coherentes (pesos finales)
-        w_vec = np.array([float(weights[t]) for t in universe], dtype=float)
-        mu_vec = np.array([float(mu[t]) for t in universe], dtype=float)
-        port_ret = float(w_vec @ mu_vec)
-        port_vol = float(np.sqrt(w_vec.T @ S.values @ w_vec))
+        # 7) Métricas coherentes (Senior Formulas: w.T @ mu y sqrt(w.T @ S @ w))
+        # This matches the Efficient Frontier visualization 100%
+        w_arr = np.array([float(weights[t]) for t in universe], dtype=float)
+        mu_arr = mu.values
+        S_arr = S.values
+        
+        # Formula Retorno ($y$): weights.T @ mu
+        port_ret = float(w_arr.T @ mu_arr)
+        
+        # Formula Volatilidad ($x$): sqrt(weights.T @ S @ weights)
+        port_vol = float(np.sqrt(w_arr.T @ S_arr @ w_arr))
+        
+        # Sharpe Aritmético: (Ret - Rf) / Vol
         port_sharpe = float((port_ret - rf_rate) / port_vol) if port_vol > 1e-12 else 0.0
+
+        # Create explicit portfolio point object for frontend (if needed in metrics)
+        portfolio_point = {'x': round(port_vol, 4), 'y': round(port_ret, 4)}
 
         # 8) Allocation resultante (equity/bond/cash/other)
         eq_total = float(w_vec @ eq_vec)
@@ -635,7 +666,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 'volatility': port_vol,
                 'sharpe': port_sharpe,
                 'rf_rate': rf_rate,
+                'portfolio': portfolio_point # Consistent with spec
             },
+            'frontier': frontier_points, # <--- NEW: Internal Coherence Curve (50 pts)
+            'portfolio': portfolio_point, # Root level exposure per spec
             'warnings': warnings,
         }
 
@@ -694,115 +728,87 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
     from pypfopt import CLA, risk_models, expected_returns
 
     try:
-        print(f"🚀 [DEBUG] Starting generate_efficient_frontier for {len(assets_list)} assets.")
+        print(f"🚀 [Senior EF] Starting generate_efficient_frontier for {len(assets_list)} assets.")
         
-        # 1. Get Data (Professional Daily Alignment)
+        # 1. Senior Data Alignment
         fetcher = DataFetcher(db)
-        # RELAXED: strict=False allows union of data (filled later)
         price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False)
         
-        # FIX: Handle DataFrame boolean ambiguity
-        is_empty = price_data.empty if hasattr(price_data, 'empty') else not price_data
-        
-        if is_empty: 
-            print("❌ [DEBUG] No price data found (Empty DataFrame).")
-            return {'error': 'No data'}
-        
-        df = pd.DataFrame(price_data) # Copy/Ensure DF
+        df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
         
-        # Enforce 3-Year Window
+        # SANITIZACIÓN INMEDIATA (Morningstar Standard)
+        df = df.sort_index().ffill().bfill()
+        
+        # FILTRO TEMPORAL ESTRICTO: 3 Años (1095 días)
         if not df.empty:
             start_date = df.index[-1] - pd.Timedelta(days=1095)
             df = df[df.index >= start_date]
-            
-        df = df.sort_index().ffill().bfill()
-        print(f"✅ [DEBUG] Data loaded. Shape: {df.shape}")
         
         if len(df) < 10: 
-            print("❌ [DEBUG] Insufficient history (<10).")
-            return {'error': 'Insufficient history'}
+            print(f"⚠️ [Senior EF] Insufficient history: {len(df)} points.")
+            return {'error': 'Insufficient history', 'points': len(df), 'assets_found': list(df.columns)}
 
-        # 2. Risk Model (frequency=252 for Daily data)
-        print("🔄 [DEBUG] Calculating Risk Model (Mu/Cov)...")
-        mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
-        S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
-        print("✅ [DEBUG] Risk Model calculated.")
+        print(f"📈 [Senior EF] Data Processed. Shape: {df.shape}, Assets: {list(df.columns)}")
 
-        # 3. CLA (Critical Line Algorithm) for Frontier
-        print("🔄 [DEBUG] Initializing CLA...")
-        cla = CLA(mu, S)
-        cla.max_sharpe() # Optimize once to set up
-        print("✅ [DEBUG] CLA max_sharpe solved.")
+        # 2. Senior Math Engine (mean/sample_cov)
+        # Sincronizado con run_optimization (compounding=False)
+        mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+        S = risk_models.sample_cov(df, frequency=252)
+        S = risk_models.fix_nonpositive_semidefinite(S)
         
-        # Get frontier points (volatility, returns, weights)
+        print(f"✅ [Senior EF] Inputs ready. Mu Range: [{mu.min():.4f}, {mu.max():.4f}]")
+
+        # 3. CLA Engine (Reliable Frontier Generation - 50 Points Resolution)
+        print("⚙️ [Senior EF] Running CLA...")
+        cla = CLA(mu, S)
         frontier_points = []
         try:
-            print("🔄 [DEBUG] Calculating frontier curve points...")
+            # Generate curve points (explicit 50 points for smooth line)
             frontier_ret, frontier_vol, _ = cla.efficient_frontier(points=50)
-            
             for v_raw, r_raw in zip(frontier_vol, frontier_ret):
                 try:
-                    v = v_raw.item() if hasattr(v_raw, 'item') else float(v_raw)
-                    r = r_raw.item() if hasattr(r_raw, 'item') else float(r_raw)
+                    v = float(v_raw)
+                    r = float(r_raw)
                     if np.isnan(v) or np.isnan(r): continue
                     frontier_points.append({'x': round(v, 4), 'y': round(r, 4)})
                 except: continue
-            print(f"✅ [DEBUG] Frontier points generated: {len(frontier_points)}")
+            print(f"✨ [Senior EF] CLA Success: {len(frontier_points)} points generated.")
         except Exception as e_cla:
-            print(f"⚠️ [DEBUG] CLA efficient_frontier failed: {e_cla}")
-            # Fallback if CLA fails
-            frontier_ret, frontier_vol = [], []
+            print(f"❌ [Senior EF] CLA Error: {e_cla}")
+            return {'error': f'Optimization engine failed: {str(e_cla)}', 'frontier': []}
 
-        # 4. Individual Asset Points (Scatter) - Professional Log-ret metrics
+        # 4. Individual Asset Points (Scatter)
         asset_points = []
-        try:
-            log_returns = np.log(df / df.shift(1)).dropna()
-            vol_series = log_returns.std() * np.sqrt(252)
-            ret_series = (df.iloc[-1] / df.iloc[0]) ** (252 / len(df)) - 1
+        for ticker in df.columns:
+            try:
+                # Vol = sqrt(diag(S))
+                v = float(np.sqrt(S.loc[ticker, ticker]))
+                r = float(mu[ticker])
+                asset_points.append({'label': ticker, 'x': round(v, 4), 'y': round(r, 4)})
+            except: continue
             
-            for ticker in df.columns:
-                try:
-                    v_raw = vol_series.get(ticker, 0)
-                    r_raw = ret_series.get(ticker, 0)
-                    
-                    v = v_raw.item() if hasattr(v_raw, 'item') else float(v_raw)
-                    r = r_raw.item() if hasattr(r_raw, 'item') else float(r_raw)
-                    
-                    asset_points.append({
-                        'label': ticker,
-                        'x': round(v, 4),
-                        'y': round(r, 4)
-                    })
-                except:
-                    continue
-        except:
-            pass
-        print(f"✅ [DEBUG] Asset points generated: {len(asset_points)}")
-            
-        # 5. Current Portfolio Point (Calculated with SAME matrix)
+        # 5. CURRENT PORTFOLIO POINT (Manual Fix - Absolute Coherence)
+        # Calculate (x,y) using EXACT same data pipeline and current weights
         portfolio_point = None
         if portfolio_weights:
             try:
-                # Align weights with df columns
-                w_vector = []
-                for col in df.columns:
-                    w_vector.append(portfolio_weights.get(col, 0))
-                
-                w_arr = np.array(w_vector)
+                # Create weight vector aligned with df columns
+                w_list = [float(portfolio_weights.get(col, 0)) for col in df.columns]
+                w_total = sum(w_list)
+                if w_total > 0:
+                    w_arr = np.array([w / w_total for w in w_list]) # Normalize weights
+                    
+                    # Fix Coords Formula (Daily historical basis)
+                    port_ret = float(w_arr.T @ mu.values)
+                    port_vol = float(np.sqrt(w_arr.T @ S.values @ w_arr))
+                    
+                    portfolio_point = {'x': round(port_vol, 4), 'y': round(port_ret, 4)}
+                    print(f"✅ [Senior EF] Coherent Point: {portfolio_point}")
+            except Exception as e_p:
+                print(f"⚠️ Portfolio point calc failed: {e_p}")
 
-                port_ret = w_arr @ mu
-                port_vol = np.sqrt(w_arr.T @ S @ w_arr)
-                
-                p_v = port_vol.item() if hasattr(port_vol, 'item') else float(port_vol)
-                p_r = port_ret.item() if hasattr(port_ret, 'item') else float(port_ret)
-                
-                portfolio_point = {'x': round(p_v, 4), 'y': round(p_r, 4)}
-                print(f"✅ [DEBUG] Portfolio point calculated: {portfolio_point}")
-            except Exception as e:
-                print(f"⚠️ [DEBUG] Portfolio avg error: {e}")
-
-        result = {
+        return {
             'frontier': frontier_points,
             'assets': asset_points,
             'portfolio': portfolio_point

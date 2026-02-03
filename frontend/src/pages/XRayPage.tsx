@@ -37,7 +37,8 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
         assetPoints,
         portfolioPoint,
         getVolatilitySafe,
-        compositionPages
+        compositionPages,
+        equityRegionAllocation
     } = useXRayData(portfolio, fundDatabase);
 
     // 2. UI State
@@ -157,7 +158,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
                         <AssetAllocationSection
                             globalAllocation={globalAllocation}
-                            regionAllocation={regionAllocation}
+                            equityRegionAllocation={equityRegionAllocation}
                         />
 
                         <div className="mt-20 flex justify-center items-center border-t border-[#eeeeee] pt-20">
