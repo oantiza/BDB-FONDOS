@@ -17,7 +17,9 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             // Keeping raw for now as per user image which has "RV Global", etc.
             catMap[cat] = (catMap[cat] || 0) + p.weight;
         });
-        return Object.entries(catMap).map(([name, value]) => ({ name, value }));
+        return Object.entries(catMap)
+            .map(([name, value]) => ({ name, value }))
+            .sort((a, b) => b.value - a.value);
     }, [portfolio]);
 
 

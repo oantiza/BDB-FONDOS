@@ -35,6 +35,11 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    // 4.5) Trabajos Administrativos (Jobs)
+    match /admin_jobs/{jobId} {
+      allow read, write: if request.auth != null && request.auth.token.email == 'oantiza@gmail.com';
+    }
+
     // 5) Regla por defecto: bloqueo total
     match /{document=**} {
       allow read, write: if false;

@@ -10,10 +10,11 @@ interface AssetAllocationSectionProps {
         other: number;
         coverage: number;
     };
+    categoryAllocation?: { name: string; value: number }[];
     equityRegionAllocation: { name: string; value: number; absoluteValue?: number }[];
 }
 
-export default function AssetAllocationSection({ globalAllocation, equityRegionAllocation }: AssetAllocationSectionProps) {
+export default function AssetAllocationSection({ globalAllocation, categoryAllocation = [], equityRegionAllocation }: AssetAllocationSectionProps) {
     return (
         <div className="pt-20 border-t border-[#eeeeee] flex items-start justify-between">
             {/* LEFT: Global Composition */}
@@ -25,12 +26,20 @@ export default function AssetAllocationSection({ globalAllocation, equityRegionA
                 <div className="w-full flex flex-col items-center justify-center">
                     {/* FIXED SIZE CONTAINER */}
                     <div className="h-[420px] w-[420px] shrink-0 mb-8 relative">
-                        <DiversificationDonut assets={[
-                            { name: 'Renta Variable', value: globalAllocation.equity },
-                            { name: 'Renta Fija', value: globalAllocation.bond },
-                            { name: 'Efectivo', value: globalAllocation.cash },
-                            { name: 'Otros', value: globalAllocation.other }
-                        ].filter(x => x.value > 0.1)} />
+                        <DiversificationDonut assets={
+                            categoryAllocation && categoryAllocation.length > 0
+                                ? categoryAllocation.slice(0, 5).concat(
+                                    categoryAllocation.length > 5
+                                        ? [{ name: 'Otros', value: categoryAllocation.slice(5).reduce((acc, curr) => acc + curr.value, 0) }]
+                                        : []
+                                )
+                                : [
+                                    { name: 'Renta Variable', value: globalAllocation.equity },
+                                    { name: 'Renta Fija', value: globalAllocation.bond },
+                                    { name: 'Efectivo', value: globalAllocation.cash },
+                                    { name: 'Otros', value: globalAllocation.other }
+                                ].filter(x => x.value > 0.01)
+                        } />
                     </div>
 
                     {/* Coverage Stats */}

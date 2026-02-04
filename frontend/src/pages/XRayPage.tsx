@@ -74,6 +74,8 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
         if (strategyReport) ids.push('pdf-macro-matrix-page-v2');
 
+
+
         // Dynamic composition pages
         if (compositionPages && compositionPages.length > 0) {
             compositionPages.forEach((_: any, i: number) => {
@@ -158,6 +160,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
                         <AssetAllocationSection
                             globalAllocation={globalAllocation}
+                            categoryAllocation={categoryAllocation}
                             equityRegionAllocation={equityRegionAllocation}
                         />
 
@@ -208,7 +211,8 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                 totalCapital={totalCapital}
                 metrics={metrics}
                 globalAllocation={globalAllocation}
-                regionAllocation={regionAllocation}
+                categoryAllocation={categoryAllocation}
+                regionAllocation={equityRegionAllocation} // FIX: Use Equity Region Allocation for PDF to match screen
                 frontierData={frontierData}
                 assetPoints={assetPoints}
                 portfolioPoint={portfolioPoint}

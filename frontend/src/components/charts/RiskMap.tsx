@@ -88,9 +88,36 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
         }
     }
 
+    const benchmarkLabelsPlugin = {
+        id: 'benchmarkLabels',
+        afterDatasetsDraw(chart: any) {
+            const { ctx } = chart;
+            chart.data.datasets.forEach((dataset: any, i: number) => {
+                const meta = chart.getDatasetMeta(i);
+                if (dataset.label === 'Benchmarks' && !meta.hidden) {
+                    meta.data.forEach((element: any, index: number) => {
+                        const dataPoint = dataset.data[index];
+                        const { x, y } = element.tooltipPosition();
+                        const text = dataPoint.name;
+
+                        if (text) {
+                            ctx.save();
+                            ctx.font = '10px Inter, system-ui, sans-serif'; // Small and aesthetic
+                            ctx.fillStyle = '#64748b'; // Slate 500
+                            ctx.textAlign = 'left';
+                            ctx.textBaseline = 'middle';
+                            ctx.fillText(text, x + 10, y); // Offset to the right
+                            ctx.restore();
+                        }
+                    });
+                }
+            });
+        }
+    };
+
     return (
         <div style={{ width: '100%', height: '100%' }}>
-            <Scatter data={data} options={options} />
+            <Scatter data={data} options={options} plugins={[benchmarkLabelsPlugin]} />
         </div>
     )
 }

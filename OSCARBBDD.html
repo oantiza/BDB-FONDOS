@@ -1,0 +1,1397 @@
+<!doctype html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OSCARBBDD</title>
+
+    <!-- Google Fonts: Inter -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+    <!-- AG Grid Theme -->
+    <script src="https://cdn.jsdelivr.net/npm/ag-grid-community/dist/ag-grid-community.min.js"></script>
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --primary-color: #3b82f6;
+            /* Blue 500 */
+            --bg-color: #f8fafc;
+            /* Slate 50 */
+            --sidebar-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* Layout */
+        .wrapper {
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--sidebar-bg);
+            border-right: 1px solid #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            transition: all 0.3s;
+        }
+
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        /* Sidebar Items */
+        .brand {
+            height: 64px;
+            display: flex;
+            align-items: center;
+            padding: 0 24px;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary-color);
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .nav-link {
+            color: var(--text-muted);
+            font-weight: 500;
+            padding: 12px 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            transition: all 0.2s;
+            border-radius: 0;
+            cursor: pointer;
+        }
+
+        .nav-link:hover {
+            background-color: #f1f5f9;
+            color: var(--primary-color);
+        }
+
+        .nav-link.active {
+            background-color: #eff6ff;
+            /* Blue 50 */
+            color: var(--primary-color);
+            border-right: 3px solid var(--primary-color);
+        }
+
+        /* Header */
+        .header {
+            height: 64px;
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 24px;
+        }
+
+        /* Components */
+        .card-clean {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+        }
+
+        .btn-primary-soft {
+            background: #eff6ff;
+            color: var(--primary-color);
+            border: none;
+            font-weight: 600;
+        }
+
+        .btn-primary-soft:hover {
+            background: #dbeafe;
+            color: #2563eb;
+        }
+
+        /* AG Grid Customization for Clean Theme */
+        .ag-theme-alpine {
+            --ag-header-background-color: #f8fafc;
+            --ag-header-foreground-color: #64748b;
+            --ag-border-color: #e2e8f0;
+            --ag-row-hover-color: #f1f5f9;
+            --ag-font-family: 'Inter', sans-serif;
+        }
+
+        /* Utils */
+        .badge-status-ok {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .badge-status-warn {
+            background: #fef9c3;
+            color: #ca8a04;
+        }
+
+        .badge-status-err {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* Transitions */
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.2s;
+        }
+
+        .fade-enter-from,
+        .fade-leave-to {
+            opacity: 0;
+        }
+
+        /* Loading Overlay */
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 50;
+        }
+    </style>
+
+    <!-- Vue 3 (Prod) -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+
+<body>
+
+    <div id="app">
+        <!-- AUTH SCREEN -->
+        <div v-if="!user" class="d-flex align-items-center justify-content-center vh-100 bg-light">
+            <div class="card-clean shadow-sm" style="width: 400px;">
+                <h3 class="fw-bold mb-4 text-center">OSCARBBDD Admin</h3>
+                <div class="mb-3">
+                    <label class="form-label small text-muted">Email</label>
+                    <input v-model="loginForm.email" type="email" class="form-control mb-2"
+                        placeholder="admin@example.com">
+                </div>
+                <div class="mb-4">
+                    <label class="form-label small text-muted">Password</label>
+                    <input v-model="loginForm.password" type="password" class="form-control" placeholder="••••••">
+                </div>
+                <button @click="handleLogin" :disabled="loading" class="btn btn-primary w-100 py-2 fw-bold">
+                    {{ loading ? 'Entrando...' : 'Acceder' }}
+                </button>
+                <div v-if="errorMsg" class="mt-3 text-danger small text-center">{{ errorMsg }}</div>
+            </div>
+        </div>
+
+        <!-- DASHBOARD LAYOUT -->
+        <div v-else class="wrapper">
+            <!-- Sidebar -->
+            <aside class="sidebar">
+                <div class="brand">
+                    <i class="bi bi-rocket-takeoff-fill me-2"></i> OSCARBBDD
+                </div>
+                <nav class="mt-3 d-flex flex-column gap-1">
+                    <div class="nav-link" :class="{active: currentTab === 'funds'}" @click="currentTab = 'funds'">
+                        <i class="bi bi-database"></i> Fondos
+                    </div>
+                    <div class="nav-link" :class="{active: currentTab === 'history'}" @click="currentTab = 'history'">
+                        <i class="bi bi-graph-up"></i> Históricos (EODHD)
+                    </div>
+                    <div class="nav-link" :class="{active: currentTab === 'jobs'}" @click="currentTab = 'jobs'">
+                        <i class="bi bi-gear-wide-connected"></i> Jobs <span v-if="activeJobsCount > 0"
+                            class="badge bg-primary ms-auto">{{ activeJobsCount }}</span>
+                    </div>
+                    <div class="nav-link" :class="{active: currentTab === 'schema'}" @click="currentTab = 'schema'">
+                        <i class="bi bi-file-earmark-code"></i> Schema
+                    </div>
+                    <div class="mt-auto p-3 border-top">
+                        <div class="small text-muted mb-1">Logueado como:</div>
+                        <div class="fw-bold text-truncate" style="font-size:0.9rem">{{ user.email }}</div>
+                        <button @click="logout" class="btn btn-sm btn-outline-secondary mt-2 w-100">Cerrar
+                            Sesión</button>
+                    </div>
+                </nav>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Topbar -->
+                <header class="header">
+                    <h5 class="m-0 fw-semibold">{{ tabTitle }}</h5>
+                    <div class="d-flex align-items-center gap-3">
+                        <template v-if="!apiToken">
+                            <button @click="showConfig = true" class="btn btn-warning btn-sm">⚠️ Falta API Key</button>
+                        </template>
+                        <template v-else>
+                            <button @click="showConfig = true" class="btn btn-light btn-sm text-muted"><i
+                                    class="bi bi-key"></i> API
+                                Config</button>
+                        </template>
+                    </div>
+                </header>
+
+                <div class="p-4" style="position:relative; min-height: 100%;">
+
+                    <!-- === VISTA: FONDOS === -->
+                    <div v-show="currentTab === 'funds'">
+                        <div class="card-clean mb-3">
+                            <div class="row g-2 align-items-center">
+                                <div class="col-md-4">
+                                    <input v-model="fundsFilter.search" class="form-control"
+                                        placeholder="Buscar ISIN o Nombre..." />
+                                </div>
+                                <div class="col-md-3 d-flex gap-2">
+                                    <select v-model="fundsFilter.limit" class="form-select" style="width: auto;">
+                                        <option :value="50">50 filas</option>
+                                        <option :value="100">100 filas</option>
+                                        <option :value="200">200 filas</option>
+                                        <option :value="500">500 filas</option>
+                                        <option :value="1000">1000 filas</option>
+                                        <option value="ALL">Todas</option>
+                                    </select>
+                                    <button @click="loadFunds" class="btn btn-outline-secondary btn-sm"
+                                        title="Mostrar los primeros N registros">
+                                        Mostrar
+                                    </button>
+                                    <div class="form-check d-flex align-items-center">
+                                        <input class="form-check-input me-2" type="checkbox"
+                                            v-model="fundsFilter.onlyRetro" id="chkRetro">
+                                        <label class="form-check-label small" for="chkRetro">Con Retro</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-auto ms-auto">
+                                    <button @click="loadFunds" class="btn btn-primary"><i class="bi bi-search me-1"></i>
+                                        Buscar</button>
+                                    <button @click="exportSelectedFunds" class="btn btn-outline-success ms-2"><i
+                                            class="bi bi-file-earmark-excel me-1"></i>
+                                        Exportar Seleccionados</button>
+                                    <button @click="exportAllRetrocessions" class="btn btn-outline-warning ms-2"><i
+                                            class="bi bi-download me-1"></i>
+                                        Exportar Retrocesiones</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grid Container -->
+                        <div class="card-clean p-0 overflow-hidden" style="height: 600px;">
+                            <div id="fundsGrid" class="ag-theme-alpine" style="height: 100%; width: 100%;"></div>
+                        </div>
+
+                        <!-- Fund Detail Modal (Custom Overlay) -->
+                        <div v-if="selectedFund" class="loading-overlay"
+                            style="align-items: flex-start; padding-top: 50px;">
+                            <div class="card-clean shadow-lg" style="width: 800px; max-height: 85vh; overflow-y: auto;">
+                                <div class="d-flex justify-content-between align-items-center mb-3 border-bottom pb-2">
+                                    <h5 class="mb-0 fw-bold">{{ selectedFund.name }}</h5>
+                                    <button @click="selectedFund = null" class="btn-close"></button>
+                                </div>
+
+                                <div class="row g-3">
+                                    <div class="col-md-6">
+                                        <label class="small text-muted">ISIN</label>
+                                        <div class="fw-mono">{{ selectedFund.isin }}</div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="small text-muted">Company</label>
+                                        <div>{{ selectedFund.fund_company || '-' }}</div>
+                                    </div>
+
+                                    <div class="col-12">
+                                        <hr class="my-1">
+                                    </div>
+
+                                    <!-- Editable Fields -->
+                                    <div class="col-md-6">
+                                        <label class="form-label small">Manual Region</label>
+                                        <input v-model="selectedFund.manual_region"
+                                            class="form-control form-control-sm" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small">Asset Class</label>
+                                        <input v-model="selectedFund.asset_class"
+                                            class="form-control form-control-sm" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small">TER</label>
+                                        <input v-model.number="selectedFund.costs.ter" type="number" step="0.01"
+                                            class="form-control form-control-sm" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small">Retrocession</label>
+                                        <input v-model.number="selectedFund.costs.retrocession" type="number"
+                                            step="0.01" class="form-control form-control-sm" />
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label class="form-label small">Admin Note</label>
+                                        <input v-model="selectedFund.admin_note" class="form-control form-control-sm" />
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-end gap-2 mt-4 pt-3 border-top">
+                                    <button @click="saveFundChanges" class="btn btn-primary" :disabled="saving">
+                                        {{ saving ? 'Guardando...' : 'Guardar Cambios' }}
+                                    </button>
+                                    <button @click="window.openDetailsHistory(selectedFund.isin)"
+                                        class="btn btn-outline-info">
+                                        Ver Histórico
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- === VISTA: HISTÓRICOS === -->
+                    <div v-show="currentTab === 'history'">
+                        <div class="row g-4">
+                            <!-- Single Import -->
+                            <div class="col-lg-4">
+                                <div class="card-clean h-100">
+                                    <h6 class="fw-bold mb-3">📡 Importador Individual</h6>
+                                    <div class="mb-3">
+                                        <label class="form-label">ISIN</label>
+                                        <input v-model="historyForm.isin" class="form-control" placeholder="LU..." />
+                                    </div>
+                                    <div class="row g-2 mb-3">
+                                        <div class="col-6">
+                                            <label class="form-label">Desde</label>
+                                            <input v-model="historyForm.from" type="date" class="form-control" />
+                                        </div>
+                                        <div class="col-6">
+                                            <label class="form-label">Hasta</label>
+                                            <input v-model="historyForm.to" type="date" class="form-control" />
+                                        </div>
+                                        <div class="col-12">
+                                            <label class="form-label">Modo</label>
+                                            <select v-model="historyForm.mode" class="form-select">
+                                                <option value="merge">Merge (Unir)</option>
+                                                <option value="overwrite">Overwrite (Borrar todo)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <button @click="runSingleHistoryImport" :disabled="!historyForm.isin || jobRunning"
+                                        class="btn btn-primary w-100">
+                                        <i class="bi bi-cloud-download me-1"></i> Descargar de EODHD
+                                    </button>
+                                    <div v-if="historyLog"
+                                        class="mt-3 p-2 bg-dark rounded text-light font-monospace small"
+                                        style="white-space:pre-wrap;">{{ historyLog }}</div>
+                                </div>
+                            </div>
+
+                            <!-- Mass Update -->
+                            <div class="col-lg-4">
+                                <div class="card-clean h-100">
+                                    <h6 class="fw-bold mb-3">🔄 Actualización Masiva (Todos)</h6>
+                                    <p class="text-muted small">Actualiza el valor liquidativo de <b>TODOS</b> los
+                                        fondos. Descarga solo el último año (1 Year) y lo une (Merge) al histórico
+                                        existente.</p>
+
+                                    <button @click="findAllFundsForUpdate" :disabled="searchingCandidates"
+                                        class="btn btn-outline-primary mb-3 w-100">
+                                        {{ searchingCandidates ? 'Analizando...' : '1. Buscar Todos' }}
+                                    </button>
+
+                                    <div v-if="massCandidates.length > 0">
+                                        <div class="alert alert-warning py-2 small">
+                                            Se actualizarán <b>{{ massCandidates.length }}</b> fondos.
+                                        </div>
+                                        <button @click="startMassUpdateJob"
+                                            class="btn btn-warning w-100 text-dark fw-bold">
+                                            2. INICIAR UPDATE MASIVO
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Bulk Helper -->
+                            <div class="col-lg-4">
+                                <div class="card-clean h-100">
+                                    <h6 class="fw-bold mb-3">📦 Carga Inicial (Zombies)</h6>
+                                    <p class="text-muted small">Detecta fondos sin histórico y descarga todo desde 2015.
+                                    </p>
+
+                                    <button @click="findHistoryCandidates" :disabled="searchingCandidates"
+                                        class="btn btn-outline-secondary mb-3 w-100">
+                                        {{ searchingCandidates ? 'Buscando...' : '1. Buscar Zombies' }}
+                                    </button>
+
+                                    <div v-if="candidates.length > 0">
+                                        <div
+                                            class="alert alert-info py-2 small d-flex justify-content-between align-items-center">
+                                            <span>Encontrados <b>{{ candidates.length }}</b></span>
+                                        </div>
+
+                                        <button @click="startBulkHistoryJob" class="btn btn-success w-100">
+                                            2. Iniciar Carga Inicial
+                                        </button>
+                                        <div v-if="bulkLog"
+                                            class="mt-3 p-2 bg-dark rounded text-light font-monospace small"
+                                            style="white-space:pre-wrap;">{{ bulkLog }}</div>
+                                    </div>
+                                    <div v-else-if="searched && candidates.length === 0" class="text-success small">
+                                        ¡Todo limpio!
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- === VISTA: JOBS === -->
+                    <div v-show="currentTab === 'jobs'">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="m-0">Cola de Trabajos</h5>
+                            <button @click="loadJobs" class="btn btn-sm btn-outline-secondary"><i
+                                    class="bi bi-arrow-clockwise"></i>
+                                Refrescar</button>
+                        </div>
+
+                        <div class="card-clean p-0">
+                            <table class="table table-hover mb-0 align-middle">
+                                <thead class="bg-light">
+                                    <tr>
+                                        <th class="ps-4">Job ID</th>
+                                        <th>Tipo</th>
+                                        <th>Estado</th>
+                                        <th>Progreso</th>
+                                        <th>Creado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr v-if="jobs.length === 0">
+                                        <td colspan="5" class="text-center py-4 text-muted">No hay trabajos recientes
+                                        </td>
+                                    </tr>
+                                    <tr v-for="job in jobs" :key="job.id">
+                                        <td class="ps-4 font-monospace small">{{ job.id.slice(0,8) }}...</td>
+                                        <td>{{ job.type }}</td>
+                                        <td>
+                                            <span class="badge"
+                                                :class="job.status === 'RUNNING' ? 'bg-primary' : job.status === 'COMPLETED' ? 'bg-success' : 'bg-secondary'">
+                                                {{ job.status }}
+                                            </span>
+                                        </td>
+                                        <td style="width: 200px;">
+                                            <div class="d-flex align-items-center gap-2">
+                                                <div class="progress flex-grow-1" style="height: 6px;">
+                                                    <div class="progress-bar"
+                                                        :style="{width: (job.progress / job.total * 100) + '%'}"></div>
+                                                </div>
+                                                <small>{{ job.progress }}/{{ job.total }}</small>
+                                            </div>
+                                        </td>
+                                        <td class="small">{{ formatDate(job.createdAt) }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
+
+                    <!-- === VISTA: SCHEMA === -->
+                    <div v-show="currentTab === 'schema'">
+                        <div class="card-clean">
+                            <h5 class="mb-3">Análisis de Estructura (Schema)</h5>
+                            <p class="text-muted">Analiza la colección funds_v3 para extraer todos los campos y sus
+                                tipos.</p>
+
+                            <div class="d-flex align-items-center gap-3 mb-3">
+                                <button @click="analyzeSchema" :disabled="analyzingSchema" class="btn btn-primary">
+                                    <span v-if="analyzingSchema" class="spinner-border spinner-border-sm me-1"></span>
+                                    {{ analyzingSchema ? 'Analizando...' : 'Analizar Esquema V2' }}
+                                </button>
+                                <button @click="exportSchema" :disabled="!schemaResult" class="btn btn-outline-success">
+                                    <i class="bi bi-file-earmark-excel me-1"></i> Exportar CSV
+                                </button>
+                            </div>
+
+                            <div v-if="schemaResult" class="alert alert-secondary">
+                                <strong>Análisis completado:</strong> {{ schemaResult.totalDocs }} documentos
+                                escaneados. {{
+                                schemaResult.map.size }} campos únicos detectados.
+                            </div>
+
+                            <div v-if="analyzingSchema" class="text-muted small">
+                                <span class="spinner-grow spinner-grow-sm me-2"></span> Escaneando documentos...
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </main>
+
+            <!-- API Config Modal -->
+            <div v-if="showConfig" class="loading-overlay">
+                <div class="card-clean shadow" style="width:400px;">
+                    <h5 class="mb-3">Configuración API</h5>
+                    <div class="mb-3">
+                        <label class="form-label small text-muted">Token EODHD</label>
+                        <input v-model="tempToken" class="form-control font-monospace" placeholder="1234.abcd..." />
+                        <div class="form-text small">Se guardará en Session Storage.</div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-2">
+                        <button @click="showConfig=false" class="btn btn-light">Cancelar</button>
+                        <button @click="saveToken" class="btn btn-primary">Guardar</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FIREBASE MODULES -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import {
+            getFirestore, collection, doc, getDoc, getDocs, setDoc, updateDoc,
+            query, where, limit, orderBy, serverTimestamp, runTransaction
+        } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged, setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        // CONFIG (Same as yours)
+        const firebaseConfig = {
+            apiKey: "AIzaSyDSEbK7Y804Z0RMTAYtx7G3kUhym11ttPo",
+            authDomain: "bdb-fondos.firebaseapp.com",
+            projectId: "bdb-fondos",
+            storageBucket: "bdb-fondos.appspot.com",
+            messagingSenderId: "213747306806",
+            appId: "1:213747306806:web:0f7bd4b0fcda2d2d21f1c6"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+        // Mantener sesión entre aperturas del navegador
+        await setPersistence(auth, browserLocalPersistence);
+
+
+        // VUE APP
+        const { createApp, ref, computed, onMounted, reactive, watch } = Vue;
+
+        createApp({
+            setup() {
+                // --- STATE ---
+
+                // Init grid when the view is ready and user is authenticated
+                onMounted(() => {
+                    // If already authenticated and on funds tab, init grid
+                    if (auth.currentUser && currentTab.value === 'funds') {
+                        setTimeout(initGrid, 100);
+                    }
+                });
+
+                const user = ref(null);
+                const loading = ref(false);
+                const loginForm = reactive({ email: '', password: '' });
+                const EMAIL_KEY = 'ADMIN_BBDD_EMAIL';
+                try {
+                    const savedEmail = localStorage.getItem(EMAIL_KEY);
+                    if (savedEmail) loginForm.email = savedEmail;
+                } catch (e) { }
+
+
+                // Nota: puedes recordar el email en este navegador (nunca la contraseña).
+                const errorMsg = ref('');
+
+                const currentTab = ref('funds');
+                const showConfig = ref(false);
+                // Default Key provided by user
+                const DEFAULT_KEY = '6943decfb2bb14.96572592';
+                const apiToken = ref(DEFAULT_KEY); // HARDCODED AS REQUESTED
+                const tempToken = ref('');
+
+                const fundsFilter = reactive({ search: '', limit: 100, onlyRetro: false });
+                const selectedFund = ref(null);
+                const saving = ref(false);
+                let gridApi = null;
+
+                // History State
+                // History State
+                const historyForm = reactive({
+                    isin: '',
+                    from: '2015-01-01',
+                    to: new Date().toISOString().slice(0, 10), // Default Today
+                    mode: 'merge'
+                });
+                const historyLog = ref('');
+                const bulkLog = ref('');
+                const jobRunning = ref(false);
+                const candidates = ref([]);
+                const searchingCandidates = ref(false);
+                const massCandidates = ref([]); // FIX: Defined missing ref
+                const searched = ref(false);
+
+                // Jobs State
+                const jobs = ref([]);
+
+                // --- AUTH ---
+                onAuthStateChanged(auth, (u) => {
+                    user.value = u;
+                    if (u) {
+                        loadJobs();
+                        // Ensure grid is initialized on first login
+                        if (currentTab.value === 'funds' && !gridApi) {
+                            setTimeout(initGrid, 100);
+                        }
+                        // If no token, prompt if default is missing (but we have default now)
+                        if (!apiToken.value) {
+                            // Should not happen with hardcoded default, but good failsafe
+                            showConfig.value = true;
+                        }
+                    }
+                });
+
+                const handleLogin = async () => {
+                    loading.value = true; errorMsg.value = '';
+                    try {
+                        await signInWithEmailAndPassword(auth, loginForm.email.trim().toLowerCase(), loginForm.password);
+                        try { if (loginForm.email) localStorage.setItem(EMAIL_KEY, loginForm.email.trim().toLowerCase()); } catch (e) { }
+                        loginForm.password = '';
+                    } catch (e) {
+                        errorMsg.value = e.message;
+                    } finally {
+                        loading.value = false;
+                    }
+                };
+
+                const logout = () => signOut(auth);
+
+                const saveToken = () => {
+                    if (tempToken.value && tempToken.value.trim()) {
+                        apiToken.value = tempToken.value.trim();
+                        sessionStorage.setItem('EOD_TOKEN', tempToken.value.trim());
+                        showConfig.value = false;
+                    }
+                };
+
+                // --- FUNDS LOGIC ---
+                const loadFunds = async () => {
+                    if (!gridApi) return;
+                    gridApi.setGridOption('loading', true);
+
+                    try {
+                        let q = collection(db, "funds_v3");
+                        let qRef;
+
+                        if (fundsFilter.onlyRetro) {
+                            qRef = query(q, where("costs.retrocession", ">", 0));
+                            if (fundsFilter.limit !== 'ALL') {
+                                qRef = query(qRef, limit(fundsFilter.limit));
+                            }
+                        } else {
+                            if (fundsFilter.limit === 'ALL') {
+                                qRef = query(q);
+                            } else {
+                                qRef = query(q, limit(fundsFilter.limit));
+                            }
+                        }
+
+
+
+                        // Failsafe Timeout
+                        const timeoutPromise = new Promise((_, reject) =>
+                            setTimeout(() => reject(new Error("Tiempo de espera agotado (Firestore)")), 8000)
+                        );
+
+                        const snap = await Promise.race([getDocs(qRef), timeoutPromise]);
+
+                        if (snap.empty) {
+                            gridApi.setGridOption('rowData', []);
+                            gridApi.setGridOption('loading', false);
+                            console.warn("Consulta Firestore devolvió 0 documentos");
+                            return;
+                        }
+
+                        let rows = snap.docs.map(d => ({ ...d.data(), id: d.id }));
+
+                        if (fundsFilter.search) {
+                            const term = fundsFilter.search.toLowerCase();
+                            rows = rows.filter(r =>
+                                (r.isin && r.isin.toLowerCase().includes(term)) ||
+                                (r.name && r.name.toLowerCase().includes(term))
+                            );
+                        }
+
+                        console.log(`Cargados ${rows.length} fondos.`);
+                        gridApi.setGridOption('rowData', rows);
+                        gridApi.setGridOption('loading', false);
+                    } catch (e) {
+                        console.error(e);
+                        gridApi.setGridOption('loading', false);
+                        alert("Error cargando fondos: " + e.message);
+                    }
+                };
+
+                const initGrid = () => {
+                    const gridEl = document.getElementById('fundsGrid');
+                    if (!gridEl) return; // Prevent "appendChild of null" error
+
+                    const gridOptions = {
+                        columnDefs: [
+                            { field: "isin", headerName: "ISIN", width: 140, pinned: 'left', checkboxSelection: true, headerCheckboxSelection: true },
+                            { field: "name", headerName: "Nombre", flex: 1, filter: true },
+                            { field: "fund_company", headerName: "Gestora", width: 150 },
+                            { field: "asset_class", headerName: "Asset Class", width: 120 },
+                            { field: "costs.ter", headerName: "TER", width: 80, valueFormatter: p => p.value ? p.value + '%' : '-' },
+                            { field: "costs.retrocession", headerName: "Retro", width: 80, valueFormatter: p => p.value ? p.value + '%' : '-' },
+                            {
+                                headerName: "Rango Histórico",
+                                width: 180,
+                                valueGetter: p => {
+                                    if (!p.data.history_range) return '-';
+                                    return `${p.data.history_range.start} \u2192 ${p.data.history_range.end}`;
+                                }
+                            },
+                            {
+                                field: "data_quality_label", headerName: "Calidad", width: 110, cellRenderer: p => {
+                                    if (!p.value) return '-';
+                                    const color = p.value === 'HIGH' ? 'success' : p.value === 'LOW' ? 'danger' : 'warning';
+                                    return `<span class="badge bg-${color}">${p.value}</span>`;
+                                }
+                            }
+                        ],
+                        defaultColDef: { sortable: true, resizable: true },
+                        rowSelection: {
+                            mode: 'multiRow',
+                            headerCheckboxSelection: true
+                        },
+                        onGridReady: (params) => {
+                            // API assigned in createGrid return
+                        },
+                        onRowClicked: (event) => {
+                            // Deep copy to edit
+                            const data = JSON.parse(JSON.stringify(event.data));
+                            if (!data.costs) data.costs = { ter: null, retrocession: null };
+                            selectedFund.value = data;
+                        }
+                    };
+
+                    // Fix: Use createGrid for AG Grid v31+
+                    gridApi = agGrid.createGrid(gridEl, gridOptions);
+                    loadFunds(); // Load initial data now that grid is ready
+                };
+
+                const saveFundChanges = async () => {
+                    if (!selectedFund.value) return;
+                    saving.value = true;
+                    try {
+                        const ref = doc(db, "funds_v3", selectedFund.value.isin);
+                        await updateDoc(ref, {
+                            manual_region: selectedFund.value.manual_region || null,
+                            asset_class: selectedFund.value.asset_class || null,
+                            "costs.ter": selectedFund.value.costs?.ter || null,
+                            "costs.retrocession": selectedFund.value.costs?.retrocession || null,
+                            admin_note: selectedFund.value.admin_note || null,
+                            updatedAt: serverTimestamp()
+                        });
+                        // Update grid local
+                        gridApi.applyTransaction({ update: [selectedFund.value] });
+                        selectedFund.value = null; // Close
+                    } catch (e) {
+                        alert("Error guardando: " + e.message);
+                    } finally {
+                        saving.value = false;
+                    }
+                };
+
+
+
+                const exportSelectedFunds = () => {
+                    if (!gridApi) return;
+                    const selectedRows = gridApi.getSelectedRows();
+                    if (selectedRows.length === 0) {
+                        alert("Selecciona al menos un fondo para exportar.");
+                        return;
+                    }
+
+                    // Flatten simple helper
+                    const flatten = (obj, prefix = '', res = {}) => {
+                        for (const key in obj) {
+                            const val = obj[key];
+                            const newKey = prefix ? `${prefix}.${key}` : key;
+                            if (val && typeof val === 'object' && !Array.isArray(val) && (val.toDate === undefined)) {
+                                flatten(val, newKey, res);
+                            } else {
+                                res[newKey] = val;
+                            }
+                        }
+                        return res;
+                    };
+
+                    const flatRows = selectedRows.map(row => {
+                        // Clone first to avoid mutation issues
+                        const clone = JSON.parse(JSON.stringify(row));
+                        return flatten(clone);
+                    });
+
+                    // Get all unique headers
+                    const headers = Array.from(new Set(flatRows.flatMap(r => Object.keys(r)))).sort();
+
+                    let csv = headers.join(",") + "\n";
+
+                    for (const r of flatRows) {
+                        const line = headers.map(h => {
+                            let val = r[h];
+                            if (val === null || val === undefined) return "";
+                            // Handle Arrays or complex objects that were not flattened (like history dates)
+                            if (typeof val === 'object') val = JSON.stringify(val).replace(/"/g, '""');
+                            else val = String(val).replace(/"/g, '""');
+
+                            if (val.includes(",") || val.includes("\"") || val.includes("\n")) return `"${val}"`;
+                            return val;
+                        }).join(",");
+                        csv += line + "\n";
+                    }
+
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", `funds_v3_export_${new Date().toISOString().slice(0, 10)}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                const exportAllRetrocessions = async () => {
+                    if (!confirm('Esto descargará TODOS los fondos con retrocesión de la base de datos. ¿Continuar?')) {
+                        return;
+                    }
+
+                    try {
+                        // Query all funds with retrocession > 0
+                        const q = query(
+                            collection(db, "funds_v3"),
+                            where("costs.retrocession", ">", 0)
+                        );
+
+                        const snap = await getDocs(q);
+                        console.log(`Found ${snap.size} funds with retrocession`);
+
+                        if (snap.empty) {
+                            alert('No se encontraron fondos con retrocesión.');
+                            return;
+                        }
+
+                        // Prepare CSV data
+                        const csvRows = ['ISIN,Nombre,Retrocesión (%),TER (%),Gestora'];
+
+                        snap.forEach(doc => {
+                            const fund = doc.data();
+                            const isin = fund.isin || doc.id;
+                            const name = (fund.name || '').replace(/"/g, '""');
+                            const retro = fund.costs?.retrocession || 0;
+                            const ter = fund.costs?.ter || 0;
+                            const company = (fund.fund_company || '').replace(/"/g, '""');
+
+                            csvRows.push(`"${isin}","${name}",${retro},${ter},"${company}"`);
+                        });
+
+                        // Create and download CSV
+                        const csvContent = csvRows.join('\n');
+                        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                        const url = URL.createObjectURL(blob);
+                        const link = document.createElement("a");
+                        link.setAttribute("href", url);
+                        link.setAttribute("download", `fondos_retrocesiones_${new Date().toISOString().slice(0, 10)}.csv`);
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+
+                        alert(`✅ Exportados ${snap.size} fondos con retrocesión`);
+                    } catch (e) {
+                        console.error('Error exporting retrocessions:', e);
+                        alert('Error al exportar: ' + e.message);
+                    }
+                };
+
+                // --- HISTORY V2 LOGIC ---
+
+                // Helper: Normalize any input to [{date: "YYYY-MM-DD", nav: 123.45}]
+                const normalizeSeries = (input) => {
+                    if (!input) return [];
+                    let arr = [];
+
+                    // Case: Map { "2020-01-01": 100 }
+                    if (!Array.isArray(input) && typeof input === 'object') {
+                        arr = Object.entries(input).map(([k, v]) => ({ date: k, nav: v }));
+                    }
+                    // Case: Array of Arrays [["2020", 100]]
+                    else if (Array.isArray(input)) {
+                        if (Array.isArray(input[0])) {
+                            arr = input.map(x => ({ date: x[0], nav: x[1] }));
+                        } else {
+                            // Case: Array of Objects
+                            arr = input.map(x => ({
+                                date: x.date,
+                                nav: x.nav !== undefined ? x.nav : (x.adjusted_close || x.close)
+                            }));
+                        }
+                    }
+
+                    // Clean & Sort
+                    return arr
+                        .map(x => ({
+                            date: x.date ? String(x.date).slice(0, 10) : null,
+                            nav: typeof x.nav === 'string' ? parseFloat(x.nav) : x.nav
+                        }))
+                        .filter(x => x.date && !isNaN(x.nav) && x.date.match(/^\d{4}-\d{2}-\d{2}$/))
+                        .sort((a, b) => a.date.localeCompare(b.date));
+                };
+
+                // Helper: Merge Strategy
+                const mergeSeries = (oldSeries, newSeries) => {
+                    if (!oldSeries) oldSeries = [];
+                    const map = new Map();
+                    oldSeries.forEach(x => map.set(x.date, x));
+                    newSeries.forEach(x => map.set(x.date, x)); // New overwrites old
+                    return Array.from(map.values()).sort((a, b) => a.date.localeCompare(b.date));
+                };
+
+                // Helper: Validation
+                const validateSeries = (series) => {
+                    if (!series || series.length === 0) throw new Error("La serie está vacía");
+                    const invalid = series.find(x => !x.date || isNaN(x.nav));
+                    if (invalid) throw new Error("Dato inválido encontrado: " + JSON.stringify(invalid));
+                    return true;
+                };
+
+                const fetchEodSeries = async (isin, from, to) => {
+                    if (!apiToken.value) throw new Error("Falta Token API");
+                    const sReq = await fetch(`https://eodhd.com/api/search/${isin}?api_token=${apiToken.value}&limit=1`);
+                    if (!sReq.ok) {
+                        const t = await sReq.text().catch(() => '');
+                        throw new Error(`EODHD search HTTP ${sReq.status}: ${t.slice(0, 200)}`);
+                    }
+                    const sData = await sReq.json();
+                    if (!sData || !sData.length) throw new Error("ISIN no encontrado en EODHD");
+                    const { Code, Exchange } = sData[0];
+
+                    const url = `https://eodhd.com/api/eod/${Code}.${Exchange}?api_token=${apiToken.value}&from=${from}&to=${to}&fmt=json`;
+                    const hReq = await fetch(url);
+                    if (!hReq.ok) {
+                        const t = await hReq.text().catch(() => '');
+                        throw new Error(`EODHD HTTP ${hReq.status}: ${t.slice(0, 200)}`);
+                    }
+                    const hData = await hReq.json();
+                    if (!Array.isArray(hData)) throw new Error("Error API: " + JSON.stringify(hData));
+
+                    return normalizeSeries(hData);
+                };
+
+                const saveHistoryV2 = async (isin, newHistory, mode, range) => {
+                    const hRef = doc(db, "historico_vl_v2", isin);
+                    let finalHistory = newHistory;
+                    let method = "OVERWRITE";
+
+                    if (mode === 'merge') {
+                        const snap = await getDoc(hRef);
+                        if (snap.exists() && snap.data().history) {
+                            const existing = normalizeSeries(snap.data().history);
+                            finalHistory = mergeSeries(existing, newHistory);
+                            method = "MERGE";
+                        }
+                    }
+
+                    validateSeries(finalHistory);
+
+                    await setDoc(hRef, {
+                        isin,
+                        history: finalHistory,
+                        updatedAt: serverTimestamp(),
+                        source: `ADMIN_EOD_${method}`,
+                        range: range || null
+                    });
+
+                    return { count: finalHistory.length, first: finalHistory[0].date, last: finalHistory[finalHistory.length - 1].date };
+                };
+
+                const runSingleHistoryImport = async () => {
+                    jobRunning.value = true;
+                    historyLog.value = "Iniciando descarga...";
+                    try {
+                        const range = { from: historyForm.from, to: historyForm.to };
+                        const series = await fetchEodSeries(historyForm.isin, range.from, range.to);
+                        if (series.length === 0) throw new Error("EODHD devolvió 0 datos válidos.");
+
+                        historyLog.value += `\nDescargados ${series.length} puntos. Procesando (${historyForm.mode})...`;
+
+                        const res = await saveHistoryV2(historyForm.isin, series, historyForm.mode, range);
+
+                        // Mark fund as having history AND save range
+                        await updateDoc(doc(db, "funds_v3", historyForm.isin), {
+                            has_history: true,
+                            history_range: { start: res.first, end: res.last }
+                        });
+
+                        historyLog.value += `\n✅ OK | Puntos: ${res.count} | ${res.first} -> ${res.last}`;
+                    } catch (e) {
+                        historyLog.value += `\n❌ Error: ${e.message}`;
+                    } finally {
+                        jobRunning.value = false;
+                    }
+                };
+
+                const findHistoryCandidates = async () => {
+                    searchingCandidates.value = true;
+                    candidates.value = [];
+                    try {
+                        const q = query(collection(db, "funds_v3"), where("has_history", "==", false), limit(100));
+                        const snap = await getDocs(q);
+                        // Save {isin, name} instead of string
+                        candidates.value = snap.docs.map(d => {
+                            const dat = d.data();
+                            return { isin: d.id, name: dat.name };
+                        });
+                        searched.value = true;
+                    } catch (e) {
+                        alert(e.message);
+                    } finally {
+                        searchingCandidates.value = false;
+                    }
+                };
+
+                const downloadCandidatesCSV = () => {
+                    if (!candidates.value.length) return;
+
+                    const headers = ["ISIN,Nombre"];
+                    const rows = candidates.value.map(c => `"${c.isin}","${(c.name || '').replace(/"/g, '""')}"`);
+                    const csvContent = headers.concat(rows).join("\n");
+
+                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", `fondos_sin_historico_${new Date().toISOString().slice(0, 10)}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                const findAllFundsForUpdate = async () => {
+                    searchingCandidates.value = true;
+                    massCandidates.value = [];
+                    try {
+                        const snap = await getDocs(collection(db, "funds_v3"));
+                        // Capture history_range to know where to start updating from
+                        massCandidates.value = snap.docs.map(d => ({
+                            isin: d.id,
+                            name: d.data().name,
+                            lastDate: d.data().history_range?.end
+                        }));
+                    } catch (e) {
+                        alert("Error buscando todos los fondos: " + e.message);
+                    } finally {
+                        searchingCandidates.value = false;
+                    }
+                };
+
+                // --- JOBS LOGIC (Client Side Worker) ---
+                const startBulkHistoryJob = async () => {
+                    bulkLog.value = '';
+                    if (!apiToken.value) { bulkLog.value = '❌ Falta API Key (EODHD).'; return; }
+                    if (!candidates.value.length) { bulkLog.value = '⚠️ No hay candidatos. Pulsa primero "Buscar Candidatos".'; return; }
+                    await createAndRunJob("BULK_ZOMBIES", candidates.value);
+                };
+
+                const startMassUpdateJob = async () => {
+                    bulkLog.value = '';
+                    if (!apiToken.value) { bulkLog.value = '❌ Falta API Key (EODHD).'; return; }
+                    if (!massCandidates.value.length) { bulkLog.value = '⚠️ No hay fondos.'; return; }
+                    await createAndRunJob("MASS_UPDATE", massCandidates.value);
+                };
+
+                const createAndRunJob = async (type, targets) => {
+                    const jobId = "job_" + Date.now();
+                    const jobRef = doc(db, "admin_jobs", jobId);
+
+                    const newJob = {
+                        id: jobId,
+                        type: type,
+                        status: "RUNNING",
+                        progress: 0,
+                        total: targets.length,
+                        createdAt: serverTimestamp(),
+                    };
+
+                    try {
+                        await setDoc(jobRef, newJob);
+                        jobs.value.unshift(newJob);
+                        bulkLog.value = `✅ Job ${type} creado: ${jobId} | Total: ${newJob.total}`;
+                    } catch (e) {
+                        bulkLog.value = '❌ No se pudo crear el job: ' + e.message;
+                        return;
+                    }
+
+                    processJobWorker(jobId, type, targets).catch(err => {
+                        bulkLog.value += `\n❌ Worker error: ${err?.message || err}`;
+                    });
+                };
+
+                const processJobWorker = async (jobId, type, isins) => {
+                    let done = 0;
+                    const todayStr = new Date().toISOString().slice(0, 10);
+
+                    for (const candidate of isins) {
+                        const isin = candidate.isin;
+                        let fromDate = "2015-01-01";
+
+                        // Determine Start Date
+                        if (type === 'MASS_UPDATE') {
+                            if (candidate.lastDate) {
+                                // Start from next day
+                                const d = new Date(candidate.lastDate);
+                                d.setDate(d.getDate() + 1);
+                                fromDate = d.toISOString().slice(0, 10);
+
+                                // specific check: if updated recently, skip
+                                if (fromDate > todayStr) {
+                                    done++;
+                                    // Update progress anyway to keep track
+                                    if (done % 50 === 0) try { await updateDoc(doc(db, "admin_jobs", jobId), { progress: done }); } catch (e) { }
+                                    continue;
+                                }
+                            }
+                            // If no lastDate, default to 2015 (full history)
+                        }
+
+                        try {
+                            const range = { from: fromDate, to: todayStr };
+                            const series = await fetchEodSeries(isin, range.from, range.to);
+
+                            if (series.length > 0) {
+                                const res = await saveHistoryV2(isin, series, 'merge', range);
+                                // Always update range in funds_v3
+                                await updateDoc(doc(db, "funds_v3", isin), {
+                                    has_history: true,
+                                    history_range: { start: res.first, end: res.last }, // This works because saveHistoryV2 returns formatted first/last of the *batch* or *merged*? 
+                                    // Wait, saveHistoryV2 returns the saved batch info. 
+                                    // Ideally we want to know the GLOBAL start/end. 
+                                    // But since we are merging forward, 'last' is definitely the new global end.
+                                    // 'start' might be the old start. 
+                                    // We can't easily know the old start without reading it. 
+                                    // However, for efficiency, let's just update 'updatedAt' and rely on 'last'.
+                                    // If we want to be safe about 'start', we should only update it if it wasn't set.
+                                    updatedAt: serverTimestamp()
+                                });
+                            }
+                        } catch (e) {
+                            console.warn(`Job ${jobId} failed for ${isin}:`, e);
+                        }
+
+                        done++;
+                        if (done === 1 || done % 10 === 0 || done === isins.length) {
+                            bulkLog.value = `⏳ Job ${type}: ${done}/${isins.length}`;
+                        }
+                        if (done % 5 === 0 || done === isins.length) {
+                            try { await updateDoc(doc(db, "admin_jobs", jobId), { progress: done }); } catch (e) { }
+                        }
+
+                        // Throttle
+                        await new Promise(r => setTimeout(r, 200));
+                    }
+
+                    try {
+                        await updateDoc(doc(db, "admin_jobs", jobId), { status: "COMPLETED", progress: done });
+                    } catch (e) { }
+                    try { await loadJobs(); } catch (e) { }
+                };
+                const schemaResult = ref(null);
+                const analyzingSchema = ref(false);
+
+                const traverseSchema = (obj, prefix, map) => {
+                    const getType = (val) => {
+                        if (val === null) return "null";
+                        if (val === undefined) return "undefined";
+                        if (val && typeof val === "object" && typeof val.toDate === "function") return "Timestamp";
+                        if (Array.isArray(val)) return "Array";
+                        return typeof val;
+                    };
+
+                    if (!obj || typeof obj !== "object") return;
+
+                    if (Array.isArray(obj)) {
+                        const limitStr = Math.min(obj.length, 5);
+                        const childPrefix = prefix + "[*]";
+                        for (let i = 0; i < limitStr; i++) {
+                            const val = obj[i];
+                            const t = getType(val);
+                            if (!map.has(childPrefix)) map.set(childPrefix, { types: new Set(), count: 0, example: val });
+                            const entry = map.get(childPrefix);
+                            entry.types.add(t);
+                            entry.count++;
+                            if (entry.example === undefined && val !== undefined) entry.example = val;
+
+                            if (t === 'object' || t === 'Array') traverseSchema(val, childPrefix, map);
+                        }
+                        return;
+                    }
+
+                    if (getType(obj) === "Timestamp") return;
+
+                    Object.keys(obj).forEach(key => {
+                        const val = obj[key];
+                        const path = prefix ? `${prefix}.${key}` : key;
+                        const t = getType(val);
+
+                        if (!map.has(path)) {
+                            map.set(path, { types: new Set(), count: 0, example: val });
+                        }
+                        const entry = map.get(path);
+                        entry.types.add(t);
+                        entry.count++;
+                        if ((entry.example === undefined || entry.example === null) && val !== undefined && val !== null) {
+                            entry.example = val;
+                        }
+
+                        if (t === "object" || t === "Array") {
+                            traverseSchema(val, path, map);
+                        }
+                    });
+                };
+
+                const analyzeSchema = async () => {
+                    analyzingSchema.value = true;
+                    schemaResult.value = null;
+                    try {
+                        const q = query(collection(db, "funds_v3"), limit(2000));
+                        const snap = await getDocs(q);
+
+                        const map = new Map();
+                        let docCount = 0;
+
+                        snap.forEach(d => {
+                            traverseSchema(d.data(), "", map);
+                            docCount++;
+                        });
+
+                        schemaResult.value = { map, totalDocs: docCount };
+                    } catch (e) {
+                        alert("Error analizano schema: " + e.message);
+                    } finally {
+                        analyzingSchema.value = false;
+                    }
+                };
+
+                const exportSchema = () => {
+                    if (!schemaResult.value) return;
+                    const { map, totalDocs } = schemaResult.value;
+
+                    const rows = ["path,types,occurrence_count,occurrence_pct,example_value"];
+                    const paths = Array.from(map.keys()).sort();
+
+                    for (const p of paths) {
+                        const info = map.get(p);
+                        const typesStr = Array.from(info.types).join("|");
+                        const pct = ((info.count / totalDocs) * 100).toFixed(2) + "%";
+
+                        let ex = info.example;
+                        if (ex && typeof ex === 'object') {
+                            if (Array.isArray(ex)) ex = "[Array]";
+                            else if (ex.seconds) ex = "Timestamp";
+                            else ex = "{Object}";
+                        }
+
+                        const escape = (s) => {
+                            const str = String(s === null || s === undefined ? "" : s);
+                            if (str.includes(",") || str.includes("\"") || str.includes("\n")) return `"${str.replace(/"/g, '""')}"`;
+                            return str;
+                        };
+
+                        rows.push(`${escape(p)},${escape(typesStr)},${info.count},${pct},${escape(ex)}`);
+                    }
+
+                    const blob = new Blob([rows.join("\n")], { type: 'text/csv;charset=utf-8;' });
+                    const url = URL.createObjectURL(blob);
+                    const link = document.createElement("a");
+                    link.setAttribute("href", url);
+                    link.setAttribute("download", `funds_v3_schema_${new Date().toISOString().slice(0, 10)}.csv`);
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
+                };
+
+                // --- JOBS LOGIC (Client Side Worker) ---
+
+
+
+
+
+
+                const loadJobs = async () => {
+                    if (!user.value) return;
+                    const q = query(collection(db, "admin_jobs"), orderBy("createdAt", "desc"), limit(10));
+                    const snap = await getDocs(q);
+                    jobs.value = snap.docs.map(d => {
+                        const dat = d.data();
+                        return { ...dat, createdAt: dat.createdAt?.toDate() || new Date() };
+                    });
+                };
+
+                // Utils: Debounce
+                const debounce = (fn, delay) => {
+                    let timeout;
+                    return (...args) => {
+                        clearTimeout(timeout);
+                        timeout = setTimeout(() => fn(...args), delay);
+                    };
+                };
+
+                // Watchers
+                watch(() => fundsFilter.search, debounce((val) => {
+                    loadFunds();
+                }, 400)); // 400ms delay
+
+                // Watch tab change to init grid
+                watch(currentTab, (val) => {
+                    if (val === 'funds' && !gridApi) {
+                        setTimeout(initGrid, 100); // Allow DOM render
+                    }
+                });
+
+                return {
+                    user, loginForm, loading, errorMsg, handleLogin, logout,
+                    currentTab, tabTitle: computed(() => currentTab.value.charAt(0).toUpperCase() + currentTab.value.slice(1)),
+                    showConfig, apiToken, tempToken, saveToken,
+                    // Funds
+                    fundsFilter, loadFunds, selectedFund, saveFundChanges, saving, exportSelectedFunds, exportAllRetrocessions,
+                    // History
+                    historyForm, runSingleHistoryImport, historyLog, bulkLog, jobRunning,
+                    findHistoryCandidates, candidates, massCandidates, searchingCandidates, startBulkHistoryJob, searched, downloadCandidatesCSV,
+                    // Jobs
+                    jobs, activeJobsCount: computed(() => jobs.value.filter(j => j.status === 'RUNNING').length), loadJobs,
+                    // Schema
+                    analyzeSchema, analyzingSchema, schemaResult, exportSchema,
+                    // Utils
+                    formatDate: (d) => d ? d.toLocaleString() : '-',
+                    window
+                };
+            }
+        }).mount('#app');
+    </script>
+
+</body>
+
+</html>
