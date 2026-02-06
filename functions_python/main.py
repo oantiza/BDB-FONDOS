@@ -299,10 +299,14 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         if req_data.get('ignore_constraints'):
             # Override any strategy constraints
             STRATEGY_CONSTRAINTS = {} 
-            # Signal optimizer to skip profile logic
+            # Signal optimizer to skip profile logic (buckets)
             STRATEGY_CONSTRAINTS['disable_profile_rules'] = True
-            # Force MAX SHARPE (Pure Rebalance Request)
-            STRATEGY_CONSTRAINTS['objective'] = 'max_sharpe'
+            # Extract objective from payload (default to risk-based if not provided, but frontend now sends it)
+            STRATEGY_CONSTRAINTS['objective'] = req_data.get('objective')
+            
+            # --- STRICT REBALANCE LIMITS (User Requested) ---
+            STRATEGY_CONSTRAINTS['min_weight'] = 0.03   # 3% Min per Asset
+            STRATEGY_CONSTRAINTS['max_weight'] = 0.25   # 25% Max per Asset
 
         result = run_optimization(
             assets_list,

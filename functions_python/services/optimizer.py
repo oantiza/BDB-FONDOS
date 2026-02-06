@@ -222,7 +222,8 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         rf_rate = float(fetcher.get_dynamic_risk_free_rate())
 
         # 3) Parámetros
-        max_weight = float(MAX_WEIGHT_DEFAULT)
+        max_weight = float((constraints or {}).get('max_weight', MAX_WEIGHT_DEFAULT))
+        min_weight = float((constraints or {}).get('min_weight', 0.0))
         cutoff = float(CUTOFF_DEFAULT)
         risk_level_i = int(risk_level)
 
@@ -231,7 +232,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         gamma = 1.0 if n_assets < 10 else (2.0 if n_assets <= 25 else 3.0)
 
         # 4) Construir EF
-        ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+        ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
         ef.add_objective(objective_functions.L2_reg, gamma=gamma)
 
         # 4.1 Locked assets
@@ -508,10 +509,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     # (Code continues to solver block below)
 
 
-        solver_path = solver_path or None
         if not solver_path:
             try:
-                # --- NEW: Explicit Objective Override (e.g. Max Sharpe for Rebalance) ---
+                # --- NEW: Explicit Objective Override (Max Sharpe for Rebalance/Optimization) ---
                 if constraints and constraints.get('objective') == 'max_sharpe':
                     solver_path = 'max_sharpe_unconstrained'
                     raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
@@ -580,8 +580,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         for _ in range(5):
             for isin in locked_assets:
                 if isin in universe:
-                    weights[isin] = max(float(weights.get(isin, 0.0)), 0.03)
+                    weights[isin] = max(float(weights.get(isin, 0.0)), max(0.03, min_weight)) # Ensure at least user min
             weights = _cap(weights, max_weight)
+            # Optional: Enforce Floor manually if needed, but risky after normalization. 
+            # Trust Solver first. If we re-normalize, small drifts occur.
             weights = _normalize(weights)
 
         # dropped_assets: en universe con peso ~0

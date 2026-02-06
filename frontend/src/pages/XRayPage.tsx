@@ -101,8 +101,21 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     };
 
     const handleDownloadSummaryReport = async () => {
-        const ids = ['pdf-summary-portfolio-full'];
-        await generatePortfolioReport(ids, "resumen_cartera.pdf");
+        const ids = ['pdf-cover-page'];
+
+        // Dynamic composition pages (Paginated)
+        if (compositionPages && compositionPages.length > 0) {
+            compositionPages.forEach((_: any, i: number) => {
+                ids.push(`pdf-composition-page-${i}`);
+            });
+        }
+
+        // Metrics & Advanced Charts
+        ids.push('pdf-page-2-custom');
+        ids.push('pdf-advanced-charts-page');
+
+        const dateStr = new Date().toISOString().slice(0, 10);
+        await generatePortfolioReport(ids, `informe_resumen_${dateStr}.pdf`);
     };
 
     // 4. Render

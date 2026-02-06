@@ -61,20 +61,20 @@ export default function XRayPdfSections({
         <div style={{ position: 'absolute', left: '-9999px', top: 0 }}>
             {/* 1. COVER PAGE (Page 1) */}
             <div id="pdf-cover-page" className="relative" style={{ width: '1200px', height: '1697px', background: '#003399' }}>
-                {(() => { const p = getPageNum(); return null; })()}
+                {/* Page numbering starts after cover */}
                 {/* Visual cover usually doesn't have page number or is page 1 */}
                 <div className="relative w-full h-full p-20 flex flex-col justify-between text-white">
                     <div className="flex items-center gap-6">
                         <div className="w-2 h-24 bg-[#D4AF37]"></div>
                         <div className="text-4xl font-light tracking-[0.2em] uppercase">
-                            FAMILY OFFICE PLANNER
+                            G.F.I.
                         </div>
                     </div>
                     <div className="mb-40">
                         <h2 className="text-5xl font-light mb-4 text-white/90">Informe de</h2>
                         <h1 className="text-[120px] font-bold text-[#D4AF37] leading-none mb-8">Cartera</h1>
                         <p className="text-3xl font-light text-white/80 max-w-2xl leading-relaxed">
-                            Análisis detallado de composición, métricas de riesgo y proyección histórica.
+                            Resumen Ejecutivo de Posiciones
                         </p>
                     </div>
                     <div className="flex justify-between items-end border-t border-white/20 pt-10">
@@ -214,7 +214,7 @@ export default function XRayPdfSections({
                     <div className="mb-16">
                         <h2 className="text-black text-4xl font-light tracking-tight">Métricas de Cartera</h2>
                     </div>
-                    <div className="flex justify-between gap-4 border-b border-[#eeeeee]" style={{ marginBottom: '60px', paddingBottom: '40px' }}>
+                    <div className="flex justify-between gap-4 border-b border-[#eeeeee]" style={{ marginBottom: '30px', paddingBottom: '20px' }}>
                         {[
                             { label: "RENTABILIDAD (CAGR)", value: metrics.metrics?.cagr ? (metrics.metrics.cagr * 100).toFixed(2) + "%" : "-", color: "text-[#2C3E50]" },
                             { label: "VOLATILIDAD", value: metrics.metrics?.volatility ? (metrics.metrics.volatility * 100).toFixed(2) + "%" : "-", color: "text-[#C0392B]" },
@@ -230,12 +230,12 @@ export default function XRayPdfSections({
                             </div>
                         ))}
                     </div>
-                    <div className="flex justify-between items-start" style={{ marginBottom: '80px' }}>
+                    <div className="flex justify-between items-start" style={{ marginBottom: '40px' }}>
                         <div className="w-[45%] flex flex-col items-center">
                             <h3 className="text-black text-4xl font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
                                 Composición Global <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Activo Subyacente</span>
                             </h3>
-                            <div style={{ width: '420px', height: '420px' }}>
+                            <div style={{ width: '280px', height: '280px' }}>
                                 <DiversificationDonut assets={
                                     categoryAllocation && categoryAllocation.length > 0
                                         ? categoryAllocation.slice(0, 5).concat(
@@ -288,11 +288,11 @@ export default function XRayPdfSections({
                                 Diversificación <span className="block text-sm font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4">
-                                <EquityRegionChart data={regionAllocation} />
+                                <EquityRegionChart data={regionAllocation.slice(0, 5)} />
                             </div>
                         </div>
                     </div>
-                    <div className="w-full border-t border-[#eeeeee]" style={{ marginTop: '60px', paddingTop: '40px' }}>
+                    <div className="w-full border-t border-[#eeeeee]" style={{ marginTop: '20px', paddingTop: '20px' }}>
                         <div className="p-4 border-b border-slate-50 flex justify-between items-center mb-14">
                             <h3 className="text-4xl font-light text-black tracking-tight">Frontera Eficiente</h3>
                         </div>
@@ -304,6 +304,12 @@ export default function XRayPdfSections({
                                 isLoading={false}
                                 animate={false}
                             />
+                        </div>
+                        <div className="w-[90%] mx-auto mt-6 px-1">
+                            <h4 className="text-xs font-bold text-[#A07147] uppercase tracking-widest mb-1">Curva de Rendimiento Ideal</h4>
+                            <p className="text-sm text-slate-500 font-light leading-relaxed">
+                                Representa el límite del "mejor resultado posible": es la línea que marca el máximo beneficio que se puede obtener para cada nivel de riesgo asumido.
+                            </p>
                         </div>
                     </div>
 
@@ -317,10 +323,10 @@ export default function XRayPdfSections({
                     <span className="font-light text-xl tracking-tight leading-none">Análisis <span className="font-bold">Avanzado</span></span>
                 </div>
 
-                <div className="space-y-24">
-                    <div className="h-[450px]">
-                        <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight mb-6">Evolución Histórica <span className="text-lg text-slate-400 font-normal">(Backtest 5 Años)</span></h3>
-                        <div className="h-[350px] bg-[#fcfcfc] border border-[#f0f0f0] p-4">
+                <div className="space-y-[210px]">
+                    <div>
+                        <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight mb-[80px]">Evolución Histórica <span className="text-lg text-slate-400 font-normal">(Backtest 5 Años)</span></h3>
+                        <div className="h-[410px] bg-[#fcfcfc] border border-[#f0f0f0] p-4">
                             {metrics && metrics.portfolioSeries ? (
                                 <XRayChart
                                     portfolioData={metrics.portfolioSeries}
@@ -332,9 +338,9 @@ export default function XRayPdfSections({
                         </div>
                     </div>
 
-                    <div className="h-[450px]">
-                        <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight mb-6">Mapa de Riesgo/Retorno</h3>
-                        <div className="h-[350px] bg-[#fcfcfc] border border-[#f0f0f0] p-4 relative">
+                    <div>
+                        <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight mb-[80px]">Mapa de Riesgo/Retorno</h3>
+                        <div className="h-[410px] bg-[#fcfcfc] border border-[#f0f0f0] p-4 relative">
                             {metrics && metrics.metrics ? (
                                 <RiskMap
                                     portfolioMetrics={{
@@ -349,6 +355,47 @@ export default function XRayPdfSections({
                                 />
                             ) : <div className="h-full flex items-center justify-center text-slate-300">Datos no disponibles</div>}
                         </div>
+                        <div className="mt-6 px-1">
+                            <h4 className="text-xs font-bold text-[#A07147] uppercase tracking-widest mb-1">Balance de Eficiencia</h4>
+                            <p className="text-sm text-slate-500 font-light leading-relaxed">
+                                Este gráfico mide el beneficio frente a la estabilidad: cuanto más alto está su punto, más gana; cuanto más a la izquierda, más protegida está su inversión. Buscamos situarle siempre en la zona de máxima rentabilidad con el menor riesgo posible.
+                            </p>
+                        </div>
+                        {metrics && metrics.metrics && metrics.synthetics && (
+                            <div className="mt-8 text-sm text-[#2C3E50] font-light leading-relaxed bg-[#f8fafc] p-6 border border-slate-100 rounded-lg">
+                                {(() => {
+                                    const pVol = (metrics.metrics.volatility || 0) * 100;
+                                    const pRet = (metrics.metrics.cagr || 0) * 100;
+
+                                    // Find closest benchmark
+                                    let closest: { vol: number; ret: number; name: string } | null = null;
+                                    let minDist = Infinity;
+
+                                    metrics.synthetics.forEach((b: any) => {
+                                        const bVol = b.vol < 1 ? b.vol * 100 : b.vol;
+                                        const bRet = b.ret < 1 ? b.ret * 100 : b.ret;
+                                        const dist = Math.sqrt(Math.pow(bVol - pVol, 2) + Math.pow(bRet - pRet, 2));
+                                        if (dist < minDist) {
+                                            minDist = dist;
+                                            closest = { ...b, vol: bVol, ret: bRet };
+                                        }
+                                    });
+
+                                    if (!closest) return null;
+
+                                    const alpha = pRet - closest.ret;
+                                    const alphaSign = alpha >= 0 ? '+' : '';
+
+                                    return (
+                                        <p>
+                                            Su cartera (<b>{pVol.toFixed(1)}% Vol</b>) se comporta similar al perfil <b>{closest.name}</b>.
+                                            Sin embargo, genera un <b>Alpha</b> (Retorno Extra) de <b>{alphaSign}{alpha.toFixed(2)}%</b> respecto al mismo.
+                                            {alpha > 0 ? ' ¡Buena eficiencia!' : ''}
+                                        </p>
+                                    );
+                                })()}
+                            </div>
+                        )}
                     </div>
                 </div>
                 <PageFooter num={getPageNum()} />

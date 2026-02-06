@@ -53,15 +53,21 @@ def run_backtest(portfolio, period, db):
         df = df.sort_index().ffill().bfill()
         print(f"🔍 [DEBUG] Data aligned and filled. Shape: {df.shape}")
         
-        # Standard: 3-Year (36 Months) analysis window
-        # We force 3y (1095 days) to align with Morningstar rating standards
-        lookback_days = 1095 
+        # Determine lookback days based on period
+        period_days_map = {
+            '1y': 365,
+            '3y': 1095,
+            '5y': 1825,
+            '10y': 3650,
+            'max': 10000
+        }
+        lookback_days = period_days_map.get(period, 1095)
         
         # Calculate start date based on available history
         if len(df) > 0:
             start_date = df.index[-1] - timedelta(days=lookback_days) 
             df = df[df.index >= start_date]
-            print(f"🔍 [DEBUG] Data sliced to 3Y window. New Shape: {df.shape}")
+            print(f"🔍 [DEBUG] Data sliced to {period} window. New Shape: {df.shape}")
         
         # Re-check validity after slicing time range
         if df.empty:
@@ -165,10 +171,11 @@ def run_backtest(portfolio, period, db):
             })
 
         days_count = len(cumulative)
-        # 3-Year Window Strategy (Strict 1095 days)
+        # Apply specific window strategy if needed, but respect period
+        # We ensure the calculation window matches the requested period
         if days_count > 0:
-            start_date_bound = cumulative.index[-1] - pd.Timedelta(days=1095)
-            # Re-slice if needed to be absolutely sure we use 3Y
+            start_date_bound = cumulative.index[-1] - pd.Timedelta(days=lookback_days)
+            # Re-slice if needed to be absolutely sure we use the correct window
             cumulative = cumulative[cumulative.index >= start_date_bound]
             port_ret = port_ret[port_ret.index >= start_date_bound]
             days_count = len(cumulative)

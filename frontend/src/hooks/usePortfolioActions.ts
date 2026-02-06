@@ -337,11 +337,12 @@ export function usePortfolioActions({
                 locked_assets: [],
                 // Enable Smart Challenges for Rebalance too
                 // disable_challengers: true, 
-                ignore_constraints: true // <--- PURE REBALANCE (Markowitz Only)
+                ignore_constraints: true, // <--- PURE REBALANCE (Markowitz Only)
+                objective: 'max_sharpe' // <--- ADDED: Explicitly request Max Sharpe for Rebalancing
             });
 
             const result = unwrapResult<SmartPortfolioResponse>(response.data);
-            processOptimizationResult(result, optimizeFn);
+            processOptimizationResult(result, optimizeFn, { strict: true });
 
         } catch (error: any) {
             toast.error("Error en Rebalanceo: " + error.message);
@@ -351,19 +352,26 @@ export function usePortfolioActions({
     };
 
     // Helper to avoid duplication
-    const processOptimizationResult = async (result: SmartPortfolioResponse, optimizeFn: any) => {
+    const processOptimizationResult = async (result: SmartPortfolioResponse, optimizeFn: any, options?: { strict?: boolean }) => {
         if (result.status === 'optimal' || result.status === 'fallback') {
             const weights = result.weights || {};
             let hasChanges = false;
-            const optimized = portfolio.map(p => {
+
+            // MAP Weights
+            let optimized = portfolio.map(p => {
                 const rawWeight = (weights[p.isin] || 0) * 100;
                 const newWeight = Math.round(rawWeight * 100) / 100;
                 if (Math.abs(newWeight - p.weight) > 0.5) hasChanges = true;
                 return { ...p, weight: newWeight };
-            }).filter(p => p.weight > 0.01);
+            });
 
-            // If auto-expanded, add new funds that weren't in portfolio
-            if (result.used_assets) {
+            // FILTER removal (Only if NOT strict)
+            if (!options?.strict) {
+                optimized = optimized.filter(p => p.weight > 0.01);
+            }
+
+            // ADD new funds (Only if NOT strict)
+            if (!options?.strict && result.used_assets) {
                 const currentIsins = new Set(portfolio.map(p => p.isin));
                 result.used_assets.forEach(isin => {
                     if (!currentIsins.has(isin) && (weights[isin] || 0) > 0.01) {

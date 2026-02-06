@@ -72,9 +72,13 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
         },
         plugins: {
             legend: {
-                display: !staticPlot,
+                display: true, // Always show legend for now, or control via new prop
                 position: 'bottom' as const,
-                labels: { boxWidth: 10, font: { size: 10 } }
+                labels: {
+                    usePointStyle: true,
+                    boxWidth: 8,
+                    font: { size: 10 }
+                }
             },
             tooltip: {
                 callbacks: {

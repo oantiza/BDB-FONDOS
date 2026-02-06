@@ -2,7 +2,7 @@ import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
 import type { PortfolioItem } from "../types";
 
-export type Period = "1y" | "3y" | "5y";
+export type Period = "1y" | "3y" | "5y" | "10y";
 
 export interface BacktestRequest {
   portfolio: { isin: string; weight: number }[];
@@ -18,6 +18,8 @@ export interface BacktestResponse {
     maxDrawdown?: number; // -0.14 o 0.14 o 14.0 -> se normaliza en UI
     cagr?: number; // decimal: 0.1253
   };
+  regionAllocation?: { name: string; value: number }[];
+  topHoldings?: { isin: string; name: string; weight: number }[];
   error?: string;
   status?: string;
   missing_assets?: string[];
@@ -114,8 +116,10 @@ export async function getDashboardAnalytics(
   const p = portfolio.map((x) => ({ isin: x.isin, weight: x.weight }));
   const benchmarks = opts?.benchmarks;
 
-  // 5y y 3y en paralelo (lo más pesado)
-  const [r5y, r3y] = await Promise.all([
+  // 10y, 5y, 3y en paralelo.
+  // We fetch 10y to have maximum history for charts.
+  const [r10y, r5y, r3y] = await Promise.all([
+    backtestPortfolio({ portfolio: p, period: "10y", benchmarks }),
     backtestPortfolio({ portfolio: p, period: "5y", benchmarks }),
     backtestPortfolio({ portfolio: p, period: "3y", benchmarks }),
   ]);
@@ -127,9 +131,11 @@ export async function getDashboardAnalytics(
 
   return {
     series5y: r5y.portfolioSeries ?? [],
+    series10y: r10y.portfolioSeries ?? [],
     metrics1y: r1y?.metrics ?? null,
     metrics3y: r3y.metrics ?? null,
     metrics5y: r5y.metrics ?? null,
-    raw: { r1y, r3y, r5y },
+    metrics10y: r10y.metrics ?? null,
+    raw: { r1y, r3y, r5y, r10y },
   };
 }

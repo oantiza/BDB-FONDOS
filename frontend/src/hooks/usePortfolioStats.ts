@@ -211,11 +211,6 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
     }, [portfolio]);
 
-    // 5. REGION ALLOCATION (from backend metrics)
-    const regionAllocation = useMemo(() => {
-        return metrics?.regionAllocation || [];
-    }, [metrics]);
-
     // 6. EQUITY REGION ALLOCATION (Front-end aggregation from derived data)
     const equityRegionAllocation = useMemo(() => {
         const rawMap: Record<string, number> = {};
@@ -305,6 +300,15 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
         return finalMap.sort((a, b) => b.value - a.value);
 
     }, [portfolio]);
+
+    // 5. REGION ALLOCATION (from backend metrics OR frontend calculation as fallback)
+    const regionAllocation = useMemo(() => {
+        if (metrics?.regionAllocation && metrics.regionAllocation.length > 0) {
+            return metrics.regionAllocation;
+        }
+        // Fallback to locally calculated/inferred regions
+        return equityRegionAllocation;
+    }, [metrics, equityRegionAllocation]);
 
     return {
         categoryAllocation,
