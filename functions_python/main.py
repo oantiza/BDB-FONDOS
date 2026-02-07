@@ -11,7 +11,18 @@ from firebase_admin import initialize_app, firestore, storage
 
 
 # --- TUS SERVICIOS LOCALES ---
-from services.config import BUCKET_NAME 
+from services.config import BUCKET_NAME
+from services.optimizer import run_optimization, generate_smart_portfolio, generate_efficient_frontier
+from services.backtester import run_backtest
+from services.market import get_financial_news
+from services.admin import restore_historico_logic
+from services.data_fetcher import DataFetcher
+from services.audit_service import run_audit, diagnose_history_logic, update_years_span_logic
+from services.fix_service import run_db_fix, migrate_historico_vl_v2_to_history
+from services.daily_service import refresh_daily_logic
+from services.data_verification import verify_history_format_logic
+from services.inspector import inspect_document_logic
+# from services.strategies import STRATEGY_CONSTRAINTS  <-- MISSING MODULE (Cleanup) 
 
 # ==============================================================================
 # 1. CONFIGURACIÓN INICIAL
@@ -220,9 +231,6 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
     if req_data.get('warmup') is True: return {'status': 'warmed_up'}
     
     try:
-        # Move imports INSIDE try to catch ImportError/ModuleNotFoundError
-        from services.optimizer import run_optimization
-        # from services.strategies import STRATEGY_CONSTRAINTS  <-- MISSING MODULE
         STRATEGY_CONSTRAINTS = {} 
         
         assets_list = req_data.get('assets', [])
@@ -324,7 +332,6 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def generateSmartPortfolio(request: https_fn.CallableRequest):
-    from services.optimizer import generate_smart_portfolio
     db = firestore.client()
     data = request.data
     return generate_smart_portfolio(
@@ -338,7 +345,6 @@ def generateSmartPortfolio(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, cors=cors_config)
 def backtest_portfolio(request: https_fn.CallableRequest):
-    from services.backtester import run_backtest
     db = firestore.client()
     data = request.data
     portfolio = data.get('portfolio', [])
@@ -348,7 +354,6 @@ def backtest_portfolio(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def getFinancialNews(request: https_fn.CallableRequest):
-    from services.market import get_financial_news
     query = request.data.get('query', 'general')
     mode = request.data.get('mode', 'general')
     return get_financial_news(query, mode)
@@ -357,7 +362,6 @@ def getFinancialNews(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=540)
 def restore_historico(request: https_fn.CallableRequest):
-    from services.admin import restore_historico_logic
     db = firestore.client()
     return restore_historico_logic(db)
 
@@ -369,23 +373,10 @@ def insertMonthlyReport(request: https_fn.CallableRequest):
     doc_ref = db.collection('analysis_results').add(request.data)
     return {'success': True, 'doc_id': doc_ref[1].id}
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
-def generateSmartPortfolio(request: https_fn.CallableRequest):
-    from services.optimizer import generate_smart_portfolio
-    db = firestore.client()
-    data = request.data
-    return generate_smart_portfolio(
-        category=data.get('category'),
-        risk_level=data.get('risk_level', 5),
-        num_funds=data.get('num_funds', 5),
-        vip_funds_str=data.get('vip_funds', ''),
-        optimize_now=data.get('optimize', True),
-        db=db
-    )
+
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def getEfficientFrontier(request: https_fn.CallableRequest):
-    from services.optimizer import generate_efficient_frontier
     db = firestore.client()
     
     try:
@@ -417,7 +408,6 @@ def getEfficientFrontier(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def getRiskRate(request: https_fn.CallableRequest):
-    from services.data_fetcher import DataFetcher
     db = firestore.client()
     fetcher = DataFetcher(db)
     return {'rate': fetcher.get_dynamic_risk_free_rate()}
@@ -428,7 +418,6 @@ def audit_database(request: https_fn.CallableRequest):
     Endpoint temporal para auditoría de Fase 3.
     Retorna JSON con status de funds_v3.
     """
-    from services.audit_service import run_audit
     db = firestore.client()
     try:
         data = run_audit(db)
@@ -441,7 +430,6 @@ def diagnose_history_endpoint(request: https_fn.CallableRequest):
     """
     Endpoint temporal para diagnostico de histórico.
     """
-    from services.audit_service import diagnose_history_logic
     db = firestore.client()
     try:
         logs = diagnose_history_logic(db)
@@ -455,7 +443,6 @@ def fix_database_endpoint(request: https_fn.CallableRequest):
     Endpoint temporal para Fix Fase 3.
     Params: { apply: bool }
     """
-    from services.fix_service import run_db_fix
     db = firestore.client()
     try:
         apply_changes = request.data.get('apply', False)
@@ -470,7 +457,6 @@ def backfill_std_perf_endpoint(request: https_fn.CallableRequest):
     Endpoint Fase 4: Backfill Std Perf Metrics.
     Calcula Sharpe, Volatility, Return con historia real.
     """
-    from services.calc_service import backfill_std_perf_logic
     db = firestore.client()
     try:
         stats = backfill_std_perf_logic(db)
@@ -483,7 +469,6 @@ def update_metadata_endpoint(request: https_fn.CallableRequest):
     """
     Endpoint Fase 5: Actualizar Metadatos (Years Span).
     """
-    from services.audit_service import update_years_span_logic
     db = firestore.client()
     try:
         data = request.data or {}
@@ -499,7 +484,6 @@ def refresh_daily_metrics(req: https_fn.Request) -> https_fn.Response:
     HTTP Endpoint: Daily Refresh Job (Protected).
     Triggered by Cloud Scheduler.
     """
-    from services.daily_service import refresh_daily_logic
     import datetime
     import os
     import json
@@ -528,7 +512,6 @@ def verify_db_format(request: https_fn.CallableRequest):
     """
     Endpoint temporal para verificar formato de historicos.
     """
-    from services.data_verification import verify_history_format_logic
     db = firestore.client()
     try:
         report = verify_history_format_logic(db)
@@ -539,7 +522,6 @@ def verify_db_format(request: https_fn.CallableRequest):
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=60, cors=cors_config)
 def inspect_doc_endpoint(request: https_fn.CallableRequest):
-    from services.inspector import inspect_document_logic
     db = firestore.client()
     isin = request.data.get('isin')
     return inspect_document_logic(db, isin)
@@ -550,7 +532,6 @@ def migrate_historico_endpoint(request: https_fn.CallableRequest):
     Endpoint para migrar 'series' -> 'history' (canonical).
     params: { 'dry_run': bool } (default True)
     """
-    from services.fix_service import migrate_historico_vl_v2_to_history
     db = firestore.client()
     dry_run = request.data.get('dry_run', True)
     return migrate_historico_vl_v2_to_history(db, dry_run=dry_run)
@@ -566,7 +547,6 @@ def test_frontier_debug(req: https_fn.Request) -> https_fn.Response:
     Endpoint temporal de DEBUG para frontera eficiente.
     Uso: /test_frontier_debug
     """
-    from services.optimizer import generate_efficient_frontier
     import json
     db = firestore.client()
     
