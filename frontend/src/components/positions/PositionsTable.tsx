@@ -85,17 +85,21 @@ export const PositionsTable: React.FC<PositionsTableProps> = ({ data, totalGener
         csvContent += `ISIN;NOMBRE DEL FONDO;RETROCESION;COEFICIENTE;CESION;CANTIDAD TOTAL;INGRESO ESTIMADO\n`;
 
         sortedData.forEach(function (row) {
-            let totalStr = row.total.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-            let retroStr = row.retrocession !== undefined ? `${Number(row.retrocession).toFixed(2)}%` : 'N/A';
+            // General format: no thousands separator, Spanish decimal comma
+            let totalStr = row.total.toLocaleString('es-ES', { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            let retroStr = row.retrocession !== undefined
+                ? Number(row.retrocession).toLocaleString('es-ES', { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 })
+                : '';
 
             const retroVal = row.retrocession || 0;
             const cesionVal = retroVal * coefficient;
             const ingresoVal = row.total * (cesionVal / 100);
 
-            const cesionStr = `${cesionVal.toFixed(2)}%`;
-            const ingresoStr = ingresoVal.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const cesionStr = cesionVal.toLocaleString('es-ES', { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const ingresoStr = ingresoVal.toLocaleString('es-ES', { useGrouping: false, minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            const coefStr = coefficient.toLocaleString('es-ES', { useGrouping: false });
 
-            let rowStr = `${row.isin};"${row.nombre}";"${retroStr}";"${coefficient}";"${cesionStr}";"${totalStr}";"${ingresoStr}"`;
+            let rowStr = `${row.isin};"${row.nombre}";"${retroStr}";"${coefStr}";"${cesionStr}";"${totalStr}";"${ingresoStr}"`;
             csvContent += rowStr + "\n";
         });
 
