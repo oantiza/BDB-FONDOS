@@ -417,6 +417,15 @@ def updateFundHistory(request: https_fn.CallableRequest):
     """
     from services.nav_fetcher import update_single_fund_history
     db = firestore.client()
+    
+    # --- SECURITY CHECK ---
+    if not request.auth:
+        return {'success': False, 'error': 'Unauthorized'}
+    
+    user_email = request.auth.token.get('email', '')
+    if user_email != 'oantiza@gmail.com':
+        return {'success': False, 'error': f'Forbidden: User {user_email} is not authorized.'}
+    
     data = request.data or {}
     
     isin = data.get('isin')

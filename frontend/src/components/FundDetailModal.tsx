@@ -3,6 +3,7 @@ import ModalHeader from './common/ModalHeader';
 import MetricCard from './common/MetricCard';
 import { DataQualityBadge, gradeFundQuality } from './dashboard/DataQualityBadge';
 import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
+import { auth } from '../firebase';
 
 // Lazy load to save bundle size
 const HistoricalChartModal = React.lazy(() => import('./modals/HistoricalChartModal'));
@@ -16,6 +17,8 @@ interface FundDetailModalProps {
 export default function FundDetailModal({ fund, onClose }: FundDetailModalProps) {
   const [showHistoryChart, setShowHistoryChart] = React.useState(false);
   const [showUpdateModal, setShowUpdateModal] = React.useState(false);
+
+  const isAdmin = auth.currentUser?.email === 'oantiza@gmail.com';
 
   if (!fund) return null;
 
@@ -272,13 +275,15 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                     Rendimiento Histórico
                   </h3>
                   <div className="flex gap-2">
-                    <button
-                      onClick={() => setShowUpdateModal(true)}
-                      className="text-xs font-bold text-slate-500 hover:text-slate-700 uppercase tracking-wider flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full hover:bg-slate-200 transition-colors"
-                      title="Actualizar datos desde EODHD"
-                    >
-                      🔄 Actualizar
-                    </button>
+                    {isAdmin && (
+                      <button
+                        onClick={() => setShowUpdateModal(true)}
+                        className="text-xs font-bold text-slate-500 hover:text-slate-700 uppercase tracking-wider flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full hover:bg-slate-200 transition-colors"
+                        title="Actualizar datos desde EODHD"
+                      >
+                        🔄 Actualizar
+                      </button>
+                    )}
                     <button
                       onClick={() => setShowHistoryChart(true)}
                       className="text-xs font-bold text-[#003399] hover:text-[#002266] uppercase tracking-wider flex items-center gap-1 bg-blue-50 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors"
@@ -324,12 +329,14 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
             {/* Fallback Button for Funds without History Table */}
             {!(fund.returns_history || fund.yearly_returns) && (
               <section className="border-t border-[#eeeeee] pt-8 flex justify-center gap-4">
-                <button
-                  onClick={() => setShowUpdateModal(true)}
-                  className="text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded shadow-sm transition-all transform hover:scale-105 flex items-center gap-2"
-                >
-                  🔄 Actualizar Datos
-                </button>
+                {isAdmin && (
+                  <button
+                    onClick={() => setShowUpdateModal(true)}
+                    className="text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded shadow-sm transition-all transform hover:scale-105 flex items-center gap-2"
+                  >
+                    🔄 Actualizar Datos
+                  </button>
+                )}
                 <button
                   onClick={() => setShowHistoryChart(true)}
                   className="text-sm font-bold text-white bg-[#003399] hover:bg-[#002266] px-6 py-3 rounded shadow-lg transition-all transform hover:scale-105 flex items-center gap-2"
