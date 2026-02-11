@@ -409,6 +409,25 @@ def getRiskRate(request: https_fn.CallableRequest):
     fetcher = DataFetcher(db)
     return {'rate': fetcher.get_dynamic_risk_free_rate()}
 
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
+def updateFundHistory(request: https_fn.CallableRequest):
+    """
+    Trigger manual update of fund history from EODHD.
+    Params: { isin, mode='merge'|'overwrite', from_date='YYYY-MM-DD', to_date='YYYY-MM-DD' }
+    """
+    from services.nav_fetcher import update_single_fund_history
+    db = firestore.client()
+    data = request.data or {}
+    
+    isin = data.get('isin')
+    if not isin: return {'success': False, 'error': 'Missing ISIN'}
+    
+    mode = data.get('mode', 'merge')
+    from_date = data.get('from_date')
+    to_date = data.get('to_date')
+    
+    return update_single_fund_history(db, isin, mode, from_date, to_date)
+
 
 @https_fn.on_request(region="europe-west1", timeout_sec=540, memory=options.MemoryOption.GB_1)
 def refresh_daily_metrics(req: https_fn.Request) -> https_fn.Response:

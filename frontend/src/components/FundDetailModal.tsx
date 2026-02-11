@@ -6,6 +6,7 @@ import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
 
 // Lazy load to save bundle size
 const HistoricalChartModal = React.lazy(() => import('./modals/HistoricalChartModal'));
+const UpdateHistoryModal = React.lazy(() => import('./modals/UpdateHistoryModal'));
 
 interface FundDetailModalProps {
   fund: any;
@@ -14,6 +15,7 @@ interface FundDetailModalProps {
 
 export default function FundDetailModal({ fund, onClose }: FundDetailModalProps) {
   const [showHistoryChart, setShowHistoryChart] = React.useState(false);
+  const [showUpdateModal, setShowUpdateModal] = React.useState(false);
 
   if (!fund) return null;
 
@@ -269,12 +271,21 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                   <h3 className="text-xl font-light text-[#2C3E50] tracking-tight flex items-center gap-2">
                     Rendimiento Histórico
                   </h3>
-                  <button
-                    onClick={() => setShowHistoryChart(true)}
-                    className="text-xs font-bold text-[#003399] hover:text-[#002266] uppercase tracking-wider flex items-center gap-1 bg-blue-50 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors"
-                  >
-                    📈 Ver Gráfico
-                  </button>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => setShowUpdateModal(true)}
+                      className="text-xs font-bold text-slate-500 hover:text-slate-700 uppercase tracking-wider flex items-center gap-1 bg-slate-100 px-3 py-1 rounded-full hover:bg-slate-200 transition-colors"
+                      title="Actualizar datos desde EODHD"
+                    >
+                      🔄 Actualizar
+                    </button>
+                    <button
+                      onClick={() => setShowHistoryChart(true)}
+                      className="text-xs font-bold text-[#003399] hover:text-[#002266] uppercase tracking-wider flex items-center gap-1 bg-blue-50 px-3 py-1 rounded-full hover:bg-blue-100 transition-colors"
+                    >
+                      📈 Ver Gráfico
+                    </button>
+                  </div>
                 </div>
 
                 <div className="grid grid-cols-5 gap-2">
@@ -312,7 +323,13 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
             {/* Fallback Button for Funds without History Table */}
             {!(fund.returns_history || fund.yearly_returns) && (
-              <section className="border-t border-[#eeeeee] pt-8 flex justify-center">
+              <section className="border-t border-[#eeeeee] pt-8 flex justify-center gap-4">
+                <button
+                  onClick={() => setShowUpdateModal(true)}
+                  className="text-sm font-bold text-slate-600 bg-slate-100 hover:bg-slate-200 px-6 py-3 rounded shadow-sm transition-all transform hover:scale-105 flex items-center gap-2"
+                >
+                  🔄 Actualizar Datos
+                </button>
                 <button
                   onClick={() => setShowHistoryChart(true)}
                   className="text-sm font-bold text-white bg-[#003399] hover:bg-[#002266] px-6 py-3 rounded shadow-lg transition-all transform hover:scale-105 flex items-center gap-2"
@@ -340,6 +357,11 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
       {showHistoryChart && (
         <React.Suspense fallback={null}>
           <HistoricalChartModal fund={fund} onClose={() => setShowHistoryChart(false)} />
+        </React.Suspense>
+      )}
+      {showUpdateModal && (
+        <React.Suspense fallback={null}>
+          <UpdateHistoryModal fund={fund} onClose={() => setShowUpdateModal(false)} />
         </React.Suspense>
       )}
     </>

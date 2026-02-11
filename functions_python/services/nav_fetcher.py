@@ -13,7 +13,7 @@ API_TOKEN = os.environ.get("EODHD_API_KEY", "6943decfb2bb14.96572592")
 BASE_URL = "https://eodhd.com/api/eod"
 
 # --- ADAPTADOR EODHD (Async) ---
-async def fetch_eodhd_data(session, ticker, from_date):
+async def fetch_eodhd_data(session, ticker, from_date, to_date=None):
     """Descarga datos de EODHD."""
     url = f"{BASE_URL}/{ticker}"
     params = {
@@ -23,6 +23,8 @@ async def fetch_eodhd_data(session, ticker, from_date):
         "order": "a", # Ascending
         "period": "d"
     }
+    if to_date:
+        params["to"] = to_date
     try:
         async with session.get(url, params=params, timeout=10) as response:
             if response.status == 200:
@@ -229,3 +231,79 @@ def run_daily_fetch():
     
     asyncio.run(runner())
     return f"✅ Proceso finalizado. Actualizados: {total_updated}"
+
+
+# --- NUEVA FUNCIÓN: ACTUALIZACIÓN MANUAL (ON-DEMAND) ---
+def update_single_fund_history(db, isin, mode='merge', from_date=None, to_date=None):
+    """
+    Actualiza el histórico de un fondo específico desde EODHD.
+    mode: 'merge' (rellenar huecos/actualizar) o 'overwrite' (borrar y descargar nuevo)
+    """
+    import asyncio
+    
+    async def runner():
+        async with aiohttp.ClientSession() as session:
+            # 1. Obtener Ticker
+            doc_ref = db.collection('funds_v3').document(isin)
+            doc = doc_ref.get()
+            if not doc.exists:
+                return {'success': False, 'error': f'Fund {isin} not found'}
+            
+            data = doc.to_dict()
+            raw_ticker = data.get('eod_ticker')
+            ticker = f"{isin}.EUFUND" # Default
+            
+            if raw_ticker:
+                 if "." not in raw_ticker: ticker = f"{raw_ticker}.EUFUND"
+                 else: ticker = raw_ticker
+            
+            print(f"🔄 Updating {isin} ({ticker}) Mode={mode} From={from_date} To={to_date}")
+            
+            # 2. Descargar
+            ticker_res, new_data = await fetch_eodhd_data(session, ticker, from_date, to_date)
+            
+            if not new_data:
+                return {'success': False, 'error': 'No data received from EODHD', 'ticker': ticker}
+                
+            # 3. Procesar
+            hist_ref = db.collection('historico_vl_v2').document(isin)
+            final_history = []
+            
+            if mode == 'overwrite':
+                # Reemplazo directo
+                final_history = new_data
+            else:
+                # Merge con existente
+                hist_snap = hist_ref.get()
+                existing = hist_snap.to_dict().get('history', []) if hist_snap.exists else []
+                merged = merge_history(existing, new_data)
+                final_history = merged if merged else existing
+
+            # 4. Guardar
+            # Sort y trim
+            final_history.sort(key=lambda x: x['date'])
+            if len(final_history) > 4000: # Limit history size
+                 final_history = final_history[-4000:]
+            
+            hist_ref.set({
+                "isin": isin,
+                "history": final_history,
+                "last_updated": datetime.utcnow().isoformat(),
+                "source": "EODHD Manual",
+                "currency": data.get('currency', 'EUR')
+            }, merge=True)
+            
+            # Update quality timestamp
+            db.collection('funds_v3').document(isin).update({
+                'data_quality.history_ok': True,
+                'data_quality.last_manual_update': datetime.utcnow().isoformat()
+            })
+            
+            return {
+                'success': True, 
+                'count': len(final_history), 
+                'mode': mode,
+                'ticker_used': ticker
+            }
+
+    return asyncio.run(runner())
