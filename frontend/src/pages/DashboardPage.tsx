@@ -138,6 +138,7 @@ export default function DashboardPage({
     const {
         historyData, frontierData, assetPoints, portfolioPoint,
         metrics1y, xrayMetrics, metrics5y, // New unified metrics
+        regionAllocation, warnings, // [NEW] Backend Data
         isLoading, dashboardError
     } = useDashboardData(isAuthenticated, portfolio)
 
@@ -222,7 +223,7 @@ export default function DashboardPage({
     }
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden bg-white font-sans text-slate-700">
+        <div className="h-screen flex flex-col overflow-hidden bg-[#f8fafc] font-sans text-slate-700">
             <Header
                 onLogout={onLogout}
                 onOpenMiBoutique={onOpenMiBoutique}
@@ -289,6 +290,15 @@ export default function DashboardPage({
                         </div>
                     )}
 
+                    {/* [NEW] Warnings (Short History, etc.) */}
+                    {warnings && warnings.length > 0 && (
+                        <div className="bg-amber-50 border-l-4 border-amber-500 p-3 mx-2 mb-2 text-amber-700 text-xs flex flex-col gap-1 rounded-r">
+                            {warnings.map((w, idx) => (
+                                <span key={idx}>⚠️ {w}</span>
+                            ))}
+                        </div>
+                    )}
+
                     <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200">
                         <div className="flex-1 bg-white overflow-hidden relative flex flex-col">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0 relative">
@@ -337,7 +347,7 @@ export default function DashboardPage({
 
                 </div>
 
-                <div className="flex-1 h-full flex flex-col bg-white overflow-y-auto scrollbar-thin gap-6">
+                <div className="flex-1 h-full flex flex-col overflow-y-auto scrollbar-thin gap-6">
                     <div className="flex flex-col gap-6 flex-1">
                         <div className="bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col shrink-0 h-full group hover:border-slate-200 transition-colors">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center">
@@ -366,7 +376,8 @@ export default function DashboardPage({
                                             <SmartBars allocation={allocData} />
                                         </div>
                                         <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
-                                            <GeoBars allocation={geoData} />
+                                            {/* [FIX] Use Backend Region Allocation mapped to label/value */}
+                                            <GeoBars allocation={regionAllocation.map(r => ({ label: r.name, value: r.value }))} />
                                         </div>
                                     </div>
                                 </div>

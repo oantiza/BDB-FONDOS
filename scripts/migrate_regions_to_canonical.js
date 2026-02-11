@@ -44,7 +44,7 @@ const REGION_MAPPINGS = {
     "africa": ["africa", "áfrica"],
     "australasia": ["australasia", "australia", "new_zealand", "nueva_zelanda"],
     "americas": ["americas", "américas"],
-    "europe_me_africa": ["europe_me_africa", "europa_o_medio_africa"],
+    "europe_me_africa": ["europe_me_africa", "europa_o_medio_africa", "europao._medioafrica", "europao_medioafrica"],
     "asia": ["asia"]
 };
 
@@ -78,6 +78,15 @@ function cleanRegionKey(k) {
         .replace(/[^a-z0-9_.]/g, "");
 }
 
+const IGNORE_KEYS = [
+    "total",
+    "equity_region_total",
+    "fixed_income_region_total",
+    "world_regions_total",
+    "bond_region_total",
+    "cash_region_total"
+];
+
 function normalizeRegions(rawObj, warnings = []) {
     if (!rawObj || typeof rawObj !== "object") return null;
 
@@ -96,6 +105,11 @@ function normalizeRegions(rawObj, warnings = []) {
 
         const cleanK = cleanRegionKey(rawK);
 
+        // 🛑 BLACKLIST CHECK: Avoid double counting Totals
+        if (IGNORE_KEYS.includes(cleanK) || cleanK.includes("_total")) {
+            continue;
+        }
+
         if (hasSpecificEurope && (cleanK === "europe" || cleanK === "europa")) continue;
 
         let canonical = REGION_LOOKUP[cleanK];
@@ -106,11 +120,46 @@ function normalizeRegions(rawObj, warnings = []) {
         if (canonical) {
             canonicalObj[canonical] = (canonicalObj[canonical] || 0) + val;
         } else {
-            canonicalObj["other"] = (canonicalObj["other"] || 0) + val;
-            if (warnings && !warnings.includes(rawK)) warnings.push(rawK);
+            // Explicit mapping for "other" to avoid warning spam if it's just "Other"
+            if (cleanK === "other" || cleanK === "others" || cleanK === "not_classified") {
+                // SKIP explicit other. Only use as residual.
+                continue;
+            } else {
+                // True unknown -> Map to Other + Warning (kept because it is unknown data)
+                canonicalObj["other"] = (canonicalObj["other"] || 0) + val;
+                if (warnings && !warnings.includes(rawK)) warnings.push(rawK);
+            }
         }
     }
 
+    // 🛡️ STRICT RESIDUAL CALCULATION
+    let currentSum = 0;
+    for (const k in canonicalObj) {
+        currentSum += canonicalObj[k];
+    }
+
+    if (currentSum > 0.0) {
+        const remainder = 100.0 - currentSum;
+        if (remainder > 0.25) {
+            canonicalObj["other"] = (canonicalObj["other"] || 0) + remainder;
+            canonicalObj["other"] = +canonicalObj["other"].toFixed(4); // clean decimals
+        }
+
+        // Warning overflow
+        if (currentSum > 101.0 && warnings) {
+            warnings.push(`regions_sum_overflow:${currentSum.toFixed(2)}`);
+        }
+    } else {
+        // Sum == 0. No recognized regions. 
+        // DO NOT INVENT OTHER=100.
+        // Return null/empty.
+        if (warnings && Object.keys(rawObj).length > 0) {
+            warnings.push("regions_all_unrecognized");
+        }
+        return null;
+    }
+
+    // Cap at 100 final check
     for (const k in canonicalObj) {
         if (canonicalObj[k] > 100) canonicalObj[k] = 100;
     }

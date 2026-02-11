@@ -14,17 +14,26 @@ from .config import (
 )
 
 def run_optimization(assets_list, risk_level, db, constraints=None, asset_metadata=None, locked_assets=None):
-    """Optimizer v4 (Unified Buckets + Markowitz)
-
-    Principios:
-    - Trabajar siempre sobre el universo real con histórico (df.columns).
-    - Devolver used_assets / missing_assets / dropped_assets y pesos completos (incluye ceros).
-    - Recalcular métricas sobre los pesos finales.
-    - NEW: Unified Buckets (Labels) constraints matching Frontend.
-    """
+    """Optimizer v4.1 (Fix NameErrors + Metadata)"""
     import pandas as pd
     import numpy as np
     from pypfopt import EfficientFrontier, risk_models, expected_returns, objective_functions, CLA
+
+    # --- 1. Init Variables (Safe Defaults) ---
+    constraints = constraints or {}
+    asset_metadata = asset_metadata or {}
+    locked_assets = locked_assets or []
+    
+    # Extract Constraints safely
+    apply_profile = constraints.get('apply_profile', True)
+    # Check disable flag
+    if constraints.get('disable_profile_rules'): apply_profile = False
+    
+    equity_floor = float(constraints.get('equity_floor', 0.0))
+    bond_cap = float(constraints.get('bond_cap', 1.0))
+    cash_cap = float(constraints.get('cash_cap', 1.0))
+    
+    print(f"📥 [Optimizer] Risk: {risk_level}, Assets: {len(assets_list)}, Meta: {len(asset_metadata)}")
 
     def _to_float(x, default=0.0):
         try:
@@ -44,11 +53,16 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
     def _cap(weights: dict, max_w: float) -> dict:
         return {k: min(float(v), max_w) for k, v in weights.items()}
 
-    # --- NEW: UNIFIED LABEL CLASSIFIER ---
+    # --- NEW: UNIFIED LABEL CLASSIFIER (Hybrid: Label > AssetClass > Raw) ---
     def _classify_asset(ticker: str) -> str:
         """Determines bucket label (RV, RF, Mixto, Monetario, Other)"""
         meta = (asset_metadata or {}).get(ticker, {}) or {}
-        # Try raw asset_class (std_type)
+        
+        # 1. Expect Explicit Tag from Frontend/Main (BEST)
+        if meta.get('label') in ["RV", "RF", "Mixto", "Monetario"]:
+            return meta['label']
+
+        # 2. Try raw asset_class (std_type)
         raw = (meta.get('asset_class') or '').strip().upper()
         
         if "MONETARIO" in raw or "CASH" in raw or "LIQUIDEZ" in raw or "MONEY" in raw: return "Monetario"
@@ -58,16 +72,15 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         return "Other" # Default/Fallback
 
     def _allocation_vectors(tickers: list):
-        """Standard allocation vectors (Equity/Bond/Cash/Other) for reporting metrics.
-        Kept for backward compatibility and metrics calculation, separate from Bucket Logic.
-        """
+        """Standard allocation vectors (Equity/Bond/Cash/Other) for reporting metrics."""
         eq_vec, bd_vec, cs_vec, ot_vec = [], [], [], []
         
         for t in tickers:
             meta = (asset_metadata or {}).get(t, {}) or {}
             metrics = meta.get('metrics', {}) or {}
-            asset_class = (meta.get('asset_class') or '').strip().lower()
+            label = _classify_asset(t) # Uses new classifier logic
 
+            # Priority 1: Metrics (if present)
             eq = metrics.get('equity', None)
             bd = metrics.get('bond', None)
             cs = metrics.get('cash', None)
@@ -83,22 +96,14 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 if 0.95 <= s <= 1.05 and s > 0:
                     eqp, bdp, csp, otp = eqp / s, bdp / s, csp / s, otp / s
             else:
-                # Fallback based on text
-                if 'rv' in asset_class or 'equity' in asset_class:
-                    eqp, bdp, csp, otp = 1.0, 0.0, 0.0, 0.0
-                elif 'rf' in asset_class or 'bond' in asset_class or 'fixed' in asset_class:
-                    eqp, bdp, csp, otp = 0.0, 1.0, 0.0, 0.0
-                elif 'monet' in asset_class or 'cash' in asset_class:
-                    eqp, bdp, csp, otp = 0.0, 0.0, 1.0, 0.0
-                elif 'mixto' in asset_class or 'mixed' in asset_class:
-                    eqp, bdp, csp, otp = 0.5, 0.5, 0.0, 0.0
-                else:
-                    eqp, bdp, csp, otp = 0.0, 0.0, 0.0, 1.0
+                # Priority 2: Label-based Inference
+                if label == 'RV': eqp, bdp, csp, otp = 1.0, 0.0, 0.0, 0.0
+                elif label == 'RF': eqp, bdp, csp, otp = 0.0, 1.0, 0.0, 0.0
+                elif label == 'Monetario': eqp, bdp, csp, otp = 0.0, 0.0, 1.0, 0.0
+                elif label == 'Mixto': eqp, bdp, csp, otp = 0.5, 0.5, 0.0, 0.0
+                else: eqp, bdp, csp, otp = 0.0, 0.0, 0.0, 1.0
 
-            eq_vec.append(eqp)
-            bd_vec.append(bdp)
-            cs_vec.append(csp)
-            ot_vec.append(otp)
+            eq_vec.append(eqp); bd_vec.append(bdp); cs_vec.append(csp); ot_vec.append(otp)
 
         return np.array(eq_vec), np.array(bd_vec), np.array(cs_vec), np.array(ot_vec), {}
 
@@ -119,9 +124,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
     universe = []
     missing_assets = []
     synthetic_used = []
+    solver_path = None # Init early
+    relaxed = False
 
     try:
-        solver_path = None
         added_assets = []
         raw_weights = None
         auto_complete_source = None
@@ -130,19 +136,49 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         # 1) Carga de Datos (Strict Senior Methodology)
         fetcher = DataFetcher(db)
         # RELAXED: strict=False allows union of data (filled later)
-        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False)
+        # NO_FILL=True: Critical for Adaptive Time Horizon (detect true start dates)
+        price_data, synthetic_used = fetcher.get_price_data(assets_list, resample_freq='D', strict=False, no_fill=True)
         
         df = pd.DataFrame(price_data) # Ensure DataFrame
         df.index = pd.to_datetime(df.index)
         
-        # SANITIZACIÓN INMEDIATA (Morningstar Standard)
-        # Apply .ffill() IMMEDIATELY after loading
-        df = df.sort_index().ffill().bfill()
+        # SANITIZACIÓN: DataFrame comes with NaNs for non-existing dates.
+        # We MUST NOT bfill yet. We check first valid index per column.
         
-        # FILTRO TEMPORAL ESTRICTO: 3 Años (1095 días)
-        if not df.empty:
-            start_date = df.index[-1] - pd.Timedelta(days=1095)
-            df = df[df.index >= start_date]
+        # --- ADAPTIVE TIME HORIZON (Target: 5 Years) ---
+        # 1. Determinar fecha de corte ideal (5 años atrás)
+        target_years = 5
+        ideal_start_date = df.index[-1] - pd.Timedelta(days=365 * target_years)
+        
+        # 2. Encontrar el "Youngest Asset Start Date"
+        # For each column, find first valid index.
+        first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
+        
+        if not first_valid_indices.empty:
+            # The "common start" is the MAXIMUM of all first valid dates (the youngest asset)
+            actual_start_date = first_valid_indices.max()
+            
+            # 3. Decidir fecha de inicio final
+            # Si el "joven" empieza después de la ideal, cortamos ahí.
+            # Si todos son viejos, cortamos en la ideal (5 años).
+            final_start_date = max(ideal_start_date, actual_start_date)
+            
+            # 4. Validar longitud mínima (1 año)
+            days_history = (df.index[-1] - final_start_date).days
+            if days_history < 250: # Menos de un año de trading (~252 dias)
+                print(f"⚠️ History too short ({days_history} days). Using available max history or fallback...")
+                # Fallback: Usar todo lo disponible común, aunque sea poco (mejor que romper)
+                final_start_date = actual_start_date
+                
+            df = df[df.index >= final_start_date]
+            print(f"ℹ️ Optimization Time Window: {final_start_date.date()} to {df.index[-1].date()} ({(df.index[-1] - final_start_date).days} days)")
+            
+            # NOW we can safely fill small holes (holidays) and backfill the tiny gap if start_date wasn't perfect
+            df = df.sort_index().ffill().bfill()
+            
+        else:
+            print("⚠️ No valid data found for any asset. Falling back to strict inner join...")
+            df = df.dropna()
 
         if df.empty or len(df) < 50:
             # --- EMERGENCY AUTO-EXPAND ---
@@ -189,7 +225,8 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                             dd = d.to_dict() or {}
                             asset_metadata[d.id] = {
                                 'metrics': dd.get('metrics', {}),
-                                'asset_class': dd.get('asset_class') or dd.get('std_type')
+                                'asset_class': dd.get('asset_class') or dd.get('std_type'),
+                                'label': _classify_asset(d.id) # Infer label from new doc
                             }
                 except: pass
 
@@ -198,8 +235,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
         universe = list(df.columns)
         missing_assets = [a for a in assets_list if a not in universe]
-
         
+        # --- INITIALIZE ALLOCATION VECTORS (Fix Step Id: 137) ---
+        # Needed for constraints and reporting. Better to do it once here.
+        eq_vec, bd_vec, cs_vec, ot_vec, _ = _allocation_vectors(universe)
         # 2) Standard Markowitz Inputs (Visual Coherence Refactor)
         # Mu = Mean Historical Return (No BL)
         # S = Sample Covariance
@@ -269,31 +308,23 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         # Apply strict bucket limits from config if available for this risk level
         bucket_cfg = RISK_BUCKETS_LABELS.get(risk_level_i)
         
-        # Check explicit disable flag (for pure rebalancing)
-        apply_buckets = True 
-        if constraints and constraints.get('disable_profile_rules'): apply_buckets = False
-        
-        if bucket_cfg and apply_buckets:
+        if bucket_cfg and apply_profile:
             print(f"🔒 Applying Unified Buckets for Risk {risk_level_i}: {bucket_cfg}")
             
             # Create Binary Vectors for each Label
             vecs = {
                 "RV": [], "RF": [], "Mixto": [], "Monetario": [], "Other": []
-            } # order matters if we iterate, but here we access by key
+            } 
             
             for t in universe:
                 lbl = _classify_asset(t)
-                # Populate all vectors
                 for k in vecs:
                     vecs[k].append(1.0 if lbl == k else 0.0)
             
-            # Convert to numpy arrays
             np_vecs = {k: np.array(v) for k, v in vecs.items()}
             
-            # Apply Constraints
             for label, (min_p, max_p) in bucket_cfg.items():
                 if label not in np_vecs: continue
-                # Relax slightly (tol=0.01) to avoid solver choke on hard boundaries
                 v_min = max(0.0, min_p - 0.01)
                 v_max = min(1.0, max_p + 0.01)
                 
@@ -307,7 +338,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         # ---------------------------------------------------------
         
         # 5.0) Pre-Check: Equity Floor Feasibility
-        if apply_profile_b and equity_floor > 0:
+        if apply_profile and equity_floor > 0:
             # Calcular equity maximo alcanzable con max_weight
             eq_vec, _, _, _, _ = _allocation_vectors(universe)
             
@@ -346,7 +377,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             # Tolerancia pequeña por redondeos
             equity_max_achievable = achieved_equity + 0.005 
 
-            print(f"🔍 DEBUG LOGIC: apply_profile_b={apply_profile_b}, equity_floor={equity_floor}, MaxAchieved={equity_max_achievable}")
+            print(f"🔍 DEBUG LOGIC: apply_profile_b={apply_profile}, equity_floor={equity_floor}, MaxAchieved={equity_max_achievable}")
 
             if equity_max_achievable < equity_floor:
                 # 5.1) Check Auto-Expand
@@ -515,7 +546,12 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 if constraints and constraints.get('objective') == 'max_sharpe':
                     solver_path = 'max_sharpe_unconstrained'
                     raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
-                elif apply_profile_b:
+                elif apply_profile:
+                    print(f"🔒 Optimizing with Profile (Risk {risk_level_i})...")
+                    # DEBUG: Print classifications
+                    sample_classification = {t: _classify_asset(t) for t in universe[:5]}
+                    print(f"🔍 Classifications (First 5): {sample_classification}")
+                    
                     solver_path = 'max_sharpe_with_equity_floor'
                     raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                 else:
@@ -523,10 +559,13 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     target_vol = base_target + 0.015
                     solver_path = f'efficient_risk_{target_vol:.3f}'
                     raw_weights = ef.efficient_risk(target_vol)
+
             except Exception as e1:
+                print(f"⚠️ Optimization Failed Main Path: {e1}")
                 # Si equity floor es infeasible, relajar una vez
-                if apply_profile_b and equity_floor > 0 and not relaxed:
+                if apply_profile and equity_floor > 0 and not relaxed:
                     try:
+                        print("⚠️ Attempting Relaxed Equity Floor...")
                         relaxed = True
                         equity_floor2 = max(0.0, equity_floor - 0.10)
                         ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
@@ -535,7 +574,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                             if isin in universe:
                                 idx = ef.tickers.index(isin)
                                 ef.add_constraint(lambda w, i=idx: w[i] >= 0.03)
+                        
+                        # Fix: initialize vectors again if needed or Ensure they are available
+                        # They are now available from line 241
                         ef.add_constraint(lambda w: w @ eq_vec >= equity_floor2)
+                        
                         if bond_cap is not None:
                             ef.add_constraint(lambda w: w @ bd_vec <= bond_cap)
                         if cash_cap is not None:
@@ -543,7 +586,8 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                         solver_path = f'max_sharpe_relaxed_equity_{equity_floor2:.2f}'
                         raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                         equity_floor = equity_floor2
-                    except Exception:
+                    except Exception as e2:
+                        print(f"⚠️ Relaxed Optimization Failed: {e2}")
                         solver_path = 'fallback_max_sharpe_no_equity'
                         ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
                         ef.add_objective(objective_functions.L2_reg, gamma=gamma)
@@ -552,9 +596,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                 else:
                     # Fallback general
                     try:
+                        print("⚠️ Fallback to Min Volatility...")
                         solver_path = 'fallback_min_volatility'
                         raw_weights = ef.min_volatility()
-                    except Exception:
+                    except Exception as e3:
+                        print(f"❌ ALL Optimization Paths Failed: {e3}")
                         solver_path = 'fallback_equal_weight'
                         raw_weights = None
 
@@ -608,10 +654,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         portfolio_point = {'x': round(port_vol, 4), 'y': round(port_ret, 4)}
 
         # 8) Allocation resultante (equity/bond/cash/other)
-        eq_total = float(w_vec @ eq_vec)
-        bd_total = float(w_vec @ bd_vec)
-        cs_total = float(w_vec @ cs_vec)
-        ot_total = float(w_vec @ ot_vec)
+        eq_total = float(w_arr @ eq_vec)
+        bd_total = float(w_arr @ bd_vec)
+        cs_total = float(w_arr @ cs_vec)
+        ot_total = float(w_arr @ ot_vec)
         # renormalizar por si hay pequeños desajustes
         s_alloc = eq_total + bd_total + cs_total + ot_total
         if s_alloc > 0:
@@ -622,7 +668,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             warnings.append(f"Datos Sintéticos usados para: {', '.join(synthetic_used)}")
         if missing_assets:
             warnings.append(f"{len(missing_assets)} activos sin histórico y excluidos de la optimización")
-        if apply_profile_b and equity_floor > 0:
+        if apply_profile and equity_floor > 0:
             warnings.append(f"Equity floor aplicado: {equity_floor:.2f}")
 
         # 9) weights completos para assets_list (incluye missing=0)
@@ -641,7 +687,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
         return {
             'api_version': 'optimizer_v4',
-            'mode': 'PROFILE_B_AGGRESSIVE' if apply_profile_b else 'PROFILE_A',
+            'mode': 'PROFILE_B_AGGRESSIVE' if apply_profile else 'PROFILE_A',
             'status': 'optimal',
             'solver_path': solver_path,
             'added_assets': locals().get('added_assets', []),
@@ -651,9 +697,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             'constraints_applied': {
                 'max_weight': max_weight,
                 'cutoff': cutoff,
-                'equity_floor': equity_floor if apply_profile_b else None,
-                'bond_cap': bond_cap if apply_profile_b else None,
-                'cash_cap': cash_cap if apply_profile_b else None,
+                'equity_floor': equity_floor if apply_profile else None,
+                'bond_cap': bond_cap if apply_profile else None,
+                'cash_cap': cash_cap if apply_profile else None,
                 'locked_min': 0.03 if locked_assets else 0.0,
             },
             'portfolio_allocation': {

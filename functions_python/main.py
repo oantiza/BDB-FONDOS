@@ -14,25 +14,18 @@ from firebase_admin import initialize_app, firestore, storage
 from services.config import BUCKET_NAME
 from services.optimizer import run_optimization, generate_smart_portfolio, generate_efficient_frontier
 from services.backtester import run_backtest
-from services.market import get_financial_news
+
 from services.admin import restore_historico_logic
 from services.data_fetcher import DataFetcher
-from services.audit_service import run_audit, diagnose_history_logic, update_years_span_logic
-from services.fix_service import run_db_fix, migrate_historico_vl_v2_to_history
+
 from services.daily_service import refresh_daily_logic
-from services.data_verification import verify_history_format_logic
-from services.inspector import inspect_document_logic
-# from services.strategies import STRATEGY_CONSTRAINTS  <-- MISSING MODULE (Cleanup) 
+
 
 # ==============================================================================
 # 1. CONFIGURACIÓN INICIAL
 # ==============================================================================
 initialize_app()
 
-# Configuración Vertex AI (Gemini)
-PROJECT_ID = "bdb-fondos"
-LOCATION = "us-central1"
-# vertexai.init(project=PROJECT_ID, location=LOCATION)
 
 # Configuración CORS
 cors_config = options.CorsOptions(cors_origins="*", cors_methods=["GET", "POST", "OPTIONS"])
@@ -92,113 +85,59 @@ def scheduleMonthlyResearch(event: scheduler_fn.ScheduledEvent) -> None:
         print(f"❌ Error generando informe mensual: {result.get('error')}")
 
 
+# ==============================================================================
+# 2. SISTEMA AUTOMÁTICO DE DATOS (EODHD -> FIRESTORE)
+# ==============================================================================
+
+# --- FUNCIÓN MAESTRA DIARIA (Descarga + Métricas) ---
+# Reemplaza a las antiguas scheduleDailyNAVFetch y scheduleDailyMetricsUpdate
 @scheduler_fn.on_schedule(
     region="europe-west1",
-    schedule="every day 00:00",
+    schedule="0 6 * * 1-5",       # Lunes a Viernes a las 06:00 AM
     timezone="Europe/Madrid",
-    timeout_sec=540,
-    memory=options.MemoryOption.GB_1
+    timeout_sec=1200,             # 20 Minutos (Margen de seguridad)
+    memory=options.MemoryOption.GB_1 # 1GB RAM (Vital para Pandas/Métricas)
 )
-def scheduleDailyMetricsUpdate(event: scheduler_fn.ScheduledEvent) -> None:
-    print(f"⏰ Ejecutando Cálculo Diario de Métricas: {event.schedule_time}")
+def runMasterDailyRoutine(event: scheduler_fn.ScheduledEvent) -> None:
+    print(f"🚀 [MASTER] Iniciando Rutina Diaria: {event.schedule_time}")
+    
+    # Importaciones diferidas para optimizar arranque
+    from services.nav_fetcher import run_daily_fetch
     from services.analytics import update_daily_metrics
+    from firebase_admin import firestore
+    
     db = firestore.client()
     
-    result = update_daily_metrics(db)
-    
-    if result.get('success'):
-        print("✅ Métricas actualizadas correctamente.")
-    else:
-        print(f"❌ Error actualizando métricas.")
+    # --- PASO 1: DESCARGA DE DATOS ---
+    print("⬇️ [PASO 1/2] Iniciando Descarga de NAVs...")
+    try:
+        fetch_result = run_daily_fetch()
+        print(f"✅ Descarga completada: {fetch_result}")
+    except Exception as e:
+        print(f"❌ ERROR CRÍTICO en Descarga: {e}")
+        print("⛔ Abortando cálculo de métricas para evitar datos corruptos.")
+        return
+
+    # --- PASO 2: CÁLCULO DE MÉTRICAS ---
+    print("🧮 [PASO 2/2] Recalculando Métricas (Sharpe, Volatilidad, etc)...")
+    try:
+        # Ejecutar lógica de analítica
+        update_daily_metrics(db) 
+        print(f"✅ Métricas actualizadas correctamente.")
+    except Exception as e:
+        print(f"❌ ERROR en cálculo de Métricas: {e}")
+        # No hacemos return aquí para que la función termine "bien" aunque falle este paso
+
+    print("🏁 [MASTER] Rutina Diaria finalizada.")
 
 
 # ==============================================================================
+
 # 4. GRÁFICOS DE MERCADO (Yahoo Finance + BCE)
 # ==============================================================================
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
-def getMarketIndex(request: https_fn.CallableRequest):
-    try:
-        import yfinance as yf
-        symbol_map = {
-            'GSPC.INDX': '^GSPC', 'IXIC.INDX': '^IXIC',
-            'GDAXI.INDX': '^GDAXI', 'IBEX.INDX': '^IBEX'
-        }
-        req_symbol = request.data.get('symbol', 'GSPC.INDX')
-        req_range = request.data.get('range', '1y')
-        ticker = symbol_map.get(req_symbol, '^GSPC')
-        
-        yf_period = '1y'
-        if req_range == '1m': yf_period = '1mo'
-        elif req_range == '5y': yf_period = '5y'
-        elif req_range == 'ytd': yf_period = 'ytd'
-        
-        data = yf.download(ticker, period=yf_period, interval='1d', progress=False)
-        
-        if data.empty: return {'series': [], 'symbol': req_symbol}
 
-        series = []
-        for index, row in data.iterrows():
-            val = row['Close']
-            if hasattr(val, 'item'): val = val.item()
-            series.append({'x': index.strftime('%Y-%m-%d'), 'y': round(float(val), 2)})
 
-        return {'series': series, 'symbol': req_symbol}
-    except Exception as e:
-        return {'series': [], 'error': str(e)}
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
-def getYieldCurve(request: https_fn.CallableRequest):
-    region = request.data.get('region', 'US')
-    curve_data = []
-    
-    try:
-        import yfinance as yf
-        import pandas_datareader.data as web
-        import pandas as pd
-        import datetime
-        from datetime import datetime as dt
-        if region == 'US':
-            tickers = {'3M': '^IRX', '5Y': '^FVX', '10Y': '^TNX', '30Y': '^TYX'}
-            data = yf.download(list(tickers.values()), period="5d", progress=False)['Close']
-            last = data.iloc[-1]
-            for mat, tick in tickers.items():
-                try:
-                    val = last[tick]
-                    if hasattr(val, 'item'): val = val.item()
-                    if pd.notna(val): curve_data.append({'maturity': mat, 'yield': round(float(val), 2)})
-                except: continue
-
-        elif region == 'EU':
-            ecb_tickers = {
-                '3M': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_3M',
-                '1Y': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_1Y',
-                '2Y': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_2Y',
-                '5Y': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_5Y',
-                '10Y': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_10Y',
-                '30Y': 'YC.B.U2.EUR.4F.G_N_A.SV_C_YM.SR_30Y'
-            }
-            start_date = datetime.now() - timedelta(days=5)
-            try:
-                df = web.DataReader(list(ecb_tickers.values()), 'ecb', start=start_date)
-                latest = df.iloc[-1]
-                for label, code in ecb_tickers.items():
-                    val = latest[code]
-                    if pd.notna(val):
-                        curve_data.append({'maturity': label, 'yield': round(float(val), 2)})
-            except Exception as e_ecb:
-                print(f"⚠️ Error ECB API, usando fallback: {e_ecb}")
-                try:
-                    bund = yf.Ticker('^GDB').history(period='1d')
-                    val = bund['Close'].iloc[-1]
-                    curve_data.append({'maturity': '10Y (Proxy)', 'yield': round(float(val), 2)})
-                except: pass
-             
-        order = ['3M', '1Y', '2Y', '5Y', '10Y', '30Y']
-        curve_data.sort(key=lambda x: order.index(x['maturity']) if x['maturity'] in order else 99)
-        return {'curve': curve_data, 'region': region}
-
-    except Exception as e:
-        return {'curve': [], 'error': str(e)}
 
 
 # ==============================================================================
@@ -240,8 +179,9 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         
         # --- NEW: CHALLENGER LOGIC (Add +1 Fund Capability) ---
         # Fetch Top 5 Funds by Sharpe to potentially replace/add to current portfolio
-        # ONLY IF NOT DISABLED (Rebalance Mode)
-        if not req_data.get('disable_challengers'):
+        # ONLY IF EXPLICITLY REQUESTED (Rebalance Mode with Challengers)
+        # CHANGED: Default is False (No Ghost Assets)
+        if req_data.get('enable_challengers') is True:
             try:
                 # --- SMART CHALLENGER LOGIC (V4.1) ---
                 # Fetch Top 20 by Sharpe (broad net)
@@ -282,7 +222,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             except Exception as e_chal:
                 print(f"⚠️ Error fetching challengers: {e_chal}")
         else:
-            print("ℹ️ Challenger Logic DISABLED (Weight-Only Optimization)")
+            print("ℹ️ Challenger Logic DISABLED by default (Weight-Only Optimization)")
 
         # Batch-read metadata (evita N+1)
         asset_metadata = {}
@@ -292,13 +232,60 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             for d in docs:
                 if d.exists:
                     data = d.to_dict() or {}
+                    
+                    # Robust Metadata Extraction (V3 Schema Compatible)
+                    # 1. Regions: Priorities:
+                    #    A) derived.portfolio_exposure.equity_regions_total (Cleanest, calculated by loader)
+                    #    B) ms.regions.detail (Direct mapping)
+                    #    C) ms.regions.macro (Fallback)
+                    
+                    derived_exposure = data.get('derived', {}).get('portfolio_exposure', {})
+                    regions = derived_exposure.get('equity_regions_total', {})
+                    
+                    if not regions:
+                        # Fallback to raw MS data if derived is missing
+                        ms_regions = data.get('ms', {}).get('regions', {})
+                        regions = ms_regions.get('detail', {})
+                        if not regions:
+                             regions = ms_regions.get('macro', {})
+                    
+                    # Legacy fallback (should ideally not be reached if V3 is clean)
+                    if not regions: regions = data.get('regions', {})
+
+                    # 2. Metrics: std_perf > metrics
+                    metrics = data.get('std_perf', {}) 
+                    if not metrics: metrics = data.get('metrics', {})
+
+                    # 3. Asset Class: derived > root > std_type
+                    asset_class = data.get('derived', {}).get('asset_class')
+                    if not asset_class: asset_class = data.get('asset_class')
+                    if not asset_class: asset_class = data.get('std_type')
+
                     asset_metadata[d.id] = {
-                        'regions': data.get('regions', {}) or {},
-                        'metrics': data.get('metrics', {}) or {},
-                        'asset_class': data.get('asset_class') or data.get('std_type')
+                        'regions': regions or {},
+                        'metrics': metrics or {},
+                        'asset_class': asset_class,
+                        'market_cap': data.get('std_mcap', 1e9) # Default for BL if missing
                     }
         except Exception as e_meta:
             print(f"⚠️ Error batch metadata: {e_meta}")
+
+        # --- MERGE FRONTEND METADATA (V4.1 Fix) ---
+        # If frontend sends specific labels (e.g. from CSV import or manual overrides), use them.
+        frontend_meta = req_data.get('asset_metadata', {})
+        if frontend_meta:
+            print(f"📥 Merging {len(frontend_meta)} metadata items from Frontend")
+            for isin, meta in frontend_meta.items():
+                if isin not in asset_metadata:
+                    asset_metadata[isin] = {}
+                
+                # Check for explicit label (mapped by Front: RV, RF, etc.)
+                if 'label' in meta:
+                    asset_metadata[isin]['label'] = meta['label']
+                
+                # Fallback: if we had nothing for asset_class, try to infer or use Front
+                if not asset_metadata[isin].get('asset_class'):
+                     asset_metadata[isin]['asset_class'] = meta.get('label') # Use label as asset_class proxy
 
         if req_data.get('auto_expand_universe'):
             STRATEGY_CONSTRAINTS['auto_expand_universe'] = True
@@ -352,11 +339,21 @@ def backtest_portfolio(request: https_fn.CallableRequest):
     if not portfolio: return {'error': 'Cartera vacía'}
     return run_backtest(portfolio, period, db)
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
-def getFinancialNews(request: https_fn.CallableRequest):
-    query = request.data.get('query', 'general')
-    mode = request.data.get('mode', 'general')
-    return get_financial_news(query, mode)
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, cors=cors_config)
+def backtest_portfolio_multi(request: https_fn.CallableRequest):
+    """
+    Optimized endpoint for Dashboard.
+    Params: { portfolio: [...], periods: ['1y', '3y', '5y'] }
+    """
+    from services.backtester import run_multi_period_backtest
+    db = firestore.client()
+    data = request.data
+    portfolio = data.get('portfolio', [])
+    periods = data.get('periods', ['1y', '3y', '5y'])
+    if not portfolio: return {'error': 'Cartera vacía'}
+    return run_multi_period_backtest(portfolio, periods, db)
+
+
 
 
 
@@ -412,71 +409,6 @@ def getRiskRate(request: https_fn.CallableRequest):
     fetcher = DataFetcher(db)
     return {'rate': fetcher.get_dynamic_risk_free_rate()}
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540, cors=cors_config)
-def audit_database(request: https_fn.CallableRequest):
-    """
-    Endpoint temporal para auditoría de Fase 3.
-    Retorna JSON con status de funds_v3.
-    """
-    db = firestore.client()
-    try:
-        data = run_audit(db)
-        return {'status': 'success', 'data': data}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=60, cors=cors_config)
-def diagnose_history_endpoint(request: https_fn.CallableRequest):
-    """
-    Endpoint temporal para diagnostico de histórico.
-    """
-    db = firestore.client()
-    try:
-        logs = diagnose_history_logic(db)
-        return {'status': 'success', 'logs': logs}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540, cors=cors_config)
-def fix_database_endpoint(request: https_fn.CallableRequest):
-    """
-    Endpoint temporal para Fix Fase 3.
-    Params: { apply: bool }
-    """
-    db = firestore.client()
-    try:
-        apply_changes = request.data.get('apply', False)
-        stats = run_db_fix(db, apply_changes=apply_changes)
-        return {'status': 'success', 'stats': stats}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540, cors=cors_config)
-def backfill_std_perf_endpoint(request: https_fn.CallableRequest):
-    """
-    Endpoint Fase 4: Backfill Std Perf Metrics.
-    Calcula Sharpe, Volatility, Return con historia real.
-    """
-    db = firestore.client()
-    try:
-        stats = backfill_std_perf_logic(db)
-        return {'status': 'success', 'data': stats}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540, cors=cors_config)
-def update_metadata_endpoint(request: https_fn.CallableRequest):
-    """
-    Endpoint Fase 5: Actualizar Metadatos (Years Span).
-    """
-    db = firestore.client()
-    try:
-        data = request.data or {}
-        apply_changes = data.get('apply', False)
-        result = update_years_span_logic(db, apply=apply_changes)
-        return {'status': 'success', 'result': result}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
 
 @https_fn.on_request(region="europe-west1", timeout_sec=540, memory=options.MemoryOption.GB_1)
 def refresh_daily_metrics(req: https_fn.Request) -> https_fn.Response:
@@ -507,64 +439,9 @@ def refresh_daily_metrics(req: https_fn.Request) -> https_fn.Response:
         return https_fn.Response(f"Error: {str(e)}", status=500)
 
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=60, cors=cors_config)
-def verify_db_format(request: https_fn.CallableRequest):
-    """
-    Endpoint temporal para verificar formato de historicos.
-    """
-    db = firestore.client()
-    try:
-        report = verify_history_format_logic(db)
-        return {'status': 'success', 'report': report}
-    except Exception as e:
-        return {'status': 'error', 'error': str(e)}
 
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=60, cors=cors_config)
-def inspect_doc_endpoint(request: https_fn.CallableRequest):
-    db = firestore.client()
-    isin = request.data.get('isin')
-    return inspect_document_logic(db, isin)
-
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, timeout_sec=600, cors=cors_config)
-def migrate_historico_endpoint(request: https_fn.CallableRequest):
-    """
-    Endpoint para migrar 'series' -> 'history' (canonical).
-    params: { 'dry_run': bool } (default True)
-    """
-    db = firestore.client()
-    dry_run = request.data.get('dry_run', True)
-    return migrate_historico_vl_v2_to_history(db, dry_run=dry_run)
 
 
-# ==============================================================================
-# 5. DEBUG ENDPOINTS
-# ==============================================================================
-
-@https_fn.on_request(region="europe-west1", timeout_sec=60, memory=options.MemoryOption.GB_1)
-def test_frontier_debug(req: https_fn.Request) -> https_fn.Response:
-    """
-    Endpoint temporal de DEBUG para frontera eficiente.
-    Uso: /test_frontier_debug
-    """
-    import json
-    db = firestore.client()
-    
-    # ISINs de prueba (World + S&P 500)
-    assets = ['IE00B03HCZ61', 'IE00B4L5Y983'] 
-    
-    try:
-        req_json = req.get_json(silent=True)
-        if req_json and 'assets' in req_json:
-            assets = req_json['assets']
-    except: pass
-
-    print(f"🔬 DEBUG START: Testing Frontier for {assets}")
-    try:
-        res = generate_efficient_frontier(assets, db)
-        return https_fn.Response(json.dumps(res, default=str), status=200, mimetype='application/json')
-    except Exception as e:
-        import traceback
-        return https_fn.Response(f"CRITICAL ERROR: {str(e)}\n{traceback.format_exc()}", status=500)
 
 

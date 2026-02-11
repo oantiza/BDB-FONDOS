@@ -194,7 +194,7 @@ export default function SharpeMaximizerModal({
                     if (activeConfig) {
                         fallbackConstraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
                     }
-                    fallbackConstraints.push(limit(100));
+                    fallbackConstraints.push(limit(100) as any);
                     const qFallback = query(collection(db, 'funds_v3'), ...fallbackConstraints);
                     const snapFallback = await getDocs(qFallback);
                     candidates = snapFallback.docs.map(d => ({ isin: d.id, ...d.data() }));

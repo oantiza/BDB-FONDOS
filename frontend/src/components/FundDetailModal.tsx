@@ -139,18 +139,11 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
             {/* Fund Info */}
             <section className="grid grid-cols-2 gap-8 border-t border-[#eeeeee] pt-8">
               <InfoRow label="ISIN" value={fund.isin || 'N/A'} />
-              <InfoRow label="Gestora" value={extra.company || 'N/A'} />
-              <InfoRow label="Categoría" value={extra.category || fund.category_morningstar || 'N/A'} />
+              <InfoRow label="ISIN" value={fund.isin || 'N/A'} />
+              <InfoRow label="Categoría" value={fund.std_type || fund.asset_class || 'N/A'} />
+              <InfoRow label="Subcategoría" value={extra.category || fund.category_morningstar || 'N/A'} />
               <InfoRow label="Región Principal" value={extra.regionDetail || fund.primary_region || 'Global'} />
               <InfoRow label="Moneda" value={extra.currency || 'EUR'} />
-              <InfoRow
-                label="Patrimonio"
-                value={
-                  isValidNum(fund.patrimonio)
-                    ? `${Number(fund.patrimonio).toLocaleString('es-ES')} EUR`
-                    : 'N/A'
-                }
-              />
 
               {/* Morningstar Rating */}
               <div>
@@ -158,14 +151,6 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                   Morningstar Rating
                 </div>
                 <div className="text-lg flex items-center gap-1">{renderStars(rating)}</div>
-              </div>
-
-              {/* SRRI */}
-              <div>
-                <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">
-                  Perfil Riesgo (SRRI)
-                </div>
-                {renderSrri(srri)}
               </div>
 
               {/* Data Quality Badge */}

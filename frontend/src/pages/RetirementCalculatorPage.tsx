@@ -158,7 +158,7 @@ export default function RetirementCalculatorPage({ onBack }: RetirementCalculato
     const finalStats = getTotalStats(true);
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col font-sans text-slate-900">
+        <div className="min-h-screen bg-[#f8fafc] flex flex-col font-sans text-slate-900">
             <Header
                 onLogout={() => { }}
                 onOpenMiBoutique={() => { }}

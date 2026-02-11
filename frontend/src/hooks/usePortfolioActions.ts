@@ -6,7 +6,7 @@ import { useToast } from '../context/ToastContext';
 import { findAlternatives, Alternative } from '../utils/fundSwapper';
 import { findDirectAlternativesV3 } from '../utils/directSearch';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer';
-import { generateSmartPortfolio } from '../utils/rulesEngine';
+import { generateSmartPortfolioLocal } from '../utils/rulesEngine';
 import { parsePortfolioCSV } from '../utils/csvImport';
 import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
 import { MacroReport } from '../types/MacroReport';
@@ -122,13 +122,19 @@ export function usePortfolioActions({
     const handleOpenSwap = useCallback(async (fund: PortfolioItem, filters: { assetClass?: string; region?: string } = {}) => {
         toast.info("🔎 Buscando alternativas (Directo V3)...");
 
-        // --- NEW DIRECT LOGIC (Requested by User) ---
+        // --- SMART FUND REPLACEMENT LOGIC ---
+        // If no filters provided (initial open), enforce strict matching to current fund's category/region
+        const activeFilters = {
+            assetClass: filters.assetClass || (fund.derived?.asset_class || fund.std_type || 'RV'),
+            region: filters.region || (fund.derived?.primary_region || fund.std_region || 'all')
+        };
+
         try {
             const excludeIsins = portfolio.map(p => p.isin);
             const rawAlts = await findDirectAlternativesV3(fund, {
                 excludeIsins,
                 desired: 3,
-                ...filters
+                ...activeFilters // Apply the strict filters
             });
 
             // Map raw results to the UI's expected format (Alternative[])
@@ -240,7 +246,7 @@ export function usePortfolioActions({
                 // Extraer ISIN limpio aunque venga "ISIN - Nombre"
                 .map(s => s.split(' ')[0]);
 
-            let generated = generateSmartPortfolio(riskLevel, universe, numFunds);
+            let generated = generateSmartPortfolioLocal(riskLevel, universe, numFunds);
 
             // Force VIPs if not present (simple hack for manual mode)
             if (vipList.length > 0) {
@@ -276,16 +282,22 @@ export function usePortfolioActions({
         }
     };
 
+    // --- Helper for Metadata ---
+    const mapCategoryToTag = (type: string | undefined): string => {
+        if (!type) return "Other";
+        const t = type.toLowerCase();
+        if (t.includes("variable") || t.includes("equity") || t.includes("acciones") || t.includes("rv") || t.includes("stock")) return "RV";
+        if (t.includes("fija") || t.includes("bond") || t.includes("deuda") || t.includes("rf") || t.includes("renta fija")) return "RF";
+        if (t.includes("mixto") || t.includes("allocation") || t.includes("multi") || t.includes("mixed")) return "Mixto";
+        if (t.includes("monetario") || t.includes("money") || t.includes("liquidez") || t.includes("cash")) return "Monetario";
+        return "Other";
+    };
+
     const handleOptimize = async () => {
         if (portfolio.length === 0) {
             toast.info("Añade fondos a la cartera primero");
             return;
         }
-
-        // --- VALIDATION: Check Data Quality ---
-        // DISABLED: User confirmed all funds have history.
-        // const validFunds = portfolio.filter(p => { ... });
-        // if (validFunds.length < 3) { ... }
 
         setIsOptimizing(true);
         try {
@@ -302,10 +314,34 @@ export function usePortfolioActions({
             const lockedSet = new Set(portfolio.filter(p => p.manualSwap).map(p => p.isin));
             vipList.forEach(v => lockedSet.add(v));
 
+            // --- BUILD METADATA FOR BACKEND ---
+            // Fixes issue where backend doesn't know the category of frontend-only funds
+            const assetMetadata: Record<string, any> = {};
+            // 1. From Portfolio
+            portfolio.forEach(p => {
+                const fullFund = assets.find(a => a.isin === p.isin);
+                const typeRaw = fullFund?.std_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
+                assetMetadata[p.isin] = {
+                    label: mapCategoryToTag(typeRaw),
+                    name: p.name
+                };
+            });
+            // 2. From Assets (for VIP/Universe not in portfolio)
+            assets.forEach(a => {
+                if (assetUniverse.has(a.isin) && !assetMetadata[a.isin]) {
+                    assetMetadata[a.isin] = {
+                        label: mapCategoryToTag(a.std_type || a.asset_class),
+                        name: a.name
+                    };
+                }
+            });
+
             const response = await optimizeFn({
                 assets: Array.from(assetUniverse),
                 risk_level: riskLevel,
-                locked_assets: Array.from(lockedSet)
+                locked_assets: Array.from(lockedSet),
+                asset_metadata: assetMetadata, // <--- SENDING FRONTEND METADATA
+                constraints: { apply_profile: true }
             });
             const result = unwrapResult<SmartPortfolioResponse>(response.data);
             processOptimizationResult(result, optimizeFn);

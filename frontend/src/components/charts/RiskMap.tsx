@@ -15,23 +15,33 @@ interface RiskMapProps {
     portfolioMetrics: { volatility?: number; annual_return?: number; cagr?: number };
     benchmarks?: { vol: number; ret: number; name: string; color?: string }[];
     staticPlot?: boolean;
+    printMode?: boolean;
 }
 
-export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot = false }: RiskMapProps) {
+export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot = false, printMode = false }: RiskMapProps) {
     if (!portfolioMetrics) return <div className="text-xs text-slate-400">Sin datos de métricas</div>
 
     const pVol = (portfolioMetrics.volatility || 0) * 100
     const pRet = (portfolioMetrics.annual_return || portfolioMetrics.cagr || 0) * 100
+
+    const colors = {
+        portfolio: '#0B2545',
+        portfolioBorder: '#D4AF37',
+        benchmarkDefault: printMode ? '#4b5563' : '#94a3b8',
+        text: printMode ? '#000000' : '#64748b', // Pure black for print clarity
+        grid: printMode ? '#e2e8f0' : '#f1f5f9',
+        tooltipText: printMode ? '#000000' : '#64748b'
+    }
 
     const data = {
         datasets: [
             {
                 label: 'Tu Cartera',
                 data: [{ x: pVol, y: pRet }],
-                backgroundColor: '#0B2545',
-                borderColor: '#D4AF37',
+                backgroundColor: colors.portfolio,
+                borderColor: colors.portfolioBorder,
                 borderWidth: 2,
-                pointRadius: 8, // Highlighted
+                pointRadius: printMode ? 8 : 8, // Highlighted
                 pointHoverRadius: 10
             },
             {
@@ -44,10 +54,10 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
                 backgroundColor: (ctx: any) => {
                     // Map colors from data if possible, or use default
                     const idx = ctx.dataIndex;
-                    return benchmarks[idx]?.color || '#94a3b8';
+                    return benchmarks[idx]?.color || colors.benchmarkDefault;
                 },
                 pointStyle: 'rectRot', // Diamond-ish
-                pointRadius: 5,
+                pointRadius: printMode ? 6 : 5,
                 pointHoverRadius: 7
             }
         ]
@@ -58,15 +68,15 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
         maintainAspectRatio: false,
         scales: {
             x: {
-                title: { display: true, text: 'Riesgo (Volatilidad) %', font: { size: 10 } },
-                grid: { color: '#f1f5f9' },
-                ticks: { font: { size: 10 } },
+                title: { display: true, text: 'Riesgo (Volatilidad) %', font: { size: printMode ? 13 : 10, weight: (printMode ? 'bold' : 'normal') as any }, color: colors.text },
+                grid: { color: colors.grid },
+                ticks: { font: { size: printMode ? 13 : 10 }, color: colors.text },
                 beginAtZero: true
             },
             y: {
-                title: { display: true, text: 'Retorno Anual %', font: { size: 10 } },
-                grid: { color: '#f1f5f9' },
-                ticks: { font: { size: 10 } }
+                title: { display: true, text: 'Retorno Anual %', font: { size: printMode ? 13 : 10, weight: (printMode ? 'bold' : 'normal') as any }, color: colors.text },
+                grid: { color: colors.grid },
+                ticks: { font: { size: printMode ? 13 : 10 }, color: colors.text }
                 // beginAtZero: false // Allow negative returns
             }
         },
@@ -77,7 +87,8 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
                 labels: {
                     usePointStyle: true,
                     boxWidth: 8,
-                    font: { size: 10 }
+                    font: { size: printMode ? 13 : 10 },
+                    color: colors.text
                 }
             },
             tooltip: {
@@ -106,8 +117,9 @@ export default function RiskMap({ portfolioMetrics, benchmarks = [], staticPlot 
 
                         if (text) {
                             ctx.save();
-                            ctx.font = '10px Inter, system-ui, sans-serif'; // Small and aesthetic
-                            ctx.fillStyle = '#64748b'; // Slate 500
+                            const fontSize = printMode ? 12 : 10;
+                            ctx.font = `${fontSize}px Inter, system-ui, sans-serif`; // Small and aesthetic
+                            ctx.fillStyle = colors.text; // Use dynamic text color
                             ctx.textAlign = 'left';
                             ctx.textBaseline = 'middle';
                             ctx.fillText(text, x + 10, y); // Offset to the right

@@ -152,7 +152,7 @@ export const PositionsAnalyzer: React.FC<PositionsAnalyzerProps> = ({ onBack, as
     };
 
     return (
-        <div className="min-h-screen bg-slate-50 text-slate-900 font-sans">
+        <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans">
             {/* Header matches main app */}
             <header className="bg-gradient-to-r from-[#003399] to-[#0055CC] text-white shadow-lg border-b border-white/10 mb-8 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">

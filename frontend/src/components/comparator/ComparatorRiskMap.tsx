@@ -27,8 +27,8 @@ export default function ComparatorRiskMap({ metricsA, metricsB, nameA, nameB }: 
     const volB = (metricsB.volatility || 0) * 100;
     const retB = (metricsB.cagr || 0) * 100;
 
-    // Calculate dynamic axis limits with padding
-    const maxVol = Math.max(volA, volB) * 1.2 || 15;
+    // Calculate dynamic axis limits with padding (User requested 'half scale', implying double range to reduce visual separation)
+    const maxVol = Math.max(volA, volB) * 2.5 || 15;
     const maxRet = Math.max(retA, retB) * 1.2 || 10;
     const minRet = Math.min(retA, retB, 0) * 1.2;
 

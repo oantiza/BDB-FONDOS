@@ -16,6 +16,10 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
   const [xrayMetrics, setXrayMetrics] = useState<any>(null) // 3Y
   const [metrics5y, setMetrics5y] = useState<any>(null)
 
+  // [NEW] Backend Region Allocation & Warnings
+  const [regionAllocation, setRegionAllocation] = useState<{ name: string; value: number }[]>([])
+  const [warnings, setWarnings] = useState<string[]>([])
+
   const [isLoadingFrontier, setIsLoadingFrontier] = useState(false)
   const [isLoadingHistory, setIsLoadingHistory] = useState(false)
 
@@ -38,13 +42,15 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
         setIsLoadingHistory(true)
         try {
           // Fetch unified metrics and history
-          const { series5y, metrics1y, metrics3y, metrics5y } =
+          const { series5y, metrics1y, metrics3y, metrics5y, regionAllocation: ra, warnings: w } =
             await getDashboardAnalytics(portfolio, { include1y: true })
 
           setHistoryData(series5y || [])
           setMetrics1y(metrics1y || null)
           setXrayMetrics(metrics3y || null)
           setMetrics5y(metrics5y || null)
+          setRegionAllocation(ra || [])
+          setWarnings(w || [])
         } catch (e: any) {
           console.error('Backtest error:', e)
         } finally {
@@ -87,6 +93,8 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
     metrics1y,
     xrayMetrics,
     metrics5y,
+    regionAllocation, // [NEW]
+    warnings,         // [NEW]
 
     isLoading: isLoadingFrontier || isLoadingHistory,
     dashboardError

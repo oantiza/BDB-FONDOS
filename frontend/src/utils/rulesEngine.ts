@@ -226,7 +226,7 @@ export function calculateScore(fund: Fund, riskOrBias: number | string): number 
 // MOTOR PRINCIPAL
 // ============================================================================
 
-export function generateSmartPortfolio(
+export function generateSmartPortfolioLocal(
   riskLevel: number,
   allFunds: Fund[],
   targetNumFunds: number = 8

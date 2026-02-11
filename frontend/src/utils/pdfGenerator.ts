@@ -291,24 +291,50 @@ const drawCorrelationMatrix = (doc: jsPDF, x: number, y: number, w: number, h: n
 
 // --- HELPER: HEADER ---
 const drawPageHeader = (doc: jsPDF, title: string, subtitle: string, s: number, _unusedMargin?: number) => {
-    // V14.11 Header uses Global Margins
-    const y = MARGIN_Y;
+    // V14.11 Header - REDESIGN V2 (Blue/Gradient)
 
-    doc.setFontSize(CONST_HEADER_SIZE);
-    doc.setTextColor(COL_BLACK[0], COL_BLACK[1], COL_BLACK[2]); // BLACK for headers
-    doc.setFont("helvetica", "normal");
-    doc.text(title, MARGIN_X, y);
+    // 1. Background Gradient (Soft Blue #eff6ff to White)
+    // We'll use a rect with the start color for simplicity as gradients are complex in pure jsPDF lines
+    // matching the cover approx.
+    const headerH = 16; // 16mm height to match ~60px
+    const y = 0; // Top of page
 
-    if (subtitle) {
-        doc.setFontSize(10 * s);
-        doc.setTextColor(COL_ACCENT[0], COL_ACCENT[1], COL_ACCENT[2]);
-        doc.setFont("helvetica", "bold");
-        doc.text(subtitle.toUpperCase(), MARGIN_X + CONTENT_WIDTH, y, { align: 'right' });
+    // Simulate gradient like cover
+    for (let i = 0; i < headerH; i += 1) {
+        const ratio = i / headerH; // 0 to 1
+        // Start: #eff6ff (239, 246, 255) -> End: White (255, 255, 255) (actually mostly white at bottom/right)
+        // Let's make it horizontal gradient logic approx?
+        // Actually the cover is diagonal. Here we want horizontal "from-blue-50 to-white".
+        // jsPDF linear gradient is hard. Let's just do a solid block of very light blue #eff6ff 
+        // to clearly distinguish it, or a loop for horizontal lines?
+        // Horizontal loop:
+        // for x = 0 to PAGE_WIDTH... too slow.
+        // Let's use a solid faint blue rect:
+        doc.setFillColor(239, 246, 255); // #eff6ff
+        doc.rect(0, 0, PAGE_WIDTH, headerH, 'F');
     }
 
-    doc.setDrawColor(COL_ACCENT[0], COL_ACCENT[1], COL_ACCENT[2]);
+    // 2. Text
+    const textY = 11; // Vertically centered approx
+
+    // Main Title (Dark Slate)
+    doc.setFontSize(CONST_HEADER_SIZE);
+    doc.setTextColor(30, 41, 59); // text-slate-800
+    doc.setFont("helvetica", "normal"); // font-light equivalent
+    doc.text(title, MARGIN_X, textY);
+
+    // Subtitle (Blue/Bold)
+    if (subtitle) {
+        doc.setFontSize(10 * s);
+        doc.setTextColor(0, 68, 129); // #004481
+        doc.setFont("helvetica", "bold");
+        doc.text(subtitle.toUpperCase(), MARGIN_X + CONTENT_WIDTH, textY, { align: 'right' });
+    }
+
+    // Bottom Border (Light Blue)
+    doc.setDrawColor(219, 234, 254); // blue-100
     doc.setLineWidth(0.3);
-    doc.line(MARGIN_X, y + 4 * s, MARGIN_X + CONTENT_WIDTH, y + 4 * s);
+    doc.line(0, headerH, PAGE_WIDTH, headerH);
 };
 
 
@@ -412,71 +438,74 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     const profile = RISK_PROFILES[riskLevel] || { name: "Desconocido", buckets: {} as any, bias: "Balanced" as any };
 
-    // --- PAGE 1: COVER (PREMIUM REDESIGN) ---
-    const sC = 1.0; // Use close to 1:1 scale for easier layout in mm
-    doc.setFillColor(255, 255, 255); doc.rect(0, 0, PAGE_WIDTH, PAGE_HEIGHT, 'F');
+    // --- PAGE 1: COVER (REDESIGN V2 - Blue/Gradient) ---
+    // Simulate Gradient: Soft Blue (#eff6ff) to White (#ffffff)
+    // We will use a solid background for performance and reliability in this version, 
+    // or a simple loop if really needed. Let's use a very subtle solid light blue 
+    // that looks like the top-left of the gradient to keep it clean.
+    // Actually, let's try a coarse gradient for better matching (50 steps).
 
-    // 1. Sidebar (Navy Blue)
-    const sidebarWidth = 85;
-    doc.setFillColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]);
-    doc.rect(0, 0, sidebarWidth, PAGE_HEIGHT, 'F');
+    // Gradient logic: Top-Left (239, 246, 255) -> Bottom-Right (255, 255, 255)
+    // Since we can't do diagonal easily, we'll do vertical gradient which is close enough.
+    for (let i = 0; i < PAGE_HEIGHT; i += 2) {
+        const ratio = i / PAGE_HEIGHT;
+        const r = 239 + (255 - 239) * ratio;
+        const g = 246 + (255 - 246) * ratio;
+        const b = 255 + (255 - 255) * ratio; // Blue stays 255 effectively or close
+        doc.setFillColor(r, g, b);
+        doc.rect(0, i, PAGE_WIDTH, 2, 'F');
+    }
 
-    // 2. Branding (In Sidebar)
-    doc.setFontSize(29); doc.setTextColor(255, 255, 255); doc.setFont("helvetica", "bold");
-    doc.text("BDB FONDOS", 15, 50); // Left aligned in sidebar
+    // 1. Top Brand (Generic)
+    const brandX = 25; // mm
+    const brandY = 25; // mm
+    doc.setFontSize(10); doc.setTextColor(30, 41, 59); doc.setFont("helvetica", "normal");
+    doc.text("O.A.A.   / ", brandX, brandY);
 
-    doc.setFontSize(11); doc.setTextColor(COL_ACCENT[0], COL_ACCENT[1], COL_ACCENT[2]); doc.setFont("helvetica", "normal");
-    doc.text("PRIVATE BANKING", 15, 60);
-    // doc.setLetterSpacing(0.2); // Not supported in std jsPDF but good to keep intent clear
+    doc.setFontSize(7); doc.setTextColor(0, 68, 129); doc.setFont("helvetica", "bold");
+    doc.text("PRIVATE BANKERS", brandX + 28, brandY); // Offset manually or measure
 
-    // Decorative line in sidebar
-    doc.setDrawColor(COL_ACCENT[0], COL_ACCENT[1], COL_ACCENT[2]); doc.setLineWidth(0.5);
-    doc.line(15, 70, 70, 70);
+    // 2. Main Title Area
+    const contentStartY = 90;
+    const contentX = 30;
 
-    // 3. Main Title (White Area)
-    const mainX = sidebarWidth + 20;
-    const titleY = 60;
+    // Vertical Blue Line
+    doc.setDrawColor(0, 68, 129); // #004481
+    doc.setLineWidth(1.5); // ~ w-2 (8px) -> ~2mm ? w-2 is 0.5rem = 8px. 8px is approx 2.8mm.
+    doc.line(contentX, contentStartY, contentX, contentStartY + 50);
 
-    doc.setFontSize(43); doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]);
-    doc.setFont("helvetica", "bold"); // Bold for impact
-    doc.text("INFORME DE", mainX, titleY);
-    doc.text("ESTRATEGIA", mainX, titleY + 18);
-    doc.text("PATRIMONIAL", mainX, titleY + 36);
+    // Title
+    const textX = contentX + 10;
+    doc.setFontSize(40); doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "bold");
+    doc.text("Análisis de cartera", textX, contentStartY + 12);
 
-    // Gold Accent Line
-    doc.setDrawColor(COL_ACCENT[0], COL_ACCENT[1], COL_ACCENT[2]); doc.setLineWidth(1.5);
-    doc.line(mainX, titleY + 50, mainX + 150, titleY + 50);
+    // Subtitle (Client Name)
+    doc.setFontSize(18); doc.setTextColor(30, 41, 59); doc.setFont("helvetica", "normal");
+    doc.text(totalCapital > 0 ? (strategyReport?.clientName || "Informe de Estrategia") : "Informe de Cartera", textX, contentStartY + 28);
 
-    // 4. Client Metadata
-    const infoY = 140;
+    // Metadata
+    const metaY = contentStartY + 45;
 
-    doc.setFontSize(11); doc.setTextColor(150); doc.setFont("helvetica", "bold");
-    doc.text("PREPARADO PARA:", mainX, infoY);
+    // Row 1: File Name (Moved here)
+    doc.setFontSize(8); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "bold");
+    doc.text("NOMBRE DEL ARCHIVO", textX, metaY);
 
-    doc.setFontSize(23); doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]); doc.setFont("helvetica", "normal");
-    doc.text("CLIENTE VIP", mainX, infoY + 12);
+    doc.setFontSize(11); doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "normal");
+    doc.text("PortfolioAnalysis", textX + 45, metaY);
 
-    // Details Grid
-    const detY = infoY + 35;
-    const col2X = mainX + 60;
+    // Creation Date at Bottom Left
+    const bottomY = PAGE_HEIGHT - 25; // 2.5cm from bottom
+    const bottomX = brandX; // Aligned with brand
 
-    // Row 1
-    doc.setFontSize(10); doc.setTextColor(100); doc.setFont("helvetica", "normal");
-    doc.text("PERFIL DE RIESGO", mainX, detY);
-    doc.text("FECHA DE EMISIÓN", col2X, detY);
+    doc.setFontSize(8); doc.setTextColor(100, 116, 139); doc.setFont("helvetica", "bold");
+    doc.text("FECHA DE CREACIÓN", bottomX, bottomY);
 
-    doc.setFontSize(12); doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]); doc.setFont("helvetica", "bold");
-    doc.text(profile.name.toUpperCase(), mainX, detY + 6);
-    doc.text(today.toUpperCase(), col2X, detY + 6);
+    doc.setFontSize(11); doc.setTextColor(15, 23, 42); doc.setFont("helvetica", "normal");
+    doc.text(today, bottomX + 45, bottomY);
 
-    // Row 2
-    doc.setFontSize(10); doc.setTextColor(100); doc.setFont("helvetica", "normal");
-    doc.text("VALOR TOTAL", mainX, detY + 20);
-    doc.text("GESTOR", col2X, detY + 20);
+    // Footer decoration (Bottom Right soft gradient overlay - simplified as just empty or simple shape if needed)
+    // We already have the background gradient.
 
-    doc.setFontSize(12); doc.setTextColor(COL_TEXT_DARK[0], COL_TEXT_DARK[1], COL_TEXT_DARK[2]); doc.setFont("helvetica", "bold");
-    doc.text(`${totalCapital.toLocaleString('es-DE', { minimumFractionDigits: 0, maximumFractionDigits: 0 })} EUR`, mainX, detY + 26);
-    doc.text("EQUIPO GESTOR GCO", col2X, detY + 26);
 
     // --- PAGE 2: COMPOSICIÓN (Refined V5) ---
     doc.addPage();

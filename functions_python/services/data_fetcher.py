@@ -17,10 +17,11 @@ class DataFetcher:
     def __init__(self, db_client):
         self.db = db_client
 
-    def get_price_data(self, assets_list: list, resample_freq='D', strict=True):
+    def get_price_data(self, assets_list: list, resample_freq='D', strict=True, no_fill=False):
         """
         Fetches price history for assets.
         Standardizes to Daily Frequency ('D') and aligns to Business Day Calendar ('B').
+        If no_fill=True, skips ffill/bfill to allow raw data analysis (Time Horizon detection).
         """
         price_data = {}
         missing_assets = []
@@ -77,11 +78,15 @@ class DataFetcher:
             df = df.reindex(b_range)
 
         # Step C: Fill Gaps (Professional ffill/bfill sequence)
-        # We allow broad ffill to avoid zero drops in portfolio charts
-        df = df.ffill().bfill()
+        # We allow broad ffill to avoid zero drops in portfolio charts, UNLESS no_fill requested
+        if not no_fill:
+            df = df.ffill().bfill()
+        else:
+            # Even in no_fill, slight ffill helps with holiday gaps, but NO bfill
+            df = df.ffill() 
         
         # Step D: Strict vs Loose
-        if strict:
+        if strict and not no_fill:
             df_final = df.dropna()
         else:
             df_final = df

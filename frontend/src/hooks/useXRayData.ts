@@ -7,7 +7,7 @@ import { functions } from '../firebase';
 
 export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
     // 1. Core Analytics Hooks
-    const { metrics, loading, errorMsg, riskExplanation } = useXRayAnalytics({ portfolio, fundDatabase });
+    const { metrics, loading, errorMsg, riskExplanation, period, setPeriod, benchmarkId, setBenchmarkId } = useXRayAnalytics({ portfolio, fundDatabase });
     const { categoryAllocation, regionAllocation, sortedHoldings, styleStats, globalAllocation, equityRegionAllocation } = usePortfolioStats({ portfolio, metrics });
 
     // 2. Macro Strategy Report State
@@ -120,6 +120,12 @@ export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
         loading,
         errorMsg,
         riskExplanation,
+        // Analytics Controls
+        period,
+        setPeriod,
+        benchmarkId,
+        setBenchmarkId,
+
         // Portfolio Stats
         categoryAllocation,
         regionAllocation,
@@ -134,7 +140,6 @@ export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
         portfolioPoint,
         // Helpers
         getVolatilitySafe,
-        // Pagination
         // Pagination
         compositionPages,
         equityRegionAllocation

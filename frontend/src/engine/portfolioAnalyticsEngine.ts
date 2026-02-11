@@ -1,3 +1,4 @@
+
 import { httpsCallable } from "firebase/functions";
 import { functions } from "../firebase";
 import type { PortfolioItem } from "../types";
@@ -7,6 +8,12 @@ export type Period = "1y" | "3y" | "5y" | "10y";
 export interface BacktestRequest {
   portfolio: { isin: string; weight: number }[];
   period: Period;
+  benchmarks?: string[];
+}
+
+export interface MultiBacktestRequest {
+  portfolio: { isin: string; weight: number }[];
+  periods: Period[];
   benchmarks?: string[];
 }
 
@@ -23,12 +30,21 @@ export interface BacktestResponse {
   error?: string;
   status?: string;
   missing_assets?: string[];
+  warnings?: string[]; // [NEW] Short history warnings
+}
+
+export interface MultiBacktestResponse {
+  allocations?: {
+    topHoldings?: { isin: string; name: string; weight: number }[];
+    regionAllocation?: { name: string; value: number }[];
+  };
+  [key: string]: BacktestResponse | unknown;
 }
 
 // -------------------------
 // Cache (in-flight + TTL)
 // -------------------------
-type CacheEntry = { p: Promise<BacktestResponse>; ts: number };
+type CacheEntry = { p: Promise<any>; ts: number };
 const cache = new Map<string, CacheEntry>();
 
 // TTL conservador (ms). Ajusta si quieres.
@@ -48,8 +64,9 @@ function stableBenchmarksKey(benchmarks?: string[]) {
   return JSON.stringify([...b].map(String).sort());
 }
 
-function makeKey(req: BacktestRequest) {
-  return `${req.period}|${stablePortfolioKey(req.portfolio)}|${stableBenchmarksKey(
+function makeKey(req: BacktestRequest | MultiBacktestRequest) {
+  const p = 'periods' in req ? (req as MultiBacktestRequest).periods.join(',') : (req as BacktestRequest).period;
+  return `${p}|${stablePortfolioKey(req.portfolio)}|${stableBenchmarksKey(
     req.benchmarks
   )}`;
 }
@@ -83,6 +100,7 @@ function normalizeResponse(data: unknown): BacktestResponse {
 export async function backtestPortfolio(
   req: BacktestRequest
 ): Promise<BacktestResponse> {
+  // Legacy Wrapper if needed, or keeping it for single calls
   const key = makeKey(req);
 
   const existing = cache.get(key);
@@ -94,13 +112,32 @@ export async function backtestPortfolio(
       const res = await fn(req);
       return normalizeResponse((res as { data: unknown })?.data);
     } catch (e: unknown) {
-      // Firebase errors suelen venir como e.message
       let msg = "Error desconocido llamando al backtest.";
-      if (e instanceof Error) {
-        msg = e.message;
-      } else if (typeof e === 'object' && e !== null && 'message' in e) {
-        msg = String((e as { message: unknown }).message);
-      }
+      if (e instanceof Error) msg = e.message;
+      return { error: msg };
+    }
+  })();
+
+  cache.set(key, { p, ts: Date.now() });
+  return p;
+}
+
+export async function backtestPortfolioMulti(
+  req: MultiBacktestRequest
+): Promise<MultiBacktestResponse> {
+  const key = makeKey(req);
+
+  const existing = cache.get(key);
+  if (existing && isFresh(existing.ts)) return existing.p;
+
+  const p = (async () => {
+    try {
+      const fn = httpsCallable<MultiBacktestRequest, unknown>(functions, "backtest_portfolio_multi");
+      const res = await fn(req);
+      return (res as { data: unknown })?.data as MultiBacktestResponse;
+    } catch (e: unknown) {
+      let msg = "Error desconocido llamando al backtest multi.";
+      if (e instanceof Error) msg = e.message;
       return { error: msg };
     }
   })();
@@ -116,18 +153,42 @@ export async function getDashboardAnalytics(
   const p = portfolio.map((x) => ({ isin: x.isin, weight: x.weight }));
   const benchmarks = opts?.benchmarks;
 
-  // 10y, 5y, 3y en paralelo.
-  // We fetch 10y to have maximum history for charts.
-  const [r10y, r5y, r3y] = await Promise.all([
-    backtestPortfolio({ portfolio: p, period: "10y", benchmarks }),
-    backtestPortfolio({ portfolio: p, period: "5y", benchmarks }),
-    backtestPortfolio({ portfolio: p, period: "3y", benchmarks }),
-  ]);
+  // Prepare periods to fetch
+  const requestedPeriods: Period[] = ["3y", "5y", "10y"]; // We need 10y for charts potentially? Or just max?
+  // Dashboard usually shows 5y chart default?
+  // Let's request all we need.
+  if (opts?.include1y) requestedPeriods.push("1y");
 
-  // 1y opcional
-  const r1y = opts?.include1y
-    ? await backtestPortfolio({ portfolio: p, period: "1y", benchmarks })
-    : null;
+  // SINGLE CALL
+  const multiRes = await backtestPortfolioMulti({
+    portfolio: p,
+    periods: requestedPeriods,
+    benchmarks
+  });
+
+  if ((multiRes as any).error) {
+    console.error("Multi-Backtest Error:", (multiRes as any).error);
+    return {
+      series5y: [], series10y: [],
+      metrics1y: null, metrics3y: null, metrics5y: null, metrics10y: null,
+      regionAllocation: [], warnings: [], raw: {}
+    };
+  }
+
+  // Extract Allocations (Shared)
+  const allocations = multiRes.allocations || {};
+  const regionAllocation = allocations.regionAllocation || [];
+  const topHoldings = allocations.topHoldings || [];
+
+  // Extract Periods
+  const r1y = normalizeResponse(multiRes['1y']);
+  const r3y = normalizeResponse(multiRes['3y']);
+  const r5y = normalizeResponse(multiRes['5y']);
+  const r10y = normalizeResponse(multiRes['10y']);
+
+  // Inject shared allocations back into individual responses if needed, 
+  // but DashboardPage might use them from specific period props.
+  // Actually getDashboardAnalytics returns a flattened object used by the hook.
 
   return {
     series5y: r5y.portfolioSeries ?? [],
@@ -136,6 +197,14 @@ export async function getDashboardAnalytics(
     metrics3y: r3y.metrics ?? null,
     metrics5y: r5y.metrics ?? null,
     metrics10y: r10y.metrics ?? null,
-    raw: { r1y, r3y, r5y, r10y },
+
+    // Use shared allocation
+    regionAllocation: regionAllocation,
+    topHoldings: topHoldings, // Expose if needed
+
+    // Aggregate warnings
+    warnings: [...(r10y.warnings || []), ...(r5y.warnings || []), ...(r3y.warnings || []), ...(r1y.warnings || [])],
+
+    raw: { r1y, r3y, r5y, r10y }
   };
 }

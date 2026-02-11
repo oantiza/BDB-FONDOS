@@ -27,10 +27,13 @@ export default function FixedIncomeDistribution({ portfolio = [] }: { portfolio?
             const isRfLike = type.includes('RF') || type.includes('FIXED') || type.includes('LIQUI') || type.includes('MONETARIO') || type.includes('MIXTO');
 
             // Always aggregate Duration/Maturity if present
-            const d = parseFloat(p.std_extra?.duration || 0);
-            const m = parseFloat(p.std_extra?.effective_maturity || (d > 0 ? d * 1.2 : 0));
+            const rawD = p.std_extra?.duration;
+            const d = (typeof rawD === 'number' ? rawD : parseFloat(String(rawD || 0)));
 
-            if (d > 0) {
+            const rawM = p.std_extra?.effective_maturity;
+            const m = (typeof rawM === 'number' ? rawM : parseFloat(String(rawM || (d > 0 ? d * 1.2 : 0))));
+
+            if (d >= 0) { // Include 0 duration (e.g. cash) in weighted calc if explicit
                 wDuration += d * w;
                 wMaturity += m * w;
                 totalDurWeight += w;

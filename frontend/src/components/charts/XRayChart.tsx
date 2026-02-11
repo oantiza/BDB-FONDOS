@@ -31,17 +31,34 @@ interface XRayChartProps {
     benchmarkLabel?: string;
     portfolioLabel?: string;
     staticPlot?: boolean;
+    printMode?: boolean;
 }
 
-export default function XRayChart({ portfolioData = [], benchmarkData = [], benchmarkLabel = 'Benchmark', portfolioLabel = 'Mi Cartera', staticPlot = false }: XRayChartProps) {
+export default function XRayChart({
+    portfolioData = [],
+    benchmarkData = [],
+    benchmarkLabel = 'Benchmark',
+    portfolioLabel = 'Mi Cartera',
+    staticPlot = false,
+    printMode = false
+}: XRayChartProps) {
+    const colors = {
+        portfolio: '#0B2545', // Navy
+        // Differentiate benchmark but keep it subtle. Grey-600 is distinct from Navy but not dominant.
+        benchmark: printMode ? '#525252' : '#94a3b8',
+        grid: printMode ? '#e2e8f0' : '#f1f5f9',
+        borderWidth: printMode ? 2.5 : 2,
+        tension: 0.1
+    }
+
     const datasets = [
         {
             label: portfolioLabel,
             data: portfolioData,
-            borderColor: THEME.navy,
-            borderWidth: 2,
+            borderColor: colors.portfolio,
+            borderWidth: colors.borderWidth,
             pointRadius: 0,
-            tension: 0.1
+            tension: colors.tension
         } as any
     ]
 
@@ -49,11 +66,11 @@ export default function XRayChart({ portfolioData = [], benchmarkData = [], benc
         datasets.push({
             label: benchmarkLabel,
             data: benchmarkData,
-            borderColor: '#94a3b8',
+            borderColor: colors.benchmark,
             borderDash: [5, 5],
-            borderWidth: 2,
+            borderWidth: colors.borderWidth,
             pointRadius: 0,
-            tension: 0.1
+            tension: colors.tension
         })
     }
 
@@ -65,11 +82,41 @@ export default function XRayChart({ portfolioData = [], benchmarkData = [], benc
         animation: staticPlot ? false : undefined,
         parsing: { xAxisKey: 'x', yAxisKey: 'y' },
         scales: {
-            x: { type: 'time', grid: { display: false }, time: { unit: 'month' } },
-            y: { grid: { color: THEME.grid } }
+            x: {
+                type: 'time',
+                grid: { display: false },
+                time: {
+                    unit: 'month',
+                    stepSize: printMode ? 2 : 1 // Bimonthly for printMode as requested
+                },
+                ticks: {
+                    color: printMode ? '#000000' : '#64748b',
+                    // Increased font size by 1pt (9 -> 10) for printMode
+                    font: { size: printMode ? 11 : 10 },
+                    autoSkip: true,
+                    maxRotation: 0,
+                    minRotation: 0
+                }
+            },
+            y: {
+                grid: { color: colors.grid },
+                ticks: {
+                    color: printMode ? '#000000' : '#64748b',
+                    // Increased font size by 1pt (9 -> 10) for printMode
+                    font: { size: printMode ? 11 : 10 }
+                }
+            }
         },
         plugins: {
-            legend: { position: 'top' as const, align: 'end' as const }
+            legend: {
+                position: 'top' as const,
+                align: 'end' as const,
+                labels: {
+                    color: printMode ? '#000000' : '#64748b',
+                    // Increased font size by 1pt (10 -> 11) for printMode (or keep 12 if previously larger default)
+                    font: { size: printMode ? 12 : 12 },
+                }
+            }
         }
     }
 

@@ -164,7 +164,7 @@ export default function ComparatorControlDeck({
                     <div className="h-[1px] w-full bg-slate-100 md:hidden"></div>
 
                     {/* RIGHT SIDE - PORTFOLIO B (AMBER) */}
-                    <div className="flex-1 p-1 md:p-3 bg-gradient-to-br from-amber-50/50 to-white relative group/side-b rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl pr-12">
+                    <div className="flex-1 p-1 md:p-3 bg-gradient-to-br from-amber-50/50 to-white relative group/side-b rounded-b-2xl md:rounded-bl-none md:rounded-r-2xl">
                         <div className="flex items-center justify-between gap-3 h-full flex-row-reverse md:flex-row">
                             {/* On desktop, content is aligned differently, but for simplicity we keep symmetry structure */}
 
@@ -255,26 +255,28 @@ export default function ComparatorControlDeck({
                                     <X size={16} />
                                 </button>
                             )}
+
+                            {/* Download PDF Button (Flex Item) */}
+                            {portfolioA && portfolioB && (
+                                <div className="flex md:ml-2">
+                                    <button
+                                        onClick={onDownloadPDF}
+                                        disabled={generatingPdf}
+                                        className="flex items-center gap-2 px-3 py-1 rounded-lg text-xs font-bold text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-all disabled:opacity-50 border border-slate-200 hover:border-blue-100"
+                                        title="Descargar Informe PDF"
+                                    >
+                                        {generatingPdf ? (
+                                            <div className="animate-spin rounded-full h-3 w-3 border-2 border-current border-t-transparent"></div>
+                                        ) : (
+                                            <Download size={14} />
+                                        )}
+                                        <span>Informe PDF</span>
+                                    </button>
+                                </div>
+                            )}
                         </div>
                     </div>
 
-                    {/* Action Bar (Download PDF) - Absolute Right floating */}
-                    {portfolioA && portfolioB && (
-                        <div className="absolute right-4 top-1/2 -translate-y-1/2 hidden lg:flex">
-                            <button
-                                onClick={onDownloadPDF}
-                                disabled={generatingPdf}
-                                className="flex items-center gap-2 text-slate-400 hover:text-blue-600 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-all font-medium text-xs disabled:opacity-50"
-                                title="Descargar Informe PDF"
-                            >
-                                {generatingPdf ? (
-                                    <div className="animate-spin rounded-full h-3 w-3 border-2 border-current border-t-transparent"></div>
-                                ) : (
-                                    <Download size={14} />
-                                )}
-                            </button>
-                        </div>
-                    )}
                 </div>
             </div>
 

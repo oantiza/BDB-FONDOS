@@ -26,6 +26,7 @@ interface EfficientFrontierProps {
     portfolioPoint: Point | null;
     isLoading?: boolean;
     animate?: boolean;
+    printMode?: boolean;
 }
 
 const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
@@ -33,9 +34,20 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
     assetPoints,
     portfolioPoint,
     isLoading = false,
-    animate = true
+    animate = true,
+    printMode = false
 }) => {
-    // Note: Loading state handled by parent or overlay, keeping this simple.
+    // Defines colors based on mode
+    const colors = {
+        frontierBorder: printMode ? '#000000' : '#0f172a', // Black vs Slate 900
+        assetBg: printMode ? '#64748b' : '#cbd5e1', // Darker Slate vs Slate 300
+        portfolioBg: '#D4AF37', // Gold stays gold
+        portfolioBorder: printMode ? '#000000' : '#1e293b',
+        grid: printMode ? '#cbd5e1' : '#f1f5f9', // Darker grid
+        text: printMode ? '#000000' : '#94a3b8', // Pure black for print clarity
+        textTitle: printMode ? '#000000' : '#94a3b8',
+        borderWidth: printMode ? 2.5 : 2
+    };
 
     // Prepare Datasets
     const data: ChartData = {
@@ -45,9 +57,9 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 type: 'line' as const,
                 label: 'Frontera Eficiente',
                 data: frontierPoints,
-                borderColor: '#0f172a', // Slate 900
+                borderColor: colors.frontierBorder,
                 backgroundColor: 'rgba(0,0,0,0)', // Transparent fill
-                borderWidth: 2, // Thinner, more elegant
+                borderWidth: colors.borderWidth,
                 pointRadius: 0,
                 tension: 0.4, // Smooth curve
                 order: 3
@@ -57,8 +69,8 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 type: 'scatter' as const,
                 label: 'Activos Individuales',
                 data: assetPoints,
-                backgroundColor: '#cbd5e1', // Lighter Slate (Slate 300) for less visual noise
-                pointRadius: 5,
+                backgroundColor: colors.assetBg,
+                pointRadius: printMode ? 6 : 5,
                 pointHoverRadius: 7,
                 order: 2
             },
@@ -67,12 +79,12 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 type: 'scatter' as const,
                 label: 'Cartera Actual',
                 data: [portfolioPoint],
-                backgroundColor: '#D4AF37', // Gold Fill
-                borderColor: '#1e293b', // Slate 800 (Softer than 900)
-                borderWidth: 2, // Thinner border
-                pointRadius: 8, // Smaller radius (was 10)
+                backgroundColor: colors.portfolioBg,
+                borderColor: colors.portfolioBorder,
+                borderWidth: colors.borderWidth,
+                pointRadius: printMode ? 8 : 8,
                 pointHoverRadius: 10,
-                pointStyle: 'circle', // Clean circle instead of "horrorosa" star
+                pointStyle: 'circle',
                 order: 1
             }] : [])
         ]
@@ -88,14 +100,17 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 position: 'bottom' as const,
                 labels: {
                     usePointStyle: true,
-                    font: { family: 'Fira Code, monospace', size: 10 },
-                    color: '#64748b'
+                    // Increased from 9 to 10 for printMode
+                    font: { family: 'Fira Code, monospace', size: printMode ? 11 : 10 },
+                    color: colors.text
                 }
             },
             tooltip: {
                 backgroundColor: '#1e293b',
-                titleFont: { family: 'Inter, sans-serif', size: 11, weight: 'bold' },
-                bodyFont: { family: 'Fira Code, monospace', size: 10 },
+                // Increased title from 11 to 12
+                titleFont: { family: 'Inter, sans-serif', size: 12, weight: 'bold' },
+                // Increased body from 10 to 11
+                bodyFont: { family: 'Fira Code, monospace', size: 11 },
                 callbacks: {
                     label: (context) => {
                         const raw = context.raw as Point;
@@ -110,12 +125,15 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 title: {
                     display: true,
                     text: 'Volatilidad (Riesgo)',
-                    font: { family: 'Inter, sans-serif', size: 10, weight: 'bold' },
-                    color: '#94a3b8'
+                    // Increased from 10 to 11
+                    font: { family: 'Inter, sans-serif', size: 12, weight: 'bold' },
+                    color: colors.textTitle
                 },
-                grid: { color: '#f1f5f9' },
+                grid: { color: colors.grid },
                 ticks: {
-                    font: { family: 'Fira Code, monospace', size: 9 },
+                    // Increased from 9 to 10
+                    font: { family: 'Fira Code, monospace', size: 11 },
+                    color: colors.text,
                     callback: (value) => `${(Number(value) * 100).toFixed(0)}%`
                 }
             },
@@ -123,12 +141,15 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
                 title: {
                     display: true,
                     text: 'Retorno Esperado',
-                    font: { family: 'Inter, sans-serif', size: 10, weight: 'bold' },
-                    color: '#94a3b8'
+                    // Increased from 10 to 11
+                    font: { family: 'Inter, sans-serif', size: 12, weight: 'bold' },
+                    color: colors.textTitle
                 },
-                grid: { color: '#f1f5f9' },
+                grid: { color: colors.grid },
                 ticks: {
-                    font: { family: 'Fira Code, monospace', size: 9 },
+                    // Increased from 9 to 10
+                    font: { family: 'Fira Code, monospace', size: 11 },
+                    color: colors.text,
                     callback: (value) => `${(Number(value) * 100).toFixed(0)}%`
                 }
             }

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { generateSmartPortfolio } from "./rulesEngine";
+import { generateSmartPortfolioLocal as generateSmartPortfolio } from "./rulesEngine";
 import { Fund } from "../types";
 
 describe("rulesEngine", () => {
@@ -10,13 +10,13 @@ describe("rulesEngine", () => {
     sharpe = 1.0,
     cagr3y = 0.05
   ): Fund =>
-    ({
-      isin,
-      name: `Fund ${isin} ${assetClass}`,
-      derived: { asset_class: assetClass },
-      std_perf: { volatility: vol, sharpe, cagr3y },
-      data_quality: { history_ok: true },
-    } as any);
+  ({
+    isin,
+    name: `Fund ${isin} ${assetClass}`,
+    derived: { asset_class: assetClass },
+    std_perf: { volatility: vol, sharpe, cagr3y },
+    data_quality: { history_ok: true },
+  } as any);
 
   const countByClass = (portfolio: any[], cls: string) =>
     portfolio.filter((p) => (p?.derived?.asset_class || "").toUpperCase() === cls.toUpperCase()).length;

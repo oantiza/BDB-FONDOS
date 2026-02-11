@@ -38,7 +38,12 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
         portfolioPoint,
         getVolatilitySafe,
         compositionPages,
-        equityRegionAllocation
+        equityRegionAllocation,
+        // Controls
+        period,
+        setPeriod,
+        benchmarkId,
+        setBenchmarkId
     } = useXRayData(portfolio, fundDatabase);
 
     // 2. UI State
@@ -94,6 +99,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
         }
 
         ids.push('pdf-notes-page');
+        ids.push('pdf-interpretation-guide');
 
         await generatePortfolioReport(ids, reportTitle);
         setShowReportConfig(false);
@@ -113,6 +119,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
         // Metrics & Advanced Charts
         ids.push('pdf-page-2-custom');
         ids.push('pdf-advanced-charts-page');
+        ids.push('pdf-interpretation-guide');
 
         const dateStr = new Date().toISOString().slice(0, 10);
         await generatePortfolioReport(ids, `informe_resumen_${dateStr}.pdf`);
@@ -126,6 +133,14 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                 fundDatabase={fundDatabase}
                 onBack={() => setShowAnalytics(false)}
                 totalCapital={totalCapital}
+                // Shared State
+                metrics={metrics}
+                loading={loading}
+                errorMsg={errorMsg}
+                period={period}
+                setPeriod={setPeriod}
+                benchmarkId={benchmarkId}
+                setBenchmarkId={setBenchmarkId}
             />
         );
     }
@@ -140,7 +155,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     const hasMetrics = !!metrics && !!metrics.metrics;
 
     return (
-        <div className="flex flex-col h-screen bg-[#fcfcfc]">
+        <div className="flex flex-col h-screen bg-[#f8fafc]">
             <XRayHeader
                 onBack={onBack}
                 loading={loading}
@@ -234,6 +249,8 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                 executionPlanText={executionPlanText}
                 compositionPages={compositionPages}
                 getVolatilitySafe={getVolatilitySafe}
+                benchmarkId={benchmarkId}
+                period={period}
             />
 
             {/* MODALS */}

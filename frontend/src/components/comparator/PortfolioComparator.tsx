@@ -201,13 +201,13 @@ export default function PortfolioComparator() {
 
 
     const handleDownloadPDF = async () => {
+        console.log("PortfolioComparator: handleDownloadPDF triggered v2");
         if (!nameA || !nameB) return;
         setGeneratingPdf(true);
         try {
-            await generateComparatorPDF(nameA, nameB, {
+            await generateComparatorPDF(nameA, nameB, metricsA, metricsB, {
                 chart: 'comparator-chart',
-                metrics: 'comparator-metrics',
-                allocation: 'comparator-allocation'
+                riskMap: 'comparator-risk-map'
             });
         } catch (e) {
             console.error(e);

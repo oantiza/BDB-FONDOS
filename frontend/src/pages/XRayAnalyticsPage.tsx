@@ -11,17 +11,32 @@ import { Fund, PortfolioItem } from '../types'
 interface XRayAnalyticsPageProps {
     portfolio: PortfolioItem[];
     fundDatabase: Fund[];
-    totalCapital: number; // Kept for consistency though mostly unneeded for pure charts
-    onBack: () => void; // Not used really if new window, but good practice
+    totalCapital: number;
+    onBack: () => void;
+    // Shared State
+    metrics: any;
+    loading: boolean;
+    errorMsg: string | null;
+    period: string;
+    setPeriod: (p: string) => void;
+    benchmarkId: string;
+    setBenchmarkId: (b: string) => void;
 }
 
-export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: XRayAnalyticsPageProps) {
+export default function XRayAnalyticsPage({
+    portfolio,
+    fundDatabase,
+    onBack,
+    metrics,
+    loading,
+    errorMsg,
+    period,
+    setPeriod,
+    benchmarkId,
+    setBenchmarkId
+}: XRayAnalyticsPageProps) {
 
-    const [metrics, setMetrics] = useState<any>(null)
-    const [loading, setLoading] = useState(true)
-    const [errorMsg, setErrorMsg] = useState<string | null>(null)
-    const [benchmarkId, _setBenchmarkId] = useState('moderate') // Default: Moderate
-    const [period, setPeriod] = useState('3y')
+    // Removed local state and fetching logic since it's now lifted to parent
     const [riskExplanation, setRiskExplanation] = useState('Analizando perfil...')
 
     // Generate Static Benchmark Profiles (for Risk Map)
@@ -29,42 +44,6 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: X
         if (!fundDatabase || !fundDatabase.length) return [];
         return generateBenchmarkProfiles(fundDatabase);
     }, [fundDatabase]);
-
-    useEffect(() => {
-        runAnalysis()
-    }, [period])
-
-    const runAnalysis = async () => {
-        setErrorMsg(null)
-        if (!portfolio || portfolio.length === 0) {
-            setLoading(false)
-            setErrorMsg("La cartera está vacía. Añade fondos antes de analizar.")
-            return
-        }
-        setLoading(true)
-        try {
-            const analyzeFn = httpsCallable(functions, 'backtest_portfolio')
-            const res = await analyzeFn({
-                portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight })),
-                period: period,
-                benchmarks: EXCLUDED_BENCHMARK_ISINS
-            })
-
-            const rawData = res.data as any;
-            const syntheticSeries = rawData.benchmarkSeries || {};
-
-            setMetrics({
-                ...rawData,
-                containerBenchmarkSeries: syntheticSeries
-            })
-
-        } catch (error: any) {
-            console.error("Error X-Ray Analytics:", error)
-            setErrorMsg(error.message || "Error desconocido al contactar el servidor")
-        } finally {
-            setLoading(false)
-        }
-    }
 
     // Dynamic Risk Explanation Update
     useEffect(() => {
@@ -82,7 +61,7 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: X
 
 
     return (
-        <div className="h-screen overflow-y-auto bg-white font-sans text-slate-700">
+        <div className="h-screen overflow-y-auto bg-[#f8fafc] font-sans text-slate-700">
             {/* PREMIER EDITORIAL HEADER */}
             {/* STANDARD HEADER */}
             <div className="h-16 bg-gradient-to-r from-[#003399] to-[#0055CC] text-white flex items-center justify-between px-6 border-b border-white/10 sticky top-0 z-10 w-full shadow-md">
@@ -120,7 +99,7 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: X
                                 <div className="flex gap-2">
                                     <select
                                         value={benchmarkId}
-                                        onChange={(e) => _setBenchmarkId(e.target.value)}
+                                        onChange={(e) => setBenchmarkId(e.target.value)}
                                         className="bg-transparent text-[#A07147] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#A07147] pb-1 cursor-pointer"
                                     >
                                         <option value="conservative">Conservador</option>
@@ -143,7 +122,7 @@ export default function XRayAnalyticsPage({ portfolio, fundDatabase, onBack }: X
                             <div className="h-[500px] bg-[#fcfcfc] border border-[#f0f0f0] p-4">
                                 <XRayChart
                                     portfolioData={metrics.portfolioSeries}
-                                    benchmarkData={metrics.containerBenchmarkSeries?.[benchmarkId]}
+                                    benchmarkData={metrics?.containerBenchmarkSeries?.[benchmarkId] || metrics?.benchmarkSeries?.[benchmarkId]}
                                     benchmarkLabel={benchmarkId ? benchmarkId.charAt(0).toUpperCase() + benchmarkId.slice(1) : 'Benchmark'}
                                 />
                             </div>

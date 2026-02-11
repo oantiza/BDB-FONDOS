@@ -89,8 +89,21 @@ export function normalizeFundData(docDataInput: any) {
   const docData = docDataInput
 
   // 1. Asset Class & Region (Strict from adapter/docData)
-  const std_type = docData.asset_class ?? null
-  const std_region = docData.primary_region ?? null
+  let std_type = docData.asset_class ?? null
+  let std_region = docData.primary_region ?? null
+
+  // [FALLBACK] Region from MS Breakdown if missing
+  if (!std_region && docData.ms?.regions?.detail) {
+    try {
+      const regions = docData.ms.regions.detail;
+      const sorted = Object.entries(regions).sort((a: any, b: any) => b[1] - a[1]);
+      if (sorted.length > 0) {
+        // Map common keys to our schema labels or keep raw if handled elsewhere
+        // REGION_DISPLAY_LABELS keys match these mostly (united_states, eurozone, etc)
+        std_region = sorted[0][0];
+      }
+    } catch (e) { /* ignore */ }
+  }
 
   // 2. Perf / Stats (Strict formatting only)
   // Check MS V3 location first (Risk Volatility)
@@ -154,21 +167,61 @@ export function normalizeFundData(docDataInput: any) {
   }
 
   // Holdings (Map top10 if available)
-  const holdings = docData.holdings || docData.holdings_top10 || [];
+  // FIX: Added docData.ms?.holdings_top10 as source
+  const holdings = docData.holdings || docData.holdings_top10 || docData.ms?.holdings_top10 || [];
 
-  // Duration / Maturity (Strict)
-  const duration = toNumber(
+  // Description / Objective
+  // FIX: Added docData.ms?.objective as source for description
+  const description = docData.description || docData.ms?.objective || null;
+
+  // Duration / Maturity (Strict -> Fallback to Allocation)
+  let duration = toNumber(
     docData.metrics?.duration ||
     docData.metrics?.effective_duration ||
     docData.risk?.effective_duration ||
     docData.fixed_income?.effective_duration
   )
 
-  const effectiveMaturity = toNumber(
+  let effectiveMaturity = toNumber(
     docData.metrics?.effective_maturity ||
     docData.metrics?.maturity ||
     docData.fixed_income?.effective_maturity
   )
+
+  // [FALLBACK] Calculate Duration/Maturity from Allocations if missing
+  if (!effectiveMaturity && docData.ms?.fixed_income?.maturity_allocation) {
+    try {
+      const matAlloc = docData.ms.fixed_income.maturity_allocation;
+      // Midpoints for buckets
+      const buckets: Record<string, number> = {
+        '1_3': 2,
+        '3_5': 4,
+        '5_7': 6,
+        '7_10': 8.5,
+        '10_15': 12.5,
+        '15_20': 17.5,
+        'over_20': 25,
+        'over_10': 15, // fallback if over_20 not present
+        'under_1': 0.5 // if exists
+      };
+
+      let wSum = 0;
+      let totalW = 0;
+      Object.entries(matAlloc).forEach(([k, v]) => {
+        const weight = toNumber(v) || 0;
+        if (weight > 0 && buckets[k]) {
+          wSum += weight * buckets[k];
+          totalW += weight;
+        }
+      });
+
+      if (totalW > 50) { // Only if we have significant data
+        effectiveMaturity = wSum / totalW;
+        // Heuristic: Duration is often slightly less than maturity
+        if (!duration) duration = effectiveMaturity * 0.9;
+      }
+    } catch (e) { /* ignore */ }
+  }
 
   // Credit Quality (Strict)
   const crQuality: any =
@@ -197,6 +250,7 @@ export function normalizeFundData(docDataInput: any) {
     ...docData,
     sectors: finalSectors,
     holdings: holdings,
+    description: description,
 
     // Normalized Fields (can be null)
     std_type: std_type,
