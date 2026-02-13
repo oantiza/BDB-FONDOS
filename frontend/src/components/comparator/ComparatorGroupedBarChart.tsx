@@ -77,17 +77,17 @@ export default function ComparatorGroupedBarChart({
                             <span className="font-semibold text-slate-700 truncate pr-2 max-w-[60%]" title={row.label}>
                                 {row.label}
                             </span>
-                            <div className="flex gap-2 text-[10px]">
-                                <span className="font-mono font-bold text-blue-600 w-10 text-right">{row.valA.toFixed(1)}%</span>
+                            <div className="flex gap-2 text-xs">
+                                <span className="font-mono font-bold text-blue-600 w-12 text-right">{row.valA.toFixed(1)}%</span>
                                 <span className="text-slate-300">|</span>
-                                <span className="font-mono font-bold text-amber-600 w-10 text-right">{row.valB.toFixed(1)}%</span>
+                                <span className="font-mono font-bold text-amber-600 w-12 text-right">{row.valB.toFixed(1)}%</span>
                             </div>
                         </div>
 
                         {/* Visual Bars Container */}
                         <div className="flex flex-col gap-1 w-full pl-2 border-l-2 border-slate-100 py-1">
                             {/* Bar A */}
-                            <div className="flex items-center gap-2 h-2">
+                            <div className="flex items-center gap-2 h-2.5">
                                 <div className="flex-1 bg-slate-50 rounded-r-full overflow-hidden h-full">
                                     <div
                                         className="h-full rounded-r-full transition-all duration-500 bg-blue-500"
@@ -98,7 +98,7 @@ export default function ComparatorGroupedBarChart({
                             </div>
 
                             {/* Bar B */}
-                            <div className="flex items-center gap-2 h-2">
+                            <div className="flex items-center gap-2 h-2.5">
                                 <div className="flex-1 bg-slate-50 rounded-r-full overflow-hidden h-full">
                                     <div
                                         className="h-full rounded-r-full transition-all duration-500 bg-amber-500"

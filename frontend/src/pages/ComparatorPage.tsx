@@ -6,7 +6,7 @@ import FundComparator from '../components/comparator/FundComparator';
 interface ComparatorPageProps {
     onBack: () => void;
     onLogout: () => void;
-    onOpenMiBoutique: () => void;
+    onOpenMiBoutique?: () => void;
     onOpenXRay: () => void;
     onOpenPositions: () => void;
     onOpenRetirement: () => void;
@@ -23,11 +23,7 @@ export default function ComparatorPage({
             <Header
                 onBack={onBack}
                 onLogout={onLogout}
-                onOpenMiBoutique={onOpenMiBoutique}
-                onOpenXRay={onOpenXRay}
-                onOpenPositions={onOpenPositions}
-                onOpenRetirement={onOpenRetirement}
-                onOpenComparator={onOpenComparator}
+                onOpenMiBoutique={() => { }}
             />
 
             <div className="flex-1 flex flex-col overflow-hidden">

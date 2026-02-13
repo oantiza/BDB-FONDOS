@@ -56,8 +56,8 @@ export function useSavedPortfolios() {
             return false;
         }
 
-        if (savedPortfolios.length >= 10) {
-            toast.error("Has alcanzado el límite de 10 carteras guardadas");
+        if (savedPortfolios.length >= 15) {
+            toast.error("Has alcanzado el límite de 15 carteras guardadas");
             return false;
         }
 

@@ -3,7 +3,7 @@ import { useXRayData } from '../hooks/useXRayData';
 import { generatePortfolioReport } from '../utils/generatePortfolioReport';
 import { Fund, PortfolioItem } from '../types';
 
-import XRayHeader from '../components/xray/XRayHeader';
+import Header from '../components/Header';
 import HoldingsTable from '../components/xray/HoldingsTable';
 import XRayMetrics from '../components/xray/XRayMetrics';
 import AssetAllocationSection from '../components/xray/AssetAllocationSection';
@@ -156,16 +156,38 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
     return (
         <div className="flex flex-col h-screen bg-[#f8fafc]">
-            <XRayHeader
-                onBack={onBack}
-                loading={loading}
-                hasMetrics={hasMetrics}
-                onDownloadFull={handleDownloadFullReport}
-                onDownloadSummary={handleDownloadSummaryReport}
-                onShowAnalytics={() => setShowAnalytics(true)}
-            />
+            <div className="fixed top-0 left-0 right-0 z-50">
+                <Header onBack={onBack} onLogout={() => { }}>
+                    {hasMetrics && (
+                        <>
+                            <div className="flex gap-2">
+                                <button
+                                    onClick={handleDownloadFullReport}
+                                    disabled={loading}
+                                    className="bg-white/10 hover:bg-white/20 text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-white/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                                >
+                                    <span>📄</span> Informe Completo
+                                </button>
+                                <button
+                                    onClick={handleDownloadSummaryReport}
+                                    disabled={loading}
+                                    className="bg-[#D4AF37] hover:bg-[#b5952f] text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-white/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                                >
+                                    <span>📊</span> Informe Resumen
+                                </button>
+                            </div>
 
-            <div className="flex-1 overflow-y-auto p-8 relative">
+                            <button
+                                onClick={() => setShowAnalytics(true)}
+                                className="ml-4 text-white/70 hover:text-[#D4AF37] transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1 group bg-white/5 px-3 py-1 rounded-full border border-white/10 hover:border-white/30"
+                            >
+                                Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
+                            </button>
+                        </>
+                    )}
+                </Header>
+            </div>
+            <div className="flex-1 overflow-y-auto p-8 relative mt-16">
                 <div className="max-w-[1400px] mx-auto bg-white p-8 shadow-sm border border-slate-100 min-h-[1000px]">
 
                     {/* SECTION 1: HOLDINGS TABLE */}

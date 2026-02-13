@@ -124,7 +124,6 @@ export const parsePortfolioCSV = (csvText: string) => {
 
         // Skip lines that are clearly too short (less than ISIN column)
         if (cols.length <= idxISIN) {
-            console.debug(`[CSV Import] Skipping line ${i + 1}: too few columns (${cols.length})`);
             continue;
         }
 
@@ -153,7 +152,6 @@ export const parsePortfolioCSV = (csvText: string) => {
             }
 
             if (isNaN(value) || value <= 0) {
-                console.debug(`[CSV Import] Skipping line ${i + 1}: invalid or zero value "${cols[idxVal]}" for ISIN ${isin}`);
                 continue;
             }
         }
@@ -170,7 +168,6 @@ export const parsePortfolioCSV = (csvText: string) => {
         }
 
         if (hasWeightOnly && weight <= 0) {
-            console.debug(`[CSV Import] Skipping line ${i + 1}: no valid weight for ISIN ${isin}`);
             continue;
         }
 
@@ -210,7 +207,7 @@ export const parsePortfolioCSV = (csvText: string) => {
         }))
     }
 
-    console.log(`[CSV Import] Successfully parsed ${finalPortfolio.length} funds, total value: ${totalValue.toFixed(2)} EUR`);
+
 
     return {
         portfolio: finalPortfolio,

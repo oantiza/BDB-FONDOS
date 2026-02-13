@@ -201,7 +201,7 @@ export default function PortfolioComparator() {
 
 
     const handleDownloadPDF = async () => {
-        console.log("PortfolioComparator: handleDownloadPDF triggered v2");
+
         if (!nameA || !nameB) return;
         setGeneratingPdf(true);
         try {
@@ -241,7 +241,7 @@ export default function PortfolioComparator() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
 
                         {/* HISTORICAL EVOLUTION */}
-                        <div id="comparator-chart" className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm h-[430px] flex flex-col">
+                        <div id="comparator-chart" className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm h-[480px] flex flex-col">
                             <div className="flex justify-between items-center mb-4">
                                 <h3 className="text-lg font-bold text-[#0B2545]">Evolución Histórica (Base 100)</h3>
                                 <div className="flex bg-slate-100 rounded-lg p-1 gap-1">
@@ -259,19 +259,19 @@ export default function PortfolioComparator() {
 
                             <div className="w-full h-full min-h-0">
                                 <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={chartData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+                                    <LineChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                         <XAxis
                                             dataKey="date"
                                             tickFormatter={(date) => new Date(date).getFullYear().toString()}
-                                            tick={{ fontSize: 10, fill: '#94a3b8' }}
+                                            tick={{ fontSize: 12, fill: '#94a3b8' }}
                                             axisLine={false}
                                             tickLine={false}
                                             minTickGap={30}
                                         />
                                         <YAxis
                                             domain={['auto', 'auto']}
-                                            tick={{ fontSize: 10, fill: '#94a3b8' }}
+                                            tick={{ fontSize: 12, fill: '#94a3b8' }}
                                             axisLine={false}
                                             tickLine={false}
                                         />
@@ -279,18 +279,18 @@ export default function PortfolioComparator() {
                                             contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
                                             labelStyle={{ color: '#64748b', marginBottom: '0.25rem', fontSize: '0.75rem' }}
                                         />
-                                        <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '10px' }} />
-                                        <Line type="monotone" dataKey="valA" name={nameA || 'Cartera A'} stroke="#3b82f6" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
-                                        <Line type="monotone" dataKey="valB" name={nameB || 'Cartera B'} stroke="#f59e0b" strokeWidth={2} dot={false} activeDot={{ r: 4 }} />
+                                        <Legend wrapperStyle={{ fontSize: '13px', paddingTop: '10px' }} />
+                                        <Line type="monotone" dataKey="valA" name={nameA || 'Cartera A'} stroke="#3b82f6" strokeWidth={2.5} dot={false} activeDot={{ r: 5 }} />
+                                        <Line type="monotone" dataKey="valB" name={nameB || 'Cartera B'} stroke="#f59e0b" strokeWidth={2.5} dot={false} activeDot={{ r: 5 }} />
                                     </LineChart>
                                 </ResponsiveContainer>
                             </div>
                         </div>
 
                         {/* RISK/RETURN MAP */}
-                        <div id="comparator-risk-map" className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm h-[430px] flex flex-col">
+                        <div id="comparator-risk-map" className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm h-[480px] flex flex-col">
                             <h3 className="text-lg font-bold text-[#0B2545] mb-4">Mapa Riesgo / Retorno (3 Años)</h3>
-                            <div className="h-[360px] flex-1 w-full min-h-0">
+                            <div className="h-[410px] flex-1 w-full min-h-0">
                                 <ComparatorRiskMap
                                     metricsA={metricsA?.metrics3y}
                                     metricsB={metricsB?.metrics3y}

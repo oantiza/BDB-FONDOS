@@ -13,14 +13,14 @@ interface XRayAnalyticsPageProps {
     fundDatabase: Fund[];
     totalCapital: number;
     onBack: () => void;
-    // Shared State
-    metrics: any;
-    loading: boolean;
-    errorMsg: string | null;
-    period: string;
-    setPeriod: (p: string) => void;
-    benchmarkId: string;
-    setBenchmarkId: (b: string) => void;
+    // Shared State (Optional for standalone mode)
+    metrics?: any;
+    loading?: boolean;
+    errorMsg?: string | null;
+    period?: string;
+    setPeriod?: (p: string) => void;
+    benchmarkId?: string;
+    setBenchmarkId?: (b: string) => void;
 }
 
 export default function XRayAnalyticsPage({
@@ -35,6 +35,23 @@ export default function XRayAnalyticsPage({
     benchmarkId,
     setBenchmarkId
 }: XRayAnalyticsPageProps) {
+
+    // Fallback Local State
+    const [localPeriod, setLocalPeriod] = useState('3y');
+    const [localBenchmarkId, setLocalBenchmarkId] = useState('moderate');
+
+    const activePeriod = period ?? localPeriod;
+    const activeBenchmarkId = benchmarkId ?? localBenchmarkId;
+
+    const handleSetPeriod = (p: string) => {
+        setLocalPeriod(p);
+        if (setPeriod) setPeriod(p);
+    };
+
+    const handleSetBenchmarkId = (b: string) => {
+        setLocalBenchmarkId(b);
+        if (setBenchmarkId) setBenchmarkId(b);
+    };
 
     // Removed local state and fetching logic since it's now lifted to parent
     const [riskExplanation, setRiskExplanation] = useState('Analizando perfil...')
@@ -98,8 +115,8 @@ export default function XRayAnalyticsPage({
                                 <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Evolución Histórica</h3>
                                 <div className="flex gap-2">
                                     <select
-                                        value={benchmarkId}
-                                        onChange={(e) => setBenchmarkId(e.target.value)}
+                                        value={activeBenchmarkId}
+                                        onChange={(e) => handleSetBenchmarkId(e.target.value)}
                                         className="bg-transparent text-[#A07147] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#A07147] pb-1 cursor-pointer"
                                     >
                                         <option value="conservative">Conservador</option>
@@ -109,8 +126,8 @@ export default function XRayAnalyticsPage({
                                         <option value="aggressive">Agresivo</option>
                                     </select>
                                     <select
-                                        value={period}
-                                        onChange={(e) => setPeriod(e.target.value)}
+                                        value={activePeriod}
+                                        onChange={(e) => handleSetPeriod(e.target.value)}
                                         className="bg-transparent text-[#A07147] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#A07147] pb-1 cursor-pointer"
                                     >
                                         <option value="1y">1 Año</option>
@@ -122,8 +139,8 @@ export default function XRayAnalyticsPage({
                             <div className="h-[500px] bg-[#fcfcfc] border border-[#f0f0f0] p-4">
                                 <XRayChart
                                     portfolioData={metrics.portfolioSeries}
-                                    benchmarkData={metrics?.containerBenchmarkSeries?.[benchmarkId] || metrics?.benchmarkSeries?.[benchmarkId]}
-                                    benchmarkLabel={benchmarkId ? benchmarkId.charAt(0).toUpperCase() + benchmarkId.slice(1) : 'Benchmark'}
+                                    benchmarkData={metrics?.containerBenchmarkSeries?.[activeBenchmarkId] || metrics?.benchmarkSeries?.[activeBenchmarkId]}
+                                    benchmarkLabel={activeBenchmarkId ? activeBenchmarkId.charAt(0).toUpperCase() + activeBenchmarkId.slice(1) : 'Benchmark'}
                                 />
                             </div>
                         </div>

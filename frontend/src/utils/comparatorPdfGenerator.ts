@@ -16,7 +16,7 @@ export const generateComparatorPDF = async (
     metricsB: PortfolioMetrics,
     idsToCapture: { chart: string, riskMap: string }
 ) => {
-    console.log("Generating PDF with updated Strategic Summary styles v2");
+
     const doc = new jsPDF({
         orientation: 'p',
         unit: 'mm',
@@ -25,8 +25,8 @@ export const generateComparatorPDF = async (
 
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
-    const margin = 25; // Side margins
-    const marginTop = 15; // Top margin (Reduced by 1cm to give space at bottom)
+    const margin = 20; // Side margins (reduced for more content space)
+    const marginTop = 12; // Top margin
     const contentWidth = pageWidth - (margin * 2);
     let currentY = marginTop;
 
@@ -40,7 +40,7 @@ export const generateComparatorPDF = async (
     // --- HELPERS ---
     const addSectionTitle = (title: string, y: number) => {
         doc.setFont('helvetica', 'bold');
-        doc.setFontSize(11);
+        doc.setFontSize(12);
         doc.setTextColor(COLOR_TEXT_MAIN[0], COLOR_TEXT_MAIN[1], COLOR_TEXT_MAIN[2]);
         doc.text(title.toUpperCase(), margin, y);
         // Underline
@@ -70,7 +70,7 @@ export const generateComparatorPDF = async (
     const titleY = marginTop + 11;
     const textMargin = margin + 5;
 
-    doc.setFontSize(14);
+    doc.setFontSize(16);
     doc.setTextColor(30, 41, 59); // text-slate-800
 
     doc.setFont('helvetica', 'normal');
@@ -82,32 +82,32 @@ export const generateComparatorPDF = async (
 
     // Date (Right aligned - Muted Blue/Gray)
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.setTextColor(100, 116, 139); // text-slate-500
 
     const today = new Date().toLocaleDateString('es-ES', { year: 'numeric', month: 'long', day: 'numeric' });
     doc.text(`Informe generado el ${today}`, pageWidth - margin - 5, titleY, { align: 'right' });
 
-    currentY = marginTop + headerHeight + 15;
+    currentY = marginTop + headerHeight + 10;
 
     // --- 2. KPI TABLE ---
     currentY = addSectionTitle("1. COMPARATIVA DE MÉTRICAS CLAVE", currentY);
-    currentY += 5;
+    currentY += 3;
 
     // Table Setup
     const colWidth = contentWidth / 3;
-    const rowHeight = 10;
+    const rowHeight = 8;
     const tableY = currentY;
 
     // Headers
     doc.setFillColor(COLOR_TABLE_HEADER[0], COLOR_TABLE_HEADER[1], COLOR_TABLE_HEADER[2]);
     doc.rect(margin, tableY, contentWidth, rowHeight, 'F');
     doc.setFont('helvetica', 'bold');
-    doc.setFontSize(9);
+    doc.setFontSize(10);
     doc.setTextColor(COLOR_TEXT_MAIN[0], COLOR_TEXT_MAIN[1], COLOR_TEXT_MAIN[2]);
-    doc.text("Métricas", margin + 5, tableY + 6);
-    doc.text(nameA.substring(0, 25), margin + colWidth + 5, tableY + 6);
-    doc.text(nameB.substring(0, 25), margin + (colWidth * 2) + 5, tableY + 6);
+    doc.text("Métricas", margin + 5, tableY + 5.5);
+    doc.text(nameA.substring(0, 25), margin + colWidth + 5, tableY + 5.5);
+    doc.text(nameB.substring(0, 25), margin + (colWidth * 2) + 5, tableY + 5.5);
 
     // Rows
     const cagr5yA = metricsA?.metrics5y?.cagr;
@@ -131,7 +131,7 @@ export const generateComparatorPDF = async (
         doc.line(margin, rowY, pageWidth - margin, rowY);
 
         // Content
-        const textY = rowY + 6;
+        const textY = rowY + 5.5;
         doc.setFont('helvetica', 'bold');
         doc.setTextColor(COLOR_TEXT_MAIN[0], COLOR_TEXT_MAIN[1], COLOR_TEXT_MAIN[2]);
         doc.text(row.label, margin + 5, textY);
@@ -176,35 +176,35 @@ export const generateComparatorPDF = async (
         rowY += rowHeight;
     });
 
-    currentY = rowY + 10;
+    currentY = rowY + 16;
 
     // --- 3. CHARTS ---
     currentY = addSectionTitle("2. ANÁLISIS VISUAL DE GRÁFICOS", currentY);
-    currentY += 5;
+    // Removed 3mm padding to move charts up
 
     // Capture Images
-    // Adjusted gap to 6mm to increase width by 2mm per chart (prev gap 10)
-    const gap = 6;
+    // Charts side by side — maximized width
+    const gap = 5;
     const captureW = (contentWidth - gap) / 2;
-    const captureH = captureW * 0.7; // Aspect 3:4ish
+    const captureH = captureW * 0.75; // Taller ratio for better readability
     const ids = [idsToCapture.chart, idsToCapture.riskMap];
 
     for (let i = 0; i < ids.length; i++) {
         const el = document.getElementById(ids[i]);
         if (el) {
             try {
-                const canvas = await html2canvas(el, { scale: 2, backgroundColor: '#ffffff', logging: false, useCORS: true });
+                const canvas = await html2canvas(el, { scale: 3, backgroundColor: '#ffffff', logging: false, useCORS: true });
                 const imgData = canvas.toDataURL('image/png');
                 const x = margin + (i * (captureW + gap));
                 doc.addImage(imgData, 'PNG', x, currentY, captureW, captureH);
             } catch (e) { console.error(e); }
         }
     }
-    currentY += captureH + 8;
+    currentY += captureH + 5;
 
     // --- 4. TEXTOS (Resumen y Composición) ---
     // Text Analysis (Simulated)
-    doc.setFontSize(9);
+    doc.setFontSize(10);
     doc.setTextColor(COLOR_TEXT_MAIN[0], COLOR_TEXT_MAIN[1], COLOR_TEXT_MAIN[2]);
 
     // Constants for alignment
@@ -240,14 +240,14 @@ export const generateComparatorPDF = async (
     doc.text(riskAnalysis, textX, currentY, { maxWidth: maxTextWidth });
 
     const splitRisk = doc.splitTextToSize(riskAnalysis, maxTextWidth);
-    currentY += (splitRisk.length * 5) + 15; // Extra space before next section
+    currentY += (splitRisk.length * 5) + 8; // Space before next section
 
     // --- 4. RESUMEN ESTRATÉGICO ---
     currentY = addSectionTitle("3. RESUMEN ESTRATÉGICO", currentY);
-    currentY += 8;
+    currentY += 5;
 
-    // Reset font size for content matches lines 181-182
-    doc.setFontSize(9);
+    // Reset font size for content
+    doc.setFontSize(10);
     doc.setTextColor(COLOR_TEXT_MAIN[0], COLOR_TEXT_MAIN[1], COLOR_TEXT_MAIN[2]);
 
     // Metrics Summary
@@ -270,7 +270,7 @@ export const generateComparatorPDF = async (
     doc.text(compText, textX, currentY, { maxWidth: maxTextWidth });
 
     // Footer
-    doc.setFontSize(8);
+    doc.setFontSize(9);
     doc.setTextColor(COLOR_TEXT_MUTED[0], COLOR_TEXT_MUTED[1], COLOR_TEXT_MUTED[2]);
     doc.text("Banca Privada", margin, pageHeight - 10);
     doc.text("Página 1 de 1", pageWidth - margin, pageHeight - 10, { align: 'right' });

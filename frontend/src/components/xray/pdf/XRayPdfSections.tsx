@@ -1,6 +1,6 @@
 import React from 'react';
 import { PortfolioItem } from '../../../types';
-import DiversificationDonut from '../../charts/DiversificationDonut';
+import GlobalAllocationChart from '../../charts/GlobalAllocationChart';
 import EquityRegionChart from '../../charts/EquityRegionChart';
 import EfficientFrontierChart from '../../charts/EfficientFrontierChart';
 import XRayChart from '../../charts/XRayChart';
@@ -130,7 +130,7 @@ export default function XRayPdfSections({
             {/* 2. INDEX PAGE (Page 2) */}
             <div id="pdf-index-page" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '40px 60px 22px 60px' }}>
                 <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-20 w-full">
-                    <span className="font-light text-[26px] tracking-tight leading-none">Contenido del <span className="font-bold">Informe</span></span>
+                    <span className="font-light text-[26px] tracking-tight leading-none pb-4">Contenido del <span className="font-bold">Informe</span></span>
                 </div>
                 <div className="max-w-4xl mx-auto">
                     <h1 className="text-7xl font-light text-[#003399] mb-20 tracking-tight">Índice</h1>
@@ -155,7 +155,7 @@ export default function XRayPdfSections({
             {strategyReport && (
                 <div id="pdf-macro-matrix-page-v2" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '40px 60px 22px 60px' }}>
                     <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-12 w-full">
-                        <span className="font-light text-[26px] tracking-tight leading-none">Visión de <span className="font-bold">Mercado</span></span>
+                        <span className="font-light text-[26px] tracking-tight leading-none pb-4">Visión de <span className="font-bold">Mercado</span></span>
                     </div>
                     <div className="space-y-12">
                         {strategyReport.house_view_summary && (
@@ -183,7 +183,7 @@ export default function XRayPdfSections({
                     {/* I will use min-height or standard height to ensure footer placement. */}
 
                     <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-8 w-full">
-                        <span className="font-light text-[33px] tracking-tight leading-none">Análisis de <span className="font-bold">Cartera</span> {compositionPages.length > 1 ? `(${pageIndex + 1}/${compositionPages.length})` : ''}</span>
+                        <span className="font-light text-[33px] tracking-tight leading-none pb-4">Análisis de <span className="font-bold">Cartera</span> {compositionPages.length > 1 ? `(${pageIndex + 1}/${compositionPages.length})` : ''}</span>
                     </div>
 
                     <div className="mb-6 flex justify-between items-end">
@@ -233,7 +233,7 @@ export default function XRayPdfSections({
             {metrics && (
                 <div id="pdf-page-2-custom" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '20px 40px 2px 40px' }}>
                     <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-8 w-full">
-                        <span className="font-light text-[33px] tracking-tight leading-none">Análisis de <span className="font-bold">Cartera</span></span>
+                        <span className="font-light text-[33px] tracking-tight leading-none pb-4">Análisis de <span className="font-bold">Cartera</span></span>
                     </div>
                     {/* ... Content ... */}
                     <div className="mb-16">
@@ -260,49 +260,28 @@ export default function XRayPdfSections({
                             <h3 className="text-black text-[47px] font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
                                 Composición Global <span className="block text-lg font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Activo Subyacente</span>
                             </h3>
-                            <div style={{ width: '280px', height: '280px' }}>
-                                <DiversificationDonut assets={
+                            <div className="w-full mt-4 max-w-[360px]">
+                                <GlobalAllocationChart data={
                                     categoryAllocation && categoryAllocation.length > 0
                                         ? categoryAllocation.slice(0, 5).concat(
                                             categoryAllocation.length > 5
                                                 ? [{ name: 'Otros', value: categoryAllocation.slice(5).reduce((acc, curr) => acc + curr.value, 0) }]
                                                 : []
                                         )
-                                        : []
-                                }
-
-                                    staticPlot={true}
-                                />
-                            </div>
-                            {/* CUSTOM LEGEND BELOW CHART */}
-                            <div className="w-full flex flex-wrap justify-center gap-4 px-4">
-                                {(
-                                    categoryAllocation && categoryAllocation.length > 0
-                                        ? categoryAllocation.slice(0, 5).concat(
-                                            categoryAllocation.length > 5
-                                                ? [{ name: 'Otros', value: categoryAllocation.slice(5).reduce((acc, curr) => acc + curr.value, 0) }]
-                                                : []
-                                        )
-                                        : []
-                                ).map((item, i) => (
-                                    <div key={i} className="flex items-center gap-2 mb-1">
-                                        <div className="w-3 h-3 rounded-sm" style={{
-                                            backgroundColor: [
-                                                '#0B2545', '#C5A059', '#4F46E5', '#64748B', '#1E3A8A', '#D4AF37', '#3B82F6', '#94A3B8'
-                                            ][i % 8]
-                                        }}></div>
-                                        <span className="text-[#2C3E50] text-base font-medium uppercase tracking-wider">
-                                            {item.name}
-                                        </span>
-                                    </div>
-                                ))}
+                                        : [
+                                            { name: 'Renta Variable', value: globalAllocation.equity },
+                                            { name: 'Renta Fija', value: globalAllocation.bond },
+                                            { name: 'Efectivo', value: globalAllocation.cash },
+                                            { name: 'Otros', value: globalAllocation.other }
+                                        ].filter(x => x.value > 0.01)
+                                } />
                             </div>
                         </div>
                         <div className="w-[50%] flex flex-col items-center">
                             <h3 className="text-black text-[47px] font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
                                 Diversificación <span className="block text-lg font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
-                            <div className="w-full mt-4">
+                            <div className="w-full mt-4 max-w-[360px]">
                                 <EquityRegionChart data={regionAllocation.slice(0, 5)} />
                             </div>
                         </div>
@@ -337,7 +316,7 @@ export default function XRayPdfSections({
             <div id="pdf-advanced-charts-page" className="relative bg-white px-8 pb-0 pt-3" style={{ width: '1200px', height: '1697px', marginBottom: '20px' }}>
                 <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-8 w-full">
                     {/* Increased size from text-2xl to text-3xl */}
-                    <span className="font-light text-[33px] tracking-tight leading-none">Análisis <span className="font-bold">Avanzado</span></span>
+                    <span className="font-light text-[33px] tracking-tight leading-none pb-4">Análisis <span className="font-bold">Avanzado</span></span>
                 </div>
 
                 <div className="space-y-[115px]">
@@ -430,7 +409,7 @@ export default function XRayPdfSections({
             {executionPlanText && (
                 <div id="pdf-execution-plan" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '20px 40px 2px 40px' }}>
                     <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-8 w-full">
-                        <span className="font-light text-[26px] tracking-tight leading-none">Plan de <span className="font-bold">Ejecución</span></span>
+                        <span className="font-light text-[26px] tracking-tight leading-none pb-4">Plan de <span className="font-bold">Ejecución</span></span>
                     </div>
                     <div className="mb-8">
                         <h1 className="text-black text-[47px] font-light tracking-tight">Plan de Ejecución</h1>
@@ -446,7 +425,7 @@ export default function XRayPdfSections({
             {/* Reverting Notes Page font size */}
             <div id="pdf-notes-page" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '40px 60px 22px 60px' }}>
                 <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-12 w-full">
-                    <span className="font-light text-[22px] tracking-tight leading-none">Observaciones <span className="font-bold">Finales</span></span>
+                    <span className="font-light text-[22px] tracking-tight leading-none pb-4">Observaciones <span className="font-bold">Finales</span></span>
                 </div>
                 <h1 className="text-4xl font-light text-black mb-12 tracking-tight">Notas y Conclusiones</h1>
                 <div className="w-full h-[1200px] border-2 border-slate-200 rounded-xl bg-slate-50 relative p-8">
@@ -460,7 +439,7 @@ export default function XRayPdfSections({
             {/* Keeping increased font size, ensuring text coherence */}
             <div id="pdf-interpretation-guide" className="relative" style={{ width: '1200px', height: '1697px', background: 'white', padding: '40px 60px 22px 60px' }}>
                 <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-9 w-full">
-                    <span className="font-light text-[33px] tracking-tight leading-none">Guía de <span className="font-bold">Interpretación</span></span>
+                    <span className="font-light text-[33px] tracking-tight leading-none pb-4">Guía de <span className="font-bold">Interpretación</span></span>
                 </div>
 
                 <div className="mb-11">

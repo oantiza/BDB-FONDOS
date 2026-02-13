@@ -1,5 +1,6 @@
 import React from 'react';
 import MacroDashboard from '../components/MacroDashboardV3';
+import Header from '../components/Header';
 
 interface MiBoutiquePageProps {
     onBack: () => void;
@@ -8,14 +9,12 @@ interface MiBoutiquePageProps {
 export default function MiBoutiquePage({ onBack }: MiBoutiquePageProps) {
     return (
         <div className="h-screen flex flex-col overflow-y-auto bg-[#f8fafc] font-sans text-slate-800 relative animate-fade-in">
-            <button
-                onClick={onBack}
-                className="fixed top-6 left-6 z-50 bg-white/90 p-3 rounded-full shadow-xl border border-slate-200 hover:bg-slate-100 transition-all hover:scale-105 text-xl"
-                title="Volver al Dashboard"
-            >
-                🔙
-            </button>
-            <MacroDashboard />
+            <div className="fixed top-0 left-0 right-0 z-50">
+                <Header onBack={onBack} onLogout={() => { }} />
+            </div>
+            <div className="pt-16"> {/* Add padding for fixed header */}
+                <MacroDashboard />
+            </div>
         </div>
     );
 }

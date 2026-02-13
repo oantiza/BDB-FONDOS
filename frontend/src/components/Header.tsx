@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react';
 
 interface HeaderProps {
     onLogout: () => void
-    onOpenMiBoutique: () => void
+    onOpenMiBoutique?: () => void
     onOpenXRay?: () => void
     onOpenPositions?: () => void
     onOpenRetirement?: () => void
@@ -32,46 +32,56 @@ export default function Header({ onLogout, onOpenMiBoutique, onOpenXRay, onOpenP
             <div className="flex items-center gap-4">
                 {children}
 
-                <button
-                    onClick={onOpenXRay}
-                    className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
-                >
-                    <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Análisis de Cartera</span>
-                    <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
-                </button>
+                {onOpenXRay && (
+                    <button
+                        onClick={onOpenXRay}
+                        className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
+                    >
+                        <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Análisis de Cartera</span>
+                        <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
+                    </button>
+                )}
 
-                <button
-                    onClick={onOpenMiBoutique}
-                    className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
-                >
-                    <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Macro y Estrategia</span>
-                    <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
-                </button>
+                {onOpenComparator && (
+                    <button
+                        onClick={onOpenComparator}
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 transition-all border border-white/10 text-xs font-bold uppercase tracking-widest text-white"
+                    >
+                        <span className="text-amber-300">★</span> Comparador
+                    </button>
+                )}
 
-                <div className="h-4 w-px bg-white/20 mx-2"></div>
-                <button
-                    onClick={onOpenPositions}
-                    className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-                    title="Analizador de Posiciones"
-                >
-                    Posiciones
-                </button>
-                <div className="h-4 w-px bg-white/20 mx-2"></div>
+                {onOpenPositions && (
+                    <button
+                        onClick={onOpenPositions}
+                        className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
+                        title="Analizador de Posiciones"
+                    >
+                        <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Posiciones</span>
+                        <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
+                    </button>
+                )}
 
-                <button
-                    onClick={onOpenRetirement}
-                    className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
-                >
-                    Jubilación
-                </button>
-                <div className="h-4 w-px bg-white/20 mx-2"></div>
+                {onOpenMiBoutique && (
+                    <button
+                        onClick={onOpenMiBoutique}
+                        className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 border border-white/10 transition-all hover:border-white/30"
+                    >
+                        <span className="text-xs uppercase tracking-widest font-bold text-white/90 group-hover:text-white">Macro y Estrategia</span>
+                        <span className="text-[10px] transform group-hover:translate-x-0.5 transition-transform">↗</span>
+                    </button>
+                )}
 
-                <button
-                    onClick={onOpenComparator}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded bg-white/10 hover:bg-white/20 transition-all border border-white/10 text-xs font-bold uppercase tracking-widest text-white"
-                >
-                    <span className="text-amber-300">★</span> Comparador
-                </button>
+                {(onOpenPositions || onOpenRetirement || onOpenComparator || onOpenXRay || onOpenMiBoutique) && <div className="h-4 w-px bg-white/20 mx-2"></div>}
+
+                {onOpenRetirement && (
+                    <button
+                        onClick={onOpenRetirement}
+                        className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors"
+                    >
+                        Jubilación
+                    </button>
+                )}
 
                 <div className="h-4 w-px bg-white/20 mx-2"></div>
                 <button onClick={onLogout} className="text-xs font-bold uppercase tracking-widest text-white/70 hover:text-white transition-colors">Salir</button>

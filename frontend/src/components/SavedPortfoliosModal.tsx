@@ -45,7 +45,7 @@ export default function SavedPortfoliosModal({
                 <div className="bg-[#0B2545] p-6 text-white flex justify-between items-center shrink-0">
                     <div>
                         <h2 className="text-xl text-white font-light tracking-wide">Mis Carteras <span className="font-bold">Guardadas</span></h2>
-                        <p className="text-blue-200 text-xs mt-1">{savedPortfolios.length} / 10 carteras utilizadas</p>
+                        <p className="text-blue-200 text-xs mt-1">{savedPortfolios.length} / 15 carteras utilizadas</p>
                     </div>
                     <button onClick={onClose} className="text-white/70 hover:text-white transition-colors">
                         <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>

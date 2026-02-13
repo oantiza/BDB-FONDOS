@@ -76,7 +76,6 @@ function App() {
           key="comparator"
           onBack={() => setActiveView('DASHBOARD')}
           onLogout={() => auth.signOut()}
-          onOpenMiBoutique={() => setActiveView('MIBOUTIQUE')}
           onOpenXRay={() => setActiveView('XRAY')}
           onOpenPositions={() => setActiveView('POSITIONS')}
           onOpenRetirement={() => setActiveView('RETIREMENT')}
