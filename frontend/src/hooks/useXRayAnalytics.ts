@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
 import { unwrapResult } from '../utils/api';
-import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS } from '../utils/benchmarkUtils';
+import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS, BENCHMARK_PROFILES } from '../utils/benchmarkUtils';
 import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
 
 interface UseXRayAnalyticsProps {
@@ -35,7 +35,8 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
             const analysis = getRiskProfileExplanation(
                 metrics.metrics.volatility,
                 metrics.metrics.cagr,
-                synthetics
+                synthetics, // metrics.synthetics from backend
+                benchmarkId // Pass the state!
             );
 
             if (typeof analysis === 'object' && analysis !== null) {
@@ -44,7 +45,7 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
                 setRiskExplanation(analysis as string);
             }
         }
-    }, [metrics]);
+    }, [metrics, benchmarkId]); // Added benchmarkId dependency
 
     // Effect: Run Analysis
     useEffect(() => {
@@ -84,9 +85,24 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
 
                 const syntheticSeries = rawData.benchmarkSeries || {};
 
+                // Enrich synthetics with IDs for correct lookup
+                const enrichedSynthetics = (rawData.synthetics || []).map((s: any) => {
+                    let id = s.id;
+                    if (!id && s.name) {
+                        // finding matching profile key (case-insensitive)
+                        // Cast BENCHMARK_PROFILES to any to avoid strict key checks if needed, or use Object.entries
+                        const profileEntry = Object.entries(BENCHMARK_PROFILES).find(([k]) => k.toLowerCase() === s.name.toLowerCase());
+                        if (profileEntry) {
+                            id = profileEntry[1].id;
+                        }
+                    }
+                    return { ...s, id };
+                });
+
                 if (ismounted) {
                     setMetrics({
                         ...rawData,
+                        synthetics: enrichedSynthetics,
                         containerBenchmarkSeries: syntheticSeries
                     });
                 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useXRayData } from '../hooks/useXRayData';
 import { generatePortfolioReport } from '../utils/generatePortfolioReport';
-import { Fund, PortfolioItem } from '../types';
+import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
 
 import Header from '../components/Header';
 import HoldingsTable from '../components/xray/HoldingsTable';
@@ -26,6 +26,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     // 1. Data Hook
     const {
         metrics,
+        syntheticProfiles, // Get frontend-generated profiles
         loading,
         errorMsg,
         categoryAllocation,

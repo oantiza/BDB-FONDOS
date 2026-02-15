@@ -86,26 +86,50 @@ export function generateSyntheticSeries(rawSeriesMap: Record<string, any[]>) {
     return syntheticSeries;
 }
 
-export function getRiskProfileExplanation(portfolioVol: number, portfolioRet: number, synthetics: any[]) {
+export function getRiskProfileExplanation(portfolioVol: number, portfolioRet: number, synthetics: any[], targetBenchmarkId?: string) {
     if (!synthetics || !synthetics.length) return "Analysis unavailable.";
 
-    let closest = synthetics[0];
-    let minDiff = 999;
+    let targetProfile;
 
-    synthetics.forEach((s: any) => {
-        const diff = Math.sqrt(Math.pow(s.vol - portfolioVol, 2) + Math.pow(s.ret - portfolioRet, 2));
-        if (diff < minDiff) { minDiff = diff; closest = s; }
-    });
-
-    let msg = `Su cartera (${(portfolioVol * 100).toFixed(1)}% Vol) se comporta similar al perfil **${closest.name}**.`;
-
-    if (portfolioRet > closest.ret + 0.01) {
-        msg += ` Sin embargo, genera un **Alpha** (Retorno Extra) de +${((portfolioRet - closest.ret) * 100).toFixed(2)}% respecto al mismo. ¡Buena eficiencia!`;
-    } else if (portfolioRet < closest.ret - 0.01) {
-        msg += ` Pero se queda atrás por un ${((closest.ret - portfolioRet) * 100).toFixed(2)}%. Considere optimizar.`;
-    } else {
-        msg += ` Está alineada con la eficiencia esperada.`;
+    if (targetBenchmarkId) {
+        targetProfile = synthetics.find((s: any) => s.id === targetBenchmarkId);
     }
 
-    return { message: msg, closestProfile: closest };
+    // Fallback to finding closest if no target specified or target not found
+    if (!targetProfile) {
+        let closest = synthetics[0];
+        let minDiff = 999;
+
+        synthetics.forEach((s: any) => {
+            const diff = Math.sqrt(Math.pow(s.vol - portfolioVol, 2) + Math.pow(s.ret - portfolioRet, 2));
+            if (diff < minDiff) { minDiff = diff; closest = s; }
+        });
+        targetProfile = closest;
+    }
+
+    const volDiff = portfolioVol - targetProfile.vol;
+    const retDiff = portfolioRet - targetProfile.ret;
+    const isEfficient = retDiff >= -0.01; // tolerance
+
+    let msg = `Su cartera (${(portfolioVol * 100).toFixed(1)}% Vol) `;
+
+    // Compare Volatility
+    if (Math.abs(volDiff) < 0.01) {
+        msg += `tiene un riesgo similar al perfil seleccionado (**${targetProfile.name}**)`;
+    } else if (volDiff > 0) {
+        msg += `asume mayor riesgo (+${(volDiff * 100).toFixed(1)}%) que el perfil seleccionado (**${targetProfile.name}**)`;
+    } else {
+        msg += `reduce el riesgo (-${(Math.abs(volDiff) * 100).toFixed(1)}%) frente al perfil seleccionado (**${targetProfile.name}**)`;
+    }
+
+    // Compare Efficiency / Alpha
+    if (retDiff > 0.01) {
+        msg += `. Genera un **Alpha** (Retorno Extra) de +${(retDiff * 100).toFixed(2)}% respecto al mismo. ¡Excelente eficiencia!`;
+    } else if (retDiff < -0.01) {
+        msg += `. Sin embargo, se queda atrás en retorno por un ${(Math.abs(retDiff) * 100).toFixed(2)}%. Considere optimizar su eficiencia.`;
+    } else {
+        msg += `. Está alineada con la eficiencia esperada para este nivel de referencia.`;
+    }
+
+    return { message: msg, closestProfile: targetProfile };
 }

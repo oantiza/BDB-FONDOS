@@ -67,14 +67,16 @@ export default function XRayAnalyticsPage({
         if (metrics?.metrics && metrics?.synthetics) {
             const pVol = metrics.metrics.volatility || 0;
             const pRet = metrics.metrics.cagr || 0;
-            const analysis = getRiskProfileExplanation(pVol, pRet, metrics.synthetics);
+            // Pass activeBenchmarkId to compare against the selected benchmark
+            // Reverted to metrics.synthetics now that we enriched it with IDs from the hook
+            const analysis = getRiskProfileExplanation(pVol, pRet, metrics.synthetics, activeBenchmarkId);
             if (typeof analysis === 'object' && analysis !== null) {
                 setRiskExplanation(analysis.message);
             } else {
                 setRiskExplanation(analysis as string);
             }
         }
-    }, [metrics, syntheticProfiles]);
+    }, [metrics, syntheticProfiles, activeBenchmarkId]);
 
 
     return (

@@ -6,6 +6,7 @@ import EfficientFrontierChart from '../../charts/EfficientFrontierChart';
 import XRayChart from '../../charts/XRayChart';
 import RiskMap from '../../charts/RiskMap';
 import { SmartPortfolioResponse } from '../../../types';
+import { getRiskProfileExplanation } from '../../../utils/benchmarkUtils';
 
 interface XRayPdfSectionsProps {
     portfolio: PortfolioItem[];
@@ -365,37 +366,15 @@ export default function XRayPdfSections({
                         {metrics && metrics.metrics && metrics.synthetics && (
                             <div className="mt-8 text-xl text-[#2C3E50] font-light leading-relaxed bg-[#f8fafc] p-6 border border-slate-100 rounded-lg">
                                 {(() => {
-                                    const pVol = (metrics.metrics.volatility || 0) * 100;
-                                    const pRet = (metrics.metrics.cagr || 0) * 100;
+                                    const pVol = (metrics.metrics.volatility || 0);
+                                    const pRet = (metrics.metrics.cagr || 0);
 
-                                    // Find closest benchmark
-                                    let closest: { vol: number; ret: number; name: string } | null = null;
-                                    let minDist = Infinity;
-
-                                    metrics.synthetics.forEach((b: any) => {
-                                        const bVol = b.vol < 1 ? b.vol * 100 : b.vol;
-                                        const bRet = b.ret < 1 ? b.ret * 100 : b.ret;
-                                        const dist = Math.sqrt(Math.pow(bVol - pVol, 2) + Math.pow(bRet - pRet, 2));
-                                        if (dist < minDist) {
-                                            minDist = dist;
-                                            closest = { ...b, vol: bVol, ret: bRet };
-                                        }
-                                    });
-
-                                    if (!closest) return null;
-
-                                    // Force cast to known structure to avoid TS never error if inference failed strangely
-                                    const safeClosest = closest as { vol: number; ret: number; name: string };
-
-                                    const alpha = pRet - safeClosest.ret;
-                                    const alphaSign = alpha >= 0 ? '+' : '';
+                                    // Use shared logic with current benchmarkId
+                                    const analysis = getRiskProfileExplanation(pVol, pRet, metrics.synthetics, benchmarkId);
+                                    const msg = typeof analysis === 'object' ? analysis.message : analysis;
 
                                     return (
-                                        <p>
-                                            Su cartera (<b>{pVol.toFixed(1)}% Vol</b>) se comporta similar al perfil <b>{safeClosest.name}</b>.
-                                            Sin embargo, genera un <b>Alpha</b> (Retorno Extra) de <b>{alphaSign}{alpha.toFixed(2)}%</b> respecto al mismo.
-                                            {alpha > 0 ? ' ¡Buena eficiencia!' : ''}
-                                        </p>
+                                        <p dangerouslySetInnerHTML={{ __html: msg.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>') }} />
                                     );
                                 })()}
                             </div>
