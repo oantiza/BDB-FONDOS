@@ -392,7 +392,7 @@ export default function DashboardPage({
             </div>
 
             <Suspense fallback={<div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center text-white">Cargando...</div>}>
-                {modals.costs && <CostsModal portfolio={portfolio} totalCapital={totalCapital} onClose={() => toggleModal('costs', false)} />}
+                {modals.costs && <CostsModal portfolio={portfolio} assets={assets} totalCapital={totalCapital} onClose={() => toggleModal('costs', false)} />}
                 {modals.vip && <VipFundsModal vipFundsStr={vipFunds} allFunds={assets} onSave={(newVal) => { setVipFunds(newVal); localStorage.setItem('ft_vipFunds', newVal); }} onClose={() => toggleModal('vip', false)} />}
                 {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} onSwap={handleOpenSwap} />}
                 {modals.macro && <MacroTacticalModal portfolio={portfolio} allFunds={assets} numFunds={numFunds} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}

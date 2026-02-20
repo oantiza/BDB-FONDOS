@@ -1,53 +1,38 @@
-
 import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
-import os
-import sys
-
-# Initialize Firestore
-# Assuming the credentials are implicitly available or via GOOGLE_APPLICATION_CREDENTIALS
-# If running locally in the user's environment, we might need to point to a service account key if not logged in via gcloud.
-# But existing scripts might show how to init.
+from firebase_admin import credentials, firestore
 
 def initialize():
-    try:
-        app = firebase_admin.get_app()
-    except ValueError:
-        # Check for service account in typical location or default
-        if os.path.exists('./serviceAccountKey.json'):
-            cred = credentials.Certificate('./serviceAccountKey.json')
-            firebase_admin.initialize_app(cred)
-        else:
-            firebase_admin.initialize_app()
+    if not firebase_admin._apps:
+        cred = credentials.ApplicationDefault()
+        firebase_admin.initialize_app(cred, {
+            'projectId': 'acciones-cartera',
+        })
     return firestore.client()
 
 def inspect_fund():
     db = initialize()
-    # Get first 5 funds
-    docs = db.collection('funds_v3').limit(5).stream()
+    isin = 'LU1762221155'
+    print(f"Inspecting {isin}...")
+    doc_ref = db.collection('funds_v3').document(isin)
+    doc = doc_ref.get()
     
-    for doc in docs:
+    if doc.exists:
         data = doc.to_dict()
-        name = data.get('name', 'Unknown')
-        isin = data.get('isin', doc.id)
-        history = data.get('returns_history')
+        print(f"--- Document Data for {isin} ---")
+        std_perf = data.get('std_perf', {})
+        perf = data.get('perf', {})
         
-        print(f"\nFund: {name} ({isin})")
-        if not history:
-            print("  NO returns_history found.")
-            continue
-            
-        keys = list(history.keys())
-        keys.sort()
-        print(f"  History Points: {len(keys)}")
-        print(f"  First 5 keys: {keys[:5]}")
-        print(f"  Last 5 keys: {keys[-5:]}")
+        print(f"std_perf (RAW): {std_perf}")
+        print(f"perf (RAW): {perf}")
         
-        # Check format
-        sample_key = keys[0]
-        sample_val = history[sample_key]
-        print(f"  Sample: {sample_key} = {sample_val} (Type: {type(sample_val)})")
+        vol_std = std_perf.get('volatility')
+        vol_perf = perf.get('volatility')
+        
+        print(f"std_perf.volatility: {vol_std} (Type: {type(vol_std)})")
+        print(f"perf.volatility: {vol_perf} (Type: {type(vol_perf)})")
+        
+    else:
+        print(f"Document {isin} does not exist!")
 
 if __name__ == "__main__":
     inspect_fund()

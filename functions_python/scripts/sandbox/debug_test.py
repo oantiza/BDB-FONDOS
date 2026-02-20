@@ -16,7 +16,7 @@ def debug_metrics():
     # 1. Inicializar Firebase Admin (Manual para emulador)
     if not firebase_admin._apps:
         # Para el emulador no necesitamos credenciales reales
-        os.environ["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
+        os.environ["FIRESTORE_EMULATOR_HOST"] = os.environ.get("FIRESTORE_EMULATOR_HOST", "localhost:8080")
         firebase_admin.initialize_app(options={
             'projectId': 'bdb-fondos',
         })
@@ -59,5 +59,5 @@ def debug_metrics():
 
 if __name__ == "__main__":
     # Asegurarse de que el entorno apunte al emulador si es necesario
-    os.environ["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
+    os.environ["FIRESTORE_EMULATOR_HOST"] = os.environ.get("FIRESTORE_EMULATOR_HOST", "localhost:8080")
     debug_metrics()

@@ -2,13 +2,16 @@ import React, { useState } from 'react'
 import ModalHeader from '../common/ModalHeader'
 import MetricCard from '../common/MetricCard'
 
+import { Fund } from '../../types';
+
 interface CostsModalProps {
     portfolio: any[];
+    assets?: Fund[];
     totalCapital?: number;
     onClose: () => void;
 }
 
-export default function CostsModal({ portfolio, totalCapital = 100000, onClose }: CostsModalProps) {
+export default function CostsModal({ portfolio, assets = [], totalCapital = 100000, onClose }: CostsModalProps) {
     const [margin, setMargin] = useState(1.0) // Coeficiente de margen
 
     // Cálculo agregado
@@ -19,10 +22,14 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
         const weight = asset.weight || 0
         if (weight <= 0) return null
 
+        // Look up fresh asset data if available
+        const freshAsset = assets.find(a => a.isin === asset.isin) || asset;
+
         // Sin TER, solo retrocesiones
         // Read retrocession from decimal (0.0122 -> 1.22%)
         // Priority: manual.costs.retrocession (DB canonical) -> costs.retrocession (legacy/flat) -> retrocession (flat)
-        const rawRetro = asset.manual?.costs?.retrocession ?? asset.costs?.retrocession ?? asset.retrocession ?? asset.costs?.retrocesion;
+        // We use freshAsset to ensure we get the latest DB value, not the stale one in portfolio state
+        const rawRetro = freshAsset.manual?.costs?.retrocession ?? freshAsset.costs?.retrocession ?? freshAsset.retrocession ?? freshAsset.costs?.retrocesion;
         const baseRetroPercent = (rawRetro !== undefined && rawRetro !== null)
             ? (rawRetro > 0.1 ? rawRetro : rawRetro * 100)
             : 0.60; // Fallback 0.60%
@@ -36,7 +43,7 @@ export default function CostsModal({ portfolio, totalCapital = 100000, onClose }
         totalWeight += weight
 
         return {
-            name: asset.name,
+            name: freshAsset.name || asset.name,
             isin: asset.isin,
             weight,
             baseRetroPercent,

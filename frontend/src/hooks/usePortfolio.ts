@@ -65,6 +65,43 @@ export function usePortfolio() {
         }
     }
 
+    // [FIX] Hydrate Portfolio with fresh Asset data
+    // When assets are loaded (fresh from DB), update the stale items in portfolio (from localStorage)
+    useEffect(() => {
+        if (assets.length > 0) {
+            setPortfolio(prevPortfolio => {
+                if (prevPortfolio.length === 0) return prevPortfolio;
+
+                let hasChanges = false;
+                const nextPortfolio = prevPortfolio.map(p => {
+                    const fresh = assets.find(a => a.isin === p.isin);
+                    if (fresh) {
+                        // Check if metrics changed (simple stringify check on std_perf)
+                        const stalePerf = JSON.stringify(p.std_perf);
+                        const freshPerf = JSON.stringify(fresh.std_perf);
+
+                        // Also check manual/std_extra updates
+                        const staleExtra = JSON.stringify(p.std_extra);
+                        const freshExtra = JSON.stringify(fresh.std_extra);
+
+                        if (stalePerf !== freshPerf || staleExtra !== freshExtra) {
+                            hasChanges = true;
+                            // Preserve user-defined portfolio fields by spreading 'p' first, then overwriting with 'fresh' fund data
+                            // Note: 'fresh' does not have 'weight', 'score' etc, so they are kept from 'p'.
+                            return { ...p, ...fresh };
+                        }
+                    }
+                    return p;
+                });
+
+                if (hasChanges) {
+                    return nextPortfolio;
+                }
+                return prevPortfolio;
+            });
+        }
+    }, [assets]);
+
     // Calculate Stats (Aligned with Canonical DB structure)
     useEffect(() => {
         const typeMap: any = {}

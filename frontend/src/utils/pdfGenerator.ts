@@ -194,7 +194,6 @@ const drawRiskScatter = (doc: jsPDF, x: number, y: number, w: number, h: number,
         const px = x + ((valX - minX) / rangeX) * w;
         const py = y + h - ((valY - minY) / rangeY) * h;
 
-        // @ts-ignore
         doc.setFillColor(color[0], color[1], color[2]);
 
         if (type === 'circle') {
@@ -425,7 +424,7 @@ const drawFooter = (doc: jsPDF, s: number, _unusedMargin?: number) => {
     doc.setTextColor(150);
     doc.setFont("helvetica", "normal");
 
-    const pageNum = doc.getNumberOfPages();
+    const pageNum = (doc as any).getNumberOfPages();
     const text = `BDB FONDOS | Confidencial   |   ${pageNum}`;
 
     doc.text(text, PAGE_WIDTH / 2, y, { align: 'center' });
@@ -553,8 +552,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
         { content: 'VALOR', styles: { halign: 'right' } }
     ];
 
-    // @ts-ignore
-    autoTable(doc, {
+    (autoTable as any)(doc, {
         startY: MARGIN_Y + 15 * 0.9,
         head: [headRow],
         body: tableBody,
@@ -647,8 +645,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
         ['Sharpe Est.', `${(stats?.volatility ? (ret1y / stats.volatility).toFixed(2) : 'N/A')}`],
         ['VaR 95%', `${((stats?.volatility || 0) * -1.65 * 100).toFixed(2)}%`]
     ];
-    // @ts-ignore
-    autoTable(doc, {
+    (autoTable as any)(doc, {
         startY: rmY,
         margin: { left: MARGIN_X + 160 * S_STATS },
         head: [],
@@ -687,8 +684,7 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     const cols = [[27, 38, 49], [185, 147, 91], [100, 116, 139], [148, 163, 184]];
 
     subData.forEach(([sub, w], i) => {
-        // @ts-ignore
-        const slice = (w / totalWSub) * 360;
+        const slice = ((w as number) / totalWSub) * 360;
         const c = cols[i % cols.length] as [number, number, number];
         drawPieSlice(doc, dcX1, dcY1, dcR, stA, stA + slice, c);
         stA += slice;
@@ -716,9 +712,8 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
 
     let st = 0;
     geoDataV3.forEach(([reg, w], i) => {
-        const val = (w / totalRegionW) * 360;
+        const val = ((w as number) / totalRegionW) * 360;
         const c = cols[i % cols.length] as [number, number, number];
-        // @ts-ignore
         drawPieSlice(doc, dcX2, dcY2, dcR, st, st + val, c);
         st += val;
         doc.setFillColor(c[0], c[1], c[2]); doc.rect(MARGIN_X + 200 * S_STATS, botY + 10 * S_STATS + (i * 8 * S_STATS), 3 * S_STATS, 3 * S_STATS, 'F');

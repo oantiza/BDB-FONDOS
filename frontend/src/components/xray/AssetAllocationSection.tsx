@@ -41,7 +41,37 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
                 <div className="w-full flex flex-col items-center justify-center">
                     {/* BAR CHART DISPLAY */}
                     <div className="w-full max-w-[550px] mb-8 mt-6">
-                        <GlobalAllocationChart data={globalData} />
+                        <GlobalAllocationChart data={globalData.map(d => d.name === 'Otros' ? { ...d, name: 'Otras Categorías' } : d)} />
+                    </div>
+
+                    {/* NEW: Asset Class Summary (3 Categories) */}
+                    <div className="w-full max-w-[500px] mt-2 mb-8 border-t border-slate-100 pt-6">
+                        <h4 className="text-center text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
+                        <div className="grid grid-cols-3 gap-2">
+                            {/* 1. Renta Variable */}
+                            <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Var.</span>
+                                <span className="text-lg font-medium text-[#003399]">
+                                    {globalAllocation.equity.toFixed(1)}%
+                                </span>
+                            </div>
+
+                            {/* 2. Renta Fija */}
+                            <div className="flex flex-col items-center p-2 rounded bg-slate-50 border border-slate-200">
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Fija</span>
+                                <span className="text-lg font-medium text-[#003399]">
+                                    {globalAllocation.bond.toFixed(1)}%
+                                </span>
+                            </div>
+
+                            {/* 3. Otros y Liquidez */}
+                            <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
+                                <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
+                                <span className="text-lg font-medium text-[#A07147]">
+                                    {(globalAllocation.cash + globalAllocation.other).toFixed(1)}%
+                                </span>
+                            </div>
+                        </div>
                     </div>
 
                     {/* Coverage Stats */}

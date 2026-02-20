@@ -158,33 +158,49 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                     c = (cash * factor);
                     o = (other * factor);
                     success = true;
-                    validMetricsWeight += w;
+                    // validMetricsWeight += w; // We consider it valid if we have metrics
                 }
             }
 
             // Strategy 2: Fallback to Heuristics (Category/Type)
             if (!success) {
                 const cat = (p.std_extra?.category || p.std_type || '').toLowerCase();
-                if (cat.includes('renta variable') || cat.includes('equity') || cat.includes('rv')) {
+                const name = (p.name || '').toLowerCase();
+                const combined = `${cat} ${name}`;
+
+                if (combined.includes('renta variable') || combined.includes('equity') || combined.includes('rv') || combined.includes('stock')) {
                     e = 100;
                     success = true;
-                } else if (cat.includes('renta fija') || cat.includes('fixed income') || cat.includes('rf')) {
+                } else if (combined.includes('renta fija') || combined.includes('fixed income') || combined.includes('rf') || combined.includes('bond') || combined.includes('deuda')) {
                     b = 100;
                     success = true;
-                } else if (cat.includes('monetario') || cat.includes('money market') || cat.includes('cash')) {
+                } else if (combined.includes('monetario') || combined.includes('money market') || combined.includes('cash') || combined.includes('liquidez')) {
                     c = 100;
                     success = true;
-                } else if (cat.includes('mixto') || cat.includes('allocation')) {
-                    // Primitive heuristic for mixed
-                    e = 50; b = 50;
+                } else if (combined.includes('mixto') || combined.includes('allocation') || combined.includes('mixed') || combined.includes('multi-asset')) {
+                    // Smart Heuristic for Mixed Funds
+                    if (combined.includes('flexib') || combined.includes('moderado') || combined.includes('moderate')) {
+                        e = 50; b = 50;
+                    } else if (combined.includes('agresiv') || combined.includes('aggressive') || combined.includes('dynamic') || combined.includes('dinamico')) {
+                        e = 75; b = 25;
+                    } else if (combined.includes('defens') || combined.includes('conserv') || combined.includes('defensive')) {
+                        e = 25; b = 75;
+                    } else {
+                        // Default Mixed
+                        e = 50; b = 50;
+                    }
+                    success = true;
+                } else if (combined.includes('retorno absoluto') || combined.includes('absolute return') || combined.includes('alternative')) {
+                    o = 100;
                     success = true;
                 } else {
+                    // Default to Other if completely unknown
                     o = 100;
-                    success = true; // Even "Other" is a valid classification
+                    success = true;
                 }
             }
 
-            // Mark as covered if we found a strategy
+            // Mark as covered if we found a strategy (which is always true now due to default)
             if (success) {
                 validMetricsWeight += w;
             }
@@ -193,7 +209,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             // contribution = weight * (allocation / 100)
             totalEquity += w * (e / 100);
             totalBond += w * (b / 100);
-            totalCash += w * (c / 100);
+            totalCash += w * (c / 100); // We keep tracking cash separately here
             totalOther += w * (o / 100);
         });
 
@@ -225,13 +241,11 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             let regions = fund.derived?.equity_regions_total;
 
             if (!regions || Object.keys(regions).length === 0) {
-                // @ts-ignore
-                regions = fund.regions?.detail || fund.regions || {};
+                regions = (fund as any).regions?.detail || (fund as any).regions || {};
             }
 
             if (!regions || Object.keys(regions).length === 0) {
-                // @ts-ignore
-                regions = fund.ms?.regions?.detail || fund.ms?.regions || {};
+                regions = (fund as any).ms?.regions?.detail || (fund as any).ms?.regions || {};
             }
 
             // Inference

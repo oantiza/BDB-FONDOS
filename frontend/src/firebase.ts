@@ -18,8 +18,3 @@ export const db = getFirestore(app);
 export const functions = getFunctions(app, "europe-west1");
 export const auth = getAuth(app);
 
-// Enable emulators in local dev
-// if (window.location.hostname === "localhost") {
-//     connectFunctionsEmulator(functions, "localhost", 5001);
-//     console.log("🔌 Connected to Local Firebase Functions Emulator");
-// }

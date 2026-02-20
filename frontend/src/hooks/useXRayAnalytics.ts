@@ -29,8 +29,7 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
     // Computed: Risk Explanation
     useEffect(() => {
         if (metrics?.metrics && metrics?.metrics?.volatility !== undefined && metrics?.metrics?.cagr !== undefined) {
-            // @ts-ignore - synthetics might be missing in type definition but present in runtime
-            const synthetics = metrics.synthetics || [];
+            const synthetics = (metrics as any).synthetics || [];
 
             const analysis = getRiskProfileExplanation(
                 metrics.metrics.volatility,

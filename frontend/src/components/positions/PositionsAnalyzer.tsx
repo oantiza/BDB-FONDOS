@@ -118,7 +118,7 @@ export const PositionsAnalyzer: React.FC<PositionsAnalyzerProps> = ({ onBack, as
 
                     if (foundFund) {
                         fundFound = true;
-                        retrocession = foundFund.manual?.costs?.retrocession ?? foundFund.costs?.retrocession ?? 0;
+                        retrocession = foundFund.manual?.costs?.retrocession ?? foundFund.costs?.retrocession ?? foundFund.retrocession ?? 0;
                     }
 
                     if (fundsMap.has(isin)) {

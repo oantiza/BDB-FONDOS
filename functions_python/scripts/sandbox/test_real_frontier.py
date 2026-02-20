@@ -14,7 +14,7 @@ def test():
     # Initialize Firebase if not already
     if not firebase_admin._apps:
         # Connect to Emulator
-        os.environ["FIRESTORE_EMULATOR_HOST"] = "localhost:8080"
+        os.environ["FIRESTORE_EMULATOR_HOST"] = os.environ.get("FIRESTORE_EMULATOR_HOST", "localhost:8080")
         os.environ["GCLOUD_PROJECT"] = "bdb-fondos"
         
         print("🔌 Connecting to Firestore Emulator (Anonymous)...")

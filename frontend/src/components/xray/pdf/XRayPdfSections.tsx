@@ -261,21 +261,40 @@ export default function XRayPdfSections({
                             <h3 className="text-black text-[47px] font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
                                 Composición Global <span className="block text-lg font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Activo Subyacente</span>
                             </h3>
-                            <div className="w-full mt-4 max-w-[360px]">
+                            <div className="w-full max-w-[400px]">
                                 <GlobalAllocationChart data={
-                                    categoryAllocation && categoryAllocation.length > 0
+                                    (categoryAllocation && categoryAllocation.length > 0
                                         ? categoryAllocation.slice(0, 5).concat(
                                             categoryAllocation.length > 5
-                                                ? [{ name: 'Otros', value: categoryAllocation.slice(5).reduce((acc, curr) => acc + curr.value, 0) }]
+                                                ? [{ name: 'Otras Categorías', value: categoryAllocation.slice(5).reduce((acc, curr) => acc + curr.value, 0) }]
                                                 : []
                                         )
                                         : [
                                             { name: 'Renta Variable', value: globalAllocation.equity },
                                             { name: 'Renta Fija', value: globalAllocation.bond },
                                             { name: 'Efectivo', value: globalAllocation.cash },
-                                            { name: 'Otros', value: globalAllocation.other }
-                                        ].filter(x => x.value > 0.01)
+                                            { name: 'Otras Categorías', value: globalAllocation.other }
+                                        ]).filter(x => x.value > 0.01)
                                 } />
+                            </div>
+
+                            {/* NEW: Asset Class Summary for PDF */}
+                            <div className="w-full max-w-[360px] mt-8 border-t border-[#eeeeee] pt-4">
+                                <h4 className="text-center text-[9px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
+                                <div className="grid grid-cols-3 gap-2">
+                                    <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
+                                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Var.</span>
+                                        <span className="text-lg font-medium text-[#003399]">{globalAllocation.equity.toFixed(1)}%</span>
+                                    </div>
+                                    <div className="flex flex-col items-center p-2 rounded bg-slate-50 border border-slate-200">
+                                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Fija</span>
+                                        <span className="text-lg font-medium text-[#003399]">{globalAllocation.bond.toFixed(1)}%</span>
+                                    </div>
+                                    <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
+                                        <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
+                                        <span className="text-lg font-medium text-[#A07147]">{(globalAllocation.cash + globalAllocation.other).toFixed(1)}%</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div className="w-[50%] flex flex-col items-center">

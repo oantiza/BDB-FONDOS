@@ -2,7 +2,7 @@ import React from 'react';
 import ModalHeader from './common/ModalHeader';
 import MetricCard from './common/MetricCard';
 import { DataQualityBadge, gradeFundQuality } from './dashboard/DataQualityBadge';
-import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
+import { REGION_DISPLAY_LABELS, asDecimalPct } from '../utils/normalizer';
 import { auth } from '../firebase';
 
 // Lazy load to save bundle size
@@ -43,22 +43,16 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
    *
    * Devuelve el valor en "decimal" (0.012 para 1.2%).
    */
+  // Use shared normalization logic
   const normalizePct = (v: any) => {
-    if (!isValidNum(v)) return null;
-    const n = Number(v);
-
-    // Muy pequeño: normalmente ya viene en decimal (0.012 = 1.2%)
-    if (n > 0 && n < 0.1) return n;
-
-    // Rango típico de porcentajes (0.1..100): asumimos que viene en % y lo pasamos a decimal
-    if (n >= 0.1 && n <= 100) return n / 100;
-
-    // Si es 0, negativo o valores raros (>100), lo devolvemos tal cual
-    return n;
-  };
+    // Use the robust utility from normalizer.ts implies reusing asDecimalPct logic
+    // But since we can't easily import if not already imported (it IS imported but named REGION_DISPLAY_LABELS... wait check imports)
+    // I need to update imports first?
+    return asDecimalPct(v);
+  }
 
   const pct = (v: any) => {
-    const n = normalizePct(v);
+    const n = asDecimalPct(v); // Use imported directly
     if (!isValidNum(n)) return 'N/A';
     return `${(Number(n) * 100).toFixed(2)}%`;
   };
