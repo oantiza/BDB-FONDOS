@@ -293,10 +293,15 @@ export function usePortfolioActions({
         return "Other";
     };
 
-    const handleOptimize = async () => {
+    const handleOptimize = async (uiViews?: Record<string, string> | any) => {
         if (portfolio.length === 0) {
             toast.info("Añade fondos a la cartera primero");
             return;
+        }
+
+        // If uiViews is actually an Event (e.g. from onClick), ignore it.
+        if (uiViews && (uiViews.nativeEvent || uiViews.type === 'click')) {
+            uiViews = undefined;
         }
 
         setIsOptimizing(true);
@@ -336,13 +341,57 @@ export function usePortfolioActions({
                 }
             });
 
-            const response = await optimizeFn({
+            // --- TRANSLATE TACTICAL VIEWS FOR BLACK-LITTERMAN ---
+            const tacticalViews: Record<string, number> = {};
+            if (uiViews && Object.keys(uiViews).length > 0) {
+                Object.entries(uiViews).forEach(([viewKey, viewAction]) => {
+                    if (typeof viewAction !== 'string') return;
+                    const actionUpper = viewAction.toUpperCase();
+                    let viewNum = 0.0;
+
+                    if (actionUpper === 'SOBREPONDERAR' || actionUpper === 'POSITIVO') {
+                        viewNum = 0.02;
+                    } else if (actionUpper === 'INFRAPONDERAR' || actionUpper === 'NEGATIVO') {
+                        viewNum = -0.02;
+                    }
+
+                    if (viewNum === 0.0) return; // Skip NEUTRAL or others
+
+                    // Apply view to funds matching the region or asset class
+                    assets.forEach(asset => {
+                        if (!assetUniverse.has(asset.isin)) return;
+
+                        const matchParams = [
+                            asset.derived?.primary_region,
+                            asset.derived?.asset_class,
+                            asset.std_region,
+                            asset.std_type,
+                            assetMetadata[asset.isin]?.label
+                        ].map(s => s?.toLowerCase() || '');
+
+                        const searchKey = viewKey.toLowerCase();
+
+                        // Check if any of the asset parameters include the viewKey
+                        if (matchParams.some(param => param.includes(searchKey))) {
+                            tacticalViews[asset.isin] = viewNum;
+                        }
+                    });
+                });
+            }
+
+            const payload: any = {
                 assets: Array.from(assetUniverse),
                 risk_level: riskLevel,
                 locked_assets: Array.from(lockedSet),
                 asset_metadata: assetMetadata, // <--- SENDING FRONTEND METADATA
                 constraints: { apply_profile: true }
-            });
+            };
+
+            if (Object.keys(tacticalViews).length > 0) {
+                payload.tactical_views = tacticalViews;
+            }
+
+            const response = await optimizeFn(payload);
             const result = unwrapResult<SmartPortfolioResponse>(response.data);
             processOptimizationResult(result, optimizeFn);
 

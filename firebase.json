@@ -1,7 +1,7 @@
 {
     "functions": {
         "source": "functions_python",
-        "runtime": "python311",
+        "runtime": "python312",
         "ignore": [
             "venv",
             ".git",

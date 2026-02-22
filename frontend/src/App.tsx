@@ -16,6 +16,9 @@ import { PositionsAnalyzer } from './components/positions/PositionsAnalyzer'
 
 // Hooks
 import { usePortfolio } from './hooks/usePortfolio'
+import { db } from './firebase'
+import { doc, getDoc } from 'firebase/firestore'
+import { syncRiskProfilesFromDB } from './utils/rulesEngine'
 
 function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
@@ -30,6 +33,28 @@ function App() {
     })
     return () => unsubscribe()
   }, [])
+
+  // Sync Dynamic Risk Profiles
+  useEffect(() => {
+    const fetchRiskProfiles = async () => {
+      try {
+        const docRef = doc(db, 'system_settings', 'risk_profiles');
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          const data = docSnap.data();
+          const profiles: Record<number, any> = {};
+          // Map string keys from Firestore to number keys for the Engine
+          Object.keys(data).forEach(key => {
+            profiles[Number(key)] = data[key];
+          });
+          syncRiskProfilesFromDB(profiles);
+        }
+      } catch (error) {
+        console.error("⚠️ [App] Error fetching risk profiles from DB:", error);
+      }
+    };
+    fetchRiskProfiles();
+  }, []);
 
   const handleLogin = async (email: string, pass: string) => {
     try {

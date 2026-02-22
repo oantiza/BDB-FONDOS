@@ -140,3 +140,35 @@ def update_daily_metrics(db):
     
     print(f"✅ Daily Update Complete. Updated {updated_count} funds.")
     return {'success': True, 'updated': updated_count}
+
+def build_global_price_cache(db):
+    """
+    Consolidates all history from historico_vl_v2 into a single JSON file
+    in Cloud Storage to drastically reduce Firestore read costs.
+    """
+    import json
+    from firebase_admin import storage
+    from .config import BUCKET_NAME
+
+    print("🛠️ Construyendo caché global de precios...")
+    try:
+        bucket = storage.bucket(BUCKET_NAME)
+        
+        master_dict = {}
+        docs = db.collection('historico_vl_v2').stream()
+        
+        for doc in docs:
+            data = doc.to_dict()
+            history = data.get('history') or data.get('series') or []
+            if history:
+                master_dict[doc.id] = history
+                
+        json_data = json.dumps(master_dict)
+        blob = bucket.blob("cache/global_prices.json")
+        blob.upload_from_string(json_data, content_type='application/json')
+        
+        print(f"✅ Caché global construida con éxito. {len(master_dict)} fondos cacheados.")
+        return {'success': True, 'funds_cached': len(master_dict)}
+    except Exception as e:
+        print(f"⚠️ Error construyendo caché global: {e}")
+        return {'success': False, 'error': str(e)}

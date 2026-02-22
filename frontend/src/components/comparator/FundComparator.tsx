@@ -350,7 +350,7 @@ export default function FundComparator() {
                         <div className="lg:col-span-3 bg-white rounded-xl border border-slate-200 p-6 shadow-sm h-[400px] flex flex-col">
                             <h3 className="text-lg font-bold text-slate-700 mb-4 flex items-center gap-2"><Activity size={20} className="text-slate-400" /> Performance Relativa (Rebase 100)</h3>
                             <div className="flex-1 w-full min-h-0">
-                                <ResponsiveContainer width="100%" height="100%">
+                                <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
                                     <LineChart data={chartData}>
                                         <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
                                         <XAxis

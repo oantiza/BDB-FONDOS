@@ -13,8 +13,8 @@ from .config import (
     RISK_BUCKETS_LABELS # NEW [V3 Unified Buckets]
 )
 
-def run_optimization(assets_list, risk_level, db, constraints=None, asset_metadata=None, locked_assets=None):
-    """Optimizer v4.1 (Fix NameErrors + Metadata)"""
+def run_optimization(assets_list, risk_level, db, constraints=None, asset_metadata=None, locked_assets=None, tactical_views=None):
+    """Optimizer v4.2 (Institutional: Hard Cutoff + Black-Litterman)"""
     import pandas as pd
     import numpy as np
     from pypfopt import EfficientFrontier, risk_models, expected_returns, objective_functions, CLA
@@ -28,6 +28,22 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
     apply_profile = constraints.get('apply_profile', True)
     # Check disable flag
     if constraints.get('disable_profile_rules'): apply_profile = False
+
+    # --- NEW: DYNAMIC RISK PROFILES FROM DB ---
+    try:
+        risk_profile_doc = db.collection('system_settings').document('risk_profiles').get()
+        if risk_profile_doc.exists:
+            raw_dic = risk_profile_doc.to_dict()
+            current_risk_buckets = {int(k): v for k, v in raw_dic.items()}
+            print("⚡ [Optimizer] Cargados perfiles de riesgo desde Firestore")
+        else:
+            print("⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
+            db_save = {str(k): v for k, v in RISK_BUCKETS_LABELS.items()}
+            db.collection('system_settings').document('risk_profiles').set(db_save)
+            current_risk_buckets = RISK_BUCKETS_LABELS
+    except Exception as e:
+        print(f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales.")
+        current_risk_buckets = RISK_BUCKETS_LABELS
     
     equity_floor = float(constraints.get('equity_floor', 0.0))
     bond_cap = float(constraints.get('bond_cap', 1.0))
@@ -239,12 +255,47 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
         # --- INITIALIZE ALLOCATION VECTORS (Fix Step Id: 137) ---
         # Needed for constraints and reporting. Better to do it once here.
         eq_vec, bd_vec, cs_vec, ot_vec, _ = _allocation_vectors(universe)
-        # 2) Standard Markowitz Inputs (Visual Coherence Refactor)
-        # Mu = Mean Historical Return (No BL)
-        # S = Sample Covariance
-        mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
-        S = risk_models.sample_cov(df, frequency=252)
-        S = risk_models.fix_nonpositive_semidefinite(S)
+        # 2) Standard Markowitz Inputs & Black-Litterman (Tactical Views)
+        # Compute Market Caps for BL if needed
+        mcaps = {}
+        for t in universe:
+            mcap_val = (asset_metadata or {}).get(t, {}).get('market_cap', 1e9)
+            mcaps[t] = float(mcap_val)
+            
+        if tactical_views:
+            print("👁️ [Optimizer] Tactical Views Detected. Applying Black-Litterman...")
+            try:
+                from .financial_engine import FinancialEngine
+                # Filter views to only include valid assets in universe
+                valid_views = {k: v for k, v in tactical_views.items() if k in universe}
+                if valid_views:
+                    mu, S = FinancialEngine.black_litterman_optimization(
+                        df_prices=df, 
+                        market_caps=mcaps, 
+                        views=valid_views
+                    )
+                    S = risk_models.fix_nonpositive_semidefinite(S)
+                else:
+                    print("⚠️ Tactical views provided but no valid ISINs match universe. Fallback to Markowitz.")
+                    mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+                    S = risk_models.sample_cov(df, frequency=252)
+                    S = risk_models.fix_nonpositive_semidefinite(S)
+            except ImportError as ie:
+                print(f"⚠️ Failed to import FinancialEngine for Black-Litterman: {ie}. Fallback to Markowitz.")
+                mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+                S = risk_models.sample_cov(df, frequency=252)
+                S = risk_models.fix_nonpositive_semidefinite(S)
+            except Exception as e_bl:
+                print(f"⚠️ Black-Litterman Failed: {e_bl}. Fallback to Standard Markowitz.")
+                mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+                S = risk_models.sample_cov(df, frequency=252)
+                S = risk_models.fix_nonpositive_semidefinite(S)
+        else:
+            # Mu = Mean Historical Return (No BL)
+            # S = Sample Covariance
+            mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
+            S = risk_models.sample_cov(df, frequency=252)
+            S = risk_models.fix_nonpositive_semidefinite(S)
 
         # 3) Generate Efficient Frontier Curve (50 points) - Internal coherence check
         print("⚙️ [Optimizer] Generating Internal Coherence Frontier...")
@@ -306,7 +357,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
         # 4.3 UNIFIED BUCKET CONSTRAINTS (V3)
         # Apply strict bucket limits from config if available for this risk level
-        bucket_cfg = RISK_BUCKETS_LABELS.get(risk_level_i)
+        bucket_cfg = current_risk_buckets.get(risk_level_i)
         
         if bucket_cfg and apply_profile:
             print(f"🔒 Applying Unified Buckets for Risk {risk_level_i}: {bucket_cfg}")
@@ -594,11 +645,17 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                         raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                         equity_floor = 0.0
                 else:
-                    # Fallback general
+                    # Fallback general: MUST use a fresh EfficientFrontier
+                    # The original `ef` has already been "solved" by max_sharpe,
+                    # and PyPortfolioOpt forbids adding constraints/objectives to a solved problem.
                     try:
-                        print("⚠️ Fallback to Min Volatility...")
+                        print("⚠️ Fallback to Min Volatility (fresh ef instance)...")
                         solver_path = 'fallback_min_volatility'
-                        raw_weights = ef.min_volatility()
+                        ef_fallback = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+                        ef_fallback.add_objective(objective_functions.L2_reg, gamma=gamma)
+                        raw_weights = ef_fallback.min_volatility()
+                        # Replace ef so clean_weights works on the right object
+                        ef = ef_fallback
                     except Exception as e3:
                         print(f"❌ ALL Optimization Paths Failed: {e3}")
                         solver_path = 'fallback_equal_weight'
@@ -618,6 +675,8 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             cleaned = ef.clean_weights(cutoff=cutoff)
             # cleaned solo devuelve no-ceros; completamos universe
             weights = {t: float(cleaned.get(t, 0.0)) for t in universe}
+            # NORMALIZACION CRITICA: Asegurar que base suma 1.0 tras el cutoff (TAREA 1)
+            weights = _normalize(weights)
         else:
             # equal-weight sobre universe
             weights = {t: 1.0 / max(1, len(universe)) for t in universe}

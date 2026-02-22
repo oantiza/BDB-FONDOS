@@ -28,7 +28,7 @@ PRICE_CACHE = {}
 MAX_WEIGHT_DEFAULT = 0.20
 
 # Cutoff de limpieza de pesos (elimina "polvo" pero mantiene diversificación)
-CUTOFF_DEFAULT = 0.005
+CUTOFF_DEFAULT = 0.02
 
 # Mínimo de activos con peso > 0 para considerar la solución "estable"
 MIN_ASSETS_DEFAULT = 8

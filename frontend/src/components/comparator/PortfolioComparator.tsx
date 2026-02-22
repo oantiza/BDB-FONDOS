@@ -55,6 +55,24 @@ export default function PortfolioComparator() {
             setHistoryA([]);
             return;
         }
+        // IF SYNTHETIC BENCHMARK
+        if (portfolioA.length === 1 && (portfolioA[0] as any).isBenchmark) {
+            const bd = (portfolioA[0] as any).benchmarkData;
+            const mappedMetrics = {
+                ...bd.metrics,
+                maxDrawdown: bd.metrics.max_drawdown,
+            };
+            setMetricsA({
+                metrics1y: mappedMetrics,
+                metrics3y: mappedMetrics,
+                metrics5y: mappedMetrics,
+                metrics10y: mappedMetrics,
+                raw: { r3y: { regionAllocation: [] } }
+            });
+            setHistoryA(bd.history.map((h: any) => ({ x: h.date, y: h.nav })));
+            return;
+        }
+
         setLoadingA(true);
         getDashboardAnalytics(portfolioA, { include1y: true }).then(res => {
             setMetricsA(res);
@@ -68,6 +86,24 @@ export default function PortfolioComparator() {
             setHistoryB([]);
             return;
         }
+        // IF SYNTHETIC BENCHMARK
+        if (portfolioB.length === 1 && (portfolioB[0] as any).isBenchmark) {
+            const bd = (portfolioB[0] as any).benchmarkData;
+            const mappedMetrics = {
+                ...bd.metrics,
+                maxDrawdown: bd.metrics.max_drawdown,
+            };
+            setMetricsB({
+                metrics1y: mappedMetrics,
+                metrics3y: mappedMetrics,
+                metrics5y: mappedMetrics,
+                metrics10y: mappedMetrics,
+                raw: { r3y: { regionAllocation: [] } }
+            });
+            setHistoryB(bd.history.map((h: any) => ({ x: h.date, y: h.nav })));
+            return;
+        }
+
         setLoadingB(true);
         getDashboardAnalytics(portfolioB, { include1y: true }).then(res => {
             setMetricsB(res);
@@ -225,8 +261,22 @@ export default function PortfolioComparator() {
                 portfolioB={portfolioB}
                 loadingA={loadingA}
                 loadingB={loadingB}
-                onSelectA={(p) => { setPortfolioA(p.items); setNameA(p.name); }}
-                onSelectB={(p) => { setPortfolioB(p.items); setNameB(p.name); }}
+                onSelectA={(p) => {
+                    if (p.isBenchmark) {
+                        setPortfolioA([{ ...p.items[0], isBenchmark: true, benchmarkData: p.benchmarkData }]);
+                    } else {
+                        setPortfolioA(p.items);
+                    }
+                    setNameA(p.name);
+                }}
+                onSelectB={(p) => {
+                    if (p.isBenchmark) {
+                        setPortfolioB([{ ...p.items[0], isBenchmark: true, benchmarkData: p.benchmarkData }]);
+                    } else {
+                        setPortfolioB(p.items);
+                    }
+                    setNameB(p.name);
+                }}
                 onRemoveA={() => { setPortfolioA(null); setNameA(''); }}
                 onRemoveB={() => { setPortfolioB(null); setNameB(''); }}
                 onDownloadPDF={handleDownloadPDF}
@@ -258,7 +308,7 @@ export default function PortfolioComparator() {
                             </div>
 
                             <div className="w-full h-full min-h-0">
-                                <ResponsiveContainer width="100%" height="100%">
+                                <ResponsiveContainer width="100%" height="100%" minWidth={1} minHeight={1}>
                                     <LineChart data={chartData} margin={{ top: 5, right: 10, left: -10, bottom: 5 }}>
                                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
                                         <XAxis

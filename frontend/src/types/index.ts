@@ -144,6 +144,9 @@ export interface PortfolioItem extends Fund {
     // Fallback data for robust charts
     regions?: Record<string, number>;
     ms?: any;
+    // For Synthetic Benchmarks
+    isBenchmark?: boolean;
+    benchmarkData?: any;
 }
 
 export interface MarketIndexResponse {

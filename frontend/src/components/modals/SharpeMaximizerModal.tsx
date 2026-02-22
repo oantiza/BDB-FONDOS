@@ -35,6 +35,7 @@ export default function SharpeMaximizerModal({
     // Filters
     const [assetClass, setAssetClass] = useState<string>('RV');
     const [region, setRegion] = useState<string>('all');
+    const [prioritizeRetro, setPrioritizeRetro] = useState<boolean>(false);
 
     // Results
     const [results, setResults] = useState<CandidateResult[]>([]);
@@ -82,8 +83,18 @@ export default function SharpeMaximizerModal({
             setProgress(Math.round((processed / cands.length) * 100));
         }
 
-        // Sort by Impact DESC
-        simulationResults.sort((a, b) => b.impact - a.impact);
+        // Sort by Impact DESC (or Retro if prioritized)
+        const getRetro = (fund: any) => ((fund.manual?.costs?.retrocession ?? fund.costs?.retrocession) || 0);
+        if (prioritizeRetro) {
+            simulationResults.sort((a, b) => {
+                const retroA = getRetro(a.fund);
+                const retroB = getRetro(b.fund);
+                if (retroA !== retroB) return retroB - retroA;
+                return b.impact - a.impact;
+            });
+        } else {
+            simulationResults.sort((a, b) => b.impact - a.impact);
+        }
         setResults(simulationResults);
         setStep('RESULTS');
     };
@@ -148,7 +159,7 @@ export default function SharpeMaximizerModal({
                         where('derived.asset_class', 'in', targetAssets),
                         where('derived.primary_region', '==', v),
                         orderBy('std_perf.sharpe', 'desc'),
-                        limit(20)
+                        limit(prioritizeRetro ? 100 : 20)
                     ];
                     queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
                 }
@@ -159,7 +170,7 @@ export default function SharpeMaximizerModal({
                     if (activeConfig.valEnd) constraints.push(where(activeConfig.field, '<=', activeConfig.valEnd));
                 }
                 constraints.push(orderBy('std_perf.sharpe', 'desc'));
-                constraints.push(limit(50));
+                constraints.push(limit(prioritizeRetro ? 150 : 50));
 
                 queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
             }
@@ -222,7 +233,18 @@ export default function SharpeMaximizerModal({
         }
 
         // Sorting & Slicing
-        candidates.sort((a, b) => ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0));
+        const getRetro = (fund: any) => ((fund.manual?.costs?.retrocession ?? fund.costs?.retrocession) || 0);
+
+        if (prioritizeRetro) {
+            candidates.sort((a, b) => {
+                const retroA = getRetro(a);
+                const retroB = getRetro(b);
+                if (retroA !== retroB) return retroB - retroA;
+                return ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0);
+            });
+        } else {
+            candidates.sort((a, b) => ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0));
+        }
         candidates = candidates.slice(0, 10);
 
         if (candidates.length === 0) {
@@ -296,7 +318,20 @@ export default function SharpeMaximizerModal({
                                 </div>
                             </div>
 
-                            <div className="bg-emerald-50 p-4 rounded-lg flex items-center gap-3 border border-emerald-100">
+                            <div className="flex items-center gap-2 rounded-lg py-1 mt-2">
+                                <input
+                                    type="checkbox"
+                                    id="prioritizeRetro"
+                                    checked={prioritizeRetro}
+                                    onChange={(e) => setPrioritizeRetro(e.target.checked)}
+                                    className="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer"
+                                />
+                                <label htmlFor="prioritizeRetro" className="text-sm font-bold text-slate-700 cursor-pointer">
+                                    Priorizar Fondos con Mayor Retrocesión
+                                </label>
+                            </div>
+
+                            <div className="bg-emerald-50 p-4 rounded-lg flex items-center gap-3 border border-emerald-100 mt-4">
                                 <span className="text-xl">📊</span>
                                 <div>
                                     <div className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Sharpe Actual</div>

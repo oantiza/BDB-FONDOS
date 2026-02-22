@@ -19,10 +19,11 @@ async def fetch_eodhd_data(session, ticker, from_date, to_date=None):
     params = {
         "api_token": API_TOKEN,
         "fmt": "json",
-        "from": from_date,
         "order": "a", # Ascending
         "period": "d"
     }
+    if from_date:
+        params["from"] = from_date
     if to_date:
         params["to"] = to_date
     try:

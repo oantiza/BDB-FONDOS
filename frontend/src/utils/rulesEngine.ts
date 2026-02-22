@@ -20,7 +20,7 @@ interface RiskProfileConfig {
 }
 
 // DEFINICIÓN DE ESTRUCTURAS POR RIESGO (HARD TARGETS)
-export const RISK_PROFILES: Record<number, RiskProfileConfig> = {
+export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
   1: {
     name: "Preservación",
     buckets: {
@@ -270,7 +270,8 @@ export function generateSmartPortfolioLocal(
 
   let totalScore = 0;
   (Object.keys(targetPcts) as AssetClass[]).forEach(cls => {
-    const limits = profile.buckets[cls];
+    // Definimos profile y obtenemos limits asegurando que no explote
+    const limits = profile?.buckets?.[cls] || { min: 0, max: 0 };
     let target = (limits.min + limits.max) / 2;
     targetPcts[cls] = target;
     totalScore += target;
@@ -417,4 +418,11 @@ export function generateSmartPortfolioLocal(
   }
 
   return portfolio;
+}
+
+export function syncRiskProfilesFromDB(dbProfiles: Record<number, RiskProfileConfig>) {
+  if (dbProfiles && Object.keys(dbProfiles).length > 0) {
+    RISK_PROFILES = dbProfiles;
+    console.log("🛡️ [RulesEngine] Perfiles de riesgo sincronizados desde BD.");
+  }
 }

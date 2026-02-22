@@ -1,7 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { useSavedPortfolios, SavedPortfolio } from '../../hooks/useSavedPortfolios';
-import { ChevronDown, X, Download, BarChart2, Check, Search } from 'lucide-react';
+import { ChevronDown, X, Download, BarChart2, Check, Search, TrendingUp } from 'lucide-react';
 import { PortfolioItem } from '../../types';
+import { useSyntheticBenchmarks } from '../../hooks/useSyntheticBenchmarks';
 
 interface ComparatorControlDeckProps {
     nameA: string;
@@ -10,8 +11,8 @@ interface ComparatorControlDeckProps {
     portfolioB: PortfolioItem[] | null;
     loadingA: boolean;
     loadingB: boolean;
-    onSelectA: (p: { items: PortfolioItem[], name: string }) => void;
-    onSelectB: (p: { items: PortfolioItem[], name: string }) => void;
+    onSelectA: (p: any) => void;
+    onSelectB: (p: any) => void;
     onRemoveA: () => void;
     onRemoveB: () => void;
     onDownloadPDF: () => void;
@@ -33,11 +34,16 @@ export default function ComparatorControlDeck({
     const [openSelectorB, setOpenSelectorB] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
 
+    const { benchmarks, loading: loadingBenchmarks } = useSyntheticBenchmarks();
+
     const ref = useRef<HTMLDivElement>(null);
 
     // Filter portfolios tailored for dropdown
     const filteredPortfolios = savedPortfolios.filter(p =>
         p.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    const filteredBenchmarks = benchmarks.filter(b =>
+        b.name.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
     useEffect(() => {
@@ -67,29 +73,70 @@ export default function ComparatorControlDeck({
                 </div>
             </div>
             <div className="max-h-64 overflow-y-auto">
-                {filteredPortfolios.length === 0 ? (
-                    <div className="p-4 text-center text-xs text-slate-400">
-                        {savedPortfolios.length === 0 ? "No hay carteras guardadas" : `No se encontraron carteras matching "${searchTerm}"`}
-                    </div>
-                ) : (
-                    filteredPortfolios.map(p => {
-                        const isSelected = p.name === currentName;
-                        return (
-                            <button
-                                key={p.id}
-                                onClick={() => { onSelect(p); close(); setSearchTerm(''); }}
-                                className={`w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between group transition-colors ${isSelected ? 'bg-blue-50/50' : ''}`}
-                            >
-                                <div className="min-w-0">
-                                    <div className={`text-sm font-medium truncate ${isSelected ? 'text-blue-700' : 'text-slate-700'}`}>{p.name}</div>
-                                    <div className="text-[10px] text-slate-400 mt-0.5">
-                                        {p.items?.length || 0} fondos
+                {/* 1. SECTION: Carteras Guardadas */}
+                {filteredPortfolios.length > 0 && (
+                    <>
+                        <div className="px-3 py-1 bg-slate-100 text-[10px] font-bold text-slate-500 uppercase tracking-wider sticky top-0 z-10">
+                            Carteras Guardadas
+                        </div>
+                        {filteredPortfolios.map(p => {
+                            const isSelected = p.name === currentName;
+                            return (
+                                <button
+                                    key={p.id}
+                                    onClick={() => { onSelect(p); close(); setSearchTerm(''); }}
+                                    className={`w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between group transition-colors ${isSelected ? 'bg-blue-50/50' : ''}`}
+                                >
+                                    <div className="min-w-0">
+                                        <div className={`text-sm font-medium truncate ${isSelected ? 'text-blue-700' : 'text-slate-700'}`}>{p.name}</div>
+                                        <div className="text-[10px] text-slate-400 mt-0.5">
+                                            {p.items?.length || 0} fondos
+                                        </div>
                                     </div>
-                                </div>
-                                {isSelected && <Check size={14} className="text-blue-600" />}
-                            </button>
-                        );
-                    })
+                                    {isSelected && <Check size={14} className="text-blue-600" />}
+                                </button>
+                            );
+                        })}
+                    </>
+                )}
+
+                {/* 2. SECTION: Benchmarks Sintéticos */}
+                {(filteredBenchmarks.length > 0 || loadingBenchmarks) && (
+                    <>
+                        <div className="px-3 py-1 bg-indigo-50 text-[10px] font-bold text-indigo-600 uppercase tracking-wider sticky top-0 z-10 flex items-center gap-1 border-t border-indigo-100">
+                            <TrendingUp size={12} /> Benchmarks Sintéticos
+                        </div>
+                        {loadingBenchmarks ? (
+                            <div className="p-3 text-center text-xs text-indigo-400">Cargando...</div>
+                        ) : (
+                            filteredBenchmarks.map(b => {
+                                const isSelected = b.name === currentName;
+                                return (
+                                    <button
+                                        key={b.id}
+                                        onClick={() => { onSelect(b); close(); setSearchTerm(''); }}
+                                        className={`w-full text-left px-4 py-3 hover:bg-indigo-50/30 flex items-center justify-between group transition-colors ${isSelected ? 'bg-indigo-100/50' : ''}`}
+                                    >
+                                        <div className="min-w-0">
+                                            <div className={`text-sm font-bold truncate ${isSelected ? 'text-indigo-800' : 'text-indigo-600'}`}>
+                                                {b.name.replace('Benchmark: ', '')}
+                                            </div>
+                                            <div className="text-[10px] text-indigo-400 mt-0.5">
+                                                Serie Evolutiva Estandarizada
+                                            </div>
+                                        </div>
+                                        {isSelected && <Check size={14} className="text-indigo-600" />}
+                                    </button>
+                                );
+                            })
+                        )}
+                    </>
+                )}
+
+                {filteredPortfolios.length === 0 && filteredBenchmarks.length === 0 && (
+                    <div className="p-4 text-center text-xs text-slate-400">
+                        No se encontraron coincidencias para "{searchTerm}"
+                    </div>
                 )}
             </div>
         </div>
@@ -141,7 +188,7 @@ export default function ComparatorControlDeck({
 
                                     {/* Dropdown A */}
                                     {openSelectorA && renderDropdown(
-                                        (p) => onSelectA({ items: p.items, name: p.name }),
+                                        (p) => onSelectA({ items: p.items, name: p.name, isBenchmark: (p as any).isBenchmark, benchmarkData: (p as any).benchmarkData }),
                                         () => setOpenSelectorA(false),
                                         nameA
                                     )}
@@ -201,46 +248,10 @@ export default function ComparatorControlDeck({
                                     </button>
 
                                     {/* Dropdown B - Aligned Right on Desktop */}
-                                    {openSelectorB && (
-                                        <div className="absolute top-full right-0 mt-2 w-72 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-200 text-left">
-                                            <div className="p-2 border-b border-slate-100 bg-slate-50">
-                                                <div className="relative">
-                                                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
-                                                    <input
-                                                        type="text"
-                                                        placeholder="Buscar cartera..."
-                                                        className="w-full pl-9 pr-3 py-1.5 text-sm border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-amber-500/20 focus:border-amber-500"
-                                                        autoFocus
-                                                        value={searchTerm}
-                                                        onChange={(e) => setSearchTerm(e.target.value)}
-                                                    />
-                                                </div>
-                                            </div>
-                                            <div className="max-h-64 overflow-y-auto">
-                                                {filteredPortfolios.length === 0 ? (
-                                                    <div className="p-4 text-center text-xs text-slate-400">No se encontraron carteras matching "{searchTerm}"</div>
-                                                ) : (
-                                                    filteredPortfolios.map(p => {
-                                                        const isSelected = p.name === nameB;
-                                                        return (
-                                                            <button
-                                                                key={p.id}
-                                                                onClick={() => { onSelectB({ items: p.items, name: p.name }); setOpenSelectorB(false); setSearchTerm(''); }}
-                                                                className={`w-full text-left px-4 py-3 hover:bg-slate-50 flex items-center justify-between group transition-colors ${isSelected ? 'bg-amber-50/50' : ''}`}
-                                                            >
-                                                                <div className="min-w-0">
-                                                                    <div className={`text-sm font-medium truncate ${isSelected ? 'text-amber-700' : 'text-slate-700'}`}>{p.name}</div>
-                                                                    <div className="text-[10px] text-slate-400 mt-0.5">
-                                                                        {p.items?.length || 0} fondos
-                                                                    </div>
-                                                                </div>
-                                                                {isSelected && <Check size={14} className="text-amber-600" />}
-                                                            </button>
-                                                        );
-                                                    })
-                                                )}
-                                            </div>
-                                        </div>
+                                    {openSelectorB && renderDropdown(
+                                        (p) => onSelectB({ items: p.items, name: p.name, isBenchmark: (p as any).isBenchmark, benchmarkData: (p as any).benchmarkData }),
+                                        () => setOpenSelectorB(false),
+                                        nameB
                                     )}
                                 </div>
                             </div>

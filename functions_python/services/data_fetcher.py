@@ -34,9 +34,40 @@ class DataFetcher:
             else:
                 missing_assets.append(isin)
 
-        # 2. Batch Fetch from Firestore
+        # 2. Try Fetching Global JSON Cache from Cloud Storage
         if missing_assets:
-            print(f"📥 [DataFetcher] Batch reading {len(missing_assets)} assets...")
+            try:
+                import json
+                from firebase_admin import storage
+                from .config import BUCKET_NAME
+                
+                bucket = storage.bucket(BUCKET_NAME)
+                blob = bucket.blob("cache/global_prices.json")
+                if blob.exists():
+                    print("⚡ [DataFetcher] Leyendo caché global desde Cloud Storage...")
+                    master_cache = json.loads(blob.download_as_string())
+                    
+                    # Rellenar los missing_assets con el master_cache
+                    still_missing = []
+                    for isin in missing_assets:
+                        if isin in master_cache:
+                            series_clean = self._parse_doc_history({'history': master_cache[isin]})
+                            if len(series_clean) > 20: # Match history length constraint
+                                price_data[isin] = series_clean
+                                PRICE_CACHE[isin] = series_clean
+                            else:
+                                still_missing.append(isin)
+                        else:
+                            still_missing.append(isin)
+                    
+                    print(f"🎯 [DataFetcher] Caché global proveyó {len(missing_assets) - len(still_missing)} fondos.")
+                    missing_assets = still_missing
+            except Exception as e:
+                print(f"⚠️ [DataFetcher] Fallo al leer caché de Storage: {e}")
+
+        # 3. Batch Fetch from Firestore (Fallback for remaining missing assets)
+        if missing_assets:
+            print(f"📥 [DataFetcher] Batch reading {len(missing_assets)} assets from Firestore...")
             refs = [self.db.collection('historico_vl_v2').document(isin) for isin in missing_assets]
             docs = self.db.get_all(refs)
             
@@ -49,8 +80,6 @@ class DataFetcher:
                 try:
                     data = doc.to_dict()
                     series_clean = self._parse_doc_history(data)
-                    
-                    print(f"📡 [DataFetcher] {isin} retrieved. Points: {len(series_clean)}")
                     
                     if len(series_clean) > 20:
                         price_data[isin] = series_clean

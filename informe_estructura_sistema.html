@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BDB-FONDOS — Estructura del Sistema</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+  :root {
+    --primary: #1e40af;
+    --primary-light: #dbeafe;
+    --secondary: #0369a1;
+    --accent: #0284c7;
+    --success: #15803d;
+    --success-light: #dcfce7;
+    --warning: #b45309;
+    --warning-light: #fef3c7;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-700: #334155;
+    --gray-800: #1e293b;
+    --gray-900: #0f172a;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray-800);
+    background: #fff;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 48px;
+  }
+  /* COVER */
+  .cover {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-left: 6px solid var(--primary);
+    padding: 32px 32px 32px 36px;
+    margin-bottom: 48px;
+    background: var(--gray-50);
+    border-radius: 0 12px 12px 0;
+  }
+  .cover .label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  .cover h1 { font-size: 28px; font-weight: 700; color: var(--gray-900); margin-bottom: 6px; }
+  .cover .subtitle { font-size: 14px; color: var(--gray-700); margin-bottom: 16px; }
+  .cover .meta { display: flex; gap: 20px; font-size: 12px; color: #64748b; }
+  .cover .meta span { display: flex; align-items: center; gap: 4px; }
+
+  /* SECTIONS */
+  h2 {
+    font-size: 16px; font-weight: 700; color: var(--primary);
+    border-bottom: 2px solid var(--primary-light);
+    padding-bottom: 6px; margin: 36px 0 16px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  h3 { font-size: 13px; font-weight: 600; color: var(--gray-800); margin: 20px 0 8px; }
+
+  /* TABLES */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0 20px; font-size: 12px; }
+  thead tr { background: var(--primary); color: white; }
+  thead th { padding: 8px 12px; text-align: left; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; }
+  tbody tr:nth-child(even) { background: var(--gray-50); }
+  tbody tr:hover { background: var(--primary-light); }
+  td { padding: 7px 12px; border-bottom: 1px solid var(--gray-200); vertical-align: top; }
+  td:first-child { font-family: 'JetBrains Mono', monospace; font-size: 11px; white-space: nowrap; color: var(--secondary); font-weight: 500; }
+  .star { color: #f59e0b; }
+
+  /* BADGES */
+  .badge {
+    display: inline-block; padding: 1px 7px; border-radius: 99px;
+    font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em;
+  }
+  .badge-blue { background: var(--primary-light); color: var(--primary); }
+  .badge-green { background: var(--success-light); color: var(--success); }
+  .badge-yellow { background: var(--warning-light); color: var(--warning); }
+
+  /* CODE */
+  pre, code {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    background: var(--gray-900);
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 16px 20px;
+    overflow-x: auto;
+    margin: 10px 0 16px;
+    line-height: 1.7;
+  }
+  .code-label { font-size: 10px; font-weight: 600; text-transform: uppercase; color: #94a3b8; letter-spacing: 0.08em; margin-bottom: 2px; }
+  code:not(pre code) {
+    display: inline; padding: 1px 6px; border-radius: 4px;
+    font-size: 11px; background: var(--gray-100); color: var(--secondary);
+  }
+  .comment { color: #6272a4; }
+  .kw { color: #ff79c6; }
+  .str { color: #f1fa8c; }
+  .field { color: #8be9fd; }
+  .val { color: #bd93f9; }
+
+  /* FOLDER TREE */
+  .tree {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 12px; line-height: 1.8;
+    background: var(--gray-900); color: #e2e8f0;
+    border-radius: 8px; padding: 20px 24px;
+    margin: 8px 0 20px;
+  }
+  .tree .dir { color: #8be9fd; font-weight: 500; }
+  .tree .file { color: #f8f8f2; }
+  .tree .note { color: #6272a4; font-size: 11px; }
+
+  /* FLOW DIAGRAM */
+  .flow {
+    display: flex; flex-direction: column; gap: 0;
+    margin: 12px 0 24px;
+  }
+  .flow-step {
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 16px;
+    border-left: 3px solid var(--primary-light);
+  }
+  .flow-step:first-child { border-top-left-radius: 8px; border-top: 2px solid var(--primary-light); }
+  .flow-step:last-child { border-bottom-left-radius: 8px; border-bottom: 2px solid var(--primary-light); }
+  .flow-step:nth-child(odd) { background: var(--gray-50); }
+  .step-num {
+    min-width: 28px; height: 28px; border-radius: 50%;
+    background: var(--primary); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700; flex-shrink: 0;
+  }
+  .step-file { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--secondary); font-weight: 500; margin-bottom: 2px; }
+  .step-desc { font-size: 12px; color: var(--gray-700); }
+
+  /* SCHEMA BLOCK */
+  .schema-block {
+    border: 1px solid var(--gray-200);
+    border-radius: 10px; overflow: hidden;
+    margin: 12px 0 20px;
+  }
+  .schema-header {
+    background: var(--primary); color: white;
+    padding: 8px 16px;
+    font-size: 12px; font-weight: 600;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .schema-body { padding: 4px 0; }
+  .schema-row {
+    display: grid; grid-template-columns: 200px 100px 1fr;
+    padding: 6px 16px; border-bottom: 1px solid var(--gray-100);
+    font-size: 12px;
+  }
+  .schema-row:last-child { border-bottom: none; }
+  .schema-row:nth-child(even) { background: var(--gray-50); }
+  .field-name { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--secondary); font-weight: 500; }
+  .field-type { color: var(--warning); font-size: 11px; }
+  .field-desc { color: var(--gray-700); }
+
+  /* DIVIDER */
+  hr { border: none; border-top: 1px solid var(--gray-200); margin: 32px 0; }
+
+  /* CMD BOX */
+  .cmd-box {
+    background: #0f1e2e; border-radius: 10px; padding: 20px 24px;
+    margin: 12px 0; border-left: 4px solid var(--accent);
+  }
+  .cmd-box .cmd-label { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: #60a5fa; font-weight: 600; margin-bottom: 8px; }
+  .cmd-box pre { background: transparent; padding: 0; color: #e2e8f0; font-size: 11.5px; }
+
+  /* PRINT */
+  @media print {
+    body { padding: 20px 32px; }
+    h2 { break-before: auto; }
+    .cover { break-after: page; }
+    pre, .tree, .cmd-box { break-inside: avoid; }
+    table { break-inside: avoid; }
+  }
+  @page { margin: 15mm 20mm; }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <div class="label">Documentación Técnica</div>
+  <h1>🏗️ BDB-FONDOS</h1>
+  <div class="subtitle">Informe de Estructura del Sistema y Base de Datos</div>
+  <div class="meta">
+    <span>📅 20 Febrero 2026</span>
+    <span>📁 Proyecto: BDB-FONDOS</span>
+    <span>🔖 Versión: Production</span>
+  </div>
+</div>
+
+<!-- ESTRUCTURA RAÍZ -->
+<h2>📁 Estructura Raíz del Proyecto</h2>
+<div class="tree">
+BDB-FONDOS/<br>
+├── <span class="dir">frontend/</span>             <span class="note">→ Aplicación React (Vite + TypeScript)</span><br>
+├── <span class="dir">functions_python/</span>     <span class="note">→ Backend Cloud Functions (Python 3.12)</span><br>
+├── <span class="dir">scripts/</span>              <span class="note">→ Scripts utilitarios JavaScript</span><br>
+├── <span class="dir">.agent/</span>               <span class="note">→ Workflows del agente IA</span><br>
+├── <span class="file">firebase.json</span>         <span class="note">→ Configuración deploy Firebase Hosting + Functions</span><br>
+├── <span class="file">firestore.rules</span>       <span class="note">→ Reglas de seguridad Firestore</span><br>
+├── <span class="file">firestore.indexes.json</span> <span class="note">→ Índices compuestos de Firestore</span><br>
+├── <span class="file">fondos_con_retrocesion.csv</span> <span class="note">→ CSV retrocesiones (287 fondos)</span><br>
+├── <span class="file">fondos_no_encontrados.csv</span>  <span class="note">→ 72 fondos sin entrada en BD</span><br>
+└── <span class="file">serviceAccountKey.json</span> <span class="note">→ Clave servicio Firebase (privada)</span><br>
+</div>
+
+<!-- FRONTEND -->
+<h2>🖥️ Frontend — <code>frontend/src/</code></h2>
+
+<h3>📄 Páginas (<code>pages/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>DashboardPage.tsx</td><td>Página principal — cartera activa, optimización, rebalanceo, fondos VIP</td></tr>
+    <tr><td>XRayPage.tsx</td><td>Análisis X-Ray de la cartera + generación de informes PDF</td></tr>
+    <tr><td>XRayAnalyticsPage.tsx</td><td>Analytics avanzados: backtesting, stress tests, correlaciones</td></tr>
+    <tr><td>ComparatorPage.tsx</td><td>Comparador de carteras con benchmarks sintéticos</td></tr>
+    <tr><td>RetirementCalculatorPage.tsx</td><td>Calculadora de planificación de jubilación</td></tr>
+    <tr><td>MiBoutiquePage.tsx</td><td>Explorador Mi Boutique de fondos</td></tr>
+  </tbody>
+</table>
+
+<h3>🪝 Hooks principales (<code>hooks/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>usePortfolioActions.ts <span class="star">★</span></td><td>Lógica central: generar, optimizar, rebalancear, importar/exportar cartera</td></tr>
+    <tr><td>usePortfolioStats.ts <span class="star">★</span></td><td>Cálculo de métricas (Sharpe, volatilidad, drawdown, atribución)</td></tr>
+    <tr><td>usePortfolio.ts</td><td>Estado global y persistencia de la cartera en memoria</td></tr>
+    <tr><td>useAssets.ts</td><td>Carga de fondos desde Firestore <code>funds_v3</code></td></tr>
+    <tr><td>useXRayData.ts</td><td>Datos para X-Ray: exposiciones, sectores, geografía</td></tr>
+    <tr><td>useXRayAnalytics.ts</td><td>Analytics avanzados del X-Ray</td></tr>
+    <tr><td>useSavedPortfolios.ts</td><td>Guardar/cargar carteras en Firestore</td></tr>
+    <tr><td>useSyntheticBenchmarks.ts</td><td>Carga de benchmarks sintéticos desde Firestore</td></tr>
+    <tr><td>useFundHistory.ts</td><td>Historial de precios de un fondo específico</td></tr>
+    <tr><td>useDashboardData.ts</td><td>Datos del dashboard (clientes, carteras de usuario)</td></tr>
+  </tbody>
+</table>
+
+<h3>🛠️ Utilidades (<code>utils/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>rulesEngine.ts <span class="star">★</span></td><td>Motor de reglas local: selección de cartera por perfil de riesgo sin backend</td></tr>
+    <tr><td>directSearch.ts <span class="star">★</span></td><td>Búsqueda directa de alternativas en <code>funds_v3</code> (asset_class + región)</td></tr>
+    <tr><td>fundSwapper.ts</td><td>Lógica de intercambio de fondos con alternativas similares</td></tr>
+    <tr><td>normalizer.ts</td><td>Normalización fondos V3 → formato interno de la app</td></tr>
+    <tr><td>statistics.ts</td><td>Estadísticas financieras: Sharpe, volatilidad, correlación, CAGR</td></tr>
+    <tr><td>analytics.ts</td><td>Analíticas de rendimiento y atribución de resultados</td></tr>
+    <tr><td>pdfGenerator.ts</td><td>Generación de informes PDF (XRay, cartera completa)</td></tr>
+    <tr><td>comparatorPdfGenerator.ts</td><td>PDF del comparador de carteras</td></tr>
+    <tr><td>benchmarkUtils.ts</td><td>Utilidades para benchmarks (cálculo de tracking error, etc.)</td></tr>
+    <tr><td>csvImport.ts</td><td>Importación de carteras desde CSV</td></tr>
+  </tbody>
+</table>
+
+<h3>🪟 Modales clave (<code>components/modals/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Función</th></tr></thead>
+  <tbody>
+    <tr><td>SharpeMaximizerModal.tsx <span class="star">★</span></td><td>Buscador Sharpe: simula fondos que mejoran el Sharpe, con opción de priorizar retrocesión</td></tr>
+    <tr><td>TacticalModal.tsx <span class="star">★</span></td><td>Modal de rebalanceo: detalle de compras/ventas necesarias para aplicar la propuesta</td></tr>
+    <tr><td>OptimizationReviewModal.tsx</td><td>Revisión y aprobación de la propuesta de optimización</td></tr>
+    <tr><td>MacroTacticalModal.tsx</td><td>Ajuste macroeconómico táctico de la cartera</td></tr>
+    <tr><td>CostsModal.tsx</td><td>Análisis de costes: TER, retrocesión, coste neto</td></tr>
+    <tr><td>VipFundsModal.tsx</td><td>Gestión de fondos VIP (fondos forzados en la cartera)</td></tr>
+    <tr><td>SavedPortfoliosModal.tsx</td><td>Carteras guardadas por usuario</td></tr>
+    <tr><td>UpdateHistoryModal.tsx</td><td>Actualización manual del historial de precios</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- BACKEND -->
+<h2>⚙️ Backend — <code>functions_python/</code></h2>
+
+<h3>📌 Punto de entrada</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>main.py</td><td>Entry point de Cloud Functions — rutas HTTP y Callable Functions (Firebase)</td></tr>
+  </tbody>
+</table>
+
+<h3>🔧 Servicios (<code>services/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>optimizer.py <span class="star">★</span></td><td>Optimizador Markowitz: Efficient Frontier, Max Sharpe, restricciones por perfil de riesgo (PyPortfolioOpt)</td></tr>
+    <tr><td>data_fetcher.py <span class="star">★</span></td><td>Obtención y alineación de series históricas de precios (hasta 5 años)</td></tr>
+    <tr><td>config.py</td><td>Constantes del sistema: perfiles de riesgo, límites de pesos, buckets de activos</td></tr>
+    <tr><td>financial_engine.py</td><td>Métricas financieras: Sharpe, CAGR, volatilidad, max drawdown</td></tr>
+    <tr><td>analytics.py</td><td>Analytics avanzados de cartera y atribución</td></tr>
+    <tr><td>backtester.py</td><td>Backtesting de carteras con datos históricos reales</td></tr>
+    <tr><td>calc_service.py</td><td>Cálculo batch de métricas para todos los fondos</td></tr>
+    <tr><td>daily_service.py</td><td>Servicio diario: recalcular métricas, sincronizar datos NAV</td></tr>
+    <tr><td>nav_fetcher.py</td><td>Descargador automático de NAVs (VL) de fondos desde APIs externas</td></tr>
+    <tr><td>research.py</td><td>Investigación y enriquecimiento de datos de fondos</td></tr>
+    <tr><td>audit_service.py</td><td>Auditoría y verificación de calidad de datos en Firestore</td></tr>
+    <tr><td>fix_service.py</td><td>Correcciones masivas de datos en base de datos</td></tr>
+    <tr><td>history_writer.py</td><td>Escritura de historial de precios en Firestore</td></tr>
+    <tr><td>pdf_generator.py</td><td>Generación de PDFs en el backend (para informes pesados)</td></tr>
+  </tbody>
+</table>
+
+<h3>📜 Scripts (<code>functions_python/scripts/</code>)</h3>
+<table>
+  <thead><tr><th>Archivo</th><th>Descripción</th></tr></thead>
+  <tbody>
+    <tr><td>check_and_import_retrocesion.py</td><td>Importación y verificación de retrocesiones desde CSV a Firestore</td></tr>
+    <tr><td>generate_benchmarks.py</td><td>Generación de benchmarks sintéticos a partir de fondos reales</td></tr>
+    <tr><td>recalc_metrics_batch.py</td><td>Recalcular métricas (Sharpe, CAGR, etc.) de todos los fondos en lote</td></tr>
+    <tr><td>audit_fund_data.py</td><td>Auditoría completa de calidad de datos de fondos</td></tr>
+    <tr><td>fix_data_anomalies.py</td><td>Corrección de anomalías en datos históricos de precios</td></tr>
+  </tbody>
+</table>
+
+<hr>
+
+<!-- FIRESTORE -->
+<h2>🗄️ Base de Datos — Firestore</h2>
+
+<h3><code>funds_v3</code> — Catálogo de Fondos</h3>
+<p style="font-size:12px;color:#64748b;margin-bottom:10px;">~2.500 documentos | ID = ISIN del fondo</p>
+<div class="schema-block">
+  <div class="schema-header"><span>Documento: funds_v3/{ISIN}</span><span class="badge" style="background:#60a5fa22;color:#93c5fd">Principal</span></div>
+  <div class="schema-body">
+    <div class="schema-row"><span class="field-name">isin</span><span class="field-type">string</span><span class="field-desc">ISIN del fondo (también es el ID del documento)</span></div>
+    <div class="schema-row"><span class="field-name">name</span><span class="field-type">string</span><span class="field-desc">Nombre completo del fondo</span></div>
+    <div class="schema-row"><span class="field-name">currency</span><span class="field-type">string</span><span class="field-desc">Divisa (EUR, USD, GBP...)</span></div>
+    <div class="schema-row"><span class="field-name">has_history</span><span class="field-type">boolean</span><span class="field-desc">Tiene datos históricos de precios en historico_vl_v2</span></div>
+    <div class="schema-row"><span class="field-name">ms.*</span><span class="field-type">map</span><span class="field-desc">Datos Morningstar: categoría, rating, costes, sectores, regiones, top 10 posiciones</span></div>
+    <div class="schema-row"><span class="field-name">derived.*</span><span class="field-type">map</span><span class="field-desc">Clasificación interna: asset_class (RV/RF/Mixto/Monetario), primary_region, confidence</span></div>
+    <div class="schema-row"><span class="field-name">manual.costs.retrocession</span><span class="field-type">number</span><span class="field-desc">% retrocesión BDB (fuente: CSV fondos_con_retrocesion.csv)</span></div>
+    <div class="schema-row"><span class="field-name">manual.costs.ter</span><span class="field-type">number</span><span class="field-desc">TER total del fondo</span></div>
+    <div class="schema-row"><span class="field-name">std_perf.*</span><span class="field-type">map</span><span class="field-desc">Métricas calculadas: return (CAGR 3Y), volatility, sharpe, max_drawdown, cvar95, var95</span></div>
+    <div class="schema-row"><span class="field-name">quality.*</span><span class="field-type">map</span><span class="field-desc">Calidad del dato: ok (bool), parser_version, warnings, parsed_at</span></div>
+    <div class="schema-row"><span class="field-name">data_quality.*</span><span class="field-type">map</span><span class="field-desc">std_perf_ok, history_ok, last_checked_at</span></div>
+    <div class="schema-row"><span class="field-name">last_sync</span><span class="field-type">Timestamp</span><span class="field-desc">Última sincronización de datos de mercado</span></div>
+  </div>
+</div>
+
+<h3><code>historico_vl_v2</code> — Historial de Precios</h3>
+<div class="schema-block">
+  <div class="schema-header"><span>Documento: historico_vl_v2/{ISIN}</span><span class="badge" style="background:#60a5fa22;color:#93c5fd">Serie temporal</span></div>
+  <div class="schema-body">
+    <div class="schema-row"><span class="field-name">data</span><span class="field-type">map</span><span class="field-desc">Mapa date→price: { "2024-01-02": 142.35, "2024-01-03": 143.10, ... }</span></div>
+    <div class="schema-row"><span class="field-name">source</span><span class="field-type">string</span><span class="field-desc">Origen del dato: morningstar | manual | nav_fetcher</span></div>
+    <div class="schema-row"><span class="field-name">last_updated</span><span class="field-type">Timestamp</span><span class="field-desc">Última actualización del historial</span></div>
+  </div>
+</div>
+
+<h3><code>users/{uid}/portfolios</code> — Carteras de Usuario</h3>
+<div class="schema-block">
+  <div class="schema-header"><span>Subcolección: users/{uid}/portfolios/{pid}</span></div>
+  <div class="schema-body">
+    <div class="schema-row"><span class="field-name">name</span><span class="field-type">string</span><span class="field-desc">Nombre de la cartera</span></div>
+    <div class="schema-row"><span class="field-name">items</span><span class="field-type">array</span><span class="field-desc">Lista de posiciones: [{isin, name, weight, value}]</span></div>
+    <div class="schema-row"><span class="field-name">risk_level</span><span class="field-type">number</span><span class="field-desc">Perfil de riesgo (1–10)</span></div>
+    <div class="schema-row"><span class="field-name">total_capital</span><span class="field-type">number</span><span class="field-desc">Capital total de la cartera</span></div>
+    <div class="schema-row"><span class="field-name">created_at</span><span class="field-type">Timestamp</span><span class="field-desc">Fecha de creación</span></div>
+  </div>
+</div>
+
+<h3><code>benchmarks</code> — Benchmarks Sintéticos</h3>
+<div class="schema-block">
+  <div class="schema-header"><span>Documento: benchmarks/{id}</span></div>
+  <div class="schema-body">
+    <div class="schema-row"><span class="field-name">name</span><span class="field-type">string</span><span class="field-desc">Nombre del benchmark (ej. "Benchmark Agresivo")</span></div>
+    <div class="schema-row"><span class="field-name">weights</span><span class="field-type">map</span><span class="field-desc">Pesos por ISIN: {"IE00B03HCZ61": 0.60, "LU0162660350": 0.40}</span></div>
+    <div class="schema-row"><span class="field-name">std_perf.*</span><span class="field-type">map</span><span class="field-desc">Métricas precalculadas: sharpe, return, volatility</span></div>
+    <div class="schema-row"><span class="field-name">created_by</span><span class="field-type">string</span><span class="field-desc">Email del usuario creador</span></div>
+  </div>
+</div>
+
+<h3><code>config</code> — Configuración del Sistema</h3>
+<div class="schema-block">
+  <div class="schema-header"><span>Colección: config/</span></div>
+  <div class="schema-body">
+    <div class="schema-row"><span class="field-name">auto_complete_candidates</span><span class="field-type">doc</span><span class="field-desc">ISINs candidatos para auto-expansión del universo de fondos</span></div>
+    <div class="schema-row"><span class="field-name">risk_profiles</span><span class="field-type">doc</span><span class="field-desc">Parámetros por perfil de riesgo (equity floor, bond cap, etc.)</span></div>
+  </div>
+</div>
+
+<hr>
+
+<!-- FLUJOS -->
+<h2>🔁 Flujos de Selección y Rebalanceo</h2>
+
+<h3>Sharpe Maximizer — Selección de fondos que mejoran la cartera</h3>
+<div class="flow">
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-file">SharpeMaximizerModal.tsx</div>
+      <div class="step-desc">Usuario selecciona asset_class, región y si priorizar retrocesión. Se lanza la búsqueda.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div>
+      <div class="step-file">directSearch.ts → funds_v3 (Firestore)</div>
+      <div class="step-desc">Se consultan hasta 200 fondos (si priorizar retrocesión) o 50 fondos del mismo asset_class y región.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div>
+      <div class="step-file">SharpeMaximizerModal.tsx — Simulación local</div>
+      <div class="step-desc">Para cada fondo candidato, se simula el impacto en el Sharpe de la cartera al añadirlo con un peso del 10%.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div>
+      <div class="step-file">Ordenación + presentación</div>
+      <div class="step-desc">Si "Priorizar Retrocesión": ordena por retrocesión DESC, luego por impacto Sharpe. Si no: solo por impacto Sharpe.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">5</div>
+    <div>
+      <div class="step-file">usePortfolioActions.ts → setPortfolio()</div>
+      <div class="step-desc">El usuario aprueba el fondo y se añade a la cartera activa.</div>
+    </div>
+  </div>
+</div>
+
+<h3>Optimización / Rebalanceo — Flujo completo</h3>
+<div class="flow">
+  <div class="flow-step">
+    <div class="step-num">1</div>
+    <div>
+      <div class="step-file">DashboardPage.tsx → Controls.tsx</div>
+      <div class="step-desc">Usuario pulsa "Optimizar" o "Rebalancear" en la barra de controles.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">2</div>
+    <div>
+      <div class="step-file">usePortfolioActions.ts → handleOptimize() / handleRebalance()</div>
+      <div class="step-desc">Se construye el payload: ISINs de la cartera, nivel de riesgo, fondos bloqueados (VIP), metadatos de asset_class.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">3</div>
+    <div>
+      <div class="step-file">Firebase Cloud Function: optimize_portfolio_quant</div>
+      <div class="step-desc">Llamada HTTP callable al backend Python desplegado en Firebase Functions.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">4</div>
+    <div>
+      <div class="step-file">main.py → optimizer.py → data_fetcher.py</div>
+      <div class="step-desc">Se obtienen series históricas de hasta 5 años desde historico_vl_v2. Se alinean las fechas entre todos los fondos.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">5</div>
+    <div>
+      <div class="step-file">optimizer.py — PyPortfolioOpt (EfficientFrontier)</div>
+      <div class="step-desc">Se calcula la Frontera Eficiente y se busca el portfolio de Máximo Sharpe con restricciones por perfil de riesgo (equity floor, bond cap, max por fondo).</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">6</div>
+    <div>
+      <div class="step-file">OptimizationReviewModal.tsx → TacticalModal.tsx</div>
+      <div class="step-desc">El resultado (pesos propuestos) se muestra para revisión. TacticalModal calcula las operaciones (compras/ventas) necesarias.</div>
+    </div>
+  </div>
+  <div class="flow-step">
+    <div class="step-num">7</div>
+    <div>
+      <div class="step-file">usePortfolioActions.ts → setPortfolio()</div>
+      <div class="step-desc">El usuario acepta y la cartera se actualiza con los nuevos pesos.</div>
+    </div>
+  </div>
+</div>
+
+<hr>
+
+<!-- ZIP -->
+<h2>📦 Generar ZIP con Archivos de Lógica</h2>
+<p style="font-size:12px;color:#64748b;margin-bottom:12px;">Ejecuta este comando en PowerShell para crear el ZIP con todos los archivos clave:</p>
+<div class="cmd-box">
+  <div class="cmd-label">PowerShell</div>
+  <pre>Compress-Archive -Path `
+  "c:\Users\oanti\Documents\BDB-FONDOS\functions_python\services\optimizer.py", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\functions_python\services\data_fetcher.py", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\functions_python\services\config.py", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\functions_python\main.py", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\frontend\src\hooks\usePortfolioActions.ts", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\frontend\src\components\modals\SharpeMaximizerModal.tsx", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\frontend\src\components\modals\TacticalModal.tsx", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\frontend\src\utils\rulesEngine.ts", `
+  "c:\Users\oanti\Documents\BDB-FONDOS\frontend\src\utils\statistics.ts" `
+  -DestinationPath "c:\Users\oanti\Documents\BDB-FONDOS\logica_seleccion_sharpe.zip" -Force</pre>
+</div>
+
+<p style="margin-top:40px;font-size:11px;color:#94a3b8;text-align:center;border-top:1px solid #e2e8f0;padding-top:20px;">
+  BDB-FONDOS — Documentación Técnica Interna | Generado el 20 Febrero 2026
+</p>
+
+</body>
+</html>

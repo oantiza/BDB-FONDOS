@@ -1,268 +1,218 @@
-
 import datetime
 import json
-import logging
-import google.generativeai as genai
-import yfinance as yf
-from .config import GEMINI_API_KEY, BUCKET_NAME
-from firebase_admin import storage
-from .pdf_generator import generate_pdf_from_data
+import os
 import uuid
+import google.genai as genai
+from google.genai import types
+import yfinance as yf
+from .config import GEMINI_API_KEY
+from firebase_admin import storage
 
-SYSTEM_PROMPT_STRATEGY = """
-Rol: Actúa como un Director de Estrategia de Inversiones Senior y experto en Diseño de Interfaz de Usuario (UI) para banca privada de alto nivel.
-Tu especialidad es comunicar datos financieros complejos de forma visual, minimalista y sofisticada.
-
-Contexto: Soy un asesor de carteras y voy a presentar una propuesta de inversión a un cliente Ultra High Net Worth (UHNW).
-
-Tarea: Diseña y estructura una "Matriz de Asignación de Activos Estratégica".
-
-INSTRUCCIONES DE ESTRUCTURA (JSON STRICT):
-Debes generar un JSON con la siguiente estructura exacta:
-
-{
-  "equity": {
-    "geo": [{"name": "EE.UU.", "weight": "X%", "view": "SOBREPONDERAR"}, ...],
-    "sectors": [{"name": "Tecnología", "view": "POSITIVO"}, ...]
-  },
-  "fixed_income": {
-    "subsectors": [{"name": "Bonos Gobierno", "view": "NEUTRAL"}, ...],
-    "geo": [{"name": "Tesoro USA", "view": "SOBREPONDERAR"}, ...]
-  },
-  "real_assets": {
-    "currencies": [{"name": "USD/EUR", "view": "NEUTRAL"}],
-    "commodities": [{"name": "Oro", "view": "POSITIVO"}]
-  },
-  "house_view_summary": "Resumen ejecutivo de la visión de la casa (2-3 líneas)."
-}
-
-Requisitos de Estilo:
-- Terminología financiera profesional "Tier-1".
-- VISIÓN DE LA CASA: Usa SOLO estos valores para 'view': "POSITIVO", "NEUTRAL", "NEGATIVO", "SOBREPONDERAR", "INFRAPONDERAR".
-"""
-
-# Mapeo de Activos para el Contexto
+# =====================================================================
+# 1. DATOS DE MERCADO EN TIEMPO REAL (YFINANCE)
+# =====================================================================
 ASSETS = {
     'S&P 500': '^GSPC',
     'Nasdaq 100': '^NDX',
     'Euro Stoxx 50': '^STOXX50E',
-    'MSCI Emerging': 'EEM',
     'US 10Y Treasury': '^TNX',
-    'US 2Y Treasury': '^IRX',
+    'High Yield ETF (HYG)': 'HYG',
+    'Inv. Grade ETF (LQD)': 'LQD',
     'Gold': 'GC=F',
-    'Crude Oil (WTI)': 'CL=F',
+    'Crude Oil (Brent)': 'BZ=F',
     'EUR/USD': 'EURUSD=X',
-    'USD/JPY': 'JPY=X',
+    'VIX (Volatilidad)': '^VIX',
     'Bitcoin': 'BTC-USD'
 }
 
 def get_market_context():
     """Descarga precios recientes y calcula variaciones para el contexto de la IA."""
     context_str = "DATOS DE MERCADO (ÚLTIMA SEMANA):\n"
-    print("📡 Fetching market context for Strategy Report...")
+    print("📡 [Deep Research] Fetching live market context via yfinance...")
     for name, ticker in ASSETS.items():
         try:
-            # Descargar 5 días de datos
-            df = yf.download(ticker, period="5d", progress=False)
-            # Minimal check to avoid complex DataFrame errors
-            if hasattr(df, 'empty') and not df.empty:
-                 # Take last value blindly
-                 last_close = df.iloc[-1]
-                 # Handle Series vs DataFrame vs Scalar
-                 if hasattr(last_close, 'item'): val = last_close.item()
-                 elif hasattr(last_close, 'iloc'): val = last_close.iloc[0] # Multicolumn
-                 else: val = last_close
-                 
-                 context_str += f"- {name}: {float(val):.2f}\n"
+            val = None
+            ticker_obj = yf.Ticker(ticker)
+            hist = ticker_obj.history(period="5d")
+            if not hist.empty and 'Close' in hist.columns:
+                val = hist['Close'].iloc[-1]
+
+            if val is not None:
+                context_str += f"- {name}: {float(val):.2f}\n"
             else:
-                 context_str += f"- {name}: Datos no disponibles\n"
+                context_str += f"- {name}: Datos no disponibles\n"
         except Exception as e:
             print(f"⚠️ Error fetching {name}: {e}")
             context_str += f"- {name}: Error fetching data\n"
     return context_str
 
-SYSTEM_PROMPT_ADVANCED = """
-Eres Gemini 3 Pro, el analista macroeconómico y estratega jefe más avanzado del mundo.
-Tu objetivo es realizar un "DEEP RESEARCH" (Investigación Profunda) para generar Informes de Estrategia de Inversión Global.
+# =====================================================================
+# 2. MEGA-PROMPT AUTÓNOMO INSTITUCIONAL
+# =====================================================================
+SYSTEM_PROMPT_WEEKLY_REPORT = """
+PROMPT DE INVESTIGACIÓN PROFUNDA AUTÓNOMA: ESTRATEGIA GLOBAL Y VALORACIÓN RELATIVA
 
-IMPORTANTE: TODO EL CONTENIDO GENERADO (Resúmenes, Racionales, Títulos, Análisis) DEBE ESTAR EN RIGUROSO ESPAÑOL.
+Persona:
+Actúa como el Estratega Jefe de Inversiones de Goldman Sachs Asset Management. Eres una autoridad mundial en macroeconomía y gestión multi-activo. Tu comunicación es técnica, analítica y sofisticada, diseñada para el Comité de Inversiones de un banco de banca privada (UHNW).
 
-INSTRUCCIONES ESTRUCTURALES (8 PUNTOS):
-Debes analizar y completar EXHAUSTIVAMENTE los siguientes puntos, utilizando los datos de mercado y noticias proporcionados:
+Contexto y Objetivo:
+Debes generar el Informe Estratégico Semanal. NO vas a recibir informes en PDF. DEBES usar tu capacidad de conexión a Internet (Google Search) y los datos de mercado adjuntos para investigar lo ocurrido en los últimos 7 días.
 
-(1) INDICADORES MACRO:
-    - Analizar PIB, IPC, Empleo, Ventas Minoristas, PMIs.
-    - DESTACAR desviaciones frente al consenso de mercado.
-    - Comparar principales economías (EE.UU., Eurozona, China).
+INSTRUCCIONES DIRECTAS DE BÚSQUEDA MACROECONÓMICA (GROUNDING):
+Busca sin excepción en Internet los datos económicos más relevantes publicados en la última semana, y aquellos de ciclo continuado. Céntrate obligatoriamente en EXTRAER Y EXPLICAR LOS NÚMEROS REALES EXACTOS de las siguientes variables para Estados Unidos, Eurozona y China:
 
-(2) GEOPOLÍTICA Y TENSIÓN:
-    - Investigar eventos recientes que generen volatilidad financiera.
-    - Foco específico: Suministro de energía y rutas comerciales.
+1. Datos Macro de Publicación Periódica: PMIs Manufactureros y de Servicios (Europa y EEUU), encuestas IFO/ZEW (Alemania), sentimiento de la Universidad de Michigan e indicadores adelantados (Leading Economic Indicators - LEI).
 
-(3) CATALIZADORES (PRÓXIMA SEMANA/MES):
-    - Bancos Centrales (Decisiones de tipos, actas).
-    - Subastas de deuda soberana.
-    - Resultados corporativos clave.
+2. Inflación, Crecimiento y Empleo: Datos más recientes de IPC, PCE, desempleo (Nóminas No Agrícolas - NFP) y proyecciones de PIB (ej. GDPNow de Atlanta Fed).
 
-(4) RÉGIMEN MACRO GLOBAL:
-    - Evaluar tendencias de crecimiento y liquidez.
-    - Evaluar tendencias de crecimiento y liquidez.
-    - DETERMINAR EL ENTORNO: ¿REFLACIÓN? ¿ESTANFLACIÓN? ¿RECESIÓN? ¿CRECIMIENTO ESTABLE?
+3. Efecto en la Política Monetaria: Directrices de la FED, BCE y BoJ basadas explícitamente en los datos anteriores.
 
-(5) TENDENCIAS ESTRUCTURALES (Solo para informe MENSUAL, breve en Semanal):
-    - Guerras comerciales, Transición energética, Desglobalización.
-    - Impacto sectorial.
+4. Cotización del ciclo real: Movimientos de la curva soberana (ej. 2s10s yield curve inversion), evolución del dólar americano y dinámicas de spreads de crédito corporativo.
 
-(6) VISIÓN DE MERCADO (EN LUGAR DE TABLA DETALLADA):
-    - Proporciona un resumen narrativo de la asignación.
-    - Genera un dato numérico para un gráfico de "Apetito de Riesgo" (0-100).
+Directrices de Ejecución:
 
-(7) RIESGOS DE COLA (TAIL RISKS):
-    - Identificar eventos de baja probabilidad pero alto impacto para el periodo entrante.
+Integración Orgánica y Estilo Directo: Entra directamente al análisis. NO incluyas saludos iniciales, despedidas, fórmulas de cortesía ni encabezados como "A la atención del Comité de Inversiones" u otros similares. No digas "según mi búsqueda". Todo es tu visión original.
 
-(8) SÍNTESIS INSTITUCIONAL:
-    - Tono profesional, directo, de banca de inversión de primer nivel (e.g. Goldman Sachs, JPM).
-    - El resultado debe ser accionable.
+Análisis Cuantitativo: Utiliza datos numéricos específicos.
 
-OUTPUT JSON FORMAT (STRICT):
+Estructura Mental: Analiza macro, luego flujos, luego valoraciones, y finalmente matriz táctica.
+
+ESTRUCTURA OBLIGATORIA DEL INFORME (Markdown):
+
+MACROECONOMÍA Y GEOPOLÍTICA: DINÁMICAS ESTRUCTURALES
+
+ESCENARIOS ESTRATÉGICOS (Base, Bull, Bear)
+
+COMPARATIVA DE VALORACIÓN GEOGRÁFICA Y RELATIVA
+
+ANÁLISIS DE FLUJOS DE FONDOS Y POSICIONAMIENTO
+
+PERSPECTIVAS POR CLASE DE ACTIVO
+
+RIESGOS DE COLA (Cisnes Negros)
+
+RESUMEN EJECUTIVO Y MATRIZ TÁCTICA DE ASIGNACIÓN
+
+CRÍTICO: FORMATO DE SALIDA FINAL (JSON STRICT)
+La RESPUESTA FINAL devuelta DEBE SER ESTRICTAMENTE UN ÚNICO OBJETO JSON VÁLIDO.
+El Markdown extenso de los puntos 1 al 7 debe inyectarse íntegro como string dentro de la propiedad fullReport.narrative. Usa el siguiente esquema:
+
 {
-  "title": "Título de Impacto (ej: 'Navigating the Stagflation Trap')",
-  "date": "YYYY-MM-DD",
-  "regime": "REFLACIÓN" | "ESTANFLACIÓN" | "RECESIÓN" | "CRECIMIENTO ESTABLE",
-  "market_sentiment": "ALCISTA" | "BAJISTA" | "NEUTRAL",
-  "executive_summary": "Síntesis MUY DETALLADA (400-600 palabras) tipo 'Newsletter Premium'. Debe contar una historia de mercado completa.",
-  "macro_analysis": {
-    "indicators": "Análisis del punto 1...",
-    "central_banks": "Análisis de bancos centrales..."
-  },
-  "geopolitics": {
-    "summary": "Análisis del punto 2...",
-    "impact": "Impacto en energía/rutas..."
-  },
-  "catalysts_next_week": [
-    {"day": "LUN/NA", "event": "...", "importance": "HIGH"}
-  ],
-  "structural_trends": "Análisis del punto 5 (Más detallado si es Mensual)...",
-  "asset_allocation_summary": "Resumen narrativo breve de la asignación (sin tabla detallada).",
-  "chart_data": {
-    "label": "Tendencia de Mercado/Riesgo",
-    "value": 75,
-    "max": 100,
-    "unit": "Índice de Apetito por el Riesgo"
-  },
-  "tail_risks": [
-    {"risk": "...", "probability": "Low", "impact": "High"}
-  ]
+"summary": {
+"headline": "Titular conceptual corto y de impacto",
+"narrative": "Resumen rápido máximo de 3-4 líneas. Destaca la idea principal de la semana.",
+"keyEvents": ["Extrae 2 o 3 eventos clave de la semana en puntos cortos"],
+"kpis": [
+{"label": "S&P 500", "value": "Añadir Valor (ej. +1.2%)", "trend": "up"},
+{"label": "Euro Stoxx 50", "value": "Añadir Valor", "trend": "neutral"},
+{"label": "US 10Y Yield", "value": "Añadir Yield Exacto (ej. 4.15%)", "trend": "down"},
+{"label": "Inflación US (IPC/PCE)", "value": "Añadir Valor Exacto", "trend": "up"},
+{"label": "Inflación Eurozona", "value": "Añadir Valor Exacto", "trend": "down"},
+{"label": "PMI Manufacturero US", "value": "Añadir Nivel Exacto", "trend": "neutral"},
+{"label": "PMI Servicios EU", "value": "Añadir Nivel Exacto", "trend": "up"},
+{"label": "GDPNow Atlanta / NFP", "value": "Añadir Dato Reciente", "trend": "neutral"}
+],
+"marketTemperature": "Bullish",
+"tailRisks": [
+{"risk": "Breve descripción de Cisne Negro extraído de la sección 6", "probability": "Baja", "impact": "Alto"}
+]
+},
+"assetAllocation": {
+"overview": "Sintetiza aquí las claves de tu asignación táctica (2-3 líneas).",
+"classes": [
+{"assetClass": "Renta Variable", "strategicWeight": 45, "tacticalWeight": 45, "view": "Neutral", "rationale": "Justificación corta"},
+{"assetClass": "Renta Fija", "strategicWeight": 40, "tacticalWeight": 42, "view": "Positiva", "rationale": "Justificación corta"},
+{"assetClass": "Liquidez", "strategicWeight": 5, "tacticalWeight": 8, "view": "Positiva", "rationale": "Justificación corta"},
+{"assetClass": "Alternativos", "strategicWeight": 10, "tacticalWeight": 5, "view": "Negativa", "rationale": "Justificación corta"}
+],
+"regionsEquity": [
+{"region": "EEUU", "weight": 60, "view": "Neutral", "rationale": "Justificación corta"},
+{"region": "Europa", "weight": 20, "view": "Positiva", "rationale": "Justificación corta"},
+{"region": "Emergentes", "weight": 15, "view": "Neutral", "rationale": "Justificación corta"},
+{"region": "Japón", "weight": 5, "view": "Negativa", "rationale": "Justificación corta"}
+],
+"regionsFixedIncome": [
+{"region": "Gobierno Corto", "weight": 50, "view": "Positiva", "rationale": "Justificación corta"},
+{"region": "Crédito IG", "weight": 30, "view": "Neutral", "rationale": "Justificación corta"},
+{"region": "High Yield", "weight": 20, "view": "Negativa", "rationale": "Justificación corta"}
+]
+},
+"fullReport": {
+"narrative": "AQUÍ VA TODO EL CONTENIDO LARGO Y EXTENSO DE LOS PUNTOS 1 AL 7 EN FORMATO MARKDOWN PURO."
 }
+}
+
+REGLAS DE LA ESTRUCTURA JSON:
+
+'assetClass' limitado a: "Renta Variable", "Renta Fija", "Liquidez", "Alternativos".
+
+'view' DEBE SER EXACTAMENTE UNA DE ESTAS: "Positiva", "Neutral", o "Negativa".
+
+'marketTemperature' debe ser "Bullish", "Neutral" o "Bearish".
+
+'trend' debe ser "up", "down", o "neutral".
+
+Las sumas de pesos ('weight' / tacticalWeight / strategicWeight) deben cuadrar al 100%.
+
+NO AÑADAS TEXTO NI MARKDOWN ANTES O DESPUÉS DEL OBJETO. DEBE SER UN JSON PURO.
 """
 
-def generate_advanced_report(db, report_type='WEEKLY'):
+# =====================================================================
+# 3. MOTOR DE GENERACIÓN PRINCIPAL
+# =====================================================================
+def generate_weekly_strategy_report(db):
     try:
         if not GEMINI_API_KEY:
-            return {'success': False, 'error': "GEMINI_API_KEY missing"}
+            return {'success': False, 'error': "GEMINI_API_KEY missing in environment variables"}
 
-        genai.configure(api_key=GEMINI_API_KEY)
+        client = genai.Client(api_key=GEMINI_API_KEY)
         
-        # 1. Gather Data
-        print("📡 Gathering Advanced Market Data...")
+        # 1. Gather Data (yFinance Only, No PDFs)
         market_data_str = get_market_context()
-        
-        from .market import get_financial_news
-        news_macro = get_financial_news("inflation", "general")
-        news_geo = get_financial_news("geopolitics", "general")
         
         context_full = f"""
         FECHA ACTUAL: {datetime.datetime.now().strftime("%Y-%m-%d")}
-        
         {market_data_str}
-        
-        NOTICIAS RECIENTES (MACRO):
-        {json.dumps(news_macro.get('articles', [])[:5])}
-        
-        NOTICIAS RECIENTES (GEOPOLÍTICA):
-        {json.dumps(news_geo.get('articles', [])[:5])}
         """
-
-        # 2. Generate
-        print(f"🧠 Invoking Gemini 3 Pro (via 2.0 Flash) for {report_type}...")
+        # 2. Generate with Gemini 2.5 Pro + Grounding
+        print("🧠 [Deep Research] Invoking Gemini 2.5 Pro (Search Enabled)...")
+        response = client.models.generate_content(
+            model='gemini-2.5-pro',
+            contents=f"Redacta el informe estratégico semanal. Usa tu herramienta de búsqueda para obtener contexto macroeconómico reciente y compleméntalo con estos datos de mercado:\n{context_full}",
+            config=types.GenerateContentConfig(
+                system_instruction=SYSTEM_PROMPT_WEEKLY_REPORT,
+                tools=[{'google_search': {}}],
+                temperature=0.3
+            )
+        )
         
-        # Ajuste dinámico del prompt según tipo
-        prompt_used = SYSTEM_PROMPT_ADVANCED
-        if report_type == 'MONTHLY':
-            prompt_used = prompt_used.replace("CATALIZADORES (PRÓXIMA SEMANA/MES)", "CATALIZADORES (PRÓXIMO MES)")
-            prompt_used = prompt_used.replace("catalysts_next_period", "catalysts_next_month")
-            prompt_used = prompt_used.replace("breve en Semanal", "detallado en Mensual")
-
-        # Usamos flash por velocidad y capacidad de contexto
-        model = genai.GenerativeModel('gemini-2.0-flash-exp', system_instruction=prompt_used)
-        
-        response = model.generate_content(f"Genera el informe semanal basado en estos datos:\n{context_full}")
-        
-        # 3. Parse & Save
+        # 3. Parse JSON
         text = response.text
         start, end = text.find('{'), text.rfind('}')
         if start == -1 or end == -1: raise Exception("Invalid JSON from Gemini")
         
         data = json.loads(text[start:end+1])
         
-        # Enrich metadata
-        data['type'] = report_type
-        data['createdAt'] = datetime.datetime.now()
-        tipo_es = "Mensual" if report_type == 'MONTHLY' else "Semanal"
-        data['provider'] = f'Gemini 2.0 Flash (Deep Research {tipo_es})'
+        # 4. Enrich metadata
+        now = datetime.datetime.now()
+        data['id'] = uuid.uuid4().hex
+        data['date'] = now.isoformat()
+        data['author'] = "Comité de Estrategia AI"
+        data['type'] = 'WEEKLY_REPORT'
+        data['createdAt'] = now
+        data['provider'] = 'Gemini 2.5 Pro (Autonomous Research)'
         data['status'] = 'generated'
         
+        # Expiración a 2 años (TTL en Firestore)
+        data['expireAt'] = now + datetime.timedelta(days=365 * 2)
         
-        # 4. Generate & Upload PDF
-        try:
-            print("📄 Generating Private Banking PDF...")
-            pdf_bytes = generate_pdf_from_data(data)
-            
-            # Upload to Firebase Storage
-            bucket = storage.bucket(BUCKET_NAME)
-            blob_name = f"reports/{report_type}_{datetime.datetime.now().strftime('%Y%m%d')}_{uuid.uuid4().hex[:6]}.pdf"
-            blob = bucket.blob(blob_name)
-            blob.upload_from_string(pdf_bytes, content_type='application/pdf')
-            blob.make_public()
-            
-            data['pdfUrl'] = blob.public_url
-            print(f"✅ PDF Uploaded: {data['pdfUrl']}")
-        except Exception as e_pdf:
-            print(f"⚠️ PDF Generation Failed: {e_pdf}")
-            # Continue without PDF if fails
-        
-        # Save
-        db.collection('reports').add(data)
-        print("✅ Advanced Report Saved.")
-        return {'success': True}
-
+        # 5. Save to Firestore
+        doc_ref = db.collection('reports').add(data)
+        print(f"✅ [Deep Research] Report Saved. ID: {doc_ref[1].id}")
+        return {'success': True, 'doc_id': doc_ref[1].id}
+    except json.JSONDecodeError as je:
+        print(f"❌ [Deep Research] Error de parseo JSON: {je}")
+        return {'success': False, 'error': 'Invalid JSON format from model'}
     except Exception as e:
-        print(f"❌ Research Error: {e}")
+        print(f"❌ [Deep Research] Error general: {e}")
         return {'success': False, 'error': str(e)}
-
-def generate_strategy_report(db):
-    try:
-        if not GEMINI_API_KEY: return {'success': False, 'error': "No API Key"}
-        
-        genai.configure(api_key=GEMINI_API_KEY)
-        market_data_str = get_market_context()
-        
-        print("🧠 Invoking Gemini 3 Pro (Strategy Mode)...")
-        model = genai.GenerativeModel('gemini-2.0-flash-exp', system_instruction=SYSTEM_PROMPT_STRATEGY)
-        response = model.generate_content(f"Genera la Matriz Estratégica con estos datos:\n{market_data_str}")
-        
-        text = response.text
-        start, end = text.find('{'), text.rfind('}')
-        if start == -1: raise Exception("Invalid JSON")
-        
-        data = json.loads(text[start:end+1])
-        data['type'] = 'STRATEGY'
-        data['createdAt'] = datetime.datetime.now()
-        data['provider'] = 'Gemini 2.0 Flash (Strategic Allocation)'
-        
-        db.collection('reports').add(data)
-        return {'success': True}
-    except Exception as e:
-        return {'success': False, 'error': str(e)}
-
-

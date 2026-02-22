@@ -52,38 +52,39 @@ def get_cors_headers():
 )
 def scheduleWeeklyResearch(event: scheduler_fn.ScheduledEvent) -> None:
     print(f"⏰ Ejecutando Deep Research Semanal Automático: {event.schedule_time}")
-    from services.research import generate_advanced_report
+    from services.research import generate_weekly_strategy_report
     db = firestore.client()
     
-    # Generar informe semanal avanzado
-    result = generate_advanced_report(db, 'WEEKLY')
+    # Generar informe semanal consolidado
+    result = generate_weekly_strategy_report(db)
     
     if result.get('success'):
-        print("✅ Informe Semanal generado correctamente.")
+        print("✅ Informe Semanal Consolidado generado correctamente.")
     else:
         print(f"❌ Error generando informe semanal: {result.get('error')}")
 
-
-@scheduler_fn.on_schedule(
+@https_fn.on_request(
     region="europe-west1",
-    schedule="0 9 1 * *",  # 1st of every month at 9:00 AM
-    timezone="Europe/Madrid",
     timeout_sec=540,
-    memory=options.MemoryOption.GB_1
+    memory=options.MemoryOption.GB_1,
+    cors=cors_config
 )
-def scheduleMonthlyResearch(event: scheduler_fn.ScheduledEvent) -> None:
-    print(f"⏰ Ejecutando Deep Research MENSUAL Automático: {event.schedule_time}")
-    from services.research import generate_advanced_report
+def force_weekly_research(req: https_fn.Request) -> https_fn.Response:
+    """Endpoint manual para forzar la generación del reporte en pruebas"""
+    print("🔥 Forzando Deep Research Semanal Manualmente")
+    from services.research import generate_weekly_strategy_report
     db = firestore.client()
     
-    # Generar informe mensual avanzado
-    result = generate_advanced_report(db, 'MONTHLY')
-    
-    if result.get('success'):
-        print("✅ Informe Mensual generado correctamente.")
-    else:
-        print(f"❌ Error generando informe mensual: {result.get('error')}")
+    try:
+        result = generate_weekly_strategy_report(db)
+        if result.get('success'):
+            return https_fn.Response(json.dumps({"success": True, "message": "Nuevo informe generado con éxito."}), status=200, headers=get_cors_headers())
+        else:
+            return https_fn.Response(json.dumps({"success": False, "error": result.get('error')}), status=500, headers=get_cors_headers())
+    except Exception as e:
+        return https_fn.Response(json.dumps({"success": False, "error": str(e)}), status=500, headers=get_cors_headers())
 
+# Funciones mensuales antiguas eliminadas temporalmente en favor de un único reporte semanal
 
 # ==============================================================================
 # 2. SISTEMA AUTOMÁTICO DE DATOS (EODHD -> FIRESTORE)
@@ -119,7 +120,7 @@ def runMasterDailyRoutine(event: scheduler_fn.ScheduledEvent) -> None:
         return
 
     # --- PASO 2: CÁLCULO DE MÉTRICAS ---
-    print("🧮 [PASO 2/2] Recalculando Métricas (Sharpe, Volatilidad, etc)...")
+    print("🧮 [PASO 2/3] Recalculando Métricas (Sharpe, Volatilidad, etc)...")
     try:
         # Ejecutar lógica de analítica
         update_daily_metrics(db) 
@@ -128,17 +129,23 @@ def runMasterDailyRoutine(event: scheduler_fn.ScheduledEvent) -> None:
         print(f"❌ ERROR en cálculo de Métricas: {e}")
         # No hacemos return aquí para que la función termine "bien" aunque falle este paso
 
+    # --- PASO 3: RECONSTRUIR CACHÉ GLOBAL DE PRECIOS ---
+    print("📦 [PASO 3/3] Reconstruyendo Caché Global en Cloud Storage...")
+    try:
+        from services.analytics import build_global_price_cache
+        build_global_price_cache(db)
+    except Exception as e:
+        print(f"❌ ERROR al construir Caché Global: {e}")
+
     print("🏁 [MASTER] Rutina Diaria finalizada.")
 
 
 # ==============================================================================
 
-# 4. GRÁFICOS DE MERCADO (Yahoo Finance + BCE)
+
 # ==============================================================================
-
-
-
-
+# 4. GRÁFICOS DE MERCADO Y MACRO (Yahoo Finance + BCE)
+# ==============================================================================
 
 # ==============================================================================
 # 4. TUS FUNCIONES CORE (Gestión de Cartera - Intactas)
@@ -147,19 +154,11 @@ def runMasterDailyRoutine(event: scheduler_fn.ScheduledEvent) -> None:
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=540)
 def generate_analysis_report(request: https_fn.CallableRequest):
-    """Trigger manual para Deep Research"""
-    from services.research import generate_advanced_report
+    """Trigger manual para Deep Research Consolidado (Weekly Strategy Report)"""
+    from services.research import generate_weekly_strategy_report
     db = firestore.client()
     
-    # Leer el tipo de informe desde el request (body)
-    req_data = request.data or {}
-    report_type = req_data.get('type', 'WEEKLY')
-    
-    if report_type == 'STRATEGY':
-        from services.research import generate_strategy_report
-        return generate_strategy_report(db)
-
-    return generate_advanced_report(db, report_type)
+    return generate_weekly_strategy_report(db)
 
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, timeout_sec=120, cors=cors_config)

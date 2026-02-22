@@ -1,5 +1,5 @@
 import React from 'react';
-import MacroDashboard from '../components/MacroDashboardV3';
+import WeeklyReportDashboard from '../components/macro/WeeklyReportDashboard';
 import Header from '../components/Header';
 
 interface MiBoutiquePageProps {
@@ -13,7 +13,7 @@ export default function MiBoutiquePage({ onBack }: MiBoutiquePageProps) {
                 <Header onBack={onBack} onLogout={() => { }} />
             </div>
             <div className="pt-16"> {/* Add padding for fixed header */}
-                <MacroDashboard />
+                <WeeklyReportDashboard />
             </div>
         </div>
     );
