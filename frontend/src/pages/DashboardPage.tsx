@@ -11,14 +11,8 @@ import EfficientFrontierChart from '../components/charts/EfficientFrontierChart'
 import PortfolioTable from '../components/PortfolioTable'
 import { PortfolioMetricsCards } from '../components/PortfolioMetricsCards'
 import ComparativeFundHistoryChart from '../components/charts/ComparativeFundHistoryChart'
-import EquityDistribution from '../components/dashboard/EquityDistribution'
-import FixedIncomeDistribution from '../components/dashboard/FixedIncomeDistribution'
-import { DataQualityBadge, gradePortfolioQuality } from '../components/dashboard/DataQualityBadge' // [NEW]
-
-
-
-import SmartBars from '../components/dashboard/SmartBars'
-import GeoBars from '../components/dashboard/GeoBars'
+import { DataQualityBadge, gradePortfolioQuality } from '../components/dashboard/DataQualityBadge'
+import AssetDistributionWidget from '../components/dashboard/AssetDistributionWidget'
 
 // Utilities & Services
 
@@ -33,27 +27,16 @@ import { MacroReport } from '../types/MacroReport'
 
 import { lazyWithRetry } from '../utils/lazyWithRetry'
 
-// Modals (Code Splitting with Retry)
 const CostsModal = lazyWithRetry(() => import('../components/modals/CostsModal'))
 const TacticalModal = lazyWithRetry(() => import('../components/modals/TacticalModal'))
-const MacroTacticalModal = lazyWithRetry(() => import('../components/modals/MacroTacticalModal')) // RESTORED
+const MacroTacticalModal = lazyWithRetry(() => import('../components/modals/MacroTacticalModal'))
 const OptimizationReviewModal = lazyWithRetry(() => import('../components/modals/OptimizationReviewModal'))
 const VipFundsModal = lazyWithRetry(() => import('../components/VipFundsModal'))
-const SharpeMaximizerModal = lazyWithRetry(() => import('../components/modals/SharpeMaximizerModal')) // NEW
-const SavedPortfoliosModal = lazyWithRetry(() => import('../components/SavedPortfoliosModal')) // NEW
-
-import FundDetailModal from '../components/FundDetailModal'
-// ... (imports) ...
-
-// ... (inside DashboardPage) ...
-
-{/* MODALS */ }
-
-import { FundSwapModal } from '../components/FundSwapModal'
-
-
-
-
+const SharpeMaximizerModal = lazyWithRetry(() => import('../components/modals/SharpeMaximizerModal'))
+const SavedPortfoliosModal = lazyWithRetry(() => import('../components/SavedPortfoliosModal'))
+const FundDetailModal = lazyWithRetry(() => import('../components/FundDetailModal'))
+const FundSwapModal = lazyWithRetry(() => import('../components/FundSwapModal').then(m => ({ default: m.FundSwapModal })))
+const PortfolioAnalysisModal = lazyWithRetry(() => import('../components/modals/PortfolioAnalysisModal'))
 interface DashboardPageProps {
     onLogout: () => void;
     onOpenMiBoutique: () => void;
@@ -121,7 +104,9 @@ export default function DashboardPage({
         handleAcceptPortfolio,
         handleMacroApply,
         handleImportCSV,
-        handleRoundDecimals // NEW
+        handleRoundDecimals,
+        handleAnalyzePortfolio, // NEW
+        analysisResult // NEW
     } = usePortfolioActions({
         portfolio, setPortfolio,
         assets, riskLevel,
@@ -232,7 +217,13 @@ export default function DashboardPage({
                 onOpenRetirement={onOpenRetirement}
                 onOpenComparator={onOpenComparator}
             >
-                {/* Clean header, no version or toggle */}
+                <button
+                    onClick={handleAnalyzePortfolio}
+                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest animate-pulse"
+                    title="Analizar carteras, correlaciones y alternativas"
+                >
+                    <span>🔍</span> Analizar Cartera
+                </button>
             </Header>
 
             <div className="flex flex-1 overflow-hidden p-6 gap-6">
@@ -247,12 +238,12 @@ export default function DashboardPage({
                         {/* Efficient Frontier Chart */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
                                     Frontera Eficiente
                                 </h3>
                             </div>
                             <div className="flex-1 w-full min-h-0 relative">
-                                <span className="absolute top-2 left-0 right-0 text-center text-slate-300 font-bold text-[9px] uppercase tracking-widest z-10 pointer-events-none">
+                                <span className="absolute top-2 left-0 right-0 text-center text-slate-500 font-bold text-[9px] uppercase tracking-widest z-10 pointer-events-none">
                                     Riesgo vs Retorno (3Y)
                                 </span>
                                 <div className="absolute inset-0 pt-6 pb-2 px-2">
@@ -268,7 +259,7 @@ export default function DashboardPage({
 
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
                                     Métricas Clave
                                 </h3>
                             </div>
@@ -303,7 +294,7 @@ export default function DashboardPage({
                         <div className="flex-1 bg-white overflow-hidden relative flex flex-col">
                             <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0 relative">
                                 <div className="flex items-center gap-3">
-                                    <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+                                    <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
                                         Cartera de Fondos <span className="text-slate-400">({portfolio.length})</span>
                                     </h3>
                                     {/* [NEW] Data Quality Badge */}
@@ -313,10 +304,10 @@ export default function DashboardPage({
                                 {/* Separator Line with Padding */}
                                 <div className="absolute bottom-0 left-0 right-0 mx-6 border-b border-black/80"></div>
                                 <div className="flex items-center gap-3 text-xs">
-                                    <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Capital</span>
+                                    <span className="text-slate-600 font-bold uppercase tracking-wider text-[10px]">Capital</span>
                                     <div className="flex items-center border border-slate-200 rounded px-2 py-1 bg-slate-50">
                                         <input type="number" value={totalCapital} onChange={(e) => setTotalCapital(parseFloat(e.target.value))} className="bg-transparent text-slate-700 font-mono w-20 text-right text-sm outline-none" />
-                                        <span className="text-slate-400 text-[10px] font-bold ml-1">EUR</span>
+                                        <span className="text-slate-600 text-[10px] font-bold ml-1">EUR</span>
                                     </div>
                                     <div className="h-4 w-px bg-slate-100 mx-1"></div>
 
@@ -324,7 +315,7 @@ export default function DashboardPage({
 
                                     <button
                                         onClick={handleRoundDecimals}
-                                        className="flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 hover:text-emerald-800 px-2 py-1 rounded border border-emerald-200 transition-colors text-[10px] font-bold uppercase tracking-wider"
+                                        className="flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-[#0B2545] hover:text-[#0B2545] px-2 py-1 rounded border border-emerald-200 transition-colors text-[10px] font-bold uppercase tracking-wider"
                                         title="Redondear capitales (eliminar decimales)"
                                     >
                                         <span>🪄</span> Redondear
@@ -349,40 +340,11 @@ export default function DashboardPage({
 
                 <div className="flex-1 h-full flex flex-col overflow-y-auto scrollbar-thin gap-6">
                     <div className="flex flex-col gap-6 flex-1">
-                        <div className="bg-white border border-slate-100 rounded-xl shadow-sm flex flex-col shrink-0 h-full group hover:border-slate-200 transition-colors">
-                            <div className="p-4 border-b border-slate-50 flex justify-between items-center">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
-                                    Distribución de Activos
-                                </h3>
-                            </div>
-
-                            <div className="flex flex-col h-full bg-white">
-
-                                {/* Row 1: Equity & Fixed Income Distribution (Floating with Separator) */}
-                                <div className="flex px-4 pt-4 border-b border-slate-50 flex-[1.1] min-h-0">
-                                    <div className="flex-1 h-full overflow-hidden pr-6 border-r border-slate-100">
-                                        <EquityDistribution portfolio={portfolio} />
-                                    </div>
-                                    <div className="flex-1 h-full overflow-hidden pl-6">
-                                        <FixedIncomeDistribution portfolio={portfolio} />
-                                    </div>
-                                </div>
-
-                                {/* Row 2: Donuts (Smaller) */}
-                                {/* Row 2: Donuts (Floating) */}
-                                <div className="flex flex-col px-4 pb-6 min-h-0 flex-1">
-                                    <div className="grid grid-cols-2 gap-4 flex-1 min-h-0">
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
-                                            <SmartBars allocation={allocData} />
-                                        </div>
-                                        <div className="h-full relative flex flex-col items-center justify-center overflow-hidden">
-                                            {/* [FIX] Use Backend Region Allocation mapped to label/value */}
-                                            <GeoBars allocation={regionAllocation.map(r => ({ label: r.name, value: r.value }))} />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <AssetDistributionWidget
+                            portfolio={portfolio}
+                            allocData={allocData}
+                            regionAllocation={regionAllocation}
+                        />
                     </div>
 
                     <div className="shrink-0 pb-0">
@@ -411,6 +373,7 @@ export default function DashboardPage({
                     />
                 )}
                 {selectedFund && <FundDetailModal fund={selectedFund} onClose={() => setSelectedFund(null)} />}
+                {modals.analysis && analysisResult && <PortfolioAnalysisModal result={analysisResult} onClose={() => toggleModal('analysis', false)} />}
                 <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} onRefresh={handleOpenSwap} />
             </Suspense>
         </div >

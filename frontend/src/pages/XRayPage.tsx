@@ -237,7 +237,7 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                     <div className="border-t border-[#eeeeee] pt-20 mt-20 mb-20 pb-20">
                         <div className="flex justify-between items-center mb-10">
                             <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Frontera Eficiente</h3>
-                            <div className="text-xs font-bold text-[#A07147] uppercase tracking-[0.2em] bg-slate-50 px-3 py-1 rounded">Optimización Markowitz</div>
+                            <div className="text-xs font-bold text-[#0B2545] uppercase tracking-[0.2em] bg-slate-50 px-3 py-1 rounded">Optimización Markowitz</div>
                         </div>
                         <div className="h-[450px] w-full bg-[#fcfcfc] border border-[#f0f0f0] p-6 relative">
                             <EfficientFrontierChart

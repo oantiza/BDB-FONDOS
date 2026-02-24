@@ -205,7 +205,7 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
             {/* Editorial Header */}
             <div className="mb-6 flex justify-between items-end border-b border-black pb-2">
                 <div>
-                    <span className="text-[#A07147] text-xs uppercase tracking-[0.2em] font-bold block mb-1">Análisis Histórico</span>
+                    <span className="text-[#0B2545] text-xs uppercase tracking-[0.2em] font-bold block mb-1">Análisis Histórico</span>
                     <h3 className="text-[#2C3E50] text-xl font-light tracking-tight">Rentabilidad Acumulada <span className="text-gray-400 text-sm">(10 Años)</span></h3>
                 </div>
                 {/* Period Stamp */}
@@ -219,7 +219,7 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
                 <div className="h-[400px] w-full relative group">
                     {loading && (
                         <div className="absolute inset-0 z-10 bg-white/80 backdrop-blur-sm flex items-center justify-center">
-                            <span className="text-[#A07147] font-bold text-xs uppercase tracking-widest animate-pulse">Cargando Historia...</span>
+                            <span className="text-[#0B2545] font-bold text-xs uppercase tracking-widest animate-pulse">Cargando Historia...</span>
                         </div>
                     )}
                     {chartData.datasets.length > 0 ? (
@@ -237,7 +237,7 @@ export default function ComparativeFundHistoryChart({ funds }: ComparativeFundHi
                     <div className="flex justify-between items-center mb-3">
                         <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">Fondos Seleccionados</span>
                         <div className="flex gap-4 text-[10px] uppercase font-bold tracking-wider">
-                            <button onClick={() => toggleAll(true)} className="text-[#0B2545] hover:text-[#A07147] transition-colors">Ver Todos</button>
+                            <button onClick={() => toggleAll(true)} className="text-[#0B2545] hover:text-[#0B2545] transition-colors">Ver Todos</button>
                             <button onClick={() => toggleAll(false)} className="text-gray-400 hover:text-red-500 transition-colors">Ocultar</button>
                         </div>
                     </div>

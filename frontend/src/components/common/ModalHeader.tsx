@@ -10,7 +10,7 @@ interface ModalHeaderProps {
 
 export default function ModalHeader({ title, subtitle, onClose, icon, compact = false }: ModalHeaderProps) {
     return (
-        <div className={`${compact ? 'p-3' : 'p-4'} border-b border-white/10 bg-gradient-to-r from-[#003399] to-[#0055CC] flex justify-between items-center shrink-0 shadow-md relative overflow-hidden`}>
+        <div className={`${compact ? 'p-3' : 'p-4'} border-b border-slate-600 bg-gradient-to-r from-slate-800 to-slate-700 flex justify-between items-center shrink-0 shadow-sm relative overflow-hidden`}>
             <div className="relative z-10 flex items-center gap-3">
                 {icon && (
                     <div className="h-8 w-8 bg-white/10 rounded-full flex items-center justify-center border border-white/20 backdrop-blur-sm text-white">

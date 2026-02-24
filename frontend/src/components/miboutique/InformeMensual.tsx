@@ -1,6 +1,5 @@
 "use client";
 import React, { useState, useEffect } from 'react';
-// @ts-ignore
 import { PieChart, Pie, Cell, Tooltip } from 'recharts';
 import { TrendingUp, TrendingDown, Minus, Shield, Globe } from 'lucide-react';
 import DeepResearchSection from './DeepResearchSection';

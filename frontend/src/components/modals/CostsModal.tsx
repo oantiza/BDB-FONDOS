@@ -69,7 +69,7 @@ export default function CostsModal({ portfolio, assets = [], totalCapital = 1000
                     <div className="grid grid-cols-12 gap-8 mb-8">
                         {/* Input Control */}
                         <div className="col-span-4 bg-white p-6 rounded border border-[#eeeeee] flex flex-col justify-center shadow-sm">
-                            <label className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-2 block">Coeficiente de Margen</label>
+                            <label className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-2 block">Coeficiente de Margen</label>
                             <div className="flex items-center gap-2">
                                 <input
                                     type="number"
@@ -77,7 +77,7 @@ export default function CostsModal({ portfolio, assets = [], totalCapital = 1000
                                     min="0"
                                     value={margin}
                                     onChange={(e) => setMargin(parseFloat(e.target.value) || 0)}
-                                    className="w-full text-2xl font-light text-[#2C3E50] border-b border-[#A07147] outline-none pb-1"
+                                    className="w-full text-2xl font-light text-[#2C3E50] border-b border-[#0B2545] outline-none pb-1"
                                 />
                                 <span className="text-xs font-bold text-[#2C3E50]">x Base</span>
                             </div>
@@ -108,11 +108,11 @@ export default function CostsModal({ portfolio, assets = [], totalCapital = 1000
                     <table className="w-full text-sm text-left border-collapse">
                         <thead>
                             <tr className="border-b border-[#eeeeee]">
-                                <th className="py-3 font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Fondo / Activo</th>
-                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Peso</th>
-                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Capital</th>
-                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px]">Base</th>
-                                <th className="py-3 text-right font-bold text-[#A07147] uppercase tracking-[0.1em] text-[10px] bg-slate-50/50">Margen</th>
+                                <th className="py-3 font-bold text-[#0B2545] uppercase tracking-[0.1em] text-[10px]">Fondo / Activo</th>
+                                <th className="py-3 text-right font-bold text-[#0B2545] uppercase tracking-[0.1em] text-[10px]">Peso</th>
+                                <th className="py-3 text-right font-bold text-[#0B2545] uppercase tracking-[0.1em] text-[10px]">Capital</th>
+                                <th className="py-3 text-right font-bold text-[#0B2545] uppercase tracking-[0.1em] text-[10px]">Base</th>
+                                <th className="py-3 text-right font-bold text-[#0B2545] uppercase tracking-[0.1em] text-[10px] bg-slate-50/50">Margen</th>
                                 <th className="py-3 text-right font-bold text-[#2C3E50] uppercase tracking-[0.1em] text-[10px]">Retro. Final</th>
                                 <th className="py-3 text-right font-bold text-[#2C3E50] uppercase tracking-[0.1em] text-[10px]">Ingreso (€)</th>
                             </tr>

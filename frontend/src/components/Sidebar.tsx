@@ -175,7 +175,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
   return (
     <div className="w-full h-full bg-white border-r border-slate-100 shadow-sm z-10 p-0 flex flex-col shrink-0 text-slate-700">
       <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0">
-        <h3 className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2">
+        <h3 className="text-base font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
           Universo de Inversión
         </h3>
       </div>
@@ -195,7 +195,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
               type="checkbox"
               checked={showNoHistory}
               onChange={(e) => setShowNoHistory(e.target.checked)}
-              className="rounded border-slate-300 text-[#A07147] focus:ring-[#A07147]"
+              className="rounded border-slate-300 text-[#0B2545] focus:ring-[#0B2545]"
             />
             Mostrar sin histórico
           </label>
@@ -240,12 +240,12 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
             return (
               <div
                 key={f.isin}
-                className={`p-3 border-b border-slate-50 hover:bg-slate-50 flex justify-between items-center group transition-colors ${showWarn ? 'opacity-80 bg-yellow-50/10' : ''
+                className={`py-4 px-3 border-b border-slate-50 hover:bg-slate-50 flex justify-between items-center group transition-colors ${showWarn ? 'opacity-80 bg-yellow-50/10' : ''
                   }`}
               >
                 <div className="min-w-0 pr-2 flex-1">
                   <div
-                    className="text-sm font-normal text-[#2C3E50] truncate leading-tight flex items-center gap-2"
+                    className="text-sm font-semibold text-[#2C3E50] truncate leading-tight flex items-center gap-2"
                     title="Ver detalle del fondo"
                   >
                     <span
@@ -263,7 +263,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
                       </span>
                     )}
                   </div>
-                  <div className="text-[10px] text-[#A07147] font-bold uppercase tracking-wider mt-1">
+                  <div className="text-[10px] text-[#0B2545] font-bold uppercase tracking-wider mt-1">
                     {f.isin}
                   </div>
                 </div>

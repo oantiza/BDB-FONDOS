@@ -36,7 +36,7 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
             <div className="w-[50%] flex flex-col items-center justify-start pr-8 border-r border-slate-100">
                 <div className="flex items-center gap-4 mb-4 justify-center shrink-0">
                     <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Composición Global</h3>
-                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Activo Subyacente</span>
+                    <span className="text-[#0B2545] text-[10px] uppercase tracking-[0.2em] font-bold">Por Activo Subyacente</span>
                 </div>
                 <div className="w-full flex flex-col items-center justify-center">
                     {/* BAR CHART DISPLAY */}
@@ -46,7 +46,7 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
 
                     {/* NEW: Asset Class Summary (3 Categories) */}
                     <div className="w-full max-w-[500px] mt-2 mb-8 border-t border-slate-100 pt-6">
-                        <h4 className="text-center text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
+                        <h4 className="text-center text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
                         <div className="grid grid-cols-3 gap-2">
                             {/* 1. Renta Variable */}
                             <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
@@ -67,7 +67,7 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
                             {/* 3. Otros y Liquidez */}
                             <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
                                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
-                                <span className="text-lg font-medium text-[#A07147]">
+                                <span className="text-lg font-medium text-[#0B2545]">
                                     {(globalAllocation.cash + globalAllocation.other).toFixed(1)}%
                                 </span>
                             </div>
@@ -92,7 +92,7 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
             <div className="w-[50%] flex flex-col items-center justify-start pl-8">
                 <div className="flex items-center gap-4 mb-4 justify-center shrink-0">
                     <h3 className="text-[#2C3E50] text-3xl font-light tracking-tight">Diversificación (RV)</h3>
-                    <span className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold">Por Geografía</span>
+                    <span className="text-[#0B2545] text-[10px] uppercase tracking-[0.2em] font-bold">Por Geografía</span>
                 </div>
                 <div className="hidden"></div>
                 <div className="mt-8 w-full max-w-[550px]">

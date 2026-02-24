@@ -12,7 +12,7 @@ interface MetricCardProps {
 export default function MetricCard({ label, value, subValue, color = "text-[#2C3E50]", subColor }: MetricCardProps) {
     return (
         <div className="bg-[#fcfcfc] border border-[#eeeeee] p-4 flex flex-col justify-center items-center text-center hover:border-[#dcdcdc] transition-colors rounded-lg">
-            <div className="text-[10px] uppercase font-bold text-[#A07147] tracking-[0.2em] mb-2">
+            <div className="text-[10px] uppercase font-bold text-[#0B2545] tracking-[0.2em] mb-2">
                 {label}
             </div>
             <div className={`text-2xl font-light tracking-tight ${color}`}>

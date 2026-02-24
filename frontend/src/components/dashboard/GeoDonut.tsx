@@ -3,7 +3,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js'
 
 ChartJS.register(ArcElement, Tooltip, Legend)
 
-const PALETTE = ['#0B2545', '#A07147', '#1E3A8A', '#D4AF37', '#64748B'] // Navy, Gold, Dark Blue, Light Gold, Slate
+const PALETTE = ['#0F172A', '#2563EB', '#059669', '#F59E0B', '#DC2626', '#7C3AED', '#64748B']
 
 interface GeoData {
     label: string;
@@ -51,7 +51,7 @@ export default function GeoDonut({ allocation = [] }: { allocation: GeoData[] })
             <div className="flex-1 w-full relative min-h-0">
                 <Doughnut data={data} options={options} />
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">Región</span>
+                    <span className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em]">Región</span>
                 </div>
             </div>
             <div className="flex flex-wrap gap-x-3 gap-y-1 justify-center mt-2 px-2 h-16 overflow-y-auto scrollbar-none shrink-0">

@@ -110,7 +110,7 @@ export default function OptimizationSuggestionsModal({ suggestions, onApply, onC
                                                 <div
                                                     key={fund.isin || idx}
                                                     onClick={() => handleSelect(original.isin, fund)}
-                                                    className={`cursor-pointer rounded-lg border-2 p-3 transition-all relative ${isSelected ? 'border-[var(--color-accent)] bg-[#A07147]/10' : 'border-slate-100 hover:border-[var(--color-accent)]/50'}`}
+                                                    className={`cursor-pointer rounded-lg border-2 p-3 transition-all relative ${isSelected ? 'border-[var(--color-accent)] bg-[#0B2545]/10' : 'border-slate-100 hover:border-[var(--color-accent)]/50'}`}
                                                 >
                                                     <div className="flex justify-between items-start mb-2">
                                                         <span className="bg-green-100 text-green-700 text-[10px] font-bold px-2 py-0.5 rounded border border-green-200">

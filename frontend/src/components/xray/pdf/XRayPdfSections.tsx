@@ -161,14 +161,11 @@ export default function XRayPdfSections({
                     <div className="space-y-12">
                         {strategyReport.house_view_summary && (
                             <div className="bg-[#fcfcfc] border border-[#f0f0f0] p-10 text-center mb-12">
-                                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">Visión de la Casa</h3>
+                                <h3 className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">Visión de la Casa</h3>
                                 <p className="font-light italic text-4xl text-[#2C3E50] leading-relaxed">"{strategyReport.house_view_summary}"</p>
                             </div>
                         )}
                         <div className="grid grid-cols-3 gap-12 items-start">
-                            {/* ... (Keep existing content logic, simplified for brevity in this view but should be fully present) ... */}
-                            {/* Simplified for tool limit, but in real write I would keep content. Assuming I need to verify structure mostly. */}
-                            {/* Re-inserting the content logic to ensure no regression */}
                             <StrategyMatrixContent strategyReport={strategyReport} />
                         </div>
                     </div>
@@ -179,10 +176,6 @@ export default function XRayPdfSections({
             {/* 4. PAGINATION PAGES (Composition) */}
             {compositionPages.map((pageRows, pageIndex) => (
                 <div id={`pdf-composition-page-${pageIndex}`} key={pageIndex} className="relative bg-white px-8 pb-0 pt-3" style={{ width: '1200px', height: '1697px', marginBottom: '20px' }}>
-                    {/* ADDED HEIGHT TO FORCE A4 ON THESE TOO for consistency if needed, checking existing code it didn't have height but for pagination it implies pages. */}
-                    {/* The layout before relied on auto height maybe? But to put footer at bottom we might need fixed height or just padding bottom. */}
-                    {/* I will use min-height or standard height to ensure footer placement. */}
-
                     <div className="h-16 bg-gradient-to-r from-blue-50 to-white text-slate-800 flex items-center px-6 border-b border-blue-100 mb-8 w-full">
                         <span className="font-light text-[33px] tracking-tight leading-none pb-4">Análisis de <span className="font-bold">Cartera</span> {compositionPages.length > 1 ? `(${pageIndex + 1}/${compositionPages.length})` : ''}</span>
                     </div>
@@ -193,9 +186,9 @@ export default function XRayPdfSections({
                     <table className="w-full text-left border-collapse">
                         <thead>
                             <tr className="border-b border-black h-10">
-                                <th className="py-2 pl-4 text-[#A07147] text-xl uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
-                                <th className="py-2 text-[#A07147] text-xl uppercase tracking-[0.2em] font-bold text-right">Peso</th>
-                                <th className="py-2 pr-4 text-[#A07147] text-xl uppercase tracking-[0.2em] font-bold text-right">Capital</th>
+                                <th className="py-2 pl-4 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
+                                <th className="py-2 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold text-right">Peso</th>
+                                <th className="py-2 pr-4 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold text-right">Capital</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -204,21 +197,21 @@ export default function XRayPdfSections({
                                 if (row.type === 'fund') {
                                     const fund = row.content;
                                     return (
-                                        <tr key={fund.isin} className="last:border-0 hover:bg-[#fcfcfc] transition-colors">
+                                        <tr key={fund.isin} className="border-b border-slate-200 last:border-0 hover:bg-[#fcfcfc] transition-colors">
                                             <td className="pr-8 pl-4 py-3 align-top">
-                                                <div className="text-[#2C3E50] font-[450] text-xl leading-tight mb-1">{fund.name}</div>
+                                                <div className="text-[#2C3E50] font-[450] text-lg leading-tight mb-1">{fund.name}</div>
                                             </td>
-                                            <td className="align-top text-right text-[#2C3E50] font-[450] text-xl tabular-nums py-3">{Number(fund.weight || 0).toFixed(2)}%</td>
-                                            <td className="align-top text-right pr-4 text-[#2C3E50] font-[450] text-xl tabular-nums py-3">{((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</td>
+                                            <td className="align-top text-right text-[#2C3E50] font-[450] text-lg tabular-nums py-3">{Number(fund.weight || 0).toFixed(2)}%</td>
+                                            <td className="align-top text-right pr-4 text-[#2C3E50] font-[450] text-lg tabular-nums py-3">{((fund.weight / 100) * totalCapital).toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</td>
                                         </tr>
                                     );
                                 }
                                 if (row.type === 'total') {
                                     return (
                                         <tr key="total" className="border-t border-black">
-                                            <td className="py-6 pl-4 text-3xl font-[550] text-[#2C3E50] tracking-tight">TOTAL CARTERA</td>
-                                            <td className="py-6 text-right font-[550] text-[#2C3E50] text-3xl tabular-nums">100.00%</td>
-                                            <td className="py-6 pr-4 text-right font-[550] text-[#2C3E50] text-3xl tabular-nums">{totalCapital.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</td>
+                                            <td className="py-6 pl-4 text-2xl font-[550] text-[#2C3E50] tracking-tight">TOTAL CARTERA</td>
+                                            <td className="py-6 text-right font-[550] text-[#2C3E50] text-2xl tabular-nums">100.00%</td>
+                                            <td className="py-6 pr-4 text-right font-[550] text-[#2C3E50] text-2xl tabular-nums">{totalCapital.toLocaleString('es-ES', { style: 'currency', currency: 'EUR' })}</td>
                                         </tr>
                                     );
                                 }
@@ -259,7 +252,7 @@ export default function XRayPdfSections({
                     <div className="flex justify-between items-start" style={{ marginBottom: '40px' }}>
                         <div className="w-[45%] flex flex-col items-center">
                             <h3 className="text-black text-[47px] font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
-                                Composición Global <span className="block text-lg font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Activo Subyacente</span>
+                                Composición Global <span className="block text-lg font-bold text-[#0B2545] tracking-[0.2em] mt-2 uppercase">Por Activo Subyacente</span>
                             </h3>
                             <div className="w-full max-w-[400px]">
                                 <GlobalAllocationChart data={
@@ -280,7 +273,7 @@ export default function XRayPdfSections({
 
                             {/* NEW: Asset Class Summary for PDF */}
                             <div className="w-full max-w-[360px] mt-8 border-t border-[#eeeeee] pt-4">
-                                <h4 className="text-center text-[9px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
+                                <h4 className="text-center text-[9px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
                                 <div className="grid grid-cols-3 gap-2">
                                     <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
                                         <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Var.</span>
@@ -292,14 +285,14 @@ export default function XRayPdfSections({
                                     </div>
                                     <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
                                         <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
-                                        <span className="text-lg font-medium text-[#A07147]">{(globalAllocation.cash + globalAllocation.other).toFixed(1)}%</span>
+                                        <span className="text-lg font-medium text-[#0B2545]">{(globalAllocation.cash + globalAllocation.other).toFixed(1)}%</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className="w-[50%] flex flex-col items-center">
                             <h3 className="text-black text-[47px] font-light tracking-tight mb-[40px] text-center w-full border-b border-[#eeeeee] pb-4">
-                                Diversificación <span className="block text-lg font-bold text-[#A07147] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
+                                Diversificación <span className="block text-lg font-bold text-[#0B2545] tracking-[0.2em] mt-2 uppercase">Por Geografía (RV)</span>
                             </h3>
                             <div className="w-full mt-4 max-w-[360px]">
                                 <EquityRegionChart data={regionAllocation.slice(0, 5)} />
@@ -321,7 +314,7 @@ export default function XRayPdfSections({
                             />
                         </div>
                         <div className="w-[90%] mx-auto mt-6 px-1">
-                            <h4 className="text-base font-bold text-[#A07147] uppercase tracking-widest mb-1">Curva de Rendimiento Ideal</h4>
+                            <h4 className="text-base font-bold text-[#0B2545] uppercase tracking-widest mb-1">Curva de Rendimiento Ideal</h4>
                             <p className="text-lg text-slate-500 font-light leading-relaxed">
                                 Representa el límite del "mejor resultado posible": es la línea que marca el máximo beneficio que se puede obtener para cada nivel de riesgo asumido.
                             </p>
@@ -377,7 +370,7 @@ export default function XRayPdfSections({
                         </div>
                         <div className="mt-6 px-1">
                             {/* INCREASED LABEL AND TEXT SIZE */}
-                            <h4 className="text-base font-bold text-[#A07147] uppercase tracking-widest mb-1">Balance de Eficiencia</h4>
+                            <h4 className="text-base font-bold text-[#0B2545] uppercase tracking-widest mb-1">Balance de Eficiencia</h4>
                             <p className="text-xl text-slate-500 font-light leading-relaxed">
                                 Este gráfico mide el beneficio frente a la estabilidad: cuanto más alto está su punto, más gana; cuanto más a la izquierda, más protegida está su inversión. Buscamos situarle siempre en la zona de máxima rentabilidad con el menor riesgo posible.
                             </p>
@@ -451,7 +444,7 @@ export default function XRayPdfSections({
                     {/* 1. Volatilidad */}
                     <div>
                         <h3 className="text-[#2C3E50] font-bold text-2xl uppercase tracking-widest mb-1">1. Volatilidad</h3>
-                        <div className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">El indicador de estabilidad <span className="text-black font-normal normal-case">(¿Cuánto se mueve?)</span></div>
+                        <div className="text-base font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">El indicador de estabilidad <span className="text-black font-normal normal-case">(¿Cuánto se mueve?)</span></div>
 
                         <p className="text-xl text-slate-600 font-light leading-relaxed text-justify bg-slate-50 p-4 rounded border border-slate-100">
                             <span className="font-bold text-[#2C3E50]">Interpretación:</span> A menudo se asocia erróneamente con "pérdida", pero técnicamente mide la incertidumbre. Una volatilidad baja refleja un comportamiento estable y tranquilo; una volatilidad alta implica oscilaciones más fuertes en el corto plazo. Nuestro objetivo es mantenerla siempre dentro del nivel de confort que usted ha definido.
@@ -461,7 +454,7 @@ export default function XRayPdfSections({
                     {/* 2. Ratio de Sharpe */}
                     <div>
                         <h3 className="text-[#2C3E50] font-bold text-2xl uppercase tracking-widest mb-1">2. Ratio de Sharpe</h3>
-                        <div className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">La calidad de la rentabilidad <span className="text-black font-normal normal-case">(¿Vale la pena el riesgo?)</span></div>
+                        <div className="text-base font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">La calidad de la rentabilidad <span className="text-black font-normal normal-case">(¿Vale la pena el riesgo?)</span></div>
 
                         <p className="text-xl text-slate-600 font-light leading-relaxed text-justify bg-slate-50 p-4 rounded border border-slate-100">
                             <span className="font-bold text-[#2C3E50]">Interpretación:</span> Nos dice cuánta rentabilidad extra estamos obteniendo por cada unidad de riesgo que asumimos. Un ratio alto es señal de una gestión excelente: significa que los beneficios se logran mediante decisiones inteligentes y no exponiendo su capital a peligros innecesarios.
@@ -471,7 +464,7 @@ export default function XRayPdfSections({
                     {/* 3. Max Drawdown */}
                     <div>
                         <h3 className="text-[#2C3E50] font-bold text-2xl uppercase tracking-widest mb-1">3. Max Drawdown (Caída Máxima)</h3>
-                        <div className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">La prueba de resistencia <span className="text-black font-normal normal-case">(¿Cuál es el peor escenario?)</span></div>
+                        <div className="text-base font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">La prueba de resistencia <span className="text-black font-normal normal-case">(¿Cuál es el peor escenario?)</span></div>
 
                         <p className="text-xl text-slate-600 font-light leading-relaxed text-justify bg-slate-50 p-4 rounded border border-slate-100">
                             <span className="font-bold text-[#2C3E50]">Interpretación:</span> Representa la máxima caída acumulada que ha registrado la cartera desde un punto máximo anterior hasta que se recupera. Un dato controlado demuestra que la cartera tiene buenos mecanismos de defensa y solidez para proteger el patrimonio en ciclos bajistas.
@@ -481,7 +474,7 @@ export default function XRayPdfSections({
                     {/* 4. Frontera Eficiente */}
                     <div>
                         <h3 className="text-[#2C3E50] font-bold text-2xl uppercase tracking-widest mb-1">4. Frontera Eficiente</h3>
-                        <div className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">El estándar de optimización <span className="text-black font-normal normal-case">(¿Es mi cartera eficiente?)</span></div>
+                        <div className="text-base font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">El estándar de optimización <span className="text-black font-normal normal-case">(¿Es mi cartera eficiente?)</span></div>
 
                         <p className="text-xl text-slate-600 font-light leading-relaxed text-justify bg-slate-50 p-4 rounded border border-slate-100">
                             <span className="font-bold text-[#2C3E50]">Interpretación:</span> Cualquier punto situado sobre esta línea indica que la cartera está obteniendo la máxima rentabilidad posible para ese nivel de riesgo. Estar en la frontera eficiente significa que su dinero está trabajando a su máximo potencial; estar muy por debajo implicaría que podríamos obtener más retorno sin asumir más riesgo.
@@ -491,7 +484,7 @@ export default function XRayPdfSections({
                     {/* 5. Mapa de Riesgo-Retorno */}
                     <div>
                         <h3 className="text-[#2C3E50] font-bold text-2xl uppercase tracking-widest mb-1">5. Mapa de Riesgo-Retorno</h3>
-                        <div className="text-base font-bold text-[#A07147] uppercase tracking-[0.2em] mb-6">El contexto visual <span className="text-black font-normal normal-case">(¿Dónde estoy situado?)</span></div>
+                        <div className="text-base font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-6">El contexto visual <span className="text-black font-normal normal-case">(¿Dónde estoy situado?)</span></div>
 
                         <p className="text-xl text-slate-600 font-light leading-relaxed text-justify bg-slate-50 p-4 rounded border border-slate-100">
                             <span className="font-bold text-[#2C3E50]">Interpretación:</span> El eje horizontal representa el Riesgo (Volatilidad) y el eje vertical el Retorno (Rentabilidad). <br /><br />
@@ -519,7 +512,7 @@ const StrategyMatrixContent = ({ strategyReport }: { strategyReport: any }) => (
             <div className="space-y-8">
                 {['geo', 'sectors'].map(k => (
                     <div key={k}>
-                        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'geo' ? 'Geográfico' : 'Sectores'}</h4>
+                        <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'geo' ? 'Geográfico' : 'Sectores'}</h4>
                         <div className="space-y-3">
                             {strategyReport.equity?.[k]?.map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between items-center group">
@@ -540,7 +533,7 @@ const StrategyMatrixContent = ({ strategyReport }: { strategyReport: any }) => (
             <div className="space-y-8">
                 {['subsectors', 'geo'].map(k => (
                     <div key={k}>
-                        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'geo' ? 'Geográfico' : 'Subsectores'}</h4>
+                        <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'geo' ? 'Geográfico' : 'Subsectores'}</h4>
                         <div className="space-y-3">
                             {strategyReport.fixed_income?.[k]?.map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between items-center group">
@@ -561,7 +554,7 @@ const StrategyMatrixContent = ({ strategyReport }: { strategyReport: any }) => (
             <div className="space-y-8">
                 {['commodities', 'currencies'].map(k => (
                     <div key={k}>
-                        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'commodities' ? 'Materias Primas' : 'Divisas'}</h4>
+                        <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4 border-b border-[#eeeeee] pb-1 w-full block">{k === 'commodities' ? 'Materias Primas' : 'Divisas'}</h4>
                         <div className="space-y-3">
                             {strategyReport.real_assets?.[k]?.map((item: any, i: number) => (
                                 <div key={i} className="flex justify-between items-center group">

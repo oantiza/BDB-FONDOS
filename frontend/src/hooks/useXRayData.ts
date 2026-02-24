@@ -89,7 +89,7 @@ export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
         ).sort((a, b) => a[0].localeCompare(b[0]));
 
         grouped.forEach(([category, funds]) => {
-            // rows.push({ type: 'header', content: category }); // Removed per user request
+            // rows.push({ type: 'header', content: category });
             funds.sort((a, b) => b.weight - a.weight).forEach(fund => {
                 rows.push({ type: 'fund', content: fund });
             });

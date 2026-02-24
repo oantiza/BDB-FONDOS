@@ -33,7 +33,7 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
 
         return (
             <div className="flex flex-col items-center px-6">
-                <span className="text-[9px] uppercase font-bold text-[#A07147] tracking-widest mb-2">{label}</span>
+                <span className="text-[9px] uppercase font-bold text-[#0B2545] tracking-widest mb-2">{label}</span>
                 {/* Main Numbers: Standard Sans-Serif as requested */}
                 <div className="flex items-center gap-3 text-lg font-sans font-bold">
                     <span className="text-slate-400 text-sm decoration-slate-200">
@@ -116,7 +116,7 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                                 className="flex-1 group relative overflow-hidden bg-white hover:bg-slate-50 text-slate-700 py-3 rounded-lg shadow-sm transition-all border border-slate-200 hover:border-slate-300"
                             >
                                 <div className="relative z-10 flex flex-col items-center justify-center">
-                                    <span className="text-[9px] uppercase tracking-[0.2em] text-[#A07147] font-bold mb-1 group-hover:text-[#8d623b] transition-colors">Ajuste Manual</span>
+                                    <span className="text-[9px] uppercase tracking-[0.2em] text-[#0B2545] font-bold mb-1 group-hover:text-[#8d623b] transition-colors">Ajuste Manual</span>
                                     <div className="flex items-center gap-2 font-bold text-base text-[#2C3E50]">
                                         <span>Rebalanceo / Detalle</span>
                                     </div>

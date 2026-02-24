@@ -144,7 +144,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
                     {/* LEFT: ORIGINAL */}
                     <div className="w-1/2 flex flex-col bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden hover:border-slate-200 transition-colors">
                         <div className="p-4 border-b border-slate-50 flex justify-center items-center bg-[#fcfcfc]">
-                            <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
+                            <h3 className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em]">
                                 Cartera Original
                             </h3>
                         </div>
@@ -240,7 +240,7 @@ export default function TacticalModal({ currentPortfolio, proposedPortfolio, ris
 
                 {/* 3. CHART AREA */}
                 <div className="shrink-0 h-[22vh] bg-white border-t border-slate-100 flex items-center justify-center p-4 relative">
-                    <span className="absolute top-2 left-4 text-xs font-bold text-[#A07147] uppercase tracking-widest">
+                    <span className="absolute top-2 left-4 text-xs font-bold text-[#0B2545] uppercase tracking-widest">
                         Backtest Histórico (5 Años)
                     </span>
                     {isLoadingBacktest && <span className="absolute top-3 right-4 text-[10px] font-bold text-blue-500 animate-pulse uppercase tracking-wider">Cargando datos...</span>}

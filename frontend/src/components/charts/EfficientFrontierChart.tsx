@@ -43,9 +43,9 @@ const EfficientFrontierChart: React.FC<EfficientFrontierProps> = ({
         assetBg: printMode ? '#64748b' : '#cbd5e1', // Darker Slate vs Slate 300
         portfolioBg: '#D4AF37', // Gold stays gold
         portfolioBorder: printMode ? '#000000' : '#1e293b',
-        grid: printMode ? '#cbd5e1' : '#f1f5f9', // Darker grid
-        text: printMode ? '#000000' : '#94a3b8', // Pure black for print clarity
-        textTitle: printMode ? '#000000' : '#94a3b8',
+        grid: printMode ? '#cbd5e1' : '#e2e8f0', // Darker grid for normal too
+        text: printMode ? '#000000' : '#475569', // Darker gray/slate blue
+        textTitle: printMode ? '#000000' : '#334155', // Even darker for title
         borderWidth: printMode ? 2.5 : 2
     };
 

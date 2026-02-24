@@ -28,7 +28,7 @@ export const PulseCard: React.FC<PulseCardProps> = ({ title, data }) => {
         // Clean Minimalist Card
         <div className="bg-white p-6 border border-[#eeeeee] flex flex-col justify-between h-full hover:border-slate-300 transition-colors">
             <div>
-                <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3">{title}</h4>
+                <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3">{title}</h4>
                 <div className="text-2xl font-light text-[#2C3E50] mb-2 tracking-tight">{data.focus}</div>
                 <p className="text-sm text-[#7f8c8d] leading-snug">{data.note}</p>
             </div>

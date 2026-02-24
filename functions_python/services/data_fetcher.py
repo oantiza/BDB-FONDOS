@@ -106,7 +106,31 @@ class DataFetcher:
             b_range = pd.date_range(start=df.index[0], end=df.index[-1], freq='B')
             df = df.reindex(b_range)
 
-        # Step C: Fill Gaps (Professional ffill/bfill sequence)
+        # Step C1: Professional Despiking (Anomaly Removal)
+        # Prevents mathematical distortions like 2500% volatility caused by single-day db glitches
+        if not df.empty:
+            # Calculate a rolling median (window of 10 days, min_periods=3 for robustness)
+            # using 'center=False' avoids peaking into the future, but a centered window is better for offline despiking.
+            # Using forward looking window for median is fine here since it's historical data,
+            # but standard backwards rolling is safer.
+            rolling_median = df.rolling(window=10, min_periods=3).median()
+            
+            # Where rolling median is NaN (start of series), use the value itself to avoid stripping early data
+            rolling_median = rolling_median.fillna(df)
+            
+            # Calculate absolute percentage deviation
+            deviation = np.abs((df - rolling_median) / rolling_median)
+            
+            # Threshold: 30% jump in a single day is overwhelmingly likely to be a data glitch for mutual funds
+            anomaly_mask = deviation > 0.30
+            
+            if anomaly_mask.any().any():
+                anomaly_count = anomaly_mask.sum().sum()
+                print(f"🧹 [DataFetcher] Detached {anomaly_count} Anomalous 'Spike' Points (>30% variance). Removing...")
+                # Nullify the anomalies
+                df = df.mask(anomaly_mask, np.nan)
+
+        # Step C2: Fill Gaps (Professional ffill/bfill sequence)
         # We allow broad ffill to avoid zero drops in portfolio charts, UNLESS no_fill requested
         if not no_fill:
             df = df.ffill().bfill()

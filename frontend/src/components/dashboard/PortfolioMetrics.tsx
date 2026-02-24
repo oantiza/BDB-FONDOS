@@ -186,13 +186,13 @@ export default function PortfolioMetrics({
     return (
         <div className="h-full flex flex-col bg-white">
             <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10 shrink-0">
-                <h3 className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help"
+                <h3 className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2 group cursor-help"
                     title={metrics.isReal
                         ? `Métricas calculadas con matriz de covarianza real (3 Años Diaria, X-Ray Match). Cobertura del portafolio: ${(metrics.coverage * 100).toFixed(0)}%`
                         : `Métricas estimadas. Datos insuficientes para cálculo real.`}>
                     {metrics.isReal ? "Métricas (Real Diaria)" : "Métricas (Estimadas)"}
                     {(metrics.isReal && metrics.coverage < 0.9) && <span className="text-amber-500 text-[10px] font-bold">⚠️ Parcial</span>}
-                    <Info className="w-4 h-4 text-slate-400 group-hover:text-[#A07147] transition-colors" />
+                    <Info className="w-4 h-4 text-slate-400 group-hover:text-[#0B2545] transition-colors" />
                 </h3>
             </div>
             <div className="flex-1 p-6 flex items-center justify-center">

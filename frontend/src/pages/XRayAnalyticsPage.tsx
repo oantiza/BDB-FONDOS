@@ -1,6 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { functions } from '../firebase'
+import { ArrowLeft } from 'lucide-react'
 import CorrelationHeatmap from '../components/charts/CorrelationHeatmap'
 import RiskMap from '../components/charts/RiskMap'
 import XRayChart from '../components/charts/XRayChart'
@@ -83,16 +84,16 @@ export default function XRayAnalyticsPage({
         <div className="h-screen overflow-y-auto bg-[#f8fafc] font-sans text-slate-700">
             {/* PREMIER EDITORIAL HEADER */}
             {/* STANDARD HEADER */}
-            <div className="h-16 bg-gradient-to-r from-[#003399] to-[#0055CC] text-white flex items-center justify-between px-6 border-b border-white/10 sticky top-0 z-10 w-full shadow-md">
+            <div className="h-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white flex items-center justify-between px-6 border-b border-slate-600 sticky top-0 z-10 w-full shadow-sm">
                 <div className="flex items-center gap-4">
                     <button
                         onClick={onBack}
-                        className="text-white/70 hover:text-white transition-colors flex items-center gap-1 text-xs uppercase tracking-widest font-bold"
+                        className="bg-white/10 border border-white/20 text-slate-200 hover:text-white px-3 py-1.5 rounded-full hover:bg-white/20 transition-colors shadow-sm text-xs font-bold uppercase tracking-widest flex items-center gap-1"
                     >
-                        ← Volver
+                        <ArrowLeft className="w-4 h-4" /> VOLVER
                     </button>
-                    <div className="h-4 w-px bg-white/20 mx-2"></div>
-                    <span className="font-light text-xl tracking-tight leading-none">Analítica <span className="font-bold">Avanzada</span></span>
+                    <div className="h-4 w-px bg-slate-600 mx-2"></div>
+                    <span className="font-light text-xl tracking-tight leading-none text-white">Analítica <span className="font-bold text-blue-200">Avanzada</span></span>
                 </div>
             </div>
 
@@ -119,7 +120,7 @@ export default function XRayAnalyticsPage({
                                     <select
                                         value={activeBenchmarkId}
                                         onChange={(e) => handleSetBenchmarkId(e.target.value)}
-                                        className="bg-transparent text-[#A07147] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#A07147] pb-1 cursor-pointer"
+                                        className="bg-transparent text-[#0B2545] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#0B2545] pb-1 cursor-pointer"
                                     >
                                         <option value="conservative">Conservador</option>
                                         <option value="moderate">Moderado</option>
@@ -130,7 +131,7 @@ export default function XRayAnalyticsPage({
                                     <select
                                         value={activePeriod}
                                         onChange={(e) => handleSetPeriod(e.target.value)}
-                                        className="bg-transparent text-[#A07147] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#A07147] pb-1 cursor-pointer"
+                                        className="bg-transparent text-[#0B2545] text-[10px] font-bold uppercase tracking-widest outline-none border-b border-[#0B2545] pb-1 cursor-pointer"
                                     >
                                         <option value="1y">1 Año</option>
                                         <option value="3y">3 Años</option>

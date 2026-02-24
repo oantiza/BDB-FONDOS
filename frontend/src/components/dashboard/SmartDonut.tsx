@@ -6,24 +6,24 @@ ChartJS.register(ArcElement, Tooltip, Legend)
 // Paleta Semántica Profesional
 // Paleta Semántica Profesional (Editorial Premium: Navy & Gold)
 const ASSET_COLORS: Record<string, string> = {
-    // RV (Navy/Blue Spectrum)
-    'RV Norteamérica': '#0B2545', // Deep Navy
-    'RV Europa': '#1E3A8A',       // Dark Blue
-    'RV Emergentes/Asia': '#3B82F6', // Blue 500
-    'RV Global': '#60A5FA',       // Blue 400
+    // RV
+    'RV Norteamérica': '#0F172A',
+    'RV Europa': '#2563EB',
+    'RV Emergentes/Asia': '#3B82F6',
+    'RV Global': '#60A5FA',
 
-    // RF (Gold/Earth Spectrum)
-    'Deuda Pública': '#A07147',   // Gold/Bronze
-    'Crédito Corporativo': '#D4AF37', // Lighter Gold
-    'Renta Fija Global': '#C5A059',   // Pale Gold
+    // RF
+    'Deuda Pública': '#059669',
+    'Crédito Corporativo': '#10B981',
+    'Renta Fija Global': '#34D399',
 
-    // Otros (Slate/Neutral)
-    'Monetarios': '#94A3B8',      // Slate 400
-    'Retorno Absoluto': '#64748B', // Slate 500
-    'Materias Primas': '#475569', // Slate 600
-    'Alternativos/Otros': '#CBD5E1' // Slate 300
+    // Otros
+    'Monetarios': '#94A3B8',
+    'Retorno Absoluto': '#7C3AED',
+    'Materias Primas': '#DC2626',
+    'Alternativos/Otros': '#F59E0B'
 }
-const DEFAULT_PALETTE = ['#0B2545', '#A07147', '#64748B', '#D4AF37', '#1E3A8A']
+const DEFAULT_PALETTE = ['#0F172A', '#2563EB', '#059669', '#F59E0B', '#7C3AED']
 
 interface AssetAllocation { label: string; value: number }
 export default function SmartDonut({ allocation = [] }: { allocation?: AssetAllocation[] }) {
@@ -85,7 +85,7 @@ export default function SmartDonut({ allocation = [] }: { allocation?: AssetAllo
                 <Doughnut data={dataAlloc} options={options} />
                 {/* Texto Central */}
                 <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-sm font-bold text-[#A07147] uppercase tracking-[0.2em]">
+                    <span className="text-sm font-bold text-[#0B2545] uppercase tracking-[0.2em]">
                         ACTIVOS
                     </span>
                 </div>

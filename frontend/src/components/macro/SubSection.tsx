@@ -9,7 +9,7 @@ export const SubSection: React.FC<SubSectionProps> = ({ title, items }) => {
     if (!items) return null;
     return (
         <div>
-            <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
+            <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
             <div className="space-y-2">
                 {items.map((item: any, idx: number) => (
                     <div key={idx} className="flex justify-between items-center text-sm group">

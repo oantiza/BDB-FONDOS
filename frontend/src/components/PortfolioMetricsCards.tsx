@@ -36,10 +36,10 @@ function MetricCard({
 }) {
     return (
         <div className="flex-1 bg-[#F8FAFC] border border-[#f0f0f0] rounded-xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-            <div className="text-[10px] uppercase font-bold text-[#95a5a6] tracking-wide mb-2">
+            <div className="text-[9px] uppercase font-semibold text-slate-600 tracking-wider mb-1.5">
                 {label}
             </div>
-            <div className={`text-2xl font-normal ${color || "text-[#2C3E50]"}`}>
+            <div className={`text-3xl font-bold ${color || "text-[#2C3E50]"}`}>
                 {value}
             </div>
         </div>

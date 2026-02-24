@@ -16,10 +16,10 @@ export default function HoldingsTable({ portfolio, totalCapital, getVolatilitySa
             <table className="w-full text-left border-collapse">
                 <thead>
                     <tr className="border-b border-black h-10">
-                        <th className="py-2 pl-4 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
-                        <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">Peso</th>
-                        <th className="py-2 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">Capital</th>
-                        <th className="py-2 pr-4 text-[#A07147] text-base uppercase tracking-[0.2em] font-bold text-right">RIESGO</th>
+                        <th className="py-2 pl-4 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold w-[40%]">Fondo / Estrategia</th>
+                        <th className="py-2 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold text-right">Peso</th>
+                        <th className="py-2 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold text-right">Capital</th>
+                        <th className="py-2 pr-4 text-[#0B2545] text-base uppercase tracking-[0.2em] font-bold text-right">RIESGO</th>
                     </tr>
                 </thead>
                 <tbody>

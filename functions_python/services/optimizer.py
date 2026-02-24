@@ -825,7 +825,7 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             'warnings': [f"Error cálculo: {str(e)}"],
         }
 
-def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
+def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period='3y'):
     """
     Calcula puntos de la Frontera Eficiente y métricas de activos individuales.
     Allows optional portfolio_weights {isin: weight} to calculate specific portfolio point.
@@ -835,7 +835,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
     from pypfopt import CLA, risk_models, expected_returns
 
     try:
-        print(f"🚀 [Senior EF] Starting generate_efficient_frontier for {len(assets_list)} assets.")
+        print(f"🚀 [Senior EF] Starting generate_efficient_frontier for {len(assets_list)} assets. Period: {period}")
         
         # 1. Senior Data Alignment
         fetcher = DataFetcher(db)
@@ -844,20 +844,36 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
         
-        # SANITIZACIÓN INMEDIATA (Morningstar Standard)
-        df = df.sort_index().ffill().bfill()
-        
-        # FILTRO TEMPORAL ESTRICTO: 3 Años (1095 días)
+        # SANITIZACIÓN PROFESIONAL (Evitar distorsión de covarianza)
+        df = df.sort_index()
+
+        # --- ADAPTIVE TIME HORIZON ---
         if not df.empty:
-            start_date = df.index[-1] - pd.Timedelta(days=1095)
-            df = df[df.index >= start_date]
+            # 1. Identificar el activo más joven (Morningstar Standard)
+            first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
+            if not first_valid_indices.empty:
+                youngest_asset_start = first_valid_indices.max()
+                
+                # 2. Definir ventana según parámetro 'period'
+                period_days_map = {'1y':365, '3y':1095, '5y':1825, 'max':10000}
+                lookback_days = period_days_map.get(period, 1095)
+                ideal_start = df.index[-1] - pd.Timedelta(days=lookback_days)
+                
+                # 3. El inicio real es el máximo entre el ideal y el activo más joven
+                final_start_date = max(ideal_start, youngest_asset_start)
+                
+                print(f"📈 [Senior EF] Adaptive Window: {final_start_date.date()} to {df.index[-1].date()}")
+                df = df[df.index >= final_start_date]
+        
+        # Limpieza residual controlada (No inventar datos)
+        df = df.ffill().bfill(limit=5)
         
         if len(df) < 10: 
             print(f"⚠️ [Senior EF] Insufficient history: {len(df)} points.")
             return {'error': 'Insufficient history', 'points': len(df), 'assets_found': list(df.columns)}
 
         print(f"📈 [Senior EF] Data Processed. Shape: {df.shape}, Assets: {list(df.columns)}")
-
+        
         # 2. Senior Math Engine (mean/sample_cov)
         # Sincronizado con run_optimization (compounding=False)
         mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
@@ -865,7 +881,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
         S = risk_models.fix_nonpositive_semidefinite(S)
         
         print(f"✅ [Senior EF] Inputs ready. Mu Range: [{mu.min():.4f}, {mu.max():.4f}]")
-
+        
         # 3. CLA Engine (Reliable Frontier Generation - 50 Points Resolution)
         print("⚙️ [Senior EF] Running CLA...")
         cla = CLA(mu, S)
@@ -915,7 +931,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None):
             except Exception as e_p:
                 print(f"⚠️ Portfolio point calc failed: {e_p}")
 
-        return {
+        result = {
             'frontier': frontier_points,
             'assets': asset_points,
             'portfolio': portfolio_point

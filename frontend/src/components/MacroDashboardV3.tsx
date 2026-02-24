@@ -78,36 +78,36 @@ export default function MacroDashboard() {
     <div className="bg-white min-h-screen pb-12 font-sans text-slate-700">
 
       {/* EDITORAL HEADER - X-RAY STYLE */}
-      <div className="bg-gradient-to-r from-[#003399] to-[#0055CC] text-white pt-8 pb-8 px-12 shadow-md mb-8">
+      <div className="bg-gradient-to-r from-slate-800 to-slate-700 text-white pt-8 pb-8 px-12 border-b border-slate-600 shadow-sm mb-8">
         <div className="max-w-[1200px] mx-auto flex justify-between items-end">
           <div>
             <h1 className="text-3xl font-light tracking-tight text-white mb-2">Macro y Estrategia</h1>
             <div className="flex items-center gap-3">
               <span className="text-[#D4AF37] text-[10px] uppercase tracking-[0.2em] font-bold">Inteligencia de Mercado</span>
-              <span className="text-white/20">|</span>
-              <span className="text-white/70 text-[10px] uppercase tracking-widest font-medium">Global CIO Office</span>
+              <span className="text-slate-500">|</span>
+              <span className="text-slate-300 text-[10px] uppercase tracking-widest font-medium">Global CIO Office</span>
             </div>
           </div>
 
 
 
           {/* Minimalist Tab Selector */}
-          <div className="flex gap-8 border-b border-white/20 pb-1">
+          <div className="flex gap-8 border-b border-slate-600 pb-1">
             <button
               onClick={() => setActiveTab('WEEKLY')}
-              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'WEEKLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'WEEKLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-slate-400 hover:text-white'}`}
             >
               Táctico (Semanal)
             </button>
             <button
               onClick={() => setActiveTab('MONTHLY')}
-              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'MONTHLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'MONTHLY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-slate-400 hover:text-white'}`}
             >
               Estratégico (Mensual)
             </button>
             <button
               onClick={() => setActiveTab('STRATEGY')}
-              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'STRATEGY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-white/60 hover:text-white'}`}
+              className={`text-xs font-bold uppercase tracking-widest transition-colors pb-2 -mb-2 ${activeTab === 'STRATEGY' ? 'text-[#D4AF37] border-b-2 border-[#D4AF37]' : 'text-slate-400 hover:text-white'}`}
             >
               Asignación de Activos
             </button>
@@ -135,7 +135,7 @@ export default function MacroDashboard() {
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <h2 className="text-3xl font-light text-[#2C3E50] tracking-tight leading-tight mb-2">{report.title}</h2>
-                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-[#A07147]">
+                    <div className="flex items-center gap-4 text-xs font-bold uppercase tracking-widest text-[#0B2545]">
                       <span>{report.date}</span>
                     </div>
                   </div>
@@ -174,7 +174,7 @@ export default function MacroDashboard() {
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
                     {['EE.UU.', 'Eurozona', 'China', 'Japón'].map((region, i) => (
                       <div key={region} className="bg-white p-6 border border-slate-100 shadow-sm">
-                        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-2">{region}</h4>
+                        <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-2">{region}</h4>
                         <div className="text-sm font-bold text-[#2C3E50] mb-1">
                           {i === 0 ? 'Desaceleración Suave' : i === 1 ? 'Estancamiento' : i === 2 ? 'Recuperación Débil' : 'Estable'}
                         </div>
@@ -195,9 +195,9 @@ export default function MacroDashboard() {
                     <table className="w-full text-left text-sm">
                       <thead>
                         <tr className="border-b border-[#eeeeee]">
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px]">Región</th>
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Tendencia</th>
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Valuación</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px]">Región</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px] text-right">Tendencia</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px] text-right">Valuación</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#f5f5f5]">
@@ -222,9 +222,9 @@ export default function MacroDashboard() {
                     <table className="w-full text-left text-sm">
                       <thead>
                         <tr className="border-b border-[#eeeeee]">
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px]">Activo</th>
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Yield</th>
-                          <th className="font-bold text-[#A07147] uppercase tracking-wider py-2 text-[10px] text-right">Duración</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px]">Activo</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px] text-right">Yield</th>
+                          <th className="font-bold text-[#0B2545] uppercase tracking-wider py-2 text-[10px] text-right">Duración</th>
                         </tr>
                       </thead>
                       <tbody className="divide-y divide-[#f5f5f5]">
@@ -250,7 +250,7 @@ export default function MacroDashboard() {
                     <div className="flex gap-4 items-start">
                       <div className="text-4xl">💡</div>
                       <div>
-                        <h3 className="text-[#A07147] text-[10px] uppercase tracking-[0.2em] font-bold mb-2">Tema del Mes</h3>
+                        <h3 className="text-[#0B2545] text-[10px] uppercase tracking-[0.2em] font-bold mb-2">Tema del Mes</h3>
                         <h4 className="text-xl font-light text-[#2C3E50] mb-4">La Divergencia de Políticas Monetarias</h4>
                         <p className="text-slate-600 leading-relaxed text-sm">
                           Mientras la Reserva Federal parece haber alcanzado su tipo terminal y el mercado descuenta recortes para mediados de año, el BCE mantiene una retórica más agresiva debido a la persistencia de la inflación subyacente. Por otro lado, el BOJ comienza a normalizar su política ultralaxa. Esta divergencia creará oportunidades significativas en los cruces de divisas (USD/JPY, EUR/USD) y en los diferenciales de curvas soberanas.
@@ -266,7 +266,7 @@ export default function MacroDashboard() {
             {report.geopolitics && (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-12 border-t border-[#eeeeee] pt-12 mt-12">
                 <div>
-                  <h3 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Geopolítica</h3>
+                  <h3 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Geopolítica</h3>
                   <p className="font-medium text-[#2C3E50] text-lg leading-relaxed">{report.geopolitics.summary}</p>
                   <p className="text-sm text-[#7f8c8d] mt-2 italic">Impacto: {report.geopolitics.impact}</p>
                 </div>
@@ -294,7 +294,7 @@ export default function MacroDashboard() {
 
                 {report.house_view_summary && (
                   <div className="bg-[#fcfcfc] border border-[#f0f0f0] p-8 text-center">
-                    <h3 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-4">Visión de la Casa</h3>
+                    <h3 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Visión de la Casa</h3>
                     <p className="font-light italic text-2xl text-[#2C3E50] leading-relaxed">"{report.house_view_summary}"</p>
                   </div>
                 )}
@@ -346,7 +346,7 @@ const SubSection = ({ title, items }: any) => {
   if (!items) return null;
   return (
     <div>
-      <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
+      <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 border-b border-[#eeeeee] pb-1 w-full block">{title}</h4>
       <div className="space-y-2">
         {items.map((item: any, idx: number) => (
           <div key={idx} className="flex justify-between items-center text-sm group">
@@ -375,7 +375,7 @@ const PulseCard = ({ title, data }: { title: string, data: any }) => {
     // Clean Minimalist Card
     <div className="bg-white p-6 border border-[#eeeeee] flex flex-col justify-between h-full hover:border-slate-300 transition-colors">
       <div>
-        <h4 className="text-[10px] font-bold text-[#A07147] uppercase tracking-[0.2em] mb-3">{title}</h4>
+        <h4 className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3">{title}</h4>
         <div className="text-2xl font-light text-[#2C3E50] mb-2 tracking-tight">{data.focus}</div>
         <p className="text-sm text-[#7f8c8d] leading-snug">{data.note}</p>
       </div>

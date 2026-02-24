@@ -54,7 +54,7 @@ export default function PortfolioTable({
                                             {asset.name}
                                         </span>
 
-                                        <span className="text-[#A07147] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#A07147]/10 px-1.5 py-0.5 rounded">
+                                        <span className="text-[#0B2545] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#0B2545]/10 px-1.5 py-0.5 rounded">
                                             {asset.std_type || 'General'}
                                         </span>
                                     </div>
@@ -72,7 +72,7 @@ export default function PortfolioTable({
                                                 onUpdateWeight && onUpdateWeight(asset.isin, val);
                                             }}
                                         />
-                                        <span className="text-[#A07147] font-[450] text-sm">%</span>
+                                        <span className="text-[#0B2545] font-[450] text-sm">%</span>
                                     </div>
                                 </td>
                                 <td className="p-3 text-right align-middle">
@@ -92,7 +92,7 @@ export default function PortfolioTable({
                                                 }
                                             }}
                                         />
-                                        <span className="text-[#A07147] font-[450] text-sm">€</span>
+                                        <span className="text-[#0B2545] font-[450] text-sm">€</span>
                                     </div>
                                 </td>
 
@@ -100,7 +100,7 @@ export default function PortfolioTable({
                                 <td className="p-3 text-right">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
-                                        className="text-indigo-600 hover:text-indigo-800 text-xs font-semibold hover:underline bg-indigo-50 hover:bg-indigo-100 px-2 py-1 rounded border border-indigo-200 transition-colors flex items-center gap-1 ml-auto"
+                                        className="text-slate-600 hover:text-slate-800 text-xs font-semibold hover:underline bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-full border border-slate-200 transition-colors flex items-center gap-1 ml-auto shadow-sm"
                                         title="Buscar alternativas de inversión"
                                     >
                                         ⇄ Cambiar

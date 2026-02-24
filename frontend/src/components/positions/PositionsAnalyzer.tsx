@@ -154,29 +154,29 @@ export const PositionsAnalyzer: React.FC<PositionsAnalyzerProps> = ({ onBack, as
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans">
             {/* Header matches main app */}
-            <header className="bg-gradient-to-r from-[#003399] to-[#0055CC] text-white shadow-lg border-b border-white/10 mb-8 sticky top-0 z-50">
+            <header className="bg-gradient-to-r from-slate-800 to-slate-700 text-white shadow-sm border-b border-slate-600 mb-8 sticky top-0 z-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
                     <div className="flex items-center gap-4">
-                        {onBack && (
-                            <button
-                                onClick={onBack}
-                                className="text-slate-400 hover:text-white transition-colors flex items-center gap-2 mr-4 text-sm font-medium"
-                            >
-                                <ArrowLeft className="w-4 h-4" /> VOLVER
-                            </button>
-                        )}
-                        <div className="h-6 w-px bg-slate-700 mx-2"></div>
+                        <div className="flex items-center gap-3">
+                            {onBack && (
+                                <button onClick={onBack} className="bg-white/10 border border-white/20 text-slate-200 hover:text-white p-1.5 rounded-full hover:bg-white/20 transition-colors shadow-sm" title="Volver">
+                                    <ArrowLeft className="w-5 h-5" />
+                                </button>
+                            )}
+                            <div className="font-light text-xl tracking-tight leading-none mb-0.5 text-white whitespace-nowrap">Gestor de <span className="font-bold text-blue-200">Fondos</span></div>
+                        </div>
+                        <div className="h-6 w-px bg-slate-600 mx-2"></div>
                         <div className="flex items-center gap-2">
-                            <div className="p-1.5 bg-blue-500/10 rounded-lg">
-                                <PieChart className="text-blue-400 w-5 h-5" />
+                            <div className="p-1.5 bg-slate-700/50 rounded-lg">
+                                <PieChart className="text-[#D4AF37] w-5 h-5" />
                             </div>
-                            <h1 className="text-lg font-semibold tracking-tight text-white">Analizador de posiciones globales</h1>
+                            <h1 className="text-lg font-light tracking-tight text-white whitespace-nowrap">Analizador de <span className="font-bold text-blue-200">posiciones globales</span></h1>
                         </div>
                     </div>
                     {hasData && (
                         <button
                             onClick={handleReset}
-                            className="bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white px-3 py-1.5 rounded-lg transition-all text-sm font-medium flex items-center gap-2 border border-slate-700"
+                            className="bg-slate-700/50 hover:bg-slate-600 text-slate-300 hover:text-white px-3 py-1.5 rounded-full transition-all text-xs font-bold uppercase tracking-widest flex items-center gap-2 border border-slate-500 shadow-sm"
                         >
                             <RotateCcw className="w-3.5 h-3.5" /> Nueva Carga
                         </button>

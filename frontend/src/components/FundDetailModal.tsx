@@ -146,7 +146,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
               {/* Morningstar Rating */}
               <div>
-                <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">
+                <div className="text-[10px] text-[#0B2545] uppercase font-bold tracking-[0.2em] mb-1">
                   Morningstar Rating
                 </div>
                 <div className="text-lg flex items-center gap-1">{renderStars(rating)}</div>
@@ -154,7 +154,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
               {/* Data Quality Badge */}
               <div>
-                <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">
+                <div className="text-[10px] text-[#0B2545] uppercase font-bold tracking-[0.2em] mb-1">
                   Calidad Datos
                 </div>
                 <DataQualityBadge grade={grade} reason={reason} />
@@ -191,7 +191,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                           {REGION_DISPLAY_LABELS[region] || region.replace(/_/g, ' ')}
                         </span>
                         <span className="text-xs font-light text-[#7f8c8d]">|</span>
-                        <span className="text-xs font-bold text-[#A07147]">
+                        <span className="text-xs font-bold text-[#0B2545]">
                           {Number(weight).toFixed(1)}%
                         </span>
                       </div>
@@ -216,7 +216,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                         {sector.name || sector.sector || '—'}
                       </span>
                       <span className="text-xs font-light text-[#7f8c8d]">|</span>
-                      <span className="text-xs font-bold text-[#A07147]">
+                      <span className="text-xs font-bold text-[#0B2545]">
                         {isValidNum(sector.weight) ? Number(sector.weight).toFixed(1) : '0.0'}%
                       </span>
                     </div>
@@ -255,7 +255,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
                 <h3 className="text-xl font-light text-[#2C3E50] tracking-tight mb-4 flex items-center gap-2">
                   Objetivo de Inversión
                 </h3>
-                <p className="text-sm text-[#2C3E50] leading-relaxed font-light italic border-l-2 border-[#A07147] pl-4">
+                <p className="text-sm text-[#2C3E50] leading-relaxed font-light italic border-l-2 border-[#0B2545] pl-4">
                   "{fund.description}"
                 </p>
               </section>
@@ -305,7 +305,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
                     return history.slice(0, 5).map((h) => (
                       <div key={h.year} className="text-center p-2 border border-[#eeeeee] bg-[#fcfcfc]">
-                        <div className="text-[10px] font-bold text-[#A07147] mb-1">{h.year}</div>
+                        <div className="text-[10px] font-bold text-[#0B2545] mb-1">{h.year}</div>
                         <div
                           className={`text-sm font-bold ${h.value >= 0 ? 'text-[#2C3E50]' : 'text-[#C0392B]'
                             }`}
@@ -371,7 +371,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
 
 const InfoRow = ({ label, value }: { label: string; value: string }) => (
   <div>
-    <div className="text-[10px] text-[#A07147] uppercase font-bold tracking-[0.2em] mb-1">{label}</div>
+    <div className="text-[10px] text-[#0B2545] uppercase font-bold tracking-[0.2em] mb-1">{label}</div>
     <div className="text-base font-medium text-[#2C3E50] truncate leading-tight" title={value}>
       {value}
     </div>

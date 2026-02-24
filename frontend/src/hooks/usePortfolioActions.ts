@@ -80,7 +80,8 @@ export function usePortfolioActions({
         vip: false,
         review: false,
         sharpeMaximizer: false, // NEW
-        savedPortfolios: false // NEW
+        savedPortfolios: false, // NEW
+        analysis: false // NEW
     });
     const toggleModal = (key: keyof typeof modals, value: boolean) => setModals(prev => ({ ...prev, [key]: value }));
 
@@ -96,6 +97,8 @@ export function usePortfolioActions({
         fund: null,
         alternatives: []
     });
+
+    const [analysisResult, setAnalysisResult] = useState<any>(null); // NEW
 
     // 1. Asset Management Handlers
     const handleAddAsset = useCallback((asset: Fund) => {
@@ -522,6 +525,31 @@ export function usePortfolioActions({
         }
     }
 
+    const handleAnalyzePortfolio = useCallback(async () => {
+        if (portfolio.length === 0) {
+            toast.info("Añade fondos a la cartera primero");
+            return;
+        }
+        setIsOptimizing(true);
+        try {
+            const analyzeFn = httpsCallable(functions, 'analyze_portfolio_endpoint');
+            const response = await analyzeFn({
+                portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight }))
+            });
+            const result = unwrapResult<any>(response.data);
+            if (result.error) {
+                toast.error("Error en análisis: " + result.error);
+            } else {
+                setAnalysisResult(result);
+                toggleModal('analysis', true);
+            }
+        } catch (error: any) {
+            toast.error("Error al analizar cartera: " + error.message);
+        } finally {
+            setIsOptimizing(false);
+        }
+    }, [portfolio, toast]);
+
     // 4. Tactical/Review Modal Handlers
     const handleApplyDirectly = () => {
         setPortfolio(proposedPortfolio);
@@ -590,6 +618,8 @@ export function usePortfolioActions({
         handleAcceptPortfolio,
         handleMacroApply,
         handleImportCSV,
-        handleRoundDecimals // FIX: Export the handler
+        handleRoundDecimals,
+        handleAnalyzePortfolio, // NEW
+        analysisResult // NEW
     };
 }

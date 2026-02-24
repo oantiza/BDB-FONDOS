@@ -61,6 +61,7 @@ export default function PortfolioComparator() {
             const mappedMetrics = {
                 ...bd.metrics,
                 maxDrawdown: bd.metrics.max_drawdown,
+                cagr: bd.metrics.cagr3y ?? bd.metrics.return ?? bd.metrics.cagr,
             };
             setMetricsA({
                 metrics1y: mappedMetrics,
@@ -92,6 +93,7 @@ export default function PortfolioComparator() {
             const mappedMetrics = {
                 ...bd.metrics,
                 maxDrawdown: bd.metrics.max_drawdown,
+                cagr: bd.metrics.cagr3y ?? bd.metrics.return ?? bd.metrics.cagr,
             };
             setMetricsB({
                 metrics1y: mappedMetrics,
@@ -236,6 +238,9 @@ export default function PortfolioComparator() {
 
 
 
+    const currentMetricsA = chartPeriod === 3 ? metricsA?.metrics3y : (chartPeriod === 5 ? metricsA?.metrics5y : metricsA?.metrics10y);
+    const currentMetricsB = chartPeriod === 3 ? metricsB?.metrics3y : (chartPeriod === 5 ? metricsB?.metrics5y : metricsB?.metrics10y);
+
     const handleDownloadPDF = async () => {
 
         if (!nameA || !nameB) return;
@@ -339,11 +344,11 @@ export default function PortfolioComparator() {
 
                         {/* RISK/RETURN MAP */}
                         <div id="comparator-risk-map" className="bg-white p-5 rounded-xl border border-slate-200 shadow-sm h-[480px] flex flex-col">
-                            <h3 className="text-lg font-bold text-[#0B2545] mb-4">Mapa Riesgo / Retorno (3 Años)</h3>
+                            <h3 className="text-lg font-bold text-[#0B2545] mb-4">Mapa Riesgo / Retorno ({chartPeriod} Años)</h3>
                             <div className="h-[410px] flex-1 w-full min-h-0">
                                 <ComparatorRiskMap
-                                    metricsA={metricsA?.metrics3y}
-                                    metricsB={metricsB?.metrics3y}
+                                    metricsA={currentMetricsA || metricsA?.metrics3y}
+                                    metricsB={currentMetricsB || metricsB?.metrics3y}
                                     nameA={nameA}
                                     nameB={nameB}
                                 />
