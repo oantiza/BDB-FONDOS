@@ -139,25 +139,30 @@ function classifyByAllocation(aa) {
   const CS = finiteOr0(cs);
   const OT = finiteOr0(ot);
 
+  // 1. Pure Cash
   if (CS >= 60) {
-    return { assetClass: "Monetario", confidence: 0.82, method: "allocation", rationale: `cash>=60 (cash=${CS})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
-  }
-  if (EQ >= 60 && EQ >= BD + 10) {
-    return { assetClass: "RV", confidence: 0.88, method: "allocation", rationale: `equity>=60 & eq>=bond+10 (eq=${EQ}, bond=${BD})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
-  }
-  if (BD >= 60 && BD >= EQ + 10) {
-    return { assetClass: "RF", confidence: 0.88, method: "allocation", rationale: `bond>=60 & bond>=eq+10 (bond=${BD}, eq=${EQ})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
-  }
-  if (EQ >= 20 && BD >= 20) {
-    return { assetClass: "Mixto", confidence: 0.78, method: "allocation", rationale: `eq>=20 & bond>=20 (eq=${EQ}, bond=${BD})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
+    return { assetClass: "Monetario", confidence: 0.95, method: "allocation", rationale: `cash>=60 (cash=${CS})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
   }
 
-  // Si no encaja, elegimos el dominante pero baja confianza
-  const max = Math.max(EQ, BD, CS, OT);
-  if (max === BD) return { assetClass: "RF", confidence: 0.60, method: "allocation", rationale: "majority bond (low conf)", inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: true };
-  if (max === EQ) return { assetClass: "RV", confidence: 0.60, method: "allocation", rationale: "majority equity (low conf)", inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: true };
-  if (max === CS) return { assetClass: "Monetario", confidence: 0.60, method: "allocation", rationale: "majority cash (low conf)", inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: true };
-  return { assetClass: "Otros", confidence: 0.58, method: "allocation", rationale: "majority other (low conf)", inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: true };
+  // 2. Clear Equity
+  if (EQ >= 50) {
+    return { assetClass: "RV", confidence: 0.95, method: "allocation", rationale: `equity>=50 (eq=${EQ})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
+  }
+
+  // 3. Clear Fixed Income
+  if (BD >= 50) {
+    return { assetClass: "RF", confidence: 0.95, method: "allocation", rationale: `bond>=50 (bond=${BD})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
+  }
+
+  // 4. Mixed Allocation (No single asset class dominates >= 50%)
+  // E.g., 40% Equity, 40% Bond, 20% Cash
+  if (EQ >= 15 && BD >= 15 && (EQ + BD >= 40)) {
+    return { assetClass: "Mixto", confidence: 0.85, method: "allocation", rationale: `mixed allocation (eq=${EQ}, bond=${BD})`, inputs: { bond: BD, equity: EQ, cash: CS, other: OT }, lowConfidence: false };
+  }
+
+  // 5. Fallback for weird edge cases (e.g., 100% "other" or weird distributions)
+  // Let the category fallback (step 2) handle it if allocation is too muddy.
+  return null;
 }
 
 /**

@@ -69,23 +69,17 @@ async function main() {
     // Listar los que SÍ tienen manual.costs pero NO retrocesión
     if (sinRetroConManualCosts.length > 0) {
         console.log(`\n─── Fondos con manual.costs PERO sin retrocesión (${sinRetroConManualCosts.length}) ───`);
-        sinRetroConManualCosts.slice(0, 15).forEach(f => {
+        sinRetroConManualCosts.forEach(f => {
             console.log(`   ${f.isin.padEnd(16)} ${f.name.substring(0, 45)}`);
         });
-        if (sinRetroConManualCosts.length > 15) {
-            console.log(`   ... y ${sinRetroConManualCosts.length - 15} más`);
-        }
     }
 
     // Listar los que NO tienen nada en manual.costs
     if (sinRetroSinManualCosts.length > 0) {
         console.log(`\n─── Fondos SIN manual.costs en absoluto (${sinRetroSinManualCosts.length}) ───`);
-        sinRetroSinManualCosts.slice(0, 15).forEach(f => {
+        sinRetroSinManualCosts.forEach(f => {
             console.log(`   ${f.isin.padEnd(16)} ${f.name.substring(0, 45)}`);
         });
-        if (sinRetroSinManualCosts.length > 15) {
-            console.log(`   ... y ${sinRetroSinManualCosts.length - 15} más`);
-        }
     }
 
     // Listar los ETFs

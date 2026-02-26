@@ -9,16 +9,22 @@ const ASSET_COLORS: Record<string, string> = {
     'RV Europa': '#2563EB',
     'RV Emergentes/Asia': '#3B82F6',
     'RV Global': '#60A5FA',
+    'RV - Tecnología': '#4F46E5', // Indigo
+    'RV - Salud': '#E11D48', // Rose/Healthcare
     // RF - Verdes
     'Deuda Pública': '#059669',
+    'RF - Soberana': '#059669',
     'Crédito Corporativo': '#10B981',
+    'RF - Corporativa': '#10B981',
+    'RF - High Yield': '#F59E0B', // Amber
     'Renta Fija Global': '#34D399',
     // Monetarios - Slate
     'Monetarios': '#94A3B8',
     // Alternativos - Turquesas
     'Retorno Absoluto': '#0D9488',
     'Materias Primas': '#14B8A6',
-    'Alternativos/Otros': '#2DD4BF'
+    'Alternativos/Otros': '#2DD4BF',
+    'Otros': '#64748B' // Gris
 }
 const DEFAULT_PALETTE = ['#1E3A8A', '#059669', '#0D9488', '#94A3B8']
 
@@ -33,8 +39,8 @@ const chartDataLabels = {
             meta.data.forEach((bar: any, index: number) => {
                 const value = dataset.data[index];
                 if (value > 0.1) {
-                    ctx.font = 'bold 9px Inter, sans-serif';
-                    ctx.fillStyle = '#475569';
+                    ctx.font = 'bold 10px Inter, sans-serif';
+                    ctx.fillStyle = '#64748b';
                     ctx.textAlign = 'left';
                     ctx.textBaseline = 'middle';
                     const x = bar.x + 6;
@@ -111,18 +117,18 @@ export default function SmartBars({ allocation = [] }: { allocation?: AssetAlloc
             y: {
                 grid: { display: false },
                 ticks: {
-                    font: { size: 9, weight: 'bold' as const },
-                    color: '#334155'
+                    font: { size: 11, weight: 'bold' as const },
+                    color: '#1e293b'
                 }
             }
         },
-        layout: { padding: { top: 4, bottom: 4, left: 2, right: 35 } }
+        layout: { padding: { top: 4, bottom: 4, left: 2, right: 40 } }
     }
 
     return (
         <div className="flex flex-col h-full w-full py-1 relative">
             <div className="text-center mb-1">
-                <span className="text-[11px] font-extrabold text-[#0B2545] uppercase tracking-[0.15em]">
+                <span className="text-[12px] font-extrabold text-[#0B2545] uppercase tracking-[0.2em]">
                     Activos
                 </span>
             </div>

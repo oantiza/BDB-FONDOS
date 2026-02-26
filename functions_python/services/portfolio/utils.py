@@ -19,21 +19,29 @@ def _cap(weights: dict, max_w: float) -> dict:
     return {k: min(float(v), max_w) for k, v in weights.items()}
 
 def _classify_asset(ticker: str, asset_metadata=None) -> str:
-    """Determines bucket label (RV, RF, Mixto, Monetario, Other)"""
+    """Determines bucket label (RV, RF, Mixto, Monetario, Otros) strictly from DB"""
     meta = (asset_metadata or {}).get(ticker, {}) or {}
     
-    # 1. Expect Explicit Tag from Frontend/Main (BEST)
-    if meta.get('label') in ["RV", "RF", "Mixto", "Monetario"]:
+    # 1. Expect Explicit Tag (e.g. injected during fallback)
+    if meta.get('label') in ["RV", "RF", "Mixto", "Monetario", "Otros", "Inmobiliario", "Retorno Absoluto"]:
         return meta['label']
 
-    # 2. Try raw asset_class (std_type)
-    raw = (meta.get('asset_class') or '').strip().upper()
+    # 2. Use exact derived.asset_class math label
+    raw = (meta.get('asset_class') or 'Otros').strip()
+    valid_classes = ["RV", "RF", "Mixto", "Monetario", "Otros", "Inmobiliario", "Retorno Absoluto"]
     
-    if "MONETARIO" in raw or "CASH" in raw or "LIQUIDEZ" in raw or "MONEY" in raw: return "Monetario"
-    if "FIJA" in raw or "FIXED" in raw or "BOND" in raw or "CREDIT" in raw: return "RF"
-    if "VARIABLE" in raw or "EQUITY" in raw or "STOCK" in raw or "ACCION" in raw or "RV" in raw: return "RV"
-    if "MIXTO" in raw or "MIXED" in raw or "MULTI" in raw or "BALANCED" in raw or "ALLOCATION" in raw: return "Mixto"
-    return "Other" # Default/Fallback
+    # Capitalize first letter logic is generally maintained by JS, but just in case
+    # Note: DB has them as "RF", "RV", "Mixto", "Monetario", "Otros"
+    if raw in valid_classes:
+        return raw
+
+    # 3. Emergency fallback only if derived string somehow mutated
+    up = raw.upper()
+    if "MONETARIO" in up: return "Monetario"
+    if "FIJA" in up or "RF" in up: return "RF"
+    if "VARIABLE" in up or "RV" in up: return "RV"
+    if "MIXTO" in up: return "Mixto"
+    return "Otros"
 
 def _allocation_vectors(tickers: list, asset_metadata=None):
     """Standard allocation vectors (Equity/Bond/Cash/Other) for reporting metrics."""

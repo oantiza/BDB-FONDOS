@@ -4,6 +4,7 @@ import { usePortfolioStats } from './usePortfolioStats';
 import { PortfolioItem, Fund } from '../types';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
+import { globalApiCache } from '../utils/apiCache';
 
 export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
     // 1. Core Analytics Hooks
@@ -45,9 +46,12 @@ export function useXRayData(portfolio: PortfolioItem[], fundDatabase: Fund[]) {
     useEffect(() => {
         const fetchFrontier = async () => {
             try {
-                const getFrontier = httpsCallable(functions, 'getEfficientFrontier')
-                const res = await getFrontier({ portfolio })
-                const data = res.data as any
+                const fetcher = async () => {
+                    const getFrontier = httpsCallable(functions, 'getEfficientFrontier')
+                    const res = await getFrontier({ portfolio })
+                    return res.data as any;
+                }
+                const data = await globalApiCache.getOrFetch('getEfficientFrontier', portfolio, fetcher);
                 if (data.frontier) {
                     setFrontierData(data.frontier)
                     setAssetPoints(data.assets || [])

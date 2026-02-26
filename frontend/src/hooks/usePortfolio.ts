@@ -117,16 +117,35 @@ export function usePortfolio() {
 
             // 2. Mapear a etiquetas visuales del SmartDonut
             let label = assetClass
-            if (assetClass === 'RV' || assetClass === 'Equity') {
-                if (regionKey === 'united_states' || regionKey === 'USA') label = 'RV Norteamérica'
+
+            // [NEW] Subcategory bypasses - Prevent specialized tags from falling to 'Alternativos/Otros'
+            if (
+                assetClass === 'RV - Tecnología' ||
+                assetClass === 'RV - Salud' ||
+                assetClass === 'RF - High Yield' ||
+                assetClass === 'RF - Corporativa' ||
+                assetClass === 'RF - Soberana' ||
+                assetClass === 'Otros' // Let it just be Otros, don't cascade
+            ) {
+                // El nombre ya viene perfectamente delimitado por nuestro motor
+                label = assetClass;
+            }
+            else if (assetClass === 'RV' || assetClass === 'Equity') {
+                const category = (p.ms?.category_morningstar || "").toLowerCase()
+
+                // Fallback catch for tech/health if not explicitly tagged by backend yet
+                if (category.includes('technology') || category.includes('tecnologia')) label = 'RV - Tecnología'
+                else if (category.includes('health') || category.includes('salud') || category.includes('sanidad')) label = 'RV - Salud'
+                else if (regionKey === 'united_states' || regionKey === 'USA') label = 'RV Norteamérica'
                 else if (regionKey === 'eurozone' || regionKey === 'europe_ex_euro' || regionKey === 'Europa' || regionKey === 'united_kingdom') label = 'RV Europa'
                 else if (regionKey === 'asia_emerging' || regionKey === 'china' || regionKey === 'Emergentes' || regionKey === 'Asia') label = 'RV Emergentes/Asia'
                 else label = 'RV Global'
             }
             else if (assetClass === 'RF' || assetClass === 'Fixed Income') {
                 const category = (p.ms?.category_morningstar || "").toLowerCase()
-                if (category.includes('gov') || category.includes('publica')) label = 'Deuda Pública'
-                else if (category.includes('corp')) label = 'Crédito Corporativo'
+                if (category.includes('high yield') || category.includes('alto rendimiento')) label = 'RF - High Yield'
+                else if (category.includes('corp')) label = 'RF - Corporativa'
+                else if (category.includes('gov') || category.includes('publica')) label = 'RF - Soberana'
                 else label = 'Renta Fija Global'
             }
             else if (assetClass === 'Monetario') label = 'Monetarios'

@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { query, collection, where, getDocs, limit, orderBy } from 'firebase/firestore';
-import { db } from '../../firebase';
 import { Fund, PortfolioItem } from '../../types';
 import { backtestPortfolio } from '../../engine/portfolioAnalyticsEngine';
 import { useToast } from '../../context/ToastContext';
-import { REGION_DISPLAY_LABELS } from '../../utils/normalizer';
+import { findDirectAlternativesV3 } from '../../utils/directSearch';
 
 interface SharpeMaximizerModalProps {
     isOpen: boolean;
@@ -36,6 +34,7 @@ export default function SharpeMaximizerModal({
     const [assetClass, setAssetClass] = useState<string>('RV');
     const [region, setRegion] = useState<string>('all');
     const [prioritizeRetro, setPrioritizeRetro] = useState<boolean>(false);
+    const [page, setPage] = useState<number>(0); // Pagination state
 
     // Results
     const [results, setResults] = useState<CandidateResult[]>([]);
@@ -99,163 +98,38 @@ export default function SharpeMaximizerModal({
         setStep('RESULTS');
     };
 
-    const handleSearch = async () => {
+    const handleSearch = async (overrideOffset?: number) => {
         setStep('SEARCHING');
-        setResults([]);
+        if (overrideOffset === undefined || overrideOffset === 0) {
+            setResults([]);
+        }
         setProgress(0);
 
-        let candidates: any[] = [];
-
-        // [CONFIG] Search Variants
-        const ASSET_VARIANTS: Record<string, string[]> = {
-            'RV': ['RV', 'Equity', 'Renta Variable', 'Stock', 'EQ', 'Renta Variable Global'],
-            'RF': ['RF', 'Fixed Income', 'Renta Fija', 'Bond', 'FI', 'Deuda'],
-            'Monetario': ['Monetario', 'Money Market', 'Cash', 'Liquidez', 'MM'],
-            'Mixto': ['Mixto', 'Mixed', 'Balanced', 'Allocation', 'Multi-Asset'],
-            'Retorno Absoluto': ['Retorno Absoluto', 'Alternative', 'Absolute Return', 'Hedge']
-        };
-
-        const REGION_CONFIGS: Record<string, any> = {
-            'EMERGENTES_LEGACY': { field: 'ms.category_morningstar', op: '==', val: 'Morningstar Emerging Markets' }
-        };
-
-        const isAllRegions = region === 'all';
-        const isEmerging = region.includes('emerging') || region === 'china' || region === 'latin_america' || region === 'asia_broad';
-        const isStandardRegion = !isAllRegions && !REGION_CONFIGS[region];
-
-        // [CONFIG] Assets
-        let targetAssets = ASSET_VARIANTS[assetClass] || [assetClass];
-        if (isEmerging && assetClass === 'RV') {
-            targetAssets = [...targetAssets, 'Otros', 'Other'];
-        }
-
-        // [CONFIG] Region
-        const getRegionVariants = (key: string): string[] => {
-            const map: Record<string, string[]> = {
-                'united_states': ['united_states', 'United States', 'USA', 'North America', 'US', 'EE.UU.'],
-                'europe_broad': ['eurozone', 'europe_ex_euro', 'united_kingdom', 'europe_emerging', 'Europe', 'Europa', 'Eurozone', 'Zona Euro', 'UK', 'Germany', 'France'],
-                'asia_broad': ['japan', 'china', 'asia_emerging', 'developed_asia', 'Asia', 'Japan', 'China', 'Japón', 'Pacific'],
-                'emerging_broad': ['latin_america', 'emerging_markets', 'asia_emerging', 'europe_emerging', 'middle_east', 'africa', 'Emerging', 'Emergentes', 'Mercados Emergentes', 'BRIC']
-            };
-            const specific = map[key] || [];
-            if (specific.length > 0) return specific;
-
-            const generic = [key, key.replace(/_/g, ' '), key.split('_').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')];
-            return Array.from(new Set([...specific, ...generic]));
-        };
-
-        let activeConfig: any = null;
-        if (!isStandardRegion) {
-            activeConfig = REGION_CONFIGS[region] || null;
-        }
-
         try {
-            let queryPromises: Promise<any>[] = [];
+            // Re-use the hyper-optimized unified search engine from Phase 1 & 2
+            // Pass null as the targetFund because this is a "cold search"
+            const candidates = await findDirectAlternativesV3(null, {
+                assetClass,
+                region,
+                maximizeRetro: prioritizeRetro,
+                desired: 10, // Fetch top 10 to simulate
+                offset: overrideOffset ?? page * 10
+            });
 
-            if (isStandardRegion) {
-                const variants = getRegionVariants(region);
-                for (const v of variants) {
-                    const constraints: any[] = [
-                        where('derived.asset_class', 'in', targetAssets),
-                        where('derived.primary_region', '==', v),
-                        orderBy('std_perf.sharpe', 'desc'),
-                        limit(prioritizeRetro ? 100 : 20)
-                    ];
-                    queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
-                }
-            } else {
-                let constraints: any[] = [where('derived.asset_class', 'in', targetAssets)];
-                if (activeConfig) {
-                    constraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
-                    if (activeConfig.valEnd) constraints.push(where(activeConfig.field, '<=', activeConfig.valEnd));
-                }
-                constraints.push(orderBy('std_perf.sharpe', 'desc'));
-                constraints.push(limit(prioritizeRetro ? 150 : 50));
-
-                queryPromises.push(getDocs(query(collection(db, 'funds_v3'), ...constraints)));
-            }
-
-            const snapshots = await Promise.all(queryPromises);
-            const allDocs = snapshots.flatMap(s => s.docs);
-
-            const seenIds = new Set();
-            for (const d of allDocs) {
-                if (!seenIds.has(d.id)) {
-                    seenIds.add(d.id);
-                    candidates.push({ isin: d.id, ...d.data() });
-                }
-            }
-
-            if (candidates.length === 0) {
-                throw new Error("ForceFallback");
-            }
-
-        } catch (e: any) {
-            console.error(e);
-
-            // Simplified Fallback strategy (ignore index errors, just try broad asset class search if standard region fails)
-            const isIndexError = e.code === 'failed-precondition' || e.message?.includes('index');
-            const isForceFallback = e.message === 'ForceFallback';
-
-            if (isIndexError || isForceFallback) {
-                // If standard region failed, we revert to All Regions (Asset only) or maybe skip this? 
-                // Let's rely on simple asset search if standard region fails (better than nothing)
-                try {
-                    let fallbackConstraints = [where('derived.asset_class', 'in', targetAssets)];
-                    if (activeConfig) {
-                        fallbackConstraints.push(where(activeConfig.field, activeConfig.op, activeConfig.val));
-                    }
-                    fallbackConstraints.push(limit(100) as any);
-                    const qFallback = query(collection(db, 'funds_v3'), ...fallbackConstraints);
-                    const snapFallback = await getDocs(qFallback);
-                    candidates = snapFallback.docs.map(d => ({ isin: d.id, ...d.data() }));
-                } catch (fbErr) { console.warn("Fallback failed", fbErr); }
-            } else {
-                toast.error(`Error buscando fondos: ${e.message}`);
+            if (!candidates || candidates.length === 0) {
+                const msg = `Sin resultados nuevos. Filtros: ${assetClass} + ${region}. (Página: ${overrideOffset ?? page})`;
+                toast.error(msg);
                 setStep('FILTER');
                 return;
             }
-        }
 
-        // Secondary Logic (Emerging by Name)
-        if (isEmerging) {
-            try {
-                const qBroad = query(collection(db, 'funds_v3'), where('derived.asset_class', 'in', targetAssets), orderBy('std_perf.sharpe', 'desc'), limit(100));
-                const snapBroad = await getDocs(qBroad);
-                const nameMatches = snapBroad.docs.map(d => ({ isin: d.id, ...d.data() })).filter(f => (f as any).name?.toLowerCase().includes('emerging'));
-                const seen = new Set(candidates.map(c => c.isin));
-                for (const f of nameMatches) {
-                    if (!seen.has((f as any).isin)) { candidates.push(f); seen.add((f as any).isin); }
-                }
-            } catch (e) {
-                console.warn("Secondary Emerging search failed (likely missing index for broad sort):", e);
-            }
-        }
+            await processCandidates(candidates);
 
-        // Sorting & Slicing
-        const getRetro = (fund: any) => ((fund.manual?.costs?.retrocession ?? fund.costs?.retrocession) || 0);
-
-        if (prioritizeRetro) {
-            candidates.sort((a, b) => {
-                const retroA = getRetro(a);
-                const retroB = getRetro(b);
-                if (retroA !== retroB) return retroB - retroA;
-                return ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0);
-            });
-        } else {
-            candidates.sort((a, b) => ((b as any).std_perf?.sharpe || 0) - ((a as any).std_perf?.sharpe || 0));
-        }
-        candidates = candidates.slice(0, 10);
-
-        if (candidates.length === 0) {
-            const msg = `Sin resultados. Filtros: ${assetClass} + ${activeConfig ? activeConfig.val : region}.`;
-            toast.error(msg);
+        } catch (e: any) {
+            console.error(e);
+            toast.error(`Error buscando fondos: ${e.message}`);
             setStep('FILTER');
-            return;
         }
-
-        await processCandidates(candidates);
-
     };
 
     return createPortal(
@@ -293,14 +167,25 @@ export default function SharpeMaximizerModal({
                                 <div>
                                     <label className="block text-xs font-bold text-slate-500 uppercase mb-2">Clase de Activo</label>
                                     <select
-                                        value={assetClass} onChange={e => setAssetClass(e.target.value)}
+                                        value={assetClass} onChange={e => { setAssetClass(e.target.value); setPage(0); }}
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold focus:outline-none focus:border-emerald-500 transition-colors"
                                     >
-                                        <option value="RV">Renta Variable</option>
-                                        <option value="RF">Renta Fija</option>
-                                        <option value="Monetario">Monetario</option>
-                                        <option value="Mixto">Mixto</option>
-                                        <option value="Retorno Absoluto">Retorno Absoluto</option>
+                                        <optgroup label="Grandes Bloques">
+                                            <option value="RV">Renta Variable (General)</option>
+                                            <option value="RF">Renta Fija (General)</option>
+                                            <option value="Monetario">Monetario</option>
+                                            <option value="Mixto">Mixto</option>
+                                            <option value="Retorno Absoluto">Retorno Absoluto</option>
+                                        </optgroup>
+                                        <optgroup label="Sectores RV">
+                                            <option value="RV - Tecnología">Tecnología</option>
+                                            <option value="RV - Salud">Salud</option>
+                                        </optgroup>
+                                        <optgroup label="Especialización RF">
+                                            <option value="RF - Soberana">Deuda Gubernamental</option>
+                                            <option value="RF - Corporativa">Deuda Corporativa</option>
+                                            <option value="RF - High Yield">Alto Rendimiento (HY)</option>
+                                        </optgroup>
                                     </select>
                                 </div>
                                 <div>
@@ -323,7 +208,7 @@ export default function SharpeMaximizerModal({
                                     type="checkbox"
                                     id="prioritizeRetro"
                                     checked={prioritizeRetro}
-                                    onChange={(e) => setPrioritizeRetro(e.target.checked)}
+                                    onChange={(e) => { setPrioritizeRetro(e.target.checked); setPage(0); }}
                                     className="w-4 h-4 text-emerald-600 bg-slate-100 border-slate-300 rounded focus:ring-emerald-500 cursor-pointer"
                                 />
                                 <label htmlFor="prioritizeRetro" className="text-sm font-bold text-slate-700 cursor-pointer">
@@ -340,7 +225,7 @@ export default function SharpeMaximizerModal({
                             </div>
 
                             <button
-                                onClick={handleSearch}
+                                onClick={() => handleSearch(0)}
                                 className="w-full py-4 bg-[#003399] hover:bg-[#002277] text-white rounded-xl font-bold text-lg shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5"
                             >
                                 Buscar Oportunidades 🚀
@@ -418,6 +303,18 @@ export default function SharpeMaximizerModal({
                                     ))}
                                 </div>
                             )}
+
+                            {/* Pagination Button for the Results Page */}
+                            <button
+                                onClick={() => {
+                                    const nextPage = page + 1;
+                                    setPage(nextPage);
+                                    handleSearch(nextPage * 10);
+                                }}
+                                className="w-full mt-4 py-3 bg-white hover:bg-slate-50 border-2 border-emerald-600 text-emerald-700 rounded-xl font-bold shadow-sm transition-colors uppercase tracking-wider text-xs"
+                            >
+                                Escanear Siguientes 10 Candidatos ⬇️
+                            </button>
                         </div>
                     )}
 

@@ -168,6 +168,8 @@ export interface SmartPortfolioResponse {
     warnings: string[];
     debug: any;
     status?: string;
+    message?: string;
+    recovery_candidates?: string[];
     weights?: Record<string, number>;
     error?: string;
     used_assets?: string[];

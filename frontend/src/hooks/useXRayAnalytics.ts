@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { functions } from '../firebase';
 import { unwrapResult } from '../utils/api';
+import { globalApiCache } from '../utils/apiCache';
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS, BENCHMARK_PROFILES } from '../utils/benchmarkUtils';
 import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
 
@@ -64,14 +65,20 @@ export function useXRayAnalytics({ portfolio, fundDatabase, initialPeriod = '3y'
             if (ismounted) setLoading(true);
 
             try {
-                const analyzeFn = httpsCallable(functions, 'backtest_portfolio');
-                const res = await analyzeFn({
-                    portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight })),
-                    period: period,
-                    benchmarks: EXCLUDED_BENCHMARK_ISINS
-                });
+                const fetcher = async () => {
+                    const analyzeFn = httpsCallable(functions, 'backtest_portfolio');
+                    const res = await analyzeFn({
+                        portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight })),
+                        period: period,
+                        benchmarks: EXCLUDED_BENCHMARK_ISINS
+                    });
+                    return unwrapResult<any>(res.data);
+                };
 
-                const rawData = unwrapResult<any>(res.data);
+                const rawData = await globalApiCache.getOrFetch('backtest_portfolio', {
+                    portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight })),
+                    period
+                }, fetcher);
 
                 // Check if backend returned a logical error (e.g., "no_common_history")
                 if (rawData.error) {

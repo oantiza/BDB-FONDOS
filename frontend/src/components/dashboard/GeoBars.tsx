@@ -28,8 +28,8 @@ const chartDataLabels = {
             meta.data.forEach((bar: any, index: number) => {
                 const value = dataset.data[index];
                 if (value > 0.1) {
-                    ctx.font = 'bold 9px Inter, sans-serif';
-                    ctx.fillStyle = '#475569';
+                    ctx.font = 'bold 10px Inter, sans-serif';
+                    ctx.fillStyle = '#64748b';
                     ctx.textAlign = 'left';
                     ctx.textBaseline = 'middle';
                     const x = bar.x + 6;
@@ -105,12 +105,12 @@ export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) 
             y: {
                 grid: { display: false },
                 ticks: {
-                    font: { size: 9, weight: 'bold' as const },
-                    color: '#334155'
+                    font: { size: 11, weight: 'bold' as const },
+                    color: '#1e293b'
                 }
             }
         },
-        layout: { padding: { top: 4, bottom: 4, left: 2, right: 35 } }
+        layout: { padding: { top: 4, bottom: 4, left: 2, right: 40 } }
     }
 
     if (isEmpty) return <div className="text-xs text-slate-400 text-center flex items-center justify-center h-full">Sin datos</div>
@@ -118,7 +118,7 @@ export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) 
     return (
         <div className="flex flex-col h-full w-full py-1">
             <div className="text-center mb-1">
-                <span className="text-[11px] font-extrabold text-[#0B2545] uppercase tracking-[0.15em]">Región</span>
+                <span className="text-[12px] font-extrabold text-[#0B2545] uppercase tracking-[0.2em]">Región</span>
             </div>
             <div className="flex-1 w-full relative min-h-0">
                 <Bar data={data} options={options} plugins={[chartDataLabels]} />

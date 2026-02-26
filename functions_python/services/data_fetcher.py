@@ -7,6 +7,7 @@ from .config import PRICE_CACHE
 
 # Global RAM Cache for Risk Free Rate
 _rf_cache = {'rate': None, 'timestamp': None}
+_global_prices_cache = None
 
 class DataFetcher:
     """
@@ -23,6 +24,7 @@ class DataFetcher:
         Standardizes to Daily Frequency ('D') and aligns to Business Day Calendar ('B').
         If no_fill=True, skips ffill/bfill to allow raw data analysis (Time Horizon detection).
         """
+        global _global_prices_cache
         price_data = {}
         missing_assets = []
         synthetic_used = []
@@ -41,12 +43,19 @@ class DataFetcher:
                 from firebase_admin import storage
                 from .config import BUCKET_NAME
                 
-                bucket = storage.bucket(BUCKET_NAME)
-                blob = bucket.blob("cache/global_prices.json")
-                if blob.exists():
-                    print("⚡ [DataFetcher] Leyendo caché global desde Cloud Storage...")
-                    master_cache = json.loads(blob.download_as_string())
-                    
+                master_cache = None
+                if _global_prices_cache is not None:
+                    master_cache = _global_prices_cache
+                    print("⚡ [DataFetcher] Leyendo caché global desde RAM de la instancia (instantáneo)...")
+                else:
+                    bucket = storage.bucket(BUCKET_NAME)
+                    blob = bucket.blob("cache/global_prices.json")
+                    if blob.exists():
+                        print("⚡ [DataFetcher] Descargando caché global desde Cloud Storage...")
+                        master_cache = json.loads(blob.download_as_string())
+                        _global_prices_cache = master_cache
+                
+                if master_cache:
                     # Rellenar los missing_assets con el master_cache
                     still_missing = []
                     for isin in missing_assets:

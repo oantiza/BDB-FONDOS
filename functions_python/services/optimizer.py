@@ -125,14 +125,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
     # --- PHASE 2.1 CONSTANTS ---
     FALLBACK_CANDIDATES_DEFAULT = [
-        'IE00B03HCZ61', # Vanguard Global Stock
-        'LU0996182563', # Amundi Index Solutions - Amundi Prime Global
-        'IE00B4L5Y983', # iShares Core MSCI World
-        'LU0340557775', # Morgan Stanley Global Opportunity
-        'LU1670724373', # Amundi Index MSCI World
-        'IE0031442068', # iShares S&P 500
-        'IE00B5BXRH53', # iShares Core S&P 500
-        'LU1135865084', # Fidelity Funds - Global Dividend
+        'LU0340557775', # Morgan Stanley Global Opportunity (Activo)
+        'LU1135865084', # Fidelity Funds - Global Dividend (Activo)
+        'LU0690375182', # Fundsmith Equity Fund (Activo)
+        'LU0203975437', # Robeco BP Global Premium Equities (Activo)
+        'IE00B2NXKW18', # Seilern World Growth (Activo)
     ]
     
     # Init safe defaults (Handler for UnboundLocalError in except block)
@@ -197,11 +194,10 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             df = df.dropna()
 
         if df.empty or len(df) < 50:
-            # --- EMERGENCY AUTO-EXPAND ---
+            # --- EMERGENCY AUTO-EXPAND (NOW AS SUGGESTION) ---
             auto_expand = constraints.get('auto_expand_universe', False) if constraints else False
             if auto_expand:
-                print("⚠️ Emergency Auto-Expand triggered due to insufficient history...")
-                 # A) Fallback Candidates
+                print("⚠️ Insufficient history. Aborting and returning recovery candidates...")
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
                 try:
                     cfg_ref = db.collection('config').document('auto_complete_candidates')
@@ -209,42 +205,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     if cfg.exists: candidates_list = cfg.to_dict().get('equity90_isins', FALLBACK_CANDIDATES_DEFAULT)
                 except: pass
                 
-                prices_check, _ = fetcher.get_price_data(candidates_list, resample_freq='D', strict=True)
-                valid_candidates = [k for k, v in prices_check.items() if len(v) >= 50]
-                
-                if not valid_candidates:
-                    raise Exception("Insuficientes datos (incluso tras auto-expand).")
-                
-                top_candidates = valid_candidates[:5]
-                added_assets = top_candidates
-                price_data = {} 
-                for c in top_candidates:
-                    price_data[c] = prices_check[c]
-                
-                df = pd.DataFrame(price_data)
-                df.index = pd.to_datetime(df.index)
-                
-                # Senior Pipeline: Fill then Slice
-                df = df.sort_index().ffill().bfill()
-                start_date = df.index[-1] - pd.Timedelta(days=1095)
-                df = df[df.index >= start_date]
-
-                universe = list(df.columns)
-                solver_path = 'emergency_auto_expand'
-                print(f"✅ Emergency Expansion Applied. New Universe: {universe}")
-                
-                try:
-                    refs = [db.collection('funds_v3').document(isin) for isin in universe]
-                    new_docs = db.get_all(refs)
-                    for d in new_docs:
-                        if d.exists:
-                            dd = d.to_dict() or {}
-                            asset_metadata[d.id] = {
-                                'metrics': dd.get('metrics', {}),
-                                'asset_class': dd.get('asset_class') or dd.get('std_type'),
-                                'label': _classify_asset(d.id) # Infer label from new doc
-                            }
-                except: pass
+                # Lanzamos una excepción controlada que endpoints_portfolio capturará
+                # para devolver status="infeasible" y los ISINs sugeridos al Frontend.
+                raise ValueError(f"INFEASIBLE_HISTORY:{','.join(candidates_list[:5])}")
 
             else:
                 raise Exception("Insuficientes datos históricos para optimizar.")
@@ -634,6 +597,13 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                             ef.add_constraint(lambda w: w @ bd_vec <= bond_cap)
                         if cash_cap is not None:
                             ef.add_constraint(lambda w: w @ cs_vec <= cash_cap)
+                            
+                        # NEW: Re-apply Risk Buckets on Fallback!
+                        if apply_profile and risk_level_i in RISK_BUCKETS_LABELS:
+                            buckets = RISK_BUCKETS_LABELS[risk_level_i]
+                            if 'RV' in buckets: ef.add_constraint(lambda w: w @ eq_vec <= buckets['RV'][1])
+                            if 'RF' in buckets: ef.add_constraint(lambda w: w @ bd_vec >= buckets['RF'][0])
+                            
                         solver_path = f'max_sharpe_relaxed_equity_{equity_floor2:.2f}'
                         raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                         equity_floor = equity_floor2
@@ -642,6 +612,20 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                         solver_path = 'fallback_max_sharpe_no_equity'
                         ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
                         ef.add_objective(objective_functions.L2_reg, gamma=gamma)
+                        
+                        # Apply missing constraints to this fallback
+                        for isin in locked_assets:
+                            if isin in universe:
+                                idx = ef.tickers.index(isin)
+                                ef.add_constraint(lambda w, i=idx: w[i] >= 0.03)
+                        if bond_cap is not None: ef.add_constraint(lambda w: w @ bd_vec <= bond_cap)
+                        if cash_cap is not None: ef.add_constraint(lambda w: w @ cs_vec <= cash_cap)
+                        # NEW: Re-apply Risk Buckets on Final Fallback!
+                        if apply_profile and risk_level_i in RISK_BUCKETS_LABELS:
+                            buckets = RISK_BUCKETS_LABELS[risk_level_i]
+                            if 'RV' in buckets: ef.add_constraint(lambda w: w @ eq_vec <= buckets['RV'][1])
+                            if 'RF' in buckets: ef.add_constraint(lambda w: w @ bd_vec >= buckets['RF'][0])
+
                         raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                         equity_floor = 0.0
                 else:
@@ -653,6 +637,19 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                         solver_path = 'fallback_min_volatility'
                         ef_fallback = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
                         ef_fallback.add_objective(objective_functions.L2_reg, gamma=gamma)
+                        
+                        # Apply missing constraints to the Min Volatility fallback!
+                        for isin in locked_assets:
+                            if isin in universe:
+                                idx = ef_fallback.tickers.index(isin)
+                                ef_fallback.add_constraint(lambda w, i=idx: w[i] >= 0.03)
+                        if bond_cap is not None: ef_fallback.add_constraint(lambda w: w @ bd_vec <= bond_cap)
+                        if cash_cap is not None: ef_fallback.add_constraint(lambda w: w @ cs_vec <= cash_cap)
+                        if apply_profile and risk_level_i in RISK_BUCKETS_LABELS:
+                            buckets = RISK_BUCKETS_LABELS[risk_level_i]
+                            if 'RV' in buckets: ef_fallback.add_constraint(lambda w: w @ eq_vec <= buckets['RV'][1])
+                            if 'RF' in buckets: ef_fallback.add_constraint(lambda w: w @ bd_vec >= buckets['RF'][0])
+
                         raw_weights = ef_fallback.min_volatility()
                         # Replace ef so clean_weights works on the right object
                         ef = ef_fallback

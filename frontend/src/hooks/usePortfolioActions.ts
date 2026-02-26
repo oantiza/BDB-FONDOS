@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 import { httpsCallable } from 'firebase/functions';
 import { query, collection, where, getDocs, limit } from 'firebase/firestore';
 import { db, functions } from '../firebase';
@@ -9,6 +9,7 @@ import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer';
 import { generateSmartPortfolioLocal } from '../utils/rulesEngine';
 import { parsePortfolioCSV } from '../utils/csvImport';
 import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
+import { calculatePortfolioPoint } from '../utils/portfolioAnalyticsEngine';
 import { MacroReport } from '../types/MacroReport';
 
 // Unwrap callable/onRequest payloads (supports {result:{...}} or direct objects)
@@ -98,7 +99,39 @@ export function usePortfolioActions({
         alternatives: []
     });
 
-    const [analysisResult, setAnalysisResult] = useState<any>(null); // NEW
+    const [analysisResult, setAnalysisResult] = useState<any>(null); // Existing
+
+    // --- NEW: Interactive Frontier State ---
+    const [interactiveMathData, setInteractiveMathData] = useState<{
+        ordered_isins: string[],
+        expected_returns: Record<string, number>,
+        covariance_matrix: number[][]
+    } | null>(null);
+
+    const [interactivePoint, setInteractivePoint] = useState<{ x: number, y: number } | null>(null);
+
+    // Effect to recalculate point when weights or math data changes
+    useEffect(() => {
+        if (!interactiveMathData || portfolio.length === 0) {
+            setInteractivePoint(null);
+            return;
+        }
+
+        const weights = portfolio.reduce((acc, curr) => {
+            // Treat UI weights (e.g., 25 for 25%) as decimals for the engine
+            acc[curr.isin] = curr.weight / 100;
+            return acc;
+        }, {} as Record<string, number>);
+
+        const point = calculatePortfolioPoint(
+            weights,
+            interactiveMathData.expected_returns,
+            interactiveMathData.covariance_matrix,
+            interactiveMathData.ordered_isins
+        );
+
+        setInteractivePoint(point);
+    }, [portfolio, interactiveMathData]);
 
     // 1. Asset Management Handlers
     const handleAddAsset = useCallback((asset: Fund) => {
@@ -122,14 +155,16 @@ export function usePortfolioActions({
     }, [portfolio, setPortfolio]);
 
     // 2. Swapper Handlers
-    const handleOpenSwap = useCallback(async (fund: PortfolioItem, filters: { assetClass?: string; region?: string } = {}) => {
+    const handleOpenSwap = useCallback(async (fund: PortfolioItem, filters: { assetClass?: string; region?: string; maximizeRetro?: boolean; offset?: number } = {}) => {
         toast.info("🔎 Buscando alternativas (Directo V3)...");
 
         // --- SMART FUND REPLACEMENT LOGIC ---
         // If no filters provided (initial open), enforce strict matching to current fund's category/region
         const activeFilters = {
             assetClass: filters.assetClass || (fund.derived?.asset_class || fund.std_type || 'RV'),
-            region: filters.region || (fund.derived?.primary_region || fund.std_region || 'all')
+            region: filters.region || (fund.derived?.primary_region || fund.std_region || 'all'),
+            maximizeRetro: filters.maximizeRetro || false,
+            offset: filters.offset || 0
         };
 
         try {
@@ -137,7 +172,7 @@ export function usePortfolioActions({
             const rawAlts = await findDirectAlternativesV3(fund, {
                 excludeIsins,
                 desired: 3,
-                ...activeFilters // Apply the strict filters
+                ...activeFilters // Apply the strict filters, max retro toggle, and pagination offset
             });
 
             // Map raw results to the UI's expected format (Alternative[])
@@ -176,7 +211,8 @@ export function usePortfolioActions({
         if (!swapper.fund) return;
         const updatedPortfolio = portfolio.map(item => {
             if (item.isin === swapper.fund?.isin) {
-                return { ...newFund, weight: item.weight, manualSwap: false };
+                // Set manualSwap to TRUE to lock the selection
+                return { ...newFund, weight: item.weight, manualSwap: true };
             }
             return item;
         });
@@ -285,16 +321,7 @@ export function usePortfolioActions({
         }
     };
 
-    // --- Helper for Metadata ---
-    const mapCategoryToTag = (type: string | undefined): string => {
-        if (!type) return "Other";
-        const t = type.toLowerCase();
-        if (t.includes("variable") || t.includes("equity") || t.includes("acciones") || t.includes("rv") || t.includes("stock")) return "RV";
-        if (t.includes("fija") || t.includes("bond") || t.includes("deuda") || t.includes("rf") || t.includes("renta fija")) return "RF";
-        if (t.includes("mixto") || t.includes("allocation") || t.includes("multi") || t.includes("mixed")) return "Mixto";
-        if (t.includes("monetario") || t.includes("money") || t.includes("liquidez") || t.includes("cash")) return "Monetario";
-        return "Other";
-    };
+    // --- Eliminated fuzzy logic (mapCategoryToTag) to respect DB truth (Point 1 Architecture) ---
 
     const handleOptimize = async (uiViews?: Record<string, string> | any) => {
         if (portfolio.length === 0) {
@@ -323,14 +350,17 @@ export function usePortfolioActions({
             vipList.forEach(v => lockedSet.add(v));
 
             // --- BUILD METADATA FOR BACKEND ---
-            // Fixes issue where backend doesn't know the category of frontend-only funds
+            // Fixes issue where backend doesn't know the category of frontend-only funds (e.g. CSV).
+            // We ONLY pass raw classes from the frontend and avoid fuzzy overwriting DB truth.
             const assetMetadata: Record<string, any> = {};
             // 1. From Portfolio
             portfolio.forEach(p => {
                 const fullFund = assets.find(a => a.isin === p.isin);
-                const typeRaw = fullFund?.std_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
+                const typeRaw = fullFund?.derived?.asset_class || fullFund?.std_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
                 assetMetadata[p.isin] = {
-                    label: mapCategoryToTag(typeRaw),
+                    // We only provide a generic label if it's strictly one of our known types, 
+                    // otherwise let backend derive it from db.
+                    asset_class: typeRaw,
                     name: p.name
                 };
             });
@@ -338,7 +368,7 @@ export function usePortfolioActions({
             assets.forEach(a => {
                 if (assetUniverse.has(a.isin) && !assetMetadata[a.isin]) {
                     assetMetadata[a.isin] = {
-                        label: mapCategoryToTag(a.std_type || a.asset_class),
+                        asset_class: a.derived?.asset_class || a.std_type || a.asset_class,
                         name: a.name
                     };
                 }
@@ -481,6 +511,31 @@ export function usePortfolioActions({
                 setProposedPortfolio(optimized);
                 toggleModal('review', true);
             }
+        } else if (result.status === 'infeasible') {
+            const msg = result.message || "Faltan datos para equilibrar la cartera matemáticamente.\n\n¿Quieres que el sistema añada automáticamente fondos globales válidos para intentar cuadrar el modelo?";
+
+            if (window.confirm(msg)) {
+                toast.info("🔄 Añadiendo fondos sugeridos y reintentando...");
+                // Re-try manually injecting the recovery_candidates
+                const expandedAssets = [...portfolio.map(p => p.isin)];
+                if (result.recovery_candidates) {
+                    result.recovery_candidates.forEach((c: string) => {
+                        if (!expandedAssets.includes(c)) expandedAssets.push(c);
+                    });
+                }
+
+                const response2 = await optimizeFn({
+                    assets: expandedAssets,
+                    risk_level: riskLevel,
+                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
+                    // No need for auto_expand_universe because we explicitly appended the ISINs
+                });
+                const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
+                processOptimizationResult(result2, optimizeFn);
+            } else {
+                toast.info("Optimización cancelada.");
+            }
+
         } else if (result.status === 'infeasible_equity_floor') {
             const feasible = result.feasibility?.equity_max_achievable || 0;
             const requested = result.feasibility?.equity_floor_requested || 0;
@@ -488,7 +543,8 @@ export function usePortfolioActions({
 
             if (window.confirm(msg)) {
                 toast.info("🔄 Auto-completando cartera con fondos de RV...");
-                // Re-try with auto_expand
+                // Note: The python backend might still expect `auto_expand_universe` for this specific fallback
+                // but ideally this should also be migrated to explicit lists in the future.
                 const response2 = await optimizeFn({
                     assets: portfolio.map(p => p.isin),
                     risk_level: riskLevel,
@@ -496,7 +552,7 @@ export function usePortfolioActions({
                     auto_expand_universe: true
                 });
                 const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
-                processOptimizationResult(result2, optimizeFn); // Recursive success check
+                processOptimizationResult(result2, optimizeFn);
             } else {
                 toast.info("Optimización cancelada por falta de RV.");
             }
@@ -506,11 +562,10 @@ export function usePortfolioActions({
             const warnings = result.warnings?.join('\n') || "Insuficientes datos.";
 
             // Show modal or detailed error
-            const msg = `❌ Error de Datos Históricos\n\n${warnings}\n\nSugerencia: ${suggestion}\n\n¿Quieres intentar activar el modo 'Auto-Expandir Universo' para completar la cartera con fondos seguros?`;
+            const msg = `❌ Error de Datos Históricos\n\n${warnings}\n\nSugerencia: ${suggestion}\n\n¿Quieres intentar completar la cartera con fondos seguros?`;
 
             if (window.confirm(msg)) {
-                // Retry with auto-expand
-                toast.info("🔄 Reintentando con Auto-Expansión...");
+                toast.info("🔄 Reintentando con fondos base...");
                 const response3 = await optimizeFn({
                     assets: portfolio.map(p => p.isin),
                     risk_level: riskLevel,
@@ -541,6 +596,14 @@ export function usePortfolioActions({
                 toast.error("Error en análisis: " + result.error);
             } else {
                 setAnalysisResult(result);
+                // Keep the math data update here too, just in case they clicked this first.
+                if (result.math_data) {
+                    setInteractiveMathData({
+                        ordered_isins: result.math_data.ordered_isins || [],
+                        expected_returns: result.math_data.expected_returns || {},
+                        covariance_matrix: result.math_data.covariance_matrix || []
+                    });
+                }
                 toggleModal('analysis', true);
             }
         } catch (error: any) {
@@ -548,7 +611,39 @@ export function usePortfolioActions({
         } finally {
             setIsOptimizing(false);
         }
-    }, [portfolio, toast]);
+    }, [portfolio, setInteractiveMathData, setAnalysisResult, toggleModal, toast]);
+
+    const handleFetchInteractiveFrontier = useCallback(async () => {
+        if (portfolio.length === 0) {
+            toast.info("Añade fondos a la cartera primero");
+            return;
+        }
+        setIsOptimizing(true);
+        try {
+            const getFrontierFn = httpsCallable(functions, 'getEfficientFrontier');
+            const response = await getFrontierFn({
+                portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight }))
+            });
+            const result = unwrapResult<any>(response.data);
+
+            if (result.error) {
+                toast.error("Error al sincronizar datos matemáticos: " + result.error);
+            } else if (result.math_data) {
+                setInteractiveMathData({
+                    ordered_isins: result.math_data.ordered_isins || [],
+                    expected_returns: result.math_data.expected_returns || {},
+                    covariance_matrix: result.math_data.covariance_matrix || []
+                });
+                toast.success("✅ Modo Simulación Live Activado");
+            } else {
+                toast.error("No se pudieron obtener los datos matemáticos.");
+            }
+        } catch (error: any) {
+            toast.error("Error al conectar con el servidor: " + error.message);
+        } finally {
+            setIsOptimizing(false);
+        }
+    }, [portfolio, setInteractiveMathData, toast]);
 
     // 4. Tactical/Review Modal Handlers
     const handleApplyDirectly = () => {
@@ -620,6 +715,10 @@ export function usePortfolioActions({
         handleImportCSV,
         handleRoundDecimals,
         handleAnalyzePortfolio, // NEW
-        analysisResult // NEW
+        handleFetchInteractiveFrontier, // NEW
+        analysisResult, // NEW
+        // Interactive Frontier State
+        interactiveMathData,
+        interactivePoint
     };
 }

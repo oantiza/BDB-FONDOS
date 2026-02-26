@@ -3,6 +3,7 @@ import { httpsCallable } from 'firebase/functions'
 import { functions } from '../firebase'
 import { MarketIndexResponse, YieldCurveResponse } from '../types'
 import { getDashboardAnalytics } from '../engine/portfolioAnalyticsEngine'
+import { globalApiCache } from '../utils/apiCache'
 
 export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
   const [historyData, setHistoryData] = useState<{ x: string; y: number }[]>([])
@@ -41,9 +42,9 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
       const historyPromise = (async () => {
         setIsLoadingHistory(true)
         try {
-          // Fetch unified metrics and history
+          const fetcher = async () => await getDashboardAnalytics(portfolio, { include1y: true });
           const { series5y, metrics1y, metrics3y, metrics5y, regionAllocation: ra, warnings: w } =
-            await getDashboardAnalytics(portfolio, { include1y: true })
+            await globalApiCache.getOrFetch('dashboardAnalytics', portfolio, fetcher);
 
           setHistoryData(series5y || [])
           setMetrics1y(metrics1y || null)
@@ -61,9 +62,12 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
       const frontierPromise = (async () => {
         setIsLoadingFrontier(true)
         try {
-          const getFrontier = httpsCallable(functions, 'getEfficientFrontier')
-          const res = await getFrontier({ portfolio })
-          const data = res.data as any
+          const fetcher = async () => {
+            const getFrontier = httpsCallable(functions, 'getEfficientFrontier')
+            const res = await getFrontier({ portfolio })
+            return res.data as any
+          };
+          const data = await globalApiCache.getOrFetch('getEfficientFrontier', portfolio, fetcher);
 
           if (data.frontier) {
             setFrontierData(data.frontier)

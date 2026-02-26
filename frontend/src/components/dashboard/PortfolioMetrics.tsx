@@ -162,7 +162,7 @@ export default function PortfolioMetrics({
     };
 
     const items = [
-        { label: 'Volatilidad (1Y)', value: display.vol, color: 'text-slate-700' },
+        { label: 'Volatilidad (1Y)', value: display.vol, color: 'text-amber-700/90' },
         // Note: Volatility 1Y also comes from metrics.vol (which is now 3Y from history). 
         // If we want 1Y separate, we'd need to calc that too. 
         // For now, let's assume Consistency > Specificity. 
@@ -172,15 +172,15 @@ export default function PortfolioMetrics({
         // Actually, X-Ray uses Full History Vol. 
         // Let's just update the label below to be consistent.
 
-        { label: 'Volatilidad (3A)', value: metrics.isReal ? display.vol : '—', color: 'text-slate-900' },
+        { label: 'Volatilidad (3A)', value: metrics.isReal ? display.vol : '—', color: 'text-amber-700/90' },
         // Wait, if metrics.vol is 3A, then 1Y row is wrong?
         // Let's keep 1Y as heuristic if we want, or match.
         // Actually, user wants 3A.
 
-        { label: `Ratio Sharpe (Rf ${display.rf})`, value: display.sharpe, color: 'text-indigo-600' },
-        { label: 'Max Drawdown', value: display.maxDD, color: 'text-rose-600' },
-        { label: 'Rentabilidad 3A', value: metrics.ret3y, color: 'text-blue-600' },
-        { label: 'Rentabilidad 5A', value: metrics.isReal ? display.cagr : '-', color: 'text-blue-800' },
+        { label: `Ratio Sharpe (Rf ${display.rf})`, value: display.sharpe, color: 'text-indigo-700/90' },
+        { label: 'Max Drawdown', value: display.maxDD, color: 'text-rose-800/80' },
+        { label: 'Rentabilidad 3A', value: metrics.ret3y, color: 'text-emerald-700/90' },
+        { label: 'Rentabilidad 5A', value: metrics.isReal ? display.cagr : '-', color: 'text-slate-700' },
     ];
 
     return (
@@ -205,11 +205,11 @@ export default function PortfolioMetrics({
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: i * 0.1 }}
                                 whileHover={{ scale: 1.05, transition: { duration: 0.2 } }}
-                                className="flex flex-col items-center justify-center p-4 rounded-xl border border-slate-100 bg-slate-50/50 hover:bg-white hover:shadow-md transition-all cursor-default"
+                                className="flex flex-col items-center justify-center p-5 rounded-xl border border-slate-100/60 bg-white hover:shadow-md transition-shadow duration-300 cursor-default"
                             >
-                                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest mb-2">{m.label}</span>
+                                <span className="text-[10px] text-slate-400 font-medium uppercase tracking-widest mb-1.5">{m.label}</span>
                                 <div className="flex items-baseline gap-1">
-                                    <span className={`text-3xl font-light tracking-tight ${m.color || 'text-slate-700'}`}>
+                                    <span className={`text-2xl font-light tracking-tight ${m.color || 'text-slate-800'}`}>
                                         {m.value}
                                     </span>
                                 </div>

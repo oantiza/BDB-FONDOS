@@ -151,21 +151,21 @@ function normalizeAssetClass(raw: any): AssetClass {
   if (!raw || typeof raw !== "string") return "Otros";
   const s = raw.trim().toUpperCase();
 
-  if (s.includes("MONETARIO") || s.includes("CASH") || s.includes("LIQUIDEZ") || s.includes("MONEY MARKET")) return "Monetario";
-  if (s.includes("FIJA") || s.includes("FIXED") || s.includes("BOND") || s.includes("CREDIT") || s.includes("DEBT")) return "RF";
-  if (s.includes("VARIABLE") || s.includes("EQUITY") || s.includes("STOCK") || s.includes("ACCION") || s.includes("RV")) return "RV";
-  if (s.includes("MIXTO") || s.includes("MIXED") || s.includes("MULTI") || s.includes("BALANCED") || s.includes("ALLOCATION")) return "Mixto";
-  if (s.includes("ABSOLUTO") || s.includes("HEDGE") || s.includes("ALTERNATIVE") || s.includes("LONG/SHORT")) return "Retorno Absoluto";
+  // As a final fallback ONLY if derived.asset_class is wildly incorrect.
+  // The primary source should be derived.asset_class which is now numerically computed.
+  if (s === "MONETARIO") return "Monetario";
+  if (s === "RF") return "RF";
+  if (s === "RV") return "RV";
+  if (s === "MIXTO") return "Mixto";
+  if (s === "RETORNO ABSOLUTO") return "Retorno Absoluto";
 
   return "Otros";
 }
 
 function getAssetClass(f: Fund): AssetClass {
-  const raw = (f as any)?.derived?.asset_class ??
-    (f as any)?.asset_class ??
-    (f as any)?.assetClass ??
-    (f as any)?.std_type ??
-    (f as any)?.type ?? "";
+  // STRICTLY USE derived.asset_class.
+  // We assume the DB has correctly computed this mathematically via the ingestion script.
+  const raw = (f as any)?.derived?.asset_class ?? "Otros";
   return normalizeAssetClass(raw);
 }
 
@@ -331,29 +331,25 @@ export function generateSmartPortfolioLocal(
     }
   });
 
-  // FALLBACK CRÍTICO: Si la cartera está vacía pero había candidatos válidos
-  // Rellenamos con los mejores fondos globales (sin mirar buckets)
-  if (portfolio.length === 0) {
-    console.warn("[SmartEngine] Empty portfolio after bucket fill. Triggering FALLBACK to top scored funds.");
+  // FALLBACK CRÍTICO "Graceful Degradation":
+  // Si la cartera está vacía o incompleta tras llenar buckets,
+  // rellenamos con los mejores fondos del universo VALIDADO.
+  // NUNCA ignorar los controles de calidad (data_quality.history_ok).
+  if (portfolio.length < targetNumFunds) {
+    console.warn(`[SmartEngine] Only got ${portfolio.length} funds from buckets. Filling gaps using best score from Valid Universe.`);
 
-    // First try: Valid candidates only (ignoring buckets)
-    let allCandidates = Object.values(universe).flat()
+    // ONLY use the validated `universe`, sorted by score
+    const validGlobalCandidates = Object.values(universe).flat()
       .map(f => ({ f, score: calculateScore(f, profile.bias) }))
       .sort((a, b) => b.score - a.score);
 
-    // Second try: Panic Universe (Everything! Ignoring data quality)
-    if (allCandidates.length === 0) {
-      console.error("[SmartEngine] PANIC: No valid candidates found. Using raw universe (ignoring quality flags).");
-      allCandidates = allFunds
-        .map(f => ({ f, score: calculateScore(f, profile.bias) }))
-        .sort((a, b) => b.score - a.score);
-    }
-
-    for (const item of allCandidates) {
+    for (const item of validGlobalCandidates) {
       if (portfolio.length >= targetNumFunds) break;
-      if (!usedISINs.has(item.f.isin)) {
+      const baseName = getBaseName(item.f.name);
+      if (!usedISINs.has(item.f.isin) && !usedNames.has(baseName)) {
         portfolio.push({ ...item.f, weight: 0 });
         usedISINs.add(item.f.isin);
+        usedNames.add(baseName);
       }
     }
   }
@@ -371,8 +367,14 @@ export function generateSmartPortfolioLocal(
       portfolio.forEach(item => {
         const cls = getAssetClass(item);
         const fundsInClass = portfolio.filter(p => getAssetClass(p) === cls).length;
-        if (fundsInClass > 0) {
+        if (fundsInClass > 0 && targetPcts[cls] > 0) {
           item.weight = targetPcts[cls] / fundsInClass;
+        } else {
+          // Fondo inyectado por el fallback Graceful Degradation:
+          // Su clase original (ej: Renta Fija) pedía 0% para este perfil de riesgo,
+          // pero lo hemos añadido porque faltaban fondos de la requerida (ej: RV).
+          // Le asignamos un peso básico de la tarta para no devolvérselo con 0% al usuario.
+          item.weight = 100 / Math.max(1, targetNumFunds);
         }
       });
     } else {
@@ -398,31 +400,34 @@ export function generateSmartPortfolioLocal(
   }
 
   // =======================
-  // HARD GUARANTEE: Always return exactly targetNumFunds if universe is sufficient
+  // ADVERTENCIA DE PORTFOLIO REDUCIDO
   // =======================
   if (portfolio.length < targetNumFunds) {
-    const globalCandidates = Object.values(universe)
-      .flat()
-      .map(f => ({ f, score: calculateScore(f, profile.bias) }))
-      .sort((a, b) => b.score - a.score)
-      .map(x => x.f);
-
-    for (const f of globalCandidates) {
-      if (portfolio.length >= targetNumFunds) break;
-      if (!usedISINs.has(f.isin)) {
-        portfolio.push({ ...f, weight: 0 });
-        usedISINs.add(f.isin);
-        usedNames.add(getBaseName(f.name));
-      }
-    }
+    console.warn(`[SmartEngine] ALERT: Could not reach target of ${targetNumFunds} funds. Universe of valid funds is too small. Returning ${portfolio.length} high-quality funds instead.`);
+    // We intentionally DO NOT force add bad quality funds from `allFunds`.
+    // Returning a slightly smaller portfolio is mathematically and financially safer.
   }
 
   return portfolio;
 }
 
-export function syncRiskProfilesFromDB(dbProfiles: Record<number, RiskProfileConfig>) {
+export function syncRiskProfilesFromDB(dbProfiles: any) {
   if (dbProfiles && Object.keys(dbProfiles).length > 0) {
-    RISK_PROFILES = dbProfiles;
-    console.log("🛡️ [RulesEngine] Perfiles de riesgo sincronizados desde BD.");
+    Object.keys(dbProfiles).forEach(riskStr => {
+      const riskLevel = Number(riskStr);
+      if (RISK_PROFILES[riskLevel]) {
+        const backendProfile = dbProfiles[riskLevel];
+        const newBuckets: Record<string, BucketConfig> = {};
+        for (const cls in backendProfile) {
+          const arr = backendProfile[cls];
+          const mappedCls = cls === 'Other' ? 'Otros' : cls;
+          if (Array.isArray(arr) && arr.length >= 2) {
+            newBuckets[mappedCls] = { min: arr[0] * 100, max: arr[1] * 100 };
+          }
+        }
+        RISK_PROFILES[riskLevel].buckets = newBuckets as any;
+      }
+    });
+    console.log("🛡️ [RulesEngine] Perfiles de riesgo sincronizados y adaptados desde BD.");
   }
 }

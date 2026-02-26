@@ -35,11 +35,11 @@ function MetricCard({
     color?: string; // Explicit HEX or Tailwind class
 }) {
     return (
-        <div className="flex-1 bg-[#F8FAFC] border border-[#f0f0f0] rounded-xl p-6 flex flex-col items-center justify-center text-center shadow-sm">
-            <div className="text-[9px] uppercase font-semibold text-slate-600 tracking-wider mb-1.5">
+        <div className="flex-1 bg-white border border-slate-100/60 rounded-xl p-5 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className="text-[10px] uppercase font-medium text-slate-400 tracking-widest mb-1.5">
                 {label}
             </div>
-            <div className={`text-3xl font-bold ${color || "text-[#2C3E50]"}`}>
+            <div className={`text-2xl font-light tracking-tight ${color || "text-slate-800"}`}>
                 {value}
             </div>
         </div>
@@ -65,32 +65,32 @@ export function PortfolioMetricsCards({
                 <MetricCard
                     label="Volatilidad (1Y)"
                     value={fmtPctDecimal(metrics1y?.volatility)}
-                    color="text-[#C0392B]" // Red matches X-Ray
+                    color="text-amber-700/90"
                 />
                 <MetricCard
                     label="Volatilidad (3A)"
                     value={fmtPctDecimal(metrics3y?.volatility)}
-                    color="text-[#C0392B]" // Red matches X-Ray
+                    color="text-amber-700/90"
                 />
                 <MetricCard
                     label={`Ratio Sharpe (${rfLabel})`}
                     value={fmtNum(metrics3y?.sharpe, 2)}
-                    color="text-[#4d5bf9]" // Blue/Purple matches X-Ray
+                    color="text-indigo-700/90"
                 />
                 <MetricCard
                     label="Max Drawdown"
                     value={maxDD === undefined ? "—" : fmtPctDecimal(maxDD)}
-                    color="text-[#C0392B]" // Red matches X-Ray
+                    color="text-rose-800/80"
                 />
                 <MetricCard
                     label="Rentabilidad 3A"
                     value={fmtPctDecimal(metrics3y?.cagr)}
-                    color="text-[#4d5bf9]" // Blue matches X-Ray screenshot style for returns
+                    color="text-emerald-700/90"
                 />
                 <MetricCard
                     label="Rentabilidad 5A"
                     value={fmtPctDecimal(metrics5y?.cagr)}
-                    color="text-[#2C3E50]" // Standard dark
+                    color="text-slate-700"
                 />
             </div>
         </div>

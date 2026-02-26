@@ -4,7 +4,12 @@ import { db } from '../firebase';
 // [CONFIG] Search Variants (Shared Logic with SharpeMaximizer)
 const ASSET_VARIANTS: Record<string, string[]> = {
     'RV': ['RV', 'Equity', 'Renta Variable', 'Stock', 'EQ', 'Renta Variable Global'],
+    'RV - Tecnología': ['Tecnología', 'Technology', 'Tech', 'Renta Variable Sectorial - Tecnología'],
+    'RV - Salud': ['Salud', 'Health', 'Healthcare', 'Renta Variable Sectorial - Salud', 'Sanidad'],
     'RF': ['RF', 'Fixed Income', 'Renta Fija', 'Bond', 'FI', 'Deuda'],
+    'RF - Soberana': ['Soberana', 'Government', 'Renta Fija Gubernamental', 'Sovereign'],
+    'RF - Corporativa': ['Corporativa', 'Corporate', 'Renta Fija Corporativa'],
+    'RF - High Yield': ['High Yield', 'Alto Rendimiento', 'Renta Fija Alto Rendimiento'],
     'Monetario': ['Monetario', 'Money Market', 'Cash', 'Liquidez', 'MM'],
     'Mixto': ['Mixto', 'Mixed', 'Balanced', 'Allocation', 'Multi-Asset'],
     'Retorno Absoluto': ['Retorno Absoluto', 'Alternative', 'Absolute Return', 'Hedge']
@@ -29,13 +34,13 @@ const getRegionVariants = (key: string): string[] => {
  * Supports Broad Regions and Asset Variants
  */
 export async function findDirectAlternativesV3(
-    targetFund: any,
-    options: { excludeIsins?: string[]; desired?: number; assetClass?: string; region?: string } = {}
+    targetFund: any | null,
+    options: { excludeIsins?: string[]; desired?: number; assetClass?: string; region?: string; maximizeRetro?: boolean; offset?: number } = {}
 ) {
-    const { excludeIsins = [], desired = 3, assetClass, region } = options;
+    const { excludeIsins = [], desired = 3, assetClass, region, maximizeRetro = false, offset = 0 } = options;
 
     // 1. Validar clase de activo
-    const targetClass = assetClass || targetFund?.derived?.asset_class || targetFund?.asset_class;
+    const targetClass = assetClass || (targetFund ? (targetFund.derived?.asset_class || targetFund.asset_class) : 'RV');
 
     if (!targetClass) {
         console.warn("[DirectSearch] El fondo objetivo no tiene derived.asset_class", targetFund);
@@ -116,11 +121,11 @@ export async function findDirectAlternativesV3(
             snapRF.forEach(processDoc);
         }
 
-        // 4. Ranking (Prefer same Morningstar Category)
+        // 4. Ranking (Prefer same Morningstar Category if TargetFund exists)
         let matchCat: any[] = [];
         let others: any[] = [];
 
-        if (targetCategory && !assetClass) {
+        if (targetFund && targetCategory && !assetClass) {
             candidates.forEach(c => {
                 const cCat = c.ms?.category_morningstar;
                 if (cCat === targetCategory) matchCat.push(c);
@@ -130,16 +135,49 @@ export async function findDirectAlternativesV3(
             others = candidates;
         }
 
-        // 5. Shuffle in groups
-        const shuffle = (arr: any[]) => arr.sort(() => Math.random() - 0.5);
-        shuffle(matchCat);
-        shuffle(others);
+        // Helper function for sorting
+        const getSharpe = (f: any) => f.std_perf?.sharpe ?? -999;
+        const getReturns = (f: any) => f.std_perf?.returns_3y ?? -999;
+        const getRetro = (f: any) => {
+            const r = f.manual?.costs?.retrocession ?? f.costs?.retrocession;
+            if (r === undefined || r === null) return -999;
+            return r > 0.1 ? r : r * 100; // Normalize percentage
+        }
+
+        const sortFunds = (arr: any[]) => {
+            return arr.sort((a, b) => {
+                if (maximizeRetro) {
+                    const retroA = getRetro(a);
+                    const retroB = getRetro(b);
+                    // If both have retrocession info, sort by retrocession desc
+                    if (retroA !== -999 && retroB !== -999) {
+                        if (retroA !== retroB) return retroB - retroA;
+                    } else if (retroA !== -999) {
+                        return -1; // a has retro, prioritize it
+                    } else if (retroB !== -999) {
+                        return 1; // b has retro, prioritize it
+                    }
+                }
+
+                // Default sorting / Secondary sorting by Sharpe
+                const sA = getSharpe(a);
+                const sB = getSharpe(b);
+                if (sA !== sB) return sB - sA;
+
+                // Tertiary sorting by returns
+                const rA = getReturns(a);
+                const rB = getReturns(b);
+                return rB - rA;
+            });
+        };
+
+        matchCat = sortFunds(matchCat);
+        others = sortFunds(others);
 
         // 6. Merge & Slice
-        const finalPool = [...matchCat, ...others];
-        if (finalPool.length < 3) shuffle(finalPool);
+        const finalPool = targetFund ? [...matchCat, ...others] : [...others];
 
-        return finalPool.slice(0, desired);
+        return finalPool.slice(offset, offset + desired);
 
     } catch (e) {
         console.error("Error en busqueda directa V3:", e);

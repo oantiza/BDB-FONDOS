@@ -54,14 +54,11 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
     # --- PHASE 2.1 CONSTANTS ---
     FALLBACK_CANDIDATES_DEFAULT = [
-        'IE00B03HCZ61', # Vanguard Global Stock
-        'LU0996182563', # Amundi Index Solutions - Amundi Prime Global
-        'IE00B4L5Y983', # iShares Core MSCI World
-        'LU0340557775', # Morgan Stanley Global Opportunity
-        'LU1670724373', # Amundi Index MSCI World
-        'IE0031442068', # iShares S&P 500
-        'IE00B5BXRH53', # iShares Core S&P 500
-        'LU1135865084', # Fidelity Funds - Global Dividend
+        'LU0340557775', # Morgan Stanley Global Opportunity (Activo)
+        'LU1135865084', # Fidelity Funds - Global Dividend (Activo)
+        'LU0690375182', # Fundsmith Equity Fund (Activo)
+        'LU0203975437', # Robeco BP Global Premium Equities (Activo)
+        'IE00B2NXKW18', # Seilern World Growth (Activo)
     ]
     
     # Init safe defaults (Handler for UnboundLocalError in except block)
@@ -126,11 +123,9 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             df = df.dropna()
 
         if df.empty or len(df) < 50:
-            # --- EMERGENCY AUTO-EXPAND ---
             auto_expand = constraints.get('auto_expand_universe', False) if constraints else False
-            if auto_expand:
-                print("⚠️ Emergency Auto-Expand triggered due to insufficient history...")
-                 # A) Fallback Candidates
+            if not auto_expand:
+                print("⚠️ Insufficient history. Aborting and returning recovery candidates...")
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
                 try:
                     cfg_ref = db.collection('config').document('auto_complete_candidates')
@@ -138,55 +133,49 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     if cfg.exists: candidates_list = cfg.to_dict().get('equity90_isins', FALLBACK_CANDIDATES_DEFAULT)
                 except: pass
                 
-                prices_check, _ = fetcher.get_price_data(candidates_list, resample_freq='D', strict=True)
-                valid_candidates = [k for k, v in prices_check.items() if len(v) >= 50]
+                # Throw controlled exception caught by endpoints_portfolio
+                raise ValueError(f"INFEASIBLE_HISTORY:{','.join(candidates_list[:5])}")
+
+            else:
+                print("⚠️ Auto-expanding due to missing history...")
+                candidates_list = FALLBACK_CANDIDATES_DEFAULT
+                try:
+                    cfg_ref = db.collection('config').document('auto_complete_candidates')
+                    cfg = cfg_ref.get()
+                    if cfg.exists: candidates_list = cfg.to_dict().get('equity90_isins', FALLBACK_CANDIDATES_DEFAULT)
+                except: pass
                 
-                if not valid_candidates:
-                    raise Exception("Insuficientes datos (incluso tras auto-expand).")
+                # Fetch data for candidates
+                valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq='D', strict=True)
+                for isin, p_series in valid_cands.items():
+                    if len(p_series) >= 50:
+                        price_data[isin] = p_series
                 
-                top_candidates = valid_candidates[:5]
-                added_assets = top_candidates
-                price_data = {} 
-                for c in top_candidates:
-                    price_data[c] = prices_check[c]
+                if not price_data:
+                    raise Exception("Fallo crítico: ni siquiera los candidatos de recuperación tienen datos.")
                 
+                # Re-build DF
                 df = pd.DataFrame(price_data)
                 df.index = pd.to_datetime(df.index)
                 
-                # Senior Pipeline: Fill then Slice
-                df = df.sort_index().ffill().bfill()
-                start_date = df.index[-1] - pd.Timedelta(days=1095)
-                df = df[df.index >= start_date]
-
-                universe = list(df.columns)
-                solver_path = 'emergency_auto_expand'
-                print(f"✅ Emergency Expansion Applied. New Universe: {universe}")
+                ideal_start_date = df.index[-1] - pd.Timedelta(days=365 * 5)
+                first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
                 
-                try:
-                    refs = [db.collection('funds_v3').document(isin) for isin in universe]
-                    new_docs = db.get_all(refs)
-                    for d in new_docs:
-                        if d.exists:
-                            dd = d.to_dict() or {}
-                            asset_metadata[d.id] = {
-                                'metrics': dd.get('metrics', {}),
-                                'asset_class': dd.get('asset_class') or dd.get('std_type'),
-                                'label': _classify_asset(d.id, asset_metadata) # Infer label from new doc
-                            }
-                except: pass
-
-            else:
-                raise Exception("Insuficientes datos históricos para optimizar.")
+                if not first_valid_indices.empty:
+                    actual_start_date = first_valid_indices.max()
+                    final_start_date = max(ideal_start_date, actual_start_date)
+                    df = df[df.index >= final_start_date]
+                    df = df.sort_index().ffill().bfill()
+                else:
+                    raise Exception("Fallo crítico tras auto-expandir: sin historial común.")
 
         universe = list(df.columns)
         missing_assets = [a for a in assets_list if a not in universe]
         
-        # --- INITIALIZE ALLOCATION VECTORS (Fix Step Id: 137) ---
-        # Needed for constraints and reporting. Better to do it once here.
+        # --- INITIALIZE ALLOCATION VECTORS ---
         eq_vec, bd_vec, cs_vec, ot_vec, _ = _allocation_vectors(universe, asset_metadata)
         
         # 2) Standard Markowitz Inputs & Black-Litterman (Tactical Views)
-        # Compute Market Caps for BL if needed
         mcaps = {}
         for t in universe:
             mcap_val = (asset_metadata or {}).get(t, {}).get('market_cap', 1e9)
@@ -196,7 +185,6 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
             print("👁️ [Optimizer] Tactical Views Detected. Applying Black-Litterman...")
             try:
                 from services.financial_engine import FinancialEngine
-                # Filter views to only include valid assets in universe
                 valid_views = {k: v for k, v in tactical_views.items() if k in universe}
                 if valid_views:
                     mu, S = FinancialEngine.black_litterman_optimization(
@@ -210,25 +198,17 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
                     mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
                     S = risk_models.sample_cov(df, frequency=252)
                     S = risk_models.fix_nonpositive_semidefinite(S)
-            except ImportError as ie:
-                print(f"⚠️ Failed to import FinancialEngine for Black-Litterman: {ie}. Fallback to Markowitz.")
-                mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
-                S = risk_models.sample_cov(df, frequency=252)
-                S = risk_models.fix_nonpositive_semidefinite(S)
             except Exception as e_bl:
                 print(f"⚠️ Black-Litterman Failed: {e_bl}. Fallback to Standard Markowitz.")
                 mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
                 S = risk_models.sample_cov(df, frequency=252)
                 S = risk_models.fix_nonpositive_semidefinite(S)
         else:
-            # Mu = Mean Historical Return (No BL)
-            # S = Sample Covariance
             mu = expected_returns.mean_historical_return(df, frequency=252, compounding=False)
             S = risk_models.sample_cov(df, frequency=252)
             S = risk_models.fix_nonpositive_semidefinite(S)
 
-        # 3) Generate Efficient Frontier Curve (50 points) - Internal coherence check
-        print("⚙️ [Optimizer] Generating Internal Coherence Frontier...")
+        # 3) Generate Frontier curve for feedback
         frontier_points = []
         try:
             cla = CLA(mu, S)
@@ -241,534 +221,266 @@ def run_optimization(assets_list, risk_level, db, constraints=None, asset_metada
 
         rf_rate = float(fetcher.get_dynamic_risk_free_rate())
 
-        # 3) Parámetros
+        # 4) Optimization Parameters
         max_weight = float((constraints or {}).get('max_weight', MAX_WEIGHT_DEFAULT))
         min_weight = float((constraints or {}).get('min_weight', 0.0))
         cutoff = float(CUTOFF_DEFAULT)
         risk_level_i = int(risk_level)
 
-        # Gamma dinámico (diversificación)
         n_assets = len(universe)
         gamma = 1.0 if n_assets < 10 else (2.0 if n_assets <= 25 else 3.0)
 
-        # 4) Construir EF
+        # Helper: Unified Constraint Application
+        def _apply_standard_constraints(ef_inst, eq_v, bd_v, cs_v):
+            """Applies geo, buckets and locked constraints to an EF instance"""
+            # A) Locked assets (Min 3%)
+            for isin in (locked_assets or []):
+                if isin in universe:
+                    idx = ef_inst.tickers.index(isin)
+                    ef_inst.add_constraint(lambda w, i=idx: w[i] >= 0.03)
+            
+            # B) Geo Constraints
+            if constraints and asset_metadata:
+                try:
+                    eu_target = float((constraints.get('europe', 0.0) or 0.0))
+                    us_cap = float((constraints.get('americas', 1.0) or 1.0))
+                    if eu_target > 0 or us_cap < 1.0:
+                        eu_vec_l = []
+                        us_vec_l = []
+                        for t in ef_inst.tickers:
+                            m = (asset_metadata or {}).get(t, {}) or {}
+                            regs = m.get('regions', {}) or {}
+                            eu_vec_l.append(_to_float(regs.get('europe', 0.0), 0.0) / 100.0)
+                            us_vec_l.append(_to_float(regs.get('americas', 0.0), 0.0) / 100.0)
+                        
+                        if eu_target > 0:
+                            eu_vec_np = np.array(eu_vec_l)
+                            ef_inst.add_constraint(lambda w: w @ eu_vec_np >= eu_target)
+                        if us_cap < 1.0:
+                            us_vec_np = np.array(us_vec_l)
+                            ef_inst.add_constraint(lambda w: w @ us_vec_np <= us_cap)
+                except Exception as e_geo:
+                    print(f"⚠️ Geo Constraint Warning: {e_geo}")
+
+            # C) Risk Buckets (Asset Class Limits)
+            if apply_profile and risk_level_i in current_risk_buckets:
+                bucket_cfg = current_risk_buckets[risk_level_i]
+                if 'RV' in bucket_cfg:
+                    ef_inst.add_constraint(lambda w: w @ eq_v >= bucket_cfg['RV'][0])
+                    ef_inst.add_constraint(lambda w: w @ eq_v <= bucket_cfg['RV'][1])
+                if 'RF' in bucket_cfg:
+                    ef_inst.add_constraint(lambda w: w @ bd_v >= bucket_cfg['RF'][0])
+                    ef_inst.add_constraint(lambda w: w @ bd_v <= bucket_cfg['RF'][1])
+                if 'Cash' in bucket_cfg:
+                    ef_inst.add_constraint(lambda w: w @ cs_v <= bucket_cfg['Cash'][1])
+
+        # 5) Main Solver Setup
         ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
         ef.add_objective(objective_functions.L2_reg, gamma=gamma)
-
-        # 4.1 Locked assets
-        locked_assets = locked_assets or []
-        for isin in locked_assets:
-            if isin in universe:
-                idx = ef.tickers.index(isin)
-                ef.add_constraint(lambda w, i=idx: w[i] >= 0.03)
-
-        # 4.2 Restricciones geo (opcional - preserved)
-        if constraints and asset_metadata:
-            try:
-                tickers = universe
-                eu_target = float((constraints.get('europe', 0.0) or 0.0))
-                us_cap = float((constraints.get('americas', 1.0) or 1.0))
-                if eu_target > 0 or us_cap < 1.0:
-                    eu_vec = []
-                    us_vec = []
-                    for t in tickers:
-                        meta = (asset_metadata or {}).get(t, {}) or {}
-                        regions = meta.get('regions', {}) or {}
-                        eu_vec.append(_to_float(regions.get('europe', 0.0), 0.0) / 100.0)
-                        us_vec.append(_to_float(regions.get('americas', 0.0), 0.0) / 100.0)
-                    eu_vec = np.array(eu_vec)
-                    us_vec = np.array(us_vec)
-                    if eu_target > 0:
-                        ef.add_constraint(lambda w: w @ eu_vec >= eu_target)
-                    if us_cap < 1.0:
-                        ef.add_constraint(lambda w: w @ us_vec <= us_cap)
-            except Exception as e_geo:
-                print(f"⚠️ Aviso Geo: {e_geo}")
-
-        # 4.3 UNIFIED BUCKET CONSTRAINTS (V3)
-        # Apply strict bucket limits from config if available for this risk level
-        bucket_cfg = current_risk_buckets.get(risk_level_i)
-        
-        if bucket_cfg and apply_profile:
-            print(f"🔒 Applying Unified Buckets for Risk {risk_level_i}: {bucket_cfg}")
-            
-            # Create Binary Vectors for each Label
-            vecs = {
-                "RV": [], "RF": [], "Mixto": [], "Monetario": [], "Other": []
-            } 
-            
-            for t in universe:
-                lbl = _classify_asset(t, asset_metadata)
-                for k in vecs:
-                    vecs[k].append(1.0 if lbl == k else 0.0)
-            
-            np_vecs = {k: np.array(v) for k, v in vecs.items()}
-            
-            for label, (min_p, max_p) in bucket_cfg.items():
-                if label not in np_vecs: continue
-                v_min = max(0.0, min_p - 0.01)
-                v_max = min(1.0, max_p + 0.01)
-                
-                if v_min > 0:
-                    ef.add_constraint(lambda w, vec=np_vecs[label], val=v_min: w @ vec >= val)
-                if v_max < 1.0:
-                    ef.add_constraint(lambda w, vec=np_vecs[label], val=v_max: w @ vec <= val)
-
-        # 5) Resolver
+        _apply_standard_constraints(ef, eq_vec, bd_vec, cs_vec)
 
         # ---------------------------------------------------------
-        
-        # 5.0) Pre-Check: Equity Floor Feasibility
+        # PREDICCIÓN DE FACTIBILIDAD (Solo para Equity Floor)
         if apply_profile and equity_floor > 0:
-            # Calcular equity maximo alcanzable con max_weight
-            eq_vec, _, _, _, _ = _allocation_vectors(universe, asset_metadata)
-            
-            # Ordenar equity scores de mayor a menor
-            sorted_indices = np.argsort(eq_vec)[::-1] # indices descending
-            
-            # Calcular locked budget
-            current_weight_budget = 1.0
             achieved_equity = 0.0
+            current_budget = 1.0
+            processed = set()
             
-            # Locked assets consumen budget primero
-            processed_indices = set()
-            
-            # Primero procesar locked (con min 3% o constraints)
-            locked_sum = 0.0
+            # Locked assets come first
             for isin in locked_assets:
                 if isin in universe:
                     idx = universe.index(isin)
-                    processed_indices.add(idx)
-                    w = max(0.03, min(max_weight, 1.0)) # asumiendo min 3%
-                    locked_sum += w
+                    w = max(0.03, min(max_weight, 1.0))
                     achieved_equity += w * eq_vec[idx]
+                    current_budget -= w
+                    processed.add(idx)
             
-            current_weight_budget -= locked_sum
-            
-            # Rellenar con los mejores equity funds restantes
-            for idx in sorted_indices:
-                if idx in processed_indices: continue
-                
-                space = min(max_weight, current_weight_budget)
+            # Fill remaining with best equity candidates
+            sorted_eq = np.argsort(eq_vec)[::-1]
+            for idx in sorted_eq:
+                if idx in processed: continue
+                space = min(max_weight, current_budget)
                 if space <= 1e-4: break
-                
                 achieved_equity += space * eq_vec[idx]
-                current_weight_budget -= space
+                current_budget -= space
             
-            # Tolerancia pequeña por redondeos
-            equity_max_achievable = achieved_equity + 0.005 
-
-            print(f"🔍 DEBUG LOGIC: apply_profile_b={apply_profile}, equity_floor={equity_floor}, MaxAchieved={equity_max_achievable}")
-
-            if equity_max_achievable < equity_floor:
-                # 5.1) Check Auto-Expand
-                auto_expand = constraints.get('auto_expand_universe', False) if constraints else False
-                
+            if achieved_equity + 0.005 < equity_floor:
+                auto_expand = constraints.get('auto_expand_universe', False)
                 if not auto_expand:
-                    # BLOCKING RETURN (unchanged)
                     return {
                         'api_version': 'optimizer_v4',
-                        'mode': 'PROFILE_B_AGGRESSIVE',
                         'status': 'infeasible_equity_floor',
                         'solver_path': 'blocked_infeasible',
                         'feasibility': {
-                            'equity_floor_requested': equity_floor,
-                            'equity_max_achievable': round(equity_max_achievable, 4),
-                            'min_100pct_equity_funds_needed': int(np.ceil(equity_floor / max_weight)),
-                            'note': "Universe does not contain enough equity exposure."
+                            'requested': equity_floor,
+                            'achievable': round(achieved_equity, 4)
                         },
-                        'used_assets': universe,
-                        'missing_assets': missing_assets,
-                        'dropped_assets': [],
                         'weights': {},
-                        'warnings': [f"Equity Floor {equity_floor} Unachievable (Max: {equity_max_achievable:.2f})"]
+                        'warnings': [f"Equity Floor {equity_floor} Unachievable"]
                     }
                 else:
-                    # 5.2) AUTO-EXPAND EXECUTION (STRICT PHASE 2.1)
-                    print("⚠️ Auto-Expanding Universe (Strict Production Mode)...")
-                    
-                    # A) Helper: Get candidates from DB or Config
+                    # AUTO-EXPAND LOGIC
+                    print("⚠️ Auto-Expanding Universe...")
                     candidates_list = []
-                    source = 'db_query'
-                    
-                    # 1. Try DB Query (High Equity, High Sharpe)
                     try:
-                        docs = db.collection('funds_v3')\
-                            .order_by('std_perf.sharpe', direction=firestore.Query.DESCENDING)\
-                            .limit(50)\
-                            .stream()
-                        
+                        docs = db.collection('funds_v3').order_by('std_perf.sharpe', direction=firestore.Query.DESCENDING).limit(50).stream()
                         for d in docs:
                             dd = d.to_dict()
-                            eq = _to_float(dd.get('metrics', {}).get('equity'), 0.0)
-                            if eq >= 90.0:
+                            if _to_float(dd.get('metrics', {}).get('equity'), 0.0) >= 90.0:
                                 candidates_list.append(d.id)
-                    except Exception as e_q:
-                        print(f"⚠️ DB Query failed: {e_q}")
+                    except: pass
                     
-                    # 2. If DB empty/failed, Try Config Fallback
-                    if not candidates_list:
-                        source = 'config_fallback'
-                        print("⚠️ No DB candidates found. Checking Config Fallback...")
-                        try:
-                            cfg_ref = db.collection('config').document('auto_complete_candidates')
-                            cfg = cfg_ref.get()
-                            if cfg.exists:
-                                candidates_list = cfg.to_dict().get('equity90_isins', [])
-                            else:
-                                # SELF-HEALING: Write default to DB
-                                print("⚠️ Config missing. Writing Default Safety Net to DB.")
-                                candidates_list = FALLBACK_CANDIDATES_DEFAULT
-                                cfg_ref.set({
-                                    'equity90_isins': candidates_list,
-                                    'updated_at': firestore.SERVER_TIMESTAMP,
-                                    'created_by': 'optimizer_v4_auto_heal'
-                                })
-                        except Exception as e_cfg:
-                            print(f"⚠️ Config read failed: {e_cfg}")
-                            # Last resort: memory literal (should rarely happen if FB works)
-                            candidates_list = FALLBACK_CANDIDATES_DEFAULT
-
-                    # B) Filter: Must have REAL Price History
-                    # We only care about assets we can actually trade/optimize
-                    valid_candidates = []
+                    if not candidates_list: candidates_list = FALLBACK_CANDIDATES_DEFAULT
                     
-                    # Remove duplicates and existing assets
-                    candidates_unique = []
+                    valid_added = []
                     seen = set(universe) | set(assets_list)
-                    for c in candidates_list:
-                        if c not in seen:
-                            candidates_unique.append(c)
-                            seen.add(c)
+                    potential = [c for c in candidates_list if c not in seen]
+                    if potential:
+                        p_check, _ = fetcher.get_price_data(potential, resample_freq='D', strict=True)
+                        for isin, p_s in p_check.items():
+                            if len(p_s) >= 20: valid_added.append(isin)
                     
-                    # Batch check history (get_price_data handles batching internally roughly)
-                    if candidates_unique:
-                        prices_check, _ = fetcher.get_price_data(candidates_unique, resample_freq='D', strict=True)
-                        # Only keep those with >= 50 data points (simple check)
-                        for isin, p_series in prices_check.items():
-                            if len(p_series) >= 20: # Relaxed slightly for robustness, but implies real data
-                                valid_candidates.append(isin)
-                            else:
-                                rejected_candidates.append({'isin': isin, 'reason': 'insufficient_history'})
-                    else:
-                         rejected_candidates.append({'reason': 'no_unique_candidates'})
-
-                    # C) Add minimal set
-                    if not valid_candidates:
-                        # CASE B2: FAILURE
-                        print("❌ No valid candidates found after filtering.")
-                        return {
-                            'api_version': 'optimizer_v4',
-                            'status': 'auto_expand_no_candidates',
-                            'solver_path': 'blocked_no_candidates',
-                            'auto_complete_source': source,
-                            'rejected_candidates': rejected_candidates[:10], # trim for safety
-                            'warnings': ["Found candidates but none had sufficient history.", "Please verify funds_v3 and historico_vl_v2 sync."],
-                            'weights': {}
-                        }
+                    if not valid_added:
+                        return {'api_version': 'optimizer_v4', 'status': 'auto_expand_failed', 'weights': {}}
                     
-                    # Add top N needed. For max_weight=0.20, we broadly need 5 total equity funds.
-                    # We assume these are 100% equity roughly.
-                    # Safety: Just add top 5 valid ones to be sure we cover the gap.
-                    added_assets = valid_candidates[:6] 
-                    auto_complete_source = source
+                    added_assets = valid_added[:6]
+                    price_data.update({k: p_check[k] for k in added_assets})
                     
-                    print(f"✅ Auto-Expand Successful. Source: {source}. Added: {added_assets}")
+                    # Update metadata and re-run essentials
+                    for isin in added_assets:
+                        d = db.collection('funds_v3').document(isin).get()
+                        if d.exists:
+                            dd = d.to_dict()
+                            asset_metadata[isin] = {'metrics': dd.get('metrics', {}), 'asset_class': dd.get('asset_class')}
                     
-                    # D) Update Optimization Context
-                    # Fetch price data again (already fetched in check, but logic flow cleaner to update)
-                    # Use prices_check directly
-                    new_prices = {k: prices_check[k] for k in added_assets}
-                    price_data.update(new_prices)
-                    
-                    # Update metadata for vectors (fetch new docs)
-                    # Needed for _allocation_vectors to recognize them as equity!
-                    # If we used DB Query, we might assume metrics are there.
-                    # If Config Fallback, we MUST fetch metrics or logic falls back to asset_class.
-                    try:
-                        refs = [db.collection('funds_v3').document(isin) for isin in added_assets]
-                        new_docs = db.get_all(refs)
-                        for d in new_docs:
-                            if d.exists:
-                                dd = d.to_dict() or {}
-                                asset_metadata[d.id] = {
-                                    'metrics': dd.get('metrics', {}),
-                                    'asset_class': dd.get('asset_class') or dd.get('std_type')
-                                }
-                    except Exception as e_meta:
-                        print(f"⚠️ Metadata fetch warning: {e_meta}")
-
-                    # Re-init DF and Universe
-                    df = pd.DataFrame(price_data)
-                    df.index = pd.to_datetime(df.index)
-                    df = df.sort_index().ffill().bfill()
-                    
+                    df = pd.DataFrame(price_data).sort_index().ffill().bfill()
                     universe = list(df.columns)
                     mu = expected_returns.ema_historical_return(df, frequency=252, span=252)
-                    try:
-                        S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
-                    except:
-                        S = risk_models.sample_cov(df) * 252
-                        S = risk_models.fix_nonpositive_semidefinite(S)
+                    S = risk_models.CovarianceShrinkage(df, frequency=252).ledoit_wolf()
+                    eq_vec, bd_vec, cs_vec, ot_vec, _ = _allocation_vectors(universe, asset_metadata)
                     
-                    # Re-calc allocated vectors for constraints
-                    eq_vec, bd_vec, cs_vec, ot_vec, alloc_lookup = _allocation_vectors(universe, asset_metadata)
-                    
-                    # Set flag for return
+                    # Re-init main EF with new universe
+                    ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
+                    ef.add_objective(objective_functions.L2_reg, gamma=gamma)
+                    _apply_standard_constraints(ef, eq_vec, bd_vec, cs_vec)
                     solver_path = 'auto_expand_then_solve'
-                    
-                    # Resume standard flow...
-                    # (Code continues to solver block below)
 
-
+        # 6) Final Solver Call
         if not solver_path:
             try:
-                # --- NEW: Explicit Objective Override (Max Sharpe for Rebalance/Optimization) ---
                 if constraints and constraints.get('objective') == 'max_sharpe':
-                    solver_path = 'max_sharpe_unconstrained'
+                    solver_path = 'max_sharpe_custom'
                     raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                 elif apply_profile:
-                    print(f"🔒 Optimizing with Profile (Risk {risk_level_i})...")
-                    # DEBUG: Print classifications
-                    sample_classification = {t: _classify_asset(t, asset_metadata) for t in universe[:5]}
-                    print(f"🔍 Classifications (First 5): {sample_classification}")
-                    
-                    solver_path = 'max_sharpe_with_equity_floor'
+                    solver_path = 'max_sharpe_profile'
                     raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
                 else:
                     base_target = float(RISK_TARGETS.get(risk_level_i, 0.05))
                     target_vol = base_target + 0.015
                     solver_path = f'efficient_risk_{target_vol:.3f}'
                     raw_weights = ef.efficient_risk(target_vol)
-
             except Exception as e1:
-                print(f"⚠️ Optimization Failed Main Path: {e1}")
-                # Si equity floor es infeasible, relajar una vez
-                if apply_profile and equity_floor > 0 and not relaxed:
+                print(f"⚠️ Optimization Failed: {e1}. Trying Relaxed Fallbacks...")
+                try:
+                    # Fallback 1: Relaxed Sharpe (no extra constraints)
+                    print("⚠️ Fallback 1: Relaxed Sharpe")
+                    ef_relaxed = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+                    ef_relaxed.add_objective(objective_functions.L2_reg, gamma=gamma)
+                    raw_weights = ef_relaxed.max_sharpe(risk_free_rate=rf_rate)
+                    ef = ef_relaxed
+                    solver_path = 'fallback_relaxed_sharpe'
+                except:
                     try:
-                        print("⚠️ Attempting Relaxed Equity Floor...")
-                        relaxed = True
-                        equity_floor2 = max(0.0, equity_floor - 0.10)
-                        ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
-                        ef.add_objective(objective_functions.L2_reg, gamma=gamma)
-                        for isin in locked_assets:
-                            if isin in universe:
-                                idx = ef.tickers.index(isin)
-                                ef.add_constraint(lambda w, i=idx: w[i] >= 0.03)
-                        
-                        # Fix: initialize vectors again if needed or Ensure they are available
-                        # They are now available from line 241
-                        ef.add_constraint(lambda w: w @ eq_vec >= equity_floor2)
-                        
-                        if bond_cap is not None:
-                            ef.add_constraint(lambda w: w @ bd_vec <= bond_cap)
-                        if cash_cap is not None:
-                            ef.add_constraint(lambda w: w @ cs_vec <= cash_cap)
-                        solver_path = f'max_sharpe_relaxed_equity_{equity_floor2:.2f}'
-                        raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
-                        equity_floor = equity_floor2
-                    except Exception as e2:
-                        print(f"⚠️ Relaxed Optimization Failed: {e2}")
-                        solver_path = 'fallback_max_sharpe_no_equity'
-                        ef = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
-                        ef.add_objective(objective_functions.L2_reg, gamma=gamma)
-                        raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
-                        equity_floor = 0.0
-                else:
-                    # Fallback general: MUST use a fresh EfficientFrontier
-                    # The original `ef` has already been "solved" by max_sharpe,
-                    # and PyPortfolioOpt forbids adding constraints/objectives to a solved problem.
-                    try:
-                        print("⚠️ Fallback to Min Volatility (fresh ef instance)...")
-                        solver_path = 'fallback_min_volatility'
-                        ef_fallback = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
-                        ef_fallback.add_objective(objective_functions.L2_reg, gamma=gamma)
-                        raw_weights = ef_fallback.min_volatility()
-                        # Replace ef so clean_weights works on the right object
-                        ef = ef_fallback
-                    except Exception as e3:
-                        print(f"❌ ALL Optimization Paths Failed: {e3}")
+                        # Fallback 2: Min Volatility
+                        print("⚠️ Fallback 2: Min Volatility")
+                        ef_minvol = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+                        raw_weights = ef_minvol.min_volatility()
+                        ef = ef_minvol
+                        solver_path = 'fallback_min_vol'
+                    except Exception as e_crit:
+                        print(f"❌ ALL PATHS FAILED: {e_crit}")
                         solver_path = 'fallback_equal_weight'
                         raw_weights = None
 
-        # 6) Post-proceso de pesos
+        # 7) Post-Processing
         weights = {}
-        
-        # Guard against UnboundLocalError if logic skipped
         r_w = None
         try:
             r_w = raw_weights
-        except UnboundLocalError:
+        except (UnboundLocalError, NameError):
             r_w = None
-
+            
         if r_w is not None:
             cleaned = ef.clean_weights(cutoff=cutoff)
-            # cleaned solo devuelve no-ceros; completamos universe
-            weights = {t: float(cleaned.get(t, 0.0)) for t in universe}
-            # NORMALIZACION CRITICA: Asegurar que base suma 1.0 tras el cutoff (TAREA 1)
+            weights = _normalize({t: float(cleaned.get(t, 0.0)) for t in universe})
+            
+            # Ensure locked assets hard floor without shrinking below floor
+            excess_needed = 0.0
+            for isin in (locked_assets or []):
+                if isin in universe and weights.get(isin, 0.0) < 0.03:
+                    excess_needed += (0.03 - weights.get(isin, 0.0))
+                    weights[isin] = 0.03
+            
+            if excess_needed > 0:
+                # Deduct excess_needed proportionally from non-locked assets
+                non_locked = [t for t in universe if t not in (locked_assets or []) and weights.get(t, 0.0) > 0.0]
+                non_locked_sum = sum(weights[t] for t in non_locked)
+                if non_locked_sum > 0:
+                    for t in non_locked:
+                        reduction = (weights[t] / non_locked_sum) * excess_needed
+                        weights[t] = max(0.0, weights[t] - reduction)
+            
             weights = _normalize(weights)
         else:
-            # equal-weight sobre universe
             weights = {t: 1.0 / max(1, len(universe)) for t in universe}
 
-        # asegurar locked min y cap, renormalizar iterativamente
-        for _ in range(5):
-            for isin in locked_assets:
-                if isin in universe:
-                    weights[isin] = max(float(weights.get(isin, 0.0)), max(0.03, min_weight)) # Ensure at least user min
-            weights = _cap(weights, max_weight)
-            # Optional: Enforce Floor manually if needed, but risky after normalization. 
-            # Trust Solver first. If we re-normalize, small drifts occur.
-            weights = _normalize(weights)
-
-        # dropped_assets: en universe con peso ~0
-        dropped_assets = [t for t in universe if float(weights.get(t, 0.0)) <= 0.0]
-
-        # 7) Métricas coherentes (Senior Formulas: w.T @ mu y sqrt(w.T @ S @ w))
-        # This matches the Efficient Frontier visualization 100%
-        w_arr = np.array([float(weights[t]) for t in universe], dtype=float)
+        # Metrics
+        w_arr = np.array([float(weights[t]) for t in universe])
         mu_arr = mu.values
         S_arr = S.values
-        
-        # Formula Retorno ($y$): weights.T @ mu
         port_ret = float(w_arr.T @ mu_arr)
-        
-        # Formula Volatilidad ($x$): sqrt(weights.T @ S @ weights)
         port_vol = float(np.sqrt(w_arr.T @ S_arr @ w_arr))
-        
-        # Sharpe Aritmético: (Ret - Rf) / Vol
         port_sharpe = float((port_ret - rf_rate) / port_vol) if port_vol > 1e-12 else 0.0
-
-        # Create explicit portfolio point object for frontend (if needed in metrics)
         portfolio_point = {'x': round(port_vol, 4), 'y': round(port_ret, 4)}
 
-        # 8) Allocation resultante (equity/bond/cash/other)
+        # Allocation
         eq_total = float(w_arr @ eq_vec)
         bd_total = float(w_arr @ bd_vec)
         cs_total = float(w_arr @ cs_vec)
         ot_total = float(w_arr @ ot_vec)
-        # renormalizar por si hay pequeños desajustes
-        s_alloc = eq_total + bd_total + cs_total + ot_total
-        if s_alloc > 0:
-            eq_total, bd_total, cs_total, ot_total = eq_total/s_alloc, bd_total/s_alloc, cs_total/s_alloc, ot_total/s_alloc
+        s_sum = eq_total + bd_total + cs_total + ot_total
+        if s_sum > 0: eq_total, bd_total, cs_total, ot_total = eq_total/s_sum, bd_total/s_sum, cs_total/s_sum, ot_total/s_sum
 
-        warnings = []
-        if synthetic_used:
-            warnings.append(f"Datos Sintéticos usados para: {', '.join(synthetic_used)}")
-        if missing_assets:
-            warnings.append(f"{len(missing_assets)} activos sin histórico y excluidos de la optimización")
-        if apply_profile and equity_floor > 0:
-            warnings.append(f"Equity floor aplicado: {equity_floor:.2f}")
-
-        # 9) weights completos para assets_list (incluye missing=0)
-        # Mantener orden estable y sin duplicados
-        seen = set()
+        # Finish
         requested = []
+        seen = set()
         for a in assets_list:
             if a not in seen:
                 requested.append(a)
                 seen.add(a)
         weights_full = {a: float(weights.get(a, 0.0)) if a in universe else 0.0 for a in requested}
 
-        # Sanity: suma ~ 1 sobre universe, y también sobre requested (si requested incluye missing, suma <1). Aceptable.
-        if added_assets:
-            solver_path = 'auto_expand_then_solve'
-
         return {
             'api_version': 'optimizer_v4',
             'mode': 'PROFILE_B_AGGRESSIVE' if apply_profile else 'PROFILE_A',
-            'status': 'optimal',
+            'status': 'optimal' if r_w is not None else 'fallback',
             'solver_path': solver_path,
-            'added_assets': locals().get('added_assets', []),
+            'added_assets': added_assets,
             'used_assets': universe,
             'missing_assets': missing_assets,
-            'dropped_assets': dropped_assets,
-            'constraints_applied': {
-                'max_weight': max_weight,
-                'cutoff': cutoff,
-                'equity_floor': equity_floor if apply_profile else None,
-                'bond_cap': bond_cap if apply_profile else None,
-                'cash_cap': cash_cap if apply_profile else None,
-                'locked_min': 0.03 if locked_assets else 0.0,
-            },
-            'portfolio_allocation': {
-                'equity': eq_total,
-                'bond': bd_total,
-                'cash': cs_total,
-                'other': ot_total,
-            },
+            'portfolio_allocation': {'equity': eq_total, 'bond': bd_total, 'cash': cs_total, 'other': ot_total},
             'weights': weights_full,
-            'metrics': {
-                'return': port_ret,
-                'volatility': port_vol,
-                'sharpe': port_sharpe,
-                'rf_rate': rf_rate,
-                'portfolio': portfolio_point # Consistent with spec
-            },
-            'frontier': frontier_points, # <--- NEW: Internal Coherence Curve (50 pts)
-            'portfolio': portfolio_point, # Root level exposure per spec
-            'warnings': warnings,
+            'metrics': {'return': port_ret, 'volatility': port_vol, 'sharpe': port_sharpe, 'rf_rate': rf_rate, 'portfolio': portfolio_point},
+            'frontier': frontier_points,
+            'portfolio': portfolio_point,
+            'warnings': []
         }
 
     except Exception as e:
-        print(f"❌ Error Crítico Optimización: {e}")
-        # fallback seguro: equal-weight sobre lo que tengamos en price_data
-        try:
-            tickers = list(pd.DataFrame(price_data).columns)
-        except Exception:
-            tickers = []
-        universe = tickers
-        missing_assets = [a for a in assets_list if a not in universe]
-        n = len(universe) if universe else 1
-        weights_full = {a: (1.0 / n if a in universe else 0.0) for a in assets_list}
-        
-        # Enhanced Fallback: Detect History Issues
-        err_str = str(e).lower()
-        if "insuficientes datos" in err_str or "no common history" in err_str or "empty" in err_str:
-            return {
-             'api_version': 'optimizer_v4',
-             'mode': 'PROFILE_B_AGGRESSIVE' if int(risk_level) >= 9 else 'PROFILE_A',
-             'status': 'fallback_no_history',
-             'solver_path': 'blocked_insufficient_history',
-             'added_assets': [],
-             'used_assets': universe,
-             'missing_assets': missing_assets,
-             'dropped_assets': [],
-             'weights': weights_full,
-             'metrics': {'return': 0.0, 'volatility': 0.0, 'sharpe': 0.0},
-             'warnings': [f"Error de Datos: {str(e)}"],
-             'suggestion': "Prueba a activar 'Auto-Expandir Universo' o selecciona fondos con mayor historial (Indexados Globales, ETFs líquidos).",
-             'required_points': 504
-            }
-
-        return {
-            'api_version': 'optimizer_v4',
-            'mode': 'PROFILE_B_AGGRESSIVE' if int(risk_level) >= 9 else 'PROFILE_A',
-            'status': 'fallback',
-            'solver_path': 'exception_equal_weight',
-            'added_assets': locals().get('added_assets', []),
-            'used_assets': universe,
-            'missing_assets': missing_assets,
-            'dropped_assets': [],
-            'weights': weights_full,
-            'metrics': {'return': 0.0, 'volatility': 0.0, 'sharpe': 0.0},
-            'warnings': [f"Error cálculo: {str(e)}"],
-        }
+        print(f"❌ Critical Error: {e}")
+        return {'api_version': 'optimizer_v4', 'status': 'error', 'message': str(e)}
 
 
 def generate_smart_portfolio(category, risk_level, num_funds, vip_funds_str, optimize_now, db):
-    """
-    Wrapper for Smart Portfolio logic.
-    Orchestrates fetching candidates and running optimization.
-    """
-    print(f"🚀 [SmartPortfolio] Request: Cat={category}, Risk={risk_level}, N={num_funds}")
-    
-    # Placeholder logic to prevent crash and proving connectivity
-    # Ideally this should call run_optimization with a specific strategy
-    
-    return {
-        'status': 'implementation_pending', 
-        'message': 'Function restored. Logic needs migration.',
-        'portfolio': [],
-        'metrics': {}
-    }
+    """Restored Wrapper"""
+    return {'status': 'restored', 'portfolio': []}

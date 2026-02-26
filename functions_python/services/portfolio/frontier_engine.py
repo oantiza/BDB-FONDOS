@@ -103,7 +103,8 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                     max_r = float(mu.max()) * 0.99
                     
                     if max_r > min_r:
-                        target_returns = np.linspace(min_r, max_r, 40)
+                        import gc
+                        target_returns = np.linspace(min_r, max_r, 15)
                         for tr in target_returns:
                             try:
                                 # We reinstantiate EF each loop to solve fresh
@@ -113,6 +114,8 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                                 frontier_points.append({'x': round(float(vol), 4), 'y': round(float(ret), 4)})
                             except:
                                 pass # Infeasible segment of the frontier
+                            finally:
+                                gc.collect()
                     
                     if frontier_points:
                         frontier_points = sorted(frontier_points, key=lambda p: p['x'])
@@ -158,7 +161,12 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         result = {
             'frontier': frontier_points,
             'assets': asset_points,
-            'portfolio': portfolio_point
+            'portfolio': portfolio_point,
+            'math_data': {
+                'ordered_isins': list(df.columns),
+                'expected_returns': {k: float(v) for k, v in mu.to_dict().items()},
+                'covariance_matrix': S.values.tolist()
+            }
         }
         print(f"🏁 [DEBUG] Returning success with {len(frontier_points)} fp, {len(asset_points)} ap.")
         return result

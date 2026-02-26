@@ -94,10 +94,17 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             for isin, meta in frontend_meta.items():
                 if isin not in asset_metadata:
                     asset_metadata[isin] = {}
+                
+                # We strictly prefer the DB 'asset_class' if we already fetched it.
+                # If the DB doesn't have it (e.g. custom CSV import), we accept the frontend's.
+                if 'asset_class' in meta and not asset_metadata[isin].get('asset_class'):
+                     asset_metadata[isin]['asset_class'] = meta['asset_class']
+                
+                # Fallback support for legacy label logic
                 if 'label' in meta:
                     asset_metadata[isin]['label'] = meta['label']
-                if not asset_metadata[isin].get('asset_class'):
-                     asset_metadata[isin]['asset_class'] = meta.get('label')
+                    if not asset_metadata[isin].get('asset_class'):
+                         asset_metadata[isin]['asset_class'] = meta['label']
 
         if req_data.get('auto_expand_universe'):
             STRATEGY_CONSTRAINTS['auto_expand_universe'] = True
@@ -120,7 +127,17 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         result['api_version'] = result.get('api_version', 'optimize_quant_v4')
         return result
     except Exception as e:
-        raise https_fn.HttpsError(code=https_fn.FunctionsErrorCode.INTERNAL, message=str(e))
+        error_msg = str(e)
+        if error_msg.startswith("INFEASIBLE_HISTORY:"):
+            candidates_str = error_msg.split(":")[1]
+            candidates = candidates_str.split(",") if candidates_str else []
+            print(f"⚠️ [Endpoint] Infeasible optimization. Requesting UI expansion with {candidates}")
+            return {
+                "status": "infeasible",
+                "message": "Faltan datos históricos o diversidad de activos para equilibrar matemáticamente la cartera. ¿Aceptas añadir fondos globales?",
+                "recovery_candidates": candidates
+            }
+        raise https_fn.HttpsError(code=https_fn.FunctionsErrorCode.INTERNAL, message=error_msg)
 
 @https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
 def generateSmartPortfolio(request: https_fn.CallableRequest):
@@ -153,7 +170,7 @@ def backtest_portfolio_multi(request: https_fn.CallableRequest):
     if not portfolio: return {'error': 'Cartera vacía'}
     return run_multi_period_backtest(portfolio, periods, db)
 
-@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_1, cors=cors_config)
+@https_fn.on_call(region="europe-west1", memory=options.MemoryOption.GB_2, cors=cors_config)
 def getEfficientFrontier(request: https_fn.CallableRequest):
     db = firestore.client()
     try:

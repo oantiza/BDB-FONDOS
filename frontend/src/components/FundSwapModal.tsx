@@ -26,6 +26,8 @@ const normalizeRetro = (val: number | undefined | null) => {
 export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, onClose, onRefresh }: any) => {
     const [assetClass, setAssetClass] = useState('RV');
     const [region, setRegion] = useState('all');
+    const [maximizeRetro, setMaximizeRetro] = useState(false);
+    const [page, setPage] = useState(0);
     const [isSearching, setIsSearching] = useState(false);
 
     // Sync filters with original fund when it changes or modal opens
@@ -33,6 +35,8 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
         if (originalFund && isOpen) {
             setAssetClass(originalFund.derived?.asset_class || originalFund.std_type || 'RV');
             setRegion(originalFund.derived?.primary_region || originalFund.std_region || 'all');
+            setMaximizeRetro(false);
+            setPage(0);
         }
     }, [originalFund, isOpen]);
 
@@ -64,24 +68,35 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                 </div>
 
                 {/* FILTROS DE BÚSQUEDA */}
-                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-3 gap-4 items-end">
+                <div className="bg-slate-50 border border-slate-200 rounded-xl p-4 mb-6 grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
                     <div>
                         <label className="block text-[10px] font-black text-slate-500 uppercase mb-1.5 tracking-wider">Clase de Activo</label>
                         <select
-                            value={assetClass} onChange={e => setAssetClass(e.target.value)}
+                            value={assetClass} onChange={e => { setAssetClass(e.target.value); setPage(0); }}
                             className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:outline-none focus:border-blue-500"
                         >
-                            <option value="RV">Renta Variable</option>
-                            <option value="RF">Renta Fija</option>
-                            <option value="Monetario">Monetario</option>
-                            <option value="Mixto">Mixto</option>
-                            <option value="Retorno Absoluto">Retorno Absoluto</option>
+                            <optgroup label="Grandes Bloques">
+                                <option value="RV">Renta Variable (General)</option>
+                                <option value="RF">Renta Fija (General)</option>
+                                <option value="Monetario">Monetario</option>
+                                <option value="Mixto">Mixto</option>
+                                <option value="Retorno Absoluto">Retorno Absoluto</option>
+                            </optgroup>
+                            <optgroup label="Sectores RV">
+                                <option value="RV - Tecnología">Tecnología</option>
+                                <option value="RV - Salud">Salud</option>
+                            </optgroup>
+                            <optgroup label="Especialización RF">
+                                <option value="RF - Soberana">Deuda Gubernamental</option>
+                                <option value="RF - Corporativa">Deuda Corporativa</option>
+                                <option value="RF - High Yield">Alto Rendimiento (HY)</option>
+                            </optgroup>
                         </select>
                     </div>
                     <div>
                         <label className="block text-[10px] font-black text-slate-500 uppercase mb-1.5 tracking-wider">Región</label>
                         <select
-                            value={region} onChange={e => setRegion(e.target.value)}
+                            value={region} onChange={e => { setRegion(e.target.value); setPage(0); }}
                             className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:outline-none focus:border-blue-500"
                         >
                             <option value="all">Global</option>
@@ -91,11 +106,28 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             <option value="emerging_broad">Emergentes</option>
                         </select>
                     </div>
+                    <div className="flex items-center h-[42px] px-2">
+                        <label className="flex items-center space-x-2 cursor-pointer group">
+                            <input
+                                type="checkbox"
+                                checked={maximizeRetro}
+                                onChange={(e) => { setMaximizeRetro(e.target.checked); setPage(0); }}
+                                className="form-checkbox h-4 w-4 text-emerald-600 rounded cursor-pointer transition-colors"
+                            />
+                            <span className="text-[11px] font-black text-slate-600 uppercase tracking-wider group-hover:text-slate-800 transition-colors">
+                                Max. Retrocesión
+                            </span>
+                        </label>
+                    </div>
                     <button
-                        onClick={() => onRefresh?.(originalFund, { assetClass, region })}
-                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-sm transition-all text-sm h-[42px] px-6"
+                        onClick={() => {
+                            const newPage = page + 1;
+                            setPage(newPage);
+                            onRefresh?.(originalFund, { assetClass, region, maximizeRetro, offset: newPage * 3 });
+                        }}
+                        className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-sm transition-all text-sm h-[42px] px-4 w-full"
                     >
-                        Refrescar Candidatos 🔎
+                        Siguientes Candidatos 🔎
                     </button>
                 </div>
 
@@ -135,14 +167,32 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
 
                     {/* COLUMNAS 2, 3 y 4: ALTERNATIVAS */}
                     {alternatives.map((alt: any) => {
-                        const isBetter = alt.deltaFee > 0 || (alt.fund.std_perf?.sharpe > originalFund.std_perf?.sharpe);
+                        const originalSharpe = originalFund.std_perf_norm?.sharpe ?? originalFund.std_perf?.sharpe ?? -999;
+                        const altSharpe = alt.fund.std_perf_norm?.sharpe ?? alt.fund.std_perf?.sharpe ?? -999;
+
+                        const originalRetro = normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession);
+                        const altRetro = normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession);
+
+                        let isBetter = false;
+                        let badgeText = alt.reason;
+
+                        if (maximizeRetro && altRetro > originalRetro) {
+                            isBetter = true;
+                            badgeText = "Mejor Retrocesión";
+                        } else if (altSharpe > originalSharpe && altSharpe > -999) {
+                            isBetter = true;
+                            badgeText = "Mejor Ratio Sharpe";
+                        } else {
+                            badgeText = "Opción Estándar";
+                        }
+
                         const badgeColor = isBetter ? "bg-emerald-50 text-emerald-700 border-emerald-100" : "bg-blue-50 text-blue-700 border-blue-100";
                         const btnColor = isBetter ? "bg-emerald-600 hover:bg-emerald-700" : "bg-blue-600 hover:bg-blue-700";
 
                         return (
                             <div key={alt.fund.isin} className="border border-slate-200 hover:border-blue-400 rounded-xl p-4 bg-white transition-all shadow-sm hover:shadow-md flex flex-col">
                                 <div className={`border text-[10px] font-black px-2 py-0.5 rounded inline-block mb-3 uppercase tracking-tighter self-start ${badgeColor}`}>
-                                    {alt.reason === "Alternativa Directa V3" ? "Mejor Opción" : alt.reason}
+                                    {badgeText}
                                 </div>
                                 <h3 className="font-bold text-base mb-1 text-slate-800 h-10 overflow-hidden leading-snug">{alt.fund.name}</h3>
                                 <p className="text-[11px] text-slate-500 mb-4 line-clamp-1">{alt.fund.std_extra?.company || 'Gestora desconocida'}</p>

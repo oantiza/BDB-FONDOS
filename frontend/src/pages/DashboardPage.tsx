@@ -106,7 +106,9 @@ export default function DashboardPage({
         handleImportCSV,
         handleRoundDecimals,
         handleAnalyzePortfolio, // NEW
-        analysisResult // NEW
+        handleFetchInteractiveFrontier, // NEW
+        analysisResult, // NEW
+        interactivePoint // NEW
     } = usePortfolioActions({
         portfolio, setPortfolio,
         assets, riskLevel,
@@ -217,13 +219,24 @@ export default function DashboardPage({
                 onOpenRetirement={onOpenRetirement}
                 onOpenComparator={onOpenComparator}
             >
-                <button
-                    onClick={handleAnalyzePortfolio}
-                    className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest animate-pulse"
-                    title="Analizar carteras, correlaciones y alternativas"
-                >
-                    <span>🔍</span> Analizar Cartera
-                </button>
+                <div className="flex items-center gap-3">
+                    <button
+                        onClick={handleFetchInteractiveFrontier}
+                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest animate-pulse"
+                        title="Activar gráfico interactivo en tiempo real"
+                        disabled={isOptimizing}
+                    >
+                        <span>📈</span> Simulación Live
+                    </button>
+                    <button
+                        onClick={handleAnalyzePortfolio}
+                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest"
+                        title="Ver métricas de correlación y riesgo detalladas"
+                        disabled={isOptimizing}
+                    >
+                        <span>🔍</span> Analizar
+                    </button>
+                </div>
             </Header>
 
             <div className="flex flex-1 overflow-hidden p-6 gap-6">
@@ -250,7 +263,7 @@ export default function DashboardPage({
                                     <EfficientFrontierChart
                                         frontierPoints={frontierData}
                                         assetPoints={assetPoints}
-                                        portfolioPoint={portfolioPoint}
+                                        portfolioPoint={interactivePoint || portfolioPoint}
                                         isLoading={isLoading}
                                     />
                                 </div>

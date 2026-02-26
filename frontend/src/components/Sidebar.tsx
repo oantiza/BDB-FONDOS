@@ -61,8 +61,22 @@ interface SidebarProps {
   onViewDetail?: (asset: any) => void;
 }
 
+const ASSET_VARIANTS: Record<string, string[]> = {
+  'RV': ['RV', 'Equity', 'Renta Variable', 'Stock', 'EQ', 'Renta Variable Global'],
+  'RV - Tecnología': ['Tecnología', 'Technology', 'Tech', 'Renta Variable Sectorial - Tecnología'],
+  'RV - Salud': ['Salud', 'Health', 'Healthcare', 'Renta Variable Sectorial - Salud', 'Sanidad'],
+  'RF': ['RF', 'Fixed Income', 'Renta Fija', 'Bond', 'FI', 'Deuda'],
+  'RF - Soberana': ['Soberana', 'Government', 'Renta Fija Gubernamental', 'Sovereign'],
+  'RF - Corporativa': ['Corporativa', 'Corporate', 'Renta Fija Corporativa'],
+  'RF - High Yield': ['High Yield', 'Alto Rendimiento', 'Renta Fija Alto Rendimiento'],
+  'Monetario': ['Monetario', 'Money Market', 'Cash', 'Liquidez', 'MM'],
+  'Mixto': ['Mixto', 'Mixed', 'Balanced', 'Allocation', 'Multi-Asset'],
+  'Retorno Absoluto': ['Retorno Absoluto', 'Alternative', 'Absolute Return', 'Hedge']
+};
+
 export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: SidebarProps) {
   const [term, setTerm] = useState('')
+  const [category, setCategory] = useState('ALL')
   const [showNoHistory, setShowNoHistory] = useState(false)
 
   // Presencia real de histórico (historico_vl_v2)
@@ -167,10 +181,18 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
         // UX: si el usuario busca, muestra aunque no cumpla filtro
         const shouldShow = historyCheck || term.length > 0
 
-        return termMatch && !isBlacklisted && shouldShow
+        // Subcategory Check
+        let categoryMatch = true;
+        if (category !== 'ALL') {
+          const fundCat = a?.derived?.asset_class || a?.asset_class || '';
+          const allowedCats = ASSET_VARIANTS[category] || [category];
+          categoryMatch = allowedCats.includes(fundCat);
+        }
+
+        return termMatch && categoryMatch && !isBlacklisted && shouldShow
       })
       .slice(0, 50)
-  }, [assets, term, showNoHistory, presenceMap, checking])
+  }, [assets, term, category, showNoHistory, presenceMap, checking])
 
   return (
     <div className="w-full h-full bg-white border-r border-slate-100 shadow-sm z-10 p-0 flex flex-col shrink-0 text-slate-700">
@@ -180,13 +202,37 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
         </h3>
       </div>
 
-      <div className="p-3 border-b border-slate-50">
+      <div className="p-3 border-b border-slate-50 flex flex-col gap-2">
+        <select
+          value={category}
+          onChange={(e) => setCategory(e.target.value)}
+          className="w-full text-xs p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-colors font-bold"
+        >
+          <option value="ALL">Clase de Activo (Todas)</option>
+          <optgroup label="Grandes Bloques">
+            <option value="RV">Renta Variable (General)</option>
+            <option value="RF">Renta Fija (General)</option>
+            <option value="Monetario">Monetario</option>
+            <option value="Mixto">Mixto</option>
+            <option value="Retorno Absoluto">Retorno Absoluto</option>
+          </optgroup>
+          <optgroup label="Sectores RV">
+            <option value="RV - Tecnología">Tecnología</option>
+            <option value="RV - Salud">Salud</option>
+          </optgroup>
+          <optgroup label="Especialización RF">
+            <option value="RF - Soberana">Deuda Gubernamental</option>
+            <option value="RF - Corporativa">Deuda Corporativa</option>
+            <option value="RF - High Yield">Alto Rendimiento (HY)</option>
+          </optgroup>
+        </select>
+
         <input
           type="text"
           value={term}
           onChange={(e) => setTerm(e.target.value)}
           placeholder="Buscar nombre o ISIN..."
-          className="w-full text-sm p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-colors placeholder:text-slate-400"
+          className="w-full text-sm p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-slate-700 transition-all placeholder:text-slate-400"
         />
 
         <div className="flex items-center justify-between mt-2">
