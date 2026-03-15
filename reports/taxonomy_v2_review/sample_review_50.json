@@ -1,0 +1,33 @@
+{
+  "run_at": "2026-03-13T06:06:12.001923+00:00",
+  "total_funds": 669,
+  "with_classification_v2": 669,
+  "with_portfolio_exposure_v2": 669,
+  "with_both": 669,
+  "group_counts": {
+    "REGION_PRIMARY_BORDERLINE": 10,
+    "HEURISTIC_STYLE_DEDUCTION": 10,
+    "LOW_RISK_ALLOWED": 10,
+    "LOW_RISK_BLOCKED": 10,
+    "AMBIGUOUS_OR_CONFLICT": 10
+  },
+  "sample_size": 50,
+  "conflict_count": 19,
+  "asset_type_distribution": {
+    "FIXED_INCOME": 192,
+    "EQUITY": 340,
+    "REAL_ESTATE": 3,
+    "MIXED": 97,
+    "ALTERNATIVE": 13,
+    "MONETARY": 7,
+    "COMMODITIES": 17
+  },
+  "audit_flag_counts": {
+    "UNKNOWN_SUBTYPE": 44,
+    "MISSING_REGION_PRIMARY": 32,
+    "EQUITY_WITHOUT_STYLE_BOX": 198,
+    "FI_WITHOUT_CREDIT": 17,
+    "FI_WITHOUT_DURATION": 20,
+    "EXCESSIVE_WARNINGS": 1
+  }
+}

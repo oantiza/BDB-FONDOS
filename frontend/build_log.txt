@@ -1,0 +1,38 @@
+
+> frontend@0.0.0 build
+> vite build
+
+[36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+transforming...
+[vite:css][postcss] @import must precede all other statements (besides @charset or empty @layer)
+4  |  
+5  |  /* Imports de Fuentes (Roboto & Playfair) */
+6  |  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400;500;70...
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7  |  
+8  |  /* Variables CSS nativas (Matching Mi Boutique) */
+[32mÔ£ô[39m 29 modules transformed.
+Ô£ù Build failed in 620ms
+error during build:
+[vite:esbuild] Transform failed with 1 error:
+C:/Proyectos/FinTrader_Quant/frontend/src/components/FundDetailModal.tsx:181:55: ERROR: Unterminated string literal
+file: C:/Proyectos/FinTrader_Quant/frontend/src/components/FundDetailModal.tsx:181:55
+
+Unterminated string literal
+179 |  const MetricCard = ({ label, value, color }: { label: string, value: string, color: string }) => {
+180 |      const colorClasses = {
+181 |          blue: 'bg-blue-50 border-blue-200 text-blue-700
+    |                                                         ^
+182 |          amber: 'bg-amber-50 border-amber-200 text-amber-700
+183 |          emerald: 'bg-emerald-50 border-emerald-200 text-emerald-700
+
+    at failureErrorWithLog (C:\Proyectos\FinTrader_Quant\frontend\node_modules\esbuild\lib\main.js:1467:15)
+    at C:\Proyectos\FinTrader_Quant\frontend\node_modules\esbuild\lib\main.js:736:50
+    at responseCallbacks.<computed> (C:\Proyectos\FinTrader_Quant\frontend\node_modules\esbuild\lib\main.js:603:9)
+    at handleIncomingPacket (C:\Proyectos\FinTrader_Quant\frontend\node_modules\esbuild\lib\main.js:658:12)
+    at Socket.readFromStdout (C:\Proyectos\FinTrader_Quant\frontend\node_modules\esbuild\lib\main.js:581:7)
+    at Socket.emit (node:events:508:28)
+    at addChunk (node:internal/streams/readable:559:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:510:3)
+    at Readable.push (node:internal/streams/readable:390:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:189:23)

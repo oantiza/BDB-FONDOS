@@ -1,0 +1,22 @@
+{
+  "run_id": "run_20260312_231524",
+  "mode": "execute",
+  "started_at": "2026-03-12T23:15:24.281559+00:00",
+  "total_read": 669,
+  "processed": 669,
+  "updated": 669,
+  "skipped": 0,
+  "errors": 0,
+  "error_isins": [],
+  "asset_type_dist": {
+    "FIXED_INCOME": 192,
+    "EQUITY": 338,
+    "REAL_ESTATE": 3,
+    "MIXED": 97,
+    "UNKNOWN": 2,
+    "ALTERNATIVE": 13,
+    "MONETARY": 7,
+    "COMMODITIES": 17
+  },
+  "finished_at": "2026-03-12T23:15:29.936507+00:00"
+}

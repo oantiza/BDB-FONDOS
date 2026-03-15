@@ -1,0 +1,17 @@
+{
+    "name": "Gestor de Fondos",
+    "short_name": "Fondos",
+    "description": "Global CIO Office - Portfolio Management Platform",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0B2545",
+    "theme_color": "#0B2545",
+    "icons": [
+        {
+            "src": "/vite.svg",
+            "sizes": "any",
+            "type": "image/svg+xml",
+            "purpose": "any maskable"
+        }
+    ]
+}

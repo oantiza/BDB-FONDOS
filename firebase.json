@@ -1,0 +1,68 @@
+{
+    "functions": {
+        "source": "functions_python",
+        "runtime": "python312",
+        "ignore": [
+            "venv",
+            ".git",
+            "__pycache__",
+            "*.pyc"
+        ]
+    },
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
+    },
+    "storage": {
+        "rules": "storage.rules"
+    },
+    "hosting": {
+        "public": "frontend/dist",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "headers": [
+            {
+                "source": "**/*.@(jpg|jpeg|gif|png|css|js|webp)",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "max-age=31536000"
+                    }
+                ]
+            },
+            {
+                "source": "**/*.@(html)",
+                "headers": [
+                    {
+                        "key": "Cache-Control",
+                        "value": "no-cache, no-store, must-revalidate"
+                    }
+                ]
+            }
+        ],
+        "rewrites": [
+            {
+                "source": "**",
+                "destination": "/index.html"
+            }
+        ]
+    },
+    "emulators": {
+        "auth": {
+            "port": 9099
+        },
+        "functions": {
+            "port": 5001
+        },
+        "firestore": {
+            "port": 8080
+        },
+        "ui": {
+            "enabled": true
+        },
+        "singleProjectMode": true
+    }
+}

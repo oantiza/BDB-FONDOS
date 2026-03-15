@@ -1,0 +1,90 @@
+############################################
+# LENGUAJES Y ENTORNOS (Python / JS)
+############################################
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+node_modules/
+.npm/
+.eslintcache
+
+############################################
+# LOGS Y DEBUG (Crucial para no quemar tokens)
+############################################
+*.log
+npm-debug.log*
+yarn-debug.log*
+pnpm-debug.log*
+firebase-debug*.log
+logs/
+*.sqlite
+*.db
+
+############################################
+# BUILDS Y CACHÉ (Evita que la IA lea código compilado)
+############################################
+dist/
+build/
+out/
+.next/
+.nuxt/
+.cache/
+coverage/
+.firebase/
+.terraform/
+
+############################################
+# CREDENCIALES Y SEGURIDAD (Limpieza de rutas)
+############################################
+.env
+.env*
+*.pem
+*.key
+*.crt
+# Rutas específicas corregidas 
+scripts/service-account.json 
+scripts/bdb-fondos-sa.json
+serviceAccount*.json
+
+############################################
+# BACKUPS Y LEGACY (Bloqueo de carpetas pesadas)
+############################################
+BACKUP*/
+backup_*/
+frontend_LEGACY/
+frontend_react_backup*/
+functions_python_SAFETY*/
+"archivos viejos/"
+public_legacy/
+
+############################################
+# OPTIMIZACIÓN ANTIGRAVITY (Multimedia y Binarios)
+############################################
+# Bloqueo total de archivos que la IA no puede procesar 
+*.zip
+*.7z
+*.rar
+*.bak
+*.tmp
+*.png
+*.jpg
+*.jpeg
+*.svg
+*.gif
+*.ico
+*.pdf
+*.mp4
+*.exe
+*.dmg
+*.iso
+
+############################################
+# IDEs Y SISTEMA
+############################################
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
