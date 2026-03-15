@@ -1,90 +1,131 @@
 ############################################
-# LENGUAJES Y ENTORNOS (Python / JS)
+# SISTEMA / IDE
+############################################
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+############################################
+# PYTHON
 ############################################
 __pycache__/
 *.py[cod]
 *$py.class
+
+# Entornos virtuales
 venv/
 env/
 .venv/
+
+############################################
+# NODE / JAVASCRIPT
+############################################
 node_modules/
 .npm/
 .eslintcache
+package-lock.json
 
 ############################################
-# LOGS Y DEBUG (Crucial para no quemar tokens)
+# LOGS
 ############################################
 *.log
+logs/
 npm-debug.log*
 yarn-debug.log*
 pnpm-debug.log*
 firebase-debug*.log
-logs/
+
+############################################
+# BASES DE DATOS LOCALES
+############################################
 *.sqlite
 *.db
 
 ############################################
-# BUILDS Y CACHÉ (Evita que la IA lea código compilado)
+# BUILDS / OUTPUT
 ############################################
 dist/
 build/
 out/
-.next/
-.nuxt/
 .cache/
 coverage/
+
+# Next / Nuxt (por si algún día usas)
+.next/
+.nuxt/
+
+############################################
+# FIREBASE
+############################################
 .firebase/
+firebase-debug.log
+
+############################################
+# TERRAFORM (si algún día se usa)
+############################################
 .terraform/
 
 ############################################
-# CREDENCIALES Y SEGURIDAD (Limpieza de rutas)
+# VARIABLES DE ENTORNO
 ############################################
 .env
-.env*
+.env.*
+frontend/.env
+functions_python/.env
+
+############################################
+# CREDENCIALES
+############################################
 *.pem
 *.key
 *.crt
-# Rutas específicas corregidas 
-scripts/service-account.json 
-scripts/bdb-fondos-sa.json
+
 serviceAccount*.json
+scripts/service-account.json
+scripts/bdb-fondos-sa.json
 
 ############################################
-# BACKUPS Y LEGACY (Bloqueo de carpetas pesadas)
+# BACKUPS Y LEGACY
 ############################################
 BACKUP*/
 backup_*/
 frontend_LEGACY/
 frontend_react_backup*/
 functions_python_SAFETY*/
-"archivos viejos/"
 public_legacy/
+archivos viejos/
 
 ############################################
-# OPTIMIZACIÓN ANTIGRAVITY (Multimedia y Binarios)
+# ARCHIVOS PESADOS / BINARIOS
 ############################################
-# Bloqueo total de archivos que la IA no puede procesar 
 *.zip
 *.7z
 *.rar
 *.bak
 *.tmp
+
+# imágenes
 *.png
 *.jpg
 *.jpeg
 *.svg
 *.gif
 *.ico
+
+# documentos
 *.pdf
+
+# multimedia
 *.mp4
+
+# ejecutables
 *.exe
 *.dmg
 *.iso
 
 ############################################
-# IDEs Y SISTEMA
+# ANTIGRAVITY / IA (opcional)
 ############################################
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+*.dataset
+*.model
