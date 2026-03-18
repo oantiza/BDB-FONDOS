@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: check_fund_history.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/check_fund_history.py
+"""
+
 import os
 import sys
 from datetime import datetime

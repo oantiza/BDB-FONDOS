@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: check_history_status.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/check_history_status.py
+"""
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 from datetime import datetime

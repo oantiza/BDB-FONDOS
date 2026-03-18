@@ -523,7 +523,8 @@ export function usePortfolioActions({
                 asset_metadata: assetMetadata,
                 constraints: {
                     apply_profile: true,
-                    lock_mode: strategyPayload?.mode || 'redistribute',
+                    optimization_mode: 'rebalance_to_profile',
+                    lock_mode: isAddCapital ? 'keep_money' : 'keep_weight',
                     fixed_weights: fixedWeights
                 }
             };

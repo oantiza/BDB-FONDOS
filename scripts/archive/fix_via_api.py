@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: fix_via_api.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/fix_via_api.py
+"""
+
 import requests
 import json
 import time

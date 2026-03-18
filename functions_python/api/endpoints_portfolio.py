@@ -35,22 +35,20 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
     try:
         STRATEGY_CONSTRAINTS = {}
 
-    assets_list = req_data.get("assets", [])
-    risk_level = req_data.get("risk_level", 5)
-    locked_assets = req_data.get("locked_assets", []) or []
+        assets_list = req_data.get("assets", [])
+        risk_level = req_data.get("risk_level", 5)
+        locked_assets = req_data.get("locked_assets", []) or []
 
-    # --- DEFENSIVE VALIDATION ---
-    if not assets_list:
-        return {"status": "error", "warnings": ["Cartera vacía"]}
-    
-    try:
-        risk_level = int(risk_level)
-        if not (1 <= risk_level <= 10):
-            return {"status": "error", "message": "Nivel de riesgo inválido (debe ser 1-10)"}
-    except (ValueError, TypeError):
-        return {"status": "error", "message": "Nivel de riesgo debe ser numérico"}
-
-    try:
+        # --- DEFENSIVE VALIDATION ---
+        if not assets_list:
+            return {"status": "error", "warnings": ["Cartera vacía"]}
+        
+        try:
+            risk_level = int(risk_level)
+            if not (1 <= risk_level <= 10):
+                return {"status": "error", "message": "Nivel de riesgo inválido (debe ser 1-10)"}
+        except (ValueError, TypeError):
+            return {"status": "error", "message": "Nivel de riesgo debe ser numérico"}
 
         # --- NEW: CHALLENGER LOGIC (Add +1 Fund Capability) ---
         if req_data.get("enable_challengers") is True:

@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&family=Roboto+Flex:opsz,wght@8..144,100..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* === THEME VARIABLES === */
+:root {
+  /* Light Theme (Default) */
+  --color-brand: #003399;
+  --color-accent: #D4AF37;
+  --color-bg-main: #F3F4F6;
+  --color-bg-card: #FFFFFF;
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-border: #E5E7EB;
+}
+
+/* Dark Theme Removed */
+
+/* Clases utilitarias personalizadas */
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm;
+  }
+
+  .card-base {
+    @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+  }
+}
+
+/* Personalización del Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-slate-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-slate-400;
+}
+
+/* Estilos base del body */
+body {
+  background-color: var(--color-bg-main);
+  color: var(--color-text-primary);
+  @apply font-sans antialiased;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}

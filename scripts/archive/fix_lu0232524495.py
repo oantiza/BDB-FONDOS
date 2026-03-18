@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: fix_lu0232524495.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/fix_lu0232524495.py
+"""
+
 import os
 import firebase_admin
 from firebase_admin import credentials, firestore

@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_backtester_volatility.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_backtester_volatility.py
+"""
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json

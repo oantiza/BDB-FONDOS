@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: trigger_calc.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/trigger_calc.py
+"""
+
 import requests
 import json
 import time

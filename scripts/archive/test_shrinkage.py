@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_shrinkage.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_shrinkage.py
+"""
+
 import pandas as pd
 import numpy as np
 from pypfopt import risk_models

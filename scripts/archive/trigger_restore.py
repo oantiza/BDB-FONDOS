@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: trigger_restore.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/trigger_restore.py
+"""
+
 import requests
 import json
 

@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: inspect_refresh_results.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/inspect_refresh_results.py
+"""
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import json

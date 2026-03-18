@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_frontier.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_frontier.py
+"""
+
 import os
 from firebase_admin import credentials, initialize_app, firestore
 from services.portfolio.frontier_engine import generate_efficient_frontier

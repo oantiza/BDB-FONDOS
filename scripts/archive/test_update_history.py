@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_update_history.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_update_history.py
+"""
+
 import os
 import sys
 

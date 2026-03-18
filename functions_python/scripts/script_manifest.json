@@ -1,0 +1,362 @@
+[
+  {
+    "name": "analyze_history_anomalies.py",
+    "path": "functions_python/scripts/audit/analyze_history_anomalies.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "audit_fund_data.py",
+    "path": "functions_python/scripts/audit/audit_fund_data.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "audit_taxonomy_v2.py",
+    "path": "functions_python/scripts/audit/audit_taxonomy_v2.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "check_reports.py",
+    "path": "functions_python/scripts/audit/check_reports.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Verifica la integridad de los reportes generados."
+  },
+  {
+    "name": "sample_taxonomy_review_50.py",
+    "path": "functions_python/scripts/audit/sample_taxonomy_review_50.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "scoring_comparison.py",
+    "path": "functions_python/scripts/audit/scoring_comparison.py",
+    "category": "audit",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Compara algoritmos de scoring de fondos."
+  },
+  {
+    "name": "check_and_import_retrocesion.py",
+    "path": "functions_python/scripts/migration/check_and_import_retrocesion.py",
+    "category": "migration",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "migrate_reports.py",
+    "path": "functions_python/scripts/migration/migrate_reports.py",
+    "category": "migration",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "populate_taxonomy_v2.py",
+    "path": "functions_python/scripts/migration/populate_taxonomy_v2.py",
+    "category": "migration",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "cleanup_dummy_reports.py",
+    "path": "functions_python/scripts/fixes/cleanup_dummy_reports.py",
+    "category": "fixes",
+    "status": "ACTIVE",
+    "mutates_data": true,
+    "description": "Elimina reportes de prueba del sistema."
+  },
+  {
+    "name": "fix_anomalies.py",
+    "path": "functions_python/scripts/fixes/fix_anomalies.py",
+    "category": "fixes",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "fix_data_anomalies.py",
+    "path": "functions_python/scripts/fixes/fix_data_anomalies.py",
+    "category": "fixes",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "trim_last_anomaly.py",
+    "path": "functions_python/scripts/fixes/trim_last_anomaly.py",
+    "category": "fixes",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "generate_benchmarks.py",
+    "path": "functions_python/scripts/reports/generate_benchmarks.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "insert_dummy_reports.py",
+    "path": "functions_python/scripts/reports/insert_dummy_reports.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": true,
+    "description": "Inserta reportes ficticios para pruebas de UI."
+  },
+  {
+    "name": "insert_report_function.py",
+    "path": "functions_python/scripts/reports/insert_report_function.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "insert_user_report.py",
+    "path": "functions_python/scripts/reports/insert_user_report.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "recalc_metrics_batch.py",
+    "path": "functions_python/scripts/reports/recalc_metrics_batch.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "recalc_metrics_single.py",
+    "path": "functions_python/scripts/reports/recalc_metrics_single.py",
+    "category": "reports",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "debug_fondibas.py",
+    "path": "functions_python/scripts/debug/debug_fondibas.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "debug_reports.py",
+    "path": "functions_python/scripts/debug/debug_reports.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "find_fund_by_isin.py",
+    "path": "functions_python/scripts/debug/find_fund_by_isin.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Localiza y muestra todos los datos de un fondo por su ISIN."
+  },
+  {
+    "name": "inspect_anomaly_dates.py",
+    "path": "functions_python/scripts/debug/inspect_anomaly_dates.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "inspect_categories.py",
+    "path": "functions_python/scripts/debug/inspect_categories.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "inspect_fund_data.py",
+    "path": "functions_python/scripts/debug/inspect_fund_data.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Inspecciona estructura interna de documentos de fondos."
+  },
+  {
+    "name": "inspect_ter.py",
+    "path": "functions_python/scripts/debug/inspect_ter.py",
+    "category": "debug",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Inspecciona datos de TER y comisiones."
+  },
+  {
+    "name": "test_gemini_models.py",
+    "path": "functions_python/scripts/tests/test_gemini_models.py",
+    "category": "tests",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "Verifica conectividad y respuesta de modelos Gemini."
+  },
+  {
+    "name": "test_optimizer.py",
+    "path": "functions_python/scripts/tests/test_optimizer.py",
+    "category": "tests",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "test_research.py",
+    "path": "functions_python/scripts/tests/test_research.py",
+    "category": "tests",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "test_smart_portfolio.py",
+    "path": "functions_python/scripts/tests/test_smart_portfolio.py",
+    "category": "tests",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "debug_frontier_local.py",
+    "path": "functions_python/scripts/sandbox/debug_frontier_local.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "debug_test.py",
+    "path": "functions_python/scripts/sandbox/debug_test.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "inspect_fund_debug.py",
+    "path": "functions_python/scripts/sandbox/inspect_fund_debug.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "reproduce_frontier.py",
+    "path": "functions_python/scripts/sandbox/reproduce_frontier.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "temp_fetch_hcz61.py",
+    "path": "functions_python/scripts/sandbox/temp_fetch_hcz61.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "temp_func.py",
+    "path": "functions_python/scripts/sandbox/temp_func.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "test_optimizer_crash.py",
+    "path": "functions_python/scripts/sandbox/test_optimizer_crash.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "test_real_frontier.py",
+    "path": "functions_python/scripts/sandbox/test_real_frontier.py",
+    "category": "sandbox",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "populate_taxonomy_v2_FINAL_STABLE.py",
+    "path": "functions_python/scripts/archive/populate_taxonomy_v2_FINAL_STABLE.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "populate_taxonomy_v2_STABLE_31conflicts.py",
+    "path": "functions_python/scripts/archive/populate_taxonomy_v2_STABLE_31conflicts.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "populate_taxonomy_v2_STABLE_71conflicts.py",
+    "path": "functions_python/scripts/archive/populate_taxonomy_v2_STABLE_71conflicts.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "populate_taxonomy_v2_backup.py",
+    "path": "functions_python/scripts/archive/populate_taxonomy_v2_backup.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "sample_taxonomy_review_50_FINAL_STABLE.py",
+    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_FINAL_STABLE.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "sample_taxonomy_review_50_STABLE_31conflicts.py",
+    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_STABLE_31conflicts.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  },
+  {
+    "name": "sample_taxonomy_review_50_STABLE_71conflicts.py",
+    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_STABLE_71conflicts.py",
+    "category": "archive",
+    "status": "ACTIVE",
+    "mutates_data": false,
+    "description": "No description"
+  }
+]

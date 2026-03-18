@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CalendarDays, AlertTriangle, AlertCircle, Clock, Globe } from 'lucide-react';
+import { httpsCallable } from 'firebase/functions';
+import { functions } from '../../firebase';
 
 interface CalendarEvent {
     title: string;
@@ -18,24 +20,15 @@ export const EconomicCalendarTab: React.FC = () => {
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
-                // Try primary proxy (allorigins)
-                const targetUrl = encodeURIComponent('https://nfs.faireconomy.media/ff_calendar_thisweek.json');
-                let response = await fetch(`https://api.allorigins.win/raw?url=${targetUrl}`);
+                const getCalendar = httpsCallable(functions, 'get_economic_calendar');
+                const result = await getCalendar();
+                const responseData = result.data as any;
 
-                if (!response.ok || !response.headers.get("content-type")?.includes("application/json")) {
-                    // Fallback to codetabs proxy
-                    console.warn("Primary proxy failed or returned non-JSON, trying fallback...");
-                    response = await fetch(`https://api.codetabs.com/v1/proxy?quest=https://nfs.faireconomy.media/ff_calendar_thisweek.json`);
-                    if (!response.ok) {
-                        throw new Error(`Error HTTP en proxy secundario: ${response.status}`);
-                    }
+                if (!responseData.success) {
+                    throw new Error(responseData.error || "Error al obtener datos del calendario desde el servidor");
                 }
 
-                const contentType = response.headers.get("content-type");
-                if (!contentType || !contentType.includes("application/json")) {
-                    throw new Error("Ambos proxies devolvieron un formato no válido.");
-                }
-                const data = await response.json();
+                const data = responseData.data;
 
                 // Filtrar eventos. Ocultamos 'Low' para reducir ruido.
                 const filteredData = data.filter((e: any) => e.impact === 'High' || e.impact === 'Medium' || e.impact === 'Holiday');

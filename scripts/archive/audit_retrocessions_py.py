@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: audit_retrocessions_py.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/audit_retrocessions_py.py
+"""
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os

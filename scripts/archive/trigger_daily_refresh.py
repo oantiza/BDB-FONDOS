@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: trigger_daily_refresh.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/trigger_daily_refresh.py
+"""
+
 import requests
 import json
 import os

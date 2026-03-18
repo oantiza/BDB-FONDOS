@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: trigger_metadata_update.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/trigger_metadata_update.py
+"""
+
 import requests
 import json
 import csv

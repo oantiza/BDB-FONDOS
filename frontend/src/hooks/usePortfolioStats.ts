@@ -2,6 +2,28 @@ import { useMemo } from 'react';
 import { PortfolioItem } from '../types';
 import { getCanonicalSubtype } from '../utils/normalizer';
 
+const VALID_REGIONS = ['us', 'europe', 'asia_dev', 'emerging', 'japan'] as const;
+type ValidRegion = typeof VALID_REGIONS[number];
+
+function isInvalidRegionBucket(key: string): boolean {
+    if (!key) return true;
+    const lower = key.trim().toLowerCase();
+    return ['unknown', 'other', 'others', 'n/a', 'na', 'null', 'undefined', ''].includes(lower);
+}
+
+function canonizeRegion(raw: string): ValidRegion | null {
+    if (!raw) return null;
+    const lower = raw.trim().toLowerCase();
+    
+    if (['us', 'usa', 'united states', 'united_states', 'north america', 'north_america', 'american'].includes(lower)) return 'us';
+    if (['europe', 'eu', 'eurozone', 'euro'].includes(lower)) return 'europe';
+    if (['japan', 'jp'].includes(lower)) return 'japan';
+    if (['asia', 'developed asia', 'developed_asia', 'asia dev', 'asia_dev', 'asia pacific', 'asia_pacific'].includes(lower)) return 'asia_dev';
+    if (['emerging', 'em', 'emerging markets', 'emerging_markets', 'latam', 'asia emerging', 'asia_emerging'].includes(lower)) return 'emerging';
+    
+    return null;
+}
+
 interface UsePortfolioStatsProps {
     portfolio: PortfolioItem[];
     metrics: any; // Can be improved to SmartPortfolioResponse
@@ -190,44 +212,52 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
         let totalOther = 0;
 
         let validMetricsWeight = 0;
+        let fallbackMetricsWeight = 0;
         let totalWeight = 0;
 
         portfolio.forEach(p => {
-            const w = Number(p.weight) || 0;
-            if (w <= 0) return;
+            const w = Number(p.weight);
+            if (isNaN(w) || w <= 0) return;
             totalWeight += w;
 
             let e = 0, b = 0, c = 0, o = 0;
             let success = false;
+            let isFallback = false;
 
             // Strategy 1: V2 Canonical Exposure
             if (p.portfolio_exposure_v2?.economic_exposure) {
                 const ee = p.portfolio_exposure_v2.economic_exposure;
-                const sum = ee.equity + ee.bond + ee.cash + ee.other;
+                const eeEq = Number(ee.equity) || 0;
+                const eeBo = Number(ee.bond) || 0;
+                const eeCa = Number(ee.cash) || 0;
+                const eeOt = Number(ee.other) || 0;
+                const sum = eeEq + eeBo + eeCa + eeOt;
                 if (sum > 0) {
                     const factor = 100 / sum;
-                    e = ee.equity * factor;
-                    b = ee.bond * factor;
-                    c = ee.cash * factor;
-                    o = ee.other * factor;
+                    e = eeEq * factor;
+                    b = eeBo * factor;
+                    c = eeCa * factor;
+                    o = eeOt * factor;
                     success = true;
                 }
             }
 
             // Strategy 2: Use 'metrics' if valid
             if (!success && p.metrics) {
-                const { equity = 0, bond = 0, cash = 0, other = 0 } = p.metrics;
-                const sum = equity + bond + cash + other;
+                const meEq = Number(p.metrics.equity) || 0;
+                const meBo = Number(p.metrics.bond) || 0;
+                const meCa = Number(p.metrics.cash) || 0;
+                const meOt = Number(p.metrics.other) || 0;
+                const sum = meEq + meBo + meCa + meOt;
 
                 // Allow tolerance 95-105 for normalizing
                 if (sum >= 95 && sum <= 105) {
                     const factor = 100 / sum; // Normalize to EXACTLY 100%
-                    e = (equity * factor);
-                    b = (bond * factor);
-                    c = (cash * factor);
-                    o = (other * factor);
+                    e = (meEq * factor);
+                    b = (meBo * factor);
+                    c = (meCa * factor);
+                    o = (meOt * factor);
                     success = true;
-                    // validMetricsWeight += w; // We consider it valid if we have metrics
                 }
             }
 
@@ -268,15 +298,20 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                     o = 100;
                     success = true;
                 }
+                
+                if (success) isFallback = true;
             }
 
-            // Mark as covered if we found a strategy (which is always true now due to default)
+            // Mark as covered if we found a strategy
             if (success) {
-                validMetricsWeight += w;
+                if (isFallback) {
+                    fallbackMetricsWeight += w;
+                } else {
+                    validMetricsWeight += w;
+                }
             }
 
             // Accumulate Weighted Contribution
-            // contribution = weight * (allocation / 100)
             totalEquity += w * (e / 100);
             totalBond += w * (b / 100);
             totalCash += w * (c / 100); 
@@ -292,7 +327,8 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             bond: totalBond * norm,
             cash: totalCash * norm,
             other: totalOther * norm,
-            coverage: totalWeight > 0 ? (validMetricsWeight / totalWeight) * 100 : 0
+            coverage: totalWeight > 0 ? (validMetricsWeight / totalWeight) * 100 : 0,
+            fallbackCoverage: totalWeight > 0 ? (fallbackMetricsWeight / totalWeight) * 100 : 0
         };
 
     }, [portfolio]);
@@ -300,15 +336,15 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
     // 6. EQUITY REGION ALLOCATION (Front-end aggregation from derived data)
     const equityRegionAllocation = useMemo(() => {
         const rawMap: Record<string, number> = {};
-        // totalEquityVal is used to accumulate the total weighted equity contribution for normalization
-        let totalEquityContribution = 0;
+        
+        // Debug & Coverage tracking
+        let recognizedEquityRegionAbsolute = 0;
+        let discardedEquityRegionAbsolute = 0;
 
         portfolio.forEach(fund => {
-            const w = Number(fund.weight) || 0;
-            if (w <= 0) return;
-            // Access derived data safely
-            // Access derived data safely with Fallbacks
-            // Priority: 1. Derived (Calculated) -> 2. Root Regions (Imported) -> 3. MS Regions (Raw)
+            const w = Number(fund.weight);
+            if (isNaN(w) || w <= 0) return;
+            
             // Priority: 1. Derived -> 2. Root Regions -> 3. MS Regions -> 4. Inference
             let regions = fund.portfolio_exposure_v2?.equity_regions;
             
@@ -327,67 +363,78 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             // Inference
             if (!regions || Object.keys(regions).length === 0) {
                 const text = (fund.name + ' ' + (fund.std_extra?.category || '')).toLowerCase();
-                if (text.includes('usa') || text.includes('us ') || text.includes('american')) regions = { 'united_states': 100 };
+                if (text.includes('usa') || text.includes('us ') || text.includes('american')) regions = { 'us': 100 };
                 else if (text.includes('europe') || text.includes('euro')) regions = { 'europe': 100 };
-                else if (text.includes('asia') || text.includes('japan')) regions = { 'asia_emerging': 100 };
-                else if (text.includes('global') || text.includes('world')) regions = { 'united_states': 60, 'europe': 20, 'asia_emerging': 20 };
+                else if (text.includes('japan')) regions = { 'japan': 100 };
+                else if (text.includes('asia')) regions = { 'asia_dev': 100 };
+                else if (text.includes('global') || text.includes('world')) regions = { 'us': 60, 'europe': 20, 'asia_dev': 10, 'emerging': 10 };
             }
-
 
             if (regions) {
                 Object.entries(regions).forEach(([region, val]) => {
-                    // Safe cast
                     const v = Number(val);
-                    if (isNaN(v)) return;
+                    if (isNaN(v) || v <= 0) {
+                        // Discard invalid numeric items
+                        discardedEquityRegionAbsolute += (isNaN(v) ? 0 : v) / 100 * w;
+                        return;
+                    }
 
-                    // Contribution to total portfolio
                     const contribution = (v / 100) * w;
 
-                    // Normalize Key to Snake Case for Chart Compatibility
-                    // e.g. "United States" -> "united_states"
-                    const normalizedKey = region.trim().toLowerCase().replace(/\s+/g, '_');
+                    if (isInvalidRegionBucket(region)) {
+                        // Discard known junk buckets
+                        discardedEquityRegionAbsolute += contribution;
+                        return;
+                    }
 
-                    rawMap[normalizedKey] = (rawMap[normalizedKey] || 0) + contribution;
+                    const canonical = canonizeRegion(region);
+                    if (!canonical) {
+                        // Discard unmappable buckets
+                        discardedEquityRegionAbsolute += contribution;
+                        return;
+                    }
+
+                    recognizedEquityRegionAbsolute += contribution;
+                    rawMap[canonical] = (rawMap[canonical] || 0) + contribution;
                 });
             }
         });
 
-        // Calculate Total RV (sum of all regions excluding 'other' to verify?)
-        // Let's filter 'other' if it's too big? 
-        // User said: "Ignora la clave other si su valor es igual a la suma total de equity".
-        // This likely implies checking PER FUND. 
-        // But let's look at the aggregated result.
-
-        // Remove 'other' if we have detailed regions? 
-        // Let's keep it simple: normalize what we have.
-
         const finalMap: { name: string; value: number; absoluteValue?: number }[] = [];
         let sumForNorm = 0;
 
-        Object.entries(rawMap).forEach(([region, val]) => {
-            if (region === 'other' || region === 'others') {
-                // Optional: specific logic?
-            }
+        Object.values(rawMap).forEach(val => {
             if (val > 0.01) sumForNorm += val;
         });
 
-        // Create list with Drill-down normalization (relative to Equity part)
-        // Formula: (Valor_Region / Total_RV_Cartera) * 100
-        // Total_RV_Cartera here is sumForNorm (allocations found).
+        const totalCoverage = recognizedEquityRegionAbsolute + discardedEquityRegionAbsolute;
+        const regionCoveragePct = totalCoverage > 0 ? (recognizedEquityRegionAbsolute / totalCoverage) * 100 : 0;
 
+        // Create list with Drill-down normalization (relative to recognized Equity part)
         if (sumForNorm > 0) {
             Object.entries(rawMap).forEach(([region, val]) => {
                 if (val > 0.01) {
                     finalMap.push({
                         name: region,
-                        value: (val / sumForNorm) * 100, // Relative %
+                        value: (val / sumForNorm) * 100, // Relative % normalized
                         absoluteValue: val // Absolute % in portfolio
                     });
                 }
             });
         }
 
-        return finalMap.sort((a, b) => b.value - a.value);
+        const sortedResult = finalMap.sort((a, b) => b.value - a.value);
+
+        // Attach debug information to the array object itself safely
+        // This keeps the items clean ({ name, value, absoluteValue })
+        // but exposes the debug stats for whoever needs it via sortedResult._debug
+        Object.defineProperty(sortedResult, '_debug', {
+            value: { recognizedEquityRegionAbsolute, discardedEquityRegionAbsolute, regionCoveragePct },
+            enumerable: false,
+            writable: false
+        });
+
+        return sortedResult;
 
     }, [portfolio]);
 

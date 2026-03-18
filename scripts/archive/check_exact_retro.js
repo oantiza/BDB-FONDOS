@@ -1,3 +1,13 @@
+/**
+ * BDB-FONDOS SCRIPT
+ *
+ * STATUS: ARCHIVE
+ * CATEGORY: archive
+ * PURPOSE: Utility script: check_exact_retro.js
+ * SAFE_MODE: REVIEW
+ * RUN: node scripts/archive/check_exact_retro.js
+ */
+
 const admin = require("firebase-admin");
 const fs = require("fs");
 const path = require("path");

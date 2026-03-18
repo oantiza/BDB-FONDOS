@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_despiking.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_despiking.py
+"""
+
 import os
 import pandas as pd
 import numpy as np

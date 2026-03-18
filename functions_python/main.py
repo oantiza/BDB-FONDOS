@@ -32,6 +32,7 @@ from api.endpoints_portfolio import (
 # -----------------
 # ADMIN / MISC
 # -----------------
+from api.endpoints_macro import get_economic_calendar
 from api.endpoints_admin import (
     force_weekly_research,
     generate_analysis_report,

@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: audit_via_api.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/audit_via_api.py
+"""
+
 import requests
 import pandas as pd
 import json

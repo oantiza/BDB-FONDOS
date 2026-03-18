@@ -1,3 +1,13 @@
+"""
+BDB-FONDOS SCRIPT
+
+STATUS: ARCHIVE
+CATEGORY: archive
+PURPOSE: Utility script: test_fund_fetch.py
+SAFE_MODE: REVIEW
+RUN: python scripts/archive/test_fund_fetch.py
+"""
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 import os
