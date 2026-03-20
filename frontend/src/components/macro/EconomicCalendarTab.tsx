@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { CalendarDays, AlertTriangle, AlertCircle, Clock, Globe } from 'lucide-react';
 import { httpsCallable } from 'firebase/functions';
-import { functions } from '../../firebase';
+import { functionsUsCentral } from '../../firebase';
 
 interface CalendarEvent {
     title: string;
@@ -20,7 +20,7 @@ export const EconomicCalendarTab: React.FC = () => {
     useEffect(() => {
         const fetchCalendarData = async () => {
             try {
-                const getCalendar = httpsCallable(functions, 'get_economic_calendar');
+                const getCalendar = httpsCallable(functionsUsCentral, 'get_economic_calendar');
                 const result = await getCalendar();
                 const responseData = result.data as any;
 

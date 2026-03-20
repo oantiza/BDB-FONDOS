@@ -83,7 +83,12 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
                 if not metrics:
                     metrics = data.get("metrics", {})
 
-                asset_class = data.get("derived", {}).get("asset_class")
+                # Priority 0: Canonical V2
+                asset_class = data.get("classification_v2", {}).get("asset_type")
+                
+                # Fallback to Legacy
+                if not asset_class:
+                    asset_class = data.get("derived", {}).get("asset_class")
                 if not asset_class:
                     asset_class = data.get("asset_class")
                 if not asset_class:
@@ -208,6 +213,14 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             "legacy_fallback_only": sum(1 for a in asset_metadata.values() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")),
             "legacy_assets": [k for k, a in asset_metadata.items() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")]
         }
+        
+        # --- STRUCTURED EXPLAINABILITY (Phase 5) ---
+        v2_full = telemetry["v2_fully_compliant"]
+        total_req = telemetry["total_requested"]
+        telemetry["taxonomy_source"] = "classification_v2/portfolio_exposure_v2 prioritario"
+        telemetry["legacy_fallbacks_triggered"] = bool(telemetry["legacy_assets"])
+        telemetry["v2_usage_summary"] = f"{v2_full}/{total_req} activos usan Nivel 1 (100% V2 compliant)"
+
         logger.info(f"📊 Taxonomy Telemetry: {telemetry}")
 
         # =====================================================================
@@ -267,7 +280,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
                         "expected_return": result.get("metrics", {}).get("return", 0),
                         "volatility": result.get("metrics", {}).get("volatility", 0),
                         "sharpe": result.get("metrics", {}).get("sharpe", 0),
-                        "applied_constraints": result.get("explainability", {}).get("applied_constraints", {}),
+                        "explainability": result.get("explainability", {}),
                         "taxonomy_telemetry": telemetry
                     }
                 }

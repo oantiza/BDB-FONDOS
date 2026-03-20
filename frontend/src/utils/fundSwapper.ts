@@ -73,9 +73,12 @@ const getBaseKey = (f: any) => {
   return company && baseName ? `${company}::${baseName}` : '';
 };
 
-// Matching keys (category + geography) with fallback across schema versions
+// [V2-FIRST INTENT] Taxonomía principal para matching
 const getCategoryKey = (f: any) =>
   String(
+    f?.classification_v2?.category_id ||
+    f?.classification_v2?.asset_subtype ||
+    // [COMPATIBILITY FALLBACK]
     f?.category_morningstar ||
     f?.std_type ||
     f?.manual_type ||
@@ -83,17 +86,26 @@ const getCategoryKey = (f: any) =>
     ''
   ).trim();
 
+// [V2-FIRST INTENT] Región primaria para matching geográfico
 const getRegionKey = (f: any) =>
   String(
+    f?.classification_v2?.region_primary ||
+    // [COMPATIBILITY FALLBACK]
     f?.manual_region ||
     f?.primary_region ||
     f?.std_region ||
     ''
   ).trim();
 
-// [NEW] Asset Class Key for Tier 2/3 Search
+// [V2-FIRST INTENT] Categoría amplia para búsquedas relajadas (Tier 2/3)
 const getAssetClassKey = (f: any) =>
-  String(f?.asset_class || f?.std_type || '').trim().toUpperCase();
+  String(
+    f?.classification_v2?.asset_type ||
+    // [COMPATIBILITY FALLBACK]
+    f?.asset_class || 
+    f?.std_type || 
+    ''
+  ).trim().toUpperCase();
 
 // Costs (prefer costs.ter in your schema v3)
 const getTER = (f: any) => safeNum(f?.costs?.ter ?? f?.ter ?? f?.std_extra?.ter, 0);

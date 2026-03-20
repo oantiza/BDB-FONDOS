@@ -4,6 +4,7 @@ import { db } from '../../firebase';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Search, X, TrendingUp, Activity, AlertTriangle, Star } from 'lucide-react';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../../utils/normalizer';
+import { translateAssetClass, translateRegion } from '../../utils/fundTaxonomy';
 
 export default function FundComparator() {
     // --- State ---
@@ -17,6 +18,7 @@ export default function FundComparator() {
     // Filters
     const [searchTerm, setSearchTerm] = useState('');
     const [categoryFilter, setCategoryFilter] = useState('');
+    const [subcategoryFilter, setSubcategoryFilter] = useState('');
     const [regionFilter, setRegionFilter] = useState('');
     const [showRetroModal, setShowRetroModal] = useState(false);
 
@@ -41,6 +43,7 @@ export default function FundComparator() {
                         isin: norm.isin || raw.id,
                         name: norm.name || norm.fondo || raw.id,
                         category: raw.classification_v2?.asset_type || 'UNKNOWN',
+                        subcategory: raw.classification_v2?.asset_subtype || 'General',
                         region: raw.classification_v2?.region_primary || 'GLOBAL',
                         retro: norm.std_extra?.retrocession ?? norm.manual?.costs?.retrocession ?? norm.costs?.retrocession ?? null,
                         rating: norm.std_extra?.rating_stars ?? 0
@@ -95,31 +98,37 @@ export default function FundComparator() {
 
     // --- Derived Data ---
     const classes = useMemo(() => Array.from(new Set(allFunds.map(f => f.category))).sort(), [allFunds]);
+    const subcategories = useMemo(() => {
+        const filtered = categoryFilter ? allFunds.filter(f => f.category === categoryFilter) : allFunds;
+        return Array.from(new Set(filtered.map(f => f.subcategory).filter(s => s && s !== 'UNKNOWN' && s !== 'General'))).sort();
+    }, [allFunds, categoryFilter]);
     const regions = useMemo(() => Array.from(new Set(allFunds.map(f => f.region))).sort(), [allFunds]);
 
     const searchResults = useMemo(() => {
-        if (!searchTerm && !categoryFilter && !regionFilter) return [];
+        if (!searchTerm && !categoryFilter && !subcategoryFilter && !regionFilter) return [];
         return allFunds.filter(f => {
             const matchesTerm = !searchTerm ||
                 f.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 f.isin.toLowerCase().includes(searchTerm.toLowerCase());
             const matchesCat = !categoryFilter || f.category === categoryFilter;
+            const matchesSub = !subcategoryFilter || f.subcategory === subcategoryFilter;
             const matchesReg = !regionFilter || f.region === regionFilter;
-            return matchesTerm && matchesCat && matchesReg;
+            return matchesTerm && matchesCat && matchesSub && matchesReg;
         }).slice(0, 10);
-    }, [allFunds, searchTerm, categoryFilter, regionFilter]);
+    }, [allFunds, searchTerm, categoryFilter, subcategoryFilter, regionFilter]);
 
     const filteredForModal = useMemo(() => {
         return allFunds.filter(f => {
             const matchesCat = !categoryFilter || f.category === categoryFilter;
+            const matchesSub = !subcategoryFilter || f.subcategory === subcategoryFilter;
             const matchesReg = !regionFilter || f.region === regionFilter;
-            return matchesCat && matchesReg;
+            return matchesCat && matchesSub && matchesReg;
         }).sort((a, b) => {
             const retroA = typeof a.retro === 'number' ? a.retro : parseFloat(a.retro) || 0;
             const retroB = typeof b.retro === 'number' ? b.retro : parseFloat(b.retro) || 0;
             return retroB - retroA;
         });
-    }, [allFunds, categoryFilter, regionFilter]);
+    }, [allFunds, categoryFilter, subcategoryFilter, regionFilter]);
 
     // --- Chart Data ---
     const chartData = useMemo(() => {
@@ -270,10 +279,25 @@ export default function FundComparator() {
                             <select
                                 className="w-full bg-slate-50 border-slate-200 border rounded-lg p-2.5 text-sm text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none"
                                 value={categoryFilter}
-                                onChange={e => setCategoryFilter(e.target.value)}
+                                onChange={e => {
+                                    setCategoryFilter(e.target.value);
+                                    setSubcategoryFilter('');
+                                }}
                             >
                                 <option value="">Todas</option>
-                                {classes.map(c => <option key={c} value={c}>{c}</option>)}
+                                {classes.map(c => <option key={c} value={c}>{translateAssetClass(c)}</option>)}
+                            </select>
+                        </div>
+
+                        <div className="w-48 space-y-1">
+                            <label className="text-xs font-bold text-slate-500 uppercase">Subcategoría</label>
+                            <select
+                                className="w-full bg-slate-50 border-slate-200 border rounded-lg p-2.5 text-sm text-slate-700 focus:ring-2 focus:ring-blue-500 outline-none"
+                                value={subcategoryFilter}
+                                onChange={e => setSubcategoryFilter(e.target.value)}
+                            >
+                                <option value="">Todas</option>
+                                {subcategories.map(s => <option key={s} value={s}>{s}</option>)}
                             </select>
                         </div>
 
@@ -285,7 +309,7 @@ export default function FundComparator() {
                                 onChange={e => setRegionFilter(e.target.value)}
                             >
                                 <option value="">Todas</option>
-                                {regions.map(r => <option key={r} value={r}>{r}</option>)}
+                                {regions.map(r => <option key={r} value={r}>{translateRegion(r)}</option>)}
                             </select>
                         </div>
 
@@ -313,11 +337,17 @@ export default function FundComparator() {
                                                             className="p-3 hover:bg-slate-50 cursor-pointer border-b border-slate-100 last:border-0"
                                                         >
                                                             <div className="font-bold text-slate-800 text-sm">{f.name}</div>
-                                                            <div className="flex gap-2 text-xs text-slate-500 mt-1">
+                                                            <div className="flex gap-2 text-[11px] text-slate-500 mt-1 uppercase items-center">
                                                                 <span className="font-mono bg-slate-100 px-1.5 rounded text-blue-600">{f.isin}</span>
-                                                                <span>{f.category}</span>
+                                                                <span className="bg-blue-50 text-blue-700 font-bold px-1.5 rounded border border-blue-100">{translateAssetClass(f.category)}</span>
+                                                                {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
+                                                                    <>
+                                                                        <span className="text-slate-300">•</span>
+                                                                        <span>{f.subcategory}</span>
+                                                                    </>
+                                                                )}
                                                                 <span className="text-slate-300">•</span>
-                                                                <span>{f.region}</span>
+                                                                <span>{translateRegion(f.region)}</span>
                                                                 {f.rating > 0 && (
                                                                     <>
                                                                         <span className="text-slate-300">•</span>
@@ -344,11 +374,26 @@ export default function FundComparator() {
                     </div>
 
                     {/* Selected Chips */}
-                    <div className="flex flex-wrap gap-2 pt-2">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-3 pt-2">
                         {selectedFunds.map((f, i) => (
-                            <div key={f.id} className="flex items-center gap-2 bg-blue-50 pl-3 pr-2 py-1.5 rounded-full border border-blue-100 group shadow-sm" style={{ borderLeft: `3px solid ${COLORS[i % COLORS.length]}` }}>
-                                <div className="text-sm font-medium text-blue-900 max-w-[200px] truncate" title={f.name}>{f.name}</div>
-                                <button onClick={() => removeFund(f.id)} className="p-1 hover:bg-red-100 hover:text-red-500 rounded-full transition text-blue-300"><X size={14} /></button>
+                            <div key={f.id} className="flex flex-col bg-white pl-4 pr-3 py-3 rounded-xl border border-slate-200 group shadow-sm transition-all hover:shadow-md relative" style={{ borderTop: `4px solid ${COLORS[i % COLORS.length]}` }}>
+                                <div className="flex items-start justify-between w-full mb-2">
+                                    <div className="text-sm font-bold text-slate-800 line-clamp-2 leading-tight pr-4" title={f.name}>{f.name}</div>
+                                    <button onClick={() => removeFund(f.id)} className="absolute top-2 right-2 p-1 bg-slate-50 hover:bg-red-50 hover:text-red-600 rounded-md transition text-slate-400 group-hover:block"><X size={14} /></button>
+                                </div>
+                                <div className="mt-auto flex flex-wrap gap-1.5 items-center">
+                                    <span className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide font-bold">
+                                        {translateAssetClass(f.category)}
+                                    </span>
+                                    {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
+                                        <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide truncate max-w-[120px]" title={f.subcategory}>
+                                            {f.subcategory}
+                                        </span>
+                                    )}
+                                    <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide">
+                                        {translateRegion(f.region)}
+                                    </span>
+                                </div>
                             </div>
                         ))}
                         {selectedFunds.length === 0 && <span className="text-slate-400 text-sm italic py-2">Selecciona fondos para comparar...</span>}
@@ -475,6 +520,7 @@ export default function FundComparator() {
                                 <p className="text-sm text-slate-500 mt-1">
                                     Mostrando {filteredForModal.length} fondo{filteredForModal.length !== 1 && 's'}
                                     {categoryFilter && <span> en categoría <strong className="text-slate-700">{categoryFilter}</strong></span>}
+                                    {subcategoryFilter && <span>, subcategoría <strong className="text-slate-700">{subcategoryFilter}</strong></span>}
                                     {regionFilter && <span> y región <strong className="text-slate-700">{regionFilter}</strong></span>}
                                 </p>
                             </div>
@@ -489,6 +535,9 @@ export default function FundComparator() {
                             <table className="w-full text-left text-sm">
                                 <thead className="bg-slate-50 text-slate-600 border-b border-slate-200 sticky top-0 z-10 shadow-sm">
                                     <tr>
+                                        <th className="px-6 py-4 w-12 text-center text-xs font-bold">
+                                            {selectedFunds.length}/5
+                                        </th>
                                         <th className="px-6 py-4 font-bold text-slate-700">Fondo</th>
                                         <th className="px-6 py-4 font-bold">ISIN</th>
                                         <th className="px-6 py-4 font-bold">Categoría</th>
@@ -498,12 +547,36 @@ export default function FundComparator() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-slate-100">
-                                    {filteredForModal.map(f => (
-                                        <tr key={f.id} className="hover:bg-slate-50 transition-colors">
+                                    {filteredForModal.map(f => {
+                                        const isSelected = selectedFunds.some(sel => sel.id === f.id);
+                                        return (
+                                        <tr key={f.id} 
+                                            className={`hover:bg-slate-50 transition-colors cursor-pointer ${isSelected ? 'bg-blue-50/40' : ''}`}
+                                            onClick={() => {
+                                                if (isSelected) removeFund(f.id);
+                                                else addFund(f);
+                                            }}
+                                        >
+                                            <td className="px-6 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+                                                <input 
+                                                    type="checkbox"
+                                                    className="w-4 h-4 text-blue-600 rounded border-slate-300 focus:ring-blue-500 cursor-pointer"
+                                                    checked={isSelected}
+                                                    onChange={(e) => {
+                                                        if (e.target.checked) addFund(f);
+                                                        else removeFund(f.id);
+                                                    }}
+                                                />
+                                            </td>
                                             <td className="px-6 py-3 font-medium text-slate-800">{f.name}</td>
                                             <td className="px-6 py-3 text-slate-500 font-mono text-xs">{f.isin}</td>
-                                            <td className="px-6 py-3 text-slate-500">{f.category}</td>
-                                            <td className="px-6 py-3 text-slate-500">{f.region}</td>
+                                            <td className="px-6 py-3 text-slate-500">
+                                                <div className="font-medium text-slate-700">{translateAssetClass(f.category)}</div>
+                                                {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
+                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wide mt-0.5">{f.subcategory}</div>
+                                                )}
+                                            </td>
+                                            <td className="px-6 py-3 text-slate-500">{translateRegion(f.region)}</td>
                                             <td className="px-6 py-3">
                                                 <div className="flex justify-center text-amber-400 gap-0.5">
                                                     {f.rating > 0 ? Array.from({ length: f.rating }).map((_, i) => (
@@ -515,7 +588,7 @@ export default function FundComparator() {
                                                 {f.retro ? f.retro + '%' : <span className="text-slate-300">-</span>}
                                             </td>
                                         </tr>
-                                    ))}
+                                    )})}
                                     {filteredForModal.length === 0 && (
                                         <tr>
                                             <td colSpan={6} className="px-6 py-12 text-center">

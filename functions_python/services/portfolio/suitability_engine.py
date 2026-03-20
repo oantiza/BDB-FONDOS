@@ -14,17 +14,9 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
     class_v2 = asset_meta.get("classification_v2", {})
     exp_v2 = asset_meta.get("portfolio_exposure_v2", {})
     
-    # If no V2 classification exists, fallback to naive strict logic:
+    # If no V2 classification exists, hard reject since DB is 100% V2 compliant:
     if not class_v2:
-        # Fallback legacy logic for low profiles: block anything that doesn't say "Conservative"
-        # or has high equity on legacy metrics.
-        metrics = asset_meta.get("metrics", {})
-        eq_met = float(metrics.get("equity", 0.0) or 0.0)
-        if risk_profile <= 2 and eq_met > 20:
-            return False, "⚠️ Legacy Fallback: High equity exposure in low risk profile."
-        if risk_profile <= 4 and eq_met > 50:
-            return False, "⚠️ Legacy Fallback: High equity exposure in medium-low risk profile."
-        return True, "Legacy Fallback Allowed"
+        return False, "⛔ Strict V2 Requirement: Missing classification_v2."
     
     # V2 LOGIC
     is_suitable_low_risk = class_v2.get("is_suitable_low_risk", False)
@@ -83,15 +75,11 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
 def get_economic_bucket(asset_meta: Dict[str, Any]) -> str:
     """
     Returns a normalized economic bucket string suitable for initial universe generation.
-    E.g. "core_equity_dm", "core_bond_ig", "defensive_cash", "prudent_allocation"
+    E.g. "core_equity_dm", "core_bond_ig", "defensive_cash", "satellite_em_equity"
     """
     class_v2 = asset_meta.get("classification_v2", {})
-    if not class_v2:
-        ac = asset_meta.get("asset_class", "")
-        if "RV" in ac.upper() or "EQUITY" in ac.upper(): return "legacy_equity"
-        if "RF" in ac.upper() or "BOND" in ac.upper(): return "legacy_bond"
-        if "MIXTO" in ac.upper() or "ALLOCATION" in ac.upper(): return "legacy_mixed"
-        return "legacy_other"
+    if not class_v2 or not class_v2.get("asset_type"):
+        return "unknown"
         
     asset_type = class_v2.get("asset_type")
     subtype = class_v2.get("asset_subtype")

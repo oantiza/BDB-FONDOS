@@ -222,26 +222,9 @@ export default function DashboardPage({
                 onOpenPositions={onOpenPositions}
                 onOpenRetirement={onOpenRetirement}
                 onOpenComparator={onOpenComparator}
-            >
-                <div className="flex items-center gap-3">
-                    <button
-                        onClick={handleFetchInteractiveFrontier}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-indigo-600 hover:bg-indigo-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest animate-pulse"
-                        title="Activar gráfico interactivo en tiempo real"
-                        disabled={isOptimizing}
-                    >
-                        <span>📈</span> Simulación Live
-                    </button>
-                    <button
-                        onClick={handleAnalyzePortfolio}
-                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white shadow-lg transition-all transform hover:scale-105 active:scale-95 text-xs font-bold uppercase tracking-widest"
-                        title="Ver métricas de correlación y riesgo detalladas"
-                        disabled={isOptimizing}
-                    >
-                        <span>🔍</span> Analizar
-                    </button>
-                </div>
-            </Header>
+                onOpenCorrelationAnalysis={handleAnalyzePortfolio}
+                isOptimizing={isOptimizing}
+            />
 
             <div className="flex flex-1 overflow-hidden p-6 gap-6">
                 <div className="w-[15%] h-full flex flex-col bg-white">

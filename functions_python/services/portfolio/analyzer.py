@@ -72,9 +72,12 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     # Ensure weights align with mu and S
     w_dict = {isin: valid_weights.get(isin, 0.0) for isin in universe}
 
-    port_ret, port_vol, port_sharpe = calculate_portfolio_metrics(
-        w_dict, mu, S, risk_free_rate=rf_rate
+    metrics = calculate_portfolio_metrics(
+        w_dict, mu, S, rf_rate=rf_rate
     )
+    port_ret = metrics.get("return", 0.0)
+    port_vol = metrics.get("volatility", 0.0)
+    port_sharpe = metrics.get("sharpe", 0.0)
 
     # 3. Compute Correlation
     corr_matrix = df.corr()
@@ -159,8 +162,21 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
 
         asset_to_replace = asset1 if sharpe1 < sharpe2 else asset2
         target_meta = meta1 if sharpe1 < sharpe2 else meta2
+        
+        # [V2-FIRST INTENT]
+        # In a strict V2 environment, alternatives should be queried using:
+        # classification_v2.asset_subtype + classification_v2.region_primary
+        # However, querying these fields alongside order_by("std_perf.sharpe")
+        # requires a NEW composite index in Firestore.
+        
+        # [COMPATIBILITY FALLBACK]
+        # We retain 'categoryId' (Morningstar ID) for the database query
+        # to guarantee index stability and avoid runtime errors in production.
         target_cat = target_meta.get("categoryId")
-        target_class = target_meta.get("asset_class")
+        
+        # Extracted V2 paths for future localized filtering or reporting
+        class_v2 = target_meta.get("classification_v2", {})
+        target_type_v2 = class_v2.get("asset_type", "UNKNOWN")
 
         if not target_cat:
             continue

@@ -8,6 +8,10 @@ export const BENCHMARK_PROFILES = {
     'Agresivo': { rf: 0.0, rv: 1.0, color: '#EF4444', id: 'aggressive' }
 };
 
+// [V2-FIRST INTENT] Helpers para detectar RF/RV independientemente de si el fondo viene mapeado legacy o puro V2
+const isFixedIncome = (f: any) => f?.classification_v2?.asset_type === 'FIXED_INCOME' || f?.std_type === 'RF';
+const isEquity = (f: any) => f?.classification_v2?.asset_type === 'EQUITY' || f?.std_type === 'RV';
+
 /**
  * Generates static metadata for the benchmark profiles (Risk/Return points).
  * Requires the full fund database to find the base indices.
@@ -17,12 +21,12 @@ export function generateBenchmarkProfiles(fundDatabase: any[]) {
     let rfIndex = fundDatabase.find((f: any) => f.isin === 'IE00B18GC888');
     let rvIndex = fundDatabase.find((f: any) => f.isin === 'IE00B03HCZ61');
 
-    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => f.std_type === 'RF' && (f.std_perf?.volatility || 0) < 0.05);
-    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => f.std_type === 'RV' && (f.std_perf?.volatility || 0) > 0.12);
+    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => isFixedIncome(f) && (f.std_perf?.volatility || 0) < 0.05);
+    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => isEquity(f) && (f.std_perf?.volatility || 0) > 0.12);
 
     // Last resort fallback to ANY RF/RV with valid volatility
-    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => f.std_type === 'RF' && f.std_perf?.volatility !== undefined);
-    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => f.std_type === 'RV' && f.std_perf?.volatility !== undefined);
+    if (!rfIndex) rfIndex = fundDatabase.find((f: any) => isFixedIncome(f) && f.std_perf?.volatility !== undefined);
+    if (!rvIndex) rvIndex = fundDatabase.find((f: any) => isEquity(f) && f.std_perf?.volatility !== undefined);
 
     if (!rfIndex || !rvIndex) {
         // Absolute fallback if database is empty or weird

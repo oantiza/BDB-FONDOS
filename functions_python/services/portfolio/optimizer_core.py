@@ -455,7 +455,7 @@ def _check_feasibility_and_autoexpand(
                     dd = d.to_dict()
                     asset_metadata[isin] = {
                         "metrics": dd.get("metrics", {}),
-                        "asset_class": dd.get("asset_class"),
+                        "asset_class": dd.get("classification_v2", {}).get("asset_type") or dd.get("derived", {}).get("asset_class") or dd.get("std_type") or dd.get("asset_class"),
                         "classification_v2": dd.get("classification_v2", {}),
                         "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
                     }
@@ -737,6 +737,13 @@ def run_optimization(
             "primary_objective": str(objective) if "objective" in locals() else "max_sharpe",
             "solver_fallback_used": solver_path.startswith("fallback_") if solver_path else False,
             "binding_constraints": binding_constraints,
+            
+            # --- STRUCTURED EXPLAINABILITY (Phase 5) ---
+            "solver_path": solver_path,
+            "applied_constraints": binding_constraints,
+            "relaxed_constraints": ["Objetivo matemático principal relajado"] if solver_path and "fallback" in solver_path else [],
+            "locked_assets_impact": "Pesos forzados de manera determinista (sin optimización) para los %d activos indicados" % len(locked_assets) if locked_assets else "Ninguno",
+            "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
 
         return {

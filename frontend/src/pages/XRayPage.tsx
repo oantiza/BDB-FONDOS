@@ -158,35 +158,31 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     return (
         <div className="flex flex-col h-screen bg-[#f8fafc]">
             <div className="fixed top-0 left-0 right-0 z-50">
-                <Header onBack={onBack} onLogout={() => { }}>
-                    {hasMetrics && (
-                        <>
-                            <div className="flex gap-2">
-                                <button
-                                    onClick={handleDownloadFullReport}
-                                    disabled={loading}
-                                    className="bg-white/10 hover:bg-white/20 text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-white/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                                >
-                                    <span>📄</span> Informe Completo
-                                </button>
-                                <button
-                                    onClick={handleDownloadSummaryReport}
-                                    disabled={loading}
-                                    className="bg-[#D4AF37] hover:bg-[#b5952f] text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-white/30 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-                                >
-                                    <span>📊</span> Informe Resumen
-                                </button>
-                            </div>
-
-                            <button
-                                onClick={() => setShowAnalytics(true)}
-                                className="ml-4 text-white/70 hover:text-[#D4AF37] transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1 group bg-white/5 px-3 py-1 rounded-full border border-white/10 hover:border-white/30"
-                            >
-                                Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
-                            </button>
-                        </>
-                    )}
-                </Header>
+                <Header onBack={onBack} onLogout={() => { }} />
+                {hasMetrics && (
+                    <div className="fixed top-4 right-16 z-[60] flex items-center gap-2">
+                        <button
+                            onClick={handleDownloadFullReport}
+                            disabled={loading}
+                            className="bg-slate-800/80 hover:bg-slate-900 text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-slate-700/50 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            <span>📄</span> Informe Completo
+                        </button>
+                        <button
+                            onClick={handleDownloadSummaryReport}
+                            disabled={loading}
+                            className="bg-[#D4AF37] hover:bg-[#b5952f] text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-[#D4AF37] flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
+                        >
+                            <span>📊</span> Informe Resumen
+                        </button>
+                        <button
+                            onClick={() => setShowAnalytics(true)}
+                            className="ml-2 text-slate-400 hover:text-[#D4AF37] transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1 group bg-white/50 px-3 py-1.5 rounded-sm border border-slate-200 hover:border-slate-300 backdrop-blur-sm"
+                        >
+                            Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
+                        </button>
+                    </div>
+                )}
             </div>
             <div className="flex-1 overflow-y-auto p-8 relative mt-16">
                 <div className="max-w-[1400px] mx-auto bg-white p-8 shadow-sm border border-slate-100 min-h-[1000px]">

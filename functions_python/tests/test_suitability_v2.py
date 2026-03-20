@@ -334,20 +334,15 @@ class TestConvertible:
 
 
 class TestAmbiguousNoV2:
-    def test_blocked_profile_1_legacy_45pct(self):
-        """45% equity in legacy metrics blocks profile 1-2"""
+    def test_blocked_all_profiles(self):
+        """Without V2 classification, ALL profiles should be blocked in STRICT V2 mode"""
         eligible, reason = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 1)
         assert eligible is False
-        assert "legacy" in reason.lower() or "Legacy" in reason
-
-    def test_blocked_profile_2(self):
-        eligible, _ = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 2)
+        assert "Strict V2" in reason
+        
+        eligible, reason = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 10)
         assert eligible is False
-
-    def test_allowed_profile_5(self):
-        """Legacy with 45% equity allowed from profile 5"""
-        eligible, _ = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 5)
-        assert eligible is True
+        assert "Strict V2" in reason
 
 
 class TestAlternative:
@@ -392,9 +387,9 @@ class TestEconomicBucket:
     def test_convertible_is_hy_or_em(self):
         assert get_economic_bucket(MOCK_CONVERTIBLE) == "high_yield_or_em_bond"
 
-    def test_ambiguous_is_legacy(self):
+    def test_ambiguous_is_unknown(self):
         bucket = get_economic_bucket(MOCK_AMBIGUOUS)
-        assert bucket.startswith("legacy_")
+        assert bucket == "unknown"
 
     def test_alternative_is_alternatives(self):
         assert get_economic_bucket(MOCK_ALTERNATIVE) == "alternatives_limited"
@@ -405,17 +400,17 @@ class TestEconomicBucket:
 
 class TestEdgeCases:
     def test_empty_fund(self):
-        """Completely empty fund should use legacy fallback"""
+        """Completely empty fund should be blocked (no classification_v2)"""
         eligible, reason = is_fund_eligible_for_profile({}, 1)
-        assert eligible is True  # No metrics = 0 equity => passes legacy check
+        assert eligible is False
+        assert "Strict V2" in reason
 
     def test_fund_with_only_metrics_high_equity(self):
-        """Fund with only metrics and high equity blocked for low profiles"""
+        """Fund with only metrics missing V2 should be blocked"""
         fund = {"metrics": {"equity": 80, "bond": 10, "cash": 10}}
-        eligible, _ = is_fund_eligible_for_profile(fund, 1)
+        eligible, reason = is_fund_eligible_for_profile(fund, 10)
         assert eligible is False
-
-    def test_fund_with_v2_but_no_exposure(self):
+        assert "Strict V2" in reason
         """V2 classification but no exposure — should still work"""
         fund = {
             "classification_v2": {

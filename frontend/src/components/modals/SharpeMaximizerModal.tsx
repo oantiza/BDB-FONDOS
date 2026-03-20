@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createPortal } from 'react-dom';
-import { getFormattedTaxonomy } from '../../utils/taxonomyTranslators';
+import { translateAssetClass, translateRegion } from '../../utils/fundTaxonomy';
 import { Fund, PortfolioItem } from '../../types';
 import { backtestPortfolio } from '../../engine/portfolioAnalyticsEngine';
 import { useToast } from '../../context/ToastContext';
@@ -264,13 +264,12 @@ export default function SharpeMaximizerModal({
                                                             : 'N/A'}
                                                     </strong></span>
                                                 </div>
-                                                <div className="flex gap-1 mt-1">
-                                                    <span className="text-[10px] bg-blue-50 text-blue-600 px-1 rounded border border-blue-100 uppercase" title={res.fund.classification_v2?.asset_subtype}>
-                                                        {getFormattedTaxonomy(res.fund) || 'N/A'}
-                                                    </span>
-                                                    <span className="text-[10px] bg-orange-50 text-orange-600 px-1 rounded border border-orange-100 uppercase">
-                                                        {(res.fund.classification_v2?.region_primary || 'N/A')}
-                                                    </span>
+                                                <div className="flex flex-wrap gap-1.5 items-center mt-1.5">
+                                                    <span className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">{translateAssetClass(res.fund.classification_v2?.asset_type || 'UNKNOWN')}</span>
+                                                    {res.fund.classification_v2?.asset_subtype && res.fund.classification_v2.asset_subtype !== 'General' && res.fund.classification_v2.asset_subtype !== 'UNKNOWN' && (
+                                                        <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase max-w-[120px] truncate">{res.fund.classification_v2.asset_subtype}</span>
+                                                    )}
+                                                    <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase">{translateRegion(res.fund.classification_v2?.region_primary || 'GLOBAL')}</span>
                                                 </div>
                                             </div>
 

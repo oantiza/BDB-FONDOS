@@ -192,3 +192,36 @@ export function matchesSubCategory(
 
   return f === s || f.includes(s);
 }
+
+// ==========================================
+// TRANSLATION HELPERS (UI)
+// ==========================================
+
+export function translateAssetClass(assetClass: string): string {
+  const map: Record<string, string> = {
+    EQUITY: 'Renta variable',
+    FIXED_INCOME: 'Renta fija',
+    MIXED: 'Mixto',
+    MONETARY: 'Monetario',
+    ALTERNATIVE: 'Alternativos',
+    COMMODITIES: 'Materias primas',
+    REAL_ESTATE: 'Inmobiliario',
+    UNKNOWN: 'Sin clasificar',
+  };
+  return map[assetClass] || assetClass;
+}
+
+export function translateRegion(region: string): string {
+  const map: Record<string, string> = {
+    GLOBAL: 'Global',
+    NORTH_AMERICA: 'Norteamérica',
+    EUROPE: 'Europa',
+    ASIA_DEVELOPED: 'Asia (Desarrollada)',
+    EMERGING_MARKETS: 'Mercados Emergentes',
+    LATIN_AMERICA: 'América Latina',
+    JAPAN: 'Japón',
+    AFRICA_MIDDLE_EAST: 'África y Oriente Medio',
+    UNKNOWN: 'Sin clasificar',
+  };
+  return map[region] || region;
+}

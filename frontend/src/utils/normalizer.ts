@@ -55,6 +55,22 @@ export const REGION_DISPLAY_LABELS: Record<string, string> = {
   other: "Otros"
 };
 
+// --- ADAPTER HELPERS ---
+// Helper to safely downcast V2 canonical types to legacy UI expected strings
+function mapV2ToLegacyAssetClass(v2Type: string | null): string | null {
+  if (!v2Type) return null;
+  switch (v2Type) {
+    case 'EQUITY': return 'RV';
+    case 'FIXED_INCOME': return 'RF';
+    case 'MIXED': return 'Mixto';
+    case 'MONETARY': return 'Monetario';
+    case 'ALTERNATIVE': return 'Alternativos';
+    case 'COMMODITIES': return 'Materias Primas';
+    case 'REAL_ESTATE': return 'Inmobiliario';
+    default: return v2Type;
+  }
+}
+
 /**
  * Adapts strict V3 structure to Legacy format for UI compatibility.
  * READ-ONLY: No default values, no inventions.
@@ -66,12 +82,23 @@ export function adaptFundV3ToLegacy(docData: any) {
   const ms = docData.ms || {}
   const manual = docData.manual || {}
   const costs = manual.costs || {}
+  const v2 = docData.classification_v2 || {}
+
+  // [V2-FIRST INTENT] Downcasted to legacy UI strings to prevent strict comparisons from breaking
+  const v2AssetClass = mapV2ToLegacyAssetClass(v2.asset_type) || null;
+  const v2Region = v2.region_primary || null;
+  const v2Category = v2.asset_subtype || null;
+
+  // [COMPATIBILITY FALLBACK]
+  const fallbackAssetClass = derived.asset_class || docData.asset_class || null;
+  const fallbackRegion = derived.primary_region || docData.primary_region || null;
+  const fallbackCategory = ms.category_morningstar || docData.category_morningstar || null;
 
   return {
     ...docData,
-    asset_class: derived.asset_class || docData.asset_class || null,
-    primary_region: derived.primary_region || docData.primary_region || null,
-    category_morningstar: ms.category_morningstar || docData.category_morningstar || null,
+    asset_class: v2AssetClass || fallbackAssetClass,
+    primary_region: v2Region || fallbackRegion,
+    category_morningstar: v2Category || fallbackCategory,
     rating_stars: normalizeStars(ms.rating_stars || docData.rating_stars),
     ter: costs.ter || docData.ter || null,
     retrocession: costs.retrocession || docData.retrocession || null,
@@ -89,8 +116,10 @@ export function normalizeFundData(docDataInput: any) {
   const docData = docDataInput
 
   // 1. Asset Class & Region (Strict from adapter/docData)
-  let std_type = docData.asset_class ?? null
-  let std_region = docData.primary_region ?? null
+  // [V2-FIRST INTENT] Attempt canonical fields first in case it bypassed adapter
+  // [COMPATIBILITY FALLBACK] Read the fields injected or original legacy fields
+  let std_type = docData.classification_v2?.asset_type ?? docData.asset_class ?? null
+  let std_region = docData.classification_v2?.region_primary ?? docData.primary_region ?? null
 
   // [FALLBACK] Region from MS Breakdown if missing
   if (!std_region && docData.ms?.regions?.detail) {
@@ -276,7 +305,8 @@ export function normalizeFundData(docDataInput: any) {
       patrimonio: patrimonioNum,
       currency: docData.currency || null,
       company: docData.fund_company || docData.company || null,
-      category: docData.category_morningstar || docData.category || null,
+      // [V2-FIRST INTENT] then [COMPATIBILITY FALLBACK]
+      category: docData.classification_v2?.asset_subtype ?? docData.category_morningstar ?? docData.category ?? null,
       assetClass: std_type,
       regionDetail: std_region,
       yearsHistory: yearsHistory,

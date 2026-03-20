@@ -32,7 +32,12 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
     
     # Setup mock fetcher
     mock_df_inst = MagicMock()
-    mock_df_inst.get_price_data.return_value = (dummy_price_data, False)
+    
+    def _mock_get_price(assets, **kwargs):
+        filtered = {k: v for k, v in dummy_price_data.items() if k in assets}
+        return (filtered, False)
+        
+    mock_df_inst.get_price_data.side_effect = _mock_get_price
     mock_df_inst.get_dynamic_risk_free_rate.return_value = 0.02
     mock_data_fetcher_class.return_value = mock_df_inst
 
@@ -40,8 +45,14 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
     
     # Setup standard metadata indicating Equity and Fixed Income
     metadata = {
-        "FundA": {"asset_class": "RV", "portfolio_exposure_v2": {"equity": 100.0}},
-        "FundB": {"asset_class": "RF", "portfolio_exposure_v2": {"bond": 100.0}}
+        "FundA": {
+            "classification_v2": {"asset_type": "EQUITY", "risk_bucket": "HIGH", "is_suitable_low_risk": False},
+            "portfolio_exposure_v2": {"economic_exposure": {"equity": 100.0}}
+        },
+        "FundB": {
+            "classification_v2": {"asset_type": "FIXED_INCOME", "risk_bucket": "LOW", "is_suitable_low_risk": True},
+            "portfolio_exposure_v2": {"economic_exposure": {"bond": 100.0}}
+        }
     }
 
     # Run level 5 (Aggressive - mostly Equity)
@@ -53,7 +64,6 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
         asset_metadata=metadata
     )
 
-    print("RES_AGG:", res_agg)
     assert res_agg["status"] in ["optimal", "fallback"]
     # Weights should favor A (Equity) because it's level 5 but might split by max_weight
     assert "FundA" in res_agg["weights"]
@@ -67,7 +77,6 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
         asset_metadata=metadata
     )
 
-    print("RES_CONS:", res_cons)
     assert res_cons["status"] in ["optimal", "fallback"]
     # In conservative, FundA (Equity) should be capped at max ~15% depending on defaults
     # Actually risk level 1 caps RV at 5% or 15%
@@ -87,7 +96,12 @@ def test_optimizer_fallback_path(mock_data_fetcher_class, dummy_db, dummy_price_
     mock_df_inst.get_dynamic_risk_free_rate.return_value = 0.02
     mock_data_fetcher_class.return_value = mock_df_inst
 
-    metadata = {"FundA": {"asset_class": "RV"}}
+    metadata = {
+        "FundA": {
+            "classification_v2": {"asset_type": "EQUITY", "risk_bucket": "HIGH"},
+            "portfolio_exposure_v2": {"economic_exposure": {"equity": 100.0}}
+        }
+    }
     
     # Expected Return is 0, Vol is 0. Normal efficient_risk or target solves fail.
     res = run_optimization(["FundA"], risk_level=3, db=dummy_db, constraints={"apply_profile": False}, asset_metadata=metadata)

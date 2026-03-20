@@ -168,7 +168,13 @@ def generate_pdf_from_data(report_data):
     pdf.set_text_color(0, 0, 0)
 
     for item in alloc:
-        asset = item.get("asset") or item.get("asset_class", "N/A")
+        # [V2-FIRST INTENT] Intentar leer primero la clasificación V2 si viene provista
+        asset = item.get("asset") or item.get("asset_type")
+        
+        # [COMPATIBILITY FALLBACK] Mantener 'asset_class' heredado por si el origen aún no envía V2
+        if not asset:
+            asset = item.get("asset_class", "N/A")
+            
         view = item.get("view", "Neutral")
         rationale = item.get("rationale", "")
 

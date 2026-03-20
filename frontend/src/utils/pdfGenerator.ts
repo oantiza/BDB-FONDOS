@@ -515,8 +515,8 @@ export const generateClientReport = (portfolio: any[], totalCapital: number, ris
     portfolio.forEach(p => {
         let cat = p.std_extra?.category || '';
         if (!cat) {
-            if (p.std_type === 'RV') cat = 'Renta Variable Global';
-            else if (p.std_type === 'RF') cat = 'Renta Fija Global';
+            if (p.classification_v2?.asset_type === 'EQUITY' || p.std_type === 'RV') cat = 'Renta Variable Global';
+            else if (p.classification_v2?.asset_type === 'FIXED_INCOME' || p.std_type === 'RF') cat = 'Renta Fija Global';
             else cat = 'Otros Activos';
         }
         if (!groups[cat]) groups[cat] = [];

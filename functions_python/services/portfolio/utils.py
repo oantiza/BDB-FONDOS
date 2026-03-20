@@ -34,14 +34,16 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
     class_v2 = meta.get("classification_v2", {})
     if class_v2:
         # Use asset_type as primary key per canonical_types.py
-        ac_v2 = class_v2.get("asset_type") or class_v2.get("asset_class")
+        ac_v2 = class_v2.get("asset_type")
         if ac_v2 == "EQUITY": return "RV"
         if ac_v2 == "FIXED_INCOME": return "RF"
         if ac_v2 == "MIXED": return "Mixto"
         if ac_v2 == "MONETARY": return "Monetario"
         if ac_v2 == "ALTERNATIVE": return "Alternativos"
+        if ac_v2 == "COMMODITIES": return "Otros" # O map to alternativos si se prefiere
+        if ac_v2 == "REAL_ESTATE": return "Otros" 
 
-    # 1. Expect Explicit Tag (e.g. injected during fallback)
+    # 1. Expect Explicit Tag (e.g. injected during fallback or testing overrides)
     if meta.get("label") in [
         "RV",
         "RF",
@@ -56,35 +58,6 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
     if meta.get("label") == "Retorno Absoluto":
         return "Alternativos"
 
-    # 2. Use exact derived.asset_class math label
-    raw = (meta.get("asset_class") or "Otros").strip()
-    valid_classes = [
-        "RV",
-        "RF",
-        "Mixto",
-        "Monetario",
-        "Alternativos",
-        "Otros",
-    ]
-
-    if raw in valid_classes:
-        return raw
-    
-    if raw == "Retorno Absoluto":
-        return "Alternativos"
-
-    # 3. Emergency fallback only if derived string somehow mutated
-    up = raw.upper()
-    if "MONETARIO" in up:
-        return "Monetario"
-    if "FIJA" in up or "RF" in up:
-        return "RF"
-    if "VARIABLE" in up or "RV" in up:
-        return "RV"
-    if "MIXTO" in up:
-        return "Mixto"
-    if "RETORNO ABSOLUTO" in up or "ALTERN" in up:
-        return "Alternativos"
     return "Otros"
 
 
@@ -200,7 +173,7 @@ def apply_market_proxy_backfill(df_prices, asset_metadata=None):
         first_idx = df_prices[col].first_valid_index()
         if first_idx and first_idx > df_prices.index[0]:
             young_cols.append((col, first_idx))
-            a_class = (asset_metadata or {}).get(col, {}).get("asset_class", "RV")
+            a_class = _classify_asset(col, asset_metadata)
             proxy = PROXY_MAP.get(a_class, "ACWI.US")
             needed_proxies.add(proxy)
 
@@ -231,7 +204,7 @@ def apply_market_proxy_backfill(df_prices, asset_metadata=None):
         missing_mask = df_prices.index < first_idx
         inception_price = df_prices.loc[first_idx, col]
 
-        a_class = (asset_metadata or {}).get(col, {}).get("asset_class", "RV")
+        a_class = _classify_asset(col, asset_metadata)
         proxy_ticker = PROXY_MAP.get(a_class, "ACWI.US")
 
         if (

@@ -1,6 +1,7 @@
 // frontend/src/components/FundSwapModal.tsx
 import React, { useState, useEffect } from 'react';
 import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
+import { translateAssetClass, translateRegion } from '../utils/fundTaxonomy';
 
 // Un componente simple para mostrar datos
 const StatRow = ({ label, value, delta, isPercentage }: any) => {
@@ -8,12 +9,14 @@ const StatRow = ({ label, value, delta, isPercentage }: any) => {
     const deltaText = delta ? `(${delta > 0 ? '+' : ''}${delta.toFixed(2)}%)` : '';
 
     return (
-        <div className="flex justify-between text-sm mb-1">
-            <span className="text-gray-500">{label}:</span>
-            <span className="font-medium">
-                {value} {isPercentage && '%'}
-                {delta !== undefined && <span className={`ml-1 text-xs ${deltaClass}`}>{deltaText}</span>}
-            </span>
+        <div className="flex justify-between items-start text-sm mb-1 gap-2">
+            <span className="text-gray-500 whitespace-nowrap">{label}:</span>
+            <div className="font-medium text-right flex flex-col items-end sm:flex-row sm:items-baseline sm:gap-1 sm:flex-wrap sm:justify-end">
+                <span>{value} {isPercentage && value !== '-' && '%'}</span>
+                {delta !== undefined && deltaText && (
+                    <span className={`text-[11px] ${deltaClass} whitespace-nowrap`}>{deltaText}</span>
+                )}
+            </div>
         </div>
     );
 };
@@ -24,7 +27,7 @@ const normalizeRetro = (val: number | undefined | null) => {
 };
 
 export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, onClose, onRefresh }: any) => {
-    const [assetClass, setAssetClass] = useState('RV');
+    const [assetClass, setAssetClass] = useState('EQUITY');
     const [region, setRegion] = useState('all');
     const [maximizeRetro, setMaximizeRetro] = useState(false);
     const [page, setPage] = useState(0);
@@ -132,7 +135,14 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             Selección Actual
                         </div>
                         <h3 className="font-bold text-base mb-1 h-12 overflow-hidden leading-snug">{originalFund.name}</h3>
-                        <p className="text-[11px] text-gray-500 mb-4 line-clamp-1">{originalFund.std_extra?.company || 'Gestora desconocida'}</p>
+                        <p className="text-[11px] text-gray-500 mb-2 line-clamp-1">{originalFund.std_extra?.company || 'Gestora desconocida'}</p>
+                        <div className="flex flex-wrap gap-1.5 items-center mb-4">
+                            <span className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">{translateAssetClass(originalFund.classification_v2?.asset_type || 'UNKNOWN')}</span>
+                            {originalFund.classification_v2?.asset_subtype && originalFund.classification_v2.asset_subtype !== 'General' && originalFund.classification_v2.asset_subtype !== 'UNKNOWN' && (
+                                <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase max-w-[120px] truncate">{originalFund.classification_v2.asset_subtype}</span>
+                            )}
+                            <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase">{translateRegion(originalFund.classification_v2?.region_primary || 'GLOBAL')}</span>
+                        </div>
 
                         <div className="bg-white p-3 rounded-lg border border-gray-100 mb-4 space-y-1">
                             <StatRow
@@ -146,10 +156,10 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             />
                             <StatRow
                                 label="Retrocesión"
-                                value={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)
+                                value={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined && (originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== null
                                     ? normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession)?.toFixed(2)
                                     : '-'}
-                                isPercentage={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined}
+                                isPercentage={(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined && (originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== null}
                             />
                         </div>
 
@@ -188,7 +198,14 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                     {badgeText}
                                 </div>
                                 <h3 className="font-bold text-base mb-1 text-slate-800 h-10 overflow-hidden leading-snug">{alt.fund.name}</h3>
-                                <p className="text-[11px] text-slate-500 mb-4 line-clamp-1">{alt.fund.std_extra?.company || 'Gestora desconocida'}</p>
+                                <p className="text-[11px] text-slate-500 mb-2 line-clamp-1">{alt.fund.std_extra?.company || 'Gestora desconocida'}</p>
+                                <div className="flex flex-wrap gap-1.5 items-center mb-4">
+                                    <span className="bg-blue-50 border border-blue-100 text-blue-700 text-[10px] px-1.5 py-0.5 rounded uppercase font-bold">{translateAssetClass(alt.fund.classification_v2?.asset_type || 'UNKNOWN')}</span>
+                                    {alt.fund.classification_v2?.asset_subtype && alt.fund.classification_v2.asset_subtype !== 'General' && alt.fund.classification_v2.asset_subtype !== 'UNKNOWN' && (
+                                        <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase max-w-[120px] truncate">{alt.fund.classification_v2.asset_subtype}</span>
+                                    )}
+                                    <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase">{translateRegion(alt.fund.classification_v2?.region_primary || 'GLOBAL')}</span>
+                                </div>
 
                                 <div className="bg-slate-50 p-3 rounded-lg border border-slate-100 mb-4 space-y-1 flex-1">
                                     <StatRow
@@ -211,10 +228,10 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                     />
                                     <StatRow
                                         label="Retrocesión"
-                                        value={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession)
+                                        value={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== null
                                             ? normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession)?.toFixed(2)
                                             : '-'}
-                                        isPercentage={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined}
+                                        isPercentage={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== null}
                                         delta={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined
                                             ? (normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) ?? 0) - (normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) ?? 0)
                                             : undefined

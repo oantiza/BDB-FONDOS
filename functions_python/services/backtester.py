@@ -51,7 +51,7 @@ def _calculate_allocations(portfolio, db, weights_map):
     """
     aggregated_holdings = {}
 
-    # Morningstar Regions Mapping
+    # Morningstar & V2 Regions Mapping
     region_stats = {
         "united_states": 0,
         "canada": 0,
@@ -66,6 +66,11 @@ def _calculate_allocations(portfolio, db, weights_map):
         "australasia": 0,
         "asia_developed": 0,
         "asia_emerging": 0,
+        # Canonical V2 Keys added to aggregation
+        "us": 0,
+        "europe": 0,
+        "emerging": 0,
+        "asia_dev": 0,
     }
     region_labels = {
         "united_states": "EE.UU.",
@@ -81,6 +86,11 @@ def _calculate_allocations(portfolio, db, weights_map):
         "australasia": "Australasia",
         "asia_developed": "Asia Desarrollada",
         "asia_emerging": "Asia Emergente",
+        # Canonical V2 Labels
+        "us": "EE.UU.",
+        "europe": "Europa",
+        "emerging": "Mercados Emergentes",
+        "asia_dev": "Asia Desarrollada",
     }
     total_region_weight = 0
 
@@ -147,18 +157,36 @@ def _calculate_allocations(portfolio, db, weights_map):
                         }
 
             # 2. REGION AGGREGATION
-            # Priority: regions > ms.regions > derived.regions
-            regions = (
-                fd.get("regions")
-                or fd.get("ms", {}).get("regions")
-                or fd.get("derived", {}).get("regions")
-            )
+            regions = None
+            
+            # [V2-FIRST INTENT]
+            # Priority 1: Canonical V2 portfolio exposure (equity_regions)
+            # Normalizing dict format since V2 uses decimals 0-1, but legacy used 0-100.
+            # We scale them to 0-100 so the parsing loop behaves consistently.
+            portfolio_v2 = fd.get("portfolio_exposure_v2", {})
+            if "equity_regions" in portfolio_v2 and isinstance(portfolio_v2["equity_regions"], dict):
+                regions = {k: v * 100 for k, v in portfolio_v2["equity_regions"].items()}
 
-            # Fallback to single primary_region if no breakdown
-            if not regions and fd.get("primary_region"):
-                regions = {fd["primary_region"]: 100.0}
+            # Priority 2: Canonical V2 primary region as 100% fallback
+            if not regions:
+                primary_v2 = fd.get("classification_v2", {}).get("region_primary")
+                if primary_v2 and primary_v2 not in ["UNKNOWN", "NONE", None]:
+                    regions = {primary_v2.lower(): 100.0}
 
-            # [FIX] Unwrap 'detail' if present (Morningstar structure: regions -> detail -> {country: %})
+            # [COMPATIBILITY FALLBACK]
+            # Priority 3: Legacy fields
+            if not regions:
+                regions = (
+                    fd.get("regions")
+                    or fd.get("ms", {}).get("regions")
+                    or fd.get("derived", {}).get("regions")
+                )
+
+                # Fallback to single primary_region if no breakdown
+                if not regions and fd.get("primary_region"):
+                    regions = {fd["primary_region"]: 100.0}
+
+            # Unwrap 'detail' if present (Morningstar structure: regions -> detail -> {country: %})
             if regions and isinstance(regions, dict) and "detail" in regions:
                 regions = regions["detail"]
 
