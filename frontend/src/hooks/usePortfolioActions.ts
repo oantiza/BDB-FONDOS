@@ -187,7 +187,7 @@ export function usePortfolioActions({
             if (currentIsins.has(a.isin)) return false;
             if (!a.std_perf || !a.std_perf.sharpe) return false;
 
-            const type = a.derived?.asset_class || a.std_type || 'Unknown';
+            const type = a.classification_v2?.asset_type || 'Unknown';
             if (!validTypes.has(type)) return false;
 
             // Restrict Emerging Markets for low risk profiles (<= 3)
@@ -195,8 +195,8 @@ export function usePortfolioActions({
                 if (a.classification_v2?.region_primary === "EMERGING") {
                     return false;
                 }
-                const region = (a.derived?.primary_region || a.std_region || '').toLowerCase();
-                const category = (a.derived?.asset_class || a.std_type || (a as any).category || '').toLowerCase();
+                const region = (a.classification_v2?.region_primary || '').toLowerCase();
+                const category = (a.classification_v2?.asset_subtype || '').toLowerCase();
                 if (region.includes('emergentes') || region.includes('emerging') || category.includes('emergentes') || category.includes('emerging')) {
                     return false;
                 }
@@ -223,8 +223,8 @@ export function usePortfolioActions({
         // --- SMART FUND REPLACEMENT LOGIC ---
         // If no filters provided (initial open), enforce strict matching to current fund's category/region
         const activeFilters = {
-            assetClass: filters.assetClass || (fund.derived?.asset_class || fund.std_type || 'RV'),
-            region: filters.region || (fund.derived?.primary_region || fund.std_region || 'all'),
+            assetClass: filters.assetClass || (fund.classification_v2?.asset_type || 'EQUITY'),
+            region: filters.region || (fund.classification_v2?.region_primary || 'GLOBAL'),
             maximizeRetro: filters.maximizeRetro || false,
             offset: filters.offset || 0
         };
@@ -444,7 +444,7 @@ export function usePortfolioActions({
             // 1. From Portfolio
             portfolio.forEach(p => {
                 const fullFund = assets.find(a => a.isin === p.isin);
-                const typeRaw = fullFund?.classification_v2?.asset_type || fullFund?.derived?.asset_class || fullFund?.std_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
+                const typeRaw = fullFund?.classification_v2?.asset_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
                 assetMetadata[p.isin] = {
                     // We only provide a generic label if it's strictly one of our known types, 
                     // otherwise let backend derive it from db.
@@ -456,7 +456,7 @@ export function usePortfolioActions({
             assets.forEach(a => {
                 if (assetUniverse.has(a.isin) && !assetMetadata[a.isin]) {
                     assetMetadata[a.isin] = {
-                        asset_class: a.derived?.asset_class || a.std_type || a.asset_class,
+                        asset_class: a.classification_v2?.asset_type || (a as any).asset_class,
                         name: a.name
                     };
                 }
@@ -483,10 +483,8 @@ export function usePortfolioActions({
                         if (!assetUniverse.has(asset.isin)) return;
 
                         const matchParams = [
-                            asset.derived?.primary_region,
-                            asset.derived?.asset_class,
-                            asset.std_region,
-                            asset.std_type,
+                            asset.classification_v2?.region_primary,
+                            asset.classification_v2?.asset_type,
                             assetMetadata[asset.isin]?.label
                         ].map(s => s?.toLowerCase() || '');
 

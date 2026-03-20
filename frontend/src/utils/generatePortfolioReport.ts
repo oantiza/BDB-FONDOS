@@ -38,7 +38,7 @@ export const generatePortfolioReport = async (
             } as any);
 
             const imgData = canvas.toDataURL('image/png');
-            const imgProps = doc.getImageProperties(imgData) as any;
+            const imgProps = (doc as any).getImageProperties(imgData);
 
             // Calculate dimensions based on orientation
             const pageWidth = doc.internal.pageSize.getWidth();

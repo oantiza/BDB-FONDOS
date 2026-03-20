@@ -104,8 +104,8 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
         portfolio.forEach(p => {
             const w = p.weight;
-            const isEq = p.classification_v2 ? p.classification_v2.asset_type === 'EQUITY' : p.std_type === 'RV';
-            const isFi = p.classification_v2 ? p.classification_v2.asset_type === 'FIXED_INCOME' : p.std_type === 'RF' || p.std_type === 'Fixed Income';
+            const isEq = p.classification_v2?.asset_type === 'EQUITY';
+            const isFi = p.classification_v2?.asset_type === 'FIXED_INCOME';
             
             if (isEq && w > maxEqWeight) {
                 dominantEquityFund = p;
@@ -131,11 +131,11 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                 if (esb.includes('SMALL')) cap = 'Small';
                 else if (esb.includes('MID')) cap = 'Mid';
             } else {
-                const dominantCategory = p.std_extra?.category || '';
-                if (dominantCategory.includes('Value')) style = 'Value';
-                if (dominantCategory.includes('Growth')) style = 'Growth';
-                if (dominantCategory.includes('Small')) cap = 'Small';
-                if (dominantCategory.includes('Mid')) cap = 'Mid';
+                const dominantCategory = String(p.classification_v2?.asset_subtype || '');
+                if (dominantCategory.toUpperCase().includes('VALUE')) style = 'Value';
+                if (dominantCategory.toUpperCase().includes('GROWTH')) style = 'Growth';
+                if (dominantCategory.toUpperCase().includes('SMALL')) cap = 'Small';
+                if (dominantCategory.toUpperCase().includes('MID')) cap = 'Mid';
             }
         }
 
@@ -147,7 +147,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
         portfolio.forEach(p => {
             const w = p.weight;
-            const isFi = p.classification_v2 ? p.classification_v2.asset_type === 'FIXED_INCOME' : p.std_type === 'RF' || p.std_type === 'Fixed Income';
+            const isFi = p.classification_v2?.asset_type === 'FIXED_INCOME';
 
             if (isFi) {
                 // V2 check
@@ -263,8 +263,8 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
 
             // Strategy 3: Fallback to Heuristics (Category/Type)
             if (!success) {
-                const cat = (p.classification_v2?.asset_subtype || p.std_extra?.category || p.std_type || '').toLowerCase();
-                const type = (p.classification_v2?.asset_type || p.std_type || '').toLowerCase();
+                const cat = (p.classification_v2?.asset_subtype || '').toLowerCase();
+                const type = (p.classification_v2?.asset_type || '').toLowerCase();
                 const name = (p.name || '').toLowerCase();
                 const combined = `${cat} ${name} ${type}`;
 
@@ -348,21 +348,11 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             // Priority: 1. Derived -> 2. Root Regions -> 3. MS Regions -> 4. Inference
             let regions = fund.portfolio_exposure_v2?.equity_regions;
             
-            if (!regions || Object.keys(regions).length === 0) {
-                regions = fund.derived?.equity_regions_total;
-            }
-
-            if (!regions || Object.keys(regions).length === 0) {
-                regions = (fund as any).regions?.detail || (fund as any).regions || {};
-            }
-
-            if (!regions || Object.keys(regions).length === 0) {
-                regions = (fund as any).ms?.regions?.detail || (fund as any).ms?.regions || {};
-            }
+            // Removed V1 fallbacks (derived, regions, ms.regions)
 
             // Inference
             if (!regions || Object.keys(regions).length === 0) {
-                const text = (fund.name + ' ' + (fund.std_extra?.category || '')).toLowerCase();
+                const text = (fund.name + ' ' + (fund.classification_v2?.asset_subtype || '')).toLowerCase();
                 if (text.includes('usa') || text.includes('us ') || text.includes('american')) regions = { 'us': 100 };
                 else if (text.includes('europe') || text.includes('euro')) regions = { 'europe': 100 };
                 else if (text.includes('japan')) regions = { 'japan': 100 };

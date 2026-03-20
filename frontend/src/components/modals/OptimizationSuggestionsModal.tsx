@@ -75,9 +75,9 @@ export default function OptimizationSuggestionsModal({ suggestions, onApply, onC
                                                 <div className="text-xs text-slate-400 flex gap-2">
                                                     <span>{original.isin}</span>
                                                     <span>•</span>
-                                                    <span>{original.std_type || 'N/A'}</span>
+                                                    <span>{original.classification_v2?.asset_type || 'N/A'}</span>
                                                     <span>•</span>
-                                                    <span>{original.std_region || 'N/A'}</span>
+                                                    <span>{original.classification_v2?.region_primary || 'N/A'}</span>
                                                 </div>
                                             </div>
                                         </div>

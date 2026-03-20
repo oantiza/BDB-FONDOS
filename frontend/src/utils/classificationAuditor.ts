@@ -71,6 +71,7 @@ export interface AmbiguityReport {
 export function auditFundClassification(fund: Fund): FundAuditTrail {
   const v2 = fund.classification_v2;
   const expV2 = fund.portfolio_exposure_v2;
+  const legacyFund = fund as any;
   const signals: AuditSignal[] = [];
   const edgeCaseFlags: string[] = [];
 
@@ -107,14 +108,14 @@ export function auditFundClassification(fund: Fund): FundAuditTrail {
   }
 
   // Legacy signals
-  if (fund.derived?.asset_class) {
-    signals.push({ source: 'derived', field: 'asset_class', value: fund.derived.asset_class, weight: 'fallback' });
+  if (legacyFund.derived?.asset_class) {
+    signals.push({ source: 'derived', field: 'asset_class', value: legacyFund.derived.asset_class, weight: 'fallback' });
   }
-  if (fund.std_type) {
-    signals.push({ source: 'legacy', field: 'std_type', value: fund.std_type, weight: 'fallback' });
+  if (legacyFund.std_type) {
+    signals.push({ source: 'legacy', field: 'std_type', value: legacyFund.std_type, weight: 'fallback' });
   }
-  if (fund.category_morningstar) {
-    signals.push({ source: 'legacy', field: 'category_morningstar', value: fund.category_morningstar, weight: 'fallback' });
+  if (legacyFund.category_morningstar) {
+    signals.push({ source: 'legacy', field: 'category_morningstar', value: legacyFund.category_morningstar, weight: 'fallback' });
   }
   if (fund.risk_srri != null) {
     signals.push({ source: 'legacy', field: 'risk_srri', value: fund.risk_srri, weight: 'fallback' });
@@ -150,11 +151,11 @@ export function auditFundClassification(fund: Fund): FundAuditTrail {
   }
 
   // Check for conflicts: V2 says one thing, legacy says another
-  if (v2 && fund.derived?.asset_class) {
+  if (v2 && legacyFund.derived?.asset_class) {
     const v2IsEquity = v2.asset_type === 'EQUITY';
-    const legacyIsEquity = fund.derived.asset_class.toUpperCase().includes('RV');
+    const legacyIsEquity = legacyFund.derived.asset_class.toUpperCase().includes('RV');
     const v2IsFI = v2.asset_type === 'FIXED_INCOME';
-    const legacyIsFI = fund.derived.asset_class.toUpperCase().includes('RF');
+    const legacyIsFI = legacyFund.derived.asset_class.toUpperCase().includes('RF');
     if ((v2IsEquity && legacyIsFI) || (v2IsFI && legacyIsEquity)) {
       edgeCaseFlags.push('V2_LEGACY_TYPE_CONFLICT');
     }
@@ -170,8 +171,8 @@ export function auditFundClassification(fund: Fund): FundAuditTrail {
   // Determine source winner
   let sourceWinner = 'none';
   if (v2) sourceWinner = 'classification_v2';
-  else if (fund.derived?.asset_class) sourceWinner = 'derived';
-  else if (fund.std_type) sourceWinner = 'std_type';
+  else if (legacyFund.derived?.asset_class) sourceWinner = 'derived';
+  else if (legacyFund.std_type) sourceWinner = 'std_type';
   else sourceWinner = 'unknown';
 
   return {
@@ -179,9 +180,9 @@ export function auditFundClassification(fund: Fund): FundAuditTrail {
     name: fund.name,
     hasV2: !!v2,
     hasExposureV2: !!expV2,
-    canonicalType: v2?.asset_type || fund.derived?.asset_class || fund.std_type || 'UNKNOWN',
-    canonicalSubtype: v2?.asset_subtype || fund.category_morningstar || 'UNKNOWN',
-    canonicalRegion: v2?.region_primary || fund.primary_region || fund.std_region || 'UNKNOWN',
+    canonicalType: v2?.asset_type || legacyFund.derived?.asset_class || legacyFund.std_type || 'UNKNOWN',
+    canonicalSubtype: v2?.asset_subtype || legacyFund.category_morningstar || 'UNKNOWN',
+    canonicalRegion: v2?.region_primary || legacyFund.primary_region || legacyFund.std_region || 'UNKNOWN',
     riskBucket: v2?.risk_bucket || null,
     isSuitableLowRisk: v2?.is_suitable_low_risk ?? null,
     signals,
@@ -290,6 +291,7 @@ export function detectAmbiguousFunds(funds: Fund[]): AmbiguityReport {
   const ambiguousFunds: { isin: string; name: string; reasons: string[] }[] = [];
 
   for (const fund of funds) {
+    const legacyFund = fund as any;
     const reasons: string[] = [];
     const v2 = fund.classification_v2;
 
@@ -326,15 +328,15 @@ export function detectAmbiguousFunds(funds: Fund[]): AmbiguityReport {
     }
 
     // Check for legacy/V2 conflict
-    if (v2 && fund.derived?.asset_class) {
+    if (v2 && legacyFund.derived?.asset_class) {
       const v2Type = v2.asset_type;
-      const legacyType = fund.derived.asset_class.toUpperCase();
+      const legacyType = legacyFund.derived.asset_class.toUpperCase();
       if (
         (v2Type === 'EQUITY' && (legacyType.includes('RF') || legacyType.includes('MONETARIO'))) ||
         (v2Type === 'FIXED_INCOME' && legacyType.includes('RV')) ||
         (v2Type === 'MONETARY' && (legacyType.includes('RV') || legacyType.includes('MIXTO')))
       ) {
-        reasons.push(`V2/Legacy type conflict: V2=${v2Type}, legacy=${fund.derived.asset_class}`);
+        reasons.push(`V2/Legacy type conflict: V2=${v2Type}, legacy=${legacyFund.derived.asset_class}`);
       }
     }
 

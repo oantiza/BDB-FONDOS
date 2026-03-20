@@ -286,7 +286,7 @@ export default function DashboardPage({
                                     metrics1y={metrics1y}
                                     metrics3y={xrayMetrics}
                                     metrics5y={metrics5y}
-                                    rfLabel="RF 1.93%"
+                                    rfLabel={`RF ${(riskFreeRate * 100).toFixed(2)}%`}
                                 />
                             </div>
                         </div>

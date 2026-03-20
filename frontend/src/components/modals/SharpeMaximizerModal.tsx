@@ -31,8 +31,8 @@ export default function SharpeMaximizerModal({
     const [step, setStep] = useState<'FILTER' | 'SEARCHING' | 'RESULTS'>('FILTER');
 
     // Filters
-    const [assetClass, setAssetClass] = useState<string>('RV');
-    const [region, setRegion] = useState<string>('all');
+    const [assetClass, setAssetClass] = useState<string>('EQUITY');
+    const [region, setRegion] = useState<string>('GLOBAL');
     const [prioritizeRetro, setPrioritizeRetro] = useState<boolean>(false);
     const [page, setPage] = useState<number>(0); // Pagination state
 
@@ -171,20 +171,11 @@ export default function SharpeMaximizerModal({
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold focus:outline-none focus:border-emerald-500 transition-colors"
                                     >
                                         <optgroup label="Grandes Bloques">
-                                            <option value="RV">Renta Variable (General)</option>
-                                            <option value="RF">Renta Fija (General)</option>
-                                            <option value="Monetario">Monetario</option>
-                                            <option value="Mixto">Mixto</option>
-                                            <option value="Alternativos">Alternativos</option>
-                                        </optgroup>
-                                        <optgroup label="Sectores RV">
-                                            <option value="RV - Tecnología">Tecnología</option>
-                                            <option value="RV - Salud">Salud</option>
-                                        </optgroup>
-                                        <optgroup label="Especialización RF">
-                                            <option value="RF - Soberana">Deuda Gubernamental</option>
-                                            <option value="RF - Corporativa">Deuda Corporativa</option>
-                                            <option value="RF - High Yield">Alto Rendimiento (HY)</option>
+                                            <option value="EQUITY">Renta Variable (General)</option>
+                                            <option value="FIXED_INCOME">Renta Fija (General)</option>
+                                            <option value="MONEY_MARKET">Monetario</option>
+                                            <option value="MIXED_ALLOCATION">Mixto</option>
+                                            <option value="ALTERNATIVE">Alternativos</option>
                                         </optgroup>
                                     </select>
                                 </div>
@@ -194,11 +185,13 @@ export default function SharpeMaximizerModal({
                                         value={region} onChange={e => setRegion(e.target.value)}
                                         className="w-full p-3 bg-slate-50 border border-slate-200 rounded-lg text-slate-700 font-bold focus:outline-none focus:border-emerald-500 transition-colors"
                                     >
-                                        <option value="all">Global</option>
-                                        <option value="united_states">Estados Unidos</option>
-                                        <option value="europe_broad">Europa</option>
-                                        <option value="asia_broad">Asia, Japón y China</option>
-                                        <option value="emerging_broad">Emergentes</option>
+                                        <option value="GLOBAL">Global</option>
+                                        <option value="USA">Estados Unidos</option>
+                                        <option value="EUROPE">Europa</option>
+                                        <option value="ASIA">Asia</option>
+                                        <option value="EMERGING">Emergentes</option>
+                                        <option value="JAPAN">Japón</option>
+                                        <option value="LATAM">Latinoamérica</option>
                                     </select>
                                 </div>
                             </div>
@@ -272,10 +265,10 @@ export default function SharpeMaximizerModal({
                                                 </div>
                                                 <div className="flex gap-1 mt-1">
                                                     <span className="text-[10px] bg-blue-50 text-blue-600 px-1 rounded border border-blue-100 uppercase">
-                                                        {(res.fund.derived?.asset_class || 'N/A')}
+                                                        {(res.fund.classification_v2?.asset_type || 'N/A')}
                                                     </span>
                                                     <span className="text-[10px] bg-orange-50 text-orange-600 px-1 rounded border border-orange-100 uppercase">
-                                                        {(res.fund.derived?.primary_region || 'N/A')}
+                                                        {(res.fund.classification_v2?.region_primary || 'N/A')}
                                                     </span>
                                                 </div>
                                             </div>
@@ -292,7 +285,8 @@ export default function SharpeMaximizerModal({
                                                     onClick={() => onAddFund({
                                                         isin: res.fund.isin,
                                                         name: res.fund.name,
-                                                        std_type: res.fund.derived?.asset_class || res.fund.asset_class || 'Unknown'
+                                                        classification_v2: res.fund.classification_v2,
+                                                        portfolio_exposure_v2: res.fund.portfolio_exposure_v2
                                                     } as Fund)}
                                                     className="bg-emerald-50 hover:bg-emerald-100 text-emerald-700 px-3 py-2 rounded-lg font-bold text-xs transition-colors"
                                                 >

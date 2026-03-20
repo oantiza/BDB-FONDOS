@@ -25,7 +25,7 @@ export default function HoldingsTable({ portfolio, totalCapital, getVolatilitySa
                 <tbody>
                     {Object.entries(
                         [...portfolio].reduce((acc, fund) => {
-                            const category = fund.std_extra?.category || fund.std_type || 'SIN CLASIFICAR';
+                            const category = fund.classification_v2?.asset_subtype || 'SIN CLASIFICAR';
                             if (!acc[category]) acc[category] = [];
                             acc[category].push(fund);
                             return acc;

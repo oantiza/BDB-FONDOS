@@ -34,19 +34,16 @@ export default function FundComparator() {
                 const q = query(collection(db, 'funds_v3'));
                 const snap = await getDocs(q);
                 const list = snap.docs.map(d => {
-                    const raw = { id: d.id, ...d.data() };
+                    const raw = { id: d.id, ...d.data() } as any;
                     const norm = normalizeFundData(adaptFundV3ToLegacy(raw));
                     return {
-                        id: norm.id || d.id,
-                        isin: norm.isin || d.id,
-                        name: norm.name || norm.fondo || d.id,
-                        category: norm.std_extra?.category || 'Uncategorized',
-                        region: norm.std_extra?.regionDetail || 'Global',
-
-                        retro: norm.std_extra?.retrocession || // from adaptFundV3ToLegacy/std_extra
-                            ((norm.manual?.costs?.retrocession ?? norm.costs?.retrocession) ?
-                                (norm.manual?.costs?.retrocession ?? norm.costs?.retrocession) : null),
-                        rating: norm.std_extra?.rating_stars || 0
+                        id: norm.id || raw.id,
+                        isin: norm.isin || raw.id,
+                        name: norm.name || norm.fondo || raw.id,
+                        category: raw.classification_v2?.asset_type || 'UNKNOWN',
+                        region: raw.classification_v2?.region_primary || 'GLOBAL',
+                        retro: norm.std_extra?.retrocession ?? norm.manual?.costs?.retrocession ?? norm.costs?.retrocession ?? null,
+                        rating: norm.std_extra?.rating_stars ?? 0
                     };
                 });
                 setAllFunds(list);

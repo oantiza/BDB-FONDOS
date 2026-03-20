@@ -58,26 +58,12 @@ export interface PortfolioMetrics {
 export interface Fund {
     isin: string;
     name: string;
-    std_type?: string;
-    asset_class?: string;
-    category_morningstar?: string;
-    std_region?: string;
-    primary_region?: string;
 
     // --- V2 Canonical Data Models ---
     classification_v2?: ClassificationV2;
     portfolio_exposure_v2?: PortfolioExposureV2;
 
     // V3 Canonical Fields (Legacy derived, being deprecated)
-    derived?: {
-        asset_class?: string;
-        primary_region?: string;
-        subcategories?: string[];
-        top_sector?: string;
-        top_sector_weight?: number;
-        confidence?: number;
-        equity_regions_total?: Record<string, number>;
-    };
     ms?: {
         category_morningstar?: string;
         rating_stars?: number;

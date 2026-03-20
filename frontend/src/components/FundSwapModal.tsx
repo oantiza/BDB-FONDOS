@@ -33,8 +33,8 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
     // Sync filters with original fund when it changes or modal opens
     useEffect(() => {
         if (originalFund && isOpen) {
-            setAssetClass(originalFund.derived?.asset_class || originalFund.std_type || 'RV');
-            setRegion(originalFund.derived?.primary_region || originalFund.std_region || 'all');
+            setAssetClass(originalFund.classification_v2?.asset_type || 'EQUITY');
+            setRegion(originalFund.classification_v2?.region_primary || 'GLOBAL');
             setMaximizeRetro(false);
             setPage(0);
         }
@@ -76,20 +76,11 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:outline-none focus:border-blue-500"
                         >
                             <optgroup label="Grandes Bloques">
-                                <option value="RV">Renta Variable (General)</option>
-                                <option value="RF">Renta Fija (General)</option>
-                                <option value="Monetario">Monetario</option>
-                                <option value="Mixto">Mixto</option>
-                                <option value="Alternativos">Alternativos</option>
-                            </optgroup>
-                            <optgroup label="Sectores RV">
-                                <option value="RV - Tecnología">Tecnología</option>
-                                <option value="RV - Salud">Salud</option>
-                            </optgroup>
-                            <optgroup label="Especialización RF">
-                                <option value="RF - Soberana">Deuda Gubernamental</option>
-                                <option value="RF - Corporativa">Deuda Corporativa</option>
-                                <option value="RF - High Yield">Alto Rendimiento (HY)</option>
+                                <option value="EQUITY">Renta Variable (General)</option>
+                                <option value="FIXED_INCOME">Renta Fija (General)</option>
+                                <option value="MONEY_MARKET">Monetario</option>
+                                <option value="MIXED_ALLOCATION">Mixto</option>
+                                <option value="ALTERNATIVE">Alternativos</option>
                             </optgroup>
                         </select>
                     </div>
@@ -99,11 +90,13 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                             value={region} onChange={e => { setRegion(e.target.value); setPage(0); }}
                             className="w-full p-2.5 bg-white border border-slate-200 rounded-lg text-sm font-bold focus:outline-none focus:border-blue-500"
                         >
-                            <option value="all">Global</option>
-                            <option value="united_states">Estados Unidos</option>
-                            <option value="europe_broad">Europa</option>
-                            <option value="asia_broad">Asia, Japón y China</option>
-                            <option value="emerging_broad">Emergentes</option>
+                            <option value="GLOBAL">Global</option>
+                            <option value="USA">Estados Unidos</option>
+                            <option value="EUROPE">Europa</option>
+                            <option value="ASIA">Asia</option>
+                            <option value="EMERGING">Emergentes</option>
+                            <option value="JAPAN">Japón</option>
+                            <option value="LATAM">Latinoamérica</option>
                         </select>
                     </div>
                     <div className="flex items-center h-[42px] px-2">

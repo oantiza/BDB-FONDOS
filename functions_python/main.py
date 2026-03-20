@@ -15,7 +15,8 @@ initialize_app()
 # -----------------
 from api.schedulers import (
     scheduleWeeklyResearch,
-    runMasterDailyRoutine
+    runMasterDailyRoutine,
+    runDailyDataValidation
 )
 
 # -----------------

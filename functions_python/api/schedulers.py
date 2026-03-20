@@ -63,3 +63,24 @@ def runMasterDailyRoutine(event: scheduler_fn.ScheduledEvent) -> None:
         logger.info(f"❌ ERROR al construir Caché Global: {e}")
 
     logger.info("🏁 [MASTER] Rutina Diaria finalizada.")
+
+
+@scheduler_fn.on_schedule(
+    region="europe-west1",
+    schedule="0 2 * * *",  # Todos los días a las 02:00 AM
+    timezone="Europe/Madrid",
+    timeout_sec=1200,  # 20 Minutos
+    memory=options.MemoryOption.GB_1,  # 1GB RAM
+)
+def runDailyDataValidation(event: scheduler_fn.ScheduledEvent) -> None:
+    logger.info(f"🚀 [PIPELINE] Iniciando Validación y Limpieza Diaria de NAVs: {event.schedule_time}")
+
+    from services.data_pipeline import run_nav_validation_pipeline
+
+    db = firestore.client()
+
+    try:
+        result = run_nav_validation_pipeline(db, dry_run=False)
+        logger.info(f"✅ Pipeline completado con éxito: {result}")
+    except Exception as e:
+        logger.info(f"❌ ERROR CRÍTICO en Pipeline de Datos: {e}")

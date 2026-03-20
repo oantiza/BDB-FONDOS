@@ -43,10 +43,9 @@ export function calculatePortfolioPoint(
 
         if (totalWeight <= 0) return null;
 
-        // Force normalization to exactly 1.0 (100%)
-        for (let i = 0; i < size; i++) {
-            w[i] = w[i] / totalWeight;
-        }
+        // Maintain raw interactive scale to match backend.
+        // If the user inputs 25%, 25% (total 50%), the point should reflect 50% scale,
+        // rather than mutating to 50%/50% internally which would inflate risk/return artificially.
 
         // 2. Calculate Portfolio Return (W^T * Mu)
         let portfolioReturn = 0;

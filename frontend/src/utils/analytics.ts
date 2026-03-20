@@ -191,8 +191,6 @@ export function calcPortfolioCorrelation(portfolio: PortfolioItem[]) {
             else if (rawV2 === "FIXED_INCOME") typeStr = "RF";
             else if (rawV2 === "MONETARY") typeStr = "Monetario";
             else if (rawV2 === "MIXED") typeStr = "Mixto";
-        } else {
-            typeStr = cleanType(f.std_type || (f as any).asset_class || 'Other');
         }
         return {
             ...f,
@@ -222,10 +220,5 @@ export function calcPortfolioCorrelation(portfolio: PortfolioItem[]) {
 }
 
 function cleanType(t: string): string {
-    if (!t) return 'Other';
-    const up = t.toUpperCase();
-    if (up.includes('RV') || up.includes('EQUITY')) return 'RV';
-    if (up.includes('RF') || up.includes('FIXED') || up.includes('BOND')) return 'RF';
-    if (up.includes('MONETARIO') || up.includes('CASH') || up.includes('LIQUI')) return 'Monetario';
-    return 'Other';
+    return 'Other'; // Deprecated heuristic function
 }
