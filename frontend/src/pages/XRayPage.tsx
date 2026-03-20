@@ -158,31 +158,36 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
     return (
         <div className="flex flex-col h-screen bg-[#f8fafc]">
             <div className="fixed top-0 left-0 right-0 z-50">
-                <Header onBack={onBack} onLogout={() => { }} />
-                {hasMetrics && (
-                    <div className="fixed top-4 right-16 z-[60] flex items-center gap-2">
-                        <button
-                            onClick={handleDownloadFullReport}
-                            disabled={loading}
-                            className="bg-slate-800/80 hover:bg-slate-900 text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-slate-700/50 flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            <span>📄</span> Informe Completo
-                        </button>
-                        <button
-                            onClick={handleDownloadSummaryReport}
-                            disabled={loading}
-                            className="bg-[#D4AF37] hover:bg-[#b5952f] text-white transition-colors text-xs font-bold uppercase tracking-widest px-4 py-1.5 rounded-sm border border-[#D4AF37] flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
-                        >
-                            <span>📊</span> Informe Resumen
-                        </button>
-                        <button
-                            onClick={() => setShowAnalytics(true)}
-                            className="ml-2 text-slate-400 hover:text-[#D4AF37] transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1 group bg-white/50 px-3 py-1.5 rounded-sm border border-slate-200 hover:border-slate-300 backdrop-blur-sm"
-                        >
-                            Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
-                        </button>
-                    </div>
-                )}
+                <Header 
+                    onBack={onBack} 
+                    onLogout={() => { }} 
+                    headerActions={
+                        hasMetrics ? (
+                            <div className="flex items-center gap-3 border-r border-slate-600/50 pr-4">
+                                <button
+                                    onClick={handleDownloadFullReport}
+                                    disabled={loading}
+                                    className="bg-slate-700 hover:bg-slate-600 text-white transition-colors text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded border border-slate-500 flex items-center gap-2 disabled:opacity-50"
+                                >
+                                    <span>📄</span> Completo
+                                </button>
+                                <button
+                                    onClick={handleDownloadSummaryReport}
+                                    disabled={loading}
+                                    className="bg-[#D4AF37] hover:bg-[#b5952f] text-white transition-colors text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded border border-[#D4AF37] flex items-center gap-2 disabled:opacity-50 shadow-sm"
+                                >
+                                    <span>📊</span> Resumen
+                                </button>
+                                <button
+                                    onClick={() => setShowAnalytics(true)}
+                                    className="text-[10px] font-bold uppercase tracking-widest text-[#D4AF37] hover:text-white transition-colors flex items-center gap-1 group px-2 py-1.5"
+                                >
+                                    Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
+                                </button>
+                            </div>
+                        ) : undefined
+                    }
+                />
             </div>
             <div className="flex-1 overflow-y-auto p-8 relative mt-16">
                 <div className="max-w-[1400px] mx-auto bg-white p-8 shadow-sm border border-slate-100 min-h-[1000px]">

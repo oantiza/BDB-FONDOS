@@ -13,6 +13,7 @@ interface HeaderProps {
     onOpenCorrelationAnalysis?: () => void
     onBack?: () => void
     isOptimizing?: boolean
+    headerActions?: React.ReactNode
 }
 
 export default function Header({ 
@@ -24,7 +25,8 @@ export default function Header({
     onOpenComparator, 
     onOpenCorrelationAnalysis,
     onBack,
-    isOptimizing
+    isOptimizing,
+    headerActions
 }: HeaderProps) {
     return (
         <header className="h-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-slate-600 shadow-sm print:hidden">
@@ -106,9 +108,12 @@ export default function Header({
                 <div className="h-6 w-px bg-slate-600/50"></div>
 
                 {/* GRUPO AUXILIAR */}
-                <button onClick={onLogout} className="text-[11px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-400 transition-colors">
-                    Salir
-                </button>
+                <div className="flex items-center gap-4">
+                    {headerActions}
+                    <button onClick={onLogout} className="text-[11px] font-bold uppercase tracking-widest text-slate-400 hover:text-red-400 transition-colors">
+                        Salir
+                    </button>
+                </div>
             </div>
         </header>
     )
