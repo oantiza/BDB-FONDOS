@@ -2,6 +2,7 @@ import asyncio
 import aiohttp
 import logging
 import os
+import pandas as pd
 from datetime import datetime, timedelta
 from firebase_admin import firestore as admin_firestore
 
@@ -13,7 +14,7 @@ BASE_URL = "https://eodhd.com/api/eod"
 
 
 # --- ADAPTADOR EODHD (Async) ---
-async def fetch_eodhd_data(session, ticker, from_date, to_date=None):
+async def fetch_eodhd_data(session, ticker, from_date, to_date=None, max_retries=4):
     """Descarga datos de EODHD."""
     url = f"{BASE_URL}/{ticker}"
     params = {
@@ -26,68 +27,80 @@ async def fetch_eodhd_data(session, ticker, from_date, to_date=None):
         params["from"] = from_date
     if to_date:
         params["to"] = to_date
-    try:
-        async with session.get(url, params=params, timeout=10) as response:
-            if response.status == 200:
-                try:
-                    data = await response.json()
-                except Exception as e_json:
-                    logging.warning(f"⚠️ EODHD Json Error {ticker}: {e_json}")
+
+    for attempt in range(max_retries):
+        try:
+            async with session.get(url, params=params, timeout=30) as response:
+                if response.status == 200:
+                    try:
+                        data = await response.json()
+                    except Exception as e_json:
+                        logging.warning(f"⚠️ EODHD Json Error {ticker}: {e_json}")
+                        return ticker, None
+
+                    if not isinstance(data, list):
+                        # A veces devuelve objeto {error: ...}
+                        logging.warning(f"⚠️ EODHD Data Format Error {ticker}: Not a list")
+                        return ticker, None
+
+                    clean_data = []
+                    for item in data:
+                        # Buscamos 'adjusted_close' o 'close'
+                        val = item.get("adjusted_close") or item.get("close")
+                        # Aseguramos que sea float > 0
+                        if item.get("date") and val:
+                            try:
+                                f_val = float(val)
+                                if f_val > 0:
+                                    clean_data.append({"date": item["date"], "nav": f_val})
+                            except:
+                                pass
+
+                    return ticker, clean_data
+                elif response.status == 429:
+                    logging.warning(f"⏳ Rate Limit EODHD {ticker} (Attempt {attempt+1}/{max_retries})")
+                else:
+                    logging.warning(f"⚠️ EODHD {ticker}: Status {response.status}")
                     return ticker, None
+        except asyncio.TimeoutError:
+            logging.warning(f"⏳ Timeout EODHD {ticker} (Attempt {attempt+1}/{max_retries})")
+        except Exception as e:
+            logging.error(f"❌ Excepción fetching {ticker}: {str(e)}")
+            return ticker, None
 
-                if not isinstance(data, list):
-                    # A veces devuelve objeto {error: ...}
-                    logging.warning(f"⚠️ EODHD Data Format Error {ticker}: Not a list")
-                    return ticker, None
+        if attempt < max_retries - 1:
+            await asyncio.sleep(2 ** attempt)
 
-                clean_data = []
-                for item in data:
-                    # Buscamos 'adjusted_close' o 'close'
-                    val = item.get("adjusted_close") or item.get("close")
-                    # Aseguramos que sea float > 0
-                    if item.get("date") and val:
-                        try:
-                            f_val = float(val)
-                            if f_val > 0:
-                                clean_data.append({"date": item["date"], "nav": f_val})
-                        except:
-                            pass
-
-                return ticker, clean_data
-            elif response.status == 429:
-                logging.warning(f"⏳ Rate Limit EODHD {ticker}")
-                return ticker, None
-            else:
-                logging.warning(f"⚠️ EODHD {ticker}: Status {response.status}")
-                return ticker, None
-    except Exception as e:
-        logging.error(f"❌ Excepción fetching {ticker}: {str(e)}")
-        return ticker, None
+    return ticker, None
 
 
-# --- LÓGICA DE FUSIÓN (MERGE) ---
 def merge_history(existing_history, new_data):
-    if not new_data:
+    if not new_data and not existing_history:
         return None
 
-    # Mapa para búsqueda rápida y evitar duplicados
     history_map = {item["date"]: item["nav"] for item in existing_history}
+    
+    for item in (new_data or []):
+        history_map[item["date"]] = item["nav"]
 
-    changes = False
-    for item in new_data:
-        # Si la fecha no existe O el valor es diferente (corrección)
-        # Nota: Comparar floats directamente puede ser tricky, usamos tolerancia simple o directo?
-        # Para NAVs, exactitud es importante. Si cambia, actualizamos.
-        current_val = history_map.get(item["date"])
-        if current_val != item["nav"]:
-            history_map[item["date"]] = item["nav"]
-            changes = True
-
-    if not changes:
+    if not history_map:
         return None
 
-    # Reconstruir lista ordenada
-    return [{"date": k, "nav": v} for k, v in sorted(history_map.items())]
+    # Forward fill gaps en días laborables (Mon-Fri)
+    df = pd.DataFrame([{"date": pd.to_datetime(k), "nav": v} for k, v in history_map.items()])
+    df.set_index("date", inplace=True)
+    df.sort_index(inplace=True)
+    
+    full_idx = pd.date_range(start=df.index.min(), end=df.index.max(), freq='B')
+    df_filled = df.reindex(full_idx, method='ffill')
+    df_filled.dropna(subset=['nav'], inplace=True)
+    
+    new_history = [{"date": d.strftime("%Y-%m-%d"), "nav": float(row['nav'])} for d, row in df_filled.iterrows()]
+    
+    if new_history == existing_history:
+        return None
+        
+    return new_history
 
 
 # --- ORQUESTADOR PRINCIPAL ---

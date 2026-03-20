@@ -1,0 +1,21 @@
+{
+  "run_id": "run_20260319_083748",
+  "mode": "execute",
+  "started_at": "2026-03-19T08:37:48.667478+00:00",
+  "total_read": 669,
+  "processed": 669,
+  "updated": 669,
+  "skipped": 0,
+  "errors": 0,
+  "error_isins": [],
+  "asset_type_dist": {
+    "FIXED_INCOME": 189,
+    "EQUITY": 340,
+    "REAL_ESTATE": 3,
+    "MIXED": 97,
+    "ALTERNATIVE": 13,
+    "MONETARY": 10,
+    "COMMODITIES": 17
+  },
+  "finished_at": "2026-03-19T08:37:54.916399+00:00"
+}

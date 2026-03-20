@@ -55,14 +55,24 @@ export interface PortfolioMetrics {
 
 // --- Main Interfaces ---
 
-export interface Fund {
+// --- Canonical V2 Base Models ---
+
+/**
+ * Representa la estructura estricta y limpia del nuevo modelo canónico V2.
+ * Esta es la forma hacia la que debe migrar todo el sistema.
+ */
+export interface FundCanonicalV2 {
     isin: string;
     name: string;
-
-    // --- V2 Canonical Data Models ---
     classification_v2?: ClassificationV2;
     portfolio_exposure_v2?: PortfolioExposureV2;
+}
 
+/**
+ * Agrupa todos los campos "legacy" o derivados (ej. Morningstar, extracciones antiguas)
+ * que se mantienen por retrocompatibilidad pero que perderán autoridad frente a V2.
+ */
+export interface FundLegacyCompat {
     // V3 Canonical Fields (Legacy derived, being deprecated)
     ms?: {
         category_morningstar?: string;
@@ -128,7 +138,19 @@ export interface Fund {
     };
 }
 
-export interface PortfolioItem extends Fund {
+/**
+ * Representación "God Object" actual que mezcla V2 y Legacy.
+ * La UI actual asume esta forma generosa, por lo que la mantenemos como unión.
+ */
+export interface Fund extends FundCanonicalV2, FundLegacyCompat {}
+
+// --- Portfolio & Action Interfaces ---
+
+/**
+ * Representa una posición específica dentro de la cartera.
+ * Extiende Fund por compatibilidad temporal, pero añade el estado en cartera.
+ */
+export interface PortfolioHolding extends Fund {
     weight: number;
     score?: number;
     role?: string;
@@ -140,6 +162,42 @@ export interface PortfolioItem extends Fund {
     // For Synthetic Benchmarks
     isBenchmark?: boolean;
     benchmarkData?: any;
+}
+
+/**
+ * Alias de retrocompatibilidad.
+ * @deprecated Usa PortfolioHolding en nuevo desarrollo.
+ */
+export interface PortfolioItem extends PortfolioHolding {}
+
+// --- Optimization Boundary ---
+
+/**
+ * Metadatos mínimos que necesita el backend para un activo durante la optimización.
+ */
+export interface OptimizationAsset {
+    asset_class?: string;
+    name: string;
+}
+
+/**
+ * Payload estricto que se envía al endpoint optimize_portfolio_quant.
+ * Define claramente el borde entre JS y Python.
+ */
+export interface OptimizationRequest {
+    assets: string[];
+    risk_level: number;
+    locked_assets: string[];
+    asset_metadata: Record<string, OptimizationAsset>;
+    constraints: {
+        apply_profile: boolean;
+        optimization_mode: string;
+        lock_mode: string;
+        fixed_weights: Record<string, number>;
+    };
+    tactical_views?: Record<string, number>;
+    save_snapshot?: boolean;
+    snapshot_label?: string;
 }
 
 export interface MarketIndexResponse {

@@ -1,7 +1,12 @@
 import { Fund, PortfolioItem } from "../types";
 
 // ============================================================================
-// KONFIGURACIÓN Y TIPOS
+// CONFIGURACIÓN Y TIPOS
+// [PRECEDENCIA CANÓNICA]: Esta capa actúa únicamente como RÉPLICA DE PRESENTACIÓN.
+// Esta es una pieza temporal en transición. Útil para UX local, pero NO es la autoridad final de negocio.
+// La única fuente de verdad matemática (Límites, Fallbacks, Suitability Excluyente)
+// reside en el motor Cuantitativo (optimizer_core.py) y Firestore (system_settings/risk_profiles).
+// TODO: Migrar lógica de negocio al backend y dejar este archivo solo para mapeos UI.
 // ============================================================================
 
 export type AssetClass = "RV" | "RF" | "Monetario" | "Mixto" | "Alternativos" | "Otros";
@@ -19,7 +24,9 @@ interface RiskProfileConfig {
   bias: "Safety" | "Balanced" | "Growth" | "Aggressive";
 }
 
-// DEFINICIÓN DE ESTRUCTURAS POR RIESGO (HARD TARGETS)
+// DEFINICIÓN DE ESTRUCTURAS POR RIESGO (HARD TARGETS - PRESENTATION SEED)
+// NOTE: Esto es un estado inicial (seed) local para inicializar la UI rápidamente.
+// Los perfiles canónicos oficiales residen en Firestore y machacan estos valores usando syncRiskProfilesFromDB().
 export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
   1: {
     name: "Preservación",
@@ -191,9 +198,12 @@ function getBaseName(name: string): string {
 }
 
 // ============================================================================
-// 2) SCORING CON BIAS
+// 2) SCORING CON BIAS (PRESENTATION ONLY)
 // ============================================================================
 
+// NOTE: Este cálculo de score numérico es meramente ilustrativo para pintar un ranking estático visual.
+// NO interviene en la función objetivo (Sharpe/Volatilidad) del optimizador cuantitativo real en backend.
+// TODO: En el futuro el frontend debería limitarse a mostrar rankings calculados o validados por backend.
 export function calculateScore(fund: Fund, riskOrBias: number | string): number {
   let bias = "Balanced";
   if (typeof riskOrBias === 'number') {
@@ -233,9 +243,68 @@ export function calculateScore(fund: Fund, riskOrBias: number | string): number 
 }
 
 // ============================================================================
-// MOTOR PRINCIPAL
+// SUITABILITY ENGINE (FRONTEND REPLICA - PRESENTATION ONLY)
 // ============================================================================
 
+// NOTE: Esta función duplica ciertas reglas de negocio a nivel visual (para pre-filtrar o pintar alertas en UI).
+// La validación regulatoria y canónica, la que da denegación real en operativa, ocurre en optimizer_core.py.
+// TODO: Debe sustituirse consumiendo las flags canónicas de exclusión que envíe el backend por fondo.
+export function isFundSuitableForProfile(fund: Fund, riskProfile: number): boolean {
+  const classV2 = fund.classification_v2;
+  const expV2 = fund.portfolio_exposure_v2;
+
+  if (!classV2) {
+    // Fallback legacy logic
+    const eqMet = Number((fund as any)?.metrics?.equity || 0);
+    if (riskProfile <= 2 && eqMet > 20) return false;
+    if (riskProfile <= 4 && eqMet > 50) return false;
+    return true;
+  }
+
+  const assetType = classV2.asset_type;
+  const assetSubtype = classV2.asset_subtype;
+  const riskBucket = classV2.risk_bucket;
+  const isSectorFund = classV2.is_sector_fund;
+  const sectorFocus = classV2.sector_focus;
+  const realEq = Number(expV2?.economic_exposure?.equity || 0);
+
+  // 1. Very Conservative Profiles (1-2)
+  if (riskProfile <= 2) {
+    if (!classV2.is_suitable_low_risk) return false;
+    if (riskBucket === "HIGH") return false;
+    if (realEq > 30) return false;
+  }
+
+  // 2. Conservative / Moderate-Low Profiles (3-4)
+  if (riskProfile <= 4) {
+    if (riskBucket === "HIGH" && assetType !== "EQUITY") return false;
+    if (riskProfile === 3 && realEq > 45) return false;
+    if (riskProfile === 4 && realEq > 60) return false;
+    if (isSectorFund) return false;
+    if (
+      assetSubtype === "EMERGING_MARKETS_EQUITY" ||
+      assetSubtype === "HIGH_YIELD_BOND" ||
+      assetType === "COMMODITIES"
+    ) {
+      return false;
+    }
+  }
+
+  // 3. Moderate Profiles (5-7)
+  if (riskProfile <= 7) {
+    if (isSectorFund && sectorFocus === "HEALTHCARE" && riskProfile < 6) return false;
+  }
+
+  return true;
+}
+
+// ============================================================================
+// MOTOR PRINCIPAL (LOCAL PREVIEW ONLY)
+// ============================================================================
+
+// NOTE: Este generador "SmartPortfolioLocal" NO es el Portfolio Management System (PMS) real.
+// Es un mock determinista básico basado en reglas de ranking estático y equidad prefabricada para demostración UX.
+// Toda la optimización probabilística (Markowitz real, Black-Litterman, restricciones topológicas) corre en backend.
 export function generateSmartPortfolioLocal(
   riskLevel: number,
   allFunds: Fund[],
@@ -253,12 +322,8 @@ export function generateSmartPortfolioLocal(
   let validCandidates = 0;
 
   allFunds.forEach(f => {
-    // FILTRO PERMISIVO
-    // Solo excluimos si los flags son EXPLÍCITAMENTE negativos.
-    // Si son undefined/null, el fondo PASA.
+    // FILTRO PERMISIVO CALIDAD DE DATOS
     const dq = (f as any)?.data_quality ?? {};
-
-    // checks explicit failing conditions
     const isExplicitlyBad =
       dq.has_history === false ||
       (f as any)?.metrics_invalid === true ||
@@ -266,17 +331,9 @@ export function generateSmartPortfolioLocal(
 
     if (isExplicitlyBad) return;
 
-    // RESTRICCIÓN: Excluir emergentes para perfiles conservadores (<= 3)
-    if (riskLevel <= 3) {
-      if (f.classification_v2?.region_primary === "EMERGING") {
-        return;
-      }
-
-      const region = ((f as any)?.derived?.primary_region || (f as any)?.std_region || '').toLowerCase();
-      const category = ((f as any)?.derived?.asset_class || (f as any)?.std_type || (f as any)?.category || '').toLowerCase();
-      if (region.includes('emergentes') || region.includes('emerging') || category.includes('emergentes') || category.includes('emerging')) {
-        return; 
-      }
+    // RESTRICCIÓN DE SUITABILITY (Backend Replica)
+    if (!isFundSuitableForProfile(f, riskLevel)) {
+      return;
     }
 
     validCandidates++;
@@ -434,6 +491,8 @@ export function generateSmartPortfolioLocal(
   return portfolio;
 }
 
+// NOTE: Esta es la función crítica que subordina el estado local (seed) sustituyéndolo por
+// los perfiles descargados desde la fuente de verdad (Firestore).
 export function syncRiskProfilesFromDB(dbProfiles: any) {
   if (dbProfiles && Object.keys(dbProfiles).length > 0) {
     Object.keys(dbProfiles).forEach(riskStr => {

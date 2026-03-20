@@ -209,10 +209,14 @@ def init_firebase():
 
 
 # =============================================================================
-# TEXT NORMALIZATION
+# PIPELINE PHASE 1: EXTRACTION
 # =============================================================================
 
-def _extract_text_context(data: dict) -> dict:
+def extract_raw_signals(data: dict) -> dict:
+    """
+    Extracts explicit signals and textual hints from raw Firestore data.
+    This creates the semantic context used by all inference rules.
+    """
     data = _safe_dict(data)
     ms = _safe_dict(data.get("ms"))
     derived = _safe_dict(data.get("derived"))
@@ -258,7 +262,7 @@ def _extract_text_context(data: dict) -> dict:
 # =============================================================================
 
 def _deduce_asset_class(data: dict, eq_metric: float, bd_metric: float) -> tuple[AssetClassV2, float]:
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
 
     if _contains_any(
@@ -444,7 +448,7 @@ def _deduce_asset_class(data: dict, eq_metric: float, bd_metric: float) -> tuple
 
 def _deduce_region_primary(data: dict, asset_type: AssetClassV2) -> tuple[RegionV2, float]:
     data = _safe_dict(data)
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
     legacy = ctx["legacy_category_up"]
 
@@ -681,7 +685,7 @@ def _deduce_equity_style(ms_style: dict, data: dict) -> tuple[EquityStyleBoxV2, 
             cap_comp = "SMALL"
 
     is_heuristic = False
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
 
     if not style_comp:
@@ -740,7 +744,7 @@ def _deduce_market_cap_bias(ms_style: dict, data: dict) -> tuple[MarketCapBiasV2
             val = MarketCapBiasV2.MULTI
 
     if val == MarketCapBiasV2.UNKNOWN:
-        ctx = _extract_text_context(data)
+        ctx = extract_raw_signals(data)
         text = ctx["combined_up"]
         if _contains_any(text, ["LARGE", "LARGE-CAP", "CAP. GRANDE"]):
             val = MarketCapBiasV2.LARGE
@@ -843,7 +847,7 @@ def _fi_legacy_hints(ctx: dict) -> dict:
 
 
 def _deduce_fixed_income_subtype(data: dict) -> AssetSubtypeV2:
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
     legacy = ctx["legacy_category_up"]
     fih = _fi_legacy_hints(ctx)
@@ -933,7 +937,7 @@ def _deduce_fixed_income_credit(data: dict, subtype: AssetSubtypeV2) -> FICredit
     data = _safe_dict(data)
     ms = _safe_dict(data.get("ms"))
     ms_fi = _safe_dict(ms.get("fixed_income"))
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
     legacy = ctx["legacy_category_up"]
 
@@ -1022,7 +1026,7 @@ def _deduce_fi_duration_bucket(data: dict) -> FIDurationBucketV2:
     data = _safe_dict(data)
     ms = _safe_dict(data.get("ms"))
     ms_fi = _safe_dict(ms.get("fixed_income"))
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
     legacy = ctx["legacy_category_up"]
 
@@ -1113,7 +1117,7 @@ def _deduce_fi_duration_bucket(data: dict) -> FIDurationBucketV2:
 
 
 def _apply_fi_legacy_fallbacks(data: dict, klass: ClassificationV2):
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     legacy = ctx["legacy_category_up"]
     text = ctx["combined_up"]
 
@@ -1338,14 +1342,14 @@ def _evaluate_suitability(klass: ClassificationV2, ctx: dict) -> bool:
 
 
 # =============================================================================
-# MAIN CLASSIFICATION
+# PIPELINE PHASE 2: INFER CLASSIFICATION V2
 # =============================================================================
 
-def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
+def infer_classification_v2(isin: str, data: dict) -> ClassificationV2:
     data = _safe_dict(data)
     ms = _safe_dict(data.get("ms"))
     metrics = _safe_dict(data.get("metrics"))
-    ctx = _extract_text_context(data)
+    ctx = extract_raw_signals(data)
     text = ctx["combined_up"]
 
     eq_met = _safe_float(metrics.get("equity", 0))
@@ -1356,6 +1360,9 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
         computed_at=datetime.now(timezone.utc).isoformat(),
     )
 
+    # -------------------------------------------------------------------------
+    # PHASE 2.1: PRIMARY ASSET CLASS & REGION
+    # -------------------------------------------------------------------------
     at, at_conf = _deduce_asset_class(data, eq_met, bd_met)
     klass.asset_type = at
     klass.classification_confidence = max(0.60, at_conf) if at != AssetClassV2.UNKNOWN else 0.45
@@ -1383,6 +1390,9 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
             klass.classification_confidence *= 0.96
             _append_unique(klass.warnings, "REGION_PRIMARY_BORDERLINE")
 
+    # -------------------------------------------------------------------------
+    # PHASE 2.2: SUBTYPES, BUCKETS & HEURISTICS
+    # -------------------------------------------------------------------------
     if klass.asset_type == AssetClassV2.EQUITY:
         if _contains_any(text, ["TECHNOLOGY", "BIG DATA", "FINTECH", "ROBOTICS", "DIGITAL", "CONNECTIVITY", "ARTIFICIAL"]):
             klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_TECH
@@ -1561,6 +1571,9 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
     klass.risk_bucket = _deduce_risk_bucket(klass.asset_type, klass.asset_subtype, klass.fi_credit_bucket)
     klass.is_suitable_low_risk = _evaluate_suitability(klass, ctx)
 
+    # -------------------------------------------------------------------------
+    # PHASE 3: CLASSIFICATION CONFIDENCE & AUDIT FLAGS
+    # -------------------------------------------------------------------------
     if klass.asset_type == AssetClassV2.FIXED_INCOME and klass.asset_subtype != AssetSubtypeV2.UNKNOWN:
         klass.classification_confidence = max(klass.classification_confidence, 0.66)
 
@@ -1576,10 +1589,10 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
 
 
 # =============================================================================
-# EXPOSURE
+# PIPELINE PHASE 4: INFER EXPOSURE V2
 # =============================================================================
 
-def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> PortfolioExposureV2:
+def infer_portfolio_exposure_v2(isin: str, data: dict, klass: ClassificationV2) -> PortfolioExposureV2:
     data = _safe_dict(data)
     metrics = _safe_dict(data.get("metrics"))
     ms = _safe_dict(data.get("ms"))
@@ -1627,6 +1640,9 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
     if exposure_inferred:
         _append_unique(exp.warnings, "EXPOSURE_INFERRED_FROM_CLASSIFICATION")
 
+    # -------------------------------------------------------------------------
+    # PHASE 4.1: REGIONAL & SECTOR BREAKDOWNS
+    # -------------------------------------------------------------------------
     macro = _safe_dict(ms_regions.get("macro"))
     detail = _safe_dict(ms_regions.get("detail"))
 
@@ -1733,6 +1749,9 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
     if exp.economic_exposure.equity > 0 and _safe_dict(exp.equity_regions).get("emerging", 0) > 20:
         _append_unique(exp.risk_flags, "HIGH_EMERGING_RISK")
 
+    # -------------------------------------------------------------------------
+    # PHASE 5: EXPOSURE CONFIDENCE & FINAL FLAGS
+    # -------------------------------------------------------------------------
     exp.exposure_confidence = _clamp01(0.55 if exposure_inferred else (0.90 if total > 0 else 0.45))
     exp.warnings = _dedupe_list(exp.warnings)
     exp.risk_flags = _dedupe_list(exp.risk_flags)
@@ -1788,8 +1807,8 @@ def run_batch(mode: str = "dry-run", limit: int = 0):
                 stats["skipped"] += 1
                 continue
 
-            klass = classifyFundV2(isin, data)
-            exp = buildPortfolioExposureV2(isin, data, klass)
+            klass = infer_classification_v2(isin, data)
+            exp = infer_portfolio_exposure_v2(isin, data, klass)
 
             at = klass.asset_type.value
             stats["asset_type_dist"][at] = stats["asset_type_dist"].get(at, 0) + 1
@@ -2013,8 +2032,8 @@ def test_math_logic():
 
     for s in samples:
         print(f"--- TESTING: {s['label']} ---")
-        klass = classifyFundV2("MOCK_ISIN", s["data"])
-        exp = buildPortfolioExposureV2("MOCK_ISIN", s["data"], klass)
+        klass = infer_classification_v2("MOCK_ISIN", s["data"])
+        exp = infer_portfolio_exposure_v2("MOCK_ISIN", s["data"], klass)
         print(
             f"asset_type={klass.asset_type.value} | "
             f"subtype={klass.asset_subtype.value} | "

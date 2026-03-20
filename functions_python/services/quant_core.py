@@ -1,13 +1,40 @@
 import logging
 logger = logging.getLogger(__name__)
+
 import numpy as np
 import pandas as pd
 from pypfopt import risk_models, expected_returns
 
+# =============================================================================
+# 0. CONSTANTS & MATHEMATICAL CONVENTIONS
+# =============================================================================
+# CONVENTIONS:
+# 1. Base Frequency: Assumes daily price inputs. All annualizations are based 
+#    on TRADING_DAYS_PER_YEAR.
+# 2. Risk-Free Rate (rf_rate): Expected in absolute annual terms (e.g. 0.02 for 2%). 
+#    It is NOT assumed to be zero by default; the caller must provide it.
+# 3. Covariance: All matrices are symmetrized to avoid solver and UI precision bugs.
+# 4. Volatility: Floor applied (max(0, val)) to prevent negative sqrt domain errors.
+# 
+# ARCHITECTURE ROLE:
+# This file MUST NOT depend on database calls, Firebase, or Frontend models. 
+# It is a pure Numpy/Pandas mathematical transform layer.
+# =============================================================================
+
 TRADING_DAYS_PER_YEAR = 252
 
-def get_covariance_matrix(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEAR):
-    """Canonical method for Covariance matrix using Ledoit-Wolf Shrinkage"""
+# =============================================================================
+# 1. COVARIANCE ESTIMATION
+# =============================================================================
+
+def get_covariance_matrix(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEAR) -> pd.DataFrame:
+    """
+    Canonical method for Computing Covariance matrix.
+    Convention: Uses Ledoit-Wolf Shrinkage to improve mathematical conditioning 
+    of the matrix, falling back to sample covariance if shrinkage fails.
+    
+    Output: Annualized Covariance DataFrame.
+    """
     try:
         S = risk_models.CovarianceShrinkage(df_prices, frequency=frequency).ledoit_wolf()
     except Exception:
@@ -21,8 +48,20 @@ def get_covariance_matrix(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YE
     return S
 
 
-def get_expected_returns(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEAR, method="ema"):
-    """Canonical expected returns"""
+# =============================================================================
+# 2. RETURN ESTIMATION
+# =============================================================================
+
+def get_expected_returns(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEAR, method="ema") -> pd.Series:
+    """
+    Canonical expected returns calculation.
+    Convention: 
+    - method="ema": Exponential moving average. Gives more weight to recent prices.
+    - method="mean": Standard arithmetic mean of historical returns.
+    - method="capm": Capital Asset Pricing Model implied returns.
+    
+    Output: Annualized Expected Returns Series.
+    """
     if method == "ema":
         return expected_returns.ema_historical_return(df_prices, frequency=frequency, span=frequency)
     elif method == "mean":
@@ -31,8 +70,27 @@ def get_expected_returns(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEA
         return expected_returns.capm_return(df_prices, frequency=frequency)
 
 
+# =============================================================================
+# 3. BLACK-LITTERMAN HELPERS
+# =============================================================================
+# TODO: Black-Litterman optimization currently resides in `services.financial_engine.FinancialEngine`.
+# To consolidate quantitative truth natively, those methods (market priors, view blending)
+# should eventually be migrated here, disconnecting them from objective constraints building.
+
+
+# =============================================================================
+# 4. PORTFOLIO METRICS
+# =============================================================================
+
 def calculate_portfolio_metrics(weights_dict: dict, mu_series: pd.Series, S_df: pd.DataFrame, rf_rate: float):
-    """Calculates theoretical return, vol and sharpe of a point-in-time holding"""
+    """
+    Calculates theoretical expected return, volatility, and Sharpe ratio of a fixed point-in-time holding.
+    
+    Conventions:
+    - Calculates Sharpe using `(ret - rf_rate) / vol`. 
+    - Requires annualized inputs (`mu_series` and `S_df`).
+    - Explicitly forces variance to be non-negative before computing square root to prevent crash.
+    """
     if not weights_dict or mu_series.empty or S_df.empty:
         return {"return": 0.0, "volatility": 0.0, "sharpe": 0.0}
         
@@ -49,9 +107,13 @@ def calculate_portfolio_metrics(weights_dict: dict, mu_series: pd.Series, S_df: 
 
 def calculate_historical_metrics(df_series: pd.Series, risk_free_annual=0.0, method="geometric"):
     """
-    Standard metrics for a single price series.
-    Method "arithmetic" matches legacy optimizer logic (simple mean * 252).
-    Method "geometric" calculates true CAGR.
+    Standard performance metrics for a single chronological price series.
+    
+    Conventions:
+    - Assumes daily prices.
+    - Method "arithmetic" matches legacy optimizer logic (simple mean * 252).
+    - Method "geometric" calculates true Compound Annual Growth Rate (CAGR).
+    - VaR 95 and CVaR 95 are historical actuals based on daily series.
     """
     df = df_series.dropna()
     if len(df) < 5:
@@ -106,3 +168,4 @@ def calculate_historical_metrics(df_series: pd.Series, risk_free_annual=0.0, met
         "years": float(years),
         "points": len(df)
     }
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import { PortfolioItem } from '../../types';
+import { getFormattedTaxonomy } from '../../utils/taxonomyTranslators';
 
 interface HoldingsTableProps {
     portfolio: PortfolioItem[];
@@ -25,7 +26,7 @@ export default function HoldingsTable({ portfolio, totalCapital, getVolatilitySa
                 <tbody>
                     {Object.entries(
                         [...portfolio].reduce((acc, fund) => {
-                            const category = fund.classification_v2?.asset_subtype || 'SIN CLASIFICAR';
+                            const category = getFormattedTaxonomy(fund) || 'SIN CLASIFICAR';
                             if (!acc[category]) acc[category] = [];
                             acc[category].push(fund);
                             return acc;

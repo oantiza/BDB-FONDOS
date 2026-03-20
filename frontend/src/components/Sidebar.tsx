@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { doc, getDoc } from 'firebase/firestore'
 import { db } from '../firebase'
 import { getCanonicalSubtype, getCanonicalType } from '../utils/normalizer'
+import { getFormattedTaxonomy } from '../utils/taxonomyTranslators'
 
 type PresenceMap = Record<string, boolean>
 
@@ -331,7 +332,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
                     <span>{f.isin}</span>
                     <span className="text-slate-300">•</span>
                     <span className="text-slate-500 font-medium truncate" title="Clasificación V2">
-                      {getCanonicalSubtype(f) !== 'Desconocido' ? getCanonicalSubtype(f) : getCanonicalType(f)}
+                      {getFormattedTaxonomy(f)}
                     </span>
                   </div>
                 </div>

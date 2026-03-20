@@ -27,7 +27,7 @@ import numpy as np
 import pandas as pd
 import pytest
 
-from functions_python.services.quant_core import (
+from services.quant_core import (
     calculate_portfolio_metrics,
     get_covariance_matrix,
     get_expected_returns,
@@ -136,6 +136,17 @@ def _build_frontier_from_mu_S(
             continue
 
     points.sort(key=lambda p: p["x"])
+    
+    # If the solver failed to reach the maximum return (often happens at the exact upper bound),
+    # manually append the 100% distribution in the max return asset.
+    if points and points[-1]["y"] < max_ret - 1e-5:
+        max_asset = mu.idxmax()
+        points.append({
+            "x": float(np.sqrt(S.loc[max_asset, max_asset])),
+            "y": max_ret,
+            "weights": {t: 1.0 if t == max_asset else 0.0 for t in mu.index}
+        })
+    
     if len(points) < 5:
         raise AssertionError("Frontier has too few valid points")
     return points

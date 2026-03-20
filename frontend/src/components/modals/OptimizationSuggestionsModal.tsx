@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Alternative } from '../../utils/fundSwapper'
+import { getFormattedTaxonomy } from '../../utils/taxonomyTranslators';
 import { PortfolioItem } from '../../types'
 
 interface OptimizationGroup {
@@ -75,7 +76,7 @@ export default function OptimizationSuggestionsModal({ suggestions, onApply, onC
                                                 <div className="text-xs text-slate-400 flex gap-2">
                                                     <span>{original.isin}</span>
                                                     <span>•</span>
-                                                    <span>{original.classification_v2?.asset_type || 'N/A'}</span>
+                                                    <span title={original.classification_v2?.asset_subtype}>{getFormattedTaxonomy(original) || 'N/A'}</span>
                                                     <span>•</span>
                                                     <span>{original.classification_v2?.region_primary || 'N/A'}</span>
                                                 </div>

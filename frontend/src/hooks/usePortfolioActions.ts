@@ -8,12 +8,189 @@ import { findDirectAlternativesV3 } from '../utils/directSearch';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer';
 import { generateSmartPortfolioLocal } from '../utils/rulesEngine';
 import { parsePortfolioCSV } from '../utils/csvImport';
-import { Fund, PortfolioItem, SmartPortfolioResponse } from '../types';
+import { Fund, PortfolioItem, SmartPortfolioResponse, OptimizationRequest, OptimizationAsset } from '../types';
 import { calculatePortfolioPoint } from '../utils/portfolioAnalyticsEngine';
 import { MacroReport } from '../types/MacroReport';
 
 // Unwrap callable/onRequest payloads (supports {result:{...}} or direct objects)
 const unwrapResult = <T,>(x: any): T => (x && typeof x === 'object' && 'result' in x ? (x as any).result : x) as T;
+
+export type SnapshotOptions = {
+    save_snapshot?: boolean;
+    snapshot_label?: string;
+};
+
+// --- Optimization Pure Helpers ---
+
+function buildAssetMetadata(
+    portfolio: PortfolioItem[], 
+    assets: Fund[], 
+    assetUniverse: Set<string>
+): Record<string, OptimizationAsset> {
+    const assetMetadata: Record<string, OptimizationAsset> = {};
+    // 1. From Portfolio
+    portfolio.forEach(p => {
+        const fullFund = assets.find(a => a.isin === p.isin);
+        const typeRaw = fullFund?.classification_v2?.asset_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
+        assetMetadata[p.isin] = {
+            asset_class: typeRaw,
+            name: p.name
+        };
+    });
+    // 2. From Assets (for VIP/Universe not in portfolio)
+    assets.forEach(a => {
+        if (assetUniverse.has(a.isin) && !assetMetadata[a.isin]) {
+            assetMetadata[a.isin] = {
+                asset_class: a.classification_v2?.asset_type || (a as any).asset_class,
+                name: a.name
+            };
+        }
+    });
+    return assetMetadata;
+}
+
+function mapTacticalViews(
+    uiViews: Record<string, string> | undefined, 
+    assets: Fund[], 
+    assetUniverse: Set<string>, 
+    assetMetadata: Record<string, OptimizationAsset>
+): Record<string, number> {
+    const tacticalViews: Record<string, number> = {};
+    if (uiViews && Object.keys(uiViews).length > 0) {
+        Object.entries(uiViews).forEach(([viewKey, viewAction]) => {
+            if (typeof viewAction !== 'string') return;
+            const actionUpper = viewAction.toUpperCase();
+            let viewNum = 0.0;
+
+            if (actionUpper === 'SOBREPONDERAR' || actionUpper === 'POSITIVO') {
+                viewNum = 0.02;
+            } else if (actionUpper === 'INFRAPONDERAR' || actionUpper === 'NEGATIVO') {
+                viewNum = -0.02;
+            }
+
+            if (viewNum === 0.0) return;
+
+            assets.forEach(asset => {
+                if (!assetUniverse.has(asset.isin)) return;
+
+                const matchParams = [
+                    asset.classification_v2?.region_primary,
+                    asset.classification_v2?.asset_type,
+                    (assetMetadata[asset.isin] as any)?.label
+                ].map(s => s?.toLowerCase() || '');
+
+                const searchKey = viewKey.toLowerCase();
+                if (matchParams.some(param => param.includes(searchKey))) {
+                    tacticalViews[asset.isin] = viewNum;
+                }
+            });
+        });
+    }
+    return tacticalViews;
+}
+
+function buildOptimizationPayload(
+    portfolio: PortfolioItem[],
+    assets: Fund[],
+    vipFunds: string,
+    totalCapital: number,
+    riskLevel: number,
+    strategyPayload?: any,
+    uiViews?: Record<string, string>,
+    snapshotOpts?: SnapshotOptions
+): { payload: OptimizationRequest, finalSnapshotOpts: SnapshotOptions } {
+    const vipList = vipFunds.split(',').map(s => s.trim()).filter(Boolean);
+    const assetUniverse = new Set(portfolio.map(p => p.isin));
+    vipList.forEach(v => assetUniverse.add(v));
+
+    const lockedSet = new Set(portfolio.filter(p => p.manualSwap || p.isLocked).map(p => p.isin));
+    vipList.forEach(v => lockedSet.add(v));
+
+    const assetMetadata = buildAssetMetadata(portfolio, assets, assetUniverse);
+    const tacticalViews = mapTacticalViews(uiViews, assets, assetUniverse, assetMetadata);
+    
+    const isAddCapital = strategyPayload?.mode === 'add_capital';
+    const extraCap = strategyPayload?.extraCapital || 0;
+    const newTotalCapital = totalCapital + (isAddCapital ? extraCap : 0);
+
+    const fixedWeights: Record<string, number> = {};
+    portfolio.forEach(p => {
+        if (p.isLocked) {
+            if (isAddCapital && newTotalCapital > 0) {
+                const money = (p.weight / 100.0) * totalCapital;
+                fixedWeights[p.isin] = money / newTotalCapital;
+            } else {
+                fixedWeights[p.isin] = p.weight / 100.0;
+            }
+        }
+    });
+
+    const payload: OptimizationRequest = {
+        assets: Array.from(assetUniverse),
+        risk_level: riskLevel,
+        locked_assets: Array.from(lockedSet),
+        asset_metadata: assetMetadata,
+        constraints: {
+            apply_profile: true,
+            optimization_mode: 'rebalance_to_profile',
+            lock_mode: isAddCapital ? 'keep_money' : 'keep_weight',
+            fixed_weights: fixedWeights
+        }
+    };
+
+    if (Object.keys(tacticalViews).length > 0) {
+        payload.tactical_views = tacticalViews;
+    }
+
+    const finalSnapshotOpts: SnapshotOptions = { ...snapshotOpts };
+    const globalSnapshotLabel = (window as Window & { __BDB_SNAPSHOT_LABEL__?: string }).__BDB_SNAPSHOT_LABEL__;
+    if (globalSnapshotLabel) {
+        finalSnapshotOpts.save_snapshot = true;
+        finalSnapshotOpts.snapshot_label = globalSnapshotLabel;
+    }
+
+    if (finalSnapshotOpts.save_snapshot) {
+        payload.save_snapshot = finalSnapshotOpts.save_snapshot;
+    }
+    if (finalSnapshotOpts.snapshot_label) {
+        payload.snapshot_label = finalSnapshotOpts.snapshot_label;
+    }
+
+    return { payload, finalSnapshotOpts };
+}
+
+function mapOptimizationResultWeights(
+    portfolio: PortfolioItem[],
+    weights: Record<string, number>,
+    usedAssets: string[] | undefined,
+    assets: Fund[],
+    strict: boolean | undefined
+): { optimized: PortfolioItem[], hasChanges: boolean } {
+    let hasChanges = false;
+    let optimized = portfolio.map(p => {
+        const rawWeight = (weights[p.isin] || 0) * 100;
+        const newWeight = Math.round(rawWeight * 100) / 100;
+        if (Math.abs(newWeight - p.weight) > 0.5) hasChanges = true;
+        return { ...p, weight: newWeight };
+    });
+
+    if (!strict) {
+        optimized = optimized.filter(p => p.weight > 0.01);
+        if (usedAssets) {
+            const currentIsins = new Set(portfolio.map(p => p.isin));
+            usedAssets.forEach(isin => {
+                if (!currentIsins.has(isin) && (weights[isin] || 0) > 0.01) {
+                    const known = assets.find(a => a.isin === isin) || ({ isin, name: 'Fund (Auto-Added)', std_type: 'RV' } as Fund);
+                    if (known) {
+                        optimized.push({ ...known as PortfolioItem, weight: Math.round((weights[isin] || 0) * 10000) / 100 });
+                        hasChanges = true;
+                    }
+                }
+            });
+        }
+    }
+    return { optimized, hasChanges };
+}
 
 interface UsePortfolioActionsProps {
     portfolio: PortfolioItem[];
@@ -387,7 +564,7 @@ export function usePortfolioActions({
 
     const optimizationArgsRef = useRef<any>(null);
 
-    const handleOptimize = async (uiViews?: Record<string, string> | any) => {
+    const handleOptimize = async (uiViews?: Record<string, string> | any, snapshotOpts?: SnapshotOptions) => {
         if (portfolio.length === 0) {
             toast.info("Añade fondos a la cartera primero");
             return;
@@ -402,12 +579,12 @@ export function usePortfolioActions({
         const newCount = portfolio.filter(p => !p.isLocked).length;
 
         if (lockedCount > 0 && newCount > 0) {
-            optimizationArgsRef.current = uiViews;
+            optimizationArgsRef.current = { uiViews, snapshotOpts };
             toggleModal('optimizationStrategy', true);
             return;
         }
 
-        await proceedWithOptimization(uiViews, null);
+        await proceedWithOptimization(uiViews, null, snapshotOpts);
     };
 
     const handleProceedStrategy = async (strategy: 'add_capital' | 'redistribute', extraCapital: number) => {
@@ -415,128 +592,22 @@ export function usePortfolioActions({
         if (strategy === 'add_capital' && extraCapital > 0) {
             setTotalCapital(totalCapital + extraCapital);
         }
-        await proceedWithOptimization(optimizationArgsRef.current, { mode: strategy, extraCapital });
+        const savedArgs = optimizationArgsRef.current || {};
+        await proceedWithOptimization(savedArgs.uiViews, { mode: strategy, extraCapital }, savedArgs.snapshotOpts);
     };
 
-    const proceedWithOptimization = async (uiViews?: Record<string, string> | any, strategyPayload?: any | null) => {
+    const proceedWithOptimization = async (uiViews?: Record<string, string> | any, strategyPayload?: any | null, snapshotOpts?: SnapshotOptions) => {
 
         setIsOptimizing(true);
         try {
             const optimizeFn = httpsCallable(functions, 'optimize_portfolio_quant');
-
-
-
-            // Parse VIP Funds
-            const vipList = vipFunds.split(',').map(s => s.trim()).filter(Boolean);
-
-            // Prepare Asset Universe (Portfolio + VIPs)
-            const assetUniverse = new Set(portfolio.map(p => p.isin));
-            vipList.forEach(v => assetUniverse.add(v));
-
-            // Prepare Locked Assets (Manual Swaps + VIPs + isLocked)
-            const lockedSet = new Set(portfolio.filter(p => p.manualSwap || p.isLocked).map(p => p.isin));
-            vipList.forEach(v => lockedSet.add(v));
-
-            // --- BUILD METADATA FOR BACKEND ---
-            // Fixes issue where backend doesn't know the category of frontend-only funds (e.g. CSV).
-            // We ONLY pass raw classes from the frontend and avoid fuzzy overwriting DB truth.
-            const assetMetadata: Record<string, any> = {};
-            // 1. From Portfolio
-            portfolio.forEach(p => {
-                const fullFund = assets.find(a => a.isin === p.isin);
-                const typeRaw = fullFund?.classification_v2?.asset_type || (p as any).std_type || (p as any).category || (p as any).asset_class;
-                assetMetadata[p.isin] = {
-                    // We only provide a generic label if it's strictly one of our known types, 
-                    // otherwise let backend derive it from db.
-                    asset_class: typeRaw,
-                    name: p.name
-                };
-            });
-            // 2. From Assets (for VIP/Universe not in portfolio)
-            assets.forEach(a => {
-                if (assetUniverse.has(a.isin) && !assetMetadata[a.isin]) {
-                    assetMetadata[a.isin] = {
-                        asset_class: a.classification_v2?.asset_type || (a as any).asset_class,
-                        name: a.name
-                    };
-                }
-            });
-
-            // --- TRANSLATE TACTICAL VIEWS FOR BLACK-LITTERMAN ---
-            const tacticalViews: Record<string, number> = {};
-            if (uiViews && Object.keys(uiViews).length > 0) {
-                Object.entries(uiViews).forEach(([viewKey, viewAction]) => {
-                    if (typeof viewAction !== 'string') return;
-                    const actionUpper = viewAction.toUpperCase();
-                    let viewNum = 0.0;
-
-                    if (actionUpper === 'SOBREPONDERAR' || actionUpper === 'POSITIVO') {
-                        viewNum = 0.02;
-                    } else if (actionUpper === 'INFRAPONDERAR' || actionUpper === 'NEGATIVO') {
-                        viewNum = -0.02;
-                    }
-
-                    if (viewNum === 0.0) return; // Skip NEUTRAL or others
-
-                    // Apply view to funds matching the region or asset class
-                    assets.forEach(asset => {
-                        if (!assetUniverse.has(asset.isin)) return;
-
-                        const matchParams = [
-                            asset.classification_v2?.region_primary,
-                            asset.classification_v2?.asset_type,
-                            assetMetadata[asset.isin]?.label
-                        ].map(s => s?.toLowerCase() || '');
-
-                        const searchKey = viewKey.toLowerCase();
-
-                        // Check if any of the asset parameters include the viewKey
-                        if (matchParams.some(param => param.includes(searchKey))) {
-                            tacticalViews[asset.isin] = viewNum;
-                        }
-                    });
-                });
-            }
-            // Calculate Fixed Weights for locked assets
-            const fixedWeights: Record<string, number> = {};
-            const isAddCapital = strategyPayload?.mode === 'add_capital';
-            const extraCap = strategyPayload?.extraCapital || 0;
-            const newTotalCapital = totalCapital + (isAddCapital ? extraCap : 0);
-
-            portfolio.forEach((p, idx) => {
-                if (p.isLocked) {
-                    if (isAddCapital && newTotalCapital > 0) {
-                        const money = (p.weight / 100.0) * totalCapital;
-                        fixedWeights[p.isin] = money / newTotalCapital;
-                    } else {
-                        fixedWeights[p.isin] = p.weight / 100.0;
-                    }
-                }
-            });
-
-            const payload: any = {
-                assets: Array.from(assetUniverse),
-                risk_level: riskLevel,
-                locked_assets: Array.from(lockedSet),
-                asset_metadata: assetMetadata,
-                constraints: {
-                    apply_profile: true,
-                    optimization_mode: 'rebalance_to_profile',
-                    lock_mode: isAddCapital ? 'keep_money' : 'keep_weight',
-                    fixed_weights: fixedWeights
-                }
-            };
-
-            // Force objective to min_deviation target block
-
-
-            if (Object.keys(tacticalViews).length > 0) {
-                payload.tactical_views = tacticalViews;
-            }
+            const { payload, finalSnapshotOpts } = buildOptimizationPayload(
+                portfolio, assets, vipFunds, totalCapital, riskLevel, strategyPayload, uiViews, snapshotOpts
+            );
 
             const response = await optimizeFn(payload);
             const result = unwrapResult<SmartPortfolioResponse>(response.data);
-            processOptimizationResult(result, optimizeFn);
+            processOptimizationResult(result, optimizeFn, { snapshotOpts: finalSnapshotOpts });
 
         } catch (error: any) {
             toast.error("Error crítico al contactar el servidor: " + error.message);
@@ -548,38 +619,11 @@ export function usePortfolioActions({
 
 
     // Helper to avoid duplication
-    const processOptimizationResult = async (result: SmartPortfolioResponse, optimizeFn: any, options?: { strict?: boolean }) => {
+    const processOptimizationResult = async (result: SmartPortfolioResponse, optimizeFn: any, options?: { strict?: boolean; snapshotOpts?: SnapshotOptions }) => {
         if (result.status === 'optimal' || result.status === 'fallback') {
-            const weights = result.weights || {};
-            let hasChanges = false;
-
-            // MAP Weights
-            let optimized = portfolio.map(p => {
-                const rawWeight = (weights[p.isin] || 0) * 100;
-                const newWeight = Math.round(rawWeight * 100) / 100;
-                if (Math.abs(newWeight - p.weight) > 0.5) hasChanges = true;
-                return { ...p, weight: newWeight };
-            });
-
-            // FILTER removal (Only if NOT strict)
-            if (!options?.strict) {
-                optimized = optimized.filter(p => p.weight > 0.01);
-            }
-
-            // ADD new funds (Only if NOT strict)
-            if (!options?.strict && result.used_assets) {
-                const currentIsins = new Set(portfolio.map(p => p.isin));
-                result.used_assets.forEach(isin => {
-                    if (!currentIsins.has(isin) && (weights[isin] || 0) > 0.01) {
-                        // Fetch basic info if possible or use minimal placeholder
-                        const known = assets.find(a => a.isin === isin) || ({ isin, name: 'Fund (Auto-Added)', std_type: 'RV' } as Fund);
-                        if (known) {
-                            optimized.push({ ...known, weight: Math.round((weights[isin] || 0) * 10000) / 100 });
-                            hasChanges = true;
-                        }
-                    }
-                });
-            }
+            const { optimized, hasChanges } = mapOptimizationResultWeights(
+                portfolio, result.weights || {}, result.used_assets, assets, options?.strict
+            );
 
             if (!hasChanges) {
                 toast.success("✅ La cartera ya está optimizada.");
@@ -605,14 +649,17 @@ export function usePortfolioActions({
                     });
                 }
 
-                const response2 = await optimizeFn({
+                const retryPayload: any = {
                     assets: expandedAssets,
                     risk_level: riskLevel,
-                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
-                    // No need for auto_expand_universe because we explicitly appended the ISINs
-                });
+                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
+                };
+                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+
+                const response2 = await optimizeFn(retryPayload);
                 const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
-                processOptimizationResult(result2, optimizeFn);
+                processOptimizationResult(result2, optimizeFn, options);
             } else {
                 toast.info("Optimización cancelada.");
             }
@@ -626,14 +673,18 @@ export function usePortfolioActions({
                 toast.info("🔄 Auto-completando cartera con fondos de RV...");
                 // Note: The python backend might still expect `auto_expand_universe` for this specific fallback
                 // but ideally this should also be migrated to explicit lists in the future.
-                const response2 = await optimizeFn({
+                const retryPayload: any = {
                     assets: portfolio.map(p => p.isin),
                     risk_level: riskLevel,
                     locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
                     auto_expand_universe: true
-                });
+                };
+                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+
+                const response2 = await optimizeFn(retryPayload);
                 const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
-                processOptimizationResult(result2, optimizeFn);
+                processOptimizationResult(result2, optimizeFn, options);
             } else {
                 toast.info("Optimización cancelada por falta de RV.");
             }
@@ -647,14 +698,18 @@ export function usePortfolioActions({
 
             if (window.confirm(msg)) {
                 toast.info("🔄 Reintentando con fondos base...");
-                const response3 = await optimizeFn({
+                const retryPayload: any = {
                     assets: portfolio.map(p => p.isin),
                     risk_level: riskLevel,
                     locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
                     auto_expand_universe: true
-                });
+                };
+                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+
+                const response3 = await optimizeFn(retryPayload);
                 const result3 = unwrapResult<SmartPortfolioResponse>(response3.data);
-                processOptimizationResult(result3, optimizeFn);
+                processOptimizationResult(result3, optimizeFn, options);
             }
         } else {
             toast.error("Error en la optimización: " + (result.warnings?.[0] || 'Desconocido'));

@@ -33,19 +33,19 @@ export function calculatePortfolioPoint(
 
         for (let i = 0; i < size; i++) {
             const isin = orderedIsins[i];
-            const weightRaw = manualWeights[isin] || 0;
-            // Since the next step explicitly forces all weights to sum to 1.0, 
-            // no conditional scaling is needed. Scale differences like 99 and 1 
-            // vs 0.99 and 0.01 will be mathematically equalized correctly.
+            const weightRaw = Math.max(0, manualWeights[isin] || 0);
+            totalWeight += weightRaw;
             w[i] = weightRaw;
-            totalWeight += w[i];
         }
 
-        if (totalWeight <= 0) return null;
+        if (totalWeight <= 0) {
+            return { x: 0, y: 0 };
+        }
 
-        // Maintain raw interactive scale to match backend.
-        // If the user inputs 25%, 25% (total 50%), the point should reflect 50% scale,
-        // rather than mutating to 50%/50% internally which would inflate risk/return artificially.
+        // Normalize weights strictly to sum 1.0
+        for (let i = 0; i < size; i++) {
+            w[i] = w[i] / totalWeight;
+        }
 
         // 2. Calculate Portfolio Return (W^T * Mu)
         let portfolioReturn = 0;

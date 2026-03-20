@@ -25,6 +25,7 @@ function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
   const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT' | 'COMPARATOR' | 'ANALYTICS'>('DASHBOARD')
   const [configError, setConfigError] = useState<string | null>(null)
+  const [isSyncingRiskProfiles, setIsSyncingRiskProfiles] = useState(true)
 
   // Lifted State
   const portfolioState = usePortfolio()
@@ -54,6 +55,8 @@ function App() {
       } catch (error: any) {
         console.error("⚠️ [App] Error fetching risk profiles from DB:", error);
         setConfigError(error.message || "No se pudieron cargar los perfiles de riesgo del sistema.");
+      } finally {
+        setIsSyncingRiskProfiles(false);
       }
     };
     fetchRiskProfiles();
@@ -86,6 +89,15 @@ function App() {
 
     if (!isAuthenticatedLocal) {
       return <Login key="login" onLogin={handleLogin} />
+    }
+
+    if (isSyncingRiskProfiles) {
+      return (
+        <div key="syncing" className="h-screen w-full flex flex-col items-center justify-center bg-slate-50">
+          <div className="w-12 h-12 border-4 border-slate-200 border-t-emerald-500 rounded-full animate-spin mb-4"></div>
+          <p className="text-slate-600 font-medium">Sincronizando parámetros de riesgo...</p>
+        </div>
+      )
     }
 
     if (activeView === 'MIBOUTIQUE') {

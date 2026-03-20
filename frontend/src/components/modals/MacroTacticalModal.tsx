@@ -18,46 +18,48 @@ export default function MacroTacticalModal({ portfolio, allFunds = [], numFunds 
 
     const [total, setTotal] = useState(0)
 
-    // Helper para clasificar activos (Robustecida con campos normalizados V3)
+    // Helper para clasificar activos (Robustecida con campos normativos V2)
     const classifyAsset = (asset: any) => {
-        const type = (asset.derived?.asset_class || asset.std_type || 'Mixto');
-        const region = (asset.derived?.primary_region || asset.std_region || 'all');
-        const category = (asset.ms?.category_morningstar || '').toLowerCase();
+        const c_v2 = asset.classification_v2 || {};
+        const type = c_v2.asset_type || 'MIXED';
+        const subtype = c_v2.asset_subtype || '';
+        const region = c_v2.region_primary || 'GLOBAL';
         const name = (asset.name || '').toLowerCase();
 
         // 1. ALTERNATIVOS / COMMODITIES
-        if (type === 'Commodities' || type === 'Alternativos' || type === 'Retorno Absoluto' || category.includes('common') || category.includes('materias')) {
+        if (type === 'COMMODITIES' || type === 'ALTERNATIVES') {
             return 'commodities';
         }
 
         // 2. MONETARIO
-        if (type === 'Monetario' || category.includes('money market') || category.includes('liquidez')) {
+        if (type === 'MONEY_MARKET') {
             return 'rf_money';
         }
 
         // 3. RENTA VARIABLE
-        if (type === 'RV' || type === 'Equity' || category.includes('rv ') || category.includes('equity')) {
+        if (type === 'EQUITY') {
             // Sectorial check (High priority)
-            if (create_regex('tech|tecnolog|health|salud|energy|energi|real estate|inmobiliari|gold|oro|robot|ai|cyber|ciber|fintech|bio|farm').test(category) ||
+            if (subtype === 'SECTOR_EQUITY' ||
                 create_regex('tech|tecnolog|health|salud|energy|energi|real estate|inmobiliari|gold|oro|robot|ai|cyber|ciber|fintech|bio|farm').test(name)) {
                 return 'rv_sector';
             }
 
-            // Region direct mapping based on V3 normalized keys
-            if (region === 'united_states') return 'rv_usa';
-            if (region === 'eurozone') return 'rv_eurozone';
-            if (region === 'europe_ex_euro' || region === 'united_kingdom') return 'rv_europe_ex';
-            if (region === 'china' || region === 'japan') return 'rv_china'; // Japan usually Asia, grouping for simplicity in macro or expand
-            if (region === 'asia_emerging' || region === 'developed_asia') return 'rv_asia_em';
-            if (region === 'latin_america') return 'rv_latam';
+            // Region mapping based on V2 taxonomy
+            const r = region.toUpperCase();
+            if (r === 'NORTH_AMERICA' || r === 'UNITED_STATES') return 'rv_usa';
+            if (r === 'EUROZONE') return 'rv_eurozone';
+            if (r === 'EUROPE' || r === 'EUROPE_EX_UK' || r === 'UNITED_KINGDOM') return 'rv_europe_ex';
+            if (r === 'ASIA_DEVELOPED' || r === 'JAPAN' || r === 'CHINA') return 'rv_china'; // Japan usually Asia, grouping for simplicity in macro or expand
+            if (r === 'ASIA_EMERGING') return 'rv_asia_em';
+            if (r === 'LATIN_AMERICA') return 'rv_latam';
 
             return 'rv_global';
         }
 
         // 4. RENTA FIJA
-        if (type === 'RF' || type === 'Fixed Income') {
-            if (category.includes('high yield') || name.includes('high yield') || name.includes('hy')) return 'rf_hy';
-            if (category.includes('government') || category.includes('publica') || name.includes('gov') || name.includes('tesoro')) return 'rf_gov';
+        if (type === 'FIXED_INCOME') {
+            if (subtype === 'HIGH_YIELD' || name.includes('high yield') || name.includes('hy')) return 'rf_hy';
+            if (subtype === 'GOVERNMENT' || name.includes('gov') || name.includes('tesoro')) return 'rf_gov';
             return 'rf_corp';
         }
 

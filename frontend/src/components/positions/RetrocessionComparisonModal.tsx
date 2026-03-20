@@ -1,5 +1,6 @@
 import React from 'react';
 import { X, TrendingUp } from 'lucide-react';
+import { getFormattedTaxonomy } from '../../utils/taxonomyTranslators';
 
 interface ComparisonModalProps {
     isOpen: boolean;
@@ -169,11 +170,11 @@ export const RetrocessionComparisonModal: React.FC<ComparisonModalProps> = ({ is
                                                     <div className="bg-emerald-50/50 p-2.5 rounded-lg border border-emerald-50 space-y-1.5">
                                                         <div className="flex justify-between text-xs">
                                                             <span className="text-slate-500">Categoría</span>
-                                                            <span className="text-slate-700 font-medium truncate max-w-[100px]">{alt.category_morningstar || alt.std_type}</span>
+                                                            <span className="text-slate-700 font-medium max-w-[120px] text-right" title={alt.classification_v2?.asset_subtype}>{getFormattedTaxonomy(alt) || '--'}</span>
                                                         </div>
                                                         <div className="flex justify-between text-xs">
                                                             <span className="text-slate-500">Región</span>
-                                                            <span className="text-slate-700 font-medium truncate max-w-[100px]">{alt.primary_region || alt.std_region}</span>
+                                                            <span className="text-slate-700 font-medium truncate max-w-[100px]">{alt.classification_v2?.region_primary || '--'}</span>
                                                         </div>
                                                         <div className="flex justify-between text-xs pt-1 border-t border-emerald-100 items-center">
                                                             <span className="text-slate-500">Rating</span>

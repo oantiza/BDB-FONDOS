@@ -1,7 +1,7 @@
 import os
 
 # ==========================================
-# CONFIGURACIÓN GLOBAL
+# 0) INFRASTRUCTURE & CREDENTIALS
 # ==========================================
 BENCHMARK_RF_ISIN = "IE00B18GC888"
 BENCHMARK_RV_ISIN = "IE00B03HCZ61"
@@ -17,14 +17,25 @@ if not EODHD_API_KEY:
     pass
 
 BUCKET_NAME = "bdb-fondos.firebasestorage.app"
-TRADING_DAYS = 252
-RISK_FREE_RATE = 0.03
 PRICE_CACHE = {}
 
 # ==========================================
-# OPTIMIZACIÓN (PARÁMETROS CANÓNICOS)
+# 1) QUANT DEFAULTS (Technical Truth)
 # ==========================================
-# Límite máximo por activo (Perfil B / producción)
+# [PRECEDENCIA CANÓNICA]: Nivel 4 - Entorno Matemático.
+# Estas constantes definen la física del motor (Días, Tasa libre de riesgo).
+# Autoridad total del backend, NO DEBEN ser sobreescritas por Firestore ni UI.
+TRADING_DAYS = 252
+RISK_FREE_RATE = 0.03
+
+# ==========================================
+# 2) SOLVER DEFAULTS (Technical Truth / Fallback Policy)
+# ==========================================
+# [PRECEDENCIA CANÓNICA]: Nivel 4 - Contornos Algorítmicos Base.
+# Parámetros técnicos para pypfopt. Representan la política de caídas (fallbacks) 
+# y estabilidad. NO DEBEN guiarse por reglas de negocio de Firestore.
+
+# Límite máximo por activo para evitar concentración excesiva
 MAX_WEIGHT_DEFAULT = 0.20
 
 # Cutoff de limpieza de pesos (elimina "polvo" pero mantiene diversificación)
@@ -33,8 +44,16 @@ CUTOFF_DEFAULT = 0.02
 # Mínimo de activos con peso > 0 para considerar la solución "estable"
 MIN_ASSETS_DEFAULT = 8
 
-# Perfil B agresivo (mixtos permitidos por su equity real: metrics.equity)
-# equity_floor define el % mínimo de renta variable (equity) ponderado por pesos.
+# ==========================================
+# 3) PROFILE POLICY DEFAULTS (DB Seed Only)
+# ==========================================
+# [PRECEDENCIA CANÓNICA]: Nivel 3 - Contornos de Negocio.
+# NOTA CRÍTICA: La ÚNICA FUENTE DE VERDAD REAL para la política de perfiles es FIRESTORE.
+# Estas variables (EQUITY_FLOOR, BOND_CAP, CASH_CAP, RISK_TARGETS) actúan SOLAMENTE COMO SEED 
+# (semilla estática) en caso de fallo de lectura o BD vacía. 
+# Ninguna decisión final de negocio debería depender de modificar estas líneas a largo plazo.
+
+# equity_floor define el % mínimo de renta variable (equity) ponderado por pesos. (SEED)
 EQUITY_FLOOR = {
     1: 0.05,
     2: 0.10,
@@ -48,11 +67,11 @@ EQUITY_FLOOR = {
     10: 0.98,
 }
 
-# Caps opcionales (recomendados para perfiles altos).
+# Caps opcionales sugeridos para perfiles altos. (SEED)
 BOND_CAP = {8: 0.25, 9: 0.18, 10: 0.00}
 CASH_CAP = {8: 0.12, 9: 0.10, 10: 0.02}
 
-# Definimos explícitamente qué volatilidad anual buscar para cada perfil.
+# Volatilidad anual explícita objetivo para cada perfil. (SEED)
 RISK_TARGETS = {
     1: 0.025,
     2: 0.045,
@@ -67,9 +86,11 @@ RISK_TARGETS = {
 }
 
 # ==========================================
-# NEW: BUCKET LOGIC V3 (Label-Based Constraints)
-# Matches Frontend 'rulesEngine.ts' exactly.
+# 4) ASSET ALLOCATION BUCKETS (DB Seed Only)
 # ==========================================
+# [PRECEDENCIA CANÓNICA]: Nivel 3 - Contornos de Negocio.
+# Misma regla: FIRESTORE MANDA. Esto es inicialización.
+# Matches Frontend 'rulesEngine.ts' exactly.
 # Keys must match normalized labels in optimization logic
 RISK_BUCKETS_LABELS = {
     1: {

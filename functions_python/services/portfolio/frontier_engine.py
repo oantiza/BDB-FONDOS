@@ -9,8 +9,16 @@ from .utils import apply_market_proxy_backfill
 
 def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period="3y"):
     """
-    Calcula puntos de la Frontera Eficiente y métricas de activos individuales.
-    Allows optional portfolio_weights {isin: weight} to calculate specific portfolio point.
+    [MATHEMATICAL CONVENTIONS & INTEGRATION]
+    Generates Efficient Frontier points and asset metrics for UI plotting.
+    
+    1. Base Data: Daily prices (resample_freq="D"), strictly truncated to common 
+       history (Pairwise alignment) according to `period` window.
+    2. Expected Returns: Uses canonical `method="mean"` (Arithmetic) via `quant_core`.
+    3. Covariance: Uses canonical `get_covariance_matrix` via `quant_core` (Ledoit-Wolf 
+       shrinkage with exact symmetry enforcement).
+    4. Black-Litterman is NOT applied here (Frontier is objective, BL is subjective).
+    5. Portfolio Point: Calculated via `quant_core` for exact coherence with optimizer.
     """
     try:
         logger.info(
@@ -69,21 +77,14 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             f"📈 [Senior EF] Data Processed. Shape: {df.shape}, Assets: {list(df.columns)}"
         )
 
-        # 2. Canonical Math Engine (mean/sample_cov)
+        # 2. Canonical Math Engine
         from services.quant_core import get_expected_returns, get_covariance_matrix
         
+        # [CONVENTION] Method 'mean' (Arithmetic) matches current optimizer logic
         mu = get_expected_returns(df, method="mean")
 
-        # ⚡ SENIOR FIX: Covariance logic (Shrinkage vs Sample) now handled in quant_core
-        try:
-            S = get_covariance_matrix(df)
-        except Exception as cov_err:
-            logger.warning(
-                f"⚠️ [Senior EF] Canonical covariance failed, falling back: {cov_err}"
-            )
-            from pypfopt import risk_models
-            S = risk_models.sample_cov(df, frequency=252)
-            S = risk_models.fix_nonpositive_semidefinite(S)
+        # [CONVENTION] quant_core already handles Shrinkage fallback and guarantees Symmetry
+        S = get_covariance_matrix(df)
 
         logger.info(
             f"✅ [Senior EF] Inputs ready. Mu Range: [{mu.min():.4f}, {mu.max():.4f}]"
@@ -207,25 +208,23 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             except:
                 continue
 
-        # 5. CURRENT PORTFOLIO POINT (Manual Fix - Absolute Coherence)
-        # Calculate (x,y) using EXACT same data pipeline and current weights
+        # 5. CURRENT PORTFOLIO POINT (Canonical Math Engine)
         portfolio_point = None
         if portfolio_weights:
             try:
-                # Create weight vector aligned with df columns
-                w_list = [float(portfolio_weights.get(col, 0)) for col in df.columns]
-                w_total = sum(w_list)
-                if w_total > 0:
-                    w_arr = np.array([w / w_total for w in w_list])  # Normalize weights
-
-                    # Fix Coords Formula (Daily historical basis)
-                    port_ret = float(np.sum(w_arr * mu))
-                    port_vol = float(np.sqrt(w_arr.T @ S.values @ w_arr))
-
-                    portfolio_point = {"x": round(port_vol, 4), "y": round(port_ret, 4)}
-                    logger.info(f"✅ [Senior EF] Coherent Point: {portfolio_point}")
+                from services.quant_core import calculate_portfolio_metrics
+                
+                # Normalize weights to sum exactly 1.0 before calculation
+                raw_total = sum(float(w) for w in portfolio_weights.values())
+                if raw_total > 0:
+                    norm_weights = {k: float(v)/raw_total for k, v in portfolio_weights.items()}
+                    
+                    # rf_rate relies on 0.0 for pure plot coordinates without excess return translation
+                    metrics = calculate_portfolio_metrics(norm_weights, mu, S, rf_rate=0.0)
+                    portfolio_point = {"x": round(metrics["volatility"], 4), "y": round(metrics["return"], 4)}
+                    logger.info(f"✅ [Senior EF] Coherent Point via quant_core: {portfolio_point}")
             except Exception as e_p:
-                logger.info(f"⚠️ Portfolio point calc failed: {e_p}")
+                logger.warning(f"⚠️ Portfolio point calc failed: {e_p}")
 
         result = {
             "frontier": frontier_points,

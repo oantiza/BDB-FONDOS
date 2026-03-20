@@ -15,8 +15,8 @@ export default function FixedIncomeDistribution({ portfolio = [] }: { portfolio?
         portfolio.forEach((p: any) => {
             const w = p.weight;
             const hasMetrics = p.std_extra?.duration > 0 || p.std_extra?.effective_maturity > 0;
-            const type = (p.std_type || '').toUpperCase();
-            const isRfLike = type.includes('RF') || type.includes('FIXED') || type.includes('LIQUI') || type.includes('MONETARIO') || type.includes('MIXTO');
+            const type = (p.classification_v2?.asset_type || '').toUpperCase();
+            const isRfLike = type === 'FIXED_INCOME' || type === 'MONEY_MARKET' || type === 'MIXED';
 
             const rawD = p.std_extra?.duration;
             const d = (typeof rawD === 'number' ? rawD : parseFloat(String(rawD || 0)));
@@ -31,7 +31,7 @@ export default function FixedIncomeDistribution({ portfolio = [] }: { portfolio?
 
             if (isRfLike || hasMetrics) {
                 totalRfWeight += w;
-                const cat = (p.std_extra?.category || '').toLowerCase();
+                const cat = (p.classification_v2?.asset_subtype || '').toLowerCase();
                 const name = (p.name || '').toLowerCase();
                 const text = cat + ' ' + name;
 

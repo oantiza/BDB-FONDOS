@@ -10,7 +10,7 @@ export default function StyleAnalytics({ portfolio = [] }: { portfolio?: any[] }
         };
 
         // 1. Estilo y Cap
-        const dominantCategory = portfolio[0]?.std_extra?.category || '';
+        const dominantCategory = portfolio[0]?.classification_v2?.asset_subtype || '';
         let style = 'Blend';
         let cap = 'Large';
         if (dominantCategory.includes('Value')) style = 'Value';
@@ -61,7 +61,8 @@ export default function StyleAnalytics({ portfolio = [] }: { portfolio?: any[] }
             if (['AAA', 'AA', 'A'].some(x => cq.includes(x))) score = 3;
             else if (['BB', 'B', 'CCC'].some(x => cq.includes(x)) || cq.includes('High Yield')) score = 1;
 
-            if (p.std_type === 'RF' || p.std_type === 'Fixed Income') {
+            const type = (p.classification_v2?.asset_type || '').toUpperCase();
+            if (type === 'FIXED_INCOME' || type === 'MONEY_MARKET') {
                 creditScore += score * w;
                 totalCreditWeight += w;
             }
@@ -88,8 +89,8 @@ export default function StyleAnalytics({ portfolio = [] }: { portfolio?: any[] }
         const defensive = ['Consumer Defensive', 'Healthcare', 'Utilities'];
 
         portfolio.forEach((p: any) => {
-            const rawType = (p.std_type || '').toUpperCase();
-            if (rawType === 'RV' || rawType === 'EQUITY' || rawType === 'MIXTO' || rawType === 'MIXED') {
+            const rawType = (p.classification_v2?.asset_type || '').toUpperCase();
+            if (rawType === 'EQUITY' || rawType === 'MIXED') {
                 const w = p.weight;
                 totalRvWeight += w;
                 if (p.sectors && Array.isArray(p.sectors) && p.sectors.length > 0) {
@@ -129,11 +130,11 @@ export default function StyleAnalytics({ portfolio = [] }: { portfolio?: any[] }
         let totalRfWeight = 0;
 
         portfolio.forEach((p: any) => {
-            const rawType = (p.std_type || '').toUpperCase();
-            if (rawType === 'RF' || rawType === 'FIXED INCOME' || rawType === 'FIXED_INCOME' || rawType === 'MONETARIO' || rawType === 'MONETARY') {
+            const rawType = (p.classification_v2?.asset_type || '').toUpperCase();
+            if (rawType === 'FIXED_INCOME' || rawType === 'MONEY_MARKET') {
                 const w = p.weight;
                 totalRfWeight += w;
-                const cat = (p.std_extra?.category || '').toLowerCase();
+                const cat = (p.classification_v2?.asset_subtype || '').toLowerCase();
                 let label = 'Diversos';
 
                 if (cat.includes('gov') || cat.includes('public')) label = 'Gobierno';

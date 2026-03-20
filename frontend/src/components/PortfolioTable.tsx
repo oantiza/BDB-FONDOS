@@ -1,4 +1,5 @@
 import { PortfolioItem } from '../types';
+import { getFormattedTaxonomy } from '../utils/taxonomyTranslators';
 
 interface PortfolioTableProps {
     assets?: any[];
@@ -63,8 +64,8 @@ export default function PortfolioTable({
                                             {asset.name}
                                         </span>
 
-                                        <span className="text-[#0B2545] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#0B2545]/10 px-1.5 py-0.5 rounded">
-                                            {asset.std_type || 'General'}
+                                        <span className="text-[#0B2545] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#0B2545]/10 px-1.5 py-0.5 rounded" title={asset.classification_v2?.asset_subtype}>
+                                            {getFormattedTaxonomy(asset)}
                                         </span>
                                     </div>
                                 </td>

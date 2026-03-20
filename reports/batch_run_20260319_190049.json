@@ -1,0 +1,18 @@
+{
+  "run_id": "run_20260319_190049",
+  "mode": "dry-run",
+  "started_at": "2026-03-19T19:00:49.555865+00:00",
+  "total_read": 30,
+  "processed": 30,
+  "updated": 0,
+  "skipped": 0,
+  "errors": 0,
+  "error_isins": [],
+  "asset_type_dist": {
+    "FIXED_INCOME": 9,
+    "EQUITY": 8,
+    "REAL_ESTATE": 1,
+    "MIXED": 12
+  },
+  "finished_at": "2026-03-19T19:00:50.387942+00:00"
+}
