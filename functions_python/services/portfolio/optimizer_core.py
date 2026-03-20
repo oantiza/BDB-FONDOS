@@ -207,10 +207,10 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
     if tactical_views:
         logger.info("👁️ [Optimizer] Tactical Views Detected. Applying Black-Litterman...")
         try:
-            from services.financial_engine import FinancialEngine
+            from services.quant_core import apply_black_litterman
             valid_views = {k: v for k, v in tactical_views.items() if k in universe}
             if valid_views:
-                mu, S = FinancialEngine.black_litterman_optimization(
+                mu, S = apply_black_litterman(
                     df_prices=df, market_caps=mcaps, views=valid_views
                 )
                 S = risk_models.fix_nonpositive_semidefinite(S)

@@ -197,9 +197,18 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             logger.info("ℹ️ Challenger Logic DISABLED by default (Weight-Only Optimization)")
 
         # =====================================================================
-        # FASE 3: CONSTRUCCIÓN CANÓNICA DE METADATA
+        # FASE 3: CONSTRUCCIÓN CANÓNICA DE METADATA Y TELEMETRÍA 
         # =====================================================================
         asset_metadata = _build_asset_metadata(db, assets_list, req_data.get("asset_metadata", {}))
+
+        telemetry = {
+            "total_requested": len(assets_list),
+            "v2_fully_compliant": sum(1 for a in asset_metadata.values() if a.get("classification_v2") and a.get("portfolio_exposure_v2")),
+            "v2_partial": sum(1 for a in asset_metadata.values() if bool(a.get("classification_v2")) ^ bool(a.get("portfolio_exposure_v2"))),
+            "legacy_fallback_only": sum(1 for a in asset_metadata.values() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")),
+            "legacy_assets": [k for k, a in asset_metadata.items() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")]
+        }
+        logger.info(f"📊 Taxonomy Telemetry: {telemetry}")
 
         # =====================================================================
         # FASE 4: DEFINICIÓN DE RESTRICCIONES EFECTIVAS (Compatibilidad)
@@ -221,6 +230,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             tactical_views=tactical_views,
         )
         result["api_version"] = result.get("api_version", "optimize_quant_v4")
+        result["taxonomy_telemetry"] = telemetry
 
         # --- SNAPSHOT INSTRUMENTATION ---
         save_snapshot = req_data.get("save_snapshot") is True or bool(req_data.get("snapshot_label"))
@@ -257,7 +267,8 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
                         "expected_return": result.get("metrics", {}).get("return", 0),
                         "volatility": result.get("metrics", {}).get("volatility", 0),
                         "sharpe": result.get("metrics", {}).get("sharpe", 0),
-                        "applied_constraints": result.get("explainability", {}).get("applied_constraints", {})
+                        "applied_constraints": result.get("explainability", {}).get("applied_constraints", {}),
+                        "taxonomy_telemetry": telemetry
                     }
                 }
                 snapshot_ref.set(snapshot)

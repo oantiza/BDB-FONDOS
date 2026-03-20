@@ -71,10 +71,16 @@ function mapToCanonicalAssetClass(val: string): string {
 export function getCanonicalAssetClass(fund: any): string {
   if (!fund) return 'UNKNOWN';
 
-  const val = resolveCanonicalAssetClassV2(fund) || resolveLegacyAssetClassFallback(fund);
-  if (!val) return 'UNKNOWN';
+  const v2 = resolveCanonicalAssetClassV2(fund);
+  if (v2) return mapToCanonicalAssetClass(v2);
 
-  return mapToCanonicalAssetClass(val);
+  const legacy = resolveLegacyAssetClassFallback(fund);
+  if (legacy) {
+    console.warn(`[Taxonomy Telemetry] Fallback used for Asset Class. Fund ISIN: ${fund.isin || 'Unknown'}`);
+    return mapToCanonicalAssetClass(legacy);
+  }
+
+  return 'UNKNOWN';
 }
 
 // ==========================================

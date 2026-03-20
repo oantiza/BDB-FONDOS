@@ -73,11 +73,63 @@ def get_expected_returns(df_prices: pd.DataFrame, frequency=TRADING_DAYS_PER_YEA
 # =============================================================================
 # 3. BLACK-LITTERMAN HELPERS
 # =============================================================================
-# TODO: Black-Litterman optimization currently resides in `services.financial_engine.FinancialEngine`.
-# To consolidate quantitative truth natively, those methods (market priors, view blending)
-# should eventually be migrated here, disconnecting them from objective constraints building.
 
+from pypfopt import black_litterman
 
+def apply_black_litterman(
+    df_prices: pd.DataFrame,
+    market_caps: dict,
+    views: dict,
+    confidences: dict = None,
+    risk_aversion: float = None,
+) -> tuple[pd.Series, pd.DataFrame]:
+    """
+    Canonical Black-Litterman Model blending market priors with subjective views.
+    
+    Convention:
+    - Calculates the prior covariance matrix using the canonical method.
+    - If risk_aversion is omitted, falls back to the theoretical heuristic of 2.5
+      (since input dataframes often lack a true market proxy to calculate implied risk aversion).
+    - Views are treated as relative magnitude tilts (e.g., +0.02 / -0.02) over the absolute market prior.
+    - If valid confidences are provided, defaults to Idzorek's method to resolve Omega.
+    
+    Output: Tuple of (Posterior Expected Returns, Posterior Covariance Matrix).
+    """
+    # 1. Market Priors
+    S = get_covariance_matrix(df_prices)
+
+    delta = 2.5 if risk_aversion is None else risk_aversion
+
+    mcaps = pd.Series(market_caps)
+    pi = black_litterman.market_implied_prior_returns(mcaps, delta, S)
+
+    # 2. Integrate Relational Views
+    absolute_views = {}
+    filtered_confidences = {}
+
+    for ticker, raw_tilt in views.items():
+        if ticker in pi:
+            absolute_views[ticker] = float(pi[ticker]) + float(raw_tilt)
+            if confidences is not None and ticker in confidences:
+                filtered_confidences[ticker] = confidences[ticker]
+
+    omega_method = "idzorek" if filtered_confidences else "default"
+
+    bl = black_litterman.BlackLittermanModel(
+        S,
+        pi=pi,
+        absolute_views=absolute_views,
+        omega=omega_method,
+        view_confidences=filtered_confidences if filtered_confidences else None,
+    )
+
+    ret_bl = bl.bl_returns()
+    cov_bl = bl.bl_cov()
+
+    # Cross-Module Consistency: Ensure perfect symmetry on posterior covariance as well
+    cov_bl = (cov_bl + cov_bl.T) / 2.0
+
+    return ret_bl, cov_bl
 # =============================================================================
 # 4. PORTFOLIO METRICS
 # =============================================================================

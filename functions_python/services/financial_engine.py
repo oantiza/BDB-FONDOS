@@ -29,59 +29,19 @@ class FinancialEngine:
         risk_aversion=None,
     ):
         """
-        Implements Black-Litterman Model.
-
-        :param df_prices: Historical prices
-        :param market_caps: Dict {ticker: market_cap} for Market Equilibrium
-        :param views: Dict {ticker: raw_tilt} (Relative tilts from frontend, e.g. +0.02 / -0.02)
-        :param confidences: Dict {ticker: confidence_0_to_1}
-        :return: new_mu, new_S (Adjusted by views)
-        """
-        from services.quant_core import get_covariance_matrix
+        [DELEGATED to quant_core] Implements Black-Litterman Model.
         
-        # 1. Market Priors
-        # Canonical frequency is now derived intelligently within the core.
-        S = get_covariance_matrix(df_prices)
-
-        # Delta (Risk Aversion) - implied from S&P500 usually, or heuristic
-        if risk_aversion is None:
-            # df_prices is a multiactive fund dataframe, not a market proxy (like SPY).
-            # We use the standard theoretical heuristic of 2.5 if no proxy is given.
-            delta = 2.5
-        else:
-            delta = risk_aversion
-
-        # Market Prior Returns (Pi)
-        # We need market caps to estimate equilibrium weights
-        mcaps = pd.Series(market_caps)
-        pi = black_litterman.market_implied_prior_returns(mcaps, delta, S)
-
-        # 2. Integrate Views
-        # The frontend sends a relative magnitude of tilt (+0.02 or -0.02).
-        # We add this tilt to the market prior so the new absolute view makes sense.
-        absolute_views = {}
-        filtered_confidences = {}
-
-        for ticker, raw_tilt in views.items():
-            if ticker in pi:
-                absolute_views[ticker] = float(pi[ticker]) + float(raw_tilt)
-                if confidences is not None and ticker in confidences:
-                    filtered_confidences[ticker] = confidences[ticker]
-
-        omega_method = "idzorek" if filtered_confidences else "default"
-
-        bl = black_litterman.BlackLittermanModel(
-            S,
-            pi=pi,
-            absolute_views=absolute_views,
-            omega=omega_method,
-            view_confidences=filtered_confidences if filtered_confidences else None,
+        This method is now a thin wrapper to preserve backward compatibility.
+        """
+        from services.quant_core import apply_black_litterman
+        
+        return apply_black_litterman(
+            df_prices=df_prices,
+            market_caps=market_caps,
+            views=views,
+            confidences=confidences,
+            risk_aversion=risk_aversion
         )
-
-        ret_bl = bl.bl_returns()
-        cov_bl = bl.bl_cov()
-
-        return ret_bl, cov_bl
 
     @staticmethod
     def build_exposure_constraints(ef, tickers, exposures_v2: dict, limits: dict):
