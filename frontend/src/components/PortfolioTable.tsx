@@ -108,14 +108,13 @@ export default function PortfolioTable({
                                     </div>
                                 </td>
 
-                                {/* --- NUEVA COLUMNA SWAP --- */}
                                 <td className="p-3 text-right">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
-                                        className="text-slate-600 hover:text-slate-800 text-xs font-semibold hover:underline bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-full border border-slate-200 transition-colors flex items-center gap-1 ml-auto shadow-sm"
+                                        className="text-[#D4AF37] hover:text-[#b8952b] text-[10px] font-extrabold tracking-widest uppercase bg-yellow-50/40 hover:bg-yellow-100/50 px-3 py-1.5 rounded-full border border-[#D4AF37]/30 transition-colors flex items-center gap-1 ml-auto shadow-sm"
                                         title="Buscar alternativas de inversión"
                                     >
-                                        ⇄ Cambiar
+                                        ⇄ SUSTITUIR
                                     </button>
                                 </td>
                                 <td className="py-3 pl-3 pr-6 text-right">
@@ -131,22 +130,17 @@ export default function PortfolioTable({
                         )
                     })}
                 </tbody>
-                <tfoot className="bg-white">
+                <tfoot className="bg-[#f8fafc]">
                     <tr>
-                        <td colSpan={5} className="p-0">
-                            <div className="mx-6 border-t border-black/80"></div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td className="py-4 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">TOTAL</td>
-                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
+                        <td className="py-4 pl-6 text-[#0B2545] uppercase text-[11px] font-extrabold text-right tracking-[0.2em] border-t border-slate-200">TOTAL CARTERA</td>
+                        <td className="py-4 p-3 text-right text-[#0B2545] font-black text-sm tabular-nums border-t border-slate-200">
                             {assets.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0).toFixed(2)}%
                         </td>
-                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
+                        <td className="py-4 p-3 text-right text-[#0B2545] font-black text-sm tabular-nums border-t border-slate-200">
                             {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </td>
-                        <td></td>
-                        <td className="py-4 pl-3 pr-6"></td>
+                        <td className="border-t border-slate-200"></td>
+                        <td className="py-4 pl-3 pr-6 border-t border-slate-200"></td>
                     </tr>
                 </tfoot>
             </table >

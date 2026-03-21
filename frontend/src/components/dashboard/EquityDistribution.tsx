@@ -78,7 +78,7 @@ export default function EquityDistribution({ portfolio = [] }: any) {
                 rawLabel: l.toLowerCase()
             }))
             .sort((a, b) => b.v - a.v)
-            .slice(0, 6);
+            .slice(0, 4);
 
         return { sectors: sortedSectors, groups: groupMap };
     })();
@@ -115,22 +115,18 @@ export default function EquityDistribution({ portfolio = [] }: any) {
                     </div>
                 </div>
 
-                {/* Top Sectors with Icons and Cleaner Layout */}
+                {/* Top Sectors with Cleaner Layout */}
                 {analytics.sectors.length > 0 && (
                     <div className="flex flex-col gap-4">
                         <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50 pb-2">Top Sectores</span>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
+                        <div className="grid grid-cols-2 gap-x-12 gap-y-4">
                             {analytics.sectors.map((s: any, i: number) => {
-                                const Icon = SECTOR_ICONS[s.rawLabel] || SECTOR_ICONS[Object.keys(SECTOR_ICONS).find(k => s.rawLabel.includes(k)) || ''] || Globe;
                                 return (
-                                    <div key={i} className="flex justify-between items-center py-1 group transition-all">
-                                        <div className="flex items-center gap-2 min-w-0">
-                                            <div className="w-5 h-5 rounded bg-slate-50 flex items-center justify-center shrink-0 group-hover:bg-slate-100 transition-colors">
-                                                <Icon className="w-3 h-3 text-[#0B2545] opacity-70" />
-                                            </div>
-                                            <span className="text-xs text-slate-600 font-medium truncate" title={s.l}>{s.l}</span>
+                                    <div key={i} className="flex justify-between items-center group transition-all">
+                                        <div className="flex items-center min-w-0">
+                                            <span className="text-[13px] text-slate-600 font-medium truncate" title={s.l}>{s.l}</span>
                                         </div>
-                                        <span className="text-xs font-extrabold text-[#0B2545] tabular-nums bg-slate-50 px-1.5 py-0.5 rounded-sm">{s.v}%</span>
+                                        <span className="text-[13px] font-extrabold text-[#0B2545] tabular-nums">{s.v}%</span>
                                     </div>
                                 );
                             })}

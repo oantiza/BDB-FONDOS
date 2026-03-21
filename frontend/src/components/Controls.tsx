@@ -119,35 +119,35 @@ export default function Controls({
                             onClick={onOpenCosts}
                             className="bg-[#F0F4F8] border border-[#D1D9E6] text-[#0B2545] text-[10px] font-bold py-2 rounded-full hover:bg-white transition-colors uppercase tracking-widest flex items-center justify-center gap-1 shadow-sm"
                         >
-                            <Calculator className="w-3.5 h-3.5" /> Costes
+                            <Calculator className="w-3.5 h-3.5" /> COSTES
                         </button>
                         <button
                             onClick={onOpenSavedPortfolios}
                             className="bg-[#F0F4F8] border border-[#D1D9E6] text-[#0B2545] text-[10px] font-bold py-2 rounded-full hover:bg-white transition-colors uppercase tracking-widest flex items-center justify-center gap-1 shadow-sm"
                         >
-                            <FolderOpen className="w-3.5 h-3.5" /> Mis Carteras
+                            <FolderOpen className="w-3.5 h-3.5" /> CARTERAS
                         </button>
                         <button
                             onClick={onOpenTactical}
                             className="bg-[#F0F4F8] border border-[#D1D9E6] text-[#0B2545] text-[10px] font-bold py-2 rounded-full hover:bg-white transition-colors uppercase tracking-widest flex items-center justify-center gap-1 shadow-sm"
                         >
-                            <Shield className="w-3.5 h-3.5" /> Revisión
+                            <Shield className="w-3.5 h-3.5" /> REVISIÓN
                         </button>
                         <button
                             onClick={onOpenMacro}
                             className="bg-[#F0F4F8] border border-[#D1D9E6] text-[#0B2545] text-[10px] font-bold py-2 rounded-full hover:bg-white transition-colors uppercase tracking-widest flex items-center justify-center gap-1 shadow-sm"
                         >
-                            <Sliders className="w-3.5 h-3.5" /> Ajuste Manual
+                            <Sliders className="w-3.5 h-3.5" /> AJUSTE MANUAL
                         </button>
                     </div>
 
                 </div>
             </div>
 
-            {/* 2. PRIMARY ACTIONS (Generate, Optimize) */}
-            <div>
+            {/* 2. PRIMARY ACTIONS (Generate, Optimize, Sharpe - Horizontal 3x) */}
+            <div className="mt-auto">
                 <div className="p-4 pt-0 space-y-2">
-                    <div className="grid grid-cols-2 gap-2">
+                    <div className="grid grid-cols-3 gap-2">
                         <ControlButton
                             icon={<Sparkles className="w-5 h-5" />}
                             label="Generar"
@@ -161,12 +161,11 @@ export default function Controls({
                             variant="highlight"
                             active={isOptimizing}
                         />
-
                         <ControlButton
                             icon={<Zap className="w-5 h-5" />}
-                            label="BUSCAR SHARPE"
+                            label="Sharpe"
                             onClick={() => onOpenSharpeMaximizer && onOpenSharpeMaximizer()}
-                            variant="highlight"
+                            variant="outline-gold"
                         />
                     </div>
                 </div>
@@ -175,7 +174,7 @@ export default function Controls({
     )
 }
 
-function ControlButton({ icon, label, onClick, active = false, variant = 'standard', className = '', compact = false }: { icon: React.ReactNode | string, label: string, onClick: () => void, active?: boolean, variant?: 'standard' | 'highlight' | 'dark', className?: string, compact?: boolean }) {
+function ControlButton({ icon, label, onClick, active = false, variant = 'standard', className = '', compact = false }: { icon: React.ReactNode | string, label: string, onClick: () => void, active?: boolean, variant?: 'standard' | 'highlight' | 'dark' | 'outline-gold', className?: string, compact?: boolean }) {
     const baseClasses = `flex items-center justify-center rounded-full transition-all group border ${compact ? 'flex-row gap-2 p-2' : 'flex-col p-3'}`
 
     // Gold/Blue style for Optimize/Highlight
@@ -188,6 +187,20 @@ function ControlButton({ icon, label, onClick, active = false, variant = 'standa
             >
                 <span className={`${compact ? 'text-sm' : ''} text-[#0B2545] group-hover:scale-110 transition-transform`}>{icon}</span>
                 <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-extrabold text-[#0B2545] uppercase tracking-wider`}>{label}</span>
+            </button>
+        )
+    }
+
+    // Outline Gold style for Sharpe
+    if (variant === 'outline-gold') {
+        return (
+            <button
+                onClick={onClick}
+                disabled={active}
+                className={`${baseClasses} bg-white hover:bg-yellow-50 border-[#D4AF37] shadow-sm ${className}`}
+            >
+                <span className={`${compact ? 'text-sm' : ''} text-[#D4AF37] group-hover:scale-110 transition-transform`}>{icon}</span>
+                <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-extrabold text-[#D4AF37] uppercase tracking-wider`}>{label}</span>
             </button>
         )
     }

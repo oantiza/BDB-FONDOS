@@ -96,24 +96,18 @@ export default function FixedIncomeDistribution({ portfolio = [] }: { portfolio?
 
             <div className="flex-1 flex flex-col gap-8 overflow-y-auto scrollbar-thin">
                 {/* KPIs Row - Height matched with EquityDistribution middle row */}
-                <div className="grid grid-cols-2 gap-2 h-[65px] shrink-0">
-                    <div className="bg-slate-50/80 border border-slate-100 px-2 py-0.5 rounded-lg text-center flex flex-col justify-center">
-                        <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider flex items-center justify-center gap-1 mb-0.5">
-                            <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
+                <div className="grid grid-cols-2 gap-4 h-[65px] shrink-0">
+                    <div className="px-2 py-0.5 text-center flex flex-col justify-center">
+                        <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mb-0.5">
                             Duración (Y)
                         </span>
-                        <div className="text-base font-bold text-[#0B2545] leading-none">{analytics.duration}</div>
+                        <div className="text-2xl font-light tracking-tight text-[#0B2545] leading-none">{analytics.duration}</div>
                     </div>
-                    <div className="bg-slate-50/80 border border-slate-100 px-2 py-0.5 rounded-lg text-center flex flex-col justify-center">
-                        <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider flex items-center justify-center gap-1 mb-0.5">
-                            <svg className="w-3 h-3 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                            </svg>
+                    <div className="px-2 py-0.5 text-center flex flex-col justify-center border-l border-slate-100">
+                        <span className="text-[10px] text-slate-500 font-semibold uppercase tracking-wider mb-0.5">
                             Vencimiento (Y)
                         </span>
-                        <div className="text-base font-bold text-[#0B2545] leading-none">{analytics.maturity}</div>
+                        <div className="text-2xl font-light tracking-tight text-[#0B2545] leading-none">{analytics.maturity}</div>
                     </div>
                 </div>
 

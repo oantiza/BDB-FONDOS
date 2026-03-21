@@ -57,7 +57,7 @@ const chartDataLabels = {
 interface AssetAllocation { label: string; value: number }
 
 export default function SmartBars({ allocation = [] }: { allocation?: AssetAllocation[] }) {
-    const safeData = (Array.isArray(allocation) ? allocation : []).slice(0, 5)
+    const safeData = (Array.isArray(allocation) ? allocation : []).slice(0, 6)
     const totalAlloc = safeData.reduce((s, x) => s + (x.value || 0), 0)
     const isEmpty = totalAlloc < 0.1
 
