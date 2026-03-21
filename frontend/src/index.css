@@ -19,12 +19,62 @@
 
 /* Clases utilitarias personalizadas */
 @layer components {
+  /* === EXISTING COMPONENTS === */
   .glass-card {
     @apply bg-white/80 backdrop-blur-md border border-gray-200 shadow-sm;
   }
 
   .card-base {
     @apply bg-white rounded-lg border border-gray-200 shadow-sm;
+  }
+
+  /* === NEW MINIMAL PRIVATE BANKING SYSTEM === */
+
+  /* Panels & Cards */
+  .panel-card {
+    @apply bg-white rounded-xl border border-slate-200/60 shadow-sm overflow-hidden flex flex-col hover:border-slate-300 transition-colors duration-200;
+  }
+  .panel-header {
+    @apply p-4 border-b border-slate-100 flex justify-between items-center bg-white/50 z-10 shrink-0;
+  }
+  .panel-title {
+    @apply text-[13px] font-[800] text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2;
+  }
+  .kpi-card {
+    @apply bg-slate-50/50 rounded-lg border border-slate-100 p-4 relative overflow-hidden flex flex-col;
+  }
+
+  /* Button Hierarchy */
+  .btn-primary {
+    @apply bg-[#D4AF37] border border-[#b8952b] hover:bg-[#b8952b] text-[#0B2545] shadow-md flex items-center justify-center gap-2 rounded-full transition-all px-4 py-2 font-extrabold uppercase tracking-wider text-[11px] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0;
+  }
+  .btn-secondary {
+    @apply bg-slate-800 border border-slate-900 hover:bg-slate-700 text-white shadow-md flex items-center justify-center gap-2 rounded-full transition-all px-4 py-2 font-bold uppercase tracking-wider text-[11px] hover:-translate-y-0.5 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:translate-y-0;
+  }
+  .btn-tertiary {
+    @apply bg-[#F4F6F8] border border-[#D1D9E6] hover:bg-white text-[#0B2545] shadow-sm flex items-center justify-center gap-1.5 rounded-full transition-all px-4 py-2 font-bold uppercase tracking-widest text-[10px] hover:border-[#b0bac9] disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-ghost {
+    @apply bg-transparent hover:bg-slate-100 text-slate-500 hover:text-slate-800 transition-colors flex items-center justify-center gap-1 rounded-full px-3 py-1.5 text-xs font-semibold uppercase tracking-wider;
+  }
+  .row-action-button {
+    @apply text-slate-400 hover:text-[#0B2545] transition-colors p-1.5 rounded-md hover:bg-slate-100 shrink-0;
+  }
+
+  /* Badges */
+  .canonical-badge {
+    @apply bg-[#f0f4f8] text-[#0B2545] border border-[#e2e8f0] px-2 py-0.5 rounded text-[9.5px] uppercase tracking-widest font-bold whitespace-nowrap;
+  }
+  .state-badge {
+    @apply flex items-center justify-center w-5 h-5 rounded hover:bg-slate-100 transition-colors text-xs cursor-pointer;
+  }
+
+  /* Forms & Inputs */
+  .input-shell {
+    @apply bg-slate-50 border border-slate-200 rounded px-3 py-1.5 flex items-center text-sm focus-within:border-[#0B2545] focus-within:ring-1 focus-within:ring-[#0B2545]/10 transition-all;
+  }
+  .slider-shell {
+    @apply w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#D4AF37] hover:accent-[#b8952b] transition-all;
   }
 }
 
