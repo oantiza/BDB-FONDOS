@@ -5,6 +5,7 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { Search, X, TrendingUp, Activity, AlertTriangle, Star } from 'lucide-react';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../../utils/normalizer';
 import { translateAssetClass, translateRegion } from '../../utils/fundTaxonomy';
+import { translateAssetSubtype } from '../../utils/taxonomyTranslators';
 
 export default function FundComparator() {
     // --- State ---
@@ -297,7 +298,7 @@ export default function FundComparator() {
                                 onChange={e => setSubcategoryFilter(e.target.value)}
                             >
                                 <option value="">Todas</option>
-                                {subcategories.map(s => <option key={s} value={s}>{s}</option>)}
+                                {subcategories.map(s => <option key={s} value={s}>{translateAssetSubtype(s) || s}</option>)}
                             </select>
                         </div>
 
@@ -343,7 +344,7 @@ export default function FundComparator() {
                                                                 {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
                                                                     <>
                                                                         <span className="text-slate-300">•</span>
-                                                                        <span>{f.subcategory}</span>
+                                                                        <span>{translateAssetSubtype(f.subcategory) || f.subcategory}</span>
                                                                     </>
                                                                 )}
                                                                 <span className="text-slate-300">•</span>
@@ -386,8 +387,8 @@ export default function FundComparator() {
                                         {translateAssetClass(f.category)}
                                     </span>
                                     {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
-                                        <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide truncate max-w-[120px]" title={f.subcategory}>
-                                            {f.subcategory}
+                                        <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide truncate max-w-[120px]" title={translateAssetSubtype(f.subcategory) || f.subcategory}>
+                                            {translateAssetSubtype(f.subcategory) || f.subcategory}
                                         </span>
                                     )}
                                     <span className="bg-slate-50 border border-slate-200 text-slate-600 text-[10px] px-1.5 py-0.5 rounded uppercase tracking-wide">
@@ -573,7 +574,7 @@ export default function FundComparator() {
                                             <td className="px-6 py-3 text-slate-500">
                                                 <div className="font-medium text-slate-700">{translateAssetClass(f.category)}</div>
                                                 {f.subcategory && f.subcategory !== 'General' && f.subcategory !== 'UNKNOWN' && (
-                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wide mt-0.5">{f.subcategory}</div>
+                                                    <div className="text-[11px] text-slate-400 uppercase tracking-wide mt-0.5">{translateAssetSubtype(f.subcategory) || f.subcategory}</div>
                                                 )}
                                             </td>
                                             <td className="px-6 py-3 text-slate-500">{translateRegion(f.region)}</td>

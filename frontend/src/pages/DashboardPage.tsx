@@ -222,7 +222,6 @@ export default function DashboardPage({
                 onOpenPositions={onOpenPositions}
                 onOpenRetirement={onOpenRetirement}
                 onOpenComparator={onOpenComparator}
-                onOpenCorrelationAnalysis={handleAnalyzePortfolio}
                 isOptimizing={isOptimizing}
             />
 

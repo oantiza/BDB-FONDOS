@@ -180,9 +180,9 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
                                 </button>
                                 <button
                                     onClick={() => setShowAnalytics(true)}
-                                    className="text-[10px] font-bold uppercase tracking-widest text-[#D4AF37] hover:text-white transition-colors flex items-center gap-1 group px-2 py-1.5"
+                                    className="bg-slate-700 hover:bg-slate-600 text-white transition-colors text-[10px] font-bold uppercase tracking-widest px-3 py-1.5 rounded border border-slate-500 flex items-center gap-2 shadow-sm"
                                 >
-                                    Gráficos Avanzados <span className="group-hover:translate-x-0.5 transition-transform">↗</span>
+                                    <span>📈</span> Analítica Avanzada
                                 </button>
                             </div>
                         ) : undefined

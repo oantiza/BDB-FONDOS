@@ -198,20 +198,27 @@ export function matchesSubCategory(
 // ==========================================
 
 export function translateAssetClass(assetClass: string): string {
+  if (!assetClass) return 'Sin clasificar';
   const map: Record<string, string> = {
-    EQUITY: 'Renta variable',
-    FIXED_INCOME: 'Renta fija',
+    EQUITY: 'Renta Variable',
+    FIXED_INCOME: 'Renta Fija',
     MIXED: 'Mixto',
     MONETARY: 'Monetario',
     ALTERNATIVE: 'Alternativos',
-    COMMODITIES: 'Materias primas',
+    COMMODITIES: 'Materias Primas',
     REAL_ESTATE: 'Inmobiliario',
+    OTHER: 'Otros',
     UNKNOWN: 'Sin clasificar',
+
+    // Fallbacks
+    MONEY_MARKET: 'Monetario',
+    ALTERNATIVES: 'Alternativos',
   };
-  return map[assetClass] || assetClass;
+  return map[assetClass.toUpperCase()] || assetClass;
 }
 
 export function translateRegion(region: string): string {
+  if (!region) return 'Sin clasificar';
   const map: Record<string, string> = {
     GLOBAL: 'Global',
     NORTH_AMERICA: 'Norteamérica',
@@ -222,6 +229,12 @@ export function translateRegion(region: string): string {
     JAPAN: 'Japón',
     AFRICA_MIDDLE_EAST: 'África y Oriente Medio',
     UNKNOWN: 'Sin clasificar',
+
+    // V2 Regions
+    US: 'EE.UU.',
+    EUROZONE: 'Zona Euro',
+    ASIA_DEV: 'Asia (Desarrollada)',
+    EMERGING: 'Emergentes',
   };
-  return map[region] || region;
+  return map[region.toUpperCase()] || region;
 }

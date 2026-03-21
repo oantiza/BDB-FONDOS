@@ -133,19 +133,6 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
               </div>
             )}
             
-            {fund.classification_v2?.warnings && fund.classification_v2.warnings.length > 0 && (
-              <div className="bg-red-50 border-l-4 border-red-500 p-4 text-red-700 text-sm flex items-start gap-3 rounded-r">
-                <span className="text-xl">🚨</span>
-                <div>
-                  <strong className="block mb-1">Avisos de Clasificación V2</strong>
-                  <ul className="list-disc pl-4 space-y-1">
-                    {fund.classification_v2.warnings.map((w: string, i: number) => (
-                      <li key={i}>{w}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
 
             {/* Key Metrics */}
             <section>

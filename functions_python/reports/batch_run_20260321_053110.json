@@ -1,0 +1,21 @@
+{
+  "run_id": "run_20260321_053110",
+  "mode": "dry-run",
+  "started_at": "2026-03-21T05:31:10.274122+00:00",
+  "total_read": 200,
+  "processed": 200,
+  "updated": 0,
+  "skipped": 0,
+  "errors": 0,
+  "error_isins": [],
+  "asset_type_dist": {
+    "FIXED_INCOME": 77,
+    "EQUITY": 74,
+    "REAL_ESTATE": 2,
+    "MIXED": 37,
+    "ALTERNATIVE": 5,
+    "MONETARY": 3,
+    "COMMODITIES": 2
+  },
+  "finished_at": "2026-03-21T05:31:11.502367+00:00"
+}

@@ -4,17 +4,24 @@ import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
 import { translateAssetClass, translateRegion } from '../utils/fundTaxonomy';
 
 // Un componente simple para mostrar datos
-const StatRow = ({ label, value, delta, isPercentage }: any) => {
-    const deltaClass = delta < 0 ? 'text-green-600' : delta > 0 ? 'text-red-600' : 'text-gray-500';
+const StatRow = ({ label, value, delta, isPercentage, higherIsBetter = false }: any) => {
+    let deltaClass = 'text-gray-500';
+    if (delta !== undefined && delta !== 0) {
+        if (higherIsBetter) {
+            deltaClass = delta > 0 ? 'text-emerald-600' : 'text-rose-600';
+        } else {
+            deltaClass = delta < 0 ? 'text-emerald-600' : 'text-rose-600';
+        }
+    }
     const deltaText = delta ? `(${delta > 0 ? '+' : ''}${delta.toFixed(2)}%)` : '';
 
     return (
-        <div className="flex justify-between items-start text-sm mb-1 gap-2">
+        <div className="flex justify-between items-start text-sm mb-2 gap-2">
             <span className="text-gray-500 whitespace-nowrap">{label}:</span>
-            <div className="font-medium text-right flex flex-col items-end sm:flex-row sm:items-baseline sm:gap-1 sm:flex-wrap sm:justify-end">
-                <span>{value} {isPercentage && value !== '-' && '%'}</span>
+            <div className="font-medium text-right flex flex-col items-end gap-[2px]">
+                <span className="text-slate-800">{value} {isPercentage && value !== '-' && '%'}</span>
                 {delta !== undefined && deltaText && (
-                    <span className={`text-[11px] ${deltaClass} whitespace-nowrap`}>{deltaText}</span>
+                    <span className={`text-[11px] font-bold ${deltaClass} whitespace-nowrap leading-none`}>{deltaText}</span>
                 )}
             </div>
         </div>
@@ -214,12 +221,19 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                             ? (alt.fund.std_perf_norm.volatility * 100).toFixed(2)
                                             : (alt.fund.std_perf?.volatility !== undefined ? (alt.fund.std_perf.volatility * 100).toFixed(2) : '-')}
                                         isPercentage
+                                        higherIsBetter={false}
+                                        delta={
+                                            ((alt.fund.std_perf_norm?.volatility ?? alt.fund.std_perf?.volatility) !== undefined && originalFund.std_perf?.volatility !== undefined)
+                                                ? ((alt.fund.std_perf_norm?.volatility ?? alt.fund.std_perf?.volatility) - originalFund.std_perf.volatility) * 100
+                                                : undefined
+                                        }
                                     />
                                     <StatRow
                                         label="Sharpe"
                                         value={alt.fund.std_perf_norm?.sharpe != null
                                             ? alt.fund.std_perf_norm.sharpe.toFixed(2)
                                             : (alt.fund.std_perf?.sharpe != null ? alt.fund.std_perf.sharpe.toFixed(2) : '-')}
+                                        higherIsBetter={true}
                                         delta={
                                             ((alt.fund.std_perf_norm?.sharpe || alt.fund.std_perf?.sharpe) !== undefined && originalFund.std_perf?.sharpe !== undefined)
                                                 ? (alt.fund.std_perf_norm?.sharpe || alt.fund.std_perf?.sharpe) - originalFund.std_perf.sharpe
@@ -232,6 +246,7 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                             ? normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession)?.toFixed(2)
                                             : '-'}
                                         isPercentage={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== null}
+                                        higherIsBetter={false}
                                         delta={(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) !== undefined && (originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) !== undefined
                                             ? (normalizeRetro(alt.fund.manual?.costs?.retrocession ?? alt.fund.costs?.retrocession) ?? 0) - (normalizeRetro(originalFund.manual?.costs?.retrocession ?? originalFund.costs?.retrocession) ?? 0)
                                             : undefined

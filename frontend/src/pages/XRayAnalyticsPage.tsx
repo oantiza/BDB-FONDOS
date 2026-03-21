@@ -5,6 +5,8 @@ import { ArrowLeft } from 'lucide-react'
 import CorrelationHeatmap from '../components/charts/CorrelationHeatmap'
 import RiskMap from '../components/charts/RiskMap'
 import XRayChart from '../components/charts/XRayChart'
+import PortfolioAnalysisModal from '../components/modals/PortfolioAnalysisModal'
+import { useToast } from '../context/ToastContext'
 
 import { generateBenchmarkProfiles, getRiskProfileExplanation, EXCLUDED_BENCHMARK_ISINS } from '../utils/benchmarkUtils'
 import { Fund, PortfolioItem } from '../types'
@@ -43,6 +45,34 @@ export default function XRayAnalyticsPage({
 
     const activePeriod = period ?? localPeriod;
     const activeBenchmarkId = benchmarkId ?? localBenchmarkId;
+
+    const toast = useToast();
+    const [isAnalyzing, setIsAnalyzing] = useState(false);
+    const [analysisResult, setAnalysisResult] = useState<any>(null);
+
+    const handleAnalyzePortfolio = async () => {
+        if (!portfolio || portfolio.length === 0) {
+            toast.info("Añade fondos a la cartera primero");
+            return;
+        }
+        setIsAnalyzing(true);
+        try {
+            const analyzeFn = httpsCallable(functions, 'analyze_portfolio_endpoint');
+            const response = await analyzeFn({
+                portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight }))
+            });
+            const result = (response.data as any)?.data || response.data; // Handle unwrapResult
+            if (result.error) {
+                toast.error("Error en análisis: " + result.error);
+            } else {
+                setAnalysisResult(result);
+            }
+        } catch (error: any) {
+            toast.error("Error al analizar cartera: " + error.message);
+        } finally {
+            setIsAnalyzing(false);
+        }
+    };
 
     const handleSetPeriod = (p: string) => {
         setLocalPeriod(p);
@@ -94,6 +124,15 @@ export default function XRayAnalyticsPage({
                     </button>
                     <div className="h-4 w-px bg-slate-600 mx-2"></div>
                     <span className="font-light text-xl tracking-tight leading-none text-white">Analítica <span className="font-bold text-blue-200">Avanzada</span></span>
+                </div>
+                <div className="flex items-center">
+                    <button
+                        onClick={handleAnalyzePortfolio}
+                        disabled={isAnalyzing}
+                        className="text-[11px] uppercase tracking-widest font-bold text-slate-300 hover:text-white transition-colors disabled:opacity-50"
+                    >
+                        {isAnalyzing ? 'Analizando...' : 'Análisis de correlaciones'}
+                    </button>
                 </div>
             </div>
 
@@ -192,9 +231,17 @@ export default function XRayAnalyticsPage({
                             </div>
                         </div>
 
+
                     </div>
                 )}
             </div>
+
+            {analysisResult && (
+                <PortfolioAnalysisModal 
+                    result={analysisResult} 
+                    onClose={() => setAnalysisResult(null)} 
+                />
+            )}
         </div>
     )
 }

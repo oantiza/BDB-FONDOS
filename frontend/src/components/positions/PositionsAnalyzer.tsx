@@ -154,37 +154,35 @@ export const PositionsAnalyzer: React.FC<PositionsAnalyzerProps> = ({ onBack, as
     return (
         <div className="min-h-screen bg-[#f8fafc] text-slate-900 font-sans">
             {/* Header matches main app */}
-            <header className="bg-gradient-to-r from-slate-800 to-slate-700 text-white shadow-sm border-b border-slate-600 mb-8 sticky top-0 z-50">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                        <div className="flex items-center gap-3">
-                            {onBack && (
-                                <button onClick={onBack} className="bg-white/10 border border-white/20 text-slate-200 hover:text-white p-1.5 rounded-full hover:bg-white/20 transition-colors shadow-sm" title="Volver">
-                                    <ArrowLeft className="w-5 h-5" />
-                                </button>
-                            )}
-                            <div className="font-light text-xl tracking-tight leading-none mb-0.5 text-white whitespace-nowrap">Gestor de <span className="font-bold text-blue-200">Fondos</span></div>
-                        </div>
-                        <div className="h-6 w-px bg-slate-600 mx-2"></div>
-                        <div className="flex items-center gap-2">
-                            <div className="p-1.5 bg-slate-700/50 rounded-lg">
-                                <PieChart className="text-[#D4AF37] w-5 h-5" />
-                            </div>
-                            <h1 className="text-lg font-light tracking-tight text-white whitespace-nowrap">Analizador de <span className="font-bold text-blue-200">posiciones globales</span></h1>
-                        </div>
+            <header className="h-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white flex items-center justify-between px-6 z-20 shrink-0 border-b border-slate-600 shadow-sm print:hidden">
+                <div className="flex items-center gap-4">
+                    <div className="flex items-center gap-3">
+                        {onBack && (
+                            <button onClick={onBack} className="bg-white/10 border border-white/20 text-slate-200 hover:text-white p-1.5 rounded-full hover:bg-white/20 transition-colors shadow-sm" title="Volver">
+                                <ArrowLeft className="w-5 h-5" />
+                            </button>
+                        )}
+                        <div className="font-light text-xl tracking-tight leading-none mb-0.5 text-white whitespace-nowrap">Gestor de <span className="font-bold text-blue-200">Fondos</span></div>
                     </div>
-                    {hasData && (
-                        <button
-                            onClick={handleReset}
-                            className="bg-slate-700/50 hover:bg-slate-600 text-slate-300 hover:text-white px-3 py-1.5 rounded-full transition-all text-xs font-bold uppercase tracking-widest flex items-center gap-2 border border-slate-500 shadow-sm"
-                        >
-                            <RotateCcw className="w-3.5 h-3.5" /> Nueva Carga
-                        </button>
-                    )}
+                    <div className="h-6 w-px bg-slate-600 mx-2"></div>
+                    <div className="flex items-center gap-2">
+                        <div className="p-1.5 bg-slate-700/50 rounded-lg">
+                            <PieChart className="text-[#D4AF37] w-5 h-5" />
+                        </div>
+                        <h1 className="text-lg font-light tracking-tight text-white whitespace-nowrap">Analizador de <span className="font-bold text-blue-200">posiciones globales</span></h1>
+                    </div>
                 </div>
+                {hasData && (
+                    <button
+                        onClick={handleReset}
+                        className="bg-slate-700/50 hover:bg-slate-600 text-slate-300 hover:text-white px-3 py-1.5 rounded-full transition-all text-xs font-bold uppercase tracking-widest flex items-center gap-2 border border-slate-500 shadow-sm"
+                    >
+                        <RotateCcw className="w-3.5 h-3.5" /> Nueva Carga
+                    </button>
+                )}
             </header>
 
-            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
                 {error && (
                     <div className="mb-6 bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded shadow-sm" role="alert">
                         <p className="font-bold">Error</p>

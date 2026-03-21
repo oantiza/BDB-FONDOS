@@ -10,7 +10,6 @@ interface HeaderProps {
     onOpenPositions?: () => void
     onOpenRetirement?: () => void
     onOpenComparator?: () => void
-    onOpenCorrelationAnalysis?: () => void
     onBack?: () => void
     isOptimizing?: boolean
     headerActions?: React.ReactNode
@@ -23,7 +22,6 @@ export default function Header({
     onOpenPositions, 
     onOpenRetirement, 
     onOpenComparator, 
-    onOpenCorrelationAnalysis,
     onBack,
     isOptimizing,
     headerActions
@@ -76,25 +74,6 @@ export default function Header({
 
                 {/* GRUPO SECUNDARIO */}
                 <div className="flex items-center gap-4">
-                    {onOpenCorrelationAnalysis && (
-                        <button
-                            onClick={onOpenCorrelationAnalysis}
-                            disabled={isOptimizing}
-                            className="text-[11px] uppercase tracking-widest font-bold text-slate-300 hover:text-white transition-colors disabled:opacity-50"
-                        >
-                            Análisis de correlaciones
-                        </button>
-                    )}
-
-                    {onOpenMiBoutique && (
-                        <button
-                            onClick={onOpenMiBoutique}
-                            className="text-[11px] uppercase tracking-widest font-bold text-slate-300 hover:text-white transition-colors"
-                        >
-                            Macro y Estrategia
-                        </button>
-                    )}
-
                     {onOpenRetirement && (
                         <button
                             onClick={onOpenRetirement}

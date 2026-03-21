@@ -1394,6 +1394,51 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
             klass.is_sector_fund = True
             klass.sector_focus = SectorFocusV2.HEALTHCARE
 
+        elif _contains_any(text, ["FINANCIAL", "FINANCIALS", "BANKS", "INSURANCE", "FINANZAS"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_FINANCIALS
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.FINANCIALS
+
+        elif _contains_any(text, ["INDUSTRIAL", "INDUSTRIALS", "MANUFACTURING", "AEROSPACE", "DEFENSE"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_INDUSTRIALS
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.INDUSTRIALS
+
+        elif _contains_any(text, ["CONSUMER CYCLICAL", "DISCRETIONARY", "LUXURY", "RETAIL"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_CONSUMER_CYCLICAL
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.CONSUMER_CYCLICAL
+
+        elif _contains_any(text, ["CONSUMER DEFENSIVE", "STAPLES", "FOOD", "BEVERAGE"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_CONSUMER_DEFENSIVE
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.CONSUMER_DEFENSIVE
+
+        elif _contains_any(text, ["REAL ESTATE", "PROPERTY", "REIT"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_REAL_ESTATE
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.REAL_ESTATE
+
+        elif _contains_any(text, ["UTILITIES", "UTILITY"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_UTILITIES
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.UTILITIES
+
+        elif _contains_any(text, ["ENERGY", "OIL", "GAS"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_ENERGY
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.ENERGY
+
+        elif _contains_any(text, ["MATERIALS", "MINING", "METALS", "CHEMICALS", "GOLD"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_BASIC_MATERIALS
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.BASIC_MATERIALS
+
+        elif _contains_any(text, ["COMMUNICATION", "TELECOM", "MEDIA", "ENTERTAINMENT"]):
+            klass.asset_subtype = AssetSubtypeV2.SECTOR_EQUITY_COMMUNICATION
+            klass.is_sector_fund = True
+            klass.sector_focus = SectorFocusV2.COMMUNICATION
+
         elif _contains_any(text, ["WATER", "CLEAN ENERGY", "ENERGY TRANSITION", "ECOLOGY", "CLIMATE", "ENVIRONMENT", "SUSTAINABLE ENERGY", "INFRASTRUCTURE"]):
             klass.asset_subtype = AssetSubtypeV2.THEMATIC_EQUITY
             klass.is_thematic = True

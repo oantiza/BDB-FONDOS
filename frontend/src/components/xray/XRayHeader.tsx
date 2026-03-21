@@ -52,7 +52,7 @@ export default function XRayHeader({
                     onClick={onShowAnalytics}
                     className="ml-4 bg-slate-700/50 text-slate-300 border border-slate-500 hover:text-white hover:bg-slate-600 transition-colors text-xs font-bold uppercase tracking-widest flex items-center gap-1 group px-4 py-1.5 rounded-full shadow-sm"
                 >
-                    Gráficos Avanzados <span className="text-[#D4AF37] group-hover:translate-x-0.5 transition-transform">↗</span>
+                    <span>📈</span> Analítica Avanzada
                 </button>
             </div>
         </div>

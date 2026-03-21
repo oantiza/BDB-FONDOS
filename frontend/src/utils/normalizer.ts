@@ -1,6 +1,8 @@
 // normalizer.js - Fund Data Normalization Utility
 // Extracted from App.jsx for better code organization
 
+import { translateAssetSubtype } from './taxonomyTranslators';
+
 function toNumber(x: any): number | null {
   if (x === null || x === undefined || x === '') return null
   const n = typeof x === 'number' ? x : parseFloat(x)
@@ -342,10 +344,18 @@ export function getCanonicalType(fund: any): string {
 }
 
 export function getCanonicalSubtype(fund: any): string {
+    let rawSubtype = '';
     if (fund?.classification_v2?.asset_subtype) {
-        return fund.classification_v2.asset_subtype;
+        rawSubtype = fund.classification_v2.asset_subtype;
+    } else {
+        rawSubtype = fund?.category_morningstar || fund?.std_extra?.category || '';
     }
-    return fund?.category_morningstar || fund?.std_extra?.category || 'Desconocido';
+    
+    if (!rawSubtype || rawSubtype === 'Desconocido' || rawSubtype.toUpperCase() === 'UNKNOWN') {
+        return 'Desconocido';
+    }
+    const translated = translateAssetSubtype(rawSubtype);
+    return translated || rawSubtype;
 }
 
 export function getCanonicalRegion(fund: any): string {
