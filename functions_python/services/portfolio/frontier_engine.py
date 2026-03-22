@@ -4,7 +4,6 @@ import pandas as pd
 import numpy as np
 from pypfopt import CLA
 from services.data_fetcher import DataFetcher
-from .utils import apply_market_proxy_backfill
 
 
 def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period="3y"):
@@ -38,7 +37,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         # SANITIZACIÓN PROFESIONAL (Evitar distorsión de covarianza)
         df = df.sort_index()
 
-        # --- FIXED TIME HORIZON (Pairwise Covariance Support) ---
+        # --- TIME HORIZON: STRICT COMMON PERIOD ---
         if not df.empty:
             # 1. Definir ventana ideal según parámetro 'period'
             period_days_map = {
@@ -51,27 +50,38 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             lookback_days = period_days_map.get(period, 1095)
             ideal_start = df.index[-1] - pd.Timedelta(days=lookback_days)
 
+            first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
+            if not first_valid_indices.empty:
+                actual_start = first_valid_indices.max()
+                final_start = max(ideal_start, actual_start)
+            else:
+                final_start = ideal_start
+
             logger.info(
-                f"📈 [Senior EF] Fixed Window (Pairwise): {ideal_start.date()} to {df.index[-1].date()}"
+                f"📈 [Senior EF] Strict Window: {final_start.date()} to {df.index[-1].date()}"
             )
 
-            # Recortamos a la fecha ideal. NO restringimos por el activo más joven.
-            df = df[df.index >= ideal_start]
+            df = df[df.index >= final_start]
 
-        # Forward fill para huecos intermedios (festivos), NO bfill general porque vamos a truncar estrictamente al periodo común
-        df = df.ffill()
-        df = apply_market_proxy_backfill(df)
+        # Forward fill para huecos intermedios (festivos), y obligar a tramo común eliminando NaNs iniciales
+        df = df.ffill().dropna()
 
-        # Calculamos retornos diarios y aplicamos Pairwise (Intersección Relajada)
-        returns = df.pct_change().dropna(how="all")
-
-        if len(returns) < 10:
-            logger.info(f"⚠️ [Senior EF] Insufficient history: {len(returns)} points.")
+        if df.empty or len(df) < 60:
+            actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+            logger.info(f"⚠️ [Senior EF] Insufficient history: {len(df)} points.")
             return {
-                "error": "Insufficient history",
-                "points": len(returns),
-                "assets_found": list(df.columns),
+                "error": f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para calcular la frontera.",
+                "effective_start_date": actual_start_str,
+                "observations": len(df),
+                "points": len(df),
+                "assets_found": list(df.columns)
             }
+
+        effective_start_date = df.index[0].strftime('%Y-%m-%d')
+        observations = len(df)
+
+        # Calculamos retornos diarios
+        returns = df.pct_change().dropna(how="all")
 
         logger.info(
             f"📈 [Senior EF] Data Processed. Shape: {df.shape}, Assets: {list(df.columns)}"
@@ -230,6 +240,8 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             "frontier": frontier_points,
             "assets": asset_points,
             "portfolio": portfolio_point,
+            "effective_start_date": effective_start_date,
+            "observations": observations,
             "math_data": {
                 "ordered_isins": list(df.columns),
                 "expected_returns": {

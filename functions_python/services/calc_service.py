@@ -1,9 +1,11 @@
+import logging
 from firebase_admin import firestore
 from datetime import datetime
 import pandas as pd
 import numpy as np
 from .data_fetcher import DataFetcher
 
+logger = logging.getLogger(__name__)
 
 def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
     """
@@ -24,15 +26,17 @@ def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
             b_range = pd.date_range(start=df.index[0], end=df.index[-1], freq="B")
             df = df.reindex(b_range)
 
-        # Fill Gaps (Professional ffill/bfill)
-        df = df.ffill().bfill()
+        # Fill Gaps (Professional ffill and exact intersection)
+        df = df.ffill().dropna()
 
         # 2. Optional: 3-Year Window (1095 days)
         if force_3y and not df.empty:
             start_date = df.index[-1] - pd.Timedelta(days=1095)
             df = df[df.index >= start_date]
 
-        if len(df) < 50:
+        # Hardening: Require at least 60 solid business days
+        if len(df) < 60:
+            logger.warning(f"⚠️ [CalcService] Histórico resultante muy corto ({len(df)} días). Riesgo de métricas espurias. Se requiere mínimo 60.")
             return None
 
         from services.quant_core import calculate_historical_metrics
@@ -51,20 +55,17 @@ def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
             "points": m["points"],
         }
     except Exception as e:
-        print(f"Metrics Calc Error: {e}")
-        import traceback
-
-        traceback.print_exc()
+        logger.exception(f"Metrics Calc Error: {e}")
         return None
 
 
 def backfill_std_perf_logic(db):
-    print("🚀 Starting Std Perf Backfill (Phase 4)...")
+    logger.info("🚀 Starting Std Perf Backfill (Phase 4)...")
 
     # 1. Get Risk Free Rate (Via DataFetcher)
     fetcher = DataFetcher(db)
     rf_rate = fetcher.get_dynamic_risk_free_rate()
-    print(f"💰 Risk Free Rate used: {rf_rate * 100:.2f}%")
+    logger.info(f"💰 Risk Free Rate used: {rf_rate * 100:.2f}%")
 
     # 2. Iterate Funds
     funds_ref = db.collection("funds_v3")
@@ -92,7 +93,6 @@ def backfill_std_perf_logic(db):
         # Or just read history. User requirement: "Procesar solo ISINs con history_points >= 504".
         # We can trust 'data_quality.history_points' if it exists from previous step, to save reads.
         dq = dd.get("data_quality", {})
-        h_pts = dq.get("history_points", 0)
 
         # Check history length - SELF HEAL STRATEGY
         # Ignore metadata 'history_points' for the decision to fetch,
@@ -125,12 +125,10 @@ def backfill_std_perf_logic(db):
 
             # Priority 1: Canonical History
             series = h_data.get("history", [])
-            is_canonical = True if series else False
 
             # Priority 2: Legacy Series
             if not series:
                 series = h_data.get("series", [])
-                is_canonical = False
 
             # Create DF
             data_tuples = []
@@ -140,13 +138,12 @@ def backfill_std_perf_logic(db):
                 p_val = p.get("nav") if p.get("nav") is not None else p.get("price")
 
                 if d_val and p_val is not None:
-                    d_val = p["date"]
                     if isinstance(d_val, str):
                         try:
                             d_val = datetime.fromisoformat(d_val.replace("Z", ""))
                         except:
                             continue
-                    data_tuples.append({"date": d_val, "price": float(p["price"])})
+                    data_tuples.append({"date": d_val, "price": float(p_val)})
 
             real_points = len(data_tuples)
 
@@ -224,7 +221,7 @@ def backfill_std_perf_logic(db):
 
                 eq = gv(metrics.get("equity"))
                 is_hedged = any(
-                    k in f"{dd.get('name')} {dd.get('class')}".lower()
+                    k in f"{dd.get('name', '')} {dd.get('class', '')}".lower()
                     for k in ["hedged", "hgd", "cubierto"]
                 )
 
@@ -240,7 +237,7 @@ def backfill_std_perf_logic(db):
                 )
 
         except Exception as e:
-            print(f"Calc error {isin}: {e}")
+            logger.exception(f"Calc error {isin}: {e}")
             stats["errors"] += 1
             results_csv.append({"isin": isin, "status": "error", "reason": str(e)})
 

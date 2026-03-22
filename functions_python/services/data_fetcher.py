@@ -22,12 +22,11 @@ class DataFetcher:
         self.db = db_client
 
     def get_price_data(
-        self, assets_list: list, resample_freq="D", strict=True, no_fill=False
+        self, assets_list: list, resample_freq="D", strict=True
     ):
         """
         Fetches price history for assets.
         Standardizes to Daily Frequency ('D') and aligns to Business Day Calendar ('B').
-        If no_fill=True, skips ffill/bfill to allow raw data analysis (Time Horizon detection).
         """
         global _global_prices_cache
         price_data = {}
@@ -87,7 +86,7 @@ class DataFetcher:
                     )
                     missing_assets = still_missing
             except Exception as e:
-                logger.info(f"⚠️ [DataFetcher] Fallo al leer caché de Storage: {e}")
+                logger.warning(f"⚠️ [DataFetcher] Fallo al leer caché de Storage: {e}")
 
         # 3. Batch Fetch from Firestore (Fallback for remaining missing assets)
         if missing_assets:
@@ -114,10 +113,10 @@ class DataFetcher:
                         price_data[isin] = series_clean
                         PRICE_CACHE[isin] = series_clean
                     else:
-                        logger.info(f"⚠️ {isin}: Insufficient history ({len(series_clean)})")
+                        logger.warning(f"⚠️ {isin}: Insufficient history ({len(series_clean)})")
 
                 except Exception as e:
-                    logger.info(f"⚠️ Error parsing {isin}: {e}")
+                    logger.warning(f"⚠️ Error parsing {isin}: {e}")
 
         if not price_data:
             return pd.DataFrame(), []
@@ -174,7 +173,7 @@ class DataFetcher:
                 cum_returns = (1 + ret.fillna(0)).cumprod()
 
                 # Find the first valid price for each asset to use as a base
-                first_valid_prices = df.ffill().bfill().iloc[0]
+                first_valid_prices = df.apply(lambda col: col.dropna().iloc[0] if not col.dropna().empty else np.nan)
 
                 # Rebuild prices: Base * Cumulative Growth
                 df_rebuilt = cum_returns.multiply(first_valid_prices)
@@ -182,17 +181,14 @@ class DataFetcher:
                 # Restore NaNs for days before the asset actually existed
                 df = df_rebuilt.where(original_notna)
 
-        # Step C2: Fill Gaps (Professional ffill/bfill sequence)
-        # We allow broad ffill to avoid zero drops in portfolio charts, UNLESS no_fill requested
-        if not no_fill:
-            df = df.ffill().bfill()
-        else:
-            # Even in no_fill, slight ffill helps with holiday gaps, but NO bfill
-            df = df.ffill()
+        # Step C2: Fill Gaps (Professional ffill sequence)
+        df = df.ffill()
 
         # Step D: Strict vs Loose
-        if strict and not no_fill:
+        if strict:
             df_final = df.dropna()
+            if len(df_final) < 60:
+                logger.warning(f"⚠️ [DataFetcher] Tras dropna() estricto, la matriz común de {len(df_final.columns)} activos quedó en solo {len(df_final)} observaciones.")
         else:
             df_final = df
 
@@ -217,7 +213,7 @@ class DataFetcher:
         # Priority 2: 'series' (Legacy)
         series = data.get("series", [])
         for p in series:
-            if p.get("date") and p.get("price"):
+            if p.get("date") and p.get("price") is not None:
                 d_val = p["date"]
                 if hasattr(d_val, "strftime"):
                     d_str = d_val.strftime("%Y-%m-%d")
@@ -291,7 +287,7 @@ class DataFetcher:
                         )
                         return float(stored_rate)
         except Exception as e:
-            logger.info(f"⚠️ Error checking DB cache: {e}")
+            logger.warning(f"⚠️ Error checking DB cache: {e}")
 
         # 2. Try Memory Cache (Fallback / Optimization if DB fail)
         if _rf_cache["rate"] and _rf_cache["timestamp"]:
@@ -342,14 +338,14 @@ class DataFetcher:
                     }
                 )
             except Exception as w_err:
-                logger.info(f"⚠️ Error writing DB cache: {w_err}")
+                logger.warning(f"⚠️ Error writing DB cache: {w_err}")
 
             return rate
 
         except Exception as e:
-            logger.info(f"⚠️ [ECB] Error fetching rate: {e}")
+            logger.warning(f"⚠️ [ECB] Error fetching rate: {e}")
 
-        logger.info(f"⚠️ [ECB] Using Fallback Rate: {fallback_rate * 100:.1f}%")
+        logger.warning(f"⚠️ [ECB] Using Fallback Rate: {fallback_rate * 100:.1f}%")
         return float(fallback_rate)
 
     def generate_synthetic_series(self, days=1200, vol=0.12, ret=0.07, seed=None):

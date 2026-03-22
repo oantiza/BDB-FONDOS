@@ -1,7 +1,0 @@
-{
-  "dependencies": {
-    "firebase-admin": "^13.6.1",
-    "minimist": "^1.2.8",
-    "pdf-parse": "^1.1.1"
-  }
-}

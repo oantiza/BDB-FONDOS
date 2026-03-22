@@ -1,7 +1,6 @@
 import logging
 logger = logging.getLogger(__name__)
 import pandas as pd
-import numpy as np
 
 from firebase_admin import firestore
 
@@ -26,8 +25,8 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
 
     # 1. Fetch data
     fetcher = DataFetcher(db)
-    price_data, synthetic_used = fetcher.get_price_data(
-        assets_list, resample_freq="D", strict=False, no_fill=True
+    price_data, _ = fetcher.get_price_data(
+        assets_list, resample_freq="D", strict=False
     )
 
     df = pd.DataFrame(price_data)
@@ -45,7 +44,15 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     )
     final_start_date = max(ideal_start_date, actual_start_date)
     df = df[df.index >= final_start_date]
-    df = df.sort_index().ffill().bfill()
+    df = df.sort_index().ffill().dropna()
+
+    if df.empty or len(df) < 60:
+        actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+        return {
+            "error": f"El tramo común de análisis es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para un cálculo de riesgo válido.",
+            "effective_start_date": actual_start_str,
+            "observations": len(df)
+        }
 
     # Ensure all requested assets are in the dataframe
     universe = list(df.columns)
@@ -59,7 +66,6 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     # Normalize valid weights
     total_w = sum(valid_weights.values())
     valid_weights = {isin: w / total_w for isin, w in valid_weights.items()}
-    w_arr = np.array([valid_weights.get(t, 0.0) for t in universe], dtype=float)
 
     from services.quant_core import get_covariance_matrix, get_expected_returns, calculate_portfolio_metrics
 
@@ -112,7 +118,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
                 dd = d.to_dict() or {}
                 asset_metadata[d.id] = dd
     except Exception as e:
-        logger.info(f"Error fetching metadata: {e}")
+        logger.warning(f"Error fetching metadata: {e}")
 
     # 4. Generate Opinion
     opinion = []
@@ -157,8 +163,11 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
         meta1 = asset_metadata.get(asset1, {})
         meta2 = asset_metadata.get(asset2, {})
 
-        sharpe1 = _to_float(meta1.get("std_perf", {}).get("sharpe", 0.0), 0.0)
-        sharpe2 = _to_float(meta2.get("std_perf", {}).get("sharpe", 0.0), 0.0)
+        std_perf1 = meta1.get("std_perf") or {}
+        std_perf2 = meta2.get("std_perf") or {}
+
+        sharpe1 = _to_float(std_perf1.get("sharpe", 0.0), 0.0)
+        sharpe2 = _to_float(std_perf2.get("sharpe", 0.0), 0.0)
 
         asset_to_replace = asset1 if sharpe1 < sharpe2 else asset2
         target_meta = meta1 if sharpe1 < sharpe2 else meta2
@@ -199,13 +208,14 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
             found_alts = []
             for doc in alt_query:
                 if doc.id not in universe:  # Do not suggest what they already have
-                    alt_data = doc.to_dict()
+                    alt_data = doc.to_dict() or {}
+                    alt_std_perf = alt_data.get("std_perf") or {}
                     found_alts.append(
                         {
                             "isin": doc.id,
                             "name": alt_data.get("name", "Unknown Fund"),
                             "sharpe": _to_float(
-                                alt_data.get("std_perf", {}).get("sharpe", 0.0), 0.0
+                                alt_std_perf.get("sharpe", 0.0), 0.0
                             ),
                             "reason": f"Sugerido como alternativa a {asset_to_replace} en la categoría '{target_cat}' por tener mejor rendimiento ajustado por riesgo.",
                         }
@@ -220,7 +230,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
                     }
                 )
         except Exception as e:
-            logger.info(f"Error querying alternatives: {e}")
+            logger.warning(f"Error querying alternatives: {e}")
 
     # Build response return
     result = {
@@ -229,6 +239,9 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
             "expected_return": round(port_ret, 4),
             "volatility": round(port_vol, 4),
             "sharpe_ratio": round(port_sharpe, 4),
+            "effective_start_date": df.index[0].strftime("%Y-%m-%d"),
+            "target_years": target_years,
+            "observations": len(df),
         },
         "correlation_matrix": corr_json,
         "high_correlation_pairs": high_corr_pairs,

@@ -39,7 +39,13 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
     if not keep_assets:
         raise Exception("No common history found for selected assets.")
 
-    df = df[keep_assets].sort_index().ffill().bfill()
+    df = df[keep_assets].sort_index()
+    first_valid = df.apply(lambda col: col.first_valid_index()).dropna()
+    if not first_valid.empty:
+        common_start = first_valid.max()
+        df = df[df.index >= common_start]
+        
+    df = df.ffill()
 
     return df, synthetic_used
 
@@ -356,7 +362,7 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
             yf_data.index = pd.to_datetime(yf_data.index).normalize()
             if yf_data.index.tz is not None:
                 yf_data.index = yf_data.index.tz_localize(None)
-            return yf_data.reindex(default_index).ffill().bfill()
+            return yf_data.reindex(default_index).ffill()
         except:
             return pd.Series(index=default_index, dtype=float).fillna(100.0)
 

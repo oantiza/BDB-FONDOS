@@ -36,6 +36,9 @@ yarn-debug.log*
 pnpm-debug.log*
 firebase-debug*.log
 
+# REPORTES TEMPORALES (Evitar ensuciar git con logs de batch run)
+reports/batch_run_*.json
+
 ############################################
 # BASES DE DATOS LOCALES
 ############################################
@@ -104,6 +107,8 @@ archivos viejos/
 *.rar
 *.bak
 *.tmp
+tmp_*.py
+temp_*.py
 
 # imágenes
 *.png

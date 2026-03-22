@@ -1,6 +1,0 @@
-firebase-admin
-aiohttp
-pandas
-numpy
-requests
-pydantic

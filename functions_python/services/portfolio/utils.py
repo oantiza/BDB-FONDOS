@@ -178,7 +178,9 @@ def apply_market_proxy_backfill(df_prices, asset_metadata=None):
             needed_proxies.add(proxy)
 
     proxy_data = pd.DataFrame(index=df_prices.index)
-    start_str = df_prices.index[0].strftime("%Y-%m-%d")
+    # Start fetch 7 days earlier to provide a buffer for ffill on day 0
+    start_dt = df_prices.index[0] - pd.Timedelta(days=7)
+    start_str = start_dt.strftime("%Y-%m-%d")
     end_str = (df_prices.index[-1] + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
 
     if EODHD_API_KEY:
@@ -193,7 +195,7 @@ def apply_market_proxy_backfill(df_prices, asset_metadata=None):
                         proxy_df["date"] = pd.to_datetime(proxy_df["date"])
                         proxy_df.set_index("date", inplace=True)
                         proxy_series = proxy_df["adjusted_close"]
-                        aligned = proxy_series.reindex(df_prices.index).ffill().bfill()
+                        aligned = proxy_series.reindex(df_prices.index).ffill()
                         proxy_data[proxy_ticker] = aligned
             except Exception as e:
                 logger.info(f"⚠️ [Utils] Failed to fetch {proxy_ticker} from EODHD: {str(e)}")
