@@ -44,7 +44,8 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
         if ac_v2 == "REAL_ESTATE": return "Otros" 
 
     # 1. Expect Explicit Tag (e.g. injected during fallback or testing overrides)
-    if meta.get("label") in [
+    label_override = meta.get("label") or meta.get("asset_class")
+    if label_override in [
         "RV",
         "RF",
         "Mixto",
@@ -52,10 +53,10 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
         "Alternativos",
         "Otros",
     ]:
-        return meta["label"]
+        return label_override
     
     # Map Retorno Absoluto to Alternativos if it comes from legacy label
-    if meta.get("label") == "Retorno Absoluto":
+    if label_override == "Retorno Absoluto":
         return "Alternativos"
 
     return "Otros"

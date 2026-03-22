@@ -165,6 +165,9 @@ function normalizeAssetClass(raw: any): AssetClass {
   if (s === "RV") return "RV";
   if (s === "MIXTO") return "Mixto";
   if (s === "RETORNO ABSOLUTO" || s === "ALTERNATIVOS") return "Alternativos";
+  
+  // Explicitly map these to 'Otros' to match backend bounds and avoid uncertainty
+  if (s === "MATERIAS PRIMAS" || s === "COMMODITIES" || s === "INMOBILIARIO" || s === "REAL ESTATE" || s === "REAL_ESTATE") return "Otros";
 
   return "Otros";
 }

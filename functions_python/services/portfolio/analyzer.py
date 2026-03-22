@@ -21,7 +21,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     """
     assets_list = list(portfolio_weights.keys())
     if not assets_list:
-        return {"error": "Portfolio is empty"}
+        return {"status": "error", "message": "Portfolio is empty", "error": "Portfolio is empty"}
 
     # 1. Fetch data
     fetcher = DataFetcher(db)
@@ -31,7 +31,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
 
     df = pd.DataFrame(price_data)
     if df.empty or len(df) < 50:
-        return {"error": "Insufficient historical data for the requested assets"}
+        return {"status": "error", "message": "Insufficient historical data for the requested assets", "error": "Insufficient historical data for the requested assets"}
 
     df.index = pd.to_datetime(df.index)
 
@@ -48,8 +48,11 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
 
     if df.empty or len(df) < 60:
         actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+        err_msg = f"El tramo común de análisis es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para un cálculo de riesgo válido."
         return {
-            "error": f"El tramo común de análisis es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para un cálculo de riesgo válido.",
+            "status": "error",
+            "message": err_msg,
+            "error": err_msg,
             "effective_start_date": actual_start_str,
             "observations": len(df)
         }
@@ -61,7 +64,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     }
 
     if sum(valid_weights.values()) == 0:
-        return {"error": "None of the provided assets have valid historical data."}
+        return {"status": "error", "message": "None of the provided assets have valid historical data.", "error": "None of the provided assets have valid historical data."}
 
     # Normalize valid weights
     total_w = sum(valid_weights.values())

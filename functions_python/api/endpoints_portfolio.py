@@ -388,7 +388,7 @@ def getEfficientFrontier(request: https_fn.CallableRequest):
 
     except Exception as e:
         logger.exception(f"🔥 [getEfficientFrontier] Error crítico: {e}")
-        return {"status": "error", "error": f"Error interno: {str(e)}"}
+        return {"status": "error", "message": f"Error interno: {str(e)}", "error": f"Error interno: {str(e)}"}
 
 
 @https_fn.on_call(

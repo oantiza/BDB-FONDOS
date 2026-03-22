@@ -69,12 +69,17 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         if df.empty or len(df) < 60:
             actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
             logger.info(f"⚠️ [Senior EF] Insufficient history: {len(df)} points.")
+            err_msg = f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para calcular la frontera."
             return {
-                "error": f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para calcular la frontera.",
+                "status": "error",
+                "message": err_msg,
+                "error": err_msg,
                 "effective_start_date": actual_start_str,
                 "observations": len(df),
                 "points": len(df),
-                "assets_found": list(df.columns)
+                "assets_found": list(df.columns),
+                "frontier": [],
+                "math_data": {}
             }
 
         effective_start_date = df.index[0].strftime('%Y-%m-%d')
@@ -237,6 +242,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                 logger.warning(f"⚠️ Portfolio point calc failed: {e_p}")
 
         result = {
+            "status": "success",
             "frontier": frontier_points,
             "assets": asset_points,
             "portfolio": portfolio_point,
@@ -260,4 +266,4 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         import traceback
 
         traceback.print_exc()
-        return {"error": str(e)}
+        return {"status": "error", "message": str(e), "error": str(e)}
