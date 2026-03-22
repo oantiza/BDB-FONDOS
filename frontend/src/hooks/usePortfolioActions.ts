@@ -221,34 +221,6 @@ export function usePortfolioActions({
 
     // ... (existing state) ...
 
-    // --- NEW: Round Decimals Handler ---
-    const handleRoundDecimals = useCallback(() => {
-        if (!portfolio.length || totalCapital <= 0) return;
-
-        let newTotalCapital = 0;
-        const roundedFunds = portfolio.map(p => {
-            const currentCap = (p.weight / 100) * totalCapital;
-            const roundedCap = Math.round(currentCap);
-            newTotalCapital += roundedCap;
-            return { ...p, _tempCap: roundedCap }; // Store temporarily
-        });
-
-        if (newTotalCapital === 0) return;
-
-        // Recalculate weights based on new integers
-        const newPortfolio = roundedFunds.map(p => {
-            const { _tempCap, ...rest } = p;
-            return {
-                ...rest,
-                weight: (_tempCap / newTotalCapital) * 100
-            };
-        });
-
-        setTotalCapital(newTotalCapital);
-        setPortfolio(newPortfolio);
-        toast.success("Cartera ajustada a decimales exactos");
-    }, [portfolio, totalCapital, setPortfolio, setTotalCapital, toast]);
-
     // ... (rest of the hook) ...
 
     // Modal & UI States
@@ -849,7 +821,6 @@ export function usePortfolioActions({
         handleAcceptPortfolio,
         handleMacroApply,
         handleImportCSV,
-        handleRoundDecimals,
         handleAnalyzePortfolio, // NEW
         handleFetchInteractiveFrontier, // NEW
         handleToggleLock,

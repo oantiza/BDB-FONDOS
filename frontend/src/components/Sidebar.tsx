@@ -215,17 +215,17 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
 
   return (
     <div className="w-full h-full bg-white border-r border-slate-100 shadow-sm z-10 p-0 flex flex-col shrink-0 text-slate-700">
-      <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0">
-        <h3 className="text-base font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
+      <div className="px-4 py-3.5 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center shrink-0">
+        <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
           Universo de Inversión
         </h3>
       </div>
 
-      <div className="p-3 border-b border-slate-50 flex flex-col gap-2">
+      <div className="px-4 py-3 border-b border-slate-50 flex flex-col gap-2.5">
         <select
           value={category}
           onChange={(e) => setCategory(e.target.value)}
-          className="w-full text-xs p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-colors font-bold"
+          className="w-full text-[11px] py-1.5 px-2 bg-slate-50/50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-colors font-semibold"
         >
           <option value="ALL">Clase de Activo (Todas)</option>
           <optgroup label="Grandes Bloques">
@@ -251,20 +251,19 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
           value={term}
           onChange={(e) => setTerm(e.target.value)}
           placeholder="Buscar nombre o ISIN..."
-          className="w-full text-sm p-2 bg-slate-50 border border-slate-100 rounded outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 text-slate-700 transition-all placeholder:text-slate-400"
+          className="w-full text-[11px] py-1.5 px-2 bg-slate-50/50 border border-slate-100 rounded outline-none focus:border-slate-300 text-slate-700 transition-all placeholder:text-slate-400"
         />
 
-        <div className="flex items-center justify-between mt-2">
-          <label className="flex items-center gap-2 text-xs text-slate-500 cursor-pointer select-none">
+        <div className="flex items-center justify-between mt-1 pt-1">
+          <label className="flex items-center gap-1.5 text-[9px] text-slate-400 font-medium tracking-wide uppercase cursor-pointer select-none">
             <input
               type="checkbox"
               checked={showNoHistory}
               onChange={(e) => setShowNoHistory(e.target.checked)}
-              className="rounded border-slate-300 text-[#0B2545] focus:ring-[#0B2545]"
+              className="w-2.5 h-2.5 rounded border-slate-200 text-slate-500 focus:ring-transparent focus:ring-offset-0"
             />
             Mostrar sin histórico
           </label>
-          <div className="text-[10px] text-slate-400 italic">Clic para detalles</div>
         </div>
 
         {!showNoHistory && (
@@ -305,33 +304,33 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
             return (
               <div
                 key={f.isin}
-                className={`py-4 px-3 border-b border-slate-50 hover:bg-slate-50 flex justify-between items-center group transition-colors ${showWarn ? 'opacity-80 bg-yellow-50/10' : ''
+                className={`py-3.5 px-4 border-b border-slate-50/50 hover:bg-slate-50/60 flex justify-between items-center group transition-colors ${showWarn ? 'opacity-80 bg-yellow-50/10' : ''
                   }`}
               >
-                <div className="min-w-0 pr-2 flex-1">
+                <div className="min-w-0 pr-3 flex-1 flex flex-col gap-1">
                   <div
-                    className="text-sm font-semibold text-[#2C3E50] truncate leading-tight flex items-center gap-2"
-                    title="Ver detalle del fondo"
+                    className="text-[13px] font-semibold text-slate-800 truncate leading-snug flex items-center gap-2"
+                    title="Ver detalle del fondo (Click)"
                   >
                     <span
                       onClick={() => onViewDetail && onViewDetail(f)}
-                      className="cursor-pointer hover:text-[#003399] hover:underline"
+                      className="cursor-pointer transition-colors hover:text-[#0B2545]"
                     >
                       {f.name}
                     </span>
                     {showWarn && (
                       <span
-                        className="text-[9px] px-1 bg-gray-100 text-gray-500 rounded border border-gray-200 cursor-help"
+                        className="text-[9px] px-1 bg-gray-100/50 text-gray-400 rounded-sm cursor-help"
                         title="Sin histórico real en historico_vl_v2"
                       >
                         ⚠️
                       </span>
                     )}
                   </div>
-                  <div className="text-[10px] text-[#0B2545] font-bold uppercase tracking-wider mt-1 flex gap-2 items-center">
-                    <span>{f.isin}</span>
-                    <span className="text-slate-300">•</span>
-                    <span className="text-slate-500 font-medium truncate" title="Clasificación V2">
+                  <div className="text-[9.5px] text-slate-400 font-normal tracking-wide flex items-center">
+                    <span className="text-slate-400 uppercase font-mono" title="ISIN">{f.isin}</span>
+                    <span className="mx-2 text-slate-200 font-light">|</span>
+                    <span className="truncate text-slate-400 uppercase" title="Clasificación V2">
                       {getFormattedTaxonomy(f)}
                     </span>
                   </div>
@@ -339,7 +338,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
 
                 <button
                   onClick={() => onAddAsset(f)}
-                  className="text-[#003399] font-bold opacity-0 group-hover:opacity-100 text-xs shrink-0 px-2 py-1 hover:bg-[#003399] hover:text-white rounded transition-all"
+                  className="text-slate-500 font-bold opacity-0 group-hover:opacity-100 text-[10px] uppercase tracking-widest shrink-0 px-2.5 py-1.5 hover:bg-slate-100 hover:text-[#0B2545] rounded transition-all border border-transparent hover:border-slate-200"
                   title="Añadir a cartera"
                 >
                   AÑADIR

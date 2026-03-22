@@ -2,6 +2,7 @@ import React, { useState, useRef, lazy, Suspense, useMemo } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore'
 import { db, functions } from '../firebase'
+import { Download, Upload, Trash2, Lock, Unlock } from 'lucide-react'
 
 // Components
 import Header from '../components/Header'
@@ -86,6 +87,8 @@ export default function DashboardPage({
 }: DashboardPageProps) {
 
     // 1. BUSINESS LOGIC HOOKS
+    const [isEditingCapital, setIsEditingCapital] = useState(false);
+    const [capitalInputValue, setCapitalInputValue] = useState(totalCapital.toString());
     const {
         isOptimizing,
         modals, toggleModal,
@@ -104,7 +107,6 @@ export default function DashboardPage({
         handleAcceptPortfolio,
         handleMacroApply,
         handleImportCSV,
-        handleRoundDecimals,
         handleAnalyzePortfolio, // NEW
         handleFetchInteractiveFrontier, // NEW
         handleToggleLock,
@@ -214,7 +216,7 @@ export default function DashboardPage({
     }
 
     return (
-        <div className="h-screen flex flex-col overflow-hidden bg-[#f8fafc] font-sans text-slate-700">
+        <div className="h-screen flex flex-col overflow-hidden bg-slate-100 font-sans text-slate-700">
             <Header
                 onLogout={onLogout}
                 onOpenMiBoutique={onOpenMiBoutique}
@@ -225,19 +227,19 @@ export default function DashboardPage({
                 isOptimizing={isOptimizing}
             />
 
-            <div className="flex flex-1 overflow-hidden p-6 gap-6">
+            <div className="flex flex-1 overflow-hidden p-5 gap-5">
                 <div className="w-[15%] h-full flex flex-col bg-white">
                     <div className="flex-1 overflow-hidden relative rounded-xl border border-slate-100 shadow-sm">
                         <Sidebar assets={assets} onAddAsset={handleAddAsset} onViewDetail={setSelectedFund} />
                     </div>
                 </div>
 
-                <div className="w-[58%] h-full flex flex-col gap-6">
-                    <div className="h-1/3 grid grid-cols-2 gap-6 shrink-0">
+                <div className="w-[58%] h-full flex flex-col gap-5">
+                    <div className="h-1/3 grid grid-cols-2 gap-5 shrink-0">
                         {/* Efficient Frontier Chart */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10">
-                                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
+                            <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
+                                <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
                                     Frontera Eficiente
                                 </h3>
                             </div>
@@ -258,8 +260,8 @@ export default function DashboardPage({
 
                         {/* Key Metrics */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <div className="p-4 border-b border-slate-50 flex justify-between items-center z-10">
-                                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
+                            <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
+                                <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
                                     Métricas Clave
                                 </h3>
                             </div>
@@ -291,13 +293,11 @@ export default function DashboardPage({
 
                     {/* Bottom Row: Portfolio Table */}
                     <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200 bg-white">
-                        <div className="p-4 border-b border-slate-50 flex justify-between items-center shrink-0 relative">
+                        <div className="py-3 px-4 bg-white border-b border-slate-100 flex justify-between items-center shrink-0">
                             <div className="flex items-center gap-3">
-                                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.2em] flex items-center gap-2">
+                                <h3 className="text-[12px] font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
                                     Cartera de Fondos <span className="text-slate-400">({portfolio.length})</span>
                                 </h3>
-                                {/* [NEW] Data Quality Badge */}
-                                <DataQualityBadge grade={portfolioGrade.grade} reason={portfolioGrade.reason} compact />
 
                                 {portfolio.length > 0 && (
                                     <button
@@ -305,49 +305,93 @@ export default function DashboardPage({
                                             const allLocked = portfolio.every(p => p.isLocked);
                                             setPortfolio(portfolio.map(p => ({ ...p, isLocked: !allLocked })));
                                         }}
-                                        className={`ml-2 text-[10px] font-bold px-2 py-1 rounded border uppercase tracking-widest flex items-center gap-1 transition-colors ${portfolio.every(p => p.isLocked)
-                                                ? 'bg-slate-700 text-white border-slate-700 hover:bg-slate-600'
-                                                : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200'
+                                        className={`ml-2 text-[10px] font-semibold px-2.5 py-1.5 rounded-md border uppercase tracking-wider flex items-center gap-1.5 transition-colors ${portfolio.every(p => p.isLocked)
+                                                ? 'bg-slate-50 text-slate-700 border-slate-200 hover:bg-slate-100'
+                                                : 'bg-white text-slate-500 border-slate-200 hover:bg-slate-50'
                                             }`}
                                     >
-                                        {portfolio.every(p => p.isLocked) ? '🔓 Desbloquear Todos' : '🔒 Bloquear Todos'}
+                                        {portfolio.every(p => p.isLocked) ? <Unlock className="w-3 h-3"/> : <Lock className="w-3 h-3"/>}
+                                        {portfolio.every(p => p.isLocked) ? 'Desbloquear Todos' : 'Bloquear Todos'}
                                     </button>
                                 )}
 
                                 {portfolio.length > 0 && portfolio.length < numFunds && (
                                     <button
                                         onClick={handleAutoCompletePortfolio}
-                                        className="ml-2 bg-blue-50 hover:bg-blue-100 text-blue-700 text-[10px] font-bold px-2 py-1 rounded border border-blue-200 uppercase tracking-widest flex items-center gap-1 transition-colors"
+                                        className="ml-2 bg-blue-50/50 hover:bg-blue-50 text-blue-600 text-[10px] font-semibold px-2.5 py-1.5 rounded-md border border-blue-100 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
                                     >
                                         <span>✨</span> Auto-completar (+{numFunds - portfolio.length})
                                     </button>
                                 )}
                             </div>
 
-                            {/* Separator Line with Padding */}
-                            <div className="absolute bottom-0 left-0 right-0 mx-6 border-b border-black/80"></div>
-                            <div className="flex items-center gap-3 text-xs">
-                                <span className="text-slate-600 font-bold uppercase tracking-wider text-[10px]">Capital</span>
-                                <div className="flex items-center border border-slate-200 rounded px-2 py-1 bg-slate-50">
-                                    <input type="number" value={totalCapital} onChange={(e) => setTotalCapital(parseFloat(e.target.value))} className="bg-transparent text-slate-700 font-mono w-20 text-right text-sm outline-none" />
-                                    <span className="text-slate-600 text-[10px] font-bold ml-1">EUR</span>
+                            <div className="flex items-center gap-4 text-xs">
+                                <div className="flex items-center gap-2 border border-slate-200 px-3 py-1.5 rounded-md bg-white shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                                    <span className="text-slate-400 font-bold uppercase tracking-wider text-[10px]">Capital</span>
+                                    <div className="flex items-baseline gap-1">
+                                        {isEditingCapital ? (
+                                            <input
+                                                type="number"
+                                                value={capitalInputValue}
+                                                onChange={(e) => setCapitalInputValue(e.target.value)}
+                                                onBlur={() => {
+                                                    const val = parseFloat(capitalInputValue);
+                                                    if (!isNaN(val) && val > 0) setTotalCapital(val);
+                                                    setIsEditingCapital(false);
+                                                }}
+                                                onKeyDown={(e) => {
+                                                    if (e.key === 'Enter') {
+                                                        const val = parseFloat(capitalInputValue);
+                                                        if (!isNaN(val) && val > 0) setTotalCapital(val);
+                                                        setIsEditingCapital(false);
+                                                    } else if (e.key === 'Escape') {
+                                                        setIsEditingCapital(false);
+                                                        setCapitalInputValue(totalCapital.toString());
+                                                    }
+                                                }}
+                                                autoFocus
+                                                className="w-24 text-slate-800 font-mono text-sm tracking-tight font-semibold bg-slate-50 border border-blue-300 rounded px-1 outline-none focus:ring-2 focus:ring-blue-100"
+                                            />
+                                        ) : (
+                                            <span 
+                                                className="text-slate-800 font-mono text-sm tracking-tight font-semibold cursor-text hover:text-blue-600 transition-colors"
+                                                onClick={() => {
+                                                    setCapitalInputValue(totalCapital.toString());
+                                                    setIsEditingCapital(true);
+                                                }}
+                                                title="Hacer clic para editar"
+                                            >
+                                                {Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(totalCapital)}
+                                            </span>
+                                        )}
+                                        <span className="text-slate-500 text-[10px] font-bold">EUR</span>
+                                    </div>
                                 </div>
-                                <div className="h-4 w-px bg-slate-100 mx-1"></div>
-
-                                <button
-                                    onClick={handleRoundDecimals}
-                                    className="flex items-center gap-1 bg-emerald-50 hover:bg-emerald-100 text-[#0B2545] hover:text-[#0B2545] px-2 py-1 rounded border border-emerald-200 transition-colors text-[10px] font-bold uppercase tracking-wider"
-                                    title="Redondear capitales (eliminar decimales)"
-                                >
-                                    <span>🪄</span> Redondear
-                                </button>
-                                <div className="h-4 w-px bg-slate-100 mx-1"></div>
-
-                                <button onClick={() => exportToCSV(portfolio, totalCapital)} className="text-slate-400 hover:text-[#003399] transition-colors" title="Exportar CSV">📥</button>
-                                <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv" className="hidden" />
-                                <button onClick={handleImportClick} className="text-slate-400 hover:text-[#003399] transition-colors">📂</button>
-                                <div className="h-4 w-px bg-slate-100 mx-1"></div>
-                                <button onClick={() => { if (window.confirm('¿Estás seguro de que quieres vaciar toda la cartera?')) setPortfolio([]) }} className="text-slate-400 hover:text-red-600 transition-colors" title="Vaciar Cartera">🗑️</button>
+                                
+                                <div className="flex items-center border border-slate-200 rounded-md bg-white divide-x divide-slate-100 shadow-[0_1px_2px_rgba(0,0,0,0.02)]">
+                                    <button 
+                                        onClick={() => exportToCSV(portfolio, totalCapital)} 
+                                        className="p-2 hover:bg-slate-50 text-[#00bcda] transition-colors" 
+                                        title="Exportar CSV"
+                                    >
+                                        <Download className="w-4 h-4" strokeWidth={2.5} />
+                                    </button>
+                                    <input type="file" ref={fileInputRef} onChange={handleFileChange} accept=".csv" className="hidden" />
+                                    <button 
+                                        onClick={handleImportClick} 
+                                        className="p-2 hover:bg-slate-50 text-[#00bcda] transition-colors"
+                                        title="Importar CSV"
+                                    >
+                                        <Upload className="w-4 h-4" strokeWidth={2.5} />
+                                    </button>
+                                    <button 
+                                        onClick={() => { if (window.confirm('¿Estás seguro de que quieres vaciar toda la cartera?')) setPortfolio([]) }} 
+                                        className="p-2 hover:bg-red-50 text-red-400 transition-colors" 
+                                        title="Vaciar Cartera"
+                                    >
+                                        <Trash2 className="w-4 h-4" strokeWidth={2.5} />
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         <div className="flex-1 overflow-hidden relative">
@@ -357,8 +401,8 @@ export default function DashboardPage({
 
                 </div>
 
-                <div className="flex-1 h-full flex flex-col overflow-y-auto scrollbar-thin gap-6">
-                    <div className="flex flex-col gap-6 flex-1">
+                <div className="flex-1 h-full flex flex-col overflow-y-auto scrollbar-thin gap-5 pb-0">
+                    <div style={{ flex: 1.15 }} className="flex flex-col min-h-0">
                         <AssetDistributionWidget
                             portfolio={portfolio}
                             allocData={allocData}
@@ -366,7 +410,7 @@ export default function DashboardPage({
                         />
                     </div>
 
-                    <div className="shrink-0 pb-0">
+                    <div style={{ flex: 1 }} className="min-h-0">
                         <Controls className="h-full" riskLevel={riskLevel} setRiskLevel={setRiskLevel} numFunds={numFunds} setNumFunds={setNumFunds} onOptimize={handleOptimize} isOptimizing={isOptimizing} onManualGenerate={handleManualGenerate} onOpenCosts={() => toggleModal('costs', true)} onOpenXRay={onOpenXRay} onOpenTactical={() => { setProposedPortfolio(portfolio); toggleModal('tactical', true); }} onOpenMacro={() => toggleModal('macro', true)} vipFunds={vipFunds} setVipFunds={setVipFunds} onOpenVipModal={() => toggleModal('vip', true)} onOpenSharpeMaximizer={() => toggleModal('sharpeMaximizer', true)} onOpenSavedPortfolios={() => toggleModal('savedPortfolios', true)} />
                     </div>
                 </div>

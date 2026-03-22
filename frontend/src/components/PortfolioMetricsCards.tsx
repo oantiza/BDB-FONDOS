@@ -35,11 +35,13 @@ function MetricCard({
     color?: string; // Explicit HEX or Tailwind class
 }) {
     return (
-        <div className="flex-1 bg-white border border-slate-100/60 rounded-xl p-5 flex flex-col items-center justify-center text-center shadow-sm hover:shadow-md transition-shadow duration-300">
-            <div className="text-[10px] uppercase font-medium text-slate-400 tracking-widest mb-1.5">
-                {label}
+        <div className="bg-white border border-slate-100/80 rounded-xl p-4 flex flex-col items-center justify-center text-center gap-1 shadow-sm hover:shadow-md transition-shadow duration-300">
+            <div className="h-[28px] w-full flex items-end justify-center px-1">
+                <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest leading-tight line-clamp-2">
+                    {label}
+                </span>
             </div>
-            <div className={`text-2xl font-light tracking-tight ${color || "text-slate-800"}`}>
+            <div className={`text-[26px] font-semibold tabular-nums tracking-tight ${color || "text-slate-800"}`}>
                 {value}
             </div>
         </div>

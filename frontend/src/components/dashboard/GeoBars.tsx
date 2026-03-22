@@ -28,13 +28,28 @@ const chartDataLabels = {
             meta.data.forEach((bar: any, index: number) => {
                 const value = dataset.data[index];
                 if (value > 0.1) {
-                    ctx.font = 'bold 10px Inter, sans-serif';
-                    ctx.fillStyle = '#64748b';
-                    ctx.textAlign = 'left';
-                    ctx.textBaseline = 'middle';
-                    const x = bar.x + 6;
+                    const text = `${value.toFixed(1)}%`;
+                    ctx.font = '600 11px Inter, sans-serif';
+                    
+                    const textWidth = ctx.measureText(text).width;
+                    const boxPaddingX = 6;
+                    const boxHeight = 20;
+                    const boxWidth = textWidth + boxPaddingX * 2;
+                    
+                    const x = bar.x + 8;
                     const y = bar.y;
-                    ctx.fillText(`${value.toFixed(1)}%`, x, y);
+
+                    // Draw pill background
+                    ctx.fillStyle = '#F8FAFC';
+                    ctx.beginPath();
+                    ctx.roundRect(x, y - boxHeight / 2, boxWidth, boxHeight, 4);
+                    ctx.fill();
+
+                    // Draw text
+                    ctx.fillStyle = '#334155';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(text, x + boxWidth / 2, y);
                 }
             });
         });
@@ -105,12 +120,13 @@ export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) 
             y: {
                 grid: { display: false },
                 ticks: {
-                    font: { size: 11, weight: 'bold' as const },
-                    color: '#1e293b'
+                    font: { size: 10, weight: 'bold' as const },
+                    color: '#1e293b',
+                    padding: 8
                 }
             }
         },
-        layout: { padding: { top: 4, bottom: 4, left: 2, right: 40 } }
+        layout: { padding: { top: 4, bottom: 4, left: 10, right: 40 } }
     }
 
     if (isEmpty) return <div className="text-xs text-slate-400 text-center flex items-center justify-center h-full">Sin datos</div>

@@ -86,63 +86,43 @@ export default function EquityDistribution({ portfolio = [] }: any) {
     return (
         <div className="flex flex-col h-full overflow-hidden">
             {/* Header */}
-            <div className="pb-8 flex items-center gap-1.5 shrink-0">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-4 h-4 text-[#0B2545]">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
-                </svg>
-                <h3 className="text-sm font-extrabold text-[#0B2545] uppercase tracking-[0.15em]">
+            <div className="pb-4 border-b border-slate-100 flex items-center gap-2 shrink-0 mb-6">
+                <div className="w-5 h-5 rounded bg-blue-50/50 flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-3.5 h-3.5 text-blue-600">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M3 13.125C3 12.504 3.504 12 4.125 12h2.25c.621 0 1.125.504 1.125 1.125v6.75C7.5 20.496 6.996 21 6.375 21h-2.25A1.125 1.125 0 013 19.875v-6.75zM9.75 8.625c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125v11.25c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V8.625zM16.5 4.125c0-.621.504-1.125 1.125-1.125h2.25C20.496 3 21 3.504 21 4.125v15.75c0 .621-.504 1.125-1.125 1.125h-2.25a1.125 1.125 0 01-1.125-1.125V4.125z" />
+                    </svg>
+                </div>
+                <h3 className="text-[11px] font-bold text-slate-700 uppercase tracking-widest">
                     Renta Variable
                 </h3>
             </div>
 
-            <div className="flex-1 flex flex-col gap-8 overflow-y-auto scrollbar-none">
-                {/* Stacked Segmented Bar with Premium Gradients */}
-                <div className="flex flex-col gap-1.5 h-[65px] shrink-0">
-                    <div className="flex justify-between px-0.5">
-                        <span className="text-[9px] font-extrabold text-[#0B2545] uppercase tracking-wider">Cíclico</span>
-                        <span className="text-[9px] font-extrabold text-[#1E3A8A] uppercase tracking-wider">Sensible</span>
-                        <span className="text-[9px] font-extrabold text-[#64748B] uppercase tracking-wider">Defensivo</span>
+            <div className="flex-1 flex flex-col justify-center">
+                {/* Stacked Segmented Bar clean and elegant */}
+                <div className="flex flex-col gap-3 w-full max-w-[280px]">
+                    <div className="flex h-3 w-full rounded-full overflow-hidden bg-slate-100">
+                        <div className="h-full bg-blue-500 transition-all duration-700" style={{ width: `${analytics.groups.Cyclical}%` }} />
+                        <div className="h-full bg-blue-800 transition-all duration-700 border-x border-white/20" style={{ width: `${analytics.groups.Sensitive}%` }} />
+                        <div className="h-full bg-slate-300 transition-all duration-700" style={{ width: `${analytics.groups.Defensive}%` }} />
                     </div>
-                    <div className="flex h-3.5 w-full rounded-md overflow-hidden bg-slate-100 shadow-inner">
-                        <div className="h-full bg-gradient-to-r from-sky-600 to-sky-400 transition-all duration-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]" style={{ width: `${analytics.groups.Cyclical}%` }} />
-                        <div className="h-full bg-gradient-to-r from-[#0B2545] to-[#1E3A8A] transition-all duration-700 border-x border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]" style={{ width: `${analytics.groups.Sensitive}%` }} />
-                        <div className="h-full bg-gradient-to-r from-[#94A3B8] to-[#CBD5E1] transition-all duration-700 shadow-[inset_0_1px_0_rgba(255,255,255,0.2)]" style={{ width: `${analytics.groups.Defensive}%` }} />
-                    </div>
-                    <div className="flex justify-between px-0.5">
-                        <span className="text-xs font-black text-sky-600 tabular-nums">{analytics.groups.Cyclical}%</span>
-                        <span className="text-xs font-black text-[#0B2545] tabular-nums">{analytics.groups.Sensitive}%</span>
-                        <span className="text-xs font-black text-slate-500 tabular-nums">{analytics.groups.Defensive}%</span>
-                    </div>
-                </div>
-
-                {/* Top Sectors with Icons and Cleaner Layout */}
-                {analytics.sectors.length > 0 && (
-                    <div className="flex flex-col gap-4">
-                        <span className="text-[10px] font-extrabold text-slate-400 uppercase tracking-[0.2em] border-b border-slate-50 pb-2">Top Sectores</span>
-                        <div className="grid grid-cols-2 gap-x-6 gap-y-3">
-                            {analytics.sectors.map((s: any, i: number) => {
-                                const Icon = SECTOR_ICONS[s.rawLabel] || SECTOR_ICONS[Object.keys(SECTOR_ICONS).find(k => s.rawLabel.includes(k)) || ''] || Globe;
-                                return (
-                                    <div key={i} className="flex justify-between items-center py-1 group transition-all">
-                                        <div className="flex items-center gap-2 min-w-0">
-                                            <div className="w-5 h-5 rounded bg-slate-50 flex items-center justify-center shrink-0 group-hover:bg-slate-100 transition-colors">
-                                                <Icon className="w-3 h-3 text-[#0B2545] opacity-70" />
-                                            </div>
-                                            <span className="text-xs text-slate-600 font-medium truncate" title={s.l}>{s.l}</span>
-                                        </div>
-                                        <span className="text-xs font-extrabold text-[#0B2545] tabular-nums bg-slate-50 px-1.5 py-0.5 rounded-sm">{s.v}%</span>
-                                    </div>
-                                );
-                            })}
+                    
+                    <div className="grid grid-cols-3 gap-2">
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-bold text-blue-500 uppercase tracking-wider mb-0.5">Cíclico</span>
+                            <span className="text-sm font-semibold text-slate-700 tabular-nums">{analytics.groups.Cyclical}%</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-bold text-blue-800 uppercase tracking-wider mb-0.5">Sensible</span>
+                            <span className="text-sm font-semibold text-slate-700 tabular-nums">{analytics.groups.Sensitive}%</span>
+                        </div>
+                        <div className="flex flex-col">
+                            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Defensivo</span>
+                            <span className="text-sm font-semibold text-slate-700 tabular-nums">{analytics.groups.Defensive}%</span>
                         </div>
                     </div>
-                )}
-                {analytics.sectors.length === 0 && (
-                    <div className="flex-1 flex items-center justify-center text-[11px] text-slate-400 italic">
-                        Sin sectores ({portfolio.length} fondos)
-                    </div>
-                )}
+                </div>
             </div>
         </div>
     );
 }
+

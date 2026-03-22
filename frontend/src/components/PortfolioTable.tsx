@@ -1,5 +1,6 @@
 import { PortfolioItem } from '../types';
 import { getFormattedTaxonomy } from '../utils/taxonomyTranslators';
+import { Lock, Unlock, ArrowLeftRight, X } from 'lucide-react';
 
 interface PortfolioTableProps {
     assets?: any[];
@@ -42,89 +43,99 @@ export default function PortfolioTable({
                         return (
                             <tr
                                 key={asset.isin}
-                                // Si es manual, le damos un fondo azul muy suave para destacarlo
-                                className={`border-b border-slate-50 hover:bg-slate-50 group transition-colors ${isManual ? 'bg-blue-50/40' : ''}`}
+                                className={`border-b border-slate-100 hover:bg-slate-50 transition-colors ${isManual ? 'bg-blue-50/20' : ''}`}
                             >
-                                <td className="py-3 pr-3 pl-6 align-middle" title={asset.name}>
-                                    <div className="flex items-center gap-3">
+                                <td className="py-4 pr-3 pl-6 align-middle" title={asset.name}>
+                                    <div className="flex items-start gap-4">
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onToggleLock && onToggleLock(asset.isin); }}
-                                            className={`text-sm shrink-0 transition-opacity ${asset.isLocked ? 'opacity-100' : 'opacity-40 hover:opacity-100 grayscale hover:grayscale-0'}`}
-                                            title={asset.isLocked ? "Desbloquear fondo" : "Bloquear fondo (Fijar para optimización)"}
+                                            className={`mt-0.5 text-sm shrink-0 transition-opacity ${asset.isLocked ? 'text-slate-500 opacity-100' : 'text-slate-300 opacity-40 hover:opacity-100 hover:text-slate-400'}`}
+                                            title={asset.isLocked ? "Desbloquear fondo" : "Bloquear fondo"}
                                         >
-                                            {asset.isLocked ? '🔒' : '🔓'}
+                                            {asset.isLocked ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
                                         </button>
-                                        {/* Indicador manual secundario */}
-                                        {isManual && <span className="text-[10px] bg-blue-100 text-blue-800 px-1 rounded shrink-0" title="Seleccionado manualmente">M</span>}
 
-                                        <span
-                                            onClick={() => onFundClick && onFundClick(asset)}
-                                            className="truncate max-w-[320px] text-[#2C3E50] font-[450] text-sm leading-tight cursor-pointer hover:text-[#003399] hover:underline"
+                                        <div className="flex flex-col gap-1">
+                                            <div className="flex items-center gap-2">
+                                                <span
+                                                    onClick={() => onFundClick && onFundClick(asset)}
+                                                    className="truncate max-w-[350px] text-slate-800 font-[600] text-[13px] leading-tight cursor-pointer hover:text-blue-600 hover:underline"
+                                                >
+                                                    {asset.name}
+                                                </span>
+                                                {isManual && <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-100 px-1.5 py-0.5 rounded-sm shrink-0" title="Seleccionado manualmente">M</span>}
+                                            </div>
+                                            <div className="flex items-center gap-1.5">
+                                                <span className="text-slate-400 text-[10px] font-mono tracking-wider">{asset.isin}</span>
+                                                <span className="text-slate-300 text-[10px]">·</span>
+                                                <span className="text-slate-400 text-[10px] uppercase font-medium">{getFormattedTaxonomy(asset)}</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td className="p-3 text-right align-middle">
+                                    <div className="flex items-center justify-end">
+                                        <div className={`flex items-baseline gap-1.5 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                            <input
+                                                type="number"
+                                                className="w-12 text-right bg-transparent outline-none font-[600] text-slate-800 text-[13px] tabular-nums"
+                                                value={Math.round(asset.weight * 100) / 100}
+                                                step="0.01"
+                                                disabled={asset.isLocked}
+                                                onClick={(e) => e.stopPropagation()}
+                                                onChange={(e) => {
+                                                    const val = parseFloat(e.target.value) || 0;
+                                                    onUpdateWeight && onUpdateWeight(asset.isin, val);
+                                                }}
+                                            />
+                                            <span className="text-slate-400 font-medium text-[13px] w-3">%</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                
+                                <td className="p-3 text-right align-middle">
+                                    <div className="flex items-center justify-end">
+                                        <div className={`flex items-baseline gap-1.5 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                            <input
+                                                type="number"
+                                                className="w-20 text-right bg-transparent outline-none font-[600] text-slate-800 text-[13px] tabular-nums"
+                                                value={(totalCapital * (asset.weight / 100)).toFixed(2)}
+                                                step="100"
+                                                disabled={asset.isLocked}
+                                                onClick={(e) => e.stopPropagation()}
+                                                onChange={(e) => {
+                                                    const newCapital = parseFloat(e.target.value) || 0;
+                                                    if (totalCapital > 0) {
+                                                        const newWeight = (newCapital / totalCapital) * 100;
+                                                        onUpdateWeight && onUpdateWeight(asset.isin, newWeight);
+                                                    }
+                                                }}
+                                            />
+                                            <span className="text-slate-400 font-medium text-[13px] w-3">€</span>
+                                        </div>
+                                    </div>
+                                </td>
+
+                                <td className="py-3 pr-3 text-right align-middle">
+                                    <div className="flex items-center justify-end">
+                                        <button
+                                            onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
+                                            className="text-blue-500 hover:text-blue-600 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                                            title="Sustituir fondo"
                                         >
-                                            {asset.name}
-                                        </span>
-
-                                        <span className="text-[#0B2545] text-[10px] uppercase tracking-widest font-bold shrink-0 bg-[#0B2545]/10 px-1.5 py-0.5 rounded" title={asset.classification_v2?.asset_subtype}>
-                                            {getFormattedTaxonomy(asset)}
-                                        </span>
+                                            <ArrowLeftRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+                                            Sustituir
+                                        </button>
                                     </div>
                                 </td>
-                                <td className="p-3 text-right align-middle">
-                                    <div className="flex items-center justify-end gap-1">
-                                        <input
-                                            type="number"
-                                            className={`w-14 text-right bg-transparent outline-none font-[450] text-[#2C3E50] text-sm tabular-nums ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : 'border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors'}`}
-                                            value={Math.round(asset.weight * 100) / 100}
-                                            step="0.01"
-                                            disabled={asset.isLocked}
-                                            onClick={(e) => e.stopPropagation()}
-                                            onChange={(e) => {
-                                                const val = parseFloat(e.target.value) || 0;
-                                                onUpdateWeight && onUpdateWeight(asset.isin, val);
-                                            }}
-                                        />
-                                        <span className="text-[#0B2545] font-[450] text-sm">%</span>
-                                    </div>
-                                </td>
-                                <td className="p-3 text-right align-middle">
-                                    <div className="flex items-center justify-end gap-1">
-                                        <input
-                                            type="number"
-                                            className={`w-20 text-right bg-transparent outline-none font-[450] text-[#2C3E50] text-sm tabular-nums ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : 'border-b border-blue-100 hover:border-blue-400 focus:border-[var(--color-accent)] transition-colors'}`}
-                                            value={(totalCapital * (asset.weight / 100)).toFixed(2)}
-                                            step="100"
-                                            disabled={asset.isLocked}
-                                            onClick={(e) => e.stopPropagation()}
-                                            onChange={(e) => {
-                                                const newCapital = parseFloat(e.target.value) || 0;
-                                                // Avoid division by zero
-                                                if (totalCapital > 0) {
-                                                    const newWeight = (newCapital / totalCapital) * 100;
-                                                    onUpdateWeight && onUpdateWeight(asset.isin, newWeight);
-                                                }
-                                            }}
-                                        />
-                                        <span className="text-[#0B2545] font-[450] text-sm">€</span>
-                                    </div>
-                                </td>
-
-                                {/* --- NUEVA COLUMNA SWAP --- */}
-                                <td className="p-3 text-right">
-                                    <button
-                                        onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
-                                        className="text-slate-600 hover:text-slate-800 text-xs font-semibold hover:underline bg-slate-50 hover:bg-slate-100 px-3 py-1 rounded-full border border-slate-200 transition-colors flex items-center gap-1 ml-auto shadow-sm"
-                                        title="Buscar alternativas de inversión"
-                                    >
-                                        ⇄ Cambiar
-                                    </button>
-                                </td>
-                                <td className="py-3 pl-3 pr-6 text-right">
+                                <td className="py-3 pl-2 pr-6 text-right align-middle w-10">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onRemove && onRemove(asset.isin); }}
-                                        className="text-slate-300 hover:text-red-500 transition-colors px-2 py-0.5 text-xs border border-slate-200 hover:border-red-200 rounded"
+                                        className="text-slate-300 hover:text-slate-400 transition-colors"
                                         title="Eliminar"
                                     >
-                                        ✕
+                                        <X className="w-4 h-4" />
                                     </button>
                                 </td>
                             </tr>
@@ -134,19 +145,19 @@ export default function PortfolioTable({
                 <tfoot className="bg-white">
                     <tr>
                         <td colSpan={5} className="p-0">
-                            <div className="mx-6 border-t border-black/80"></div>
+                            <div className="mx-6 border-t border-slate-200"></div>
                         </td>
                     </tr>
                     <tr>
-                        <td className="py-4 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">TOTAL</td>
-                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
+                        <td className="py-5 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">TOTAL</td>
+                        <td className="py-5 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
                             {assets.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0).toFixed(2)}%
                         </td>
-                        <td className="py-4 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
+                        <td className="py-5 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
                             {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                         </td>
                         <td></td>
-                        <td className="py-4 pl-3 pr-6"></td>
+                        <td className="py-5 pl-3 pr-6"></td>
                     </tr>
                 </tfoot>
             </table >

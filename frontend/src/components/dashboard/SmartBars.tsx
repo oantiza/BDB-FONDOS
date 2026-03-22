@@ -119,7 +119,8 @@ export default function SmartBars({ allocation = [] }: { allocation?: AssetAlloc
                 grid: { display: false },
                 ticks: {
                     font: { size: 11, weight: 'bold' as const },
-                    color: '#1e293b'
+                    color: '#1e293b',
+                    padding: 8
                 }
             }
         },

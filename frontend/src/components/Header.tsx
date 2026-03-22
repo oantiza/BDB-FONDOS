@@ -74,6 +74,14 @@ export default function Header({
 
                 {/* GRUPO SECUNDARIO */}
                 <div className="flex items-center gap-4">
+                    {onOpenMiBoutique && (
+                        <button
+                            onClick={onOpenMiBoutique}
+                            className="text-[11px] uppercase tracking-widest font-bold text-slate-300 hover:text-white transition-colors"
+                        >
+                            Macro y Estrategia
+                        </button>
+                    )}
                     {onOpenRetirement && (
                         <button
                             onClick={onOpenRetirement}
