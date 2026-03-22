@@ -27,7 +27,8 @@ def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
             df = df.reindex(b_range)
 
         # Fill Gaps (Professional ffill and exact intersection)
-        df = df.ffill().dropna()
+        # Hardening: limit to 5 days to avoid excessive smoothing over long missing gaps
+        df = df.ffill(limit=5).dropna()
 
         # 2. Optional: 3-Year Window (1095 days)
         if force_3y and not df.empty:
@@ -137,13 +138,23 @@ def backfill_std_perf_logic(db):
                 # Canonical uses 'nav', Legacy uses 'price'
                 p_val = p.get("nav") if p.get("nav") is not None else p.get("price")
 
-                if d_val and p_val is not None:
+                if d_val is not None and p_val is not None:
                     if isinstance(d_val, str):
                         try:
                             d_val = datetime.fromisoformat(d_val.replace("Z", ""))
-                        except:
+                        except ValueError as ve:
+                            logger.warning(f"⚠️ [CalcService] ISIN {isin}: Fecha mal formada ({d_val}): {ve}")
                             continue
-                    data_tuples.append({"date": d_val, "price": float(p_val)})
+
+                    try:
+                        p_val_float = float(p_val)
+                    except (ValueError, TypeError) as ve:
+                        logger.warning(f"⚠️ [CalcService] ISIN {isin}: Precio mal formado ({p_val}) para fecha {d_val}: {ve}")
+                        continue
+                        
+                    data_tuples.append({"date": d_val, "price": p_val_float})
+                else:
+                    logger.debug(f"ℹ️ [CalcService] ISIN {isin}: Punto ignorado por falta de date o nav/price: {p}")
 
             real_points = len(data_tuples)
 
@@ -216,7 +227,7 @@ def backfill_std_perf_logic(db):
                 def gv(x):
                     try:
                         return float(x)
-                    except:
+                    except (ValueError, TypeError):
                         return 0.0
 
                 eq = gv(metrics.get("equity"))
@@ -262,7 +273,7 @@ def backfill_std_perf_logic(db):
                 "source": "calc_service_backfill",
             }
         )
-    except:
-        pass
+    except Exception as e:
+        logger.error(f"Error updating config auto_complete_candidates: {e}")
 
     return {"stats": stats, "csv_rows": results_csv}

@@ -45,7 +45,21 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
         common_start = first_valid.max()
         df = df[df.index >= common_start]
         
-    df = df.ffill()
+    # Hardening: ffill limit 5 to avoid hiding major data gaps
+    df = df.ffill(limit=5)
+    
+    # Hardening: Check for excessive internal gaps in common period
+    if not df.empty:
+        gap_threshold = len(df) * 0.05
+        for col in df.columns:
+            missing_count = df[col].isnull().sum()
+            if missing_count > gap_threshold:
+                print(f"⚠️ [Backtester] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                
+        df = df.dropna()
+
+    if df.empty:
+        raise Exception("Demasiados huecos internos invalidaron el dataset común (empty after dropping missing).")
 
     return df, synthetic_used
 
@@ -350,8 +364,12 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
             yf_data.index = pd.to_datetime(yf_data.index).normalize()
             if yf_data.index.tz is not None:
                 yf_data.index = yf_data.index.tz_localize(None)
-            return yf_data.reindex(default_index).ffill()
-        except:
+                
+            # Hardening: Exact calendar match, limited ffill, tiny bfill for start boundary
+            yf_aligned = yf_data.reindex(default_index)
+            return yf_aligned.ffill(limit=5).bfill(limit=1)
+        except Exception as e:
+            print(f"⚠️ [Backtester] Fallo al pedir {ticker} a YF: {e}")
             return pd.Series(index=default_index, dtype=float).fillna(100.0)
 
     # Benchmarks (RF/RV)

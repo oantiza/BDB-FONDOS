@@ -44,7 +44,17 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     )
     final_start_date = max(ideal_start_date, actual_start_date)
     df = df[df.index >= final_start_date]
-    df = df.sort_index().ffill().dropna()
+    df = df.sort_index().ffill(limit=5)
+    
+    # Hardening: Check for excessive internal gaps
+    if not df.empty:
+        gap_threshold = len(df) * 0.05
+        for col in df.columns:
+            missing_count = df[col].isnull().sum()
+            if missing_count > gap_threshold:
+                logger.warning(f"⚠️ [Analyzer] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+        
+        df = df.dropna()
 
     if df.empty or len(df) < 60:
         actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
