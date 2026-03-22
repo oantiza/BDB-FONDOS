@@ -154,24 +154,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
 // 1) NORMALIZACIÓN ROBUSTA
 // ============================================================================
 
-function normalizeAssetClass(raw: any): AssetClass {
-  if (!raw || typeof raw !== "string") return "Otros";
-  const s = raw.trim().toUpperCase();
-
-  // As a final fallback ONLY if derived.asset_class is wildly incorrect.
-  // The primary source should be derived.asset_class which is now numerically computed.
-  if (s === "MONETARIO") return "Monetario";
-  if (s === "RF") return "RF";
-  if (s === "RV") return "RV";
-  if (s === "MIXTO") return "Mixto";
-  if (s === "RETORNO ABSOLUTO" || s === "ALTERNATIVOS") return "Alternativos";
-  
-  // Explicitly map these to 'Otros' to match backend bounds and avoid uncertainty
-  if (s === "MATERIAS PRIMAS" || s === "COMMODITIES" || s === "INMOBILIARIO" || s === "REAL ESTATE" || s === "REAL_ESTATE") return "Otros";
-
-  return "Otros";
-}
-
 function getAssetClass(f: Fund): AssetClass {
   // 1. Try to use classification_v2
   if (f.classification_v2?.asset_type) {
@@ -181,12 +163,13 @@ function getAssetClass(f: Fund): AssetClass {
     if (rawV2 === "MONETARY") return "Monetario";
     if (rawV2 === "MIXED") return "Mixto";
     if (rawV2 === "ALTERNATIVE") return "Alternativos";
-    return "Otros";
+    // Comm, Real Estate goes to Otros
+    return "Otros"; 
   }
-
-  // 2. Fallback to derived.asset_class
-  const raw = (f as any)?.derived?.asset_class ?? "Otros";
-  return normalizeAssetClass(raw);
+  
+  // 2. V2 Final Defensive Fallback
+  console.warn(`[RulesEngine] Fondo ${f.isin || 'Desconocido'} carece de classification_v2.asset_type. Se degrada a 'Otros' de forma defensiva.`);
+  return "Otros";
 }
 
 function getBaseName(name: string): string {
@@ -503,15 +486,12 @@ export function syncRiskProfilesFromDB(dbProfiles: any) {
       if (RISK_PROFILES[riskLevel]) {
         const backendProfile = dbProfiles[riskLevel];
         const newBuckets: Record<string, BucketConfig> = {};
+        
         for (const cls in backendProfile) {
           const arr = backendProfile[cls];
-          // Canonical mapping: Other -> Otros, and handle both Spanish and English versions for alternatives
-          let mappedCls = cls;
-          if (cls === 'Other' || cls === 'Otros') mappedCls = 'Otros';
-          else if (cls === 'Retorno Absoluto' || cls === 'Alternativos' || cls === 'Alternative') mappedCls = 'Alternativos';
-          
+          // Asumimos que la BD ya devuelve llaves canónicas: RV, RF, Mixto, Monetario, Alternativos, Otros
           if (Array.isArray(arr) && arr.length >= 2) {
-            newBuckets[mappedCls] = { min: arr[0] * 100, max: arr[1] * 100 };
+            newBuckets[cls] = { min: arr[0] * 100, max: arr[1] * 100 };
           }
         }
         RISK_PROFILES[riskLevel].buckets = newBuckets as any;

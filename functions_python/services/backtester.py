@@ -179,18 +179,6 @@ def _calculate_allocations(portfolio, db, weights_map):
                 if primary_v2 and primary_v2 not in ["UNKNOWN", "NONE", None]:
                     regions = {primary_v2.lower(): 100.0}
 
-            # [COMPATIBILITY FALLBACK]
-            # Priority 3: Legacy fields
-            if not regions:
-                regions = (
-                    fd.get("regions")
-                    or fd.get("ms", {}).get("regions")
-                    or fd.get("derived", {}).get("regions")
-                )
-
-                # Fallback to single primary_region if no breakdown
-                if not regions and fd.get("primary_region"):
-                    regions = {fd["primary_region"]: 100.0}
 
             # Unwrap 'detail' if present (Morningstar structure: regions -> detail -> {country: %})
             if regions and isinstance(regions, dict) and "detail" in regions:

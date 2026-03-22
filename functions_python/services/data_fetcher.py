@@ -236,12 +236,8 @@ class DataFetcher:
             if d.exists:
                 dd = d.to_dict()
                 metadata[d.id] = {
-                    "asset_class": dd.get("classification_v2", {}).get("asset_type")
-                    or dd.get("derived", {}).get("asset_class")
-                    or dd.get("std_type"),
-                    "region": dd.get("classification_v2", {}).get("region_primary")
-                    or dd.get("derived", {}).get("primary_region")
-                    or dd.get("std_region"),
+                    "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
+                    "region": dd.get("classification_v2", {}).get("region_primary") or "UNKNOWN",
                     "market_cap": dd.get("std_mcap", 1e9),  # Default for BL if missing
                     "classification_v2": dd.get("classification_v2", {}),
                     "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),

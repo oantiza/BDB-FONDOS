@@ -462,7 +462,7 @@ def _check_feasibility_and_autoexpand(
                     dd = d.to_dict()
                     asset_metadata[isin] = {
                         "metrics": dd.get("metrics", {}),
-                        "asset_class": dd.get("classification_v2", {}).get("asset_type") or dd.get("derived", {}).get("asset_class") or dd.get("std_type") or dd.get("asset_class"),
+                        "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
                         "classification_v2": dd.get("classification_v2", {}),
                         "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
                     }
