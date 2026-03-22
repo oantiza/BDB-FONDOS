@@ -27,9 +27,9 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
 
         # 1. Senior Data Alignment
         fetcher = DataFetcher(db)
-        # Adding no_fill=True to identify true data start date (preventing hockey stick)
+        # We rely on strict truncating to identify true data start date (preventing hockey stick)
         price_data, synthetic_used = fetcher.get_price_data(
-            assets_list, resample_freq="D", strict=False, no_fill=True
+            assets_list, resample_freq="D", strict=False
         )
 
         df = pd.DataFrame(price_data)

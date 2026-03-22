@@ -115,7 +115,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
     """
     fetcher = DataFetcher(db)
     price_data, synthetic_used = fetcher.get_price_data(
-        assets_list, resample_freq="D", strict=False, no_fill=True
+        assets_list, resample_freq="D", strict=False
     )
 
     df = pd.DataFrame(price_data)
