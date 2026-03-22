@@ -1,7 +1,7 @@
 # V2 Taxonomy Audit â Coverage Report
 
-**Run ID:** `audit_20260315_201750`
-**Date:** 2026-03-15T20:17:51.989083+00:00
+**Run ID:** `audit_20260322_130853`
+**Date:** 2026-03-22T13:08:55.465381+00:00
 **Total Funds:** 669
 
 ---
@@ -16,17 +16,17 @@
 | Without V2 | 0 | 0% |
 | Without exposure | 0 | 0% |
 | Low confidence | 0 | 0% |
-| With warnings | 238 | 35% |
-| Critical warnings (â¥2) | 22 | 3% |
+| With warnings | 335 | 50% |
+| Critical warnings (â¥2) | 12 | 1% |
 
 ## B. Distribution by Asset Type
 
 | Type | Count |
 |------|------:|
 | EQUITY | 340 |
-| FIXED_INCOME | 192 |
+| FIXED_INCOME | 189 |
 | MIXED | 97 |
-| MONETARY | 7 |
+| MONETARY | 10 |
 | ALTERNATIVE | 13 |
 | COMMODITIES | 17 |
 | REAL_ESTATE | 3 |
@@ -36,19 +36,19 @@
 
 | Field | Coverage | Denominator |
 |-------|----------|-------------|
-| `region_primary` | 551/669 | All V2 |
-| `asset_subtype` | 625/669 | All V2 |
-| `equity_style_box` | 142/340 | Equity funds |
+| `region_primary` | 669/669 | All V2 |
+| `asset_subtype` | 669/669 | All V2 |
+| `equity_style_box` | 161/340 | Equity funds |
 | `market_cap_bias` | 338/340 | Equity funds |
-| `fi_credit_bucket` | 162/192 | FI funds |
-| `fi_duration_bucket` | 162/192 | FI funds |
+| `fi_credit_bucket` | 189/189 | FI funds |
+| `fi_duration_bucket` | 189/189 | FI funds |
 
 ## D. Low Risk Profile Safety
 
 | Metric | Count |
 |--------|------:|
-| Suitable for low risk | 143 |
-| Blocked for low risk | 526 |
+| Suitable for low risk | 150 |
+| Blocked for low risk | 519 |
 | Low risk conflicts | 0 |
 
 ## E. Residual Risks
@@ -57,7 +57,7 @@
 |--------|------:|
 | Legacy fallback only | 0 |
 | V2 vs Legacy conflict | 0 |
-| Ambiguous funds | 24 |
+| Ambiguous funds | 0 |
 | Unknown type | 0 |
 
 ## F. Audit Flags Distribution
@@ -67,17 +67,17 @@
 | `NO_V2_CLASSIFICATION` | 0 |
 | `NO_EXPOSURE_V2` | 0 |
 | `NO_METRICS_AND_NO_EXPOSURE` | 0 |
-| `EQUITY_WITHOUT_STYLE_BOX` | 198 |
-| `FI_WITHOUT_DURATION` | 30 |
-| `FI_WITHOUT_CREDIT` | 30 |
+| `EQUITY_WITHOUT_STYLE_BOX` | 179 |
+| `FI_WITHOUT_DURATION` | 0 |
+| `FI_WITHOUT_CREDIT` | 0 |
 | `ALLOCATION_WITHOUT_EXPOSURE` | 0 |
 | `LOW_CONFIDENCE` | 0 |
 | `V2_LEGACY_TYPE_CONFLICT` | 0 |
 | `LOW_RISK_UNSAFE` | 0 |
 | `UNKNOWN_ASSET_TYPE` | 0 |
-| `UNKNOWN_SUBTYPE` | 24 |
-| `MISSING_REGION_PRIMARY` | 118 |
-| `EXCESSIVE_WARNINGS` | 22 |
+| `UNKNOWN_SUBTYPE` | 0 |
+| `MISSING_REGION_PRIMARY` | 0 |
+| `EXCESSIVE_WARNINGS` | 12 |
 | `EMERGING_LOW_RISK_CONFLICT` | 0 |
 | `SECTOR_FUND_LOW_RISK_CONFLICT` | 0 |
 | `HIGH_YIELD_LOW_RISK_CONFLICT` | 0 |
@@ -92,4 +92,4 @@
 | `funds_low_confidence.csv` | 0 | Confidence < 0.6 |
 | `funds_with_conflicts.csv` | 0 | V2 vs legacy type conflict |
 | `funds_low_risk_unsafe.csv` | 0 | Potentially dangerous for low risk |
-| `funds_unknown_or_ambiguous.csv` | 24 | Unknown type, subtype, or low confidence |
+| `funds_unknown_or_ambiguous.csv` | 0 | Unknown type, subtype, or low confidence |

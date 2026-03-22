@@ -40,8 +40,8 @@ const chartDataLabels = {
             meta.data.forEach((bar: any, index: number) => {
                 const value = dataset.data[index];
                 if (value > 0.1) {
-                    ctx.font = 'bold 10px Inter, sans-serif';
-                    ctx.fillStyle = '#64748b';
+                    ctx.font = '900 11px Inter, sans-serif';
+                    ctx.fillStyle = '#475569';
                     ctx.textAlign = 'left';
                     ctx.textBaseline = 'middle';
                     const x = bar.x + 6;
@@ -75,7 +75,7 @@ export default function SmartBars({ allocation = [] }: { allocation?: AssetAlloc
             backgroundColor: colors,
             borderWidth: 0,
             borderRadius: 20, // Fully rounded
-            barThickness: 12,
+            barThickness: 16,
         }]
     }
 
@@ -119,17 +119,36 @@ export default function SmartBars({ allocation = [] }: { allocation?: AssetAlloc
                 grid: { display: false },
                 ticks: {
                     font: { size: 11, weight: 'bold' as const },
-                    color: '#1e293b',
-                    padding: 8
+                    color: '#334155',
+                    padding: 4,
+                    callback: function(value: any) {
+                        const rawLabel = this.getLabelForValue(value as number);
+                        const label = String(rawLabel);
+                        if (label.length > 13) {
+                            if (label.includes('/')) {
+                                const parts = label.split('/');
+                                return [parts[0] + '/', parts.slice(1).join('/')];
+                            }
+                            if (label.includes(' - ')) {
+                                const parts = label.split(' - ');
+                                return [parts[0] + ' -', parts.slice(1).join(' - ')];
+                            }
+                            if (label.includes(' ')) {
+                                const parts = label.split(' ');
+                                return [parts[0], parts.slice(1).join(' ')];
+                            }
+                        }
+                        return label;
+                    }
                 }
             }
         },
-        layout: { padding: { top: 4, bottom: 4, left: 2, right: 40 } }
+        layout: { padding: { top: 0, bottom: 0, left: 2, right: 42 } }
     }
 
     return (
-        <div className="flex flex-col h-full w-full py-1 relative">
-            <div className="text-center mb-1">
+        <div className="flex flex-col h-full w-full pt-0 pb-1 relative">
+            <div className="text-center mb-0">
                 <span className="text-[12px] font-extrabold text-[#0B2545] uppercase tracking-[0.2em]">
                     Activos
                 </span>

@@ -52,41 +52,41 @@ export default function PortfolioTable({
                                 key={asset.isin}
                                 className={`border-b border-slate-100 hover:bg-slate-50 transition-colors ${isManual ? 'bg-blue-50/20' : ''}`}
                             >
-                                <td className="py-4 pr-3 pl-6 align-middle" title={asset.name}>
-                                    <div className="flex items-start gap-4">
+                                <td className="py-4 pr-4 pl-6 w-[45%] max-w-[400px] align-middle" title={asset.name}>
+                                    <div className="flex items-center gap-5 pl-2">
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onToggleLock && onToggleLock(asset.isin); }}
-                                            className={`mt-0.5 text-sm shrink-0 transition-opacity ${asset.isLocked ? 'text-slate-500 opacity-100' : 'text-slate-300 opacity-40 hover:opacity-100 hover:text-slate-400'}`}
+                                            className={`text-sm shrink-0 transition-all ${asset.isLocked ? 'text-slate-700 opacity-100 scale-110' : 'text-slate-400 opacity-50 hover:opacity-100 hover:text-slate-600 hover:scale-110'}`}
                                             title={asset.isLocked ? "Desbloquear fondo" : "Bloquear fondo"}
                                         >
-                                            {asset.isLocked ? <Lock className="w-3.5 h-3.5" /> : <Unlock className="w-3.5 h-3.5" />}
+                                            {asset.isLocked ? <Lock className="w-4 h-4 fill-slate-700/20" /> : <Unlock className="w-4 h-4" />}
                                         </button>
 
                                         <div className="flex flex-col gap-1">
                                             <div className="flex items-center gap-2">
                                                 <span
                                                     onClick={() => onFundClick && onFundClick(asset)}
-                                                    className="truncate max-w-[350px] text-slate-800 font-[600] text-[13px] leading-tight cursor-pointer hover:text-blue-600 hover:underline"
+                                                    className="truncate max-w-[350px] text-slate-800 font-[600] text-[14px] leading-tight cursor-pointer hover:text-blue-600 hover:underline"
                                                 >
                                                     {asset.name}
                                                 </span>
-                                                {isManual && <span className="text-[9px] font-bold bg-blue-50 text-blue-600 border border-blue-100 px-1.5 py-0.5 rounded-sm shrink-0" title="Seleccionado manualmente">M</span>}
+                                                {isManual && <span className="text-[10px] font-bold bg-blue-50 text-blue-600 border border-blue-100 px-1.5 py-0.5 rounded-sm shrink-0" title="Seleccionado manualmente">M</span>}
                                             </div>
                                             <div className="flex items-center gap-1.5">
-                                                <span className="text-slate-400 text-[10px] font-mono tracking-wider">{asset.isin}</span>
-                                                <span className="text-slate-300 text-[10px]">·</span>
-                                                <span className="text-slate-400 text-[10px] uppercase font-medium">{getFormattedTaxonomy(asset)}</span>
+                                                <span className="text-slate-400 text-[11px] font-mono tracking-wider">{asset.isin}</span>
+                                                <span className="text-slate-300 text-[11px]">·</span>
+                                                <span className="text-slate-400 text-[11px] uppercase font-medium">{getFormattedTaxonomy(asset)}</span>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 
-                                <td className="p-3 text-right align-middle">
+                                <td className="p-3 w-[15%] min-w-[100px] text-right align-middle">
                                     <div className="flex items-center justify-end">
-                                        <div className={`flex items-baseline gap-1.5 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                        <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                             <input
                                                 type="number"
-                                                className="w-12 text-right bg-transparent outline-none font-[600] text-slate-800 text-[13px] tabular-nums"
+                                                className="w-[60px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={Math.round(asset.weight * 100) / 100}
                                                 step="0.01"
                                                 disabled={asset.isLocked}
@@ -96,17 +96,17 @@ export default function PortfolioTable({
                                                     onUpdateWeight && onUpdateWeight(asset.isin, val);
                                                 }}
                                             />
-                                            <span className="text-slate-400 font-medium text-[13px] w-3">%</span>
+                                            <span className="text-slate-500 font-semibold text-[14px]">%</span>
                                         </div>
                                     </div>
                                 </td>
                                 
-                                <td className="p-3 text-right align-middle">
+                                <td className="p-3 w-[20%] min-w-[140px] text-right align-middle">
                                     <div className="flex items-center justify-end">
-                                        <div className={`flex items-baseline gap-1.5 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                        <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                             <input
                                                 type="number"
-                                                className="w-20 text-right bg-transparent outline-none font-[600] text-slate-800 text-[13px] tabular-nums"
+                                                className="w-[90px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={(totalCapital * (asset.weight / 100)).toFixed(2)}
                                                 step="100"
                                                 disabled={asset.isLocked}
@@ -119,12 +119,12 @@ export default function PortfolioTable({
                                                     }
                                                 }}
                                             />
-                                            <span className="text-slate-400 font-medium text-[13px] w-3">€</span>
+                                            <span className="text-slate-500 font-semibold text-[14px]">€</span>
                                         </div>
                                     </div>
                                 </td>
 
-                                <td className="py-3 pr-3 text-right align-middle">
+                                <td className="py-3 pr-3 w-[15%] text-right align-middle">
                                     <div className="flex items-center justify-end">
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
@@ -136,7 +136,7 @@ export default function PortfolioTable({
                                         </button>
                                     </div>
                                 </td>
-                                <td className="py-3 pl-2 pr-6 text-right align-middle w-10">
+                                <td className="py-3 pl-2 pr-6 w-[5%] text-right align-middle">
                                     <button
                                         onClick={(e) => { e.stopPropagation(); onRemove && onRemove(asset.isin); }}
                                         className="text-slate-300 hover:text-slate-400 transition-colors"

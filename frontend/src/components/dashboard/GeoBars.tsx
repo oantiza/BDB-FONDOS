@@ -28,28 +28,13 @@ const chartDataLabels = {
             meta.data.forEach((bar: any, index: number) => {
                 const value = dataset.data[index];
                 if (value > 0.1) {
-                    const text = `${value.toFixed(1)}%`;
-                    ctx.font = '600 11px Inter, sans-serif';
-                    
-                    const textWidth = ctx.measureText(text).width;
-                    const boxPaddingX = 6;
-                    const boxHeight = 20;
-                    const boxWidth = textWidth + boxPaddingX * 2;
-                    
-                    const x = bar.x + 8;
-                    const y = bar.y;
-
-                    // Draw pill background
-                    ctx.fillStyle = '#F8FAFC';
-                    ctx.beginPath();
-                    ctx.roundRect(x, y - boxHeight / 2, boxWidth, boxHeight, 4);
-                    ctx.fill();
-
-                    // Draw text
-                    ctx.fillStyle = '#334155';
-                    ctx.textAlign = 'center';
+                    ctx.font = '900 11px Inter, sans-serif';
+                    ctx.fillStyle = '#475569';
+                    ctx.textAlign = 'left';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(text, x + boxWidth / 2, y);
+                    const x = bar.x + 6;
+                    const y = bar.y;
+                    ctx.fillText(`${value.toFixed(1)}%`, x, y);
                 }
             });
         });
@@ -65,10 +50,10 @@ interface GeoData {
 export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) {
     const safeData = (Array.isArray(allocation) ? allocation : []).slice(0, 6)
     const total = safeData.reduce((s, x) => s + x.value, 0)
-    const isEmpty = total < 0.1
+    const isEmpty = total < 0.0001
 
     const labels = isEmpty ? ['Sin Datos'] : safeData.map(d => d.label)
-    const values = isEmpty ? [1] : safeData.map(d => d.value)
+    const values = isEmpty ? [1] : safeData.map(d => (d.value / total) * 100)
     const colors = isEmpty
         ? ['#e5e7eb']
         : safeData.map((d, i) => REGION_COLORS[d.label] || DEFAULT_PALETTE[i % DEFAULT_PALETTE.length])
@@ -80,7 +65,7 @@ export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) 
             backgroundColor: colors,
             borderWidth: 0,
             borderRadius: 20, // Fully rounded
-            barThickness: 12,
+            barThickness: 16,
         }]
     }
 
@@ -120,20 +105,31 @@ export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) 
             y: {
                 grid: { display: false },
                 ticks: {
-                    font: { size: 10, weight: 'bold' as const },
-                    color: '#1e293b',
-                    padding: 8
+                    font: { size: 11, weight: 'bold' as const },
+                    color: '#334155',
+                    padding: 4,
+                    callback: function(value: any) {
+                        const rawLabel = this.getLabelForValue(value as number);
+                        const label = String(rawLabel);
+                        if (label.length > 13) {
+                            if (label.includes(' ')) {
+                                const parts = label.split(' ');
+                                return [parts[0], parts.slice(1).join(' ')];
+                            }
+                        }
+                        return label;
+                    }
                 }
             }
         },
-        layout: { padding: { top: 4, bottom: 4, left: 10, right: 40 } }
+        layout: { padding: { top: 0, bottom: 0, left: 10, right: 42 } }
     }
 
     if (isEmpty) return <div className="text-xs text-slate-400 text-center flex items-center justify-center h-full">Sin datos</div>
 
     return (
-        <div className="flex flex-col h-full w-full py-1">
-            <div className="text-center mb-1">
+        <div className="flex flex-col h-full w-full pt-0 pb-1">
+            <div className="text-center mb-0">
                 <span className="text-[12px] font-extrabold text-[#0B2545] uppercase tracking-[0.2em]">Región</span>
             </div>
             <div className="flex-1 w-full relative min-h-0">
