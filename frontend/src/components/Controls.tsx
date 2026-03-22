@@ -144,7 +144,7 @@ export default function Controls({
                             onClick={onOpenCosts}
                             className="bg-slate-50 hover:bg-[#F0F4F8] text-slate-500 hover:text-[#0B2545] text-[10px] font-bold py-2 px-2 rounded border border-slate-100 transition-colors uppercase tracking-widest flex items-center justify-center gap-1.5"
                         >
-                            <Calculator className="w-3.5 h-3.5" /> Costes
+                            <Calculator className="w-3.5 h-3.5" /> COSTES
                         </button>
                         <button
                             onClick={onOpenSavedPortfolios}
@@ -156,7 +156,7 @@ export default function Controls({
                             onClick={onOpenTactical}
                             className="bg-slate-50 hover:bg-[#F0F4F8] text-slate-500 hover:text-[#0B2545] text-[10px] font-bold py-2 px-2 rounded border border-slate-100 transition-colors uppercase tracking-widest flex items-center justify-center gap-1.5"
                         >
-                            <Shield className="w-3.5 h-3.5" /> Revisión
+                            <Shield className="w-3.5 h-3.5" /> REVISIÓN
                         </button>
                         <button
                             onClick={onOpenMacro}
@@ -171,7 +171,7 @@ export default function Controls({
     )
 }
 
-function ControlButton({ icon, label, onClick, active = false, variant = 'standard', className = '', compact = false }: { icon: React.ReactNode | string, label: string, onClick: () => void, active?: boolean, variant?: 'standard' | 'highlight' | 'dark', className?: string, compact?: boolean }) {
+function ControlButton({ icon, label, onClick, active = false, variant = 'standard', className = '', compact = false }: { icon: React.ReactNode | string, label: string, onClick: () => void, active?: boolean, variant?: 'standard' | 'highlight' | 'dark' | 'outline-gold', className?: string, compact?: boolean }) {
     const baseClasses = `flex items-center justify-center rounded-full transition-all group border ${compact ? 'flex-row gap-2 p-2' : 'flex-col p-3'}`
 
     // Gold/Blue style for Optimize/Highlight
@@ -184,6 +184,20 @@ function ControlButton({ icon, label, onClick, active = false, variant = 'standa
             >
                 <span className={`${compact ? 'text-sm' : ''} text-[#0B2545] group-hover:scale-110 transition-transform`}>{icon}</span>
                 <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-extrabold text-[#0B2545] uppercase tracking-wider`}>{label}</span>
+            </button>
+        )
+    }
+
+    // Outline Gold style for Sharpe
+    if (variant === 'outline-gold') {
+        return (
+            <button
+                onClick={onClick}
+                disabled={active}
+                className={`${baseClasses} bg-white hover:bg-yellow-50 border-[#D4AF37] shadow-sm ${className}`}
+            >
+                <span className={`${compact ? 'text-sm' : ''} text-[#D4AF37] group-hover:scale-110 transition-transform`}>{icon}</span>
+                <span className={`${compact ? 'text-[10px] mt-0' : 'text-xs mt-1'} font-extrabold text-[#D4AF37] uppercase tracking-wider`}>{label}</span>
             </button>
         )
     }

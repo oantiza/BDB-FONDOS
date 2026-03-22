@@ -20,7 +20,7 @@ export default function AssetDistributionWidget({ portfolio, allocData, regionAl
                 <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em]">
                     Distribución de Activos
                 </h3>
-                <span className="text-[8px] font-semibold text-slate-400 bg-slate-50 px-1.5 py-0.5 rounded tracking-wide uppercase">
+                <span className="text-[10px] font-bold text-slate-400 bg-slate-50 px-2.5 py-1 rounded tracking-widest uppercase border border-slate-100 shadow-sm">
                     Dinámico
                 </span>
             </div>
@@ -30,6 +30,8 @@ export default function AssetDistributionWidget({ portfolio, allocData, regionAl
                 <div className="flex px-6 py-6 border-b border-slate-50 flex-1 min-h-0 gap-6">
                     <div className="flex-1 h-full overflow-hidden pr-6 border-r border-slate-100 flex flex-col justify-center">
                         <EquityDistribution portfolio={portfolio} />
+                        {/* Soft divider */}
+                        <div className="absolute right-0 top-[10%] bottom-[10%] w-px bg-gradient-to-b from-transparent via-slate-100 to-transparent" />
                     </div>
                     <div className="flex-1 h-full overflow-hidden flex flex-col justify-center">
                         <FixedIncomeDistribution portfolio={portfolio} />

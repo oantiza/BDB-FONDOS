@@ -78,7 +78,7 @@ export default function EquityDistribution({ portfolio = [] }: any) {
                 rawLabel: l.toLowerCase()
             }))
             .sort((a, b) => b.v - a.v)
-            .slice(0, 6);
+            .slice(0, 4);
 
         return { sectors: sortedSectors, groups: groupMap };
     })();

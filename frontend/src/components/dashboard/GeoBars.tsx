@@ -63,7 +63,7 @@ interface GeoData {
 }
 
 export default function GeoBars({ allocation = [] }: { allocation: GeoData[] }) {
-    const safeData = (Array.isArray(allocation) ? allocation : []).slice(0, 5)
+    const safeData = (Array.isArray(allocation) ? allocation : []).slice(0, 6)
     const total = safeData.reduce((s, x) => s + x.value, 0)
     const isEmpty = total < 0.1
 

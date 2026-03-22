@@ -142,7 +142,7 @@ export default function PortfolioTable({
                         )
                     })}
                 </tbody>
-                <tfoot className="bg-white">
+                <tfoot className="bg-[#f8fafc]">
                     <tr>
                         <td colSpan={5} className="p-0">
                             <div className="mx-6 border-t border-slate-200"></div>
