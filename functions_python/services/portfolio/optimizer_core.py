@@ -793,4 +793,4 @@ def run_optimization(
 
     except Exception as e:
         logger.info(f"❌ Critical Error: {e}")
-        return {"api_version": "optimizer_v4", "status": "error", "message": str(e)}
+        return {"api_version": "optimizer_v4", "status": "error", "message": str(e), "error": str(e)}

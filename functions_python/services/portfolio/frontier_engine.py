@@ -78,6 +78,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                 "observations": len(df),
                 "points": len(df),
                 "assets_found": list(df.columns),
+                "assets": [],
                 "frontier": [],
                 "math_data": {}
             }
