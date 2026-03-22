@@ -1,6 +1,6 @@
 import { PortfolioItem } from '../types';
 import { getFormattedTaxonomy } from '../utils/taxonomyTranslators';
-import { Lock, Unlock, ArrowLeftRight, X } from 'lucide-react';
+import { Lock, Unlock, ArrowLeftRight, X, Layers } from 'lucide-react';
 
 interface PortfolioTableProps {
     assets?: any[];
@@ -23,9 +23,16 @@ export default function PortfolioTable({
 }: PortfolioTableProps) {
     if (assets.length === 0) {
         return (
-            <div className="flex flex-col items-center justify-center h-full text-slate-500 text-sm italic p-6">
-                <span className="text-2xl mb-2 opacity-50">📉</span>
-                Cartera vacía. Añade fondos desde el panel izquierdo.
+            <div className="h-full w-full p-8 flex flex-col items-center justify-center">
+                <div className="flex flex-col items-center justify-center w-full max-w-md max-h-[300px] border border-dashed border-slate-300 bg-slate-50/30 rounded-2xl text-center p-10 transition-colors hover:bg-slate-50 hover:border-slate-400 group">
+                    <div className="w-14 h-14 bg-white rounded-2xl flex items-center justify-center shadow-sm border border-slate-100 mb-5 text-slate-400 group-hover:scale-105 transition-transform">
+                        <Layers className="w-6 h-6 text-slate-400" strokeWidth={1.5} />
+                    </div>
+                    <h4 className="text-sm font-bold text-slate-700 mb-2 uppercase tracking-wide">Cartera Vacía</h4>
+                    <p className="text-xs text-slate-500 max-w-[220px] leading-relaxed">
+                        Añade fondos desde el panel izquierdo para construir y analizar tu cartera.
+                    </p>
+                </div>
             </div>
         )
     }

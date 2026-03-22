@@ -1,4 +1,5 @@
 import React from 'react'
+import { Check, AlertTriangle } from 'lucide-react'
 import ModalHeader from '../common/ModalHeader'
 import MetricCard from '../common/MetricCard'
 
@@ -111,68 +112,70 @@ export default function PortfolioAnalysisModal({ result, onClose }: PortfolioAna
                         {/* High Correlation Alert & Alternatives */}
                         <div className="col-span-5 space-y-6">
                             <div>
-                                <label className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 block">Alertas de Concentración</label>
+                                <label className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 block border-b border-slate-100 pb-2">Alertas de Concentración</label>
                                 {high_correlation_pairs.length > 0 ? (
-                                    <div className="space-y-2">
+                                    <div className="space-y-2 mb-4">
                                         {high_correlation_pairs.map((pair, idx) => (
-                                            <div key={idx} className="p-3 bg-red-50 border border-red-100 rounded text-xs flex justify-between items-center">
-                                                <span className="text-red-900 font-mono">{pair.asset1} ⟷ {pair.asset2}</span>
-                                                <span className="font-bold text-red-600">{(pair.correlation * 100).toFixed(0)}%</span>
+                                            <div key={idx} className="px-3 py-2.5 bg-white border border-rose-100 rounded shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-xs flex justify-between items-center group hover:border-rose-200 transition-colors">
+                                                <span className="text-slate-700 font-mono text-[10px]"><span className="text-slate-900 font-semibold">{pair.asset1}</span> <span className="text-slate-300 px-1">⟷</span> <span className="text-slate-900 font-semibold">{pair.asset2}</span></span>
+                                                <span className="font-bold text-rose-600 bg-rose-50 px-2 py-0.5 rounded text-[10px]">{(pair.correlation * 100).toFixed(0)}%</span>
                                             </div>
                                         ))}
                                     </div>
                                 ) : (
-                                    <div className="p-4 bg-emerald-50 border border-emerald-100 rounded text-xs text-emerald-800 flex items-center gap-2">
-                                        <span>✅</span> Diversificación óptima. No se detectan correlaciones críticas.
+                                    <div className="px-3 py-2.5 bg-white border border-emerald-100 rounded shadow-[0_1px_2px_rgba(0,0,0,0.02)] text-xs text-emerald-800 flex items-center gap-2 mb-4">
+                                        <AlertTriangle className="w-4 h-4 text-emerald-500" strokeWidth={2.5}/>
+                                        <span className="font-medium tracking-wide">Diversificación óptima. No se detectan correlaciones críticas.</span>
                                     </div>
                                 )}
                             </div>
 
-                            {alternatives.length > 0 && (
-                                <div>
-                                    <label className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 block">Sugerencias de Mejora</label>
+                            {/* Suggestions */}
+                            <div>
+                                <label className="text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-3 block border-b border-slate-100 pb-2">Sugerencias de Mejora</label>
+                                {alternatives.length > 0 ? (
                                     <div className="space-y-4">
                                         {alternatives.map((alt, idx) => (
-                                            <div key={idx} className="border border-slate-100 rounded-lg p-4 bg-slate-50/50">
-                                                <div className="flex justify-between items-start mb-3">
-                                                    <div>
-                                                        <div className="text-[9px] text-slate-400 font-bold uppercase tracking-widest">Sustituir</div>
-                                                        <div className="text-xs font-bold text-slate-700 font-mono">{alt.target_replacement}</div>
+                                            <div key={idx} className="border border-slate-200 rounded-lg p-0 bg-white overflow-hidden shadow-sm">
+                                                <div className="flex justify-between items-center px-4 py-3 bg-slate-50/80 border-b border-slate-100">
+                                                    <div className="flex items-center gap-2">
+                                                        <span className="text-[9px] text-slate-400 font-bold uppercase tracking-widest border border-slate-200 bg-white px-1.5 py-0.5 rounded">Sustituir</span>
+                                                        <span className="text-[11px] font-bold text-slate-700 font-mono">{alt.target_replacement}</span>
                                                     </div>
-                                                    <div className="px-2 py-0.5 bg-[#003399] text-white text-[8px] font-bold rounded uppercase">
+                                                    <div className="px-2 py-0.5 bg-blue-50/50 text-blue-700 border border-blue-100 text-[9px] font-bold rounded uppercase tracking-wider">
                                                         {alt.category}
                                                     </div>
                                                 </div>
-                                                <div className="space-y-2">
+                                                <div className="p-3 space-y-2">
                                                     {alt.suggestions.map((s, sIdx) => (
-                                                        <div key={sIdx} className="bg-white p-3 rounded border border-slate-100 shadow-sm hover:border-[#003399]/30 transition-colors">
-                                                            <div className="flex justify-between font-bold text-xs text-[#0B2545] mb-1">
-                                                                <span className="truncate w-40">{s.name}</span>
-                                                                <span className="text-emerald-600 font-mono">Sharpe: {s.sharpe.toFixed(2)}</span>
+                                                        <div key={sIdx} className="bg-white p-3 rounded-md border border-slate-200 hover:border-blue-200 hover:bg-blue-50/10 transition-colors">
+                                                            <div className="flex justify-between items-center font-bold text-xs text-slate-800 mb-1.5">
+                                                                <span className="truncate w-44">{s.name}</span>
+                                                                <span className="text-emerald-700 bg-emerald-50 px-1.5 py-0.5 rounded text-[10px] font-mono border border-emerald-100 shadow-sm">Sharpe: {s.sharpe.toFixed(2)}</span>
                                                             </div>
-                                                            <div className="text-[9px] text-[#2C3E50] leading-relaxed opacity-70">
+                                                            <div className="text-[10px] text-slate-500 leading-relaxed mb-1.5">
                                                                 {s.reason}
                                                             </div>
-                                                            <div className="mt-1 text-[9px] font-mono text-slate-400">{s.isin}</div>
+                                                            <div className="text-[9px] font-mono text-slate-400 uppercase tracking-widest">{s.isin}</div>
                                                         </div>
                                                     ))}
                                                 </div>
                                             </div>
                                         ))}
                                     </div>
-                                </div>
-                            )}
+                                ) : null}
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                {/* Footer */}
-                <div className="p-4 bg-white border-t border-[#eeeeee] flex justify-end shrink-0">
+                {/* Footer Action */}
+                <div className="p-4 bg-slate-50 border-t border-slate-100 flex justify-end shrink-0">
                     <button
                         onClick={onClose}
-                        className="px-6 py-2 bg-[#003399] hover:bg-[#0B2545] text-white font-bold text-xs uppercase tracking-[0.1em] transition-colors rounded shadow-sm"
+                        className="flex items-center gap-2 px-8 py-2.5 bg-[#0B2545] hover:bg-[#1E3A8A] text-white rounded-lg shadow-sm hover:shadow-md transition-all border border-transparent font-bold text-[11px] tracking-widest uppercase"
                     >
-                        Entendido
+                        <span>Entendido</span>
                     </button>
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useState, useRef, lazy, Suspense, useMemo } from 'react'
 import { httpsCallable } from 'firebase/functions'
 import { collection, query, where, orderBy, limit, getDocs } from 'firebase/firestore'
 import { db, functions } from '../firebase'
-import { Download, Upload, Trash2, Lock, Unlock } from 'lucide-react'
+import { Download, Upload, Trash2, Lock, Unlock, AlertCircle, AlertTriangle, RefreshCw, Sparkles } from 'lucide-react'
 
 // Components
 import Header from '../components/Header'
@@ -277,17 +277,39 @@ export default function DashboardPage({
                     </div>
 
                     {dashboardError && (
-                        <div className="bg-red-50 border-l-4 border-red-500 p-3 mx-2 mb-2 text-red-700 text-xs flex justify-between items-center rounded-r shrink-0">
-                            <span>⚠️ {dashboardError}</span>
-                            <button onClick={() => window.location.reload()} className="underline hover:text-red-900 font-bold uppercase tracking-wider text-[10px]">Reintentar</button>
+                        <div className="bg-rose-50/50 border border-rose-100 px-4 py-3 mx-2 mb-2 rounded-xl flex justify-between items-center shadow-sm shrink-0 transition-all">
+                            <div className="flex items-center gap-3">
+                                <div className="w-8 h-8 rounded-full bg-rose-100/50 flex items-center justify-center shrink-0 border border-rose-100">
+                                    <AlertCircle className="w-4 h-4 text-rose-600" strokeWidth={2} />
+                                </div>
+                                <div className="flex flex-col">
+                                    <span className="text-[11px] font-bold text-rose-900 uppercase tracking-wider">Error en el análisis</span>
+                                    <span className="text-xs text-rose-700/90 mt-0.5">{dashboardError.replace(/^⚠️\s*/, '')}</span>
+                                </div>
+                            </div>
+                            <button onClick={() => window.location.reload()} className="flex items-center gap-1.5 px-3 py-1.5 bg-white border border-rose-200 hover:bg-rose-50 hover:text-rose-800 hover:border-rose-300 rounded-lg text-rose-600 font-bold uppercase tracking-wider text-[10px] transition-all shadow-sm shrink-0 ml-4 group">
+                                <RefreshCw className="w-3.5 h-3.5 group-hover:rotate-180 transition-transform duration-500" strokeWidth={2} />
+                                Reintentar
+                            </button>
                         </div>
                     )}
 
                     {warnings && warnings.length > 0 && (
-                        <div className="bg-amber-50 border-l-4 border-amber-500 p-3 mx-2 mb-2 text-amber-700 text-xs flex flex-col gap-1 rounded-r shrink-0">
-                            {warnings.map((w, idx) => (
-                                <span key={idx}>⚠️ {w}</span>
-                            ))}
+                        <div className="bg-amber-50/50 border border-amber-100 px-4 py-3 mx-2 mb-2 rounded-xl flex flex-col gap-2 shadow-sm shrink-0 transition-all">
+                            <div className="flex items-center gap-3 mb-1">
+                                <div className="w-8 h-8 rounded-full bg-amber-100/50 flex items-center justify-center shrink-0 border border-amber-100">
+                                    <AlertTriangle className="w-4 h-4 text-amber-600" strokeWidth={2} />
+                                </div>
+                                <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider">Avisos del análisis</span>
+                            </div>
+                            <div className="flex flex-col gap-1.5 pl-11">
+                                {warnings.map((w, idx) => (
+                                    <div key={idx} className="flex items-start gap-2 text-xs text-amber-800/80 leading-relaxed">
+                                        <div className="w-1 h-1 rounded-full bg-amber-400 mt-1.5 shrink-0" />
+                                        <span>{w.replace(/^⚠️\s*/, '')}</span>
+                                    </div>
+                                ))}
+                            </div>
                         </div>
                     )}
 
@@ -318,9 +340,9 @@ export default function DashboardPage({
                                 {portfolio.length > 0 && portfolio.length < numFunds && (
                                     <button
                                         onClick={handleAutoCompletePortfolio}
-                                        className="ml-2 bg-blue-50/50 hover:bg-blue-50 text-blue-600 text-[10px] font-semibold px-2.5 py-1.5 rounded-md border border-blue-100 uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                                        className="ml-2 bg-blue-50/50 hover:bg-blue-50 text-blue-700 text-[10px] font-bold px-2.5 py-1.5 rounded-md border border-blue-100 hover:border-blue-200 focus:outline-none uppercase tracking-widest flex items-center gap-1.5 transition-colors"
                                     >
-                                        <span>✨</span> Auto-completar (+{numFunds - portfolio.length})
+                                        <Sparkles className="w-3.5 h-3.5 text-blue-500" strokeWidth={2} /> Auto-completar (+{numFunds - portfolio.length})
                                     </button>
                                 )}
                             </div>

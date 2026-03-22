@@ -684,7 +684,9 @@ export function usePortfolioActions({
                 processOptimizationResult(result3, optimizeFn, options);
             }
         } else {
-            toast.error("Error en la optimización: " + (result.warnings?.[0] || 'Desconocido'));
+            const msg = result.message || result.error || "Desconocido";
+            const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
+            toast.error(`Error en la optimización: ${msg}${obsStr}`);
         }
     }
 
@@ -700,8 +702,10 @@ export function usePortfolioActions({
                 portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight }))
             });
             const result = unwrapResult<any>(response.data);
-            if (result.error) {
-                toast.error("Error en análisis: " + result.error);
+            if (result.error || result.status === 'error') {
+                const msg = result.message || result.error || "Error desconocido";
+                const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
+                toast.error(`Error en análisis: ${msg}${obsStr}`);
             } else {
                 setAnalysisResult(result);
                 // Keep the math data update here too, just in case they clicked this first.
@@ -734,8 +738,10 @@ export function usePortfolioActions({
             });
             const result = unwrapResult<any>(response.data);
 
-            if (result.error) {
-                toast.error("Error al sincronizar datos matemáticos: " + result.error);
+            if (result.error || result.status === 'error') {
+                const msg = result.message || result.error || "Error desconocido";
+                const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
+                toast.error(`Error al sincronizar datos matemáticos: ${msg}${obsStr}`);
             } else if (result.math_data) {
                 setInteractiveMathData({
                     ordered_isins: result.math_data.ordered_isins || [],

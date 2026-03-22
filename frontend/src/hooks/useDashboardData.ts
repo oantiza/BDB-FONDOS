@@ -69,6 +69,12 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
           };
           const data = await globalApiCache.getOrFetch('getEfficientFrontier', portfolio, fetcher);
 
+          if (data.status === 'error' || data.error) {
+            const msg = data.message || data.error || 'Error procesando Frontera Eficiente.';
+            const obsStr = data.observations ? ` (${data.observations} días comunes)` : '';
+            setDashboardError(`${msg}${obsStr}`);
+          }
+
           if (data.frontier) {
             setFrontierData(data.frontier)
             setAssetPoints(data.assets || [])
@@ -76,7 +82,7 @@ export function useDashboardData(isAuthenticated: boolean, portfolio: any[]) {
           }
         } catch (e: any) {
           console.error('Frontier error:', e)
-          setDashboardError('Error cargando Frontera Eficiente.')
+          setDashboardError('Error de conexión cargando Frontera Eficiente.')
         } finally {
           setIsLoadingFrontier(false)
         }

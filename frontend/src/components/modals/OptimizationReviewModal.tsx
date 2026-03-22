@@ -1,4 +1,5 @@
 import React, { useMemo, useEffect, useState } from 'react'
+import { Settings2, CheckCircle2 } from 'lucide-react'
 import ModalHeader from '../common/ModalHeader'
 import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 import { getDashboardAnalytics } from '../../engine/portfolioAnalyticsEngine'
@@ -192,43 +193,36 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                         )}
 
                         {/* Action Buttons Row */}
-                        <div className="flex gap-4">
-                            {/* Rebalanceo (Tactical) */}
+                        <div className="flex justify-end items-center w-full border-t border-slate-100 pt-6 mt-4 gap-3">
                             <button
-                                onClick={onAccept}
-                                className="flex-1 group relative overflow-hidden bg-white hover:bg-slate-50 text-slate-700 py-3 rounded-lg shadow-sm transition-all border border-slate-200 hover:border-slate-300"
+                                onClick={onClose}
+                                className="text-slate-500 hover:text-slate-800 font-bold text-[11px] py-2.5 px-5 transition-colors uppercase tracking-widest mr-auto bg-slate-50 hover:bg-slate-100 rounded-lg"
                             >
-                                <div className="relative z-10 flex flex-col items-center justify-center">
-                                    <span className="text-[9px] uppercase tracking-[0.2em] text-[#0B2545] font-bold mb-1 group-hover:text-[#8d623b] transition-colors">Ajuste Manual</span>
-                                    <div className="flex items-center gap-2 font-bold text-base text-[#2C3E50]">
-                                        <span>Rebalanceo / Detalle</span>
-                                    </div>
-                                </div>
+                                Cancelar
                             </button>
 
-                            {/* Accept (Direct) */}
-                            {onApplyDirect && (
+                            <div className="flex items-center gap-3">
+                                {/* Rebalanceo (Tactical) */}
                                 <button
-                                    onClick={onApplyDirect}
-                                    className="flex-1 group relative overflow-hidden bg-[#0B2545] hover:bg-[#1E3A8A] text-white py-3 rounded-lg shadow-lg shadow-slate-900/10 transition-all border border-transparent"
+                                    onClick={onAccept}
+                                    className="flex items-center justify-center gap-2 px-6 py-2.5 bg-white hover:bg-slate-50 text-slate-700 rounded-lg transition-all border border-slate-200 hover:border-slate-300 shadow-sm min-w-[170px]"
                                 >
-                                    <div className="relative z-10 flex flex-col items-center justify-center">
-                                        <span className="text-[9px] uppercase tracking-[0.2em] text-white/70 font-bold mb-1">Acción Rápida</span>
-                                        <div className="flex items-center gap-2 font-bold text-base">
-                                            <span>Aceptar Cartera</span>
-                                            <span>➜</span>
-                                        </div>
-                                    </div>
+                                    <Settings2 className="w-4 h-4 text-slate-500" strokeWidth={2}/>
+                                    <span className="text-xs font-bold uppercase tracking-widest text-slate-600">Rebalancear</span>
                                 </button>
-                            )}
-                        </div>
 
-                        <button
-                            onClick={onClose}
-                            className="mt-4 text-slate-400 hover:text-slate-600 font-bold text-xs py-2 transition-colors uppercase tracking-[0.15em]"
-                        >
-                            Cancelar Operación
-                        </button>
+                                {/* Accept (Direct) */}
+                                {onApplyDirect && (
+                                    <button
+                                        onClick={onApplyDirect}
+                                        className="flex items-center justify-center gap-2.5 px-6 py-2.5 bg-[#0B2545] hover:bg-[#1E3A8A] text-white rounded-lg shadow-sm hover:shadow-md transition-all border border-transparent min-w-[170px]"
+                                    >
+                                        <CheckCircle2 className="w-4 h-4 text-white/90" strokeWidth={2.5} />
+                                        <span className="text-xs font-bold uppercase tracking-widest text-white mt-0.5">Aplicar Cartera</span>
+                                    </button>
+                                )}
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

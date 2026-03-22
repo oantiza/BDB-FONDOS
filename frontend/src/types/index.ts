@@ -223,6 +223,7 @@ export interface SmartPortfolioResponse {
     recovery_candidates?: string[];
     weights?: Record<string, number>;
     error?: string;
+    observations?: number;
     used_assets?: string[];
     feasibility?: {
         equity_floor_requested: number;

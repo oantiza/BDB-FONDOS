@@ -29,6 +29,9 @@ export interface BacktestResponse {
   topHoldings?: { isin: string; name: string; weight: number }[];
   error?: string;
   status?: string;
+  message?: string;
+  observations?: number;
+  effective_start_date?: string;
   missing_assets?: string[];
   warnings?: string[]; // [NEW] Short history warnings
 }
@@ -80,9 +83,6 @@ function normalizeResponse(data: unknown): BacktestResponse {
 
   const response = data as Record<string, unknown>;
 
-  // Error explícito
-  if (response.error) return { error: String(response.error) };
-
   // Caso conocido del backend
   if (response.status === "no_common_history") {
     const missing = Array.isArray(response.missing_assets) ? (response.missing_assets as string[]) : [];
@@ -90,6 +90,18 @@ function normalizeResponse(data: unknown): BacktestResponse {
       status: "no_common_history",
       missing_assets: missing,
       error: `Histórico insuficiente: ${missing.join(", ") || "Desconocido"}`,
+    };
+  }
+
+  // Error estructurado o explícito
+  if (response.error || response.status === "error") {
+    return {
+      error: response.error ? String(response.error) : undefined,
+      status: response.status ? String(response.status) : "error",
+      message: response.message ? String(response.message) : undefined,
+      observations: typeof response.observations === 'number' ? response.observations : undefined,
+      effective_start_date: response.effective_start_date ? String(response.effective_start_date) : undefined,
+      warnings: Array.isArray(response.warnings) ? response.warnings as string[] : undefined,
     };
   }
 
