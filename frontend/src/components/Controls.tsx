@@ -47,7 +47,7 @@ export default function Controls({
 
             {/* 1. HERRAMIENTAS OPERATIVAS */}
             <div className="flex-1 flex flex-col">
-                <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center">
+                <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
                     <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
                         Control Operativo
                     </h3>

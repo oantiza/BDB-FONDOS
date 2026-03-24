@@ -238,7 +238,7 @@ export default function DashboardPage({
                     <div className="h-1/3 grid grid-cols-2 gap-5 shrink-0">
                         {/* Efficient Frontier Chart */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
+                            <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
                                 <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
                                     Frontera Eficiente
                                 </h3>
@@ -260,7 +260,7 @@ export default function DashboardPage({
 
                         {/* Key Metrics */}
                         <div className="bg-white rounded-xl flex flex-col border border-slate-100 shadow-sm relative overflow-hidden group hover:border-slate-200 transition-colors">
-                            <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
+                            <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
                                 <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
                                     Métricas Clave
                                 </h3>
@@ -315,10 +315,10 @@ export default function DashboardPage({
 
                     {/* Bottom Row: Portfolio Table */}
                     <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200 bg-white">
-                        <div className="py-3 px-4 bg-white border-b border-slate-100 flex justify-between items-center shrink-0">
+                        <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
                             <div className="flex items-center gap-3">
-                                <h3 className="text-[12px] font-bold text-slate-800 uppercase tracking-widest flex items-center gap-2">
-                                    Cartera de Fondos <span className="text-slate-400">({portfolio.length})</span>
+                                <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
+                                    Cartera de Fondos <span className="text-slate-400 font-medium">({portfolio.length})</span>
                                 </h3>
 
                                 {portfolio.length > 0 && (

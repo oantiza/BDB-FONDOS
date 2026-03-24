@@ -11,7 +11,7 @@ export function SectionTitle({ title, icon: Icon }: { title: string, icon: React
 export function InputField({ label, value, onChange, prefix, suffix, type = "text", info }: { label: string; value: string | number; onChange: React.ChangeEventHandler<HTMLInputElement>; prefix?: string; suffix?: string; type?: string; info?: string }) {
     return (
         <div>
-            <label className="block text-sm font-bold text-slate-600 mb-2 flex items-center justify-between">
+            <label className="block text-[15px] font-bold text-[#0B2545] mb-2 flex items-center justify-between">
                 <span>{label}</span>
                 {info && <span className="text-xs text-slate-400 font-medium uppercase tracking-wider">{info}</span>}
             </label>
@@ -31,10 +31,10 @@ export function InputField({ label, value, onChange, prefix, suffix, type = "tex
 
 export function MetricTile({ label, value, subtext, colorClass = "text-slate-800", bgColor = "bg-slate-50", borderColor = "border-slate-100" }: { label: string; value: string | React.ReactNode; subtext?: string; colorClass?: string; bgColor?: string; borderColor?: string }) {
     return (
-        <div className={`${bgColor} rounded-lg p-5 border ${borderColor}`}>
-            <span className="block text-slate-500 text-xs uppercase tracking-wider font-bold mb-1">{label}</span>
-            <span className={`block font-bold text-2xl ${colorClass}`}>{value}</span>
-            {subtext && <span className="text-xs text-slate-400 block mt-1.5 uppercase tracking-wider font-semibold">{subtext}</span>}
+        <div className={`${bgColor} rounded-lg p-3 border ${borderColor} flex flex-col items-center justify-center text-center`}>
+            <span className="block text-slate-500 text-[9px] uppercase tracking-wider font-bold mb-1">{label}</span>
+            <span className={`block font-bold text-xl ${colorClass}`}>{value}</span>
+            {subtext && <span className="text-[9px] text-slate-400 block mt-1 uppercase tracking-wider font-semibold">{subtext}</span>}
         </div>
     );
 }
@@ -43,10 +43,10 @@ export function SoftBadge({ children, active, onClick, className = "" }: { child
     return (
         <button
             onClick={onClick}
-            className={`py-2 px-4 rounded-md text-sm font-bold transition-all ${
+            className={`py-2 px-4 rounded-xl text-sm font-semibold transition-all ${
                 active 
-                ? 'bg-white text-slate-800 shadow-sm border border-slate-200/60' 
-                : 'text-slate-500 hover:text-slate-700 hover:bg-slate-200/50 transparent border border-transparent'
+                ? 'bg-[#0B2545] text-white shadow-sm border border-[#0B2545]' 
+                : 'bg-white text-slate-500 hover:text-slate-700 hover:bg-slate-50 border border-slate-200'
             } ${className}`}
         >
             {children}

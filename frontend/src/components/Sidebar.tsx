@@ -215,7 +215,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
 
   return (
     <div className="w-full h-full bg-white border-r border-slate-100 shadow-sm z-10 p-0 flex flex-col shrink-0 text-slate-700">
-      <div className="px-4 py-3.5 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center shrink-0">
+      <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
         <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
           Universo de Inversión
         </h3>

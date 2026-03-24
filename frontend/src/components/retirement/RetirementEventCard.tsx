@@ -6,7 +6,7 @@ export function RetirementEventCard({ epsvRescatadoBruto, epsvCashNeto }: { epsv
     if (epsvRescatadoBruto <= 0) return null;
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-amber-200 overflow-hidden relative">
+        <div className="bg-white rounded-xl shadow-sm border border-amber-200 overflow-hidden relative">
             <div className="absolute top-0 left-0 w-1.5 h-full bg-amber-400"></div>
             <div className="bg-amber-50/50 px-8 py-5 border-b border-amber-100">
                 <h3 className="font-extrabold text-[#0B2545] flex items-center gap-2 text-sm uppercase tracking-widest pl-1">

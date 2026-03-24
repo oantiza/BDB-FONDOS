@@ -204,11 +204,11 @@ export default function RetirementCalculatorPage({ onBack }: RetirementCalculato
     };
 
     return (
-        <div className="h-[calc(100vh-64px)] bg-[#f8fafc] text-slate-800 p-4 lg:p-8 font-sans selection:bg-[#0B2545] selection:text-white flex items-start justify-center overflow-y-auto pb-24">
-            <div className="max-w-[1665px] w-full bg-white rounded-3xl shadow-xl border border-slate-200 overflow-hidden relative flex flex-col shrink-0">
+        <div className="h-[calc(100vh-64px)] bg-slate-100 text-slate-800 font-sans selection:bg-[#0B2545] selection:text-white block overflow-y-auto w-full">
+            <div className="w-full min-h-full bg-slate-100 relative flex flex-col pb-24">
                 
                 {/* Unified Module Header */}
-                <div className="h-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white flex justify-between items-center px-6 shrink-0 border-b border-slate-600 shadow-sm print:hidden">
+                <div className="sticky top-0 z-50 h-16 bg-gradient-to-r from-slate-800 to-slate-700 text-white flex justify-between items-center px-6 shrink-0 border-b border-slate-600 shadow-sm print:hidden">
                     <div className="flex items-center gap-3">
                         <div className="font-light text-xl tracking-tight leading-none mb-0.5 text-white">Gestor de <span className="font-bold text-blue-200">Fondos</span></div>
                         <div className="h-6 w-px bg-slate-600/50 mx-2"></div>
@@ -237,37 +237,25 @@ export default function RetirementCalculatorPage({ onBack }: RetirementCalculato
                 </div>
 
                 {step === 'setup' ? (
-                    <div className="py-12 lg:py-16 px-10 w-full max-w-[1565px] mx-auto">
+                    <div className="py-12 lg:py-16 px-4 sm:px-6 lg:px-8 max-w-[980px] w-full mx-auto pb-4">
                         <div className="text-center mb-8">
                             <h2 className="text-4xl font-extrabold text-[#0B2545] tracking-tight">Cálculo de Escenarios</h2>
                         </div>
                         
-                        <div className="bg-[#f8fafc] rounded-3xl border border-slate-200 p-12 shadow-inner">
-                            <RetirementInputPanel form={form} onChange={handleFormChange} />
-                        </div>
-                        
-                        <div className="mt-14 flex justify-end">
-                            <button
-                                onClick={() => setStep('results')}
-                                className="px-10 py-5 bg-[#0B2545] hover:bg-[#153a66] active:bg-[#081b33] text-white font-bold rounded-2xl shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all w-full md:w-auto text-xl flex items-center justify-center gap-3"
-                            >
-                                <span>Generar Escenario de Jubilación</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                </svg>
-                            </button>
+                        <div className="w-full">
+                            <RetirementInputPanel form={form} onChange={handleFormChange} onGenerate={() => setStep('results')} />
                         </div>
                     </div>
                 ) : (
                     <div className="flex flex-col">
-                        <div className="p-8 lg:px-12 lg:pt-10 bg-white border-b border-slate-100 flex items-center justify-between pb-8">
+                        <div className="p-8 lg:px-12 lg:pt-8 flex items-center justify-between pb-6">
                             <div>
                                 <h2 className="text-4xl font-extrabold text-[#0B2545] tracking-tight">Análisis Predictivo de Jubilación</h2>
-                                <p className="text-slate-500 text-lg mt-3">Impacto patrimonial, desglose fiscal y evolución temporal de rentas.</p>
+                                <p className="text-slate-500 text-base mt-2">Impacto patrimonial, desglose fiscal y evolución temporal de rentas.</p>
                             </div>
                             <button
                                 onClick={() => setStep('setup')}
-                                className="px-5 py-2.5 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-semibold rounded-xl shadow-sm transition-colors text-sm flex items-center gap-2"
+                                className="px-4 py-2 bg-white border border-slate-200 hover:bg-slate-50 hover:border-slate-300 text-slate-700 font-semibold rounded-lg shadow-sm transition-colors text-sm flex items-center gap-2"
                             >
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 17l-5-5m0 0l5-5m-5 5h12" />
@@ -276,9 +264,9 @@ export default function RetirementCalculatorPage({ onBack }: RetirementCalculato
                             </button>
                         </div>
                         
-                        <div className="p-8 lg:p-12 bg-[#f8fafc] flex-1">
-                            <div className="max-w-[1565px] mx-auto space-y-12">
-                                <div id="reportA" className="space-y-12 flex flex-col">
+                        <div className="px-8 lg:px-12 flex-1 pb-12">
+                            <div className="max-w-[1100px] w-full mx-auto space-y-6 pb-4">
+                                <div id="reportA" className="space-y-6 flex flex-col">
                                     <RetirementSummaryCard results={results} />
                                     <RetirementEventCard epsvRescatadoBruto={results.epsvRescatadoBruto} epsvCashNeto={results.epsvCashNeto} />
                                     <FiscalBreakdownCard results={results} />

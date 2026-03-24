@@ -65,40 +65,46 @@ export function RetirementProjectionChart({ results, pensionPublicaAnual }: { re
 
     if (!chartData || chartData.length === 0) {
         return (
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 h-[450px] flex flex-col justify-center items-center mt-8">
+            <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-8 h-[450px] flex flex-col justify-center items-center mt-8">
                 <p className="text-slate-500 font-medium">No hay datos suficientes para proyectar la renta.</p>
             </div>
         );
     }
 
     return (
-        <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 h-[550px] flex flex-col mt-8">
-            <div className="mb-8">
-                <h3 className="text-2xl font-black text-[#0B2545] tracking-tight mb-2">Evolución de Renta Neta Mensual Estimada</h3>
-                <p className="text-sm text-slate-500 font-medium tracking-wide">
-                    * Hipótesis: Pensión revalorizada al {Math.round((PENSION_ANNUAL_GROWTH_RATE - 1) * 100)}% anual
-                </p>
+        <div className="bg-white rounded-xl shadow-sm border border-slate-100 flex flex-col mt-5 overflow-hidden">
+            <div className="h-[36px] px-3 bg-[#F8FAFC] border-b border-slate-200/60 flex items-center z-10 shrink-0">
+                <h3 className="text-[9px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-1.5">
+                    Evolución de Renta Neta
+                </h3>
             </div>
+            <div className="p-5 h-[385px] flex flex-col">
+                <div className="mb-5">
+                    <h3 className="text-lg font-black text-[#0B2545] tracking-tight mb-1">Evolución de Renta Neta Mensual Estimada</h3>
+                    <p className="text-xs text-slate-500 font-medium tracking-wide">
+                        * Hipótesis: Pensión revalorizada al {Math.round((PENSION_ANNUAL_GROWTH_RATE - 1) * 100)}% anual
+                    </p>
+                </div>
             <div className="flex-1 min-h-0">
                 <ResponsiveContainer width="100%" height="100%">
                     <BarChart data={chartData} margin={{ top: 10, right: 10, left: 10, bottom: 0 }}>
                         <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f1f5f9" />
-                        <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 13, fill: '#64748b', fontWeight: 500 }} dy={12} />
+                        <XAxis dataKey="year" axisLine={false} tickLine={false} tick={{ fontSize: 11, fill: '#64748b', fontWeight: 500 }} dy={8} />
                         <YAxis
                             axisLine={false}
                             tickLine={false}
                             tickFormatter={(val) => `${val.toLocaleString()} €`}
-                            tick={{ fontSize: 13, fill: '#64748b', fontWeight: 500 }}
-                            dx={-10}
+                            tick={{ fontSize: 11, fill: '#64748b', fontWeight: 500 }}
+                            dx={-8}
                         />
                         <Tooltip
                             formatter={(value: number) => [`${value.toLocaleString()} €`, '']}
                             contentStyle={{ borderRadius: '12px', border: '1px solid #e2e8f0', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
-                            labelStyle={{ color: '#0f172a', fontWeight: 'bold', fontSize: '15px', marginBottom: '8px' }}
-                            itemStyle={{ fontSize: '14px', paddingTop: '4px' }}
+                            labelStyle={{ color: '#0f172a', fontWeight: 'bold', fontSize: '13px', marginBottom: '6px' }}
+                            itemStyle={{ fontSize: '12px', paddingTop: '3px' }}
                             cursor={{ fill: '#f8fafc' }}
                         />
-                        <Legend verticalAlign="top" height={44} iconType="circle" wrapperStyle={{ fontSize: '13px', fontWeight: 600, color: '#475569' }} />
+                        <Legend verticalAlign="top" height={30} iconType="circle" wrapperStyle={{ fontSize: '11px', fontWeight: 600, color: '#475569' }} />
                         <Bar 
                             dataKey="pension" 
                             stackId="a" 
@@ -117,6 +123,7 @@ export function RetirementProjectionChart({ results, pensionPublicaAnual }: { re
                     </BarChart>
                 </ResponsiveContainer>
             </div>
+        </div>
         </div>
     );
 }

@@ -3,17 +3,26 @@ import { TrendingUp, Shield, ExternalLink } from 'lucide-react';
 import { SectionTitle, InputField, SoftBadge } from './RetirementUI';
 import { RetirementFormState } from './types';
 
-export function RetirementInputPanel({ form, onChange }: { form: RetirementFormState, onChange: (key: keyof RetirementFormState, value: string | number | boolean) => void }) {
+interface RetirementInputPanelProps {
+    form: RetirementFormState;
+    onChange: (field: keyof RetirementFormState, value: any) => void;
+    onGenerate?: () => void;
+}
+
+export function RetirementInputPanel({ form, onChange, onGenerate }: RetirementInputPanelProps) {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10">
             {/* Basics */}
-            <section className="bg-white p-6 lg:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
-
-                <SectionTitle title="Ahorros e Inversiones Disponibles" icon={TrendingUp} />
-                <div className="space-y-6">
+            <section className="bg-white rounded-xl border border-slate-100 shadow-sm flex flex-col overflow-hidden">
+                <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex items-center z-10">
+                    <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
+                        <TrendingUp className="w-3.5 h-3.5" /> Ahorros e Inversiones Disponibles
+                    </h3>
+                </div>
+                <div className="p-6 lg:p-8 space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <InputField
-                            label="Capital de partida estimado"
+                            label="2. Ahorros Privados (€)"
                             value={form.ahorros}
                             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('ahorros', Number(e.target.value))}
                             prefix="€"
@@ -29,11 +38,11 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                     </div>
                     
                     <div className="flex flex-col justify-center bg-slate-50 p-5 rounded-xl border border-slate-100">
-                        <label className="flex text-base font-bold text-slate-600 mb-4 justify-between items-center">
-                            <span className="flex items-center gap-1.5">Revalorización media estimada</span>
-                            <span className="text-[#0B2545] font-mono font-bold bg-white px-3 py-1 rounded w-16 text-center border border-slate-200 shadow-sm text-lg">{form.revalorizacion}%</span>
+                        <label className="flex text-base font-bold text-[#0B2545] mb-4 justify-between items-center">
+                            <span className="flex items-center gap-1.5">3. Revalorización media estimada de tus ahorros</span>
+                            <span className="text-[#B49157] font-bold text-lg">{form.revalorizacion}%</span>
                         </label>
-                        <input type="range" min="0" max="15" step="0.5" value={form.revalorizacion} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('revalorizacion', Number(e.target.value))} className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B2545]" />
+                        <input type="range" min="0" max="15" step="0.5" value={form.revalorizacion} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('revalorizacion', Number(e.target.value))} className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B49157]" />
                         <div className="flex justify-between text-sm text-slate-400 font-medium mt-3 px-1">
                             <span>0%</span>
                             <span>15%</span>
@@ -59,7 +68,7 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                     </a>
 
                     <div className="pt-4 border-t border-slate-100">
-                        <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Tipo de renta privada que desea simular</h4>
+                        <h4 className="text-[16px] font-bold text-[#0B2545] mb-3">1. Elige el tipo de renta</h4>
                         <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-lg text-base">
                             {['temporal', 'vitaliciaEV', 'vitaliciaSostenible'].map(type => (
                                 <SoftBadge 
@@ -74,22 +83,31 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                     </div>
 
                     {form.rentType === 'temporal' && (
-                        <div className="bg-slate-50 p-5 rounded-xl border border-slate-100 transition-all space-y-6">
-                            <div className="w-full md:w-1/2 md:pr-4">
-                                <InputField label="Años cobrando renta" value={form.years} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('years', Number(e.target.value))} suffix="años" type="number" />
+                        <div className="bg-white p-6 rounded-xl border border-slate-200 shadow-sm transition-all space-y-8">
+                            <div>
+                                <label className="flex text-base font-bold text-[#0B2545] mb-4 justify-between items-center">
+                                    <span className="flex items-center gap-1.5">4. Años de cobro de la renta</span>
+                                    <span className="text-[#B49157] font-bold text-lg">{form.years} años</span>
+                                </label>
+                                <input type="range" min="5" max="40" step="1" value={form.years} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('years', Number(e.target.value))} className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B49157]" />
+                                <div className="flex justify-between text-sm text-slate-400 font-medium mt-3 px-1">
+                                    <span>5 años</span>
+                                    <span>40 años</span>
+                                </div>
                             </div>
-                            <div className="flex flex-col justify-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm">
-                                <label className="flex text-base font-bold text-slate-600 mb-4 justify-between items-center">
+                            
+                            <div>
+                                <label className="flex text-base font-bold text-[#0B2545] mb-4 justify-between items-center">
                                     <span className="flex items-center gap-1.5">
-                                        Actualización anual
+                                        5. Actualización anual de la renta
                                         <span className="group relative inline-flex items-center cursor-help">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-400 hover:text-slate-600"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                                             <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-2 py-1 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 z-10 block">Para combatir inflación</span>
                                         </span>
                                     </span>
-                                    <span className="text-[#0B2545] font-mono font-bold bg-slate-50 px-3 py-1 rounded w-16 text-center border border-slate-100 text-lg">{form.updateRate}%</span>
+                                    <span className="text-[#B49157] font-bold text-lg">{form.updateRate}%</span>
                                 </label>
-                                <input type="range" min="0" max="6" step="0.5" value={form.updateRate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('updateRate', Number(e.target.value))} className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B2545]" />
+                                <input type="range" min="0" max="6" step="0.5" value={form.updateRate} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('updateRate', Number(e.target.value))} className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B49157]" />
                                 <div className="flex justify-between text-sm text-slate-400 font-medium mt-3 px-1">
                                     <span>0%</span>
                                     <span>6%</span>
@@ -114,17 +132,17 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center bg-white p-5 rounded-xl border border-slate-200 shadow-sm mt-6">
-                                <label className="flex text-base font-bold text-slate-600 mb-4 justify-between items-center">
+                                <label className="flex text-base font-bold text-[#0B2545] mb-4 justify-between items-center">
                                     <span className="flex items-center gap-1.5">
-                                        Actualización anual
+                                        Actualización anual de la renta
                                         <span className="group relative inline-flex items-center cursor-help">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 text-slate-400 hover:text-slate-600"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
                                             <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 whitespace-nowrap rounded bg-slate-800 px-2 py-1 text-xs font-medium text-white opacity-0 transition group-hover:opacity-100 z-10 block">Para combatir inflación</span>
                                         </span>
                                     </span>
-                                    <span className="text-[#0B2545] font-mono font-bold bg-slate-50 px-3 py-1 rounded w-16 text-center border border-slate-100 text-lg">{form.updateRateEV}%</span>
+                                    <span className="text-[#B49157] font-bold text-lg">{form.updateRateEV}%</span>
                                 </label>
-                                <input type="range" min="0" max="6" step="0.5" value={form.updateRateEV} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('updateRateEV', Number(e.target.value))} className="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#0B2545]" />
+                                <input type="range" min="0" max="6" step="0.5" value={form.updateRateEV} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange('updateRateEV', Number(e.target.value))} className="w-full h-1.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-[#B49157]" />
                                 <div className="flex justify-between text-sm text-slate-400 font-medium mt-3 px-1">
                                     <span>0%</span>
                                     <span>6%</span>
@@ -136,9 +154,14 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
             </section>
 
             {/* EPSV Panel */}
-            <section className="bg-white p-6 lg:p-8 rounded-2xl border border-slate-200 shadow-sm flex flex-col">
-                <SectionTitle title="Datos de su EPSV" icon={Shield} />
-                <div className="space-y-6">
+            <section className="bg-white rounded-xl border border-slate-100 shadow-sm flex flex-col overflow-hidden">
+                <div className="h-[45px] px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex items-center justify-between z-10">
+                    <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
+                        <Shield className="w-3.5 h-3.5" /> Configuración EPSV (Ref. 2026)
+                    </h3>
+                    <span className="text-[#B49157] font-bold text-[10px] bg-amber-50 px-2.5 py-1 rounded-full uppercase tracking-widest border border-amber-100">OPCIONAL</span>
+                </div>
+                <div className="p-6 lg:p-8 space-y-6">
                     <div className="grid grid-cols-2 gap-1 p-1 bg-slate-100 rounded-lg text-base mb-2">
                         <SoftBadge active={form.esPrimerRescate} onClick={() => onChange('esPrimerRescate', true)}>1er Rescate</SoftBadge>
                         <SoftBadge active={!form.esPrimerRescate} onClick={() => onChange('esPrimerRescate', false)}>Rescates Previos</SoftBadge>
@@ -148,7 +171,7 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                         <span className="text-base font-semibold text-slate-700 w-3/4 leading-snug">¿Conoce la rentabilidad acumulada real de su EPSV?</span>
                         <div className="relative inline-flex items-center">
                             <input type="checkbox" className="sr-only peer" checked={form.conoceRentabilidad} onChange={(e) => onChange('conoceRentabilidad', e.target.checked)} />
-                            <div className="w-8 h-4 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#0B2545]"></div>
+                            <div className="w-8 h-4 bg-slate-300 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#B49157]"></div>
                         </div>
                     </label>
                     
@@ -179,7 +202,7 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                     </div>
 
                     <div className="pt-4 border-t border-slate-100">
-                        <h4 className="text-sm font-bold text-slate-500 uppercase tracking-wider mb-3">Cómo desea cobrar la EPSV</h4>
+                        <h4 className="text-[15px] font-bold text-[#0B2545] mb-3">Modalidad de Rescate EPSV preferida</h4>
                         <div className="grid grid-cols-3 gap-1 p-1 bg-slate-100 rounded-lg text-base">
                             {(['renta', 'capital', 'mixto'] as const).map(mode => (
                                 <SoftBadge key={mode} active={form.rescueMode === mode} onClick={() => onChange('rescueMode', mode)} className="capitalize">
@@ -195,6 +218,20 @@ export function RetirementInputPanel({ form, onChange }: { form: RetirementFormS
                                 Porcentaje en Capital: <span className="text-[#0B2545]">{form.pctCapital}%</span>
                             </label>
                             <input type="range" min="0" max="100" value={form.pctCapital} onChange={(e) => onChange('pctCapital', Number(e.target.value))} className="w-full accent-slate-600" />
+                        </div>
+                    )}
+
+                    {onGenerate && (
+                        <div className="pt-8 w-full max-w-sm mx-auto">
+                            <button
+                                onClick={onGenerate}
+                                className="py-3.5 px-6 bg-[#0B2545] hover:bg-[#153a66] active:bg-[#081b33] text-white font-semibold rounded-xl shadow-md hover:shadow-lg hover:-translate-y-0.5 transition-all w-full text-[1.05rem] flex items-center justify-center gap-2.5"
+                            >
+                                <span>Generar Escenarios</span>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </button>
                         </div>
                     )}
                 </div>

@@ -296,9 +296,6 @@ function buscarISINRegex(txt) {
   return null;
 }
 
-  return m ? m[0].replace(/[\s\-]/g, "").toUpperCase() : null;
-}
-
 function reportDateFromFilename(filename) {
   const m = filename.match(/morningstarreport(\d{8})/i);
   if (!m) return null;
@@ -770,15 +767,24 @@ function deriveAssetSubtype(catUpper, subcats = [], nameUpper = "") {
   const c = `${catUpper || ""} ${nameUpper || ""}`;
   const tags = Array.isArray(subcats) ? subcats : [];
 
+  // -------------------------
+  // BOND TYPES
+  // -------------------------
   if (c.includes("CONVERTIBLE")) return "CONVERTIBLE_BOND";
-  if (c.includes("HIGH YIELD") || c.includes("ALTO RENDIMIENTO")) return "HIGH_YIELD_BOND";
-  if (c.includes("INFLATION") || c.includes("LINKED")) return "INFLATION_LINKED_BOND";
+
+  if (c.includes("HIGH YIELD") || c.includes("ALTO RENDIMIENTO"))
+    return "HIGH_YIELD_BOND";
+
+  if (c.includes("INFLATION") || c.includes("LINKED"))
+    return "INFLATION_LINKED_BOND";
+
   if (
     c.includes("EMERGING") &&
     (c.includes("BOND") || c.includes("DEBT") || c.includes("FIXED INCOME") || c.includes("RF"))
   ) {
     return "EMERGING_MARKETS_BOND";
   }
+
   if (
     c.includes("GOVERNMENT") ||
     c.includes("TREASURY") ||
@@ -787,6 +793,7 @@ function deriveAssetSubtype(catUpper, subcats = [], nameUpper = "") {
   ) {
     return "GOVERNMENT_BOND";
   }
+
   if (
     c.includes("BOND") ||
     c.includes("CREDIT") ||
@@ -796,49 +803,131 @@ function deriveAssetSubtype(catUpper, subcats = [], nameUpper = "") {
     return "CORPORATE_BOND";
   }
 
-  if (tags.some((x) => x.includes("healthcare"))) return "SECTOR_EQUITY_HEALTHCARE";
-  if (tags.some((x) => x.includes("technology"))) return "SECTOR_EQUITY_TECH";
+  // -------------------------
+  // SECTOR EQUITY
+  // -------------------------
+  if (tags.some((x) => x.includes("healthcare")))
+    return "SECTOR_EQUITY_HEALTHCARE";
 
+  if (tags.some((x) => x.includes("technology")))
+    return "SECTOR_EQUITY_TECH";
+
+  // -------------------------
+  // THEMATIC
+  // -------------------------
   if (
     tags.some((x) => x.includes("infrastructure")) ||
     c.includes("INFRASTRUCTURE") ||
-    c.includes("INFRAESTRUCTURA")
-  ) {
-    return "THEMATIC_EQUITY";
-  }
-
-  if (
-    c.includes("WATER") ||
+    c.includes("INFRAESTRUCTURA") ||
     c.includes("CLIMATE") ||
-    c.includes("ENERGY TRANSITION") ||
-    c.includes("SMART ENERGY") ||
-    c.includes("CLEAN ENERGY") ||
-    c.includes("ECOLOGY") ||
-    c.includes("BIG DATA") ||
+    c.includes("WATER") ||
     c.includes("ROBOTICS") ||
     c.includes("AI") ||
-    c.includes("ARTIFICIAL INTELLIGENCE")
+    c.includes("ARTIFICIAL INTELLIGENCE") ||
+    c.includes("ENERGY TRANSITION")
   ) {
     return "THEMATIC_EQUITY";
   }
 
-  if (c.includes("US ") || c.includes("USA") || c.includes("UNITED STATES")) return "US_EQUITY";
-  if (c.includes("EUROZONE") || c.includes("EUROLAND")) return "EUROZONE_EQUITY";
-  if (c.includes("EUROPE") || c.includes("EUROPA")) return "EUROPE_EQUITY";
-  if (c.includes("JAPAN")) return "JAPAN_EQUITY";
-  if (c.includes("ASIA PACIFIC") || c.includes("ASIA EX")) return "ASIA_PACIFIC_EQUITY";
-  if (c.includes("EMERGING")) return "EMERGING_MARKETS_EQUITY";
-  if (c.includes("SMALL CAP") || c.includes("MID CAP") || c.includes("SMID") || c.includes("SMALLER COMPANIES")) {
+  // -------------------------
+  // MSCI / INDEX FUNDS
+  // -------------------------
+  if (c.includes("MSCI")) {
+    if (c.includes("WORLD")) return "GLOBAL_EQUITY";
+    if (c.includes("EMERGING")) return "EMERGING_MARKETS_EQUITY";
+    if (c.includes("EUROPE")) return "EUROPE_EQUITY";
+    if (c.includes("USA") || c.includes("US")) return "US_EQUITY";
+  }
+
+  // -------------------------
+  // ETF PROVIDERS / INDEX BRANDS
+  // -------------------------
+  if (
+    c.includes("ISHARES") ||
+    c.includes("VANGUARD") ||
+    c.includes("AMUNDI") ||
+    c.includes("XTRACKERS") ||
+    c.includes("SPDR") ||
+    c.includes("LYXOR") ||
+    c.includes("UBS ETF") ||
+    c.includes("INDEX FUND")
+  ) {
+    if (c.includes("EMERGING")) return "EMERGING_MARKETS_EQUITY";
+    if (c.includes("EUROPE")) return "EUROPE_EQUITY";
+    if (c.includes("USA") || c.includes("US")) return "US_EQUITY";
+    return "GLOBAL_EQUITY";
+  }
+
+  // -------------------------
+  // GLOBAL / WORLD
+  // -------------------------
+  if (
+    c.includes("WORLD") ||
+    c.includes("GLOBAL") ||
+    c.includes("ACWI") ||
+    c.includes("ALL WORLD") ||
+    c.includes("INTERNATIONAL")
+  ) {
+    return "GLOBAL_EQUITY";
+  }
+
+  // -------------------------
+  // REGIONAL EQUITY
+  // -------------------------
+  if (c.includes("USA") || c.includes("UNITED STATES") || c.includes("U.S."))
+    return "US_EQUITY";
+
+  if (c.includes("EUROZONE") || c.includes("EUROLAND"))
+    return "EUROZONE_EQUITY";
+
+  if (c.includes("EUROPE") || c.includes("EUROPA"))
+    return "EUROPE_EQUITY";
+
+  if (c.includes("JAPAN") || c.includes("JAPON") || c.includes("JAPÓN"))
+    return "JAPAN_EQUITY";
+
+  if (c.includes("ASIA PACIFIC") || c.includes("ASIA EX"))
+    return "ASIA_PACIFIC_EQUITY";
+
+  if (c.includes("EMERGING") || c.includes("EMERGENTE"))
+    return "EMERGING_MARKETS_EQUITY";
+
+  // -------------------------
+  // STYLE / MARKET CAP
+  // -------------------------
+  if (
+    c.includes("SMALL CAP") ||
+    c.includes("MID CAP") ||
+    c.includes("SMID") ||
+    c.includes("SMALLER COMPANIES")
+  ) {
     return "GLOBAL_SMALL_CAP_EQUITY";
   }
-  if (c.includes("DIVIDEND") || c.includes("INCOME")) return "GLOBAL_INCOME_EQUITY";
-  if (c.includes("EQUITY") || c.includes("RENTA VARIABLE") || c.startsWith("RV")) return "GLOBAL_EQUITY";
 
+  if (c.includes("DIVIDEND") || c.includes("INCOME"))
+    return "GLOBAL_INCOME_EQUITY";
+
+  // -------------------------
+  // GENERIC EQUITY
+  // -------------------------
+  if (
+    c.includes("EQUITY") ||
+    c.includes("RENTA VARIABLE") ||
+    c.startsWith("RV") ||
+    c.includes("ACCIONES")
+  ) {
+    return "GLOBAL_EQUITY";
+  }
+
+  // -------------------------
+  // MIXED / ALLOCATION
+  // -------------------------
   if (
     c.includes("ALLOCATION") ||
     c.includes("MIXTO") ||
     c.includes("BALANCED") ||
-    c.includes("MULTI ASSET")
+    c.includes("MULTI ASSET") ||
+    c.includes("MULTIASSET")
   ) {
     return "FLEXIBLE_ALLOCATION";
   }
@@ -1071,7 +1160,11 @@ async function processPdfFile(fileName, writer) {
 
   const subcats = deriveSubcategories(ms.sectors || null, name, ms.category_morningstar || "");
   const ts = topSector(ms.sectors || null);
-  const assetSubtype = deriveAssetSubtype(catUpper, subcats, nameUpper);
+  let assetSubtype = deriveAssetSubtype(catUpper, subcats, nameUpper);
+
+  if (assetSubtype === "UNKNOWN" && derived_asset_class === "RV") {
+    assetSubtype = "GLOBAL_EQUITY";
+  }
   const flags = deriveFlags(catUpper, subcats, nameUpper);
 
   if (

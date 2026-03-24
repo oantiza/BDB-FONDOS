@@ -1,6 +1,66 @@
 import { PortfolioItem } from '../types';
 import { getFormattedTaxonomy } from '../utils/taxonomyTranslators';
 import { Lock, Unlock, ArrowLeftRight, X, Layers } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+
+// Custom input component to allow writing decimals smoothly without losing focus or characters
+function FastNumberInput({
+    value,
+    onChange,
+    className,
+    disabled = false,
+    step = "1"
+}: {
+    value: number | string;
+    onChange: (val: number) => void;
+    className?: string;
+    disabled?: boolean;
+    step?: string;
+}) {
+    const [localVal, setLocalVal] = useState(value.toString());
+    const [isFocused, setIsFocused] = useState(false);
+
+    useEffect(() => {
+        if (!isFocused) {
+            setLocalVal(value.toString());
+        }
+    }, [value, isFocused]);
+
+    return (
+        <input
+            type="number"
+            className={className}
+            value={isFocused ? localVal : value}
+            step={step}
+            disabled={disabled}
+            onClick={(e) => e.stopPropagation()}
+            onFocus={() => {
+                setLocalVal(value.toString());
+                setIsFocused(true);
+            }}
+            onBlur={() => {
+                setIsFocused(false);
+                const parsed = parseFloat(localVal);
+                // Si el input está vacío, asume 0 para onBlur
+                if (localVal === '') {
+                    onChange(0);
+                } else if (!isNaN(parsed)) {
+                    onChange(parsed);
+                }
+            }}
+            onChange={(e) => {
+                setLocalVal(e.target.value);
+                const parsed = parseFloat(e.target.value);
+                if (!isNaN(parsed)) {
+                    onChange(parsed);
+                } else if (e.target.value === '') {
+                    // Update chart immediately to 0 if they delete everything
+                    onChange(0);
+                }
+            }}
+        />
+    );
+}
 
 interface PortfolioTableProps {
     assets?: any[];
@@ -84,15 +144,12 @@ export default function PortfolioTable({
                                 <td className="p-3 w-[15%] min-w-[100px] text-right align-middle">
                                     <div className="flex items-center justify-end">
                                         <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                            <input
-                                                type="number"
+                                            <FastNumberInput
                                                 className="w-[60px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={Math.round(asset.weight * 100) / 100}
                                                 step="0.01"
                                                 disabled={asset.isLocked}
-                                                onClick={(e) => e.stopPropagation()}
-                                                onChange={(e) => {
-                                                    const val = parseFloat(e.target.value) || 0;
+                                                onChange={(val) => {
                                                     onUpdateWeight && onUpdateWeight(asset.isin, val);
                                                 }}
                                             />
@@ -104,15 +161,12 @@ export default function PortfolioTable({
                                 <td className="p-3 w-[20%] min-w-[140px] text-right align-middle">
                                     <div className="flex items-center justify-end">
                                         <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                                            <input
-                                                type="number"
+                                            <FastNumberInput
                                                 className="w-[90px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={(totalCapital * (asset.weight / 100)).toFixed(2)}
                                                 step="100"
                                                 disabled={asset.isLocked}
-                                                onClick={(e) => e.stopPropagation()}
-                                                onChange={(e) => {
-                                                    const newCapital = parseFloat(e.target.value) || 0;
+                                                onChange={(newCapital) => {
                                                     if (totalCapital > 0) {
                                                         const newWeight = (newCapital / totalCapital) * 100;
                                                         onUpdateWeight && onUpdateWeight(asset.isin, newWeight);
