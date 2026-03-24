@@ -485,7 +485,7 @@ def _check_feasibility_and_autoexpand(
             
     return True, {}, added_assets, solver_path, ef, mu, S, universe, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
 
-def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe):
+def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe, lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec):
     """
     FASE 8: Ejecución Matemática Final.
     [PRECEDENCIA CANÓNICA] Nivel 6: Objetivo del Solver.
@@ -524,6 +524,13 @@ def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma
             logger.info("⚠️ Fallback 1: Relaxed Sharpe")
             ef_relaxed = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
             ef_relaxed.add_objective(objective_functions.L2_reg, gamma=gamma)
+            
+            _apply_standard_constraints(
+                ef_relaxed, constraints, lock_mode, apply_profile, risk_level_i, 
+                locked_assets, fixed_weights, asset_metadata, current_risk_buckets, 
+                eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+            )
+            
             raw_weights = ef_relaxed.max_sharpe(risk_free_rate=rf_rate)
             ef = ef_relaxed
             solver_path = "fallback_relaxed_sharpe"
@@ -531,6 +538,13 @@ def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma
             try:
                 logger.info("⚠️ Fallback 2: Min Volatility")
                 ef_minvol = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+                
+                _apply_standard_constraints(
+                    ef_minvol, constraints, lock_mode, apply_profile, risk_level_i, 
+                    locked_assets, fixed_weights, asset_metadata, current_risk_buckets, 
+                    eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+                )
+                
                 raw_weights = ef_minvol.min_volatility()
                 ef = ef_minvol
                 solver_path = "fallback_min_vol"
@@ -699,7 +713,8 @@ def run_optimization(
         # FASE 8: Final Mathematical Run
         if not solver_path or solver_path == "auto_expand_then_solve":
             ef, raw_weights, solver_path = _run_solver(
-                ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe
+                ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe,
+                lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
             )
         else:
             raw_weights = None

@@ -637,8 +637,8 @@ export function usePortfolioActions({
             }
 
         } else if (result.status === 'infeasible_equity_floor') {
-            const feasible = result.feasibility?.equity_max_achievable || 0;
-            const requested = result.feasibility?.equity_floor_requested || 0;
+            const feasible = result.feasibility?.achievable || 0;
+            const requested = result.feasibility?.requested || 0;
             const msg = `⚠️ La cartera seleccionada no puede alcanzar el ${Math.round(requested * 100)}% de RV requerido (Máx posible: ${Math.round(feasible * 100)}%).\n\n¿Quieres que el sistema añada automáticamente fondos de Renta Variable para cumplir el objetivo?`;
 
             if (window.confirm(msg)) {

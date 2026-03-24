@@ -77,9 +77,9 @@ class FinancialEngine:
             
             if any(w > 0 for w in weights):
                 w_vec = np.array(weights)
-                ef.add_constraint(lambda w: w @ w_vec <= max_val)
+                ef.add_constraint(lambda w, wv=w_vec, mx=max_val: w @ wv <= mx)
                 if min_val > 0:
-                    ef.add_constraint(lambda w: w @ w_vec >= min_val)
+                    ef.add_constraint(lambda w, wv=w_vec, mn=min_val: w @ wv >= mn)
 
     @staticmethod
     def optimize_efficient_frontier(mu, S, constraints: dict = None, exposures_v2: dict = None, gamma=0.0):
