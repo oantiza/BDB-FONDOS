@@ -108,7 +108,7 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
             logger.info(f"🚫 [Suitability Excluded] {isin}: {reason}")
     return filtered_list
 
-def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None):
+def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None, locked_assets=None):
     """
     FASE 3: Historico de Datos y Expansión Básica.
     [LEGADO]: Incluye lógica de auto-expandir basada en base de datos si fallan historiales.
@@ -128,11 +128,22 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
         df = df.sort_index()
 
         # Hardening: Exclude unviable assets before finding common window (P1)
-        min_obs = 60
+        min_obs_auto = 504  # 2 years approx
+        min_obs_locked = 60 # strict math minimum
+        locked_set = set(locked_assets or [])
+        
         valid_counts = df.count()
-        to_drop = valid_counts[valid_counts < min_obs].index
-        if not to_drop.empty:
-            logger.warning(f"⚠️ [Optimizer] Excluyendo activos por historial insuficiente (<{min_obs} obs): {list(to_drop)}")
+        to_drop = []
+        for col, count in valid_counts.items():
+            if col in locked_set:
+                if count < min_obs_locked:
+                    to_drop.append(col)
+            else:
+                if count < min_obs_auto:
+                    to_drop.append(col)
+
+        if to_drop:
+            logger.warning(f"⚠️ [Optimizer] Excluyendo activos por historial insuficiente (auto<{min_obs_auto}, locked<{min_obs_locked}): {to_drop}")
             df = df.drop(columns=to_drop)
 
         first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
@@ -190,7 +201,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
 
         valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq="D", strict=True)
         for isin, p_series in valid_cands.items():
-            if len(p_series) >= 50:
+            if len(p_series) >= 504:
                 price_data[isin] = p_series
 
         if not price_data:
@@ -445,7 +456,7 @@ def _check_feasibility_and_autoexpand(
             if potential:
                 p_check, _ = fetcher.get_price_data(potential, resample_freq="D", strict=True)
                 for isin, p_s in p_check.items():
-                    if len(p_s) >= 20:
+                    if len(p_s) >= 504:
                         valid_added.append(isin)
 
             if not valid_added:
@@ -647,7 +658,9 @@ def run_optimization(
 
         # FASE 3: Universe Construction (Price Data & Expansions)
         (fetcher, price_data, synthetic_used, df, universe, missing_assets, 
-         eq_vec, bd_vec, cs_vec, al_vec, ot_vec) = _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds)
+         eq_vec, bd_vec, cs_vec, al_vec, ot_vec) = _build_candidate_universe(
+             db, assets_list, asset_metadata, constraints, candidate_funds, locked_assets
+         )
 
         if df.empty or len(df) < 60:
             actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
