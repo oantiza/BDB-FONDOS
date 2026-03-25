@@ -201,6 +201,8 @@ export interface ClassificationV2 {
     is_index_like: boolean;
     
     is_suitable_low_risk: boolean;
+    compatible_profiles?: number[];
+    suitability_version?: string;
     
     // Metadatos
     classification_confidence: number;

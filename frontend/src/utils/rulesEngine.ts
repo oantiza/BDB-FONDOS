@@ -234,11 +234,17 @@ export function calculateScore(fund: Fund, riskOrBias: number | string): number 
 
 // NOTE: Esta función duplica ciertas reglas de negocio a nivel visual (para pre-filtrar o pintar alertas en UI).
 // La validación regulatoria y canónica, la que da denegación real en operativa, ocurre en optimizer_core.py.
-// TODO: Debe sustituirse consumiendo las flags canónicas de exclusión que envíe el backend por fondo.
+// TODO: Fase 3: Eliminar por completo este fallback cuando todo BDB-FONDOS opere 100% sobre classification_v2
 export function isFundSuitableForProfile(fund: Fund, riskProfile: number): boolean {
   const classV2 = fund.classification_v2;
   const expV2 = fund.portfolio_exposure_v2;
 
+  // NUEVA LÓGICA CANÓNICA V1 (Backend-as-authority)
+  if (classV2?.compatible_profiles) {
+    return classV2.compatible_profiles.includes(riskProfile);
+  }
+
+  // FALLBACK DEFENSIVO TEMPORAL
   if (!classV2) {
     // Fallback legacy logic
     const eqMet = Number((fund as any)?.metrics?.equity || 0);
@@ -477,26 +483,34 @@ export function generateSmartPortfolioLocal(
   return portfolio;
 }
 
-// NOTE: Esta es la función crítica que subordina el estado local (seed) sustituyéndolo por
-// los perfiles descargados desde la fuente de verdad (Firestore).
-export function syncRiskProfilesFromDB(dbProfiles: any) {
-  if (dbProfiles && Object.keys(dbProfiles).length > 0) {
-    Object.keys(dbProfiles).forEach(riskStr => {
+// NOTE: Endpoint oficial para hidratar configuración desde Backend (FASE 1)
+export async function syncBusinessRulesFromBackend(functionsInstance: any) {
+  try {
+    const { httpsCallable } = await import('firebase/functions');
+    const getRules = httpsCallable(functionsInstance, 'get_business_rules');
+    const response = await getRules();
+    const data = response.data as any;
+
+    if (!data || data.api_version !== "business_rules_v1" || !data.risk_profiles) {
+      console.warn("⚠️ [RulesEngine] Payload de reglas de negocio inválido, usando RISK_PROFILES local");
+      return;
+    }
+
+    const { risk_profiles, config_source } = data;
+    Object.keys(risk_profiles).forEach(riskStr => {
       const riskLevel = Number(riskStr);
       if (RISK_PROFILES[riskLevel]) {
-        const backendProfile = dbProfiles[riskLevel];
-        const newBuckets: Record<string, BucketConfig> = {};
-        
-        for (const cls in backendProfile) {
-          const arr = backendProfile[cls];
-          // Asumimos que la BD ya devuelve llaves canónicas: RV, RF, Mixto, Monetario, Alternativos, Otros
-          if (Array.isArray(arr) && arr.length >= 2) {
-            newBuckets[cls] = { min: arr[0] * 100, max: arr[1] * 100 };
-          }
+        const backendProfile = risk_profiles[riskStr];
+        if (backendProfile.buckets) {
+          // Ya viene en formato { RV: {min, max}, RF: {min, max }... } desde el backend
+          RISK_PROFILES[riskLevel].buckets = backendProfile.buckets;
         }
-        RISK_PROFILES[riskLevel].buckets = newBuckets as any;
       }
     });
-    console.log("🛡️ [RulesEngine] Perfiles de riesgo sincronizados y adaptados desde BD.");
+
+    console.log(`🛡️ [RulesEngine] Perfiles de riesgo hidratados desde backend (${config_source}).`);
+  } catch (error) {
+    console.error("⚠️ [RulesEngine] Error consultando business rules al backend:", error);
+    // Fallback silencioso para no romper la UX
   }
 }
