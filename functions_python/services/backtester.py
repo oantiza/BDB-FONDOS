@@ -40,28 +40,27 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
         raise Exception("No common history found for selected assets.")
 
     df = df[keep_assets].sort_index()
-    first_valid = df.apply(lambda col: col.first_valid_index()).dropna()
-    if not first_valid.empty:
-        common_start = first_valid.max()
-        df = df[df.index >= common_start]
-        
+    
     # Hardening: ffill limit 5 to avoid hiding major data gaps
     df = df.ffill(limit=5)
     
-    # Hardening: Check for excessive internal gaps in common period
+    # Hardening: Check for excessive internal gaps (ignoring leading NaNs before the asset existed)
     if not df.empty:
-        gap_threshold = len(df) * 0.05
         cols_to_drop = []
         for col in df.columns:
-            missing_count = df[col].isnull().sum()
-            if missing_count > gap_threshold:
-                print(f"⚠️ [Backtester] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+            first_idx = df[col].first_valid_index()
+            if first_idx is not None:
+                series_after_start = df[col].loc[first_idx:]
+                missing_count = series_after_start.isnull().sum()
+                gap_threshold = len(series_after_start) * 0.05
+                if missing_count > gap_threshold:
+                    print(f"⚠️ [Backtester] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                    cols_to_drop.append(col)
+            else:
                 cols_to_drop.append(col)
                 
         if cols_to_drop:
             df = df.drop(columns=cols_to_drop)
-                
-        df = df.dropna()
 
     if df.empty:
         raise Exception("Demasiados huecos internos invalidaron el dataset común (empty after dropping missing).")
@@ -285,12 +284,21 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
     if df.empty:
         return {"error": "Period selected is outside available history range."}
 
-    # Identify Assets present in this slice (some might start later, but we filled them)
-    # Actually, df_master is already filled. So we are good.
-    # But let's verify valid columns (should be all keep_assets).
     valid_assets = [c for c in df.columns if c in weights_map]
     if not valid_assets:
         return {"error": "No valid assets in period"}
+        
+    # Find actual common history inside this requested period window
+    df = df.dropna(subset=valid_assets)
+    if df.empty:
+        return {"error": f"No common history within the requested period '{period}'."}
+        
+    if period != "max":
+        # Check if the valid history actually covers the expected timeframe (85% tolerance)
+        min_required_span = lookback * 0.85 
+        span_days = (df.index[-1] - df.index[0]).days
+        if span_days < min_required_span:
+            return {"error": f"Insufficient common history for {period}. Needed ~{int(min_required_span)} días, got {span_days}."}
 
     # Short History Warning
     history_days = len(df)
@@ -390,7 +398,9 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
         rv_curve = get_yf_series("SPY", df.index[0], df.index)
 
     def norm(s):
-        return (s / s.iloc[0] * 100) if len(s) > 0 else s
+        if len(s) == 0: return s
+        s_clean = s.ffill().bfill()
+        return (s_clean / s_clean.iloc[0] * 100)
 
     rf_norm = norm(rf_curve)
     rv_norm = norm(rv_curve)
