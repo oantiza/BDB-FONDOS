@@ -226,10 +226,10 @@ export interface SmartPortfolioResponse {
     observations?: number;
     used_assets?: string[];
     feasibility?: {
-        equity_floor_requested: number;
-        equity_max_achievable: number;
-        min_100pct_equity_funds_needed: number;
-        note: string;
+        requested?: number;
+        achievable?: number;
+        min_100pct_equity_funds_needed?: number;
+        note?: string;
     };
     suggestion?: string;
     portfolioSeries?: { x: string; y: number }[];
