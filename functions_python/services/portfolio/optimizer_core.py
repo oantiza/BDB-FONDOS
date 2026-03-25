@@ -128,7 +128,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
         df = df.sort_index()
 
         # Hardening: Exclude unviable assets before finding common window (P1)
-        min_obs_auto = 504  # 2 years approx
+        min_obs_auto = 756  # 3 years approx
         min_obs_locked = 60 # strict math minimum
         locked_set = set(locked_assets or [])
         
@@ -200,8 +200,9 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
             candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
         valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq="D", strict=True)
-        for isin, p_series in valid_cands.items():
-            if len(p_series) >= 504:
+        valid_cands_sorted = sorted(valid_cands.items(), key=lambda x: len(x[1]), reverse=True)
+        for isin, p_series in valid_cands_sorted:
+            if len(p_series) >= 756:
                 price_data[isin] = p_series
 
         if not price_data:
@@ -455,9 +456,13 @@ def _check_feasibility_and_autoexpand(
             potential = [c for c in candidates_list if c not in seen]
             if potential:
                 p_check, _ = fetcher.get_price_data(potential, resample_freq="D", strict=True)
+                valid_added_with_len = []
                 for isin, p_s in p_check.items():
-                    if len(p_s) >= 504:
-                        valid_added.append(isin)
+                    if len(p_s) >= 756:
+                        valid_added_with_len.append((isin, len(p_s)))
+                
+                # Sort by history length descending to prefer 5+ years
+                valid_added = [isin for isin, _ in sorted(valid_added_with_len, key=lambda x: x[1], reverse=True)]
 
             if not valid_added:
                 return False, {

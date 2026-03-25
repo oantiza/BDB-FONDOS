@@ -314,7 +314,7 @@ export function generateSmartPortfolioLocal(
   let validCandidates = 0;
 
   allFunds.forEach(f => {
-    // FILTRO PERMISIVO CALIDAD DE DATOS
+    // FILTRO DE CALIDAD DE DATOS BASE
     const dq = (f as any)?.data_quality ?? {};
     const isExplicitlyBad =
       dq.has_history === false ||
@@ -322,6 +322,14 @@ export function generateSmartPortfolioLocal(
       dq.history_ok === false;
 
     if (isExplicitlyBad) return;
+
+    // FILTRO DE HISTORIAL MÍNIMO (Políticas de Selección Automática)
+    // Exigimos >= 3 años de vida (~756 puntos) para entrar en carteras automáticas
+    const pts = dq.points_count ?? 0;
+    const yrs = (f as any)?.std_extra?.yearsHistory ?? 0;
+    
+    if (pts > 0 && pts < 756) return;
+    if (pts === 0 && yrs > 0 && yrs < 3.0) return;
 
     // RESTRICCIÓN DE SUITABILITY (Backend Replica)
     if (!isFundSuitableForProfile(f, riskLevel)) {
@@ -386,7 +394,16 @@ export function generateSmartPortfolioLocal(
     if (numSlots <= 0) return;
 
     let candidates = universe[cls];
-    candidates = candidates.map(f => ({ f, score: calculateScore(f, profile.bias) }))
+    candidates = candidates.map(f => {
+      let score = calculateScore(f, profile.bias);
+      // Soft preference for 5+ years of history
+      const pts = (f as any)?.data_quality?.points_count ?? 0;
+      const yrs = (f as any)?.std_extra?.yearsHistory ?? 0;
+      if (pts >= 1260 || yrs >= 5.0) {
+        score += 50; 
+      }
+      return { f, score };
+    })
       .sort((a, b) => b.score - a.score)
       .map(wrapper => wrapper.f);
 
