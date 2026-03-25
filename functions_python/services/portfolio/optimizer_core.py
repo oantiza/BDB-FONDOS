@@ -108,7 +108,7 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
             logger.info(f"🚫 [Suitability Excluded] {isin}: {reason}")
     return filtered_list
 
-def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
+def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None):
     """
     FASE 3: Historico de Datos y Expansión Básica.
     [LEGADO]: Incluye lógica de auto-expandir basada en base de datos si fallan historiales.
@@ -175,26 +175,18 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
             logger.info(
                 "⚠️ Insufficient history. Aborting and returning recovery candidates..."
             )
-            candidates_list = FALLBACK_CANDIDATES_DEFAULT
-            try:
-                cfg_ref = db.collection("config").document("auto_complete_candidates")
-                cfg = cfg_ref.get()
-                if cfg.exists:
-                    candidates_list = cfg.to_dict().get("equity90_isins", FALLBACK_CANDIDATES_DEFAULT)
-            except Exception:
-                pass
+            if candidate_funds:
+                candidates_list = list(candidate_funds.keys())
+            else:
+                candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
             raise ValueError(f"INFEASIBLE_HISTORY:{','.join(candidates_list[:5])}")
 
         logger.info("⚠️ Auto-expanding due to missing history...")
-        candidates_list = FALLBACK_CANDIDATES_DEFAULT
-        try:
-            cfg_ref = db.collection("config").document("auto_complete_candidates")
-            cfg = cfg_ref.get()
-            if cfg.exists:
-                candidates_list = cfg.to_dict().get("equity90_isins", FALLBACK_CANDIDATES_DEFAULT)
-        except Exception:
-            pass
+        if candidate_funds:
+            candidates_list = list(candidate_funds.keys())
+        else:
+            candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
         valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq="D", strict=True)
         for isin, p_series in valid_cands.items():
@@ -393,7 +385,8 @@ def _apply_standard_constraints(ef_inst, constraints, lock_mode, apply_profile, 
 def _check_feasibility_and_autoexpand(
     db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
     eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
-    bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets
+    bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
+    candidate_funds=None
 ):
     """
     FASE 7: Predicción de Factibilidad (Floor Checks).
@@ -441,24 +434,9 @@ def _check_feasibility_and_autoexpand(
                 }, None, None, None, None, None, None, None, None, None, None, None
 
             logger.info("⚠️ Auto-Expanding Universe...")
-            candidates_list = []
-            try:
-                docs = (
-                    db.collection("funds_v3")
-                    .order_by("std_perf.sharpe", direction=firestore.Query.DESCENDING)
-                    .limit(50)
-                    .stream()
-                )
-                for d in docs:
-                    dd = d.to_dict()
-                    exp_v2 = dd.get("portfolio_exposure_v2", {})
-                    eq_val = _to_float(exp_v2.get("equity", 0.0)) if exp_v2 else _to_float(dd.get("metrics", {}).get("equity"), 0.0)
-                    if eq_val >= 90.0:
-                        candidates_list.append(d.id)
-            except Exception:
-                pass
-
-            if not candidates_list:
+            if candidate_funds:
+                candidates_list = list(candidate_funds.keys())
+            else:
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
             valid_added = []
@@ -481,14 +459,14 @@ def _check_feasibility_and_autoexpand(
             price_data.update({k: p_check[k] for k in added_assets})
 
             for isin in added_assets:
-                d = db.collection("funds_v3").document(isin).get()
-                if d.exists:
-                    dd = d.to_dict()
+                if candidate_funds and isin in candidate_funds:
+                    asset_metadata[isin] = candidate_funds[isin]
+                else:
                     asset_metadata[isin] = {
-                        "metrics": dd.get("metrics", {}),
-                        "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
-                        "classification_v2": dd.get("classification_v2", {}),
-                        "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
+                        "metrics": {},
+                        "asset_class": "UNKNOWN",
+                        "classification_v2": {},
+                        "portfolio_exposure_v2": {},
                     }
 
             df = pd.DataFrame(price_data).sort_index().ffill(limit=5)
@@ -651,6 +629,7 @@ def run_optimization(
     asset_metadata=None,
     locked_assets=None,
     tactical_views=None,
+    candidate_funds=None,
 ):
     """Optimizer v4.2 (Institutional: Hard Cutoff + Black-Litterman)"""
     constraints = constraints or {}
@@ -668,7 +647,7 @@ def run_optimization(
 
         # FASE 3: Universe Construction (Price Data & Expansions)
         (fetcher, price_data, synthetic_used, df, universe, missing_assets, 
-         eq_vec, bd_vec, cs_vec, al_vec, ot_vec) = _build_candidate_universe(db, assets_list, asset_metadata, constraints)
+         eq_vec, bd_vec, cs_vec, al_vec, ot_vec) = _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds)
 
         if df.empty or len(df) < 60:
             actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
@@ -718,7 +697,7 @@ def run_optimization(
         ) = _check_feasibility_and_autoexpand(
             db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
             eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
-            bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets
+            bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets, candidate_funds
         )
         
         if not is_feasible:

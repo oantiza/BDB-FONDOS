@@ -123,6 +123,59 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
 
     return asset_metadata
 
+def _build_auto_expand_candidates(db) -> dict:
+    """
+    FASE 3.5: Helper P2 para precargar candidatos de auto-expand.
+    Elimina el acceso a BD de optimizer_core manteniendo pura su rutina.
+    """
+    from services.portfolio.utils import _to_float
+    candidates = {}
+    fallback_isins = [
+        "LU0340557775", "LU1135865084", "LU0690375182", "LU0203975437", "IE00B2NXKW18"
+    ]
+    try:
+        cfg = db.collection("config").document("auto_complete_candidates").get()
+        if cfg.exists:
+            fallback_isins = cfg.to_dict().get("equity90_isins", fallback_isins)
+    except Exception:
+        pass
+
+    try:
+        docs = (
+            db.collection("funds_v3")
+            .order_by("std_perf.sharpe", direction=firestore.Query.DESCENDING)
+            .limit(50)
+            .stream()
+        )
+        for d in docs:
+            dd = d.to_dict()
+            exp_v2 = dd.get("portfolio_exposure_v2", {})
+            eq_val = _to_float(exp_v2.get("equity", 0.0)) if exp_v2 else _to_float(dd.get("metrics", {}).get("equity"), 0.0)
+            if eq_val >= 90.0:
+                candidates[d.id] = {
+                    "metrics": dd.get("metrics", {}),
+                    "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
+                    "classification_v2": dd.get("classification_v2", {}),
+                    "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
+                }
+    except Exception as e:
+        logger.info(f"⚠️ Error dynamic candidates: {e}")
+
+    if not candidates:
+        refs = [db.collection("funds_v3").document(isin) for isin in fallback_isins]
+        docs = db.get_all(refs)
+        for d in docs:
+            if d.exists:
+                dd = d.to_dict()
+                candidates[d.id] = {
+                    "metrics": dd.get("metrics", {}),
+                    "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
+                    "classification_v2": dd.get("classification_v2", {}),
+                    "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
+                }
+
+    return candidates
+
 def _build_effective_constraints(req_data: dict) -> dict:
     """
     FASE 4: EVALUACIÓN DE RESTRICCIONES DUALES
@@ -229,6 +282,11 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         STRATEGY_CONSTRAINTS = _build_effective_constraints(req_data)
         tactical_views = req_data.get("tactical_views", {})
 
+        # P2: Pre-fetch candidates para optimización matemática pura sin I/O
+        candidate_funds = None
+        if STRATEGY_CONSTRAINTS.get("auto_expand_universe") or float(STRATEGY_CONSTRAINTS.get("equity_floor", 0)) > 0:
+            candidate_funds = _build_auto_expand_candidates(db)
+
         # =====================================================================
         # FASE 5: DELEGACIÓN AL MOTOR CÚANTITATIVO 
         # =====================================================================
@@ -241,6 +299,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             asset_metadata=asset_metadata,
             locked_assets=locked_assets,
             tactical_views=tactical_views,
+            candidate_funds=candidate_funds,
         )
         result["api_version"] = result.get("api_version", "optimize_quant_v4")
         result["taxonomy_telemetry"] = telemetry
