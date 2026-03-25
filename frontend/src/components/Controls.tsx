@@ -119,7 +119,7 @@ export default function Controls({
                             className="flex-1 bg-[#0B2545] hover:bg-[#1a365d] text-white py-3.5 rounded-xl transition-colors flex items-center justify-center gap-1.5 shadow-sm"
                         >
                             <Sparkles className="w-4 h-4" />
-                            <span className="text-[10px] font-bold uppercase tracking-widest">Generar</span>
+                            <span className="text-[10px] font-bold uppercase tracking-widest">Preselección</span>
                         </button>
                         <button
                             onClick={onOptimize}

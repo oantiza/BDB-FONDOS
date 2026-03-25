@@ -522,7 +522,7 @@ export function usePortfolioActions({
                 const count = generated.length;
                 generated = generated.map(p => ({ ...p, weight: Number((100 / count).toFixed(2)) }));
                 setPortfolio(generated);
-                toast.success(`Cartera generada (Perfil ${riskLevel})`);
+                toast.success(`Borrador generado. Requiere Optimización.`);
             }
         } catch (e: any) {
             // toast.error("Error local: " + (e.message || String(e)));

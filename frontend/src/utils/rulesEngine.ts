@@ -403,28 +403,12 @@ export function generateSmartPortfolioLocal(
     }
   });
 
-  // FALLBACK CRÍTICO "Graceful Degradation":
-  // Si la cartera está vacía o incompleta tras llenar buckets,
-  // rellenamos con los mejores fondos del universo VALIDADO.
-  // NUNCA ignorar los controles de calidad (data_quality.history_ok).
+  // FALLBACK CRÍTICO "Graceful Degradation" [ELIMINADO FASE 3 P3]
+  // Ya no inyectamos fondos que rompen las restricciones de asset class solo para rellenar
   if (portfolio.length < targetNumFunds) {
-    console.warn(`[SmartEngine] Only got ${portfolio.length} funds from buckets. Filling gaps using best score from Valid Universe.`);
-
-    // ONLY use the validated `universe`, sorted by score
-    const validGlobalCandidates = Object.values(universe).flat()
-      .map(f => ({ f, score: calculateScore(f, profile.bias) }))
-      .sort((a, b) => b.score - a.score);
-
-    for (const item of validGlobalCandidates) {
-      if (portfolio.length >= targetNumFunds) break;
-      const baseName = getBaseName(item.f.name);
-      if (!usedISINs.has(item.f.isin) && !usedNames.has(baseName)) {
-        portfolio.push({ ...item.f, weight: 0 });
-        usedISINs.add(item.f.isin);
-        usedNames.add(baseName);
-      }
-    }
+    console.warn(`[SmartEngine] Only got ${portfolio.length} funds from buckets. Not filling gaps to preserve risk profile constraints.`);
   }
+
 
   // 5. Pesos Finales Equal-Weight per bucket (o simple si es fallback)
   if (portfolio.length > 0) {
