@@ -64,7 +64,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             df = df[df.index >= final_start]
 
         # Forward fill para huecos intermedios (festivos), y obligar a tramo común eliminando NaNs iniciales
-        df = df.ffill().dropna()
+        df = df.ffill(limit=5).dropna()
 
         if df.empty or len(df) < 60:
             actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"

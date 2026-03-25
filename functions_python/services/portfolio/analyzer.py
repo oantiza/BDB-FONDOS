@@ -38,6 +38,17 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     # Adaptive Time Horizon
     target_years = 3
     ideal_start_date = df.index[-1] - pd.Timedelta(days=365 * target_years)
+
+    # Hardening: Exclude unviable assets before finding common window (P1)
+    min_obs = 60
+    valid_counts = df.count()
+    to_drop = valid_counts[valid_counts < min_obs].index
+    if not to_drop.empty:
+        logger.warning(f"⚠️ [Analyzer] Excluyendo activos por historial insuficiente (<{min_obs} obs): {list(to_drop)}")
+        df = df.drop(columns=to_drop)
+        if df.empty:
+            return {"status": "error", "message": f"Ningún activo cumple el mínimo de {min_obs} observaciones históricas", "error": f"Ningún activo cumple el mínimo de {min_obs} observaciones históricas"}
+
     first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
     actual_start_date = (
         first_valid_indices.max() if not first_valid_indices.empty else ideal_start_date
@@ -49,10 +60,15 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     # Hardening: Check for excessive internal gaps
     if not df.empty:
         gap_threshold = len(df) * 0.05
+        cols_to_drop = []
         for col in df.columns:
             missing_count = df[col].isnull().sum()
             if missing_count > gap_threshold:
-                logger.warning(f"⚠️ [Analyzer] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                logger.warning(f"⚠️ [Analyzer] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                cols_to_drop.append(col)
+                
+        if cols_to_drop:
+            df = df.drop(columns=cols_to_drop)
         
         df = df.dropna()
 

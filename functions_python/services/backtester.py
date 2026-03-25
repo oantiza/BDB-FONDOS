@@ -31,7 +31,7 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
     missing_assets = []
     keep_assets = []
     for col in df.columns:
-        if df[col].count() < (len(df) * 0.1):  # < 10% valid points
+        if df[col].count() < 60:  # Hardening: Enforce minimum 60 observations (P1)
             missing_assets.append(col)
         else:
             keep_assets.append(col)
@@ -51,10 +51,15 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
     # Hardening: Check for excessive internal gaps in common period
     if not df.empty:
         gap_threshold = len(df) * 0.05
+        cols_to_drop = []
         for col in df.columns:
             missing_count = df[col].isnull().sum()
             if missing_count > gap_threshold:
-                print(f"⚠️ [Backtester] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                print(f"⚠️ [Backtester] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                cols_to_drop.append(col)
+                
+        if cols_to_drop:
+            df = df.drop(columns=cols_to_drop)
                 
         df = df.dropna()
 
@@ -365,7 +370,8 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
             if yf_data.index.tz is not None:
                 yf_data.index = yf_data.index.tz_localize(None)
                 
-            # Hardening: Exact calendar match, limited ffill, tiny bfill for start boundary
+            # Hardening: Exact calendar match, limited ffill
+            # Excepción: bfill(limit=1) justificado para alinear benchmarks externos (YF) por diferencias de huso/festivo inicial
             yf_aligned = yf_data.reindex(default_index)
             return yf_aligned.ffill(limit=5).bfill(limit=1)
         except Exception as e:

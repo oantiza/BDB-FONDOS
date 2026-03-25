@@ -126,6 +126,15 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
 
     if not df.empty:
         df = df.sort_index()
+
+        # Hardening: Exclude unviable assets before finding common window (P1)
+        min_obs = 60
+        valid_counts = df.count()
+        to_drop = valid_counts[valid_counts < min_obs].index
+        if not to_drop.empty:
+            logger.warning(f"⚠️ [Optimizer] Excluyendo activos por historial insuficiente (<{min_obs} obs): {list(to_drop)}")
+            df = df.drop(columns=to_drop)
+
         first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
         if not first_valid_indices.empty:
             actual_start_date = first_valid_indices.max()
@@ -137,7 +146,22 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
         logger.info(
             f"ℹ️ Optimization Strict Window: {final_start_date.date()} to {df.index[-1].date()} ({(df.index[-1] - final_start_date).days} days)"
         )
-        df = df.ffill().dropna()
+        df = df.ffill(limit=5)
+        
+        # Hardening: Check for excessive internal gaps
+        if not df.empty:
+            gap_threshold = len(df) * 0.05
+            cols_to_drop = []
+            for col in df.columns:
+                missing_count = df[col].isnull().sum()
+                if missing_count > gap_threshold:
+                    logger.warning(f"⚠️ [Optimizer] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                    cols_to_drop.append(col)
+                    
+            if cols_to_drop:
+                df = df.drop(columns=cols_to_drop)
+                
+        df = df.dropna()
     else:
         logger.info(
             "⚠️ No valid data found for any asset. Falling back to strict inner join..."
@@ -190,7 +214,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
             actual_start_date = first_valid_indices.max()
             final_start_date = max(ideal_start_date, actual_start_date)
             df = df[df.index >= final_start_date]
-            df = df.sort_index().ffill().dropna()
+            df = df.sort_index().ffill(limit=5).dropna()
         else:
             raise Exception("No fue posible alinear un tramo histórico común válido tras la expansión del universo.")
 
@@ -467,7 +491,7 @@ def _check_feasibility_and_autoexpand(
                         "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
                     }
 
-            df = pd.DataFrame(price_data).sort_index().ffill()
+            df = pd.DataFrame(price_data).sort_index().ffill(limit=5)
             universe = list(df.columns)
             mu = get_expected_returns(df, method="ema")
             S = get_covariance_matrix(df)

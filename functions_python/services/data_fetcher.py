@@ -182,7 +182,7 @@ class DataFetcher:
                 df = df_rebuilt.where(original_notna)
 
         # Step C2: Fill Gaps (Professional ffill sequence)
-        df = df.ffill()
+        df = df.ffill(limit=5)
 
         # Step D: Strict vs Loose
         if strict:
