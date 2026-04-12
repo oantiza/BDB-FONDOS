@@ -91,115 +91,152 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
     // 3. CALCULATE STYLE BOX STATS
     const styleStats = useMemo(() => {
         if (!portfolio || portfolio.length === 0) return {
-            equity: { style: 'Blend', cap: 'Large' },
-            fi: { duration: 'Medium', credit: 'Med' }
+            equity: { style: 'Blend', cap: 'Large', grid: {} as Record<string, number> },
+            fi: { duration: 'Medium', credit: 'Med', grid: {} as Record<string, number> }
         };
 
-        // Track weighted styles and caps for a more precise overall calculation!
-        // For simplicity right now, we'll pick the dominant one based on the highest weighted fund
-        let dominantEquityFund: PortfolioItem | null = null;
-        let dominantFiFund: PortfolioItem | null = null;
-        let maxEqWeight = 0;
-        let maxFiWeight = 0;
+        const eqGrid: Record<string, number> = {
+            'LRG-VAL': 0, 'LRG-BLN': 0, 'LRG-GRW': 0,
+            'MID-VAL': 0, 'MID-BLN': 0, 'MID-GRW': 0,
+            'SML-VAL': 0, 'SML-BLN': 0, 'SML-GRW': 0,
+        };
 
-        portfolio.forEach(p => {
-            const w = p.weight;
-            const isEq = p.classification_v2?.asset_type === 'EQUITY';
-            const isFi = p.classification_v2?.asset_type === 'FIXED_INCOME';
-            
-            if (isEq && w > maxEqWeight) {
-                dominantEquityFund = p;
-                maxEqWeight = w;
-            }
-            if (isFi && w > maxFiWeight) {
-                dominantFiFund = p;
-                maxFiWeight = w;
-            }
-        });
+        const fiGrid: Record<string, number> = {
+            'HGH-SHT': 0, 'HGH-MED': 0, 'HGH-LNG': 0,
+            'MED-SHT': 0, 'MED-MED': 0, 'MED-LNG': 0,
+            'LOW-SHT': 0, 'LOW-MED': 0, 'LOW-LNG': 0,
+        };
 
-        // Equity logic
-        let style = 'Blend';
-        let cap = 'Large';
-
-        if (dominantEquityFund) {
-            const p: PortfolioItem = dominantEquityFund;
-            if (p.classification_v2?.equity_style_box) {
-                const esb = String(p.classification_v2.equity_style_box);
-                if (esb.includes('VALUE')) style = 'Value';
-                else if (esb.includes('GROWTH')) style = 'Growth';
-                
-                if (esb.includes('SMALL')) cap = 'Small';
-                else if (esb.includes('MID')) cap = 'Mid';
-            } else {
-                const dominantCategory = String(p.classification_v2?.asset_subtype || '');
-                if (dominantCategory.toUpperCase().includes('VALUE')) style = 'Value';
-                if (dominantCategory.toUpperCase().includes('GROWTH')) style = 'Growth';
-                if (dominantCategory.toUpperCase().includes('SMALL')) cap = 'Small';
-                if (dominantCategory.toUpperCase().includes('MID')) cap = 'Mid';
-            }
-        }
-
-        // FI Logic
+        let totalEqWeight = 0;
+        let totalFiWeight = 0;
+        
         let wDuration = 0;
-        let totalDurWeight = 0;
         let weightedCreditScore = 0;
-        let totalCreditWeight = 0;
+
+        let wEqScoreStyle = 0; // Value = -1, Blend = 0, Growth = 1
+        let wEqScoreCap = 0;   // Small = -1, Mid = 0, Large = 1
 
         portfolio.forEach(p => {
             const w = p.weight;
-            const isFi = p.classification_v2?.asset_type === 'FIXED_INCOME';
+            const cat = String(p.classification_v2?.asset_subtype || '').toLowerCase();
+            const type = String(p.classification_v2?.asset_type || '').toLowerCase();
+            const name = String(p.name || '').toLowerCase();
+            const combined = `${cat} ${name} ${type}`;
+
+            const isEq = combined.includes('equity') || combined.includes('renta variable') || combined.includes('rv') || combined.includes('stock');
+            const isFi = combined.includes('fixed_income') || combined.includes('renta fija') || combined.includes('fixed income') || combined.includes('rf') || combined.includes('bond') || combined.includes('deuda');
+            
+            if (isEq) {
+                totalEqWeight += w;
+                
+                // 1. Grid allocation
+                if (p.ms?.equity_style) {
+                    const es = p.ms.equity_style;
+                    eqGrid['LRG-VAL'] += ((es.large_value || 0) / 100) * w;
+                    eqGrid['LRG-BLN'] += ((es.large_core || 0) / 100) * w;
+                    eqGrid['LRG-GRW'] += ((es.large_growth || 0) / 100) * w;
+                    eqGrid['MID-VAL'] += ((es.mid_value || 0) / 100) * w;
+                    eqGrid['MID-BLN'] += ((es.mid_core || 0) / 100) * w;
+                    eqGrid['MID-GRW'] += ((es.mid_growth || 0) / 100) * w;
+                    eqGrid['SML-VAL'] += ((es.small_value || 0) / 100) * w;
+                    eqGrid['SML-BLN'] += ((es.small_core || 0) / 100) * w;
+                    eqGrid['SML-GRW'] += ((es.small_growth || 0) / 100) * w;
+                } else {
+                    let sCol = 'BLN'; let sRow = 'LRG';
+                    let val = 0; let cap = +1;
+                    
+                    const cat = String(p.classification_v2?.asset_subtype || '').toUpperCase();
+                    if (cat.includes('VALUE') || String(p.classification_v2?.equity_style_box).includes('VALUE')) { sCol = 'VAL'; val = -1; }
+                    if (cat.includes('GROWTH') || String(p.classification_v2?.equity_style_box).includes('GROWTH')) { sCol = 'GRW'; val = 1; }
+                    
+                    if (cat.includes('SMALL') || String(p.classification_v2?.equity_style_box).includes('SMALL')) { sRow = 'SML'; cap = -1; }
+                    if (cat.includes('MID') || String(p.classification_v2?.equity_style_box).includes('MID')) { sRow = 'MID'; cap = 0; }
+                    
+                    eqGrid[`${sRow}-${sCol}`] += w;
+                    wEqScoreStyle += val * w;
+                    wEqScoreCap += cap * w;
+                }
+            }
 
             if (isFi) {
-                // V2 check
+                totalFiWeight += w;
+
+                let durScore = 5; // Med (months/years proxy)
+                let cScore = 2; // Med
+                
+                let durCat = 'MED';
+                let cCat = 'MED';
+
                 if (p.classification_v2?.fi_duration_bucket) {
                     const durBucket = p.classification_v2.fi_duration_bucket as string;
-                    let numDur = 5; // MEDIUM
-                    if (durBucket === 'SHORT') numDur = 2;
-                    else if (durBucket === 'LONG') numDur = 10;
-                    
-                    wDuration += numDur * w;
-                    totalDurWeight += w;
+                    if (durBucket === 'SHORT') { durScore = 2; durCat = 'SHT'; }
+                    else if (durBucket === 'LONG') { durScore = 10; durCat = 'LNG'; }
                 } else if (p.std_extra?.duration) {
-                    wDuration += p.std_extra.duration * w;
-                    totalDurWeight += w;
+                    durScore = p.std_extra.duration;
+                    if (durScore < 3.5) durCat = 'SHT';
+                    else if (durScore > 7) durCat = 'LNG';
                 }
 
-                // Credit heuristic
                 if (p.classification_v2?.fi_credit_bucket) {
                     const cb = p.classification_v2.fi_credit_bucket as string;
-                    let score = 2; // MEDIUM_QUALITY
-                    if (cb === 'HIGH_QUALITY') score = 3;
-                    else if (cb === 'LOW_QUALITY') score = 1;
-
-                    weightedCreditScore += score * w;
-                    totalCreditWeight += w;
+                    if (cb === 'HIGH_QUALITY') { cScore = 3; cCat = 'HGH'; }
+                    else if (cb === 'LOW_QUALITY') { cScore = 1; cCat = 'LOW'; }
                 } else {
                     const q = p.std_extra?.credit_quality || 'BBB';
-                    let score = 2; // BBB
-                    if (['AAA', 'AA', 'A'].some(x => q.includes(x))) score = 3;
-                    else if (['BB', 'B', 'CCC'].some(x => q.includes(x)) || q.includes('High Yield')) score = 1;
-
-                    weightedCreditScore += score * w;
-                    totalCreditWeight += w;
+                    if (['AAA', 'AA', 'A'].some(x => q.includes(x))) { cScore = 3; cCat = 'HGH'; }
+                    else if (['BB', 'B', 'CCC'].some(x => q.includes(x)) || q.includes('High Yield')) { cScore = 1; cCat = 'LOW'; }
                 }
+
+                wDuration += durScore * w;
+                weightedCreditScore += cScore * w;
+                fiGrid[`${cCat}-${durCat}`] += w;
             }
         });
 
-        const finalDur = totalDurWeight > 0 ? wDuration / totalDurWeight : 0;
-        let durLabel = 'Medium';
+        // Normalize Equity Grid
+        if (totalEqWeight > 0) {
+            Object.keys(eqGrid).forEach(k => {
+                eqGrid[k] = (eqGrid[k] / totalEqWeight) * 100;
+            });
+        }
+
+        // Normalize FI Grid
+        if (totalFiWeight > 0) {
+            Object.keys(fiGrid).forEach(k => {
+                fiGrid[k] = (fiGrid[k] / totalFiWeight) * 100;
+            });
+        }
+
+        // Equity Overall Style/Cap
+        let finalStyle = 'Blend';
+        let finalCap = 'Large';
+        if (totalEqWeight > 0) {
+            const avgStyle = wEqScoreStyle / totalEqWeight;
+            const avgCap = wEqScoreCap / totalEqWeight;
+
+            if (avgStyle < -0.33) finalStyle = 'Value';
+            else if (avgStyle > 0.33) finalStyle = 'Growth';
+
+            if (avgCap < -0.33) finalCap = 'Small';
+            else if (avgCap < 0.33) finalCap = 'Mid';
+        }
+
+        // FI Overall Duration/Credit
+        const finalDur = totalFiWeight > 0 ? wDuration / totalFiWeight : 0;
+        let durLabel = 'Med';
         if (finalDur > 0) {
-            if (finalDur < 3.5) durLabel = 'Short'; // adjusted threshold
+            if (finalDur < 3.5) durLabel = 'Short';
             else if (finalDur > 7) durLabel = 'Long';
         }
 
-        const finalCredit = totalCreditWeight > 0 ? weightedCreditScore / totalCreditWeight : 0;
+        const finalCredit = totalFiWeight > 0 ? weightedCreditScore / totalFiWeight : 0;
         let creditLabel = 'Med';
         if (finalCredit > 2.5) creditLabel = 'High';
         else if (finalCredit < 1.5 && finalCredit > 0) creditLabel = 'Low';
 
         return {
-            equity: { style, cap },
-            fi: { duration: durLabel, credit: creditLabel }
+            equity: { style: finalStyle, cap: finalCap, grid: eqGrid },
+            fi: { duration: durLabel, credit: creditLabel, grid: fiGrid }
         };
 
     }, [portfolio]);

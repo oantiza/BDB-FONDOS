@@ -7,6 +7,7 @@ PURPOSE: Verifica conectividad y respuesta de modelos Gemini.
 SAFE_MODE: LOCAL_ONLY
 RUN: python -m scripts.tests.test_gemini_models
 """
+
 from google import genai
 
 # ¡AQUÍ ESTÁ LA CLAVE DIRECTA! Sin inputs.
@@ -27,4 +28,3 @@ try:
     print("\n✅ Test finalizado con éxito.")
 except Exception as e:
     print(f"\n❌ Error crítico de la API: {e}")
-

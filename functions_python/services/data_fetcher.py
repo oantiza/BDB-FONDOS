@@ -21,17 +21,15 @@ class DataFetcher:
     def __init__(self, db_client):
         self.db = db_client
 
-    def get_price_data(
-        self, assets_list: list, resample_freq="D", strict=True
-    ):
+    def get_price_data(self, assets_list: list, resample_freq="D", strict=True):
         """
         Fetches price history for assets.
         Standardizes to Daily Frequency ('D') and aligns to Business Day Calendar ('B').
         """
         global _global_prices_cache
         price_data = {}
-        missing_assets = []
-        synthetic_used = []
+        missing_assets: list[str] = []
+        synthetic_used: list[str] = []
 
         # 1. RAM Cache Check
         for isin in assets_list:
@@ -113,7 +111,9 @@ class DataFetcher:
                         price_data[isin] = series_clean
                         PRICE_CACHE[isin] = series_clean
                     else:
-                        logger.warning(f"⚠️ {isin}: Insufficient history ({len(series_clean)})")
+                        logger.warning(
+                            f"⚠️ {isin}: Insufficient history ({len(series_clean)})"
+                        )
 
                 except Exception as e:
                     logger.warning(f"⚠️ Error parsing {isin}: {e}")
@@ -139,8 +139,8 @@ class DataFetcher:
         if not df.empty:
             ret = df.ffill(limit=5).pct_change(fill_method=None)
 
-                        # --- 1) FATAL CIRCUIT BREAKER (>40%) ---
-            critical_mask = np.abs(ret) > 0.40
+            # --- 1) FATAL CIRCUIT BREAKER (>40%) ---
+            critical_mask = ret.abs() > 0.40
             if critical_mask.any().any():
                 bad_assets = critical_mask.columns[critical_mask.any()].tolist()
                 raise ValueError(
@@ -149,7 +149,7 @@ class DataFetcher:
                 )
 
             # --- 2) WARNING LOG (>15%) ---
-            warning_mask = np.abs(ret) > 0.15
+            warning_mask = ret.abs() > 0.15
             if warning_mask.any().any():
                 warning_assets = warning_mask.columns[warning_mask.any()].tolist()
                 logger.warning(
@@ -157,7 +157,7 @@ class DataFetcher:
                 )
 
             # --- 3) DESPIKING LOGIC (smoothing out anything > 15%)
-            anomaly_mask = np.abs(ret) > 0.15
+            anomaly_mask = ret.abs() > 0.15
 
             if anomaly_mask.any().any():
                 anomaly_count = anomaly_mask.sum().sum()
@@ -173,7 +173,11 @@ class DataFetcher:
                 cum_returns = (1 + ret.fillna(0)).cumprod()
 
                 # Find the first valid price for each asset to use as a base
-                first_valid_prices = df.apply(lambda col: col.dropna().iloc[0] if not col.dropna().empty else np.nan)
+                first_valid_prices = df.apply(
+                    lambda col: (
+                        col.dropna().iloc[0] if not col.dropna().empty else np.nan
+                    )
+                )
 
                 # Rebuild prices: Base * Cumulative Growth
                 df_rebuilt = cum_returns.multiply(first_valid_prices)
@@ -188,7 +192,9 @@ class DataFetcher:
         if strict:
             df_final = df.dropna()
             if len(df_final) < 60:
-                logger.warning(f"⚠️ [DataFetcher] Tras dropna() estricto, la matriz común de {len(df_final.columns)} activos quedó en solo {len(df_final)} observaciones.")
+                logger.warning(
+                    f"⚠️ [DataFetcher] Tras dropna() estricto, la matriz común de {len(df_final.columns)} activos quedó en solo {len(df_final)} observaciones."
+                )
         else:
             df_final = df
 
@@ -236,8 +242,10 @@ class DataFetcher:
             if d.exists:
                 dd = d.to_dict()
                 metadata[d.id] = {
-                    "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
-                    "region": dd.get("classification_v2", {}).get("region_primary") or "UNKNOWN",
+                    "asset_class": dd.get("classification_v2", {}).get("asset_type")
+                    or "UNKNOWN",
+                    "region": dd.get("classification_v2", {}).get("region_primary")
+                    or "UNKNOWN",
                     "market_cap": dd.get("std_mcap", 1e9),  # Default for BL if missing
                     "classification_v2": dd.get("classification_v2", {}),
                     "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),

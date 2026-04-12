@@ -46,6 +46,7 @@ OUTPUT_DIR = Path("reports/taxonomy_v2_review")
 # Helpers
 # =========================
 
+
 def utc_now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
@@ -107,6 +108,7 @@ def is_unknown(value: Any) -> bool:
 # Data model
 # =========================
 
+
 @dataclass
 class ReviewRow:
     isin: str
@@ -143,12 +145,20 @@ class ReviewRow:
 # Firestore init
 # =========================
 
+
 def init_firestore():
     if not firebase_admin._apps:
         from firebase_admin import credentials
 
         key_paths = [
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "scripts", "serviceAccountKey.json"),
+            os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                "..",
+                "..",
+                "scripts",
+                "serviceAccountKey.json",
+            ),
             os.path.join(os.path.dirname(__file__), "..", "serviceAccountKey.json"),
             "./serviceAccountKey.json",
             "../serviceAccountKey.json",
@@ -171,6 +181,7 @@ def init_firestore():
 # =========================
 # Audit heuristics
 # =========================
+
 
 def _is_reasonable_fi(doc: Dict[str, Any]) -> bool:
     class_v2 = doc.get("classification_v2") or {}
@@ -332,7 +343,12 @@ def _has_real_conflict(doc: Dict[str, Any], flags: List[str]) -> bool:
         return False
 
     # Casos blandos
-    if asset_type == "FIXED_INCOME" and risk_bucket == "LOW" and not low_risk and _is_reasonable_fi(doc):
+    if (
+        asset_type == "FIXED_INCOME"
+        and risk_bucket == "LOW"
+        and not low_risk
+        and _is_reasonable_fi(doc)
+    ):
         return False
 
     return len(flags) > 0
@@ -341,6 +357,7 @@ def _has_real_conflict(doc: Dict[str, Any], flags: List[str]) -> bool:
 # =========================
 # Audit flag logic
 # =========================
+
 
 def compute_audit_flags(doc: Dict[str, Any]) -> List[str]:
     flags: List[str] = []
@@ -414,21 +431,36 @@ def compute_audit_flags(doc: Dict[str, Any]) -> List[str]:
 
         if fi_credit_unknown and not _is_reasonable_fi(doc):
             flags.append("FI_WITHOUT_CREDIT")
-        elif fi_credit_unknown and asset_subtype in {"UNKNOWN", "CORPORATE_BOND"} and not boolish(class_v2.get("is_suitable_low_risk")):
+        elif (
+            fi_credit_unknown
+            and asset_subtype in {"UNKNOWN", "CORPORATE_BOND"}
+            and not boolish(class_v2.get("is_suitable_low_risk"))
+        ):
             flags.append("FI_WITHOUT_CREDIT")
 
     if asset_type == "MIXED" and exp_sum <= 0:
         flags.append("ALLOCATION_WITHOUT_EXPOSURE")
 
-    if asset_type == "EQUITY" and ("RF" in legacy_upper or "BOND" in legacy_upper or "FIXED INCOME" in legacy_upper):
+    if asset_type == "EQUITY" and (
+        "RF" in legacy_upper or "BOND" in legacy_upper or "FIXED INCOME" in legacy_upper
+    ):
         flags.append("V2_LEGACY_TYPE_CONFLICT")
-    if asset_type == "FIXED_INCOME" and ("RV" in legacy_upper or "EQUITY" in legacy_upper):
+    if asset_type == "FIXED_INCOME" and (
+        "RV" in legacy_upper or "EQUITY" in legacy_upper
+    ):
         flags.append("V2_LEGACY_TYPE_CONFLICT")
-    if asset_type == "MIXED" and ("MONETARIO" in legacy_upper or "MONEY MARKET" in legacy_upper):
+    if asset_type == "MIXED" and (
+        "MONETARIO" in legacy_upper or "MONEY MARKET" in legacy_upper
+    ):
         flags.append("V2_LEGACY_TYPE_CONFLICT")
 
     is_low_risk = boolish(class_v2.get("is_suitable_low_risk"))
-    if is_low_risk and asset_type in {"EQUITY", "ALTERNATIVE", "COMMODITIES", "REAL_ESTATE"}:
+    if is_low_risk and asset_type in {
+        "EQUITY",
+        "ALTERNATIVE",
+        "COMMODITIES",
+        "REAL_ESTATE",
+    }:
         flags.append("LOW_RISK_UNSAFE")
 
     if is_low_risk and asset_subtype in {
@@ -461,6 +493,7 @@ def compute_audit_flags(doc: Dict[str, Any]) -> List[str]:
 # =========================
 # Review priority
 # =========================
+
 
 def compute_review_priority(doc: Dict[str, Any], flags: List[str]) -> int:
     class_v2 = doc.get("classification_v2") or {}
@@ -522,20 +555,26 @@ def compute_review_priority(doc: Dict[str, Any], flags: List[str]) -> int:
 # Group selection
 # =========================
 
+
 def in_group_region_borderline(doc: Dict[str, Any], flags: List[str]) -> bool:
     warnings = get_nested(doc, "classification_v2", "warnings", default=[]) or []
-    return "REGION_PRIMARY_BORDERLINE" in flags or "REGION_PRIMARY_BORDERLINE" in warnings
+    return (
+        "REGION_PRIMARY_BORDERLINE" in flags or "REGION_PRIMARY_BORDERLINE" in warnings
+    )
 
 
 def in_group_style_heuristic(doc: Dict[str, Any], flags: List[str]) -> bool:
     warnings = get_nested(doc, "classification_v2", "warnings", default=[]) or []
-    return "HEURISTIC_STYLE_DEDUCTION" in flags or "HEURISTIC_STYLE_DEDUCTION" in warnings
+    return (
+        "HEURISTIC_STYLE_DEDUCTION" in flags or "HEURISTIC_STYLE_DEDUCTION" in warnings
+    )
 
 
 def in_group_low_risk_allowed(doc: Dict[str, Any], flags: List[str]) -> bool:
     class_v2 = doc.get("classification_v2") or {}
     return boolish(class_v2.get("is_suitable_low_risk")) and not any(
-        f in flags for f in {
+        f in flags
+        for f in {
             "LOW_RISK_UNSAFE",
             "EMERGING_LOW_RISK_CONFLICT",
             "SECTOR_FUND_LOW_RISK_CONFLICT",
@@ -580,7 +619,10 @@ GROUPS = [
 # Build rows
 # =========================
 
-def build_review_row(isin: str, doc: Dict[str, Any], review_group: str, flags: List[str]) -> ReviewRow:
+
+def build_review_row(
+    isin: str, doc: Dict[str, Any], review_group: str, flags: List[str]
+) -> ReviewRow:
     class_v2 = doc.get("classification_v2") or {}
     exp_v2 = doc.get("portfolio_exposure_v2") or {}
     econ = exp_v2.get("economic_exposure") or {}
@@ -599,7 +641,9 @@ def build_review_row(isin: str, doc: Dict[str, Any], review_group: str, flags: L
         fi_duration_bucket=str(class_v2.get("fi_duration_bucket") or ""),
         risk_bucket=str(class_v2.get("risk_bucket") or ""),
         is_suitable_low_risk=str(class_v2.get("is_suitable_low_risk")),
-        classification_confidence=clamp01(to_float(class_v2.get("classification_confidence"), 0.0)),
+        classification_confidence=clamp01(
+            to_float(class_v2.get("classification_confidence"), 0.0)
+        ),
         exposure_confidence=clamp01(to_float(exp_v2.get("exposure_confidence"), 0.0)),
         warnings=safe_join(class_v2.get("warnings") or []),
         audit_flags=safe_join(flags),
@@ -624,6 +668,7 @@ def build_review_row(isin: str, doc: Dict[str, Any], review_group: str, flags: L
 # =========================
 # Main logic
 # =========================
+
 
 def load_all_funds(db, collection_name: str) -> List[Tuple[str, Dict[str, Any]]]:
     docs = db.collection(collection_name).stream()
@@ -692,7 +737,9 @@ def write_csv_safely(path: Path, rows: List[ReviewRow]) -> Path:
             return
 
         with p.open("w", newline="", encoding="utf-8-sig") as f:
-            writer = csv.DictWriter(f, fieldnames=list(ReviewRow.__annotations__.keys()))
+            writer = csv.DictWriter(
+                f, fieldnames=list(ReviewRow.__annotations__.keys())
+            )
             writer.writeheader()
             for row in rows:
                 writer.writerow(asdict(row))
@@ -756,7 +803,9 @@ def build_summary(
         "with_classification_v2": with_class,
         "with_portfolio_exposure_v2": with_exposure,
         "with_both": sum(
-            1 for _, d in funds if d.get("classification_v2") and d.get("portfolio_exposure_v2")
+            1
+            for _, d in funds
+            if d.get("classification_v2") and d.get("portfolio_exposure_v2")
         ),
         "group_counts": group_counts,
         "sample_size": len(sample_rows),
@@ -767,10 +816,21 @@ def build_summary(
 
 
 def parse_args():
-    parser = argparse.ArgumentParser(description="Muestra estratificada de 50 fondos para revisión V2")
-    parser.add_argument("--collection", default=DEFAULT_COLLECTION, help="Colección Firestore")
-    parser.add_argument("--limit-group", type=int, default=DEFAULT_LIMIT_PER_GROUP, help="Fondos por grupo")
-    parser.add_argument("--execute", action="store_true", help="Ignored, just for compat")
+    parser = argparse.ArgumentParser(
+        description="Muestra estratificada de 50 fondos para revisión V2"
+    )
+    parser.add_argument(
+        "--collection", default=DEFAULT_COLLECTION, help="Colección Firestore"
+    )
+    parser.add_argument(
+        "--limit-group",
+        type=int,
+        default=DEFAULT_LIMIT_PER_GROUP,
+        help="Fondos por grupo",
+    )
+    parser.add_argument(
+        "--execute", action="store_true", help="Ignored, just for compat"
+    )
     return parser.parse_args()
 
 

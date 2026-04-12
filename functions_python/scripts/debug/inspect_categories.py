@@ -7,6 +7,7 @@ PURPOSE: Inspecciona las categorías de Morningstar detectadas.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.inspect_categories
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -45,4 +46,3 @@ def list_categories():
 
 if __name__ == "__main__":
     list_categories()
-

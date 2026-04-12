@@ -218,8 +218,8 @@ export default function XRayPage({ portfolio, fundDatabase, totalCapital, onBack
 
                         <div className="mt-20 flex justify-center items-center border-t border-[#eeeeee] pt-20">
                             <div className="flex gap-16 items-center justify-center transform scale-125 origin-top">
-                                <SimpleStyleBox type="equity" vertical={styleStats.equity.cap} horizontal={styleStats.equity.style} />
-                                <SimpleStyleBox type="fixed-income" vertical={styleStats.fi.credit === 'High' ? 'High' : styleStats.fi.credit === 'Low' ? 'Low' : 'Med'} horizontal={styleStats.fi.duration} />
+                                <SimpleStyleBox type="equity" vertical={styleStats.equity.cap} horizontal={styleStats.equity.style} grid={styleStats.equity.grid} />
+                                <SimpleStyleBox type="fixed-income" vertical={styleStats.fi.credit === 'High' ? 'High' : styleStats.fi.credit === 'Low' ? 'Low' : 'Med'} horizontal={styleStats.fi.duration} grid={styleStats.fi.grid} />
                             </div>
                         </div>
                     </div>

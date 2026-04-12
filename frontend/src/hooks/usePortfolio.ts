@@ -83,12 +83,22 @@ export function usePortfolio() {
                         // Also check manual/std_extra updates
                         const staleExtra = JSON.stringify(p.std_extra);
                         const freshExtra = JSON.stringify(fresh.std_extra);
+                        
+                        // Check portfolio_exposure_v2
+                        const staleV2 = JSON.stringify(p.portfolio_exposure_v2);
+                        const freshV2 = JSON.stringify(fresh.portfolio_exposure_v2);
 
-                        if (stalePerf !== freshPerf || staleExtra !== freshExtra) {
+                        if (stalePerf !== freshPerf || staleExtra !== freshExtra || staleV2 !== freshV2) {
                             hasChanges = true;
-                            // Preserve user-defined portfolio fields by spreading 'p' first, then overwriting with 'fresh' fund data
-                            // Note: 'fresh' does not have 'weight', 'score' etc, so they are kept from 'p'.
-                            return { ...p, ...fresh };
+                            // Preserve user-defined portfolio fields by explicitly adding them at the end.
+                            // If 'fresh' accidentally contains a 'weight' or 'isLocked' from DB, it won't overwrite local state.
+                            return { 
+                                ...p, 
+                                ...fresh,
+                                weight: p.weight,
+                                isLocked: p.isLocked,
+                                manualSwap: p.manualSwap 
+                            };
                         }
                     }
                     return p;

@@ -7,6 +7,7 @@ PURPOSE: Verifica la integridad de los reportes generados.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.check_reports
 """
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -34,4 +35,3 @@ for doc in docs:
     print(
         f"Report: {data.get('type')} - {data.get('createdAt')} - Status: {data.get('status')}"
     )
-

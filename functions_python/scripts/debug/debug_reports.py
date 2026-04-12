@@ -7,6 +7,7 @@ PURPOSE: Diagnóstico técnico del sistema de reportes.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.debug_reports
 """
+
 import firebase_admin
 from firebase_admin import firestore
 
@@ -49,4 +50,3 @@ try:
 
 except Exception as e:
     print(f"Error querying Firestore: {e}")
-

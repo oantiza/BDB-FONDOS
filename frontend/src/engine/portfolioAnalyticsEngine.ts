@@ -162,7 +162,13 @@ export async function getDashboardAnalytics(
   portfolio: PortfolioItem[],
   opts?: { include1y?: boolean; benchmarks?: string[] }
 ) {
-  const p = portfolio.map((x) => ({ isin: x.isin, weight: x.weight }));
+  const raw = portfolio.map((x) => ({ isin: x.isin, weight: x.weight }));
+
+  // Safety: if all weights are 0, auto-distribute equally for meaningful metrics
+  const totalWeight = raw.reduce((sum, x) => sum + (x.weight || 0), 0);
+  const p = totalWeight < 0.01 && raw.length > 0
+    ? raw.map(x => ({ ...x, weight: 100 / raw.length }))
+    : raw;
   const benchmarks = opts?.benchmarks;
 
   // Prepare periods to fetch

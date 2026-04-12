@@ -16,8 +16,10 @@ if not EODHD_API_KEY:
     # print("WARNING: EODHD_API_KEY not found in environment variables.")
     pass
 
+from typing import Any
+
 BUCKET_NAME = "bdb-fondos.firebasestorage.app"
-PRICE_CACHE = {}
+PRICE_CACHE: dict[str, Any] = {}
 
 # ==========================================
 # 1) QUANT DEFAULTS (Technical Truth)
@@ -32,7 +34,7 @@ RISK_FREE_RATE = 0.03
 # 2) SOLVER DEFAULTS (Technical Truth / Fallback Policy)
 # ==========================================
 # [PRECEDENCIA CANÓNICA]: Nivel 4 - Contornos Algorítmicos Base.
-# Parámetros técnicos para pypfopt. Representan la política de caídas (fallbacks) 
+# Parámetros técnicos para pypfopt. Representan la política de caídas (fallbacks)
 # y estabilidad. NO DEBEN guiarse por reglas de negocio de Firestore.
 
 # Límite máximo por activo para evitar concentración excesiva
@@ -49,8 +51,8 @@ MIN_ASSETS_DEFAULT = 8
 # ==========================================
 # [PRECEDENCIA CANÓNICA]: Nivel 3 - Contornos de Negocio.
 # NOTA CRÍTICA: La ÚNICA FUENTE DE VERDAD REAL para la política de perfiles es FIRESTORE.
-# Estas variables (EQUITY_FLOOR, BOND_CAP, CASH_CAP, RISK_TARGETS) actúan SOLAMENTE COMO SEED 
-# (semilla estática) en caso de fallo de lectura o BD vacía. 
+# Estas variables (EQUITY_FLOOR, BOND_CAP, CASH_CAP, RISK_TARGETS) actúan SOLAMENTE COMO SEED
+# (semilla estática) en caso de fallo de lectura o BD vacía.
 # Ninguna decisión final de negocio debería depender de modificar estas líneas a largo plazo.
 
 # equity_floor define el % mínimo de renta variable (equity) ponderado por pesos. (SEED)

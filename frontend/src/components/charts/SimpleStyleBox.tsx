@@ -5,9 +5,10 @@ interface SimpleStyleBoxProps {
     type: 'equity' | 'fixed-income';
     vertical: string; // Large/Mid/Small OR High/Med/Low
     horizontal: string; // Value/Blend/Growth OR Short/Med/Long
+    grid?: Record<string, number>;
 }
 
-export default function SimpleStyleBox({ type, vertical, horizontal }: SimpleStyleBoxProps) {
+export default function SimpleStyleBox({ type, vertical, horizontal, grid }: SimpleStyleBoxProps) {
     const isEquity = type === 'equity';
 
     const cols = isEquity ? ['VAL', 'BLN', 'GRW'] : ['SHT', 'MED', 'LNG']; // Short, Medium, Long
@@ -25,9 +26,42 @@ export default function SimpleStyleBox({ type, vertical, horizontal }: SimpleSty
     const activeCol = xMap[horizontal] || (isEquity ? 'BLN' : 'MED');
     const activeRow = yMap[vertical] || (isEquity ? 'LRG' : 'MED');
 
-    // Colors
-    const activeBg = isEquity ? 'bg-[#0B2545]' : 'bg-[#166534]'; // Navy for Equity, Green for FI
-    const activeBorder = isEquity ? 'border-[#0B2545]' : 'border-[#166534]';
+    // Colors (RGB format for rgba interpolation)
+    const activeColorRgb = isEquity ? '11, 37, 69' : '22, 101, 52'; // Navy / Green
+
+    const renderCell = (rVal: string, cVal: string) => {
+        const key = `${rVal}-${cVal}`;
+        const val = grid ? Math.round(grid[key] || 0) : 0;
+        
+        // Single Active Fallback if no grid data or grid is entirely 0
+        const isGridEmpty = !grid || Object.values(grid).every(v => v === 0);
+        const fallbackActive = isGridEmpty && activeCol === cVal && activeRow === rVal;
+        
+        const hasValue = val > 0;
+        const opacity = hasValue ? 0.15 + (val / 100) * 0.85 : 0;
+        
+        const bgColor = (hasValue || fallbackActive) ? `rgba(${activeColorRgb}, ${fallbackActive ? 1 : opacity})` : 'transparent';
+        const textColor = hasValue && opacity > 0.6 ? 'text-white' : (hasValue ? (isEquity ? 'text-[#0B2545]' : 'text-[#166534]') : 'text-slate-400');
+
+        return (
+            <div
+                key={key}
+                className={`
+                    flex-1 rounded-sm border transition-all duration-500 flex items-center justify-center
+                    ${(hasValue || fallbackActive) ? 'border-transparent shadow-sm' : 'bg-slate-50 border-slate-200'}
+                    ${fallbackActive && 'scale-110 z-10'}
+                `}
+                style={{ backgroundColor: bgColor }}
+                title={`${rVal} ${cVal}`}
+            >
+                {hasValue && (
+                    <span className={`text-[10px] font-bold ${textColor}`}>
+                        {val}
+                    </span>
+                )}
+            </div>
+        );
+    };
 
     return (
         <div className="flex flex-col items-center pb-4">
@@ -50,19 +84,7 @@ export default function SimpleStyleBox({ type, vertical, horizontal }: SimpleSty
                     <div className="grid grid-cols-3 gap-1 w-[100px] h-[100px]">
                         {cols.map((cVal, colIdx) => (
                             <div key={colIdx} className="flex flex-col gap-1 h-full">
-                                {rows.map((rVal, rowIdx) => {
-                                    const isActive = activeCol === cVal && activeRow === rVal;
-                                    return (
-                                        <div
-                                            key={`${cVal}-${rVal}`}
-                                            className={`
-                                                flex-1 rounded-sm border transition-all duration-500
-                                                ${isActive ? `${activeBg} ${activeBorder} shadow-sm z-10 scale-110` : 'bg-slate-50 border-slate-200'}
-                                            `}
-                                            title={`${rVal} ${cVal}`}
-                                        />
-                                    );
-                                })}
+                                {rows.map((rVal, rowIdx) => renderCell(rVal, cVal))}
                             </div>
                         ))}
                     </div>

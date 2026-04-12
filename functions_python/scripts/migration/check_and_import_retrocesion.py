@@ -7,6 +7,7 @@ PURPOSE: Importa datos de retrocesión y valida contra ISINs existentes.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.migration.check_and_import_retrocesion
 """
+
 """
 Script: check_and_import_retrocesion.py
 
@@ -191,4 +192,3 @@ else:
         "    python check_and_import_retrocesion.py --force  (sobrescribe conflictos)"
     )
     print(f"{'â' * 60}\n")
-

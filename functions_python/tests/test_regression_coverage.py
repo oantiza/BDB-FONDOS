@@ -12,6 +12,7 @@ from services.portfolio.utils import _classify_asset
 # Mocks & Fixtures
 # ---------------------------------------------------------
 
+
 @pytest.fixture
 def mock_db():
     mock = MagicMock()
@@ -45,7 +46,7 @@ def short_history_fetcher():
     dates_B = pd.date_range("2023-03-01", periods=55, freq="B")
     data = {
         "A": pd.Series(np.random.normal(0, 0.01, 100), index=dates_A),
-        "B": pd.Series(np.random.normal(0, 0.01, 55), index=dates_B)
+        "B": pd.Series(np.random.normal(0, 0.01, 55), index=dates_B),
     }
     return MockDataFetcher(data)
 
@@ -55,9 +56,11 @@ def empty_history_fetcher():
     """Simulates no price data available"""
     return MockDataFetcher({}, missing=True)
 
+
 # ---------------------------------------------------------
 # Tests for Analyzer
 # ---------------------------------------------------------
+
 
 def test_analyzer_empty_portfolio(mock_db):
     """analyzer: portfolio vacío -> status=error + message + error"""
@@ -68,14 +71,20 @@ def test_analyzer_empty_portfolio(mock_db):
 
 
 @patch("services.portfolio.analyzer.DataFetcher")
-def test_analyzer_insufficient_history(mock_fetcher_class, short_history_fetcher, mock_db):
+def test_analyzer_insufficient_history(
+    mock_fetcher_class, short_history_fetcher, mock_db
+):
     """analyzer: historial común corto (< 60 observaciones) -> status=error + metadata"""
     mock_fetcher_class.return_value = short_history_fetcher
 
     res = analyze_portfolio({"A": 0.5, "B": 0.5}, db=mock_db)
-    
+
     assert res.get("status") == "error"
-    assert "muy corto" in res.get("message", "").lower() or "too short" in res.get("message", "").lower() or "demasiado corto" in res.get("message", "").lower()
+    assert (
+        "muy corto" in res.get("message", "").lower()
+        or "too short" in res.get("message", "").lower()
+        or "demasiado corto" in res.get("message", "").lower()
+    )
     assert "error" in res
     assert "effective_start_date" in res
     assert "observations" in res
@@ -86,15 +95,19 @@ def test_analyzer_insufficient_history(mock_fetcher_class, short_history_fetcher
 def test_analyzer_missing_data(mock_fetcher_class, empty_history_fetcher, mock_db):
     """analyzer: no hay datos para los activos dados -> status=error"""
     mock_fetcher_class.return_value = empty_history_fetcher
-    
+
     res = analyze_portfolio({"NOT_EXISTS": 1.0}, db=mock_db)
     assert res.get("status") == "error"
-    assert "Insufficient historical data" in res.get("message", "") or "None of the provided assets" in res.get("message", "")
+    assert "Insufficient historical data" in res.get(
+        "message", ""
+    ) or "None of the provided assets" in res.get("message", "")
     assert "error" in res
+
 
 # ---------------------------------------------------------
 # Tests for Optimizer
 # ---------------------------------------------------------
+
 
 @patch("services.portfolio.optimizer_core.DataFetcher")
 def test_optimizer_short_history(mock_fetcher_class, short_history_fetcher, mock_db):
@@ -103,52 +116,58 @@ def test_optimizer_short_history(mock_fetcher_class, short_history_fetcher, mock
     # For constraints and defaults
     metadata = {
         "A": {"classification_v2": {"asset_type": "EQUITY", "risk_bucket": "HIGH"}},
-        "B": {"classification_v2": {"asset_type": "FIXED_INCOME", "risk_bucket": "LOW"}}
+        "B": {
+            "classification_v2": {"asset_type": "FIXED_INCOME", "risk_bucket": "LOW"}
+        },
     }
 
     res = run_optimization(
-        assets_list=["A", "B"], 
-        risk_level=3, 
-        db=mock_db, 
-        asset_metadata=metadata
+        assets_list=["A", "B"], risk_level=3, db=mock_db, asset_metadata=metadata
     )
-    
+
     # Optimizer fallback early return mechanism
     assert res.get("status") == "error"
-    assert "infeasible_history" in res.get("message", "").lower() or "too short" in res.get("message", "").lower()
+    assert (
+        "infeasible_history" in res.get("message", "").lower()
+        or "too short" in res.get("message", "").lower()
+    )
     assert "error" in res
+
 
 # ---------------------------------------------------------
 # Tests for Frontier Engine
 # ---------------------------------------------------------
 
+
 @patch("services.portfolio.frontier_engine.DataFetcher")
 def test_frontier_short_history(mock_fetcher_class, short_history_fetcher, mock_db):
     """frontier: retorna error pero preservando la metadata legacy vacía cuando hay historia corta"""
     mock_fetcher_class.return_value = short_history_fetcher
-    
+
     metadata = {
         "A": {"classification_v2": {"asset_type": "EQUITY"}},
-        "B": {"classification_v2": {"asset_type": "FIXED_INCOME"}}
+        "B": {"classification_v2": {"asset_type": "FIXED_INCOME"}},
     }
 
     res = generate_efficient_frontier(["A", "B"], db=mock_db)
-    
+
     assert res.get("status") == "error"
     assert "error" in res
     assert "demasiado corto" in res.get("message", "").lower()
     assert "effective_start_date" in res
     assert "observations" in res
     assert res["observations"] > 0
-    
+
     # Check legacy math structures are preserved empty
     assert "frontier" in res
     assert "math_data" in res
     assert res["frontier"] == []
 
+
 # ---------------------------------------------------------
 # Tests for Taxonomy Utils
 # ---------------------------------------------------------
+
 
 def test_classify_asset_fallback():
     """
@@ -158,17 +177,13 @@ def test_classify_asset_fallback():
     meta1 = {
         "A": {
             "classification_v2": {"asset_type": "FIXED_INCOME"},
-            "asset_class": "RV" # SHOULD BE IGNORED
+            "asset_class": "RV",  # SHOULD BE IGNORED
         }
     }
     assert _classify_asset("A", meta1) == "RF"
 
     # 2. If classification_v2 is missing, falls back to legacy `asset_class` -> RV
-    meta2 = {
-        "A": {
-            "asset_class": "RV"
-        }
-    }
+    meta2 = {"A": {"asset_class": "RV"}}
     assert _classify_asset("A", meta2) == "RV"
 
     # 3. If everything is missing

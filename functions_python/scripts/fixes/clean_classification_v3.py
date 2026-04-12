@@ -14,6 +14,7 @@ KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 if FUNCTIONS_PYTHON_DIR not in sys.path:
     sys.path.append(FUNCTIONS_PYTHON_DIR)
 
+
 def get_db():
     if not firebase_admin._apps:
         if not os.path.exists(KEY_PATH):
@@ -21,6 +22,7 @@ def get_db():
         cred = credentials.Certificate(KEY_PATH)
         firebase_admin.initialize_app(cred)
     return firestore.client()
+
 
 # =========================================================
 # Data Fixes
@@ -33,6 +35,7 @@ MOJIBAKE_MAP = {
     "RF Ligada a Inflaci¾n": "RF Ligada a Inflación",
     "RV Jap¾n": "RV Japón",
 }
+
 
 def infer_region_from_name(name):
     name = name.upper()
@@ -49,6 +52,7 @@ def infer_region_from_name(name):
     if "JAPAN" in name:
         return "JAPAN"
     return None
+
 
 def infer_subtype_from_name(name, current_type):
     name = name.upper()
@@ -87,11 +91,12 @@ def infer_subtype_from_name(name, current_type):
             return "AGGRESSIVE_ALLOCATION"
     return None
 
+
 def main():
     db = get_db()
-    
+
     print("Iniciando revisión de base de datos funds_v3...")
-    assets_ref = db.collection('funds_v3')
+    assets_ref = db.collection("funds_v3")
     docs = assets_ref.stream()
 
     total_updates = 0
@@ -103,35 +108,35 @@ def main():
         data = doc.to_dict()
         isin = doc.id
         updates = {}
-        
-        name = data.get('name', '')
-        classification = data.get('classification_v2', {})
-        derived = data.get('derived', {})
-        
-        current_category = derived.get('category')
-        current_region = classification.get('region_primary')
-        current_subtype = classification.get('asset_subtype')
-        current_type = classification.get('asset_type')
+
+        name = data.get("name", "")
+        classification = data.get("classification_v2", {})
+        derived = data.get("derived", {})
+
+        current_category = derived.get("category")
+        current_region = classification.get("region_primary")
+        current_subtype = classification.get("asset_subtype")
+        current_type = classification.get("asset_type")
 
         # 1. Fix Mojibake
         if current_category in MOJIBAKE_MAP:
             new_cat = MOJIBAKE_MAP[current_category]
-            derived['category'] = new_cat
-            updates['derived.category'] = new_cat
+            derived["category"] = new_cat
+            updates["derived.category"] = new_cat
             updates_mojibake += 1
-            
+
         # 2. Infer UNKNOWN region
         if current_region == "UNKNOWN":
             new_region = infer_region_from_name(name)
             if new_region:
-                updates['classification_v2.region_primary'] = new_region
+                updates["classification_v2.region_primary"] = new_region
                 updates_region += 1
-                
+
         # 3. Infer UNKNOWN subtype
         if current_subtype == "UNKNOWN":
             new_subtype = infer_subtype_from_name(name, current_type)
             if new_subtype:
-                updates['classification_v2.asset_subtype'] = new_subtype
+                updates["classification_v2.asset_subtype"] = new_subtype
                 updates_subtype += 1
 
         if updates:
@@ -139,12 +144,13 @@ def main():
             total_updates += 1
             doc.reference.update(updates)
 
-    print(f"\n--- Resumen de Actualización ---")
+    print("\n--- Resumen de Actualización ---")
     print(f"Fondos actualizados: {total_updates}")
     print(f"Correcciones de Mojibake (derived.category): {updates_mojibake}")
     print(f"Inferencias de Región (UNKNWON -> Región): {updates_region}")
     print(f"Inferencias de Subtipo (UNKNOWN -> Subtipo): {updates_subtype}")
     print("Saneamiento completado.")
+
 
 if __name__ == "__main__":
     main()

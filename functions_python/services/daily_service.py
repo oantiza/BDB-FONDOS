@@ -1,6 +1,5 @@
 from datetime import datetime
 import pandas as pd
-import numpy as np
 
 # --- CONFIG ---
 HISTORY_MIN_POINTS = 504
@@ -219,8 +218,11 @@ def refresh_daily_logic(db, start_time):
                 if not df.empty:
                     # Metrics using Canonical Quant Core
                     from services.quant_core import calculate_historical_metrics
-                    metrics_res = calculate_historical_metrics(df[["price"]], risk_free_rate=rf_rate, method="geometric")
-                    
+
+                    metrics_res = calculate_historical_metrics(
+                        df[["price"]], risk_free_rate=rf_rate, method="geometric"
+                    )
+
                     cagr = float(metrics_res["expected_return"]["price"])
                     vol_ann = float(metrics_res["volatility"]["price"])
                     sharpe = float(metrics_res["sharpe_ratio"]["price"])

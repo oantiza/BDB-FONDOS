@@ -7,6 +7,7 @@ PURPOSE: Genera una muestra de 50 fondos para revisión manual de taxonomía.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.sample_taxonomy_review_50
 """
+
 """
 populate_taxonomy_v2.py â V2 Classification & Exposure Batch Runner
 
@@ -23,7 +24,9 @@ from datetime import datetime, timezone
 from typing import Any, Dict, Tuple
 
 sys.path.append(
-    os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+    os.path.dirname(
+        os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    )
 )
 
 from models.canonical_types import (  # noqa: E402
@@ -38,15 +41,11 @@ from models.canonical_types import (  # noqa: E402
     FIDurationBucketV2,
     FICreditBucketV2,
     AlternativeBucketV2,
-    ComplexityFlagV2,
-    LiquidityProfileV2,
     FITypeV2,
     ConvertiblesProfileV2,
-    ConcentrationLevelV2,
     ClassificationV2,
     PortfolioExposureV2,
     EconomicExposureV2,
-    ExposureConcentrationMetrics,
 )
 
 db = None
@@ -55,6 +54,7 @@ db = None
 # =============================================================================
 # Helpers
 # =============================================================================
+
 
 def _now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
@@ -93,7 +93,9 @@ def _clamp(value: float, low: float, high: float) -> float:
     return max(low, min(high, value))
 
 
-def _normalize_pct_block(eq: float, bd: float, ca: float, oth: float) -> Tuple[float, float, float, float]:
+def _normalize_pct_block(
+    eq: float, bd: float, ca: float, oth: float
+) -> Tuple[float, float, float, float]:
     total = eq + bd + ca + oth
     if total <= 0:
         return 0.0, 0.0, 0.0, 0.0
@@ -143,6 +145,7 @@ def _apply_confidence_multiplier(klass: ClassificationV2, multiplier: float):
 # Firebase init
 # =============================================================================
 
+
 def init_firebase():
     global db
     if db is not None:
@@ -184,6 +187,7 @@ def init_firebase():
 # Deduction logic
 # =============================================================================
 
+
 def _deduce_asset_class(
     ms_cat: str,
     eq_metric: float,
@@ -195,25 +199,95 @@ def _deduce_asset_class(
     derived_up = _safe_upper(derived_class)
     combined = f"{ms_cat_up} {name_upper} {derived_up}"
 
-    if any(x in combined for x in ["MONEY MARKET", "MONETARIO", "LIQUIDITY", "LIQUIDEZ", "TRESORERIE", "TESORERIA"]):
+    if any(
+        x in combined
+        for x in [
+            "MONEY MARKET",
+            "MONETARIO",
+            "LIQUIDITY",
+            "LIQUIDEZ",
+            "TRESORERIE",
+            "TESORERIA",
+        ]
+    ):
         return AssetClassV2.MONETARY
 
-    if any(x in combined for x in ["ALTERNATIVE", "LONG/SHORT", "MARKET NEUTRAL", "ABSOLUTE RETURN", "MULTISTRATEGY", "MULTI-STRATEGY"]):
+    if any(
+        x in combined
+        for x in [
+            "ALTERNATIVE",
+            "LONG/SHORT",
+            "MARKET NEUTRAL",
+            "ABSOLUTE RETURN",
+            "MULTISTRATEGY",
+            "MULTI-STRATEGY",
+        ]
+    ):
         return AssetClassV2.ALTERNATIVE
 
-    if any(x in combined for x in ["PROPERTY", "REAL ESTATE", "IMMOBILIER", "INMOBILIARIO"]):
+    if any(
+        x in combined for x in ["PROPERTY", "REAL ESTATE", "IMMOBILIER", "INMOBILIARIO"]
+    ):
         return AssetClassV2.REAL_ESTATE
 
-    if any(x in combined for x in ["COMMODITIES", "PRECIOUS METALS", "GOLD", "SILVER", "MINING", "NATURAL RESOURCES"]):
-        return AssetClassV2.EQUITY if "EQUITY" in combined or "EQUITIES" in combined else AssetClassV2.COMMODITIES
+    if any(
+        x in combined
+        for x in [
+            "COMMODITIES",
+            "PRECIOUS METALS",
+            "GOLD",
+            "SILVER",
+            "MINING",
+            "NATURAL RESOURCES",
+        ]
+    ):
+        return (
+            AssetClassV2.EQUITY
+            if "EQUITY" in combined or "EQUITIES" in combined
+            else AssetClassV2.COMMODITIES
+        )
 
-    if any(x in combined for x in ["ALLOCATION", "MIXTO", "MULTI ASSET", "DIVERSIFIED INCOME", "TARGET"]):
+    if any(
+        x in combined
+        for x in ["ALLOCATION", "MIXTO", "MULTI ASSET", "DIVERSIFIED INCOME", "TARGET"]
+    ):
         return AssetClassV2.MIXED
 
-    if any(x in combined for x in ["FIXED INCOME", "BOND", "RENTA FIJA", "CREDIT", "DURATION", "DURACION", "CORPORATE", "GOVERNMENT", "SOVEREIGN", "TREASURY", "INFLATION LINKED", "PAGAR", "PAGARE"]):
+    if any(
+        x in combined
+        for x in [
+            "FIXED INCOME",
+            "BOND",
+            "RENTA FIJA",
+            "CREDIT",
+            "DURATION",
+            "DURACION",
+            "CORPORATE",
+            "GOVERNMENT",
+            "SOVEREIGN",
+            "TREASURY",
+            "INFLATION LINKED",
+            "PAGAR",
+            "PAGARE",
+        ]
+    ):
         return AssetClassV2.FIXED_INCOME
 
-    if any(x in combined for x in ["EQUITY", "EQUITIES", "RV", "RENTA VARIABLE", "SMALL CAP", "MID CAP", "LARGE CAP", "DIVIDEND", "VALUE", "GROWTH"]):
+    if any(
+        x in combined
+        for x in [
+            "EQUITY",
+            "EQUITIES",
+            "RV",
+            "RENTA VARIABLE",
+            "SMALL CAP",
+            "MID CAP",
+            "LARGE CAP",
+            "DIVIDEND",
+            "VALUE",
+            "GROWTH",
+        ]
+    ):
         return AssetClassV2.EQUITY
 
     # Pure exposure fallback
@@ -235,13 +309,16 @@ def _deduce_equity_style(ms_style: dict, ms_cat: str) -> Tuple[EquityStyleBoxV2,
     direct_boxes = {
         "LARGE_GROWTH": _safe_float(ms_style.get("large_growth")),
         "LARGE_VALUE": _safe_float(ms_style.get("large_value")),
-        "LARGE_CORE": _safe_float(ms_style.get("large_core")) + _safe_float(ms_style.get("large_blend")),
+        "LARGE_CORE": _safe_float(ms_style.get("large_core"))
+        + _safe_float(ms_style.get("large_blend")),
         "MID_GROWTH": _safe_float(ms_style.get("mid_growth")),
         "MID_VALUE": _safe_float(ms_style.get("mid_value")),
-        "MID_CORE": _safe_float(ms_style.get("mid_core")) + _safe_float(ms_style.get("mid_blend")),
+        "MID_CORE": _safe_float(ms_style.get("mid_core"))
+        + _safe_float(ms_style.get("mid_blend")),
         "SMALL_GROWTH": _safe_float(ms_style.get("small_growth")),
         "SMALL_VALUE": _safe_float(ms_style.get("small_value")),
-        "SMALL_CORE": _safe_float(ms_style.get("small_core")) + _safe_float(ms_style.get("small_blend")),
+        "SMALL_CORE": _safe_float(ms_style.get("small_core"))
+        + _safe_float(ms_style.get("small_blend")),
     }
 
     if max(direct_boxes.values() or [0]) > 0:
@@ -320,7 +397,9 @@ def _deduce_equity_style(ms_style: dict, ms_cat: str) -> Tuple[EquityStyleBoxV2,
     return EquityStyleBoxV2.UNKNOWN, False
 
 
-def _deduce_market_cap_bias(ms_style: dict, ms_cat: str) -> Tuple[MarketCapBiasV2, bool]:
+def _deduce_market_cap_bias(
+    ms_style: dict, ms_cat: str
+) -> Tuple[MarketCapBiasV2, bool]:
     ms_style = _safe_dict(ms_style)
     ms_cat_up = _safe_upper(ms_cat)
 
@@ -346,9 +425,13 @@ def _deduce_market_cap_bias(ms_style: dict, ms_cat: str) -> Tuple[MarketCapBiasV
 
     if (large + mid + small) <= 0:
         mcap_data = _safe_dict(ms_style.get("market_cap"))
-        large = _safe_float(mcap_data.get("giant")) + _safe_float(mcap_data.get("large"))
+        large = _safe_float(mcap_data.get("giant")) + _safe_float(
+            mcap_data.get("large")
+        )
         mid = _safe_float(mcap_data.get("mid"))
-        small = _safe_float(mcap_data.get("small")) + _safe_float(mcap_data.get("micro"))
+        small = _safe_float(mcap_data.get("small")) + _safe_float(
+            mcap_data.get("micro")
+        )
 
     if (large + mid + small) > 0:
         if large > mid and large > small:
@@ -369,7 +452,9 @@ def _deduce_market_cap_bias(ms_style: dict, ms_cat: str) -> Tuple[MarketCapBiasV
     return MarketCapBiasV2.UNKNOWN, False
 
 
-def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") -> Tuple[RegionV2, float]:
+def _deduce_region_primary(
+    ms_cat_up: str, ms_regions: dict, name_up: str = ""
+) -> Tuple[RegionV2, float]:
     text = f"{ms_cat_up} {name_up}"
 
     if any(x in text for x in ["EUROZONE", "EMU", "EUROLAND"]):
@@ -380,9 +465,26 @@ def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") 
         return RegionV2.US, 100.0
     if "JAPAN" in text:
         return RegionV2.JAPAN, 100.0
-    if any(x in text for x in ["EMERGING", "LATIN AMERICA", "INDIA", "CHINA", "BRAZIL", "ASIA EMERGING", "FRONTIER"]):
+    if any(
+        x in text
+        for x in [
+            "EMERGING",
+            "LATIN AMERICA",
+            "INDIA",
+            "CHINA",
+            "BRAZIL",
+            "ASIA EMERGING",
+            "FRONTIER",
+        ]
+    ):
         return RegionV2.EMERGING, 100.0
-    if any(x in text for x in ["ASIA", "PACIFIC", "KOREA", "TAIWAN", "SINGAPORE", "HONG KONG"]) and "EMERGING" not in text:
+    if (
+        any(
+            x in text
+            for x in ["ASIA", "PACIFIC", "KOREA", "TAIWAN", "SINGAPORE", "HONG KONG"]
+        )
+        and "EMERGING" not in text
+    ):
         return RegionV2.ASIA_DEV, 100.0
     if any(x in text for x in ["GLOBAL", "WORLD", "INTERNATIONAL"]):
         return RegionV2.GLOBAL, 100.0
@@ -393,7 +495,9 @@ def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") 
 
     # Support legacy flat schemas too
     if not macro and not detail:
-        us = _safe_float(ms_regions.get("americas")) + _safe_float(ms_regions.get("united_states"))
+        us = _safe_float(ms_regions.get("americas")) + _safe_float(
+            ms_regions.get("united_states")
+        )
         eu = _safe_float(ms_regions.get("europe")) + _safe_float(ms_regions.get("uk"))
         em = (
             _safe_float(ms_regions.get("emerging"))
@@ -401,9 +505,13 @@ def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") 
             + _safe_float(ms_regions.get("latin_america"))
         )
         jp = _safe_float(ms_regions.get("japan"))
-        asia = _safe_float(ms_regions.get("asia_developed")) + _safe_float(ms_regions.get("australasia"))
+        asia = _safe_float(ms_regions.get("asia_developed")) + _safe_float(
+            ms_regions.get("australasia")
+        )
     else:
-        us = _safe_float(detail.get("united_states")) + _safe_float(detail.get("canada"))
+        us = _safe_float(detail.get("united_states")) + _safe_float(
+            detail.get("canada")
+        )
         eu = (
             _safe_float(macro.get("europe_me_africa"))
             + _safe_float(detail.get("eurozone"))
@@ -419,7 +527,9 @@ def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") 
         jp = _safe_float(detail.get("japan"))
         asia = max(
             0.0,
-            _safe_float(macro.get("asia")) - jp - _safe_float(detail.get("asia_emerging"))
+            _safe_float(macro.get("asia"))
+            - jp
+            - _safe_float(detail.get("asia_emerging")),
         )
 
     buckets = {
@@ -439,20 +549,33 @@ def _deduce_region_primary(ms_cat_up: str, ms_regions: dict, name_up: str = "") 
     return RegionV2.UNKNOWN, 0.0
 
 
-def _deduce_fixed_income_credit(ms_fi: dict, ms_cat_up: str, name_up: str = "") -> FICreditBucketV2:
+def _deduce_fixed_income_credit(
+    ms_fi: dict, ms_cat_up: str, name_up: str = ""
+) -> FICreditBucketV2:
     ms_fi = _safe_dict(ms_fi)
     text = f"{ms_cat_up} {name_up}"
 
     if "HIGH YIELD" in text:
         return FICreditBucketV2.LOW_QUALITY
-    if any(x in text for x in ["EMERGING", "SUBORDINATED", "CREDIT OPPORTUNITIES", "OPPORTUNITIES"]):
+    if any(
+        x in text
+        for x in ["EMERGING", "SUBORDINATED", "CREDIT OPPORTUNITIES", "OPPORTUNITIES"]
+    ):
         return FICreditBucketV2.LOW_QUALITY
 
     qual = _safe_dict(ms_fi.get("credit_quality"))
     if qual:
-        high = _safe_float(qual.get("aaa")) + _safe_float(qual.get("aa")) + _safe_float(qual.get("a"))
+        high = (
+            _safe_float(qual.get("aaa"))
+            + _safe_float(qual.get("aa"))
+            + _safe_float(qual.get("a"))
+        )
         med = _safe_float(qual.get("bbb"))
-        low = _safe_float(qual.get("bb")) + _safe_float(qual.get("b")) + _safe_float(qual.get("below_b"))
+        low = (
+            _safe_float(qual.get("bb"))
+            + _safe_float(qual.get("b"))
+            + _safe_float(qual.get("below_b"))
+        )
 
         if low > 25:
             return FICreditBucketV2.LOW_QUALITY
@@ -461,20 +584,62 @@ def _deduce_fixed_income_credit(ms_fi: dict, ms_cat_up: str, name_up: str = "") 
         if med >= 35:
             return FICreditBucketV2.MEDIUM_QUALITY
 
-    if any(x in text for x in ["GOVERNMENT", "TREASURY", "SOVEREIGN", "MONETARY", "CASH", "LIQUIDITY", "SECURITY", "SECURITE", "TREASORERIE", "TESORERIA"]):
+    if any(
+        x in text
+        for x in [
+            "GOVERNMENT",
+            "TREASURY",
+            "SOVEREIGN",
+            "MONETARY",
+            "CASH",
+            "LIQUIDITY",
+            "SECURITY",
+            "SECURITE",
+            "TREASORERIE",
+            "TESORERIA",
+        ]
+    ):
         return FICreditBucketV2.HIGH_QUALITY
 
-    if any(x in text for x in ["CORPORATE", "CREDIT", "SHORT TERM", "SHORT DURATION", "CORTO PLAZO", "CORTO", "0-2", "0-5"]):
+    if any(
+        x in text
+        for x in [
+            "CORPORATE",
+            "CREDIT",
+            "SHORT TERM",
+            "SHORT DURATION",
+            "CORTO PLAZO",
+            "CORTO",
+            "0-2",
+            "0-5",
+        ]
+    ):
         return FICreditBucketV2.MEDIUM_QUALITY
 
     return FICreditBucketV2.UNKNOWN
 
 
-def _deduce_fi_duration_bucket(ms_cat_up: str, ms_fi: dict, name_up: str = "") -> FIDurationBucketV2:
+def _deduce_fi_duration_bucket(
+    ms_cat_up: str, ms_fi: dict, name_up: str = ""
+) -> FIDurationBucketV2:
     ms_fi = _safe_dict(ms_fi)
     text = f"{ms_cat_up} {name_up}"
 
-    if any(x in text for x in ["ULTRA SHORT", "SHORT TERM", "SHORT DURATION", "CORTO PLAZO", "CORTO", "0-2", "0-5", "FLOATING RATE", "VNAV", "LIQUIDITY"]):
+    if any(
+        x in text
+        for x in [
+            "ULTRA SHORT",
+            "SHORT TERM",
+            "SHORT DURATION",
+            "CORTO PLAZO",
+            "CORTO",
+            "0-2",
+            "0-5",
+            "FLOATING RATE",
+            "VNAV",
+            "LIQUIDITY",
+        ]
+    ):
         return FIDurationBucketV2.SHORT
     if any(x in text for x in ["LONG DURATION", "LONG TERM", "LARGO PLAZO", "LONG"]):
         return FIDurationBucketV2.LONG
@@ -490,38 +655,93 @@ def _deduce_fi_duration_bucket(ms_cat_up: str, ms_fi: dict, name_up: str = "") -
         return FIDurationBucketV2.LONG
 
     # Fixed maturity / horizon funds: usually moderate duration
-    if any(x in text for x in ["HORIZON", "HORIZONTE", "2025", "2026", "2027", "2028", "2029", "2030", "MATURITY"]):
+    if any(
+        x in text
+        for x in [
+            "HORIZON",
+            "HORIZONTE",
+            "2025",
+            "2026",
+            "2027",
+            "2028",
+            "2029",
+            "2030",
+            "MATURITY",
+        ]
+    ):
         return FIDurationBucketV2.MEDIUM
 
     return FIDurationBucketV2.UNKNOWN
 
 
-def _deduce_equity_subtype(ms_cat_up: str, name_up: str, klass: ClassificationV2) -> AssetSubtypeV2:
+def _deduce_equity_subtype(
+    ms_cat_up: str, name_up: str, klass: ClassificationV2
+) -> AssetSubtypeV2:
     text = f"{ms_cat_up} {name_up}"
 
     # Theme / sector first
-    if any(x in text for x in ["BIOTECH", "HEALTHCARE", "MEDTECH", "HEALTHSCIENCE", "PHARMA"]):
+    if any(
+        x in text
+        for x in ["BIOTECH", "HEALTHCARE", "MEDTECH", "HEALTHSCIENCE", "PHARMA"]
+    ):
         klass.is_sector_fund = True
         klass.is_thematic = True
         klass.sector_focus = SectorFocusV2.HEALTHCARE
         return AssetSubtypeV2.SECTOR_EQUITY_HEALTHCARE
 
-    if any(x in text for x in ["TECH", "TECHNOLOGY", "FINTECH", "ROBOTICS", "AI", "ARTIFICIAL INTELLIGENCE", "BIG DATA", "CONNECTIVITY", "DIGITAL"]):
+    if any(
+        x in text
+        for x in [
+            "TECH",
+            "TECHNOLOGY",
+            "FINTECH",
+            "ROBOTICS",
+            "AI",
+            "ARTIFICIAL INTELLIGENCE",
+            "BIG DATA",
+            "CONNECTIVITY",
+            "DIGITAL",
+        ]
+    ):
         klass.is_sector_fund = True
         klass.is_thematic = True
         klass.sector_focus = SectorFocusV2.TECHNOLOGY
         return AssetSubtypeV2.SECTOR_EQUITY_TECH
 
-    if any(x in text for x in ["EMERGING", "LATIN AMERICA", "BRAZIL", "INDIA", "CHINA", "TAIWAN", "FRONTIER"]):
+    if any(
+        x in text
+        for x in [
+            "EMERGING",
+            "LATIN AMERICA",
+            "BRAZIL",
+            "INDIA",
+            "CHINA",
+            "TAIWAN",
+            "FRONTIER",
+        ]
+    ):
         return AssetSubtypeV2.EMERGING_MARKETS_EQUITY
 
-    if "US EQUITY" in text or any(x in text for x in ["S&P 500", "USA", "US ", "AMERICAN"]):
+    if "US EQUITY" in text or any(
+        x in text for x in ["S&P 500", "USA", "US ", "AMERICAN"]
+    ):
         return AssetSubtypeV2.US_EQUITY
 
     if "EUROZONE" in text:
         return AssetSubtypeV2.EUROZONE_EQUITY
 
-    if "EUROPE" in text or any(x in text for x in ["IBERIA", "SPAIN", "ESPAÃA", "ITALY", "GERMANY", "FRANCE", "SWITZERLAND"]):
+    if "EUROPE" in text or any(
+        x in text
+        for x in [
+            "IBERIA",
+            "SPAIN",
+            "ESPAÃA",
+            "ITALY",
+            "GERMANY",
+            "FRANCE",
+            "SWITZERLAND",
+        ]
+    ):
         return AssetSubtypeV2.EUROPE_EQUITY
 
     if "JAPAN" in text:
@@ -530,13 +750,32 @@ def _deduce_equity_subtype(ms_cat_up: str, name_up: str, klass: ClassificationV2
     if any(x in text for x in ["ASIA PACIFIC", "ASIA EX JAPAN", "ASIA", "PACIFIC"]):
         return AssetSubtypeV2.ASIA_PACIFIC_EQUITY
 
-    if any(x in text for x in ["SMALL CAP", "SMALLER COMPANIES", "MID CAP", "MID-CAP", "SMID", "PME"]):
+    if any(
+        x in text
+        for x in ["SMALL CAP", "SMALLER COMPANIES", "MID CAP", "MID-CAP", "SMID", "PME"]
+    ):
         return AssetSubtypeV2.GLOBAL_SMALL_CAP_EQUITY
 
     if any(x in text for x in ["INCOME", "DIVIDEND", "HIGH DIVIDEND", "EQUITY INCOME"]):
         return AssetSubtypeV2.GLOBAL_INCOME_EQUITY
 
-    if any(x in text for x in ["THEMATIC", "MEGATREND", "MEGATRENDS", "CLIMATE", "ENERGY", "WATER", "INFRASTRUCTURE", "GOLD", "MINING", "RESOURCES", "CONSUMER TRENDS", "PREMIUM BRANDS"]):
+    if any(
+        x in text
+        for x in [
+            "THEMATIC",
+            "MEGATREND",
+            "MEGATRENDS",
+            "CLIMATE",
+            "ENERGY",
+            "WATER",
+            "INFRASTRUCTURE",
+            "GOLD",
+            "MINING",
+            "RESOURCES",
+            "CONSUMER TRENDS",
+            "PREMIUM BRANDS",
+        ]
+    ):
         klass.is_thematic = True
         return AssetSubtypeV2.THEMATIC_EQUITY
 
@@ -550,26 +789,79 @@ def _deduce_fixed_income_subtype(ms_cat_up: str, name_up: str) -> AssetSubtypeV2
         return AssetSubtypeV2.HIGH_YIELD_BOND
     if "CONVERTIBLE" in text:
         return AssetSubtypeV2.CONVERTIBLE_BOND
-    if any(x in text for x in ["EMERGING", "EMERGING MARKETS", "LOCAL CURRENCY", "HARD CURRENCY", "FRONTIER"]):
+    if any(
+        x in text
+        for x in [
+            "EMERGING",
+            "EMERGING MARKETS",
+            "LOCAL CURRENCY",
+            "HARD CURRENCY",
+            "FRONTIER",
+        ]
+    ):
         return AssetSubtypeV2.EMERGING_MARKETS_BOND
-    if any(x in text for x in ["INFLATION", "INFLATION-LINKED", "INFLATION LINKED", "LINKED"]):
+    if any(
+        x in text
+        for x in ["INFLATION", "INFLATION-LINKED", "INFLATION LINKED", "LINKED"]
+    ):
         return AssetSubtypeV2.INFLATION_LINKED_BOND
     if any(x in text for x in ["GOVERNMENT", "TREASURY", "SOVEREIGN", "COVERED BOND"]):
         return AssetSubtypeV2.GOVERNMENT_BOND
-    if any(x in text for x in ["CORPORATE", "CREDIT", "FLOATING RATE", "SHORT DURATION", "SHORT TERM", "0-2", "0-5", "AHORRO", "PAGARES", "PAGARÃS", "HORIZON", "HORIZONTE", "SECURITY", "SECURITE", "TESORERIA", "TREASORERIE"]):
+    if any(
+        x in text
+        for x in [
+            "CORPORATE",
+            "CREDIT",
+            "FLOATING RATE",
+            "SHORT DURATION",
+            "SHORT TERM",
+            "0-2",
+            "0-5",
+            "AHORRO",
+            "PAGARES",
+            "PAGARÃS",
+            "HORIZON",
+            "HORIZONTE",
+            "SECURITY",
+            "SECURITE",
+            "TESORERIA",
+            "TREASORERIE",
+        ]
+    ):
         return AssetSubtypeV2.CORPORATE_BOND
 
     return AssetSubtypeV2.UNKNOWN
 
 
-def _deduce_mixed_subtype(ms_cat_up: str, eq_met: float, name_up: str = "") -> AssetSubtypeV2:
+def _deduce_mixed_subtype(
+    ms_cat_up: str, eq_met: float, name_up: str = ""
+) -> AssetSubtypeV2:
     text = f"{ms_cat_up} {name_up}"
 
-    if any(x in text for x in ["CAUTIOUS", "CONSERVATIVE", "PRUDENT", "PRUDENTE", "DEFENSIVE", "DEFENSIVO"]):
+    if any(
+        x in text
+        for x in [
+            "CAUTIOUS",
+            "CONSERVATIVE",
+            "PRUDENT",
+            "PRUDENTE",
+            "DEFENSIVE",
+            "DEFENSIVO",
+        ]
+    ):
         return AssetSubtypeV2.CONSERVATIVE_ALLOCATION
     if any(x in text for x in ["MODERATE", "BALANCED", "EQUILIBRADO"]):
         return AssetSubtypeV2.MODERATE_ALLOCATION
-    if any(x in text for x in ["AGGRESSIVE", "DYNAMIC", "FLEXIBLE", "OPPORTUNITY", "MULTIPLE OPPORTUNITIES"]):
+    if any(
+        x in text
+        for x in [
+            "AGGRESSIVE",
+            "DYNAMIC",
+            "FLEXIBLE",
+            "OPPORTUNITY",
+            "MULTIPLE OPPORTUNITIES",
+        ]
+    ):
         return AssetSubtypeV2.FLEXIBLE_ALLOCATION
 
     if eq_met > 65:
@@ -582,16 +874,22 @@ def _deduce_mixed_subtype(ms_cat_up: str, eq_met: float, name_up: str = "") -> A
     return AssetSubtypeV2.FLEXIBLE_ALLOCATION
 
 
-def _deduce_risk_bucket(asset_type: AssetClassV2, subtype: AssetSubtypeV2, fi_credit: FICreditBucketV2) -> RiskBucketV2:
+def _deduce_risk_bucket(
+    asset_type: AssetClassV2, subtype: AssetSubtypeV2, fi_credit: FICreditBucketV2
+) -> RiskBucketV2:
     if asset_type == AssetClassV2.MONETARY:
         return RiskBucketV2.LOW
 
     if asset_type == AssetClassV2.FIXED_INCOME:
-        if subtype in [
-            AssetSubtypeV2.HIGH_YIELD_BOND,
-            AssetSubtypeV2.EMERGING_MARKETS_BOND,
-            AssetSubtypeV2.CONVERTIBLE_BOND,
-        ] or fi_credit == FICreditBucketV2.LOW_QUALITY:
+        if (
+            subtype
+            in [
+                AssetSubtypeV2.HIGH_YIELD_BOND,
+                AssetSubtypeV2.EMERGING_MARKETS_BOND,
+                AssetSubtypeV2.CONVERTIBLE_BOND,
+            ]
+            or fi_credit == FICreditBucketV2.LOW_QUALITY
+        ):
             return RiskBucketV2.MEDIUM
         return RiskBucketV2.LOW
 
@@ -635,10 +933,10 @@ def _evaluate_suitability(klass: ClassificationV2) -> bool:
     if klass.asset_type == AssetClassV2.MONETARY:
         return True
 
-    if (
-        klass.asset_type == AssetClassV2.FIXED_INCOME
-        and klass.fi_credit_bucket in [FICreditBucketV2.HIGH_QUALITY, FICreditBucketV2.MEDIUM_QUALITY]
-    ):
+    if klass.asset_type == AssetClassV2.FIXED_INCOME and klass.fi_credit_bucket in [
+        FICreditBucketV2.HIGH_QUALITY,
+        FICreditBucketV2.MEDIUM_QUALITY,
+    ]:
         return True
 
     if klass.asset_subtype == AssetSubtypeV2.CONSERVATIVE_ALLOCATION:
@@ -650,6 +948,7 @@ def _evaluate_suitability(klass: ClassificationV2) -> bool:
 # =============================================================================
 # Main classification
 # =============================================================================
+
 
 def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
     data = _safe_dict(data)
@@ -690,7 +989,9 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
     )
 
     # region
-    reg_val, reg_weight = _deduce_region_primary(ms_cat_up, _safe_dict(ms.get("regions")), name_up)
+    reg_val, reg_weight = _deduce_region_primary(
+        ms_cat_up, _safe_dict(ms.get("regions")), name_up
+    )
     klass.region_primary = reg_val
     if 50 <= reg_weight < 60:
         _append_warning(klass, "REGION_PRIMARY_BORDERLINE")
@@ -700,10 +1001,14 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
     if klass.asset_type == AssetClassV2.EQUITY:
         klass.asset_subtype = _deduce_equity_subtype(ms_cat_up, name_up, klass)
 
-        style_box, style_heur = _deduce_equity_style(_safe_dict(ms.get("equity_style")), ms_cat)
+        style_box, style_heur = _deduce_equity_style(
+            _safe_dict(ms.get("equity_style")), ms_cat
+        )
         klass.equity_style_box = style_box
 
-        mcap_bias, mcap_heur = _deduce_market_cap_bias(_safe_dict(ms.get("equity_style")), ms_cat)
+        mcap_bias, mcap_heur = _deduce_market_cap_bias(
+            _safe_dict(ms.get("equity_style")), ms_cat
+        )
         klass.market_cap_bias = mcap_bias
 
         if style_heur or mcap_heur:
@@ -716,8 +1021,12 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
         fi_block = _safe_dict(ms.get("fixed_income"))
 
         klass.asset_subtype = _deduce_fixed_income_subtype(ms_cat_up, name_up)
-        klass.fi_credit_bucket = _deduce_fixed_income_credit(fi_block, ms_cat_up, name_up)
-        klass.fi_duration_bucket = _deduce_fi_duration_bucket(ms_cat_up, fi_block, name_up)
+        klass.fi_credit_bucket = _deduce_fixed_income_credit(
+            fi_block, ms_cat_up, name_up
+        )
+        klass.fi_duration_bucket = _deduce_fi_duration_bucket(
+            ms_cat_up, fi_block, name_up
+        )
 
         # Infer FI type
         if klass.asset_subtype == AssetSubtypeV2.GOVERNMENT_BOND:
@@ -773,7 +1082,16 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
             used_heur = False
 
             if klass.asset_subtype == AssetSubtypeV2.UNKNOWN:
-                if any(x in text for x in ["GOVERNMENT", "TREASURY", "SOVEREIGN", "TESORERIA", "TREASORERIE"]):
+                if any(
+                    x in text
+                    for x in [
+                        "GOVERNMENT",
+                        "TREASURY",
+                        "SOVEREIGN",
+                        "TESORERIA",
+                        "TREASORERIE",
+                    ]
+                ):
                     klass.asset_subtype = AssetSubtypeV2.GOVERNMENT_BOND
                 elif "INFLATION" in text:
                     klass.asset_subtype = AssetSubtypeV2.INFLATION_LINKED_BOND
@@ -782,21 +1100,48 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
                 used_heur = True
 
             if klass.fi_credit_bucket == FICreditBucketV2.UNKNOWN:
-                if any(x in text for x in ["GOVERNMENT", "TREASURY", "SOVEREIGN", "TESORERIA", "TREASORERIE", "MONETARY", "SECURITY", "SECURITE"]):
+                if any(
+                    x in text
+                    for x in [
+                        "GOVERNMENT",
+                        "TREASURY",
+                        "SOVEREIGN",
+                        "TESORERIA",
+                        "TREASORERIE",
+                        "MONETARY",
+                        "SECURITY",
+                        "SECURITE",
+                    ]
+                ):
                     klass.fi_credit_bucket = FICreditBucketV2.HIGH_QUALITY
                 else:
                     klass.fi_credit_bucket = FICreditBucketV2.MEDIUM_QUALITY
                 used_heur = True
 
             if klass.fi_duration_bucket == FIDurationBucketV2.UNKNOWN:
-                if any(x in text for x in ["SHORT", "CORTO", "SHORT TERM", "SHORT DURATION", "0-2", "0-5", "AHORRO", "PAGARES", "PAGARÃS"]):
+                if any(
+                    x in text
+                    for x in [
+                        "SHORT",
+                        "CORTO",
+                        "SHORT TERM",
+                        "SHORT DURATION",
+                        "0-2",
+                        "0-5",
+                        "AHORRO",
+                        "PAGARES",
+                        "PAGARÃS",
+                    ]
+                ):
                     klass.fi_duration_bucket = FIDurationBucketV2.SHORT
                 else:
                     klass.fi_duration_bucket = FIDurationBucketV2.MEDIUM
                 used_heur = True
 
             if klass.region_primary == RegionV2.UNKNOWN:
-                if any(x in text for x in ["EURO", "EUR", "EUROZONE", "EMU", "EUROLAND"]):
+                if any(
+                    x in text for x in ["EURO", "EUR", "EUROZONE", "EMU", "EUROLAND"]
+                ):
                     klass.region_primary = RegionV2.EUROZONE
                     used_heur = True
                 elif "EUROPE" in text:
@@ -841,13 +1186,21 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
         else:
             klass.alternative_bucket = AlternativeBucketV2.MULTI_STRATEGY
 
-    if any(x in name_up for x in ["INDEX", "IDX", "ISHARES", "VANGUARD", "MSCI", "ETF"]):
+    if any(
+        x in name_up for x in ["INDEX", "IDX", "ISHARES", "VANGUARD", "MSCI", "ETF"]
+    ):
         klass.is_index_like = True
 
-    klass.strategy_type = StrategyTypeV2.PASSIVE if klass.is_index_like else StrategyTypeV2.ACTIVE
-    klass.risk_bucket = _deduce_risk_bucket(klass.asset_type, klass.asset_subtype, klass.fi_credit_bucket)
+    klass.strategy_type = (
+        StrategyTypeV2.PASSIVE if klass.is_index_like else StrategyTypeV2.ACTIVE
+    )
+    klass.risk_bucket = _deduce_risk_bucket(
+        klass.asset_type, klass.asset_subtype, klass.fi_credit_bucket
+    )
     klass.is_suitable_low_risk = _evaluate_suitability(klass)
-    klass.classification_confidence = _clamp(_safe_float(klass.classification_confidence), 0.0, 1.0)
+    klass.classification_confidence = _clamp(
+        _safe_float(klass.classification_confidence), 0.0, 1.0
+    )
 
     return klass
 
@@ -856,7 +1209,10 @@ def classifyFundV2(isin: str, data: dict) -> ClassificationV2:
 # Exposure builder
 # =============================================================================
 
-def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> PortfolioExposureV2:
+
+def buildPortfolioExposureV2(
+    isin: str, data: dict, klass: ClassificationV2
+) -> PortfolioExposureV2:
     data = _safe_dict(data)
     metrics = _safe_dict(data.get("metrics"))
     ms = _safe_dict(data.get("ms"))
@@ -903,19 +1259,35 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
 
         if macro or detail:
             exp.equity_regions = {
-                "us": _safe_float(detail.get("united_states")) + _safe_float(detail.get("canada")),
-                "europe": _safe_float(macro.get("europe_me_africa")) + _safe_float(detail.get("eurozone")) + _safe_float(detail.get("united_kingdom")),
-                "emerging": _safe_float(detail.get("latin_america")) + _safe_float(detail.get("asia_emerging")) + _safe_float(detail.get("africa_middle_east")) + _safe_float(detail.get("emerging")),
+                "us": _safe_float(detail.get("united_states"))
+                + _safe_float(detail.get("canada")),
+                "europe": _safe_float(macro.get("europe_me_africa"))
+                + _safe_float(detail.get("eurozone"))
+                + _safe_float(detail.get("united_kingdom")),
+                "emerging": _safe_float(detail.get("latin_america"))
+                + _safe_float(detail.get("asia_emerging"))
+                + _safe_float(detail.get("africa_middle_east"))
+                + _safe_float(detail.get("emerging")),
                 "japan": _safe_float(detail.get("japan")),
-                "asia_dev": max(0.0, _safe_float(macro.get("asia")) - _safe_float(detail.get("japan")) - _safe_float(detail.get("asia_emerging"))),
+                "asia_dev": max(
+                    0.0,
+                    _safe_float(macro.get("asia"))
+                    - _safe_float(detail.get("japan"))
+                    - _safe_float(detail.get("asia_emerging")),
+                ),
             }
         else:
             exp.equity_regions = {
-                "us": _safe_float(ms_regions.get("americas")) + _safe_float(ms_regions.get("united_states")),
-                "europe": _safe_float(ms_regions.get("europe")) + _safe_float(ms_regions.get("uk")),
-                "emerging": _safe_float(ms_regions.get("asia_emerging")) + _safe_float(ms_regions.get("latin_america")) + _safe_float(ms_regions.get("emerging")),
+                "us": _safe_float(ms_regions.get("americas"))
+                + _safe_float(ms_regions.get("united_states")),
+                "europe": _safe_float(ms_regions.get("europe"))
+                + _safe_float(ms_regions.get("uk")),
+                "emerging": _safe_float(ms_regions.get("asia_emerging"))
+                + _safe_float(ms_regions.get("latin_america"))
+                + _safe_float(ms_regions.get("emerging")),
                 "japan": _safe_float(ms_regions.get("japan")),
-                "asia_dev": _safe_float(ms_regions.get("asia_developed")) + _safe_float(ms_regions.get("australasia")),
+                "asia_dev": _safe_float(ms_regions.get("asia_developed"))
+                + _safe_float(ms_regions.get("australasia")),
             }
 
     # Sectors
@@ -923,7 +1295,8 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
         exp.sectors = {
             "technology": _safe_float(ms_sectors.get("technology")),
             "healthcare": _safe_float(ms_sectors.get("healthcare")),
-            "financials": _safe_float(ms_sectors.get("financial_services")) + _safe_float(ms_sectors.get("financials")),
+            "financials": _safe_float(ms_sectors.get("financial_services"))
+            + _safe_float(ms_sectors.get("financials")),
         }
 
     # Equity styles
@@ -931,13 +1304,16 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
         flat_style_map = {
             "large_growth": _safe_float(ms_style.get("large_growth")),
             "large_value": _safe_float(ms_style.get("large_value")),
-            "large_core": _safe_float(ms_style.get("large_core")) + _safe_float(ms_style.get("large_blend")),
+            "large_core": _safe_float(ms_style.get("large_core"))
+            + _safe_float(ms_style.get("large_blend")),
             "mid_growth": _safe_float(ms_style.get("mid_growth")),
             "mid_value": _safe_float(ms_style.get("mid_value")),
-            "mid_core": _safe_float(ms_style.get("mid_core")) + _safe_float(ms_style.get("mid_blend")),
+            "mid_core": _safe_float(ms_style.get("mid_core"))
+            + _safe_float(ms_style.get("mid_blend")),
             "small_growth": _safe_float(ms_style.get("small_growth")),
             "small_value": _safe_float(ms_style.get("small_value")),
-            "small_core": _safe_float(ms_style.get("small_core")) + _safe_float(ms_style.get("small_blend")),
+            "small_core": _safe_float(ms_style.get("small_core"))
+            + _safe_float(ms_style.get("small_blend")),
         }
 
         if max(flat_style_map.values() or [0]) > 0:
@@ -1002,7 +1378,10 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
         if "HIDDEN_EQUITY_RISK" not in exp.risk_flags:
             exp.risk_flags.append("HIDDEN_EQUITY_RISK")
 
-    if exp.economic_exposure.equity > 0 and _safe_float(exp.equity_regions.get("emerging")) > 20:
+    if (
+        exp.economic_exposure.equity > 0
+        and _safe_float(exp.equity_regions.get("emerging")) > 20
+    ):
         if "HIGH_EMERGING_RISK" not in exp.risk_flags:
             exp.risk_flags.append("HIGH_EMERGING_RISK")
 
@@ -1016,16 +1395,17 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
 # Batch runner
 # =============================================================================
 
+
 def run_batch(mode: str = "dry-run", limit: int = 0):
     init_firebase()
 
     run_id = datetime.now(timezone.utc).strftime("run_%Y%m%d_%H%M%S")
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print(f"  TAXONOMY V2 BATCH â {mode.upper()}")
     print(f"  Run ID: {run_id}")
     print(f"  Limit: {'ALL' if limit == 0 else limit}")
     print(f"  Started: {_now_iso()}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
     query = db.collection("funds_v3")
     if limit > 0:
@@ -1112,9 +1492,9 @@ def run_batch(mode: str = "dry-run", limit: int = 0):
 
     stats["finished_at"] = _now_iso()
 
-    print(f"\n{'='*60}")
+    print(f"\n{'=' * 60}")
     print("  BATCH COMPLETE")
-    print(f"{'='*60}")
+    print(f"{'=' * 60}")
     print(f"  Total Read:    {stats['total_read']}")
     print(f"  Processed:     {stats['processed']}")
     print(f"  Updated:       {stats['updated']}")
@@ -1143,6 +1523,7 @@ def run_batch(mode: str = "dry-run", limit: int = 0):
 # Mock tests
 # =============================================================================
 
+
 def test_math_logic():
     print("Running deterministic mock tests...\n")
 
@@ -1150,8 +1531,12 @@ def test_math_logic():
         print(f"--- TESTING: {name} ---")
         klass = classifyFundV2("MOCK_ISIN", mock_data)
         exp = buildPortfolioExposureV2("MOCK_ISIN", mock_data, klass)
-        print(f"  AssetType: {klass.asset_type.value} | Subtype: {klass.asset_subtype.value}")
-        print(f"  RiskBucket: {klass.risk_bucket.value} | LowRiskSuitable: {klass.is_suitable_low_risk}")
+        print(
+            f"  AssetType: {klass.asset_type.value} | Subtype: {klass.asset_subtype.value}"
+        )
+        print(
+            f"  RiskBucket: {klass.risk_bucket.value} | LowRiskSuitable: {klass.is_suitable_low_risk}"
+        )
         print(f"  Confidence: {klass.classification_confidence:.2f}")
         if klass.warnings:
             print(f"  Warnings: {klass.warnings}")
@@ -1259,8 +1644,15 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="V2 Taxonomy Batch Runner")
     parser.add_argument("--execute", action="store_true", help="Write to Firestore")
     parser.add_argument("--dry-run", action="store_true", help="Read-only preview")
-    parser.add_argument("--test-math", action="store_true", help="Run mock classification tests")
-    parser.add_argument("--limit", type=int, default=0, help="Limit number of funds to process (0 = all)")
+    parser.add_argument(
+        "--test-math", action="store_true", help="Run mock classification tests"
+    )
+    parser.add_argument(
+        "--limit",
+        type=int,
+        default=0,
+        help="Limit number of funds to process (0 = all)",
+    )
     args = parser.parse_args()
 
     if args.test_math:

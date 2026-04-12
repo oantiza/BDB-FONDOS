@@ -7,12 +7,15 @@ PURPOSE: Pruebas de algoritmos de investigación y filtrado.
 SAFE_MODE: LOCAL_ONLY
 RUN: python -m scripts.tests.test_research
 """
+
 import sys
 import os
 import json
 
 # Add parent directory to path to import services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 # Manually load .env variables before importing our services
 env_path = os.path.join(
@@ -94,4 +97,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

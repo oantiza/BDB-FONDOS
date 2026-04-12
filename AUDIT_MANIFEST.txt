@@ -1,0 +1,51 @@
+MANIFIESTO DE AUDITORÍA TÉCNICA - LÓGICA DE BDB-FONDOS
+Fecha de generación: 2026-03-24
+
+Este archivo ZIP contiene una extracción limpia de los componentes esenciales que dictan la lógica, los perfiles y el funcionamiento matemático y de reglas en el proyecto BDB-FONDOS.
+Se han excluido librerías de terceros, históricos pesados y archivos que no afectan al motor funcional (node_modules, cachés, compilados, etc.). 
+No contiene credenciales ni secretos.
+
+### ARQUITECTURA GENERAL E INYECCIÓN DE DATOS
+- bdb-fondos/README.md : Documento principal de la arquitectura del proyecto.
+- config (package.json, frontend/package.json, functions_python/requirements.txt, firebase.json) : Contexto de dependencias y despliegues.
+
+### BACKEND (Motor matemático, optimización, y API)
+Control de creación de carteras, cálculo de rebalanceos, métricas y frontera eficiente.
+
+* Optimización y Frontera Eficiente:
+  - functions_python/services/portfolio/optimizer_core.py : Contiene la lógica matemática (Black-Litterman o media-varianza) para hallar los pesos ideales.
+  - functions_python/services/portfolio/frontier_engine.py : Genera la frontera eficiente y portafolios de la frontera.
+
+* Restricciones, Perfiles y Suitability (Asignación):
+  - functions_python/services/portfolio/suitability_engine.py : Define restricciones de límites (min/max weights), buckets de riesgo, y asocia el scoring u objetivo de aversión al portafolio.
+  - functions_python/scripts/update_risk_profiles_firestore.py : Script que sube a BBDD las restricciones de perfiles de riesgo y límites de asset classes de cliente.
+
+* APIs y Rebalanceo / Backtester:
+  - functions_python/services/financial_engine.py : Proyecciones de monte-carlo e indicadores generales de acumulación.
+  - functions_python/services/calc_service.py : Orquestador de métricas agregadas (Retorno Esperado, Volatilidad, Sharpe, Beta, VaR).
+  - functions_python/services/portfolio/analyzer.py : Utilidad base del portfolio para analizar holdings y desgloses.
+  - functions_python/services/backtester.py : Funcionalidad de backtesting de la estrategia elegida.
+  - functions_python/api/endpoints_portfolio.py : Endpoint principal REST que la UI llama recurrentemente para generar o analizar carteras.
+  - functions_python/services/data_fetcher.py : Módulo puente para obtener series temporales de fondos de la BBDD a los analíticos.
+  - functions_python/services/portfolio/utils.py : Utilidades secundarias del backend.
+
+* Tipado y Modelos de Negocio:
+  - functions_python/models/canonical_types.py : Estructuras de datos base que unifican el Asset Class y sub-categorías de los distintos ISINs.
+
+### SCRIPTS DE MIGRACIÓN Y TAXONOMÍA (Clasificación v2)
+- functions_python/scripts/migration/populate_taxonomy_v2.py : Algoritmo original de clasificación de fondos con reglas complejas (por nombre del fondo, isin, gestora).
+- functions_python/scripts/migration/populate_taxonomy_v2_FINAL_STABLE.py : Versión estabilizada y activa para correr migraciones/mapeo de "classification_v2" y "portfolio_exposure_v2". (Este archivo aplica las reglas directas en BBDD para catalogar correctamente la RV, RF, etc.)
+
+### FRONTEND (Réplica Local de Reglas y Clasificaciones)
+Archivos donde se definen heurísticas UI y estados vinculados a las reglas de portafolios.
+
+* Reglas y Taxonomía:
+  - frontend/src/utils/rulesEngine.ts : Contiene la réplica UI para resolver el tipo de activo de emergencia según las taxonomías (ej. default fallbacks si classification_v2 falla).
+  - frontend/src/utils/fundTaxonomy.ts : Códigos de colores y prioridades de ordenación de buckets/activos en UI.
+  - frontend/src/utils/normalizer.ts : Funciones normalizadoras de series de tiempo e ISINs para pintar los gráficos.
+
+* Hooks y Lógica de Negocio y Métricas en Frontend:
+  - frontend/src/hooks/usePortfolioActions.ts : Hook que concentra las llamadas a generación y rebalanceo. Llama a endpoints_portfolio.py.
+  - frontend/src/hooks/useDashboardData.ts : Maneja datos de evolución de la cartera y recarga.
+  - frontend/src/hooks/usePortfolioStats.ts : Cálculos de resumen en tiempo real del estado en UI.
+  - frontend/src/utils/portfolioAnalyticsEngine.ts : Engine paralelo que puede hacer restatements de métricas de forma optimista sin pinchar Python.

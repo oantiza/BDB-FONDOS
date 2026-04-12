@@ -7,12 +7,15 @@ PURPOSE: Recalcula métricas de rendimiento para múltiples fondos.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.reports.recalc_metrics_batch
 """
+
 import os
 import sys
 import pandas as pd
 
 # Add parent directory to path to allow importing services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 # Reuse logic from recalc_metrics_single, but batched
 from recalc_metrics_single import recalculate_single
@@ -56,4 +59,3 @@ def run_batch_recalc():
 
 if __name__ == "__main__":
     run_batch_recalc()
-

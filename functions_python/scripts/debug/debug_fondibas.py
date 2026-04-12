@@ -7,6 +7,7 @@ PURPOSE: Diagnóstico de la base de datos de fondos.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.debug_fondibas
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -50,4 +51,3 @@ def check_fund():
 
 if __name__ == "__main__":
     check_fund()
-

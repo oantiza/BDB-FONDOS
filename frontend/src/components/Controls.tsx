@@ -99,7 +99,7 @@ export default function Controls({
                             <input
                                 type="range"
                                 min="4"
-                                max="20"
+                                max="25"
                                 step="1"
                                 value={numFunds}
                                 onChange={(e) => setNumFunds(parseInt(e.target.value))}
@@ -107,7 +107,7 @@ export default function Controls({
                             />
                             <div className="flex justify-between text-[9px] text-slate-400 mt-1.5 uppercase font-bold tracking-wider">
                                 <span>Min (4)</span>
-                                <span>Max (20)</span>
+                                <span>Max (25)</span>
                             </div>
                         </div>
                     </div>

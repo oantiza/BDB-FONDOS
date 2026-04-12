@@ -1,4 +1,5 @@
 import logging
+
 logger = logging.getLogger(__name__)
 import json
 import os
@@ -36,7 +37,7 @@ def force_weekly_research(req: https_fn.Request) -> https_fn.Response:
     # Since this seems to be a manual testing endpoint, we'll leave it as is for now or
     # require a secret key in the header if it were to be fully secured in a later phase.
     logger.info("🔥 Forzando Deep Research Semanal Manualmente")
-    from ..services.research import generate_weekly_strategy_report
+    from services.research import generate_weekly_strategy_report
 
     db = firestore.client()
 
@@ -75,7 +76,7 @@ def generate_analysis_report(request: https_fn.CallableRequest):
             message="Requiere autenticación",
         )
 
-    from ..services.research import generate_weekly_strategy_report
+    from services.research import generate_weekly_strategy_report
 
     db = firestore.client()
     return generate_weekly_strategy_report(db)

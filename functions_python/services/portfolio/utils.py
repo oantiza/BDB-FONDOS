@@ -1,4 +1,5 @@
 import logging
+
 logger = logging.getLogger(__name__)
 import numpy as np
 
@@ -35,13 +36,20 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
     if class_v2:
         # Use asset_type as primary key per canonical_types.py
         ac_v2 = class_v2.get("asset_type")
-        if ac_v2 == "EQUITY": return "RV"
-        if ac_v2 == "FIXED_INCOME": return "RF"
-        if ac_v2 == "MIXED": return "Mixto"
-        if ac_v2 == "MONETARY": return "Monetario"
-        if ac_v2 == "ALTERNATIVE": return "Alternativos"
-        if ac_v2 == "COMMODITIES": return "Otros" # O map to alternativos si se prefiere
-        if ac_v2 == "REAL_ESTATE": return "Otros" 
+        if ac_v2 == "EQUITY":
+            return "RV"
+        if ac_v2 == "FIXED_INCOME":
+            return "RF"
+        if ac_v2 == "MIXED":
+            return "Mixto"
+        if ac_v2 == "MONETARY":
+            return "Monetario"
+        if ac_v2 == "ALTERNATIVE":
+            return "Alternativos"
+        if ac_v2 == "COMMODITIES":
+            return "Otros"  # O map to alternativos si se prefiere
+        if ac_v2 == "REAL_ESTATE":
+            return "Otros"
 
     # 1. Expect Explicit Tag (e.g. injected during fallback or testing overrides)
     label_override = meta.get("label") or meta.get("asset_class")
@@ -54,7 +62,7 @@ def _classify_asset(ticker: str, asset_metadata=None) -> str:
         "Otros",
     ]:
         return label_override
-    
+
     # Map Retorno Absoluto to Alternativos if it comes from legacy label
     if label_override == "Retorno Absoluto":
         return "Alternativos"
@@ -78,7 +86,9 @@ def _allocation_vectors(tickers: list, asset_metadata=None):
             # Fixed income is 'bond' in the Pydantic model EconomicExposureV2
             econ = exp_v2.get("economic_exposure", {})
             eq_raw = _to_float(econ.get("equity", 0.0))
-            bd_raw = _to_float(econ.get("bond", 0.0)) or _to_float(econ.get("fixed_income", 0.0))
+            bd_raw = _to_float(econ.get("bond", 0.0)) or _to_float(
+                econ.get("fixed_income", 0.0)
+            )
             cs_raw = _to_float(econ.get("cash", 0.0))
             # Alternatives in V2 are a detailed dict, sum them for the bucket
             al_dict = exp_v2.get("alternatives", {})
@@ -93,7 +103,7 @@ def _allocation_vectors(tickers: list, asset_metadata=None):
             csp = max(0.0, min(100.0, cs_raw)) / 100.0
             alp = max(0.0, min(100.0, al_raw)) / 100.0
             otp = max(0.0, min(100.0, ot_raw)) / 100.0
-            
+
             # Enforce sum = 1.0 (to avoid rounding gaps in constraints)
             s = eqp + bdp + csp + alp + otp
             if s > 0:
@@ -103,7 +113,7 @@ def _allocation_vectors(tickers: list, asset_metadata=None):
             eq = metrics.get("equity", None)
             bd = metrics.get("bond", None)
             cs = metrics.get("cash", None)
-            al = metrics.get("alternative", None) # check if present
+            al = metrics.get("alternative", None)  # check if present
             ot = metrics.get("other", None)
 
             has_metrics = any(v is not None for v in [eq, bd, cs, al, ot])
@@ -115,7 +125,13 @@ def _allocation_vectors(tickers: list, asset_metadata=None):
                 otp = max(0.0, min(100.0, _to_float(ot, 0.0))) / 100.0
                 s = eqp + bdp + csp + alp + otp
                 if 0.95 <= s <= 1.05 and s > 0:
-                    eqp, bdp, csp, alp, otp = eqp / s, bdp / s, csp / s, alp / s, otp / s
+                    eqp, bdp, csp, alp, otp = (
+                        eqp / s,
+                        bdp / s,
+                        csp / s,
+                        alp / s,
+                        otp / s,
+                    )
             else:
                 # Priority 2: Label-based Inference
                 eqp, bdp, csp, alp, otp = 0.0, 0.0, 0.0, 0.0, 0.0
@@ -138,7 +154,14 @@ def _allocation_vectors(tickers: list, asset_metadata=None):
         al_vec.append(alp)
         ot_vec.append(otp)
 
-    return np.array(eq_vec), np.array(bd_vec), np.array(cs_vec), np.array(al_vec), np.array(ot_vec), {}
+    return (
+        np.array(eq_vec),
+        np.array(bd_vec),
+        np.array(cs_vec),
+        np.array(al_vec),
+        np.array(ot_vec),
+        {},
+    )
 
 
 def apply_market_proxy_backfill(df_prices, asset_metadata=None):
@@ -199,9 +222,13 @@ def apply_market_proxy_backfill(df_prices, asset_metadata=None):
                         aligned = proxy_series.reindex(df_prices.index).ffill()
                         proxy_data[proxy_ticker] = aligned
             except Exception as e:
-                logger.info(f"⚠️ [Utils] Failed to fetch {proxy_ticker} from EODHD: {str(e)}")
+                logger.info(
+                    f"⚠️ [Utils] Failed to fetch {proxy_ticker} from EODHD: {str(e)}"
+                )
     else:
-        logger.info("⚠️ [Utils] EODHD_API_KEY missing. Falling back to internal average.")
+        logger.info(
+            "⚠️ [Utils] EODHD_API_KEY missing. Falling back to internal average."
+        )
 
     for col, first_idx in young_cols:
         missing_mask = df_prices.index < first_idx

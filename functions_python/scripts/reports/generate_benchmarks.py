@@ -7,6 +7,7 @@ PURPOSE: Genera benchmarks de mercado para comparación de carteras.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.reports.generate_benchmarks
 """
+
 import os
 import sys
 import pandas as pd
@@ -216,4 +217,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-

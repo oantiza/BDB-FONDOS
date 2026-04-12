@@ -7,6 +7,7 @@ PURPOSE: Inserta reportes ficticios para pruebas de UI.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.reports.insert_dummy_reports
 """
+
 from firebase_admin import firestore, initialize_app
 import datetime
 
@@ -123,4 +124,3 @@ if __name__ == "__main__":
     create_report("MONTHLY_PORTFOLIO")
     create_report("WEEKLY_MACRO")
     print("Done.")
-

@@ -40,6 +40,8 @@ def write_history_canonical(
             continue  # Skip invalid dates
 
         # Validation: NAV (Must be float)
+        if nav_val is None:
+            continue
         try:
             nav_float = float(nav_val)
         except (ValueError, TypeError):

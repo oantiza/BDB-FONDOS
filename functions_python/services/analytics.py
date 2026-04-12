@@ -1,4 +1,3 @@
-import numpy as np
 import pandas as pd
 from datetime import datetime
 
@@ -75,7 +74,7 @@ def update_daily_metrics(db):
                 continue
 
             from services.quant_core import calculate_historical_metrics
-            
+
             m = calculate_historical_metrics(df, method="geometric")
             if not m or m["years"] < 0.5:
                 continue

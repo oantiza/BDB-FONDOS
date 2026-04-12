@@ -7,6 +7,7 @@ PURPOSE: Elimina reportes de prueba del sistema.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.fixes.cleanup_dummy_reports
 """
+
 from firebase_admin import firestore, initialize_app
 
 # Initialize Firebase
@@ -35,4 +36,3 @@ def delete_dummy_reports():
 
 if __name__ == "__main__":
     delete_dummy_reports()
-

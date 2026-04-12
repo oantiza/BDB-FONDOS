@@ -7,6 +7,7 @@ PURPOSE: Auditoría general de datos de fondos en Firestore.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.audit_fund_data
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -16,7 +17,9 @@ import pandas as pd
 import numpy as np
 
 # Add parent directory to path to allow importing services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 
 def initialize():
@@ -234,4 +237,3 @@ def audit_funds():
 
 if __name__ == "__main__":
     audit_funds()
-

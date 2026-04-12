@@ -1,4 +1,5 @@
 import logging
+
 logger = logging.getLogger(__name__)
 import pandas as pd
 import numpy as np
@@ -10,11 +11,11 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
     """
     [MATHEMATICAL CONVENTIONS & INTEGRATION]
     Generates Efficient Frontier points and asset metrics for UI plotting.
-    
-    1. Base Data: Daily prices (resample_freq="D"), strictly truncated to common 
+
+    1. Base Data: Daily prices (resample_freq="D"), strictly truncated to common
        history (Pairwise alignment) according to `period` window.
     2. Expected Returns: Uses canonical `method="mean"` (Arithmetic) via `quant_core`.
-    3. Covariance: Uses canonical `get_covariance_matrix` via `quant_core` (Ledoit-Wolf 
+    3. Covariance: Uses canonical `get_covariance_matrix` via `quant_core` (Ledoit-Wolf
        shrinkage with exact symmetry enforcement).
     4. Black-Litterman is NOT applied here (Frontier is objective, BL is subjective).
     5. Portfolio Point: Calculated via `quant_core` for exact coherence with optimizer.
@@ -67,7 +68,9 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         df = df.ffill().dropna()
 
         if df.empty or len(df) < 60:
-            actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+            actual_start_str = (
+                df.index[0].strftime("%Y-%m-%d") if not df.empty else "N/A"
+            )
             logger.info(f"⚠️ [Senior EF] Insufficient history: {len(df)} points.")
             err_msg = f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para calcular la frontera."
             return {
@@ -80,10 +83,10 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                 "assets_found": list(df.columns),
                 "assets": [],
                 "frontier": [],
-                "math_data": {}
+                "math_data": {},
             }
 
-        effective_start_date = df.index[0].strftime('%Y-%m-%d')
+        effective_start_date = df.index[0].strftime("%Y-%m-%d")
         observations = len(df)
 
         # Calculamos retornos diarios
@@ -95,7 +98,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
 
         # 2. Canonical Math Engine
         from services.quant_core import get_expected_returns, get_covariance_matrix
-        
+
         # [CONVENTION] Method 'mean' (Arithmetic) matches current optimizer logic
         mu = get_expected_returns(df, method="mean")
 
@@ -126,9 +129,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                         r = float(r_raw)
                         if np.isnan(v) or np.isnan(r) or v <= 0:
                             continue
-                        frontier_points.append(
-                            {"x": round(v, 4), "y": round(r, 4)}
-                        )
+                        frontier_points.append({"x": round(v, 4), "y": round(r, 4)})
                     except:
                         continue
                 # Sort horizontally to avoid zigzag lines (now sorting by Return 'y' for Monotonic Frontier)
@@ -163,7 +164,10 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                                 ef.efficient_return(target_return=tr)
                                 ret, vol, _ = ef.portfolio_performance()
                                 frontier_points.append(
-                                    {"x": round(float(vol), 4), "y": round(float(ret), 4)}
+                                    {
+                                        "x": round(float(vol), 4),
+                                        "y": round(float(ret), 4),
+                                    }
                                 )
                             except:
                                 pass  # Infeasible segment of the frontier
@@ -229,16 +233,25 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
         if portfolio_weights:
             try:
                 from services.quant_core import calculate_portfolio_metrics
-                
+
                 # Normalize weights to sum exactly 1.0 before calculation
                 raw_total = sum(float(w) for w in portfolio_weights.values())
                 if raw_total > 0:
-                    norm_weights = {k: float(v)/raw_total for k, v in portfolio_weights.items()}
-                    
+                    norm_weights = {
+                        k: float(v) / raw_total for k, v in portfolio_weights.items()
+                    }
+
                     # rf_rate relies on 0.0 for pure plot coordinates without excess return translation
-                    metrics = calculate_portfolio_metrics(norm_weights, mu, S, rf_rate=0.0)
-                    portfolio_point = {"x": round(metrics["volatility"], 4), "y": round(metrics["return"], 4)}
-                    logger.info(f"✅ [Senior EF] Coherent Point via quant_core: {portfolio_point}")
+                    metrics = calculate_portfolio_metrics(
+                        norm_weights, mu, S, rf_rate=0.0
+                    )
+                    portfolio_point = {
+                        "x": round(metrics["volatility"], 4),
+                        "y": round(metrics["return"], 4),
+                    }
+                    logger.info(
+                        f"✅ [Senior EF] Coherent Point via quant_core: {portfolio_point}"
+                    )
             except Exception as e_p:
                 logger.warning(f"⚠️ Portfolio point calc failed: {e_p}")
 
@@ -251,9 +264,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             "observations": observations,
             "math_data": {
                 "ordered_isins": list(df.columns),
-                "expected_returns": {
-                    k: float(v) for k, v in mu.to_dict().items()
-                },
+                "expected_returns": {k: float(v) for k, v in mu.to_dict().items()},
                 "covariance_matrix": S.values.tolist(),
             },
         }

@@ -7,6 +7,7 @@ PURPOSE: Analiza anomalías históricas en los datos de fondos.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.analyze_history_anomalies
 """
+
 import os
 import sys
 import pandas as pd
@@ -14,7 +15,9 @@ import firebase_admin
 from firebase_admin import credentials, firestore, initialize_app
 
 # Add parent dir to path to import config if needed
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 # --- AUTENTICACIÃN LOCAL ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -136,4 +139,3 @@ if __name__ == "__main__":
     analyze_anomalies(
         threshold=0.25
     )  # 25% daily change is extremely rare for a fund unless it's a crypto fund or split
-

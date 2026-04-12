@@ -7,6 +7,7 @@ PURPOSE: Inspecciona estructura interna de documentos de fondos.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.inspect_fund_data
 """
+
 import firebase_admin
 from firebase_admin import credentials, firestore
 
@@ -51,4 +52,3 @@ def inspect_fund():
 
 if __name__ == "__main__":
     inspect_fund()
-

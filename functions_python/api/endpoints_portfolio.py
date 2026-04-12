@@ -1,4 +1,5 @@
 import logging
+
 logger = logging.getLogger(__name__)
 from firebase_functions import https_fn, options
 from firebase_admin import firestore
@@ -17,6 +18,7 @@ cors_config = options.CorsOptions(
 # HELPER FUNCTIONS PARA ENDPOINT (ROLES CLAROS)
 # =====================================================================
 
+
 def _inject_challengers(db, assets_list: list) -> list:
     """FASE 2: Añade candidatos top performance (Challengers) a la lista si no existen."""
     try:
@@ -26,7 +28,7 @@ def _inject_challengers(db, assets_list: list) -> list:
             .limit(20)
             .stream()
         )
-        challengers = []
+        challengers: list[str] = []
         for d in docs:
             if len(challengers) >= 2:
                 break
@@ -51,6 +53,7 @@ def _inject_challengers(db, assets_list: list) -> list:
         logger.info(f"⚠️ Error fetching challengers: {e_chal}")
         return []
 
+
 def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
     """
     FASE 3: CONSTRUCCIÓN CANÓNICA DE METADATA
@@ -65,9 +68,7 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
         for d in docs:
             if d.exists:
                 data = d.to_dict() or {}
-                derived_exposure = data.get("derived", {}).get(
-                    "portfolio_exposure", {}
-                )
+                derived_exposure = data.get("derived", {}).get("portfolio_exposure", {})
                 regions = derived_exposure.get("equity_regions_total", {})
 
                 if not regions:
@@ -85,7 +86,7 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
 
                 # Priority 0: Canonical V2
                 asset_class = data.get("classification_v2", {}).get("asset_type")
-                
+
                 # Fallback to Legacy
                 if not asset_class:
                     asset_class = data.get("derived", {}).get("asset_class")
@@ -123,6 +124,7 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
 
     return asset_metadata
 
+
 def _build_effective_constraints(req_data: dict) -> dict:
     """
     FASE 4: EVALUACIÓN DE RESTRICCIONES DUALES
@@ -140,10 +142,12 @@ def _build_effective_constraints(req_data: dict) -> dict:
     if req_data.get("objective"):
         strategy_constraints["objective"] = req_data.get("objective")
         strategy_constraints["target_weights"] = req_data.get("target_weights", {})
-        
+
     return strategy_constraints
 
+
 # =====================================================================
+
 
 @https_fn.on_call(
     region="europe-west1",
@@ -155,7 +159,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
     """
     [MÓDULO DE ENTRADA AL PMS - PRECEDENCIAS CLARIFICADAS]
     Este endpoint purifica la entrada del frontend y recaba metadata canónica.
-    NOTA: Las determinaciones finales sobre Riesgo, Suitability y Restricciones las toma 
+    NOTA: Las determinaciones finales sobre Riesgo, Suitability y Restricciones las toma
     'run_optimization' importando la configuración de la BD (Canonical Rules).
     """
     if not request.auth:
@@ -182,11 +186,14 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         # --- [PRECEDENCIA CANÓNICA] Nivel 1: Bloqueos Reales ---
         if not assets_list:
             return {"status": "error", "warnings": ["Cartera vacía"]}
-        
+
         try:
             risk_level = int(risk_level)
             if not (1 <= risk_level <= 10):
-                return {"status": "error", "message": "Nivel de riesgo inválido (debe ser 1-10)"}
+                return {
+                    "status": "error",
+                    "message": "Nivel de riesgo inválido (debe ser 1-10)",
+                }
         except (ValueError, TypeError):
             return {"status": "error", "message": "Nivel de riesgo debe ser numérico"}
 
@@ -199,27 +206,52 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
             if added_challengers:
                 assets_list.extend(added_challengers)
         else:
-            logger.info("ℹ️ Challenger Logic DISABLED by default (Weight-Only Optimization)")
+            logger.info(
+                "ℹ️ Challenger Logic DISABLED by default (Weight-Only Optimization)"
+            )
 
         # =====================================================================
-        # FASE 3: CONSTRUCCIÓN CANÓNICA DE METADATA Y TELEMETRÍA 
+        # FASE 3: CONSTRUCCIÓN CANÓNICA DE METADATA Y TELEMETRÍA
         # =====================================================================
-        asset_metadata = _build_asset_metadata(db, assets_list, req_data.get("asset_metadata", {}))
+        asset_metadata = _build_asset_metadata(
+            db, assets_list, req_data.get("asset_metadata", {})
+        )
 
         telemetry = {
             "total_requested": len(assets_list),
-            "v2_fully_compliant": sum(1 for a in asset_metadata.values() if a.get("classification_v2") and a.get("portfolio_exposure_v2")),
-            "v2_partial": sum(1 for a in asset_metadata.values() if bool(a.get("classification_v2")) ^ bool(a.get("portfolio_exposure_v2"))),
-            "legacy_fallback_only": sum(1 for a in asset_metadata.values() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")),
-            "legacy_assets": [k for k, a in asset_metadata.items() if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")]
+            "v2_fully_compliant": sum(
+                1
+                for a in asset_metadata.values()
+                if a.get("classification_v2") and a.get("portfolio_exposure_v2")
+            ),
+            "v2_partial": sum(
+                1
+                for a in asset_metadata.values()
+                if bool(a.get("classification_v2"))
+                ^ bool(a.get("portfolio_exposure_v2"))
+            ),
+            "legacy_fallback_only": sum(
+                1
+                for a in asset_metadata.values()
+                if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")
+            ),
+            "legacy_assets": [
+                k
+                for k, a in asset_metadata.items()
+                if not a.get("classification_v2") and not a.get("portfolio_exposure_v2")
+            ],
         }
-        
+
         # --- STRUCTURED EXPLAINABILITY (Phase 5) ---
         v2_full = telemetry["v2_fully_compliant"]
         total_req = telemetry["total_requested"]
-        telemetry["taxonomy_source"] = "classification_v2/portfolio_exposure_v2 prioritario"
+        telemetry["taxonomy_source"] = (
+            "classification_v2/portfolio_exposure_v2 prioritario"
+        )
         telemetry["legacy_fallbacks_triggered"] = bool(telemetry["legacy_assets"])
-        telemetry["v2_usage_summary"] = f"{v2_full}/{total_req} activos usan Nivel 1 (100% V2 compliant)"
+        telemetry["v2_usage_summary"] = (
+            f"{v2_full}/{total_req} activos usan Nivel 1 (100% V2 compliant)"
+        )
 
         logger.info(f"📊 Taxonomy Telemetry: {telemetry}")
 
@@ -230,7 +262,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         tactical_views = req_data.get("tactical_views", {})
 
         # =====================================================================
-        # FASE 5: DELEGACIÓN AL MOTOR CÚANTITATIVO 
+        # FASE 5: DELEGACIÓN AL MOTOR CÚANTITATIVO
         # =====================================================================
         # Aquí 'run_optimization' (Nivel 4) asume el mando total matemático.
         result = run_optimization(
@@ -246,7 +278,9 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         result["taxonomy_telemetry"] = telemetry
 
         # --- SNAPSHOT INSTRUMENTATION ---
-        save_snapshot = req_data.get("save_snapshot") is True or bool(req_data.get("snapshot_label"))
+        save_snapshot = req_data.get("save_snapshot") is True or bool(
+            req_data.get("snapshot_label")
+        )
         if save_snapshot:
             try:
                 snapshot_ref = db.collection("optimizer_snapshots").document()
@@ -261,7 +295,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
                         "auto_expand_universe": req_data.get("auto_expand_universe"),
                         "enable_challengers": req_data.get("enable_challengers"),
                         "locked_assets_raw": req_data.get("locked_assets"),
-                        "tactical_views": tactical_views
+                        "tactical_views": tactical_views,
                     },
                     "request_normalized": {
                         "effective_assets": assets_list,
@@ -281,11 +315,13 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
                         "volatility": result.get("metrics", {}).get("volatility", 0),
                         "sharpe": result.get("metrics", {}).get("sharpe", 0),
                         "explainability": result.get("explainability", {}),
-                        "taxonomy_telemetry": telemetry
-                    }
+                        "taxonomy_telemetry": telemetry,
+                    },
                 }
                 snapshot_ref.set(snapshot)
-                logger.info(f"📸 Snapshot saved to Firestore: {snapshot_ref.id} (label: {snapshot.get('snapshot_label')})")
+                logger.info(
+                    f"📸 Snapshot saved to Firestore: {snapshot_ref.id} (label: {snapshot.get('snapshot_label')})"
+                )
             except Exception as snap_err:
                 logger.error(f"Snapshot error: {snap_err}")
         # --------------------------------
@@ -303,8 +339,8 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
                 "recovery_candidates": candidates,
             }
         raise https_fn.HttpsError(
-            code=https_fn.FunctionsErrorCode.INTERNAL, 
-            message=f"Error interno del servidor: {error_msg}"
+            code=https_fn.FunctionsErrorCode.INTERNAL,
+            message=f"Error interno del servidor: {error_msg}",
         )
 
 
@@ -388,7 +424,11 @@ def getEfficientFrontier(request: https_fn.CallableRequest):
 
     except Exception as e:
         logger.exception(f"🔥 [getEfficientFrontier] Error crítico: {e}")
-        return {"status": "error", "message": f"Error interno: {str(e)}", "error": f"Error interno: {str(e)}"}
+        return {
+            "status": "error",
+            "message": f"Error interno: {str(e)}",
+            "error": f"Error interno: {str(e)}",
+        }
 
 
 @https_fn.on_call(

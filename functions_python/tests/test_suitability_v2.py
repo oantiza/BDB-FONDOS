@@ -6,12 +6,12 @@ Tests:
 - get_economic_bucket() for all fund types
 - Edge cases: missing V2, partial V2, conflicting data
 """
+
 import sys
 import os
-import pytest
 
 # Add project root to path
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 from services.portfolio.suitability_engine import (
     is_fund_eligible_for_profile,
@@ -209,7 +209,9 @@ class TestBiotechSectorial:
 
     def test_blocked_profile_4(self):
         eligible, _ = is_fund_eligible_for_profile(MOCK_BIOTECH, 4)
-        assert eligible is False, "Biotech sector fund should be blocked for profile ≤ 4"
+        assert eligible is False, (
+            "Biotech sector fund should be blocked for profile ≤ 4"
+        )
 
     def test_allowed_profile_7(self):
         eligible, _ = is_fund_eligible_for_profile(MOCK_BIOTECH, 7)
@@ -293,7 +295,9 @@ class TestAllocationAggressive:
 class TestAllocationConservative:
     def test_allowed_profile_1(self):
         eligible, _ = is_fund_eligible_for_profile(MOCK_ALLOCATION_CONSERVATIVE, 1)
-        assert eligible is True, "Conservative allocation (20% eq) should be allowed for profile 1"
+        assert eligible is True, (
+            "Conservative allocation (20% eq) should be allowed for profile 1"
+        )
 
     def test_allowed_profile_2(self):
         eligible, _ = is_fund_eligible_for_profile(MOCK_ALLOCATION_CONSERVATIVE, 2)
@@ -339,7 +343,7 @@ class TestAmbiguousNoV2:
         eligible, reason = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 1)
         assert eligible is False
         assert "Strict V2" in reason
-        
+
         eligible, reason = is_fund_eligible_for_profile(MOCK_AMBIGUOUS, 10)
         assert eligible is False
         assert "Strict V2" in reason
@@ -376,7 +380,9 @@ class TestEconomicBucket:
         assert get_economic_bucket(MOCK_HIGH_YIELD) == "high_yield_or_em_bond"
 
     def test_allocation_aggressive_is_aggressive(self):
-        assert get_economic_bucket(MOCK_ALLOCATION_AGGRESSIVE) == "aggressive_allocation"
+        assert (
+            get_economic_bucket(MOCK_ALLOCATION_AGGRESSIVE) == "aggressive_allocation"
+        )
 
     def test_allocation_conservative_is_prudent(self):
         assert get_economic_bucket(MOCK_ALLOCATION_CONSERVATIVE) == "prudent_allocation"

@@ -24,7 +24,6 @@ from .utils import (
     _to_float,
     _normalize,
     _allocation_vectors,
-    apply_market_proxy_backfill,
 )
 
 from services.quant_core import (
@@ -47,6 +46,7 @@ FALLBACK_CANDIDATES_DEFAULT = [
 # INTERNAL PIPELINE HELPERS
 # =========================================================================
 
+
 def _build_optimization_context(db, constraints):
     """
     FASE 1: Construcción de contexto y políticas base.
@@ -57,32 +57,51 @@ def _build_optimization_context(db, constraints):
     lock_mode = constraints.get("lock_mode", "keep_weight")
     fixed_weights = constraints.get("fixed_weights", {})
 
-    if optimization_mode == "pure_markowitz" or constraints.get("disable_profile_rules"):
+    if optimization_mode == "pure_markowitz" or constraints.get(
+        "disable_profile_rules"
+    ):
         apply_profile = False
 
     try:
-        risk_profile_doc = db.collection("system_settings").document("risk_profiles").get()
+        risk_profile_doc = (
+            db.collection("system_settings").document("risk_profiles").get()
+        )
         if risk_profile_doc.exists:
             raw_dic = risk_profile_doc.to_dict()
             current_risk_buckets = {int(k): v for k, v in raw_dic.items()}
             logger.info("⚡ [Optimizer] Cargados perfiles de riesgo desde Firestore")
         else:
-            logger.info("⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
+            logger.info(
+                "⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando..."
+            )
             db_save = {str(k): v for k, v in RISK_BUCKETS_LABELS.items()}
             db.collection("system_settings").document("risk_profiles").set(db_save)
             current_risk_buckets = RISK_BUCKETS_LABELS
     except Exception as e:
-        logger.info(f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales.")
+        logger.info(
+            f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales."
+        )
         current_risk_buckets = RISK_BUCKETS_LABELS
 
     equity_floor = float(constraints.get("equity_floor", 0.0))
     bond_cap = float(constraints.get("bond_cap", 1.0))
     cash_cap = float(constraints.get("cash_cap", 1.0))
 
-    return apply_profile, optimization_mode, lock_mode, fixed_weights, current_risk_buckets, equity_floor, bond_cap, cash_cap
+    return (
+        apply_profile,
+        optimization_mode,
+        lock_mode,
+        fixed_weights,
+        current_risk_buckets,
+        equity_floor,
+        bond_cap,
+        cash_cap,
+    )
 
 
-def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets):
+def _apply_suitability_filter(
+    assets_list, asset_metadata, risk_level, apply_profile, locked_assets
+):
     """
     FASE 2: Suitability Hard Filter.
     [PRECEDENCIA CANÓNICA] Nivel 2: Filtro Regulador Excluyente.
@@ -96,10 +115,12 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
     locked_set = set(locked_assets or [])
     for isin in assets_list:
         if isin in locked_set:
-            logger.info(f"🔓 [Suitability Override] {isin} mantenido por Nivel 1 (Locked Asset).")
+            logger.info(
+                f"🔓 [Suitability Override] {isin} mantenido por Nivel 1 (Locked Asset)."
+            )
             filtered_list.append(isin)
             continue
-            
+
         meta = asset_metadata.get(isin, {})
         eligible, reason = is_fund_eligible_for_profile(meta, int(risk_level))
         if eligible:
@@ -107,6 +128,7 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
         else:
             logger.info(f"🚫 [Suitability Excluded] {isin}: {reason}")
     return filtered_list
+
 
 def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
     """
@@ -122,7 +144,9 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
     df.index = pd.to_datetime(df.index)
 
     target_years = 5
-    ideal_start_date = df.index[-1] - pd.Timedelta(days=365 * target_years) if not df.empty else None
+    ideal_start_date = (
+        df.index[-1] - pd.Timedelta(days=365 * target_years) if not df.empty else None
+    )
 
     if not df.empty:
         df = df.sort_index()
@@ -132,7 +156,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
             final_start_date = max(ideal_start_date, actual_start_date)
         else:
             final_start_date = ideal_start_date
-            
+
         df = df[df.index >= final_start_date]
         logger.info(
             f"ℹ️ Optimization Strict Window: {final_start_date.date()} to {df.index[-1].date()} ({(df.index[-1] - final_start_date).days} days)"
@@ -156,7 +180,9 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
                 cfg_ref = db.collection("config").document("auto_complete_candidates")
                 cfg = cfg_ref.get()
                 if cfg.exists:
-                    candidates_list = cfg.to_dict().get("equity90_isins", FALLBACK_CANDIDATES_DEFAULT)
+                    candidates_list = cfg.to_dict().get(
+                        "equity90_isins", FALLBACK_CANDIDATES_DEFAULT
+                    )
             except Exception:
                 pass
 
@@ -168,17 +194,23 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
             cfg_ref = db.collection("config").document("auto_complete_candidates")
             cfg = cfg_ref.get()
             if cfg.exists:
-                candidates_list = cfg.to_dict().get("equity90_isins", FALLBACK_CANDIDATES_DEFAULT)
+                candidates_list = cfg.to_dict().get(
+                    "equity90_isins", FALLBACK_CANDIDATES_DEFAULT
+                )
         except Exception:
             pass
 
-        valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq="D", strict=True)
+        valid_cands, _ = fetcher.get_price_data(
+            candidates_list, resample_freq="D", strict=True
+        )
         for isin, p_series in valid_cands.items():
             if len(p_series) >= 50:
                 price_data[isin] = p_series
 
         if not price_data:
-            raise Exception("No se encontraron suficientes datos históricos ni siquiera auto-expandiendo el universo.")
+            raise Exception(
+                "No se encontraron suficientes datos históricos ni siquiera auto-expandiendo el universo."
+            )
 
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
@@ -192,13 +224,30 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints):
             df = df[df.index >= final_start_date]
             df = df.sort_index().ffill().dropna()
         else:
-            raise Exception("No fue posible alinear un tramo histórico común válido tras la expansión del universo.")
+            raise Exception(
+                "No fue posible alinear un tramo histórico común válido tras la expansión del universo."
+            )
 
     universe = list(df.columns)
     missing_assets = [a for a in assets_list if a not in universe]
-    eq_vec, bd_vec, cs_vec, al_vec, ot_vec, _ = _allocation_vectors(universe, asset_metadata)
+    eq_vec, bd_vec, cs_vec, al_vec, ot_vec, _ = _allocation_vectors(
+        universe, asset_metadata
+    )
 
-    return fetcher, price_data, synthetic_used, df, universe, missing_assets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+    return (
+        fetcher,
+        price_data,
+        synthetic_used,
+        df,
+        universe,
+        missing_assets,
+        eq_vec,
+        bd_vec,
+        cs_vec,
+        al_vec,
+        ot_vec,
+    )
+
 
 def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views):
     """
@@ -212,9 +261,12 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
         mcaps[t] = float(mcap_val)
 
     if tactical_views:
-        logger.info("👁️ [Optimizer] Tactical Views Detected. Applying Black-Litterman...")
+        logger.info(
+            "👁️ [Optimizer] Tactical Views Detected. Applying Black-Litterman..."
+        )
         try:
             from services.quant_core import apply_black_litterman
+
             valid_views = {k: v for k, v in tactical_views.items() if k in universe}
             if valid_views:
                 mu, S = apply_black_litterman(
@@ -224,13 +276,15 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
             else:
                 raise Exception("Valid views empty")
         except Exception as e_bl:
-            logger.info(f"⚠️ Black-Litterman Failed: {e_bl}. Fallback to Pairwise Mean/Covariance.")
+            logger.info(
+                f"⚠️ Black-Litterman Failed: {e_bl}. Fallback to Pairwise Mean/Covariance."
+            )
             mu = get_expected_returns(df, method="mean")
             S = get_covariance_matrix(df)
     else:
         mu = get_expected_returns(df, method="mean")
         S = get_covariance_matrix(df)
-        
+
     return mu, S
 
 
@@ -245,11 +299,15 @@ def _build_frontier_curve(mu, S):
         for v_raw, r_raw in zip(f_vol, f_ret):
             if np.isnan(v_raw) or np.isnan(r_raw):
                 continue
-            frontier_points.append({"x": round(float(v_raw), 4), "y": round(float(r_raw), 4)})
+            frontier_points.append(
+                {"x": round(float(v_raw), 4), "y": round(float(r_raw), 4)}
+            )
 
         if frontier_points:
             frontier_points = sorted(frontier_points, key=lambda p: p["y"])
-            min_vol_idx = min(range(len(frontier_points)), key=lambda i: frontier_points[i]["x"])
+            min_vol_idx = min(
+                range(len(frontier_points)), key=lambda i: frontier_points[i]["x"]
+            )
             efficient_only = []
             current_max_x = -1.0
             for p in frontier_points[min_vol_idx:]:
@@ -259,11 +317,26 @@ def _build_frontier_curve(mu, S):
             frontier_points = efficient_only
     except Exception as e_cla:
         logger.info(f"⚠️ Frontier gen warning: {e_cla}")
-        
+
     return frontier_points
 
 
-def _apply_standard_constraints(ef_inst, constraints, lock_mode, apply_profile, risk_level_i, locked_assets, fixed_weights, asset_metadata, current_risk_buckets, eq_v, bd_v, cs_v, al_v, ot_v):
+def _apply_standard_constraints(
+    ef_inst,
+    constraints,
+    lock_mode,
+    apply_profile,
+    risk_level_i,
+    locked_assets,
+    fixed_weights,
+    asset_metadata,
+    current_risk_buckets,
+    eq_v,
+    bd_v,
+    cs_v,
+    al_v,
+    ot_v,
+):
     """
     FASE 6: Inyección de Restricciones Efectivas al Solver (PyPortfolioOpt).
     [PRECEDENCIA EFECTIVA EN SOLVER]:
@@ -338,13 +411,19 @@ def _apply_standard_constraints(ef_inst, constraints, lock_mode, apply_profile, 
                     for t in universe:
                         m = (asset_metadata or {}).get(t, {}) or {}
                         group_data = m.get(group_type, {}) or {}
-                        vec_l.append(_to_float(group_data.get(group_name, 0.0), 0.0) / 100.0)
+                        vec_l.append(
+                            _to_float(group_data.get(group_name, 0.0), 0.0) / 100.0
+                        )
 
                     vec_np = np.array(vec_l)
                     if min_val > 0.001:
-                        ef_inst.add_constraint(lambda w, v=vec_np, m=min_val: w @ v >= m)
+                        ef_inst.add_constraint(
+                            lambda w, v=vec_np, m=min_val: w @ v >= m
+                        )
                     if max_val < 0.999:
-                        ef_inst.add_constraint(lambda w, v=vec_np, m=max_val: w @ v <= m)
+                        ef_inst.add_constraint(
+                            lambda w, v=vec_np, m=max_val: w @ v <= m
+                        )
         except Exception as e_grp:
             logger.info(f"⚠️ Generic Group Constraint Warning: {e_grp}")
 
@@ -366,10 +445,30 @@ def _apply_standard_constraints(ef_inst, constraints, lock_mode, apply_profile, 
             ef_inst.add_constraint(lambda w: w @ ot_v >= bucket_cfg["Otros"][0])
             ef_inst.add_constraint(lambda w: w @ ot_v <= bucket_cfg["Otros"][1])
 
+
 def _check_feasibility_and_autoexpand(
-    db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
-    eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
-    bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets
+    db,
+    fetcher,
+    price_data,
+    universe,
+    assets_list,
+    apply_profile,
+    equity_floor,
+    max_weight,
+    eq_vec,
+    locked_assets,
+    constraints,
+    asset_metadata,
+    min_weight,
+    gamma,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ot_vec,
+    lock_mode,
+    risk_level_i,
+    fixed_weights,
+    current_risk_buckets,
 ):
     """
     FASE 7: Predicción de Factibilidad (Floor Checks).
@@ -380,7 +479,7 @@ def _check_feasibility_and_autoexpand(
     ef = None
     mu = None
     S = None
-    
+
     if apply_profile and equity_floor > 0:
         achieved_equity = 0.0
         current_budget = 1.0
@@ -407,14 +506,33 @@ def _check_feasibility_and_autoexpand(
         if achieved_equity + 0.005 < equity_floor:
             auto_expand = constraints.get("auto_expand_universe", False)
             if not auto_expand:
-                return False, {
-                    "api_version": "optimizer_v4",
-                    "status": "infeasible_equity_floor",
-                    "solver_path": "blocked_infeasible",
-                    "feasibility": {"requested": equity_floor, "achievable": round(achieved_equity, 4)},
-                    "weights": {},
-                    "warnings": [f"Equity Floor {equity_floor} Unachievable"],
-                }, None, None, None, None, None, None, None, None, None, None, None
+                return (
+                    False,
+                    {
+                        "api_version": "optimizer_v4",
+                        "status": "infeasible_equity_floor",
+                        "solver_path": "blocked_infeasible",
+                        "feasibility": {
+                            "equity_floor_requested": equity_floor,
+                            "equity_max_achievable": round(achieved_equity, 4),
+                            "min_100pct_equity_funds_needed": 0,
+                            "note": "Floor check failed",
+                        },
+                        "weights": {},
+                        "warnings": [f"Equity Floor {equity_floor} Unachievable"],
+                    },
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                )
 
             logger.info("⚠️ Auto-Expanding Universe...")
             candidates_list = []
@@ -428,7 +546,11 @@ def _check_feasibility_and_autoexpand(
                 for d in docs:
                     dd = d.to_dict()
                     exp_v2 = dd.get("portfolio_exposure_v2", {})
-                    eq_val = _to_float(exp_v2.get("equity", 0.0)) if exp_v2 else _to_float(dd.get("metrics", {}).get("equity"), 0.0)
+                    eq_val = (
+                        _to_float(exp_v2.get("equity", 0.0))
+                        if exp_v2
+                        else _to_float(dd.get("metrics", {}).get("equity"), 0.0)
+                    )
                     if eq_val >= 90.0:
                         candidates_list.append(d.id)
             except Exception:
@@ -441,17 +563,33 @@ def _check_feasibility_and_autoexpand(
             seen = set(universe) | set(assets_list)
             potential = [c for c in candidates_list if c not in seen]
             if potential:
-                p_check, _ = fetcher.get_price_data(potential, resample_freq="D", strict=True)
+                p_check, _ = fetcher.get_price_data(
+                    potential, resample_freq="D", strict=True
+                )
                 for isin, p_s in p_check.items():
                     if len(p_s) >= 20:
                         valid_added.append(isin)
 
             if not valid_added:
-                return False, {
-                    "api_version": "optimizer_v4",
-                    "status": "auto_expand_failed",
-                    "weights": {},
-                }, None, None, None, None, None, None, None, None, None, None, None
+                return (
+                    False,
+                    {
+                        "api_version": "optimizer_v4",
+                        "status": "auto_expand_failed",
+                        "weights": {},
+                    },
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                    None,
+                )
 
             added_assets = valid_added[:6]
             price_data.update({k: p_check[k] for k in added_assets})
@@ -462,7 +600,8 @@ def _check_feasibility_and_autoexpand(
                     dd = d.to_dict()
                     asset_metadata[isin] = {
                         "metrics": dd.get("metrics", {}),
-                        "asset_class": dd.get("classification_v2", {}).get("asset_type") or "UNKNOWN",
+                        "asset_class": dd.get("classification_v2", {}).get("asset_type")
+                        or "UNKNOWN",
                         "classification_v2": dd.get("classification_v2", {}),
                         "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}),
                     }
@@ -471,41 +610,94 @@ def _check_feasibility_and_autoexpand(
             universe = list(df.columns)
             mu = get_expected_returns(df, method="ema")
             S = get_covariance_matrix(df)
-            eq_vec, bd_vec, cs_vec, al_vec, ot_vec, _ = _allocation_vectors(universe, asset_metadata)
+            eq_vec, bd_vec, cs_vec, al_vec, ot_vec, _ = _allocation_vectors(
+                universe, asset_metadata
+            )
 
             ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
             if constraints.get("objective") != "min_deviation":
                 ef.add_objective(objective_functions.L2_reg, gamma=gamma)
-            
+
             _apply_standard_constraints(
-                ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets, 
-                fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+                ef,
+                constraints,
+                lock_mode,
+                apply_profile,
+                risk_level_i,
+                locked_assets,
+                fixed_weights,
+                asset_metadata,
+                current_risk_buckets,
+                eq_vec,
+                bd_vec,
+                cs_vec,
+                al_vec,
+                ot_vec,
             )
             solver_path = "auto_expand_then_solve"
-            
-    return True, {}, added_assets, solver_path, ef, mu, S, universe, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
 
-def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe, lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec):
+    return (
+        True,
+        {},
+        added_assets,
+        solver_path,
+        ef,
+        mu,
+        S,
+        universe,
+        eq_vec,
+        bd_vec,
+        cs_vec,
+        al_vec,
+        ot_vec,
+    )
+
+
+def _run_solver(
+    ef,
+    mu,
+    S,
+    constraints,
+    risk_level_i,
+    rf_rate,
+    max_weight,
+    gamma,
+    apply_profile,
+    universe,
+    lock_mode,
+    locked_assets,
+    fixed_weights,
+    asset_metadata,
+    current_risk_buckets,
+    eq_vec,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ot_vec,
+):
     """
     FASE 8: Ejecución Matemática Final.
     [PRECEDENCIA CANÓNICA] Nivel 6: Objetivo del Solver.
-    Manda el 'objective' (max_sharpe, etc.). Si las constraints de Niveles 1, 3 o 4 
+    Manda el 'objective' (max_sharpe, etc.). Si las constraints de Niveles 1, 3 o 4
     impiden la convergencia del solver, salta la excepción hacia Nivel 7.
     """
     solver_path = None
     raw_weights = None
-    
+
     try:
         if constraints.get("objective") == "min_deviation":
             solver_path = "min_deviation_custom"
             import cvxpy as cp
+
             target_dict = constraints.get("target_weights", {})
             target_arr = np.array([target_dict.get(t, 0.0) for t in universe])
 
             def tracking_error_objective(w, w_target):
                 return cp.sum_squares(w - w_target)
 
-            raw_weights = ef.convex_objective(tracking_error_objective, w_target=target_arr)
+            raw_weights = ef.convex_objective(
+                tracking_error_objective, w_target=target_arr
+            )
         elif apply_profile:
             target_vol = float(RISK_TARGETS.get(risk_level_i, 0.05))
             solver_path = f"efficient_risk_profile_{target_vol:.3f}"
@@ -524,13 +716,24 @@ def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma
             logger.info("⚠️ Fallback 1: Relaxed Sharpe")
             ef_relaxed = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
             ef_relaxed.add_objective(objective_functions.L2_reg, gamma=gamma)
-            
+
             _apply_standard_constraints(
-                ef_relaxed, constraints, lock_mode, apply_profile, risk_level_i, 
-                locked_assets, fixed_weights, asset_metadata, current_risk_buckets, 
-                eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+                ef_relaxed,
+                constraints,
+                lock_mode,
+                apply_profile,
+                risk_level_i,
+                locked_assets,
+                fixed_weights,
+                asset_metadata,
+                current_risk_buckets,
+                eq_vec,
+                bd_vec,
+                cs_vec,
+                al_vec,
+                ot_vec,
             )
-            
+
             raw_weights = ef_relaxed.max_sharpe(risk_free_rate=rf_rate)
             ef = ef_relaxed
             solver_path = "fallback_relaxed_sharpe"
@@ -538,13 +741,24 @@ def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma
             try:
                 logger.info("⚠️ Fallback 2: Min Volatility")
                 ef_minvol = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
-                
+
                 _apply_standard_constraints(
-                    ef_minvol, constraints, lock_mode, apply_profile, risk_level_i, 
-                    locked_assets, fixed_weights, asset_metadata, current_risk_buckets, 
-                    eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+                    ef_minvol,
+                    constraints,
+                    lock_mode,
+                    apply_profile,
+                    risk_level_i,
+                    locked_assets,
+                    fixed_weights,
+                    asset_metadata,
+                    current_risk_buckets,
+                    eq_vec,
+                    bd_vec,
+                    cs_vec,
+                    al_vec,
+                    ot_vec,
                 )
-                
+
                 raw_weights = ef_minvol.min_volatility()
                 ef = ef_minvol
                 solver_path = "fallback_min_vol"
@@ -552,11 +766,27 @@ def _run_solver(ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma
                 logger.info(f"❌ ALL PATHS FAILED: {e_crit}")
                 solver_path = "fallback_equal_weight"
                 raw_weights = None
-                
+
     return ef, raw_weights, solver_path
 
 
-def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec, lock_mode, locked_assets, fixed_weights):
+def _postprocess_weights(
+    ef,
+    raw_weights,
+    cutoff,
+    universe,
+    apply_profile,
+    risk_level_i,
+    current_risk_buckets,
+    eq_vec,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ot_vec,
+    lock_mode,
+    locked_assets,
+    fixed_weights,
+):
     """
     FASE 9: Limpieza, Degradación Graciosa y Asignación Final.
     [PRECEDENCIA CANÓNICA] Nivel 7: Fallbacks / Degradaciones.
@@ -581,13 +811,27 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
                 is_cs = cs_vec[idx] > 0
 
                 allowed = False
-                if is_eq and "RV" in bucket_cfg and bucket_cfg["RV"][1] > 0: allowed = True
-                elif is_bd and "RF" in bucket_cfg and bucket_cfg["RF"][1] > 0: allowed = True
-                elif (is_cs and "Monetario" in bucket_cfg and bucket_cfg["Monetario"][1] > 0): allowed = True
-                elif (al_vec[idx] > 0 and "Alternativos" in bucket_cfg and bucket_cfg["Alternativos"][1] > 0): allowed = True
-                elif "Otros" in bucket_cfg and bucket_cfg["Otros"][1] > 0: allowed = True
+                if is_eq and "RV" in bucket_cfg and bucket_cfg["RV"][1] > 0:
+                    allowed = True
+                elif is_bd and "RF" in bucket_cfg and bucket_cfg["RF"][1] > 0:
+                    allowed = True
+                elif (
+                    is_cs
+                    and "Monetario" in bucket_cfg
+                    and bucket_cfg["Monetario"][1] > 0
+                ):
+                    allowed = True
+                elif (
+                    al_vec[idx] > 0
+                    and "Alternativos" in bucket_cfg
+                    and bucket_cfg["Alternativos"][1] > 0
+                ):
+                    allowed = True
+                elif "Otros" in bucket_cfg and bucket_cfg["Otros"][1] > 0:
+                    allowed = True
 
-                if allowed: allowed_universe.append(isin)
+                if allowed:
+                    allowed_universe.append(isin)
         else:
             allowed_universe = universe
 
@@ -605,19 +849,20 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
 
         remaining_budget = max(0.0, remaining_budget)
         w_fallback = remaining_budget / max(1, len(allowed_universe))
-        
+
         for t in universe:
             if t not in weights:
                 weights[t] = w_fallback if t in allowed_universe else 0.0
 
         weights = _normalize(weights)
-        
+
     return weights
 
 
 # =========================================================================
 # MAIN PUBLIC API
 # =========================================================================
+
 
 def run_optimization(
     assets_list,
@@ -632,39 +877,66 @@ def run_optimization(
     constraints = constraints or {}
     asset_metadata = asset_metadata or {}
     locked_assets = locked_assets or []
-    logger.info(f"📥 [Optimizer] Risk: {risk_level}, Assets: {len(assets_list)}, Meta: {len(asset_metadata)}")
+    logger.info(
+        f"📥 [Optimizer] Risk: {risk_level}, Assets: {len(assets_list)}, Meta: {len(asset_metadata)}"
+    )
 
     try:
         # FASE 1: Contexto Global
-        (apply_profile, optimization_mode, lock_mode, fixed_weights, 
-         current_risk_buckets, equity_floor, bond_cap, cash_cap) = _build_optimization_context(db, constraints)
+        (
+            apply_profile,
+            optimization_mode,
+            lock_mode,
+            fixed_weights,
+            current_risk_buckets,
+            equity_floor,
+            bond_cap,
+            cash_cap,
+        ) = _build_optimization_context(db, constraints)
 
         # FASE 2: Suitability Filter
-        assets_list = _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets)
+        assets_list = _apply_suitability_filter(
+            assets_list, asset_metadata, risk_level, apply_profile, locked_assets
+        )
 
         # FASE 3: Universe Construction (Price Data & Expansions)
-        (fetcher, price_data, synthetic_used, df, universe, missing_assets, 
-         eq_vec, bd_vec, cs_vec, al_vec, ot_vec) = _build_candidate_universe(db, assets_list, asset_metadata, constraints)
+        (
+            fetcher,
+            price_data,
+            synthetic_used,
+            df,
+            universe,
+            missing_assets,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ot_vec,
+        ) = _build_candidate_universe(db, assets_list, asset_metadata, constraints)
 
         if df.empty or len(df) < 60:
-            actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+            actual_start_str = (
+                df.index[0].strftime("%Y-%m-%d") if not df.empty else "N/A"
+            )
             return {
                 "api_version": "optimizer_v4",
                 "status": "error",
                 "message": f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para optimizar.",
                 "effective_start_date": actual_start_str,
-                "observations": len(df)
+                "observations": len(df),
             }
 
-        effective_start_date = df.index[0].strftime('%Y-%m-%d')
+        effective_start_date = df.index[0].strftime("%Y-%m-%d")
         observations = len(df)
 
         # FASE 4: Returns & Covariances (Markowitz & BL)
-        mu, S = _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views)
-        
+        mu, S = _build_expected_returns_and_cov(
+            df, universe, asset_metadata, tactical_views
+        )
+
         # FASE 5: Efficient Frontier Reference
         frontier_points = _build_frontier_curve(mu, S)
-        
+
         # Setup Constants
         rf_rate = float(fetcher.get_dynamic_risk_free_rate())
         max_weight = float(constraints.get("max_weight", MAX_WEIGHT_DEFAULT))
@@ -679,50 +951,128 @@ def run_optimization(
         objective = constraints.get("objective", "max_sharpe")
         if objective != "min_deviation":
             ef.add_objective(objective_functions.L2_reg, gamma=gamma)
-            
+
         # FASE 6: Constraints Injection
         _apply_standard_constraints(
-            ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets, 
-            fixed_weights, asset_metadata, current_risk_buckets, 
-            eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+            ef,
+            constraints,
+            lock_mode,
+            apply_profile,
+            risk_level_i,
+            locked_assets,
+            fixed_weights,
+            asset_metadata,
+            current_risk_buckets,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ot_vec,
         )
-        
+
         # FASE 7: Feasibility & Auto-Expand Check
-        (is_feasible, infeasible_ret_obj, added_assets, solver_path_override, 
-         ef_override, mu_override, S_override, universe_override, 
-         eq_vec_override, bd_vec_override, cs_vec_override, al_vec_override, ot_vec_override
+        (
+            is_feasible,
+            infeasible_ret_obj,
+            added_assets,
+            solver_path_override,
+            ef_override,
+            mu_override,
+            S_override,
+            universe_override,
+            eq_vec_override,
+            bd_vec_override,
+            cs_vec_override,
+            al_vec_override,
+            ot_vec_override,
         ) = _check_feasibility_and_autoexpand(
-            db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
-            eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
-            bd_vec, cs_vec, al_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets
+            db,
+            fetcher,
+            price_data,
+            universe,
+            assets_list,
+            apply_profile,
+            equity_floor,
+            max_weight,
+            eq_vec,
+            locked_assets,
+            constraints,
+            asset_metadata,
+            min_weight,
+            gamma,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ot_vec,
+            lock_mode,
+            risk_level_i,
+            fixed_weights,
+            current_risk_buckets,
         )
-        
+
         if not is_feasible:
             return infeasible_ret_obj
-            
+
         if solver_path_override:
             solver_path = solver_path_override
             ef = ef_override
             mu = mu_override
             S = S_override
             universe = universe_override
-            eq_vec, bd_vec, cs_vec, al_vec, ot_vec = eq_vec_override, bd_vec_override, cs_vec_override, al_vec_override, ot_vec_override
+            eq_vec, bd_vec, cs_vec, al_vec, ot_vec = (
+                eq_vec_override,
+                bd_vec_override,
+                cs_vec_override,
+                al_vec_override,
+                ot_vec_override,
+            )
         else:
             solver_path = None
-            
+
         # FASE 8: Final Mathematical Run
         if not solver_path or solver_path == "auto_expand_then_solve":
             ef, raw_weights, solver_path = _run_solver(
-                ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe,
-                lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ot_vec
+                ef,
+                mu,
+                S,
+                constraints,
+                risk_level_i,
+                rf_rate,
+                max_weight,
+                gamma,
+                apply_profile,
+                universe,
+                lock_mode,
+                locked_assets,
+                fixed_weights,
+                asset_metadata,
+                current_risk_buckets,
+                eq_vec,
+                bd_vec,
+                cs_vec,
+                al_vec,
+                ot_vec,
             )
         else:
             raw_weights = None
 
         # FASE 9: Post-Processing & Normalization
         weights = _postprocess_weights(
-            ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, 
-            eq_vec, bd_vec, cs_vec, al_vec, ot_vec, lock_mode, locked_assets, fixed_weights
+            ef,
+            raw_weights,
+            cutoff,
+            universe,
+            apply_profile,
+            risk_level_i,
+            current_risk_buckets,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ot_vec,
+            lock_mode,
+            locked_assets,
+            fixed_weights,
         )
 
         # FASE 10: Formatting Metrics & Output
@@ -741,7 +1091,11 @@ def run_optimization(
         s_sum = eq_total + bd_total + cs_total + al_total + ot_total
         if s_sum > 0:
             eq_total, bd_total, cs_total, al_total, ot_total = (
-                eq_total/s_sum, bd_total/s_sum, cs_total/s_sum, al_total/s_sum, ot_total/s_sum,
+                eq_total / s_sum,
+                bd_total / s_sum,
+                cs_total / s_sum,
+                al_total / s_sum,
+                ot_total / s_sum,
             )
 
         requested = []
@@ -750,16 +1104,26 @@ def run_optimization(
             if a not in seen:
                 requested.append(a)
                 seen.add(a)
-        weights_full = {a: float(weights.get(a, 0.0)) if a in universe else 0.0 for a in requested}
+        weights_full = {
+            a: float(weights.get(a, 0.0)) if a in universe else 0.0 for a in requested
+        }
 
         binding_constraints = []
-        if apply_profile: binding_constraints.append(f"Risk Profile ({risk_level_i}) caps applied")
-        if locked_assets: binding_constraints.append(f"{len(locked_assets)} locked assets maintained")
-        if (constraints and (float(constraints.get("europe", 0.0) or 0.0) > 0 or float(constraints.get("americas", 1.0) or 1.0) < 1.0)):
+        if apply_profile:
+            binding_constraints.append(f"Risk Profile ({risk_level_i}) caps applied")
+        if locked_assets:
+            binding_constraints.append(f"{len(locked_assets)} locked assets maintained")
+        if constraints and (
+            float(constraints.get("europe", 0.0) or 0.0) > 0
+            or float(constraints.get("americas", 1.0) or 1.0) < 1.0
+        ):
             binding_constraints.append("Geographic limits applied")
-        if apply_profile and risk_level_i <= 3: binding_constraints.append("Emerging markets capped at 5%")
+        if apply_profile and risk_level_i <= 3:
+            binding_constraints.append("Emerging markets capped at 5%")
 
-        profile_limits = current_risk_buckets.get(risk_level_i, {}) if apply_profile else {}
+        profile_limits = (
+            current_risk_buckets.get(risk_level_i, {}) if apply_profile else {}
+        )
 
         explainability = {
             "apply_profile": apply_profile,
@@ -769,16 +1133,26 @@ def run_optimization(
             "applied_views": bool(tactical_views),
             "locked_assets_count": len(locked_assets or []),
             "fixed_weights_applied": list(fixed_weights.keys()),
-            "primary_objective": str(objective) if "objective" in locals() else "max_sharpe",
-            "solver_fallback_used": solver_path.startswith("fallback_") if solver_path else False,
+            "primary_objective": str(objective)
+            if "objective" in locals()
+            else "max_sharpe",
+            "solver_fallback_used": solver_path.startswith("fallback_")
+            if solver_path
+            else False,
             "binding_constraints": binding_constraints,
-            
             # --- STRUCTURED EXPLAINABILITY (Phase 5) ---
             "solver_path": solver_path,
             "applied_constraints": binding_constraints,
-            "relaxed_constraints": ["Objetivo matemático principal relajado"] if solver_path and "fallback" in solver_path else [],
-            "locked_assets_impact": "Pesos forzados de manera determinista (sin optimización) para los %d activos indicados" % len(locked_assets) if locked_assets else "Ninguno",
-            "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori" if tactical_views else "Ninguno",
+            "relaxed_constraints": ["Objetivo matemático principal relajado"]
+            if solver_path and "fallback" in solver_path
+            else [],
+            "locked_assets_impact": "Pesos forzados de manera determinista (sin optimización) para los %d activos indicados"
+            % len(locked_assets)
+            if locked_assets
+            else "Ninguno",
+            "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori"
+            if tactical_views
+            else "Ninguno",
         }
 
         return {
@@ -790,13 +1164,19 @@ def run_optimization(
             "used_assets": universe,
             "missing_assets": missing_assets,
             "portfolio_allocation": {
-                "RV": eq_total, "RF": bd_total, "Monetario": cs_total,
-                "Alternativos": al_total, "Otros": ot_total,
+                "RV": eq_total,
+                "RF": bd_total,
+                "Monetario": cs_total,
+                "Alternativos": al_total,
+                "Otros": ot_total,
             },
             "weights": weights_full,
             "metrics": {
-                "return": port_ret, "volatility": port_vol, "sharpe": port_sharpe,
-                "rf_rate": rf_rate, "portfolio": portfolio_point,
+                "return": port_ret,
+                "volatility": port_vol,
+                "sharpe": port_sharpe,
+                "rf_rate": rf_rate,
+                "portfolio": portfolio_point,
             },
             "frontier": frontier_points,
             "portfolio": portfolio_point,
@@ -808,4 +1188,9 @@ def run_optimization(
 
     except Exception as e:
         logger.info(f"❌ Critical Error: {e}")
-        return {"api_version": "optimizer_v4", "status": "error", "message": str(e), "error": str(e)}
+        return {
+            "api_version": "optimizer_v4",
+            "status": "error",
+            "message": str(e),
+            "error": str(e),
+        }

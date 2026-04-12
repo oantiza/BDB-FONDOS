@@ -69,7 +69,7 @@ def _make_mock_prices(
         noise = rng.normal(loc=drifts[i], scale=vols[i], size=n_days)
         # Clip tails to keep tests stable
         noise = np.clip(noise, -0.06, 0.06)
-        returns[f"Asset_{i+1}"] = noise
+        returns[f"Asset_{i + 1}"] = noise
 
     rets_df = pd.DataFrame(returns, index=dates)
     prices = 100.0 * (1.0 + rets_df).cumprod()
@@ -129,17 +129,19 @@ def _build_frontier(
 
     # Sort by volatility to make monotonic tests straightforward
     frontier.sort(key=lambda p: p["x"])
-    
+
     # If the solver failed to reach the maximum return (often happens at the exact upper bound),
     # manually append the 100% distribution in the max return asset.
     if frontier and frontier[-1]["y"] < max_ret - 1e-5:
         max_asset = mu.idxmax()
-        frontier.append({
-            "x": float(np.sqrt(S.loc[max_asset, max_asset])),
-            "y": max_ret,
-            "weights": {t: 1.0 if t == max_asset else 0.0 for t in mu.index}
-        })
-    
+        frontier.append(
+            {
+                "x": float(np.sqrt(S.loc[max_asset, max_asset])),
+                "y": max_ret,
+                "weights": {t: 1.0 if t == max_asset else 0.0 for t in mu.index},
+            }
+        )
+
     if len(frontier) < 5:
         raise AssertionError("Frontier construction returned too few valid points")
 
@@ -243,7 +245,9 @@ def test_frontier_monotonic_vol(frontier: List[Dict[str, float]]) -> None:
     assert all(xs[i + 1] >= xs[i] - 1e-10 for i in range(len(xs) - 1))
 
 
-def test_frontier_roof_property(mu: pd.Series, S: pd.DataFrame, frontier: List[Dict[str, float]]) -> None:
+def test_frontier_roof_property(
+    mu: pd.Series, S: pd.DataFrame, frontier: List[Dict[str, float]]
+) -> None:
     """
     Invariant: no individual asset should lie above the efficient frontier
     when plotted using the same expected-return metric as the optimizer.

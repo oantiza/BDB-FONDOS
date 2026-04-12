@@ -7,6 +7,7 @@ PURPOSE: Compara algoritmos de scoring de fondos.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.scoring_comparison
 """
+
 #!/usr/bin/env python3
 """
 Simple Scoring Comparison Script
@@ -136,4 +137,3 @@ if __name__ == "__main__":
     print("- Fund B (medium, high drawdown): Heavily penalized for -20% drawdown")
     print("- Fund C (low quality, no data): Unaffected (no drawdown/Sortino data)")
     print("=" * 70)
-

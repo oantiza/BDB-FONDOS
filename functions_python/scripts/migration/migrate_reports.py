@@ -7,6 +7,7 @@ PURPOSE: Migración estructural de reportes de versiones anteriores.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.migration.migrate_reports
 """
+
 """
 Script to migrate analysis_results from boutique-financiera-app to bdb-fondos
 """
@@ -77,4 +78,3 @@ if __name__ == "__main__":
         print(
             "Go to: https://console.firebase.google.com/project/boutique-financiera-app/settings/serviceaccounts/adminsdk"
         )
-

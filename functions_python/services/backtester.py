@@ -41,25 +41,29 @@ def _fetch_and_process_data(assets_list, db, periods, fetcher=None):
 
     df = df[keep_assets].sort_index()
     first_valid = df.apply(lambda col: col.first_valid_index()).dropna()
-    if not first_valid.empty:
-        common_start = first_valid.max()
-        df = df[df.index >= common_start]
-        
+
+    df = df.dropna(how="all")
+
     # Hardening: ffill limit 5 to avoid hiding major data gaps
     df = df.ffill(limit=5)
-    
-    # Hardening: Check for excessive internal gaps in common period
+
+    # Hardening: Check for excessive internal gaps post-inception
     if not df.empty:
-        gap_threshold = len(df) * 0.05
         for col in df.columns:
-            missing_count = df[col].isnull().sum()
-            if missing_count > gap_threshold:
-                print(f"⚠️ [Backtester] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
-                
-        df = df.dropna()
+            start_idx = df[col].first_valid_index()
+            if start_idx is not None:
+                post_inception = df[col].loc[start_idx:]
+                missing_count = post_inception.isnull().sum()
+                gap_threshold = len(post_inception) * 0.05
+                if missing_count > gap_threshold:
+                    print(
+                        f"⚠️ [Backtester] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado."
+                    )
 
     if df.empty:
-        raise Exception("Demasiados huecos internos invalidaron el dataset común (empty after dropping missing).")
+        raise Exception(
+            "Demasiados huecos internos invalidaron el dataset común (empty after dropping missing)."
+        )
 
     return df, synthetic_used
 
@@ -178,21 +182,24 @@ def _calculate_allocations(portfolio, db, weights_map):
 
             # 2. REGION AGGREGATION
             regions = None
-            
+
             # [V2-FIRST INTENT]
             # Priority 1: Canonical V2 portfolio exposure (equity_regions)
             # Normalizing dict format since V2 uses decimals 0-1, but legacy used 0-100.
             # We scale them to 0-100 so the parsing loop behaves consistently.
             portfolio_v2 = fd.get("portfolio_exposure_v2", {})
-            if "equity_regions" in portfolio_v2 and isinstance(portfolio_v2["equity_regions"], dict):
-                regions = {k: v * 100 for k, v in portfolio_v2["equity_regions"].items()}
+            if "equity_regions" in portfolio_v2 and isinstance(
+                portfolio_v2["equity_regions"], dict
+            ):
+                regions = {
+                    k: v * 100 for k, v in portfolio_v2["equity_regions"].items()
+                }
 
             # Priority 2: Canonical V2 primary region as 100% fallback
             if not regions:
                 primary_v2 = fd.get("classification_v2", {}).get("region_primary")
                 if primary_v2 and primary_v2 not in ["UNKNOWN", "NONE", None]:
                     regions = {primary_v2.lower(): 100.0}
-
 
             # Unwrap 'detail' if present (Morningstar structure: regions -> detail -> {country: %})
             if regions and isinstance(regions, dict) and "detail" in regions:
@@ -297,7 +304,10 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
 
     # Portfolio Return Calculation
     df_port = df[valid_assets]
-    returns = df_port.pct_change().dropna()
+    returns = df_port.pct_change(fill_method=None)
+
+    # Only keep dates where at least one asset has a valid return
+    returns = returns.dropna(how="all")
 
     # ====================================================================
     # DEFENSIVE RETURN CLIPPING: Cap daily returns at ±15%
@@ -312,21 +322,52 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
         )
         returns = returns.clip(-DAILY_RETURN_CAP, DAILY_RETURN_CAP)
 
-    w_vector = np.array([weights_map.get(c, 0) for c in df_port.columns])
-    if w_vector.sum() > 0:
-        w_vector = w_vector / w_vector.sum()
+    # Dynamic point-in-time weight allocation
+    # Create weight matrix matching returns index
+    w_df = pd.DataFrame(index=returns.index, columns=returns.columns)
+    for c in w_df.columns:
+        w_df[c] = weights_map.get(c, 0)
 
-    port_ret = returns.dot(w_vector)
+    # Set weights to 0 where asset has no return data (pre-inception or gaps)
+    w_df = w_df.mask(returns.isna(), 0.0)
+
+    # Re-normalize point-in-time
+    w_sum = w_df.sum(axis=1)
     
+    # Avoid division by zero: if weight sum is 0, weights remain 0.0
+    w_df = w_df.div(w_sum.replace(0, np.nan), axis=0).fillna(0.0)
+
+    # Calculate portfolio daily returns
+    port_ret = (returns.fillna(0.0) * w_df).sum(axis=1)
+
     # Calculate cumulative returns for metrics calculations
     cumulative = (1 + port_ret).cumprod() * 100
-    
+
     days_count = len(cumulative)
+    
+    # === METRICS DEBUG LOGGING ===
+    print(
+        f"🛠️ [DEBUG METRICS] Period={period}. Valid Assets: {valid_assets}. Weights Map: {weights_map}"
+    )
+    print(
+        f"🛠️ [DEBUG METRICS] returns length={len(returns)}, mean={returns.mean(numeric_only=True).mean():.6f}"
+    )
+    print(
+        f"🛠️ [DEBUG METRICS] w_df sum.sum={w_df.sum().sum():.4f}, w_df[0] sample: {w_df.iloc[0].to_dict() if len(w_df)>0 else 'empty'}"
+    )
+    print(
+        f"🛠️ [DEBUG METRICS] port_ret type={type(port_ret)}, sum={port_ret.sum():.6f}, std={port_ret.std():.6f}"
+    )
+    # ==============================
+
     rf_rate_annual = fetcher.get_dynamic_risk_free_rate()
-    
+
     from services.quant_core import calculate_historical_metrics
-    m_port = calculate_historical_metrics(cumulative, risk_free_annual=rf_rate_annual, method="geometric")
-    
+
+    m_port = calculate_historical_metrics(
+        cumulative, risk_free_annual=rf_rate_annual, method="geometric"
+    )
+
     if m_port:
         cagr = m_port["return"]
         vol = m_port["volatility"]
@@ -364,7 +405,7 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
             yf_data.index = pd.to_datetime(yf_data.index).normalize()
             if yf_data.index.tz is not None:
                 yf_data.index = yf_data.index.tz_localize(None)
-                
+
             # Hardening: Exact calendar match, limited ffill, tiny bfill for start boundary
             yf_aligned = yf_data.reindex(default_index)
             return yf_aligned.ffill(limit=5).bfill(limit=1)
@@ -409,8 +450,10 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
     for name, series in profiles.items():
         if len(series) < 5:
             continue
-            
-        m_bmk = calculate_historical_metrics(series, risk_free_annual=rf_rate_annual, method="geometric")
+
+        m_bmk = calculate_historical_metrics(
+            series, risk_free_annual=rf_rate_annual, method="geometric"
+        )
         if m_bmk:
             synthetics_metrics.append(
                 {
@@ -454,7 +497,15 @@ def run_multi_period_backtest(portfolio, periods, db):
             periods = [periods]
 
         assets = [p["isin"] for p in portfolio]
-        weights_map = {p["isin"]: float(p["weight"]) / 100.0 for p in portfolio}
+        print(f"🛠️ [DEBUG RAW PAYLOAD] {portfolio}")
+        weights_map = {p["isin"]: float(p.get("weight", 0)) / 100.0 for p in portfolio}
+
+        # Safety net: if ALL weights are zero, fall back to equal weighting (1/N)
+        total_w = sum(weights_map.values())
+        if total_w < 1e-9 and len(weights_map) > 0:
+            equal_w = 1.0 / len(weights_map)
+            weights_map = {k: equal_w for k in weights_map}
+            print(f"⚠️ [FALLBACK] All weights were 0 → equal-weighted 1/{len(weights_map)} = {equal_w:.4f}")
 
         # 1. Fetch Data (Max Period implied by taking all avail history, or explicit logic)
         # By default DataFetcher gets all history.

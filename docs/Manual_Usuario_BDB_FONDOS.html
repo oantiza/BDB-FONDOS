@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual de Usuario — BDB-FONDOS</title>
+    <style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@page {
+    size: A4;
+    margin: 2cm 2.5cm;
+    @bottom-center {
+        content: counter(page);
+        font-size: 9px;
+        color: #94a3b8;
+        font-family: 'Inter', sans-serif;
+    }
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-size: 11px;
+    line-height: 1.7;
+    color: #1e293b;
+    background: #ffffff;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 2cm 2.5cm;
+}
+
+/* HEADINGS */
+h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+    margin: 0 0 8px 0;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #0f172a;
+    letter-spacing: -0.5px;
+    page-break-before: always;
+}
+
+h1:first-of-type {
+    page-break-before: avoid;
+    text-align: center;
+    font-size: 34px;
+    border-bottom: 3px solid #D4AF37;
+    color: #0f172a;
+    margin-bottom: 16px;
+}
+
+h2 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #0f172a;
+    margin-top: 32px;
+    margin-bottom: 12px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid #e2e8f0;
+    letter-spacing: -0.3px;
+    page-break-before: always;
+}
+
+h2:first-of-type {
+    page-break-before: avoid;
+}
+
+h3 {
+    font-size: 14px;
+    font-weight: 600;
+    color: #1e40af;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    padding-left: 10px;
+    border-left: 3px solid #3b82f6;
+}
+
+h4 {
+    font-size: 12px;
+    font-weight: 600;
+    color: #334155;
+    margin-top: 14px;
+    margin-bottom: 6px;
+}
+
+/* PARAGRAPHS */
+p {
+    margin-bottom: 8px;
+    text-align: justify;
+    hyphens: auto;
+}
+
+strong {
+    font-weight: 600;
+    color: #0f172a;
+}
+
+em {
+    color: #475569;
+}
+
+/* LISTS */
+ul, ol {
+    margin: 8px 0;
+    padding-left: 22px;
+}
+
+li {
+    margin-bottom: 4px;
+}
+
+li strong {
+    color: #1e40af;
+}
+
+/* TABLES */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 10.5px;
+    page-break-inside: avoid;
+}
+
+thead {
+    background: #0f172a;
+}
+
+th {
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #ffffff;
+    border: 1px solid #1e293b;
+}
+
+td {
+    padding: 7px 12px;
+    border: 1px solid #e2e8f0;
+    color: #334155;
+    vertical-align: top;
+}
+
+tbody tr:nth-child(even) {
+    background: #f8fafc;
+}
+
+tbody tr:hover {
+    background: #f1f5f9;
+}
+
+/* CODE */
+code {
+    background: #f1f5f9;
+    color: #be185d;
+    padding: 1px 5px;
+    border-radius: 3px;
+    font-size: 10px;
+    font-family: 'Consolas', 'Monaco', monospace;
+}
+
+pre {
+    background: #1e293b;
+    color: #e2e8f0;
+    padding: 16px;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 12px 0;
+    font-size: 10px;
+    line-height: 1.5;
+    page-break-inside: avoid;
+}
+
+pre code {
+    background: transparent;
+    color: #e2e8f0;
+    padding: 0;
+}
+
+/* HORIZONTAL RULES */
+hr {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 24px 0;
+}
+
+/* BLOCKQUOTES */
+blockquote {
+    border-left: 3px solid #D4AF37;
+    padding: 8px 16px;
+    margin: 12px 0;
+    background: #fffbeb;
+    font-style: italic;
+    color: #92400e;
+}
+
+/* LINKS */
+a {
+    color: #1e40af;
+    text-decoration: none;
+}
+
+/* FIRST PAGE - Title styling */
+body > p:first-of-type {
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+}
+
+/* Prevent orphans and widows */
+p, li {
+    orphans: 3;
+    widows: 3;
+}
+
+h1, h2, h3, h4 {
+    page-break-after: avoid;
+}
+
+table, pre, blockquote {
+    page-break-inside: avoid;
+}
+
+/* TOC-like section for the Index */
+h2 + p + ol,
+h2 + ol {
+    columns: 2;
+    column-gap: 30px;
+}
+
+h2 + p + ol li,
+h2 + ol li {
+    break-inside: avoid;
+}
+</style>
+</head>
+<body>
+<h1 id="manual-de-usuario-bdb-fondos-gestor-de-fondos">Manual de Usuario — BDB-FONDOS: Gestor de Fondos</h1>
+<p><strong>Versión:</strong> 1.0<br />
+<strong>Fecha:</strong> Marzo 2026<br />
+<strong>Plataforma:</strong> Aplicación Web (React + Firebase)</p>
+<hr />
+<h2 id="indice">Índice</h2>
+<ol>
+<li><a href="#1-introducción-general">Introducción General</a></li>
+<li><a href="#2-acceso-y-autenticación">Acceso y Autenticación</a></li>
+<li><a href="#3-módulo-1--dashboard-principal">Módulo 1 — Dashboard Principal</a></li>
+<li><a href="#4-módulo-2--universo-de-inversión-sidebar">Módulo 2 — Universo de Inversión (Sidebar)</a></li>
+<li><a href="#5-módulo-3--cartera-de-fondos">Módulo 3 — Cartera de Fondos</a></li>
+<li><a href="#6-módulo-4--control-operativo-optimización">Módulo 4 — Control Operativo (Optimización)</a></li>
+<li><a href="#7-módulo-5--análisis-x-ray-de-cartera">Módulo 5 — Análisis X-Ray de Cartera</a></li>
+<li><a href="#8-módulo-6--analítica-avanzada">Módulo 6 — Analítica Avanzada</a></li>
+<li><a href="#9-módulo-7--macro-y-estrategia">Módulo 7 — Macro y Estrategia</a></li>
+<li><a href="#10-módulo-8--simulador-de-jubilación">Módulo 8 — Simulador de Jubilación</a></li>
+<li><a href="#11-módulo-9--comparador">Módulo 9 — Comparador</a></li>
+<li><a href="#12-módulo-10--análisis-de-posiciones-retrocesiones">Módulo 10 — Análisis de Posiciones (Retrocesiones)</a></li>
+<li><a href="#13-módulo-11--modales-y-herramientas-auxiliares">Módulo 11 — Modales y Herramientas Auxiliares</a></li>
+<li><a href="#14-módulo-12--generación-de-informes-pdf">Módulo 12 — Generación de Informes PDF</a></li>
+<li><a href="#15-taxonomía-y-clasificación-de-activos">Taxonomía y Clasificación de Activos</a></li>
+<li><a href="#16-arquitectura-técnica-resumen">Arquitectura Técnica (Resumen)</a></li>
+<li><a href="#17-resolución-de-problemas-frecuentes">Resolución de Problemas Frecuentes</a></li>
+</ol>
+<hr />
+<h2 id="1-introduccion-general">1. Introducción General</h2>
+<p><strong>BDB-FONDOS</strong> es una plataforma profesional de análisis, optimización y reporting de carteras de fondos de inversión. Está diseñada para asesores financieros y gestores de patrimonio que necesitan:</p>
+<ul>
+<li><strong>Construir carteras</strong> de fondos seleccionando de un universo de más de 1.000 fondos categorizados.</li>
+<li><strong>Optimizar</strong> la asignación de pesos mediante algoritmos cuantitativos (Markowitz, maximización Sharpe).</li>
+<li><strong>Analizar</strong> el riesgo, rentabilidad, correlaciones y distribución geográfica/sectorial de la cartera.</li>
+<li><strong>Generar informes PDF</strong> profesionales para clientes (informe completo y resumen).</li>
+<li><strong>Simular escenarios</strong> de jubilación con cálculo de EPSV, fiscalidad diferenciada y proyecciones temporales.</li>
+<li><strong>Monitorizar</strong> el entorno macroeconómico con informes de estrategia y asignación táctica.</li>
+</ul>
+<h3 id="stack-tecnologico">Stack Tecnológico</h3>
+<table>
+<thead>
+<tr>
+<th>Componente</th>
+<th>Tecnología</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Frontend</td>
+<td>React + TypeScript + Vite</td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>Python (Firebase Cloud Functions)</td>
+</tr>
+<tr>
+<td>Base de Datos</td>
+<td>Google Firestore</td>
+</tr>
+<tr>
+<td>Autenticación</td>
+<td>Firebase Authentication</td>
+</tr>
+<tr>
+<td>Hosting</td>
+<td>Firebase Hosting</td>
+</tr>
+<tr>
+<td>Motor Cuantitativo</td>
+<td>Python (NumPy, SciPy)</td>
+</tr>
+<tr>
+<td>Gráficos</td>
+<td>Recharts</td>
+</tr>
+<tr>
+<td>PDF</td>
+<td>html2canvas + jsPDF</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="2-acceso-y-autenticacion">2. Acceso y Autenticación</h2>
+<h3 id="pantalla-de-login">Pantalla de Login</h3>
+<p>Al acceder a la aplicación, se presenta la pantalla de inicio de sesión con el logotipo <strong>&ldquo;Gestor de Fondos&rdquo;</strong>.</p>
+<p><strong>Campos requeridos:</strong>
+- <strong>Usuario:</strong> Correo electrónico registrado.
+- <strong>Contraseña:</strong> Contraseña asociada a la cuenta.</p>
+<p><strong>Acciones disponibles:</strong>
+- Hacer clic en el icono del ojo (👁) para mostrar/ocultar la contraseña.
+- Pulsar <strong>&ldquo;ENTRAR AL GESTOR&rdquo;</strong> o la tecla <strong>Enter</strong> para iniciar sesión.</p>
+<p><strong>Notas:</strong>
+- La autenticación se realiza contra Firebase Authentication.
+- Si las credenciales son incorrectas, se muestra un mensaje de error.
+- Al autenticarse, el sistema sincroniza automáticamente los <strong>perfiles de riesgo dinámicos</strong> desde la base de datos.</p>
+<h3 id="cierre-de-sesion">Cierre de Sesión</h3>
+<p>Desde cualquier vista, el botón <strong>&ldquo;Salir&rdquo;</strong> en la esquina superior derecha de la barra de navegación permite cerrar la sesión.</p>
+<hr />
+<h2 id="3-modulo-1-dashboard-principal">3. Módulo 1 — Dashboard Principal</h2>
+<p>El Dashboard es la vista central de la aplicación. Se divide en <strong>cuatro áreas principales</strong> dispuestas en una cuadrícula:</p>
+<h3 id="31-distribucion-de-pantalla">3.1 Distribución de Pantalla</h3>
+<table>
+<thead>
+<tr>
+<th>Área</th>
+<th>Ubicación</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sidebar</strong> (Universo de Inversión)</td>
+<td>Columna izquierda (15%)</td>
+<td>Catálogo de fondos disponibles</td>
+</tr>
+<tr>
+<td><strong>Zona Central</strong></td>
+<td>Columna central (58%)</td>
+<td>Gráficos + Tabla de cartera</td>
+</tr>
+<tr>
+<td><strong>Panel Derecho</strong></td>
+<td>Columna derecha (27%)</td>
+<td>Distribución de activos + Controles</td>
+</tr>
+</tbody>
+</table>
+<h3 id="32-cabecera-header">3.2 Cabecera (Header)</h3>
+<p>La barra superior contiene los botones de navegación:</p>
+<table>
+<thead>
+<tr>
+<th>Botón</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Análisis de Cartera</strong></td>
+<td>Abre el módulo X-Ray completo</td>
+</tr>
+<tr>
+<td><strong>★ Comparador</strong></td>
+<td>Abre el comparador de carteras/fondos</td>
+</tr>
+<tr>
+<td><strong>Posiciones</strong></td>
+<td>Abre el analizador de posiciones</td>
+</tr>
+<tr>
+<td><strong>Macro y Estrategia</strong></td>
+<td>Abre el dashboard macroeconómico</td>
+</tr>
+<tr>
+<td><strong>Jubilación</strong></td>
+<td>Abre el simulador de jubilación</td>
+</tr>
+<tr>
+<td><strong>Salir</strong></td>
+<td>Cierra la sesión</td>
+</tr>
+</tbody>
+</table>
+<h3 id="33-graficos-del-dashboard">3.3 Gráficos del Dashboard</h3>
+<p><strong>Frontera Eficiente (Riesgo vs Retorno 3Y):</strong>
+- Muestra la curva de la frontera eficiente de Markowitz.
+- Los puntos individuales representan cada fondo de la cartera.
+- El punto dorado (★) indica la posición actual de la cartera.
+- Permite identificar visualmente si la cartera es eficiente o no.</p>
+<p><strong>Métricas Clave:</strong>
+- Tarjetas resumen con métricas para periodos de 1 año, 3 años y 5 años.
+- Incluye: Rentabilidad (CAGR), Volatilidad, Ratio Sharpe, Máximo Drawdown.
+- Muestra la tasa libre de riesgo actual (RF).</p>
+<h3 id="34-widget-de-distribucion-de-activos">3.4 Widget de Distribución de Activos</h3>
+<p>Panel derecho superior que muestra:
+- <strong>Distribución por clase de activo</strong> (RV, RF, Monetario, Mixto, Alternativos).
+- <strong>Distribución geográfica</strong> (regiones de exposición de los fondos).
+- Representación visual mediante gráficos de tipo donut y barras.</p>
+<h3 id="35-calidad-de-datos">3.5 Calidad de Datos</h3>
+<p>Un badge de calidad indica el grado de completitud de los datos de la cartera (A+, A, B, C), evaluando:
+- Presencia de datos históricos.
+- Clasificación V2 completa.
+- Métricas de rendimiento disponibles.</p>
+<hr />
+<h2 id="4-modulo-2-universo-de-inversion-sidebar">4. Módulo 2 — Universo de Inversión (Sidebar)</h2>
+<h3 id="descripcion">Descripción</h3>
+<p>El panel lateral izquierdo permite explorar todo el universo de fondos disponibles en la base de datos (colección <code>funds_v3</code> de Firestore).</p>
+<h3 id="funcionalidades">Funcionalidades</h3>
+<p><strong>Filtro por Clase de Activo:</strong>
+Dropdown con las siguientes categorías:
+- <em>Grandes Bloques:</em> Renta Variable (General), Renta Fija (General), Monetario, Mixto, Alternativos.
+- <em>Sectores RV:</em> Tecnología, Salud.
+- <em>Especialización RF:</em> Deuda Gubernamental, Deuda Corporativa, Alto Rendimiento (HY).</p>
+<p><strong>Buscador:</strong>
+- Campo de texto para buscar por <strong>nombre del fondo</strong> o <strong>código ISIN</strong>.
+- La búsqueda es inmediata (filtrado en tiempo real).</p>
+<p><strong>Toggle &ldquo;Mostrar sin histórico&rdquo;:</strong>
+- Por defecto, solo muestra fondos con datos históricos verificados (colección <code>historico_vl_v2</code>).
+- Activar el toggle muestra todos los fondos, incluyendo aquellos sin histórico.
+- Un indicador ⚠️ marca los fondos sin datos históricos confirmados.</p>
+<p><strong>Información mostrada por fondo:</strong>
+- Nombre del fondo.
+- Código ISIN.
+- Clasificación V2 (tipo y subtipo del activo).</p>
+<p><strong>Acciones por fondo:</strong>
+- <strong>Clic en el nombre:</strong> Abre el modal de detalle del fondo (<code>FundDetailModal</code>).
+- <strong>Botón &ldquo;AÑADIR&rdquo;:</strong> Agrega el fondo a la cartera actual (aparece al pasar el cursor).</p>
+<h3 id="verificacion-de-historico">Verificación de Histórico</h3>
+<p>El sistema verifica en segundo plano si cada fondo tiene datos históricos reales en Firestore. Una barra de progreso muestra: <em>&ldquo;Comprobando histórico real… X/Y&rdquo;</em>.</p>
+<hr />
+<h2 id="5-modulo-3-cartera-de-fondos">5. Módulo 3 — Cartera de Fondos</h2>
+<h3 id="descripcion_1">Descripción</h3>
+<p>La tabla de cartera es el componente central donde se gestionan los fondos seleccionados.</p>
+<h3 id="cabecera-de-la-cartera">Cabecera de la Cartera</h3>
+<table>
+<thead>
+<tr>
+<th>Elemento</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Título</strong></td>
+<td>&ldquo;Cartera de Fondos (N)&rdquo; — muestra el número de fondos</td>
+</tr>
+<tr>
+<td><strong>Bloquear/Desbloquear Todos</strong></td>
+<td>Bloquea o desbloquea todos los fondos simultaneamente</td>
+</tr>
+<tr>
+<td><strong>Auto-completar</strong></td>
+<td>Sugiere fondos adicionales para llegar al número objetivo</td>
+</tr>
+<tr>
+<td><strong>Capital</strong></td>
+<td>Muestra el capital total invertido (editable haciendo clic)</td>
+</tr>
+<tr>
+<td><strong>Exportar CSV</strong> (↓)</td>
+<td>Exporta la cartera actual a formato CSV</td>
+</tr>
+<tr>
+<td><strong>Importar CSV</strong> (↑)</td>
+<td>Importa una cartera desde un archivo CSV</td>
+</tr>
+<tr>
+<td><strong>Vaciar Cartera</strong> (🗑)</td>
+<td>Elimina todos los fondos de la cartera (con confirmación)</td>
+</tr>
+</tbody>
+</table>
+<h3 id="informacion-por-fondo-en-la-tabla">Información por Fondo en la Tabla</h3>
+<p>Cada fila de la tabla muestra:
+- <strong>Nombre</strong> del fondo (clic para ver detalle).
+- <strong>ISIN</strong> del fondo.
+- <strong>Peso (%):</strong> Porcentaje de asignación (editable).
+- <strong>Importe (€):</strong> Calculado automáticamente según capital total × peso.
+- <strong>Volatilidad</strong> anualizada.
+- <strong>Candado</strong> (🔒/🔓): Indica si el fondo está bloqueado para optimización.</p>
+<h3 id="acciones-por-fondo">Acciones por Fondo</h3>
+<table>
+<thead>
+<tr>
+<th>Acción</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Editar peso</strong></td>
+<td>Hacer clic en la celda del peso y modificar el valor</td>
+</tr>
+<tr>
+<td><strong>Bloquear/Desbloquear</strong></td>
+<td>El candado protege el fondo durante la optimización; su peso no será modificado</td>
+</tr>
+<tr>
+<td><strong>Swap (Intercambiar)</strong></td>
+<td>Abre el modal de intercambio con alternativas similares</td>
+</tr>
+<tr>
+<td><strong>Eliminar</strong></td>
+<td>Quita el fondo de la cartera</td>
+</tr>
+</tbody>
+</table>
+<h3 id="formato-csv-de-importacionexportacion">Formato CSV de Importación/Exportación</h3>
+<p>El archivo CSV debe contener las columnas: <code>ISIN</code>, <code>Weight</code> (peso en porcentaje).</p>
+<hr />
+<h2 id="6-modulo-4-control-operativo-optimizacion">6. Módulo 4 — Control Operativo (Optimización)</h2>
+<h3 id="descripcion_2">Descripción</h3>
+<p>El panel de controles en la parte inferior derecha del Dashboard permite configurar y ejecutar la optimización de la cartera.</p>
+<h3 id="parametros-de-configuracion">Parámetros de Configuración</h3>
+<p><strong>Perfil de Riesgo (1–10):</strong>
+- Slider deslizante de Conservador (1) a Agresivo (10).
+- Cada nivel define:
+  - Exposición mínima a Renta Variable.
+  - Banda objetivo de volatilidad anualizada.
+  - Restricciones máximas a efectivo/bonos.</p>
+<table>
+<thead>
+<tr>
+<th>Nivel</th>
+<th>Perfil</th>
+<th>Volatilidad Objetivo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Defensivo</td>
+<td>~2.5%</td>
+</tr>
+<tr>
+<td>2–3</td>
+<td>Conservador</td>
+<td>~4–6%</td>
+</tr>
+<tr>
+<td>4–5</td>
+<td>Moderado</td>
+<td>~8–10%</td>
+</tr>
+<tr>
+<td>6–7</td>
+<td>Equilibrado</td>
+<td>~12–16%</td>
+</tr>
+<tr>
+<td>8–9</td>
+<td>Dinámico</td>
+<td>~18–24%</td>
+</tr>
+<tr>
+<td>10</td>
+<td>Agresivo</td>
+<td>~30%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Número de Fondos (4–20):</strong>
+- Define cuántos fondos tendrá la cartera optimizada.</p>
+<p><strong>Modo VIP (💎):</strong>
+- Permite marcar fondos como &ldquo;prioritarios&rdquo; (VIP).
+- Los fondos VIP tienen prioridad en la optimización y no serán eliminados.</p>
+<h3 id="botones-de-accion">Botones de Acción</h3>
+<table>
+<thead>
+<tr>
+<th>Botón</th>
+<th>Función</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>✨ Generar</strong></td>
+<td>Genera una cartera manual basada en los parámetros seleccionados</td>
+</tr>
+<tr>
+<td><strong>🚀 Optimizar</strong></td>
+<td>Ejecuta la optimización cuantitativa completa (Markowitz) en el backend</td>
+</tr>
+<tr>
+<td><strong>⚡ Sharpe</strong></td>
+<td>Abre el Maximizador de Sharpe para encontrar el fondo que más mejoraría la cartera</td>
+</tr>
+<tr>
+<td><strong>🧮 Costes</strong></td>
+<td>Abre el simulador de costes (TER, comisiones)</td>
+</tr>
+<tr>
+<td><strong>📁 Carteras</strong></td>
+<td>Abre el gestor de carteras guardadas</td>
+</tr>
+<tr>
+<td><strong>🛡️ Revisión</strong></td>
+<td>Abre la comparativa táctica (antes/después)</td>
+</tr>
+<tr>
+<td><strong>🎚️ Ajuste</strong></td>
+<td>Abre el ajuste macro-táctico de la cartera</td>
+</tr>
+</tbody>
+</table>
+<h3 id="flujo-de-optimizacion">Flujo de Optimización</h3>
+<ol>
+<li>El usuario configura los parámetros (riesgo, nº fondos, VIP).</li>
+<li>Pulsa <strong>&ldquo;Optimizar&rdquo;</strong>. El sistema envía la solicitud al backend Python.</li>
+<li>El motor cuantitativo:</li>
+<li>Descarga datos históricos de precios (3 años).</li>
+<li>Calcula la matriz de covarianza.</li>
+<li>Resuelve la optimización convexa (maximizar Sharpe, minimizar varianza, o mixta).</li>
+<li>Aplica restricciones de suitability (mínimos/máximos por tipo de activo).</li>
+<li>Se presenta la propuesta en un modal de revisión con comparativa <strong>Antes vs Después</strong>.</li>
+<li>El usuario puede:</li>
+<li><strong>Aceptar y Aplicar:</strong> Reemplaza la cartera actual.</li>
+<li><strong>Revisar como Táctica:</strong> Abre la comparativa detallada.</li>
+<li><strong>Cancelar:</strong> Descarta la propuesta.</li>
+</ol>
+<hr />
+<h2 id="7-modulo-5-analisis-x-ray-de-cartera">7. Módulo 5 — Análisis X-Ray de Cartera</h2>
+<h3 id="descripcion_3">Descripción</h3>
+<p>Vista profunda de análisis de la cartera, accesible desde el botón <strong>&ldquo;Análisis de Cartera&rdquo;</strong> en la cabecera.</p>
+<h3 id="secciones">Secciones</h3>
+<p><strong>1. Tabla de Posiciones (Holdings Table):</strong>
+- Lista detallada de cada fondo con:
+  - Nombre, ISIN, peso, importe.
+  - Volatilidad individual.
+  - Clasificación de activo.</p>
+<p><strong>2. Métricas Cuantitativas:</strong>
+- CAGR (Tasa de crecimiento anual compuesto).
+- Volatilidad anualizada.
+- Ratio Sharpe.
+- Máximo Drawdown.
+- Sortino Ratio.
+- Beta vs benchmark.</p>
+<p><strong>3. Asignación de Activos:</strong>
+- <strong>Distribución Global:</strong> Donut con el breakdown por clase de activo.
+- <strong>Distribución por Categoría:</strong> Detalle granular (RV Global, RV Sectorial, RF Soberana, etc.).
+- <strong>Distribución Geográfica:</strong> Exposición por regiones (Norteamérica, Europa, Asia-Pacífico, etc.).</p>
+<p><strong>4. StyleBox (Morningstar):</strong>
+- <strong>Equity StyleBox:</strong> Posición de la cartera según capitalización (Large/Mid/Small) y estilo (Value/Blend/Growth).
+- <strong>Fixed Income StyleBox:</strong> Posición según calidad crediticia (High/Med/Low) y duración (Short/Med/Long).</p>
+<p><strong>5. Evolución Comparativa:</strong>
+- Gráfico de líneas mostrando la evolución histórica de cada fondo de la cartera.
+- Permite visualizar divergencias y correlaciones.</p>
+<p><strong>6. Frontera Eficiente:</strong>
+- Gráfico ampliado de la frontera eficiente con todos los puntos de los fondos.
+- Punto dorado indica la cartera actual.
+- Optimización Markowitz (3Y).</p>
+<h3 id="generacion-de-informes">Generación de Informes</h3>
+<p>Desde esta vista se pueden generar dos tipos de informes:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>📄 Completo</strong></td>
+<td>Portada + Índice + Composición + Métricas + Gráficos avanzados + Guía de interpretación + Plan de ejecución opcional</td>
+</tr>
+<tr>
+<td><strong>📊 Resumen</strong></td>
+<td>Portada + Composición + Métricas + Gráficos avanzados + Guía</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Configuración del informe:</strong>
+- Nombre del cliente (opcional).
+- Opción de añadir un <strong>Plan de Ejecución</strong> (texto libre con instrucciones de compra/venta/rebalanceo).</p>
+<hr />
+<h2 id="8-modulo-6-analitica-avanzada">8. Módulo 6 — Analítica Avanzada</h2>
+<h3 id="descripcion_4">Descripción</h3>
+<p>Vista analítica profunda, accesible desde el botón <strong>&ldquo;📈 Analítica Avanzada&rdquo;</strong> en la cabecera del X-Ray.</p>
+<h3 id="secciones_1">Secciones</h3>
+<p><strong>1. Evolución Histórica:</strong>
+- Gráfico de evolución de la cartera vs un benchmark sintético configurable.
+- <strong>Benchmarks disponibles:</strong> Conservador, Moderado, Equilibrado, Dinámico, Agresivo.
+- <strong>Periodos seleccionables:</strong> 1 año, 3 años, 5 años.</p>
+<p><strong>2. Mapa de Riesgo/Retorno:</strong>
+- Scatter plot con:
+  - Punto de la cartera actual.
+  - Puntos de los benchmarks sintéticos (perfiles de riesgo).
+- Explicación textual automática que compara la cartera con el perfil seleccionado.
+- Ejemplo: <em>&ldquo;Su cartera muestra una volatilidad del </em><em>8.5%</em><em> con un retorno anualizado del </em><em>6.2%</em><em>, situándose entre los perfiles </em><em>Conservador</em><em> y </em><em>Moderado</em><em>.&rdquo;</em></p>
+<p><strong>3. Matriz de Correlación:</strong>
+- Heatmap interactivo mostrando la correlación entre todos los fondos de la cartera.
+- Escala de colores: Verde (correlación baja/negativa) a Rojo (correlación alta/positiva).
+- Permite identificar pares de fondos altamente correlacionados (candidatos a reducción).</p>
+<p><strong>4. Análisis de Correlaciones (IA):</strong>
+- Botón <strong>&ldquo;Análisis de correlaciones&rdquo;</strong> ejecuta un análisis avanzado en el backend.
+- Identifica clusters, redundancias y oportunidades de diversificación.</p>
+<hr />
+<h2 id="9-modulo-7-macro-y-estrategia">9. Módulo 7 — Macro y Estrategia</h2>
+<h3 id="descripcion_5">Descripción</h3>
+<p>Dashboard de inteligencia macroeconómica y estrategia de inversión. Accesible desde el botón <strong>&ldquo;Macro y Estrategia&rdquo;</strong> en la cabecera.</p>
+<h3 id="pestanas-disponibles">Pestañas Disponibles</h3>
+<p><strong>Táctico (Semanal):</strong>
+- Resumen ejecutivo de la semana.
+- Pulso de Mercado con 3 tarjetas:
+  - <strong>Divisas:</strong> Datos y tendencia (Alcista/Bajista/Neutral).
+  - <strong>Materias Primas:</strong> Datos y tendencia.
+  - <strong>Oro &amp; Metales:</strong> Datos y tendencia.
+- Análisis geopolítico y riesgos de cola.</p>
+<p><strong>Estratégico (Mensual):</strong>
+- Ciclo Económico Global (EE.UU., Eurozona, China, Japón).
+  - PIB, IPC y estado del ciclo por región.
+- Análisis Regional de Renta Variable (tendencia y valuación).
+- Renta Fija y Tipos (yield y recomendación de duración).
+- Tema del Mes (análisis profundo de una tendencia).
+- Riesgos de Cola (probabilidad e impacto).</p>
+<p><strong>Asignación de Activos:</strong>
+- Visión de la Casa (titular estratégico).
+- Recomendaciones por clase de activo:
+  - <strong>Renta Variable:</strong> Geográfico + Sectores con vista (Sobreponderar/Neutral/Infraponderar).
+  - <strong>Renta Fija:</strong> Subsectores + Geográfico.
+  - <strong>Activos Reales:</strong> Materias Primas + Divisas.</p>
+<h3 id="fuente-de-datos">Fuente de Datos</h3>
+<p>Los informes se almacenan en la colección <code>reports</code> de Firestore con tipos: <code>WEEKLY</code>, <code>MONTHLY</code>, <code>STRATEGY</code>.</p>
+<hr />
+<h2 id="10-modulo-8-simulador-de-jubilacion">10. Módulo 8 — Simulador de Jubilación</h2>
+<h3 id="descripcion_6">Descripción</h3>
+<p>Herramienta avanzada de planificación patrimonial para jubilación. Calcula rentas, fiscalidad EPSV y proyecciones temporales.</p>
+<h3 id="fase-1-configuracion-de-hipotesis">Fase 1: Configuración de Hipótesis</h3>
+<p><strong>Parámetros de entrada:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Parámetro</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ahorros</strong></td>
+<td>Capital financiero total disponible al jubilarse (€)</td>
+</tr>
+<tr>
+<td><strong>Revalorización</strong></td>
+<td>Tasa de rentabilidad anual esperada del patrimonio (%)</td>
+</tr>
+<tr>
+<td><strong>Pensión Pública</strong></td>
+<td>Mensualidad bruta de la pensión pública (€/mes × 14 pagas)</td>
+</tr>
+<tr>
+<td><strong>EPSV Pre-2007</strong></td>
+<td>Capital acumulado con aportaciones anteriores a 2007 (€)</td>
+</tr>
+<tr>
+<td><strong>EPSV Post-2007</strong></td>
+<td>Capital acumulado con aportaciones desde 2007 (€)</td>
+</tr>
+<tr>
+<td><strong>Rentabilidad EPSV</strong></td>
+<td>Rendimientos generados por cada tramo (€)</td>
+</tr>
+<tr>
+<td><strong>Antigüedad</strong></td>
+<td>Años de antigüedad de las aportaciones</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Modo de Rescate EPSV:</strong>
+- <strong>Renta:</strong> 100% del EPSV se cobra como renta periódica.
+- <strong>Capital:</strong> 100% del EPSV se cobra como pago único.
+- <strong>Mixto:</strong> Un porcentaje como capital y el resto como renta.</p>
+<p><strong>Tipo de Renta:</strong>
+- <strong>Temporal:</strong> Renta fija durante un número de años (1–40).
+- <strong>Vitalicia (Esperanza de Vida):</strong> Se calcula la duración según tablas actuariales basadas en sexo y edad.
+- <strong>Vitalicia Sostenible:</strong> Renta perpetua = Capital × Tasa de revalorización (no consume principal).</p>
+<p><strong>Tasa de actualización de la renta:</strong> Crecimiento anual de la renta (%).</p>
+<h3 id="fase-2-resultados">Fase 2: Resultados</h3>
+<p><strong>Panel de Resumen:</strong>
+- Renta mensual inicial calculada (€/mes).
+- Capital total destinado a generar rentas.
+- Efectivo neto de rescate EPSV (si aplica).</p>
+<p><strong>Evento EPSV (si se rescata como capital):</strong>
+- Importe bruto rescatado.
+- Importe neto tras retenciones fiscales.</p>
+<p><strong>Desglose Fiscal:</strong>
+- Base imponible total (pensión + rentas).
+- Cuota íntegra de IRPF.
+- Tipo efectivo fiscal (%).
+- Desglose por tramos de IRPF (Territorio Histórico de Bizkaia).
+- Porcentaje exento (si aplica por antigüedad y tipo de renta).</p>
+<p><strong>Proyección Temporal:</strong>
+- Gráfico de barras mostrando la evolución de rentas año a año.
+- Incluye pensión pública como línea de referencia.
+- Muestra el decrecimiento o crecimiento de la renta según el tipo seleccionado.</p>
+<h3 id="exportacion">Exportación</h3>
+<p>Botón <strong>&ldquo;Exportar Informe&rdquo;</strong> genera un PDF con:
+- Cabecera institucional (&ldquo;Planificación Patrimonial PM&rdquo;).
+- Todos los paneles de resultados.
+- Gráfico de proyección temporal.</p>
+<hr />
+<h2 id="11-modulo-9-comparador">11. Módulo 9 — Comparador</h2>
+<h3 id="descripcion_7">Descripción</h3>
+<p>Módulo de comparación con dos sub-pestañas:</p>
+<h3 id="comparar-carteras">Comparar Carteras</h3>
+<p>Permite comparar dos o más carteras guardadas entre sí:
+- Métricas de rendimiento lado a lado.
+- Diferencias de composición.
+- Gráficos comparativos.</p>
+<h3 id="comparar-fondos">Comparar Fondos</h3>
+<p>Permite comparar fondos individuales:
+- Evolución histórica superpuesta.
+- Métricas comparativas (Sharpe, Volatilidad, CAGR).
+- Clasificación y regiones.</p>
+<hr />
+<h2 id="12-modulo-10-analisis-de-posiciones-retrocesiones">12. Módulo 10 — Análisis de Posiciones (Retrocesiones)</h2>
+<h3 id="descripcion_8">Descripción</h3>
+<p>Herramienta para analizar posiciones reales importadas desde archivos (CSV/Excel). Accesible desde el botón <strong>&ldquo;Posiciones&rdquo;</strong> en la cabecera.</p>
+<h3 id="funcionalidades_1">Funcionalidades</h3>
+<p><strong>Importación de Archivos:</strong>
+- Soporte para archivos CSV con información de posiciones reales del cliente.</p>
+<p><strong>Tabla de Posiciones Detallada:</strong>
+- Lista completa de posiciones con:
+  - Nombre del fondo, ISIN.
+  - Importe invertido.
+  - Porcentaje del total.
+  - Clasificación del activo.
+  - TER (Total Expense Ratio).
+  - Retrocesiones estimadas.</p>
+<p><strong>Análisis de Retrocesiones:</strong>
+- Modal comparativo que calcula:
+  - Retrocesiones de la cartera actual vs una cartera alternativa.
+  - Ahorro potencial en costes.
+  - Impacto anual en euros de las comisiones.</p>
+<hr />
+<h2 id="13-modulo-11-modales-y-herramientas-auxiliares">13. Módulo 11 — Modales y Herramientas Auxiliares</h2>
+<h3 id="131-modal-de-detalle-del-fondo-funddetailmodal">13.1 Modal de Detalle del Fondo (FundDetailModal)</h3>
+<p>Se abre al hacer clic en el nombre de un fondo. Muestra:
+- Información completa del fondo.
+- Histórico de precios.
+- Métricas de rendimiento.
+- Clasificación detallada (V2).
+- Exposición geográfica y sectorial.</p>
+<h3 id="132-modal-de-intercambio-fundswapmodal">13.2 Modal de Intercambio (FundSwapModal)</h3>
+<p>Se abre al pulsar &ldquo;Swap&rdquo; en un fondo de la cartera:
+- Lista de alternativas similares (mismo tipo, región).
+- Comparativa métrica entre el fondo actual y los candidatos.
+- Botón para ejecutar el intercambio (reemplaza en la cartera).
+- Botón &ldquo;Refrescar&rdquo; para buscar nuevas alternativas.</p>
+<h3 id="133-modal-de-costes-costsmodal">13.3 Modal de Costes (CostsModal)</h3>
+<p>Simulador de impacto de comisiones:
+- TER de cada fondo.
+- Comisión de suscripción/reembolso.
+- Coste total anual de la cartera en € y en puntos básicos.
+- Impacto a largo plazo (simulación acumulada).</p>
+<h3 id="134-modal-tactico-tacticalmodal">13.4 Modal Táctico (TacticalModal)</h3>
+<p>Comparativa detallada de la cartera actual vs propuesta:
+- Tabla lado a lado con todos los fondos.
+- Diferencias de peso resaltadas.
+- Métricas comparativas.
+- Tasa libre de riesgo (RF) como referencia.
+- Acciones: Aceptar, Intercambiar fondos, Cancelar.</p>
+<h3 id="135-modal-macro-tactico-macrotacticalmodal">13.5 Modal Macro-Táctico (MacroTacticalModal)</h3>
+<p>Ajuste de la cartera basado en visión macroeconómica:
+- Proporciona recomendaciones de sobreponderar/infraponderar por clase de activo.
+- Permite aplicar ajustes tácticos sobre la cartera actual.</p>
+<h3 id="136-modal-de-revision-de-optimizacion-optimizationreviewmodal">13.6 Modal de Revisión de Optimización (OptimizationReviewModal)</h3>
+<p>Se muestra automáticamente tras una optimización:
+- Comparativa detallada: Cartera actual vs Propuesta optimizada.
+- Datos de explicabilidad del optimizador.
+- Métricas antes/después.
+- Botones: Aceptar, Aplicar Directamente, Cerrar.</p>
+<h3 id="137-maximizador-de-sharpe-sharpemaximizermodal">13.7 Maximizador de Sharpe (SharpeMaximizerModal)</h3>
+<p>Herramienta para encontrar el fondo óptimo a añadir:
+- Muestra el Sharpe actual de la cartera.
+- Busca en el universo de fondos el que más mejoraría el Sharpe.
+- Permite añadir directamente el fondo recomendado.</p>
+<h3 id="138-carteras-guardadas-savedportfoliosmodal">13.8 Carteras Guardadas (SavedPortfoliosModal)</h3>
+<p>Gestión de carteras persistidas:
+- Lista de carteras guardadas con fecha y nombre.
+- Acciones: Cargar, Eliminar.
+- Guardar la cartera actual con un nombre descriptivo.</p>
+<h3 id="139-fondos-vip-vipfundsmodal">13.9 Fondos VIP (VipFundsModal)</h3>
+<p>Gestión de fondos prioritarios:
+- Lista de fondos marcados como VIP.
+- Buscador para añadir nuevos fondos VIP.
+- Los fondos VIP no serán eliminados durante la optimización.</p>
+<h3 id="1310-modal-de-analisis-de-cartera-portfolioanalysismodal">13.10 Modal de Análisis de Cartera (PortfolioAnalysisModal)</h3>
+<p>Resultado del análisis avanzado de correlaciones:
+- Detección de clusters de fondos similares.
+- Identificación de redundancias.
+- Sugerencias de diversificación.
+- Métricas de concentración.</p>
+<h3 id="1311-estrategia-de-optimizacion-optimizationstrategymodal">13.11 Estrategia de Optimización (OptimizationStrategyModal)</h3>
+<p>Modal previo a la optimización que ofrece opciones de estrategia:
+- Número de fondos bloqueados vs nuevos.
+- Capital actual.
+- Opciones de objetivo: Minimizar riesgo, Maximizar Sharpe, Personalizado.</p>
+<hr />
+<h2 id="14-modulo-12-generacion-de-informes-pdf">14. Módulo 12 — Generación de Informes PDF</h2>
+<h3 id="descripcion_9">Descripción</h3>
+<p>El sistema genera informes PDF profesionales directamente desde el navegador.</p>
+<h3 id="paginas-del-informe-completo">Páginas del Informe Completo</h3>
+<table>
+<thead>
+<tr>
+<th>Página</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Portada</strong></td>
+<td>Logo, título &ldquo;Informe de Cartera&rdquo;, nombre del cliente (opcional), fecha</td>
+</tr>
+<tr>
+<td><strong>Índice</strong></td>
+<td>Tabla de contenidos con secciones del informe</td>
+</tr>
+<tr>
+<td><strong>Matriz Macro</strong></td>
+<td>Resumen estratégico macroeconómico (si hay informe vigente)</td>
+</tr>
+<tr>
+<td><strong>Composición</strong> (paginada)</td>
+<td>Tablas de posiciones detalladas con métricas por fondo</td>
+</tr>
+<tr>
+<td><strong>Métricas + Asignación</strong></td>
+<td>Métricas cuantitativas, donuts de distribución, frontera eficiente</td>
+</tr>
+<tr>
+<td><strong>Gráficos Avanzados</strong></td>
+<td>Backtest, Mapa de riesgo</td>
+</tr>
+<tr>
+<td><strong>Plan de Ejecución</strong> (opcional)</td>
+<td>Texto libre con instrucciones de trading</td>
+</tr>
+<tr>
+<td><strong>Notas</strong></td>
+<td>Página para notas</td>
+</tr>
+<tr>
+<td><strong>Guía de Interpretación</strong></td>
+<td>Explicación de las métricas y gráficos utilizados</td>
+</tr>
+</tbody>
+</table>
+<h3 id="proceso-de-generacion">Proceso de Generación</h3>
+<ol>
+<li>Desde el X-Ray, pulsar <strong>&ldquo;📄 Completo&rdquo;</strong> o <strong>&ldquo;📊 Resumen&rdquo;</strong>.</li>
+<li>Si es informe completo:</li>
+<li>Introducir nombre del cliente (opcional).</li>
+<li>Elegir si incluir Plan de Ejecución.</li>
+<li>Si sí: redactar plan en un editor WYSIWYG con formato DIN-A4.</li>
+<li>El sistema renderiza cada página HTML → Canvas → PDF.</li>
+<li>Se descarga automáticamente el archivo PDF.</li>
+</ol>
+<hr />
+<h2 id="15-taxonomia-y-clasificacion-de-activos">15. Taxonomía y Clasificación de Activos</h2>
+<h3 id="taxonomia-canonica-v2">Taxonomía Canónica V2</h3>
+<p>Todos los fondos se clasifican con el sistema <strong>classification_v2</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Tipo (asset_type)</th>
+<th>Descripción</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>EQUITY</code></td>
+<td>Renta Variable</td>
+</tr>
+<tr>
+<td><code>FIXED_INCOME</code></td>
+<td>Renta Fija</td>
+</tr>
+<tr>
+<td><code>ALLOCATION</code></td>
+<td>Mixto / Balanced</td>
+</tr>
+<tr>
+<td><code>MONEY_MARKET</code></td>
+<td>Monetario</td>
+</tr>
+<tr>
+<td><code>ALTERNATIVE</code></td>
+<td>Alternativos</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subtipos-principales">Subtipos Principales</h3>
+<p><strong>Renta Variable:</strong>
+- <code>GLOBAL</code>, <code>TECHNOLOGY</code>, <code>HEALTHCARE</code>, <code>SECTOR_FUND</code></p>
+<p><strong>Renta Fija:</strong>
+- <code>GOVERNMENT_BOND</code>, <code>CORPORATE_BOND</code>, <code>HIGH_YIELD_BOND</code></p>
+<h3 id="precedencia-de-datos">Precedencia de Datos</h3>
+<table>
+<thead>
+<tr>
+<th>Campo</th>
+<th>Prioridad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Clasificación</td>
+<td><code>classification_v2</code> &gt; <code>derived.asset_class</code> &gt; <code>asset_class</code></td>
+</tr>
+<tr>
+<td>Exposición</td>
+<td><code>portfolio_exposure_v2</code> &gt; <code>derived.portfolio_exposure</code></td>
+</tr>
+<tr>
+<td>Métricas</td>
+<td><code>std_perf</code> &gt; <code>metrics</code></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="16-arquitectura-tecnica-resumen">16. Arquitectura Técnica (Resumen)</h2>
+<h3 id="frontend-react-vite">Frontend (React + Vite)</h3>
+<pre><code>frontend/src/
+├── pages/          → Vistas principales (Dashboard, X-Ray, Jubilación, etc.)
+├── components/     → Componentes reutilizables
+│   ├── charts/     → Gráficos (Recharts)
+│   ├── modals/     → Modales de acción
+│   ├── xray/       → Componentes X-Ray
+│   ├── retirement/ → Componentes del simulador
+│   ├── macro/      → Dashboard macroeconómico
+│   ├── positions/  → Analizador de posiciones
+│   └── comparator/ → Comparador de fondos/carteras
+├── hooks/          → Custom Hooks (usePortfolio, useDashboardData, etc.)
+├── utils/          → Utilidades (rulesEngine, exporters, calculators)
+├── types/          → Definiciones TypeScript
+└── context/        → Contextos React (Toast, etc.)
+</code></pre>
+<h3 id="backend-python-cloud-functions">Backend (Python Cloud Functions)</h3>
+<pre><code>functions_python/
+├── api/
+│   ├── endpoints_portfolio.py  → Optimización, Backtest, Frontera, Análisis
+│   ├── endpoints_admin.py      → Administración y mantenimiento
+│   ├── endpoints_macro.py      → Endpoints macroeconómicos
+│   └── schedulers.py           → Tareas programadas
+├── services/
+│   ├── portfolio/
+│   │   ├── optimizer_core.py     → Motor de optimización Markowitz
+│   │   ├── frontier_engine.py    → Generador de frontera eficiente
+│   │   ├── analyzer.py           → Análisis de correlaciones
+│   │   ├── suitability_engine.py → Motor de idoneidad (suitability)
+│   │   └── utils.py              → Utilidades de cartera
+│   ├── backtester.py     → Motor de backtesting
+│   ├── calc_service.py   → Cálculos estadísticos
+│   ├── data_fetcher.py   → Descarga de datos de precios
+│   ├── nav_fetcher.py    → Descarga de NAVs
+│   ├── config.py         → Configuración de perfiles de riesgo
+│   ├── pdf_generator.py  → Generación de PDFs (backend)
+│   └── research.py       → Servicio de investigación
+└── main.py → Punto de entrada (FastAPI)
+</code></pre>
+<h3 id="base-de-datos-firestore">Base de Datos (Firestore)</h3>
+<table>
+<thead>
+<tr>
+<th>Colección</th>
+<th>Contenido</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>funds_v3</code></td>
+<td>Catálogo completo de fondos (metadatos, clasificación, métricas)</td>
+</tr>
+<tr>
+<td><code>historico_vl_v2</code></td>
+<td>Series históricas de precios (NAV)</td>
+</tr>
+<tr>
+<td><code>reports</code></td>
+<td>Informes macroeconómicos (Weekly, Monthly, Strategy)</td>
+</tr>
+<tr>
+<td><code>system_settings</code></td>
+<td>Configuración del sistema (perfiles de riesgo dinámicos)</td>
+</tr>
+<tr>
+<td><code>optimizer_snapshots</code></td>
+<td>Registros de optimizaciones ejecutadas</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="17-resolucion-de-problemas-frecuentes">17. Resolución de Problemas Frecuentes</h2>
+<table>
+<thead>
+<tr>
+<th>Problema</th>
+<th>Solución</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>&ldquo;Error de inicio de sesión&rdquo;</strong></td>
+<td>Verificar credenciales. Contactar al administrador si el problema persiste.</td>
+</tr>
+<tr>
+<td><strong>&ldquo;Sincronizando parámetros de riesgo&hellip;&rdquo;</strong> (se queda cargando)</td>
+<td>Comprobar conexión a internet. Recargar la página.</td>
+</tr>
+<tr>
+<td><strong>La cartera no muestra métricas</strong></td>
+<td>Verificar que los fondos tienen datos históricos (✓). Los fondos sin histórico no pueden ser analizados.</td>
+</tr>
+<tr>
+<td><strong>Optimización falla con &ldquo;INFEASIBLE&rdquo;</strong></td>
+<td>La cartera actual no tiene suficiente diversidad de activos. Aceptar las sugerencias de fondos adicionales.</td>
+</tr>
+<tr>
+<td><strong>No se genera el PDF</strong></td>
+<td>Asegurarse de que la cartera tiene al menos 2 fondos con datos. Desactivar bloqueadores de popups.</td>
+</tr>
+<tr>
+<td><strong>Fondos sin clasificación V2</strong></td>
+<td>Algunos fondos pueden usar la clasificación legacy. El sistema aplica fallbacks automáticos.</td>
+</tr>
+<tr>
+<td><strong>Datos de frontera eficiente vacíos</strong></td>
+<td>Se necesitan al menos 3 fondos con datos históricos de +3 años para calcular la frontera.</td>
+</tr>
+<tr>
+<td><strong>Alertas/Warnings en el dashboard</strong></td>
+<td>Los avisos amarillos son informativos. Indicadores de datos parciales o recomendaciones de calidad.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<p><strong>© 2026 — BDB-FONDOS: Gestor de Fondos. Todos los derechos reservados.</strong><br />
+<em>Documento generado automáticamente. Para soporte técnico, contactar al administrador del sistema.</em></p>
+</body>
+</html>

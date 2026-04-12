@@ -7,6 +7,7 @@ PURPOSE: Inspecciona fechas con alta incidencia de anomalías.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.inspect_anomaly_dates
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -14,7 +15,9 @@ import os
 import sys
 
 # Add parent directory
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 
 def initialize():
@@ -72,4 +75,3 @@ def inspect_around_date(db, isin, target_date_str):
 if __name__ == "__main__":
     db = initialize()
     inspect_around_date(db, "LU1697017686", "2026-02-04")
-

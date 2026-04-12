@@ -7,6 +7,7 @@ PURPOSE: Pruebas de construcción de carteras inteligentes.
 SAFE_MODE: LOCAL_ONLY
 RUN: python -m scripts.tests.test_smart_portfolio
 """
+
 import sys
 import unittest
 from unittest.mock import MagicMock, patch
@@ -164,4 +165,3 @@ class TestSmartPortfolio(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
-

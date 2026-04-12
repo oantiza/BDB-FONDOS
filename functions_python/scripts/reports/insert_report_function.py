@@ -7,6 +7,7 @@ PURPOSE: Utility para insertar reportes vía Cloud Functions/Firebase Admin.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.reports.insert_report_function
 """
+
 """
 Cloud Function to insert the user's report data to Firestore
 This runs in the cloud with proper credentials
@@ -91,4 +92,3 @@ def insertMonthlyReport(request: https_fn.CallableRequest):
         }
     except Exception as e:
         return {"success": False, "error": str(e)}
-

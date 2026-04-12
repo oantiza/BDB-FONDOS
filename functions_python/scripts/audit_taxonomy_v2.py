@@ -16,6 +16,7 @@ Usage:
   python scripts/audit_taxonomy_v2.py
   python scripts/audit_taxonomy_v2.py --limit 50
 """
+
 import os
 import sys
 import json
@@ -29,18 +30,26 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 db = None
 
+
 def init_firebase():
     global db
     if db is not None:
         return
     import firebase_admin
     from firebase_admin import credentials, firestore
+
     if not firebase_admin._apps:
         key_paths = [
-            os.path.join(os.path.dirname(__file__), '..', '..', 'scripts', 'serviceAccountKey.json'),
-            os.path.join(os.path.dirname(__file__), 'serviceAccountKey.json'),
-            './serviceAccountKey.json',
-            '../serviceAccountKey.json',
+            os.path.join(
+                os.path.dirname(__file__),
+                "..",
+                "..",
+                "scripts",
+                "serviceAccountKey.json",
+            ),
+            os.path.join(os.path.dirname(__file__), "serviceAccountKey.json"),
+            "./serviceAccountKey.json",
+            "../serviceAccountKey.json",
         ]
         for kp in key_paths:
             if os.path.exists(kp):
@@ -109,7 +118,11 @@ def compute_audit_flags(data: dict) -> list:
     # ── Type / Subtype ──
     if asset_type == "UNKNOWN":
         flags.append("UNKNOWN_ASSET_TYPE")
-    if asset_subtype == "UNKNOWN" and asset_type not in ("MONETARY", "ALTERNATIVE", "UNKNOWN"):
+    if asset_subtype == "UNKNOWN" and asset_type not in (
+        "MONETARY",
+        "ALTERNATIVE",
+        "UNKNOWN",
+    ):
         flags.append("UNKNOWN_SUBTYPE")
 
     # ── Region ──
@@ -202,7 +215,9 @@ def build_fund_row(doc_id: str, data: dict, flags: list) -> dict:
         "fi_credit_bucket": v2.get("fi_credit_bucket", ""),
         "fi_duration_bucket": v2.get("fi_duration_bucket", ""),
         "legacy_asset_class": data.get("derived", {}).get("asset_class", ""),
-        "legacy_category": data.get("ms", {}).get("category_morningstar", data.get("category_morningstar", "")),
+        "legacy_category": data.get("ms", {}).get(
+            "category_morningstar", data.get("category_morningstar", "")
+        ),
         "equity_exposure": eco.get("equity", ""),
         "bond_exposure": eco.get("bond", ""),
         "cash_exposure": eco.get("cash", ""),
@@ -212,16 +227,17 @@ def build_fund_row(doc_id: str, data: dict, flags: list) -> dict:
 
 # ─── MAIN AUDIT ──────────────────────────────────────────────────────────
 
+
 def run_audit(limit: int = 0):
     init_firebase()
     run_id = datetime.now(timezone.utc).strftime("audit_%Y%m%d_%H%M%S")
-    print(f"\n{'='*60}")
-    print(f"  TAXONOMY V2 AUDIT")
+    print(f"\n{'=' * 60}")
+    print("  TAXONOMY V2 AUDIT")
     print(f"  Run ID: {run_id}")
     print(f"  Started: {datetime.now(timezone.utc).isoformat()}")
-    print(f"{'='*60}\n")
+    print(f"{'=' * 60}\n")
 
-    query = db.collection('funds_v3')
+    query = db.collection("funds_v3")
     if limit > 0:
         query = query.limit(limit)
 
@@ -357,13 +373,23 @@ def run_audit(limit: int = 0):
             stats["v2_legacy_conflict_count"] += 1
             conflicts.append(row)
 
-        danger_flags = {"LOW_RISK_UNSAFE", "EMERGING_LOW_RISK_CONFLICT", "SECTOR_FUND_LOW_RISK_CONFLICT",
-                        "HIGH_YIELD_LOW_RISK_CONFLICT", "CONVERTIBLE_LOW_RISK_CONFLICT"}
+        danger_flags = {
+            "LOW_RISK_UNSAFE",
+            "EMERGING_LOW_RISK_CONFLICT",
+            "SECTOR_FUND_LOW_RISK_CONFLICT",
+            "HIGH_YIELD_LOW_RISK_CONFLICT",
+            "CONVERTIBLE_LOW_RISK_CONFLICT",
+        }
         if flags and danger_flags & set(flags):
             stats["low_risk_conflict_count"] += 1
             low_risk_unsafe.append(row)
 
-        ambig_flags = {"UNKNOWN_ASSET_TYPE", "UNKNOWN_SUBTYPE", "LOW_CONFIDENCE", "NO_METRICS_AND_NO_EXPOSURE"}
+        ambig_flags = {
+            "UNKNOWN_ASSET_TYPE",
+            "UNKNOWN_SUBTYPE",
+            "LOW_CONFIDENCE",
+            "NO_METRICS_AND_NO_EXPOSURE",
+        }
         if flags and ambig_flags & set(flags):
             stats["ambiguous_funds_count"] += 1
             unknown_ambiguous.append(row)
@@ -378,7 +404,12 @@ def run_audit(limit: int = 0):
     stats["flag_distribution"] = dict(stats["flag_distribution"])
 
     # ── OUTPUT ────────────────────────────────────────────────────────────
-    out_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "..", "reports", "taxonomy_v2_audit")
+    out_dir = os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+        "..",
+        "reports",
+        "taxonomy_v2_audit",
+    )
     os.makedirs(out_dir, exist_ok=True)
     print(f"\n  Output directory: {out_dir}")
 
@@ -390,13 +421,29 @@ def run_audit(limit: int = 0):
 
     # 2-8. CSVs
     csv_fields = [
-        "isin", "name", "asset_type", "asset_subtype", "region_primary",
-        "risk_bucket", "classification_confidence", "exposure_confidence",
-        "warnings", "audit_flags", "is_suitable_low_risk", "is_sector_fund",
-        "sector_focus", "equity_style_box", "market_cap_bias",
-        "fi_credit_bucket", "fi_duration_bucket",
-        "legacy_asset_class", "legacy_category",
-        "equity_exposure", "bond_exposure", "cash_exposure", "other_exposure",
+        "isin",
+        "name",
+        "asset_type",
+        "asset_subtype",
+        "region_primary",
+        "risk_bucket",
+        "classification_confidence",
+        "exposure_confidence",
+        "warnings",
+        "audit_flags",
+        "is_suitable_low_risk",
+        "is_sector_fund",
+        "sector_focus",
+        "equity_style_box",
+        "market_cap_bias",
+        "fi_credit_bucket",
+        "fi_duration_bucket",
+        "legacy_asset_class",
+        "legacy_category",
+        "equity_exposure",
+        "bond_exposure",
+        "cash_exposure",
+        "other_exposure",
     ]
 
     def write_csv(filename, rows):
@@ -424,8 +471,8 @@ def run_audit(limit: int = 0):
     md = f"""# V2 Taxonomy Audit — Coverage Report
 
 **Run ID:** `{run_id}`
-**Date:** {stats['finished_at']}
-**Total Funds:** {stats['total_funds']}
+**Date:** {stats["finished_at"]}
+**Total Funds:** {stats["total_funds"]}
 
 ---
 
@@ -433,21 +480,30 @@ def run_audit(limit: int = 0):
 
 | Metric | Count | % |
 |--------|------:|---:|
-| With `classification_v2` | {with_v2} | {with_v2*100//total}% |
-| With `portfolio_exposure_v2` | {stats['with_portfolio_exposure_v2']} | {stats['with_portfolio_exposure_v2']*100//total}% |
-| With both | {stats['with_both']} | {stats['with_both']*100//total}% |
-| Without V2 | {stats['without_v2']} | {stats['without_v2']*100//total}% |
-| Without exposure | {stats['without_exposure']} | {stats['without_exposure']*100//total}% |
-| Low confidence | {stats['low_confidence_count']} | {stats['low_confidence_count']*100//total}% |
-| With warnings | {stats['warning_count']} | {stats['warning_count']*100//total}% |
-| Critical warnings (≥2) | {stats['critical_warning_count']} | {stats['critical_warning_count']*100//total}% |
+| With `classification_v2` | {with_v2} | {with_v2 * 100 // total}% |
+| With `portfolio_exposure_v2` | {stats["with_portfolio_exposure_v2"]} | {stats["with_portfolio_exposure_v2"] * 100 // total}% |
+| With both | {stats["with_both"]} | {stats["with_both"] * 100 // total}% |
+| Without V2 | {stats["without_v2"]} | {stats["without_v2"] * 100 // total}% |
+| Without exposure | {stats["without_exposure"]} | {stats["without_exposure"] * 100 // total}% |
+| Low confidence | {stats["low_confidence_count"]} | {stats["low_confidence_count"] * 100 // total}% |
+| With warnings | {stats["warning_count"]} | {stats["warning_count"] * 100 // total}% |
+| Critical warnings (≥2) | {stats["critical_warning_count"]} | {stats["critical_warning_count"] * 100 // total}% |
 
 ## B. Distribution by Asset Type
 
 | Type | Count |
 |------|------:|
 """
-    for at in ["EQUITY", "FIXED_INCOME", "MIXED", "MONETARY", "ALTERNATIVE", "COMMODITIES", "REAL_ESTATE", "UNKNOWN"]:
+    for at in [
+        "EQUITY",
+        "FIXED_INCOME",
+        "MIXED",
+        "MONETARY",
+        "ALTERNATIVE",
+        "COMMODITIES",
+        "REAL_ESTATE",
+        "UNKNOWN",
+    ]:
         c = stats["asset_type_dist"].get(at, 0)
         md += f"| {at} | {c} |\n"
 
@@ -456,29 +512,29 @@ def run_audit(limit: int = 0):
 
 | Field | Coverage | Denominator |
 |-------|----------|-------------|
-| `region_primary` | {stats['region_primary_coverage']}/{with_v2} | All V2 |
-| `asset_subtype` | {stats['subtype_coverage']}/{with_v2} | All V2 |
-| `equity_style_box` | {stats['equity_style_box_coverage']}/{stats['equity_count']} | Equity funds |
-| `market_cap_bias` | {stats['market_cap_bias_coverage']}/{stats['equity_count']} | Equity funds |
-| `fi_credit_bucket` | {stats['fi_credit_bucket_coverage']}/{stats['fi_count']} | FI funds |
-| `fi_duration_bucket` | {stats['fi_duration_bucket_coverage']}/{stats['fi_count']} | FI funds |
+| `region_primary` | {stats["region_primary_coverage"]}/{with_v2} | All V2 |
+| `asset_subtype` | {stats["subtype_coverage"]}/{with_v2} | All V2 |
+| `equity_style_box` | {stats["equity_style_box_coverage"]}/{stats["equity_count"]} | Equity funds |
+| `market_cap_bias` | {stats["market_cap_bias_coverage"]}/{stats["equity_count"]} | Equity funds |
+| `fi_credit_bucket` | {stats["fi_credit_bucket_coverage"]}/{stats["fi_count"]} | FI funds |
+| `fi_duration_bucket` | {stats["fi_duration_bucket_coverage"]}/{stats["fi_count"]} | FI funds |
 
 ## D. Low Risk Profile Safety
 
 | Metric | Count |
 |--------|------:|
-| Suitable for low risk | {stats['low_risk_allowed_count']} |
-| Blocked for low risk | {stats['low_risk_blocked_count']} |
-| Low risk conflicts | {stats['low_risk_conflict_count']} |
+| Suitable for low risk | {stats["low_risk_allowed_count"]} |
+| Blocked for low risk | {stats["low_risk_blocked_count"]} |
+| Low risk conflicts | {stats["low_risk_conflict_count"]} |
 
 ## E. Residual Risks
 
 | Metric | Count |
 |--------|------:|
-| Legacy fallback only | {stats['legacy_fallback_count']} |
-| V2 vs Legacy conflict | {stats['v2_legacy_conflict_count']} |
-| Ambiguous funds | {stats['ambiguous_funds_count']} |
-| Unknown type | {stats['unknown_type_count']} |
+| Legacy fallback only | {stats["legacy_fallback_count"]} |
+| V2 vs Legacy conflict | {stats["v2_legacy_conflict_count"]} |
+| Ambiguous funds | {stats["ambiguous_funds_count"]} |
+| Unknown type | {stats["unknown_type_count"]} |
 
 ## F. Audit Flags Distribution
 
@@ -505,24 +561,28 @@ def run_audit(limit: int = 0):
     report_path = os.path.join(out_dir, "coverage_report.md")
     with open(report_path, "w", encoding="utf-8") as f:
         f.write(md)
-    print(f"  [OK] coverage_report.md")
+    print("  [OK] coverage_report.md")
 
     # ── Console summary ──
-    print(f"\n{'='*60}")
-    print(f"  AUDIT COMPLETE")
-    print(f"{'='*60}")
+    print(f"\n{'=' * 60}")
+    print("  AUDIT COMPLETE")
+    print(f"{'=' * 60}")
     print(f"  Total Funds:           {stats['total_funds']}")
-    print(f"  With classification_v2: {stats['with_classification_v2']} ({stats['with_classification_v2']*100//total}%)")
-    print(f"  With exposure_v2:       {stats['with_portfolio_exposure_v2']} ({stats['with_portfolio_exposure_v2']*100//total}%)")
+    print(
+        f"  With classification_v2: {stats['with_classification_v2']} ({stats['with_classification_v2'] * 100 // total}%)"
+    )
+    print(
+        f"  With exposure_v2:       {stats['with_portfolio_exposure_v2']} ({stats['with_portfolio_exposure_v2'] * 100 // total}%)"
+    )
     print(f"  Without V2:             {stats['without_v2']}")
     print(f"  Low confidence:         {stats['low_confidence_count']}")
     print(f"  Conflicts:              {stats['v2_legacy_conflict_count']}")
     print(f"  Low risk conflicts:     {stats['low_risk_conflict_count']}")
     print(f"  Unknown type:           {stats['unknown_type_count']}")
-    print(f"\n  Asset Type Distribution:")
+    print("\n  Asset Type Distribution:")
     for k, v in sorted(stats["asset_type_dist"].items()):
         print(f"    {k:20s} : {v}")
-    print(f"\n  Flags:")
+    print("\n  Flags:")
     for f in ALL_FLAGS:
         c = stats["flag_distribution"].get(f, 0)
         if c > 0:
@@ -535,7 +595,10 @@ def run_audit(limit: int = 0):
 
 if __name__ == "__main__":
     import argparse
+
     parser = argparse.ArgumentParser(description="V2 Taxonomy Audit")
-    parser.add_argument("--limit", type=int, default=0, help="Limit number of funds to audit (0 = all)")
+    parser.add_argument(
+        "--limit", type=int, default=0, help="Limit number of funds to audit (0 = all)"
+    )
     args = parser.parse_args()
     run_audit(limit=args.limit)

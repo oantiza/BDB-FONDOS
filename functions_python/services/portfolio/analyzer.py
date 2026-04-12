@@ -1,4 +1,5 @@
 import logging
+
 logger = logging.getLogger(__name__)
 import pandas as pd
 
@@ -21,17 +22,23 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     """
     assets_list = list(portfolio_weights.keys())
     if not assets_list:
-        return {"status": "error", "message": "Portfolio is empty", "error": "Portfolio is empty"}
+        return {
+            "status": "error",
+            "message": "Portfolio is empty",
+            "error": "Portfolio is empty",
+        }
 
     # 1. Fetch data
     fetcher = DataFetcher(db)
-    price_data, _ = fetcher.get_price_data(
-        assets_list, resample_freq="D", strict=False
-    )
+    price_data, _ = fetcher.get_price_data(assets_list, resample_freq="D", strict=False)
 
     df = pd.DataFrame(price_data)
     if df.empty or len(df) < 50:
-        return {"status": "error", "message": "Insufficient historical data for the requested assets", "error": "Insufficient historical data for the requested assets"}
+        return {
+            "status": "error",
+            "message": "Insufficient historical data for the requested assets",
+            "error": "Insufficient historical data for the requested assets",
+        }
 
     df.index = pd.to_datetime(df.index)
 
@@ -45,26 +52,28 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     final_start_date = max(ideal_start_date, actual_start_date)
     df = df[df.index >= final_start_date]
     df = df.sort_index().ffill(limit=5)
-    
+
     # Hardening: Check for excessive internal gaps
     if not df.empty:
         gap_threshold = len(df) * 0.05
         for col in df.columns:
             missing_count = df[col].isnull().sum()
             if missing_count > gap_threshold:
-                logger.warning(f"⚠️ [Analyzer] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
-        
+                logger.warning(
+                    f"⚠️ [Analyzer] Serie {col} tiene {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado."
+                )
+
         df = df.dropna()
 
     if df.empty or len(df) < 60:
-        actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
+        actual_start_str = df.index[0].strftime("%Y-%m-%d") if not df.empty else "N/A"
         err_msg = f"El tramo común de análisis es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para un cálculo de riesgo válido."
         return {
             "status": "error",
             "message": err_msg,
             "error": err_msg,
             "effective_start_date": actual_start_str,
-            "observations": len(df)
+            "observations": len(df),
         }
 
     # Ensure all requested assets are in the dataframe
@@ -74,13 +83,21 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     }
 
     if sum(valid_weights.values()) == 0:
-        return {"status": "error", "message": "None of the provided assets have valid historical data.", "error": "None of the provided assets have valid historical data."}
+        return {
+            "status": "error",
+            "message": "None of the provided assets have valid historical data.",
+            "error": "None of the provided assets have valid historical data.",
+        }
 
     # Normalize valid weights
     total_w = sum(valid_weights.values())
     valid_weights = {isin: w / total_w for isin, w in valid_weights.items()}
 
-    from services.quant_core import get_covariance_matrix, get_expected_returns, calculate_portfolio_metrics
+    from services.quant_core import (
+        get_covariance_matrix,
+        get_expected_returns,
+        calculate_portfolio_metrics,
+    )
 
     # 2. Compute Metics
     mu = get_expected_returns(df, method="mean")
@@ -91,9 +108,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     # Ensure weights align with mu and S
     w_dict = {isin: valid_weights.get(isin, 0.0) for isin in universe}
 
-    metrics = calculate_portfolio_metrics(
-        w_dict, mu, S, rf_rate=rf_rate
-    )
+    metrics = calculate_portfolio_metrics(w_dict, mu, S, rf_rate=rf_rate)
     port_ret = metrics.get("return", 0.0)
     port_vol = metrics.get("volatility", 0.0)
     port_sharpe = metrics.get("sharpe", 0.0)
@@ -104,7 +119,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     high_corr_pairs = []
     for i in range(len(corr_matrix.columns)):
         for j in range(i + 1, len(corr_matrix.columns)):
-            val = corr_matrix.iloc[i, j]
+            val = float(corr_matrix.iloc[i, j])  # type: ignore
             if val > 0.8:  # threshold for high correlation
                 high_corr_pairs.append(
                     {
@@ -184,18 +199,18 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
 
         asset_to_replace = asset1 if sharpe1 < sharpe2 else asset2
         target_meta = meta1 if sharpe1 < sharpe2 else meta2
-        
+
         # [V2-FIRST INTENT]
         # In a strict V2 environment, alternatives should be queried using:
         # classification_v2.asset_subtype + classification_v2.region_primary
         # However, querying these fields alongside order_by("std_perf.sharpe")
         # requires a NEW composite index in Firestore.
-        
+
         # [COMPATIBILITY FALLBACK]
         # We retain 'categoryId' (Morningstar ID) for the database query
         # to guarantee index stability and avoid runtime errors in production.
         target_cat = target_meta.get("categoryId")
-        
+
         # Extracted V2 paths for future localized filtering or reporting
         class_v2 = target_meta.get("classification_v2", {})
         target_type_v2 = class_v2.get("asset_type", "UNKNOWN")
@@ -227,9 +242,7 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
                         {
                             "isin": doc.id,
                             "name": alt_data.get("name", "Unknown Fund"),
-                            "sharpe": _to_float(
-                                alt_std_perf.get("sharpe", 0.0), 0.0
-                            ),
+                            "sharpe": _to_float(alt_std_perf.get("sharpe", 0.0), 0.0),
                             "reason": f"Sugerido como alternativa a {asset_to_replace} en la categoría '{target_cat}' por tener mejor rendimiento ajustado por riesgo.",
                         }
                     )

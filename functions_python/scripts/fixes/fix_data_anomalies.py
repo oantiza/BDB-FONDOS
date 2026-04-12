@@ -7,6 +7,7 @@ PURPOSE: Rutina de corrección masiva de inconsistencias de datos.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.fixes.fix_data_anomalies
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -15,7 +16,9 @@ import sys
 import pandas as pd
 
 # Add parent directory to path to allow importing services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 
 def initialize():
@@ -154,4 +157,3 @@ def run_fix():
 
 if __name__ == "__main__":
     run_fix()
-

@@ -7,6 +7,7 @@ PURPOSE: Recorta el último punto de datos si se detecta como anomalía.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.fixes.trim_last_anomaly
 """
+
 import os
 import sys
 import firebase_admin
@@ -17,7 +18,9 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
 KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 try:
     if not firebase_admin._apps:
@@ -59,4 +62,3 @@ def trim_fund():
 
 if __name__ == "__main__":
     trim_fund()
-

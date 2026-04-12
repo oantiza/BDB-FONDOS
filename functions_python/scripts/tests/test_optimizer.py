@@ -7,6 +7,7 @@ PURPOSE: Pruebas técnicas del motor de optimización.
 SAFE_MODE: LOCAL_ONLY
 RUN: python -m scripts.tests.test_optimizer
 """
+
 import os
 import sys
 import json
@@ -16,7 +17,9 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
 KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = KEY_PATH
 
@@ -79,4 +82,3 @@ def test():
 
 if __name__ == "__main__":
     test()
-

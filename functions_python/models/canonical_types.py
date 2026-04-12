@@ -2,6 +2,7 @@ from enum import Enum
 from typing import Optional, List, Dict
 from pydantic import BaseModel, Field
 
+
 class AssetClassV2(str, Enum):
     EQUITY = "EQUITY"
     FIXED_INCOME = "FIXED_INCOME"
@@ -12,6 +13,7 @@ class AssetClassV2(str, Enum):
     COMMODITIES = "COMMODITIES"
     OTHER = "OTHER"
     UNKNOWN = "UNKNOWN"
+
 
 class AssetSubtypeV2(str, Enum):
     GLOBAL_EQUITY = "GLOBAL_EQUITY"
@@ -49,17 +51,20 @@ class AssetSubtypeV2(str, Enum):
     TARGET_DATE = "TARGET_DATE"
     UNKNOWN = "UNKNOWN"
 
+
 class StrategyTypeV2(str, Enum):
     ACTIVE = "ACTIVE"
     PASSIVE = "PASSIVE"
     SMART_BETA = "SMART_BETA"
     UNKNOWN = "UNKNOWN"
 
+
 class RiskBucketV2(str, Enum):
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
     UNKNOWN = "UNKNOWN"
+
 
 class RegionV2(str, Enum):
     GLOBAL = "GLOBAL"
@@ -70,6 +75,7 @@ class RegionV2(str, Enum):
     EMERGING = "EMERGING"
     JAPAN = "JAPAN"
     UNKNOWN = "UNKNOWN"
+
 
 class EquityStyleBoxV2(str, Enum):
     LARGE_VALUE = "LARGE_VALUE"
@@ -83,12 +89,14 @@ class EquityStyleBoxV2(str, Enum):
     SMALL_GROWTH = "SMALL_GROWTH"
     UNKNOWN = "UNKNOWN"
 
+
 class MarketCapBiasV2(str, Enum):
     LARGE = "LARGE"
     MID = "MID"
     SMALL = "SMALL"
     MULTI = "MULTI"
     UNKNOWN = "UNKNOWN"
+
 
 class SectorFocusV2(str, Enum):
     TECHNOLOGY = "TECHNOLOGY"
@@ -105,6 +113,7 @@ class SectorFocusV2(str, Enum):
     DIVERSIFIED = "DIVERSIFIED"
     UNKNOWN = "UNKNOWN"
 
+
 class FIDurationBucketV2(str, Enum):
     SHORT = "SHORT"
     MEDIUM = "MEDIUM"
@@ -112,11 +121,13 @@ class FIDurationBucketV2(str, Enum):
     FLEXIBLE = "FLEXIBLE"
     UNKNOWN = "UNKNOWN"
 
+
 class FICreditBucketV2(str, Enum):
     HIGH_QUALITY = "HIGH_QUALITY"
     MEDIUM_QUALITY = "MEDIUM_QUALITY"
     LOW_QUALITY = "LOW_QUALITY"
     UNKNOWN = "UNKNOWN"
+
 
 class AlternativeBucketV2(str, Enum):
     LONG_SHORT_EQUITY = "LONG_SHORT_EQUITY"
@@ -129,10 +140,12 @@ class AlternativeBucketV2(str, Enum):
     NONE = "NONE"
     UNKNOWN = "UNKNOWN"
 
+
 class ComplexityFlagV2(str, Enum):
     STANDARD = "STANDARD"
     COMPLEX = "COMPLEX"
     HIGHLY_COMPLEX = "HIGHLY_COMPLEX"
+
 
 class LiquidityProfileV2(str, Enum):
     DAILY = "DAILY"
@@ -140,6 +153,7 @@ class LiquidityProfileV2(str, Enum):
     MONTHLY = "MONTHLY"
     QUARTERLY = "QUARTERLY"
     ILLIQUID = "ILLIQUID"
+
 
 class FITypeV2(str, Enum):
     CORPORATE = "CORPORATE"
@@ -149,6 +163,7 @@ class FITypeV2(str, Enum):
     MIXED = "MIXED"
     UNKNOWN = "UNKNOWN"
 
+
 class ConvertiblesProfileV2(str, Enum):
     BOND_LIKE = "BOND_LIKE"
     EQUITY_LIKE = "EQUITY_LIKE"
@@ -156,11 +171,13 @@ class ConvertiblesProfileV2(str, Enum):
     NONE = "NONE"
     UNKNOWN = "UNKNOWN"
 
+
 class ConcentrationLevelV2(str, Enum):
     LOW = "LOW"
     MEDIUM = "MEDIUM"
     HIGH = "HIGH"
     UNKNOWN = "UNKNOWN"
+
 
 class ClassificationV2(BaseModel):
     version: str = "2.0"
@@ -192,15 +209,18 @@ class ClassificationV2(BaseModel):
     computed_at: str = ""
     raw_name: str = ""
 
+
 class EconomicExposureV2(BaseModel):
     equity: float = Field(default=0.0, ge=0.0, le=100.0)
     bond: float = Field(default=0.0, ge=0.0, le=100.0)
     cash: float = Field(default=0.0, ge=0.0, le=100.0)
     other: float = Field(default=0.0, ge=0.0, le=100.0)
 
+
 class ExposureConcentrationMetrics(BaseModel):
     top_10_holdings_weight: float = Field(default=0.0, ge=0.0, le=100.0)
     hhi_index: Optional[float] = None
+
 
 class PortfolioExposureV2(BaseModel):
     version: str = "2.0"
@@ -212,7 +232,9 @@ class PortfolioExposureV2(BaseModel):
     fi_duration: Dict[str, float] = Field(default_factory=dict)
     fi_types: Dict[str, float] = Field(default_factory=dict)
     alternatives: Dict[str, float] = Field(default_factory=dict)
-    concentration_metrics: ExposureConcentrationMetrics = Field(default_factory=ExposureConcentrationMetrics)
+    concentration_metrics: ExposureConcentrationMetrics = Field(
+        default_factory=ExposureConcentrationMetrics
+    )
     risk_flags: List[str] = Field(default_factory=list)
     exposure_confidence: float = Field(default=0.0, ge=0.0, le=1.0)
     warnings: List[str] = Field(default_factory=list)

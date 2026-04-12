@@ -7,6 +7,7 @@ PURPOSE: Inserta un reporte específico de usuario en la base de datos.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.reports.insert_user_report
 """
+
 """
 Simple script to copy the report data provided by user directly to bdb-fondos
 This uses the report data the user already shared with us.
@@ -103,4 +104,3 @@ if __name__ == "__main__":
         print("You can now view it in Mi Boutique page.")
     else:
         print("\nâ ï¸ Migration failed. Check the error above.")
-

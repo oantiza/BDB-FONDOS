@@ -26,6 +26,7 @@ KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 if FUNCTIONS_PYTHON_DIR not in sys.path:
     sys.path.append(FUNCTIONS_PYTHON_DIR)
 
+
 # =========================================================
 # Firebase init
 # =========================================================
@@ -62,6 +63,7 @@ ANOMALOUS_ISINS = [
     "LU1769941003",
 ]
 
+
 # =========================================================
 # Main fix
 # =========================================================
@@ -80,16 +82,21 @@ def fix_anomalies():
                 print(f"✅ {isin} reparado con éxito. Puntos: {points}")
                 success_count += 1
             else:
-                error_msg = res.get("error") if isinstance(res, dict) else "respuesta inválida"
+                error_msg = (
+                    res.get("error") if isinstance(res, dict) else "respuesta inválida"
+                )
                 print(f"❌ Fallo al descargar {isin}: {error_msg}")
 
         except Exception as e:
             print(f"⚠️ Error procesando {isin}: {e}")
 
-    print(f"\n🏁 Proceso terminado. {success_count}/{len(ANOMALOUS_ISINS)} fondos reparados.")
-    print("👉 Vuelve a ejecutar 'python functions_python/scripts/audit/analyze_history_anomalies.py' para verificar.")
+    print(
+        f"\n🏁 Proceso terminado. {success_count}/{len(ANOMALOUS_ISINS)} fondos reparados."
+    )
+    print(
+        "👉 Vuelve a ejecutar 'python functions_python/scripts/audit/analyze_history_anomalies.py' para verificar."
+    )
 
 
 if __name__ == "__main__":
     fix_anomalies()
-

@@ -7,6 +7,7 @@ PURPOSE: Localiza y muestra todos los datos de un fondo por su ISIN.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.find_fund_by_isin
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -168,4 +169,3 @@ def print_data(doc, db):
 
 if __name__ == "__main__":
     find_fund()
-

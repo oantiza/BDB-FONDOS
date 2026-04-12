@@ -2,10 +2,10 @@ import logging
 from firebase_admin import firestore
 from datetime import datetime
 import pandas as pd
-import numpy as np
 from .data_fetcher import DataFetcher
 
 logger = logging.getLogger(__name__)
+
 
 def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
     """
@@ -37,7 +37,9 @@ def _calculate_metrics(prices_df, risk_free_rate, force_3y=False):
 
         # Hardening: Require at least 60 solid business days
         if len(df) < 60:
-            logger.warning(f"⚠️ [CalcService] Histórico resultante muy corto ({len(df)} días). Riesgo de métricas espurias. Se requiere mínimo 60.")
+            logger.warning(
+                f"⚠️ [CalcService] Histórico resultante muy corto ({len(df)} días). Riesgo de métricas espurias. Se requiere mínimo 60."
+            )
             return None
 
         from services.quant_core import calculate_historical_metrics
@@ -143,18 +145,24 @@ def backfill_std_perf_logic(db):
                         try:
                             d_val = datetime.fromisoformat(d_val.replace("Z", ""))
                         except ValueError as ve:
-                            logger.warning(f"⚠️ [CalcService] ISIN {isin}: Fecha mal formada ({d_val}): {ve}")
+                            logger.warning(
+                                f"⚠️ [CalcService] ISIN {isin}: Fecha mal formada ({d_val}): {ve}"
+                            )
                             continue
 
                     try:
                         p_val_float = float(p_val)
                     except (ValueError, TypeError) as ve:
-                        logger.warning(f"⚠️ [CalcService] ISIN {isin}: Precio mal formado ({p_val}) para fecha {d_val}: {ve}")
+                        logger.warning(
+                            f"⚠️ [CalcService] ISIN {isin}: Precio mal formado ({p_val}) para fecha {d_val}: {ve}"
+                        )
                         continue
-                        
+
                     data_tuples.append({"date": d_val, "price": p_val_float})
                 else:
-                    logger.debug(f"ℹ️ [CalcService] ISIN {isin}: Punto ignorado por falta de date o nav/price: {p}")
+                    logger.debug(
+                        f"ℹ️ [CalcService] ISIN {isin}: Punto ignorado por falta de date o nav/price: {p}"
+                    )
 
             real_points = len(data_tuples)
 

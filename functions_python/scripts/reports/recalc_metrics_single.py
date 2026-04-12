@@ -7,6 +7,7 @@ PURPOSE: Recalcula métricas para un fondo específico.
 SAFE_MODE: MUTATES_FIRESTORE
 RUN: python -m scripts.reports.recalc_metrics_single
 """
+
 import firebase_admin
 from firebase_admin import credentials
 from firebase_admin import firestore
@@ -17,7 +18,9 @@ import numpy as np
 from datetime import datetime
 
 # Add parent directory to path to allow importing services
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 
 def initialize():
@@ -162,4 +165,3 @@ if __name__ == "__main__":
     # Example usage:
     # recalculate_single('LU1762221155')
     pass
-

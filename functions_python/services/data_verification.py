@@ -1,12 +1,14 @@
 from google.cloud import firestore
 
 
+from typing import Any
+
 def verify_history_format_logic(db: firestore.Client):
     """
     Verifies the format of historical data in 'historico_vl_v2'.
     Checks if dates are 'YYYY-MM-DD' and values are numbers.
     """
-    results = {
+    results: dict[str, Any] = {
         "total_checked": 0,
         "valid_docs": 0,
         "invalid_docs": 0,

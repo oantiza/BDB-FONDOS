@@ -40,7 +40,9 @@ async def fetch_eodhd_data(session, ticker, from_date, to_date=None, max_retries
 
                     if not isinstance(data, list):
                         # A veces devuelve objeto {error: ...}
-                        logging.warning(f"⚠️ EODHD Data Format Error {ticker}: Not a list")
+                        logging.warning(
+                            f"⚠️ EODHD Data Format Error {ticker}: Not a list"
+                        )
                         return ticker, None
 
                     clean_data = []
@@ -52,24 +54,30 @@ async def fetch_eodhd_data(session, ticker, from_date, to_date=None, max_retries
                             try:
                                 f_val = float(val)
                                 if f_val > 0:
-                                    clean_data.append({"date": item["date"], "nav": f_val})
+                                    clean_data.append(
+                                        {"date": item["date"], "nav": f_val}
+                                    )
                             except:
                                 pass
 
                     return ticker, clean_data
                 elif response.status == 429:
-                    logging.warning(f"⏳ Rate Limit EODHD {ticker} (Attempt {attempt+1}/{max_retries})")
+                    logging.warning(
+                        f"⏳ Rate Limit EODHD {ticker} (Attempt {attempt + 1}/{max_retries})"
+                    )
                 else:
                     logging.warning(f"⚠️ EODHD {ticker}: Status {response.status}")
                     return ticker, None
         except asyncio.TimeoutError:
-            logging.warning(f"⏳ Timeout EODHD {ticker} (Attempt {attempt+1}/{max_retries})")
+            logging.warning(
+                f"⏳ Timeout EODHD {ticker} (Attempt {attempt + 1}/{max_retries})"
+            )
         except Exception as e:
             logging.error(f"❌ Excepción fetching {ticker}: {str(e)}")
             return ticker, None
 
         if attempt < max_retries - 1:
-            await asyncio.sleep(2 ** attempt)
+            await asyncio.sleep(2**attempt)
 
     return ticker, None
 
@@ -79,27 +87,32 @@ def merge_history(existing_history, new_data):
         return None
 
     history_map = {item["date"]: item["nav"] for item in existing_history}
-    
-    for item in (new_data or []):
+
+    for item in new_data or []:
         history_map[item["date"]] = item["nav"]
 
     if not history_map:
         return None
 
     # Forward fill gaps en días laborables (Mon-Fri)
-    df = pd.DataFrame([{"date": pd.to_datetime(k), "nav": v} for k, v in history_map.items()])
+    df = pd.DataFrame(
+        [{"date": pd.to_datetime(k), "nav": v} for k, v in history_map.items()]
+    )
     df.set_index("date", inplace=True)
     df.sort_index(inplace=True)
-    
-    full_idx = pd.date_range(start=df.index.min(), end=df.index.max(), freq='B')
-    df_filled = df.reindex(full_idx, method='ffill')
-    df_filled.dropna(subset=['nav'], inplace=True)
-    
-    new_history = [{"date": d.strftime("%Y-%m-%d"), "nav": float(row['nav'])} for d, row in df_filled.iterrows()]
-    
+
+    full_idx = pd.date_range(start=df.index.min(), end=df.index.max(), freq="B")
+    df_filled = df.reindex(full_idx, method="ffill")
+    df_filled.dropna(subset=["nav"], inplace=True)
+
+    new_history = [
+        {"date": d.strftime("%Y-%m-%d"), "nav": float(row["nav"])}
+        for d, row in df_filled.iterrows()
+    ]
+
     if new_history == existing_history:
         return None
-        
+
     return new_history
 
 

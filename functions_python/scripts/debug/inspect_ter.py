@@ -7,13 +7,16 @@ PURPOSE: Inspecciona datos de TER y comisiones.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.debug.inspect_ter
 """
+
 import firebase_admin
 from firebase_admin import firestore
 import os
 import sys
 
 # Ensure valid import of local modules if needed (not strictly needed for just firestore check but good practice)
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
+sys.path.append(
+    os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+)
 
 
 def check_ter():
@@ -82,4 +85,3 @@ def check_ter():
 
 if __name__ == "__main__":
     check_ter()
-

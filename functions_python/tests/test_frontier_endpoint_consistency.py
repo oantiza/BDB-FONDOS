@@ -21,7 +21,7 @@ used another, causing assets to appear above the efficient frontier.
 from __future__ import annotations
 
 import math
-from typing import Dict, List, Tuple
+from typing import Dict, List
 
 import numpy as np
 import pandas as pd
@@ -64,7 +64,7 @@ def _make_mock_prices(
     for i in range(n_assets):
         series = rng.normal(loc=drifts[i], scale=vols[i], size=n_days)
         series = np.clip(series, -0.08, 0.08)
-        rets[f"Asset_{i+1}"] = series
+        rets[f"Asset_{i + 1}"] = series
 
     returns_df = pd.DataFrame(rets, index=dates)
     prices = 100.0 * (1.0 + returns_df).cumprod()
@@ -136,17 +136,19 @@ def _build_frontier_from_mu_S(
             continue
 
     points.sort(key=lambda p: p["x"])
-    
+
     # If the solver failed to reach the maximum return (often happens at the exact upper bound),
     # manually append the 100% distribution in the max return asset.
     if points and points[-1]["y"] < max_ret - 1e-5:
         max_asset = mu.idxmax()
-        points.append({
-            "x": float(np.sqrt(S.loc[max_asset, max_asset])),
-            "y": max_ret,
-            "weights": {t: 1.0 if t == max_asset else 0.0 for t in mu.index}
-        })
-    
+        points.append(
+            {
+                "x": float(np.sqrt(S.loc[max_asset, max_asset])),
+                "y": max_ret,
+                "weights": {t: 1.0 if t == max_asset else 0.0 for t in mu.index},
+            }
+        )
+
     if len(points) < 5:
         raise AssertionError("Frontier has too few valid points")
     return points
