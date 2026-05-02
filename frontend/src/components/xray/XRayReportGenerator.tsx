@@ -236,7 +236,7 @@ export default function XRayReportGenerator() {
                             <tr className="bg-[#fcfafa]">
                                 <td className="p-3 border-b border-slate-200 font-bold">Valor Final NOMINAL</td>
                                 <td className="p-3 border-b border-slate-200 font-bold text-[#c0392b] text-base">{formatCurrency(reportData.valor_final_cartera)}</td>
-                                <td className="p-3 border-b border-slate-200 font-bold">{formatCurrency(reportData.valor_letras_nominal)}</td>
+                                <td className="p-3 border-b border-slate-200 font-bold text-base">{formatCurrency(reportData.valor_letras_nominal)}</td>
                             </tr>
                             <tr>
                                 <td className="p-3 border-b border-slate-200 bg-white">Rentabilidad Media Anual NOMINAL (TIR)</td>
@@ -299,26 +299,28 @@ export default function XRayReportGenerator() {
                         3. Comparativa Final de Poder Adquisitivo
                     </h2>
 
-                    <div className="w-full h-[250px] mb-2 border border-slate-200 rounded-lg p-6 shadow-sm bg-white">
-                        <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
-                            <BarChart data={barData} layout="vertical" margin={{ top: 10, right: 30, left: 160, bottom: 5 }} barSize={24} barGap={0}>
-                                <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0"/>
-                                <XAxis type="number" hide />
-                                <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#1e293b', fontWeight: 600, fontSize: 13}} width={160} />
-                                <Tooltip 
-                                    formatter={(val: number) => formatCurrency(val)} 
-                                    cursor={{fill: 'transparent'}}
-                                    contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
-                                />
-                                <Bar dataKey="real" stackId="a" name="Valor Real">
-                                    {barData.map((entry, index) => <Cell key={`cell-real-${index}`} fill={entry.realColor} />)}
-                                </Bar>
-                                <Bar dataKey="loss" stackId="a" name="Pérdida por Inflación" radius={[0, 4, 4, 0]}>
-                                    {barData.map((entry, index) => <Cell key={`cell-loss-${index}`} fill={entry.lossColor} />)}
-                                </Bar>
-                            </BarChart>
-                        </ResponsiveContainer>
-                        <div className="flex justify-center items-center space-x-6 text-xs text-slate-700 mt-2">
+                    <div className="w-full mb-2 border border-slate-200 rounded-lg p-6 shadow-sm bg-white">
+                        <div className="h-[180px] w-full">
+                            <ResponsiveContainer width="100%" height="100%" minWidth={0} minHeight={0}>
+                                <BarChart data={barData} layout="vertical" margin={{ top: 20, right: 30, left: 160, bottom: 20 }} barSize={24} barGap={0}>
+                                    <CartesianGrid strokeDasharray="3 3" horizontal={false} stroke="#e2e8f0"/>
+                                    <XAxis type="number" hide />
+                                    <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#1e293b', fontWeight: 600, fontSize: 13}} width={160} />
+                                    <Tooltip 
+                                        formatter={(val: number) => formatCurrency(val)} 
+                                        cursor={{fill: 'transparent'}}
+                                        contentStyle={{ borderRadius: '8px', border: '1px solid #e2e8f0', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }}
+                                    />
+                                    <Bar dataKey="real" stackId="a" name="Valor Real">
+                                        {barData.map((entry, index) => <Cell key={`cell-real-${index}`} fill={entry.realColor} />)}
+                                    </Bar>
+                                    <Bar dataKey="loss" stackId="a" name="Pérdida por Inflación" radius={[0, 4, 4, 0]}>
+                                        {barData.map((entry, index) => <Cell key={`cell-loss-${index}`} fill={entry.lossColor} />)}
+                                    </Bar>
+                                </BarChart>
+                            </ResponsiveContainer>
+                        </div>
+                        <div className="flex justify-center items-center space-x-6 text-xs text-slate-700 mt-4">
                             <div className="flex items-center"><div className="w-3 h-3 bg-[#c0392b] mr-1 rounded-sm"></div> Nominal (Cartera)</div>
                             <div className="flex items-center"><div className="w-3 h-3 bg-[#27ae60] mr-1 rounded-sm"></div> Real (Cartera)</div>
                             <div className="flex items-center"><div className="w-3 h-3 bg-[#2980b9] mr-1 rounded-sm"></div> Nominal (Letras)</div>
@@ -351,9 +353,8 @@ export default function XRayReportGenerator() {
     }
 
     return (
-        <div className="bg-white p-8 rounded-xl shadow-sm border border-slate-200 mt-8 mb-8 max-w-[800px] mx-auto">
-            <h3 className="text-2xl font-light text-[#2C3E50] mb-6 border-b pb-4 flex items-center">
-                <FileText className="w-6 h-6 mr-3 text-[#004481]" />
+        <div className="bg-white p-8 rounded-lg w-full max-w-[800px] mx-auto mt-4 mb-4">
+            <h3 className="text-2xl font-light text-[#003399] mb-8 border-b pb-4">
                 Comparador Patrimonial
             </h3>
             
@@ -369,20 +370,20 @@ export default function XRayReportGenerator() {
 
             <form onSubmit={handleSubmit} className="space-y-6">
                 <div>
-                    <label className="block text-xs font-bold text-[#001f5c] uppercase mb-2 tracking-wider">
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
                         Archivo de Movimientos Bancarios (Excel/CSV)
                     </label>
                     <input 
                         type="file" 
                         accept=".xlsx,.xls,.csv"
                         onChange={handleFileChange}
-                        className="w-full p-2.5 border border-slate-300 rounded focus:border-[#004481] focus:outline-none focus:ring-2 focus:ring-[#004481]/20 bg-slate-50 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-[#001f5c] file:text-white hover:file:bg-[#003366] transition-all cursor-pointer"
+                        className="w-full p-2.5 border border-slate-300 rounded focus:border-[#003399] outline-none bg-white file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-sm file:font-bold file:bg-[#003399] file:text-white hover:file:bg-[#002266] transition-all cursor-pointer"
                     />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label className="block text-xs font-bold text-[#001f5c] uppercase mb-2 tracking-wider">
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
                             Titular de la Cartera
                         </label>
                         <input 
@@ -390,12 +391,12 @@ export default function XRayReportGenerator() {
                             value={titular}
                             onChange={(e) => setTitular(e.target.value)}
                             placeholder="Ej. Jon Urrestilla Urizabal"
-                            className="w-full p-3 border border-slate-300 rounded focus:border-[#004481] focus:outline-none focus:ring-2 focus:ring-[#004481]/20 bg-white transition-all shadow-sm"
+                            className="w-full p-3 border border-slate-300 rounded focus:border-[#003399] outline-none text-lg transition-colors"
                         />
                     </div>
 
                     <div>
-                        <label className="block text-xs font-bold text-[#001f5c] uppercase mb-2 tracking-wider">
+                        <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-2">
                             Valor Final Actual de la Cartera (€)
                         </label>
                         <input 
@@ -404,21 +405,25 @@ export default function XRayReportGenerator() {
                             value={valorFinal}
                             onChange={(e) => setValorFinal(e.target.value)}
                             placeholder="Ej. 100000"
-                            className="w-full p-3 border border-slate-300 rounded focus:border-[#004481] focus:outline-none focus:ring-2 focus:ring-[#004481]/20 bg-white transition-all shadow-sm font-mono"
+                            className="w-full p-3 border border-slate-300 rounded focus:border-[#003399] outline-none text-lg transition-colors font-mono"
                         />
                     </div>
                 </div>
 
-                <button 
-                    type="submit" 
-                    disabled={isLoading}
-                    className="mt-8 w-full bg-[#001f5c] text-white py-4 px-4 rounded-lg uppercase font-bold tracking-widest shadow-md hover:bg-[#003366] hover:shadow-lg transition-all disabled:opacity-70 disabled:cursor-wait flex justify-center items-center text-sm"
-                >
-                    {isLoading ? (
-                        <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 
-                        Calculando Rentabilidad Real...</>
-                    ) : 'Generar Análisis Patrimonial'}
-                </button>
+                <div className="flex justify-end mt-8">
+                    <button 
+                        type="submit" 
+                        disabled={isLoading}
+                        className="px-8 py-3 bg-[#D4AF37] text-white rounded hover:bg-[#b5952f] font-bold uppercase text-sm tracking-wider shadow-md disabled:opacity-50 disabled:cursor-wait flex items-center gap-2 transition-colors"
+                    >
+                        {isLoading ? (
+                            <><svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle><path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> 
+                            Generando...</>
+                        ) : (
+                            <><span>📊</span> Generar Análisis Patrimonial</>
+                        )}
+                    </button>
+                </div>
             </form>
         </div>
     );
