@@ -78,18 +78,37 @@ def _tbills_series():
     ).sort_index()
 
 
+def _official_letras():
+    series = _tbills_series()
+    return {
+        "series": series,
+        "metadata": {
+            "letras_source": "BDE_API",
+            "letras_last_update": "2026-01-01",
+            "letras_observations_count": len(series),
+            "letras_series_name": "Rentabilidad letras a 12 meses",
+        },
+        "warning": "",
+    }
+
+
 @pytest.fixture(autouse=True)
 def _patch_macro(monkeypatch):
     monkeypatch.setattr(xray, "get_ine_inflation_map", _inflation_map)
     monkeypatch.setattr(xray, "get_bde_tbills_series", _tbills_series)
+    monkeypatch.setattr(xray, "get_official_letras_12m_series", _official_letras)
 
 
 # ─── Helpers ──────────────────────────────────────────────
 
 STANDARD_ROWS = [
+    _row("2010-01-01", "ABONO TRANSFERENCIA", 10000.0),
     _row("2010-01-01", "SUSCRIPCION IIC", -10000.0),
+    _row("2016-01-01", "ABONO TRANSFERENCIA", 5000.0),
     _row("2016-01-01", "SUSCRIPCION IIC", -5000.0),
     _row("2020-01-01", "REEMBOLSO IIC", 3000.0),
+    _row("2020-01-01", "CARGO DE CHEQUE", -3000.0),
+    _row("2026-05-01", None, None),
 ]
 
 ORIGINAL_KEYS = [
@@ -177,21 +196,30 @@ class TestDepositosReasonableRange:
 
     def test_depositos_positive_long_term(self):
         """10k invested in 2010 should grow, not shrink, over 16 years."""
-        data = _call(rows=[_row("2010-01-01", "SUSCRIPCION IIC", -10000.0)])
+        data = _call(rows=[
+            _row("2010-01-01", "ABONO TRANSFERENCIA", 10000.0),
+            _row("2010-01-01", "SUSCRIPCION IIC", -10000.0),
+            _row("2026-05-01", None, None),
+        ])
         assert data["depositos_final_value"] > 10000.0
 
     def test_depositos_below_funds(self):
-        """With a good fund performance (valor_final=25000 on 10k invested),
-        deposits should be well below the fund value."""
         data = _call(
-            rows=[_row("2010-01-01", "SUSCRIPCION IIC", -10000.0)],
+            rows=[
+                _row("2010-01-01", "ABONO TRANSFERENCIA", 10000.0),
+                _row("2010-01-01", "SUSCRIPCION IIC", -10000.0),
+                _row("2026-05-01", None, None),
+            ],
             valor_final="25000",
         )
         assert data["depositos_final_value"] < data["valor_final_cartera"]
 
     def test_depositos_xirr_in_range(self):
-        """Deposit XIRR should be between -1% and +5% for typical scenarios."""
-        data = _call(rows=[_row("2010-01-01", "SUSCRIPCION IIC", -10000.0)])
+        data = _call(rows=[
+            _row("2010-01-01", "ABONO TRANSFERENCIA", 10000.0),
+            _row("2010-01-01", "SUSCRIPCION IIC", -10000.0),
+            _row("2026-05-01", None, None),
+        ])
         assert -1.0 <= data["depositos_xirr_nominal"] <= 5.0
 
     def test_depositos_not_negative_in_full_period(self):
