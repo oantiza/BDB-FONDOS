@@ -23,6 +23,33 @@ interface ReportData {
     tir_real_letras: number;
     impuesto_bizkaia: number;
     chart_data: any[];
+    depositos_xirr_nominal?: number;
+    depositos_final_value?: number;
+    portfolio_xirr_client?: number;
+}
+
+function generateFinalCommentary(data: ReportData): string[] {
+    const paragraphs: string[] = [];
+    
+    const tirCartera = data.tir_nominal_cartera;
+    const tirLetras = data.tir_nominal_letras;
+    const tirDepositos = data.depositos_xirr_nominal !== undefined ? data.depositos_xirr_nominal : 0;
+    const xirrClient = data.portfolio_xirr_client !== undefined ? data.portfolio_xirr_client : tirCartera;
+    
+    const formatPct = (val: number) => new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(val) + '%';
+    const formatCur = (val: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: 'EUR', maximumFractionDigits: 0 }).format(val);
+    
+    paragraphs.push(`Durante el periodo analizado, la cartera ha obtenido una rentabilidad media anual del ${formatPct(tirCartera)}, alcanzando un valor final de ${formatCur(data.valor_final_cartera)}. Este resultado supone una diferencia significativa frente a las alternativas conservadoras, reflejando el efecto combinado del crecimiento de los mercados y del horizonte de inversión.`);
+    
+    paragraphs.push(`En cuanto a opciones de bajo riesgo, los depósitos bancarios (${formatPct(tirDepositos)}) y las Letras del Tesoro (${formatPct(tirLetras)}) han mostrado rentabilidades muy similares a lo largo del periodo, situándose en niveles reducidos y condicionados por la tributación anual, lo que limita su capacidad de crecimiento real.`);
+    
+    paragraphs.push(`Adicionalmente, la comparación entre rentabilidad bruta y neta en este tipo de activos permite observar de forma directa el impacto de la fiscalidad, que reduce de manera significativa el rendimiento efectivo obtenido por el inversor.`);
+    
+    paragraphs.push(`La rentabilidad interna capturada por el cliente se mantiene alineada con la rentabilidad de la cartera, lo que indica un patrón de aportaciones consistente, sin impacto relevante derivado del timing.`);
+    
+    paragraphs.push(`En conjunto, los resultados ponen de manifiesto la importancia del horizonte temporal y de la adecuada asignación de activos como factores clave en la preservación y crecimiento del capital en términos reales.`);
+    
+    return paragraphs;
 }
 
 export default function XRayReportGenerator() {
@@ -34,7 +61,8 @@ export default function XRayReportGenerator() {
     const [reportData, setReportData] = useState<ReportData | null>(null);
     const [isExporting, setIsExporting] = useState(false);
 
-    const reportRef = useRef<HTMLDivElement>(null);
+    const reportRefPage1 = useRef<HTMLDivElement>(null);
+    const reportRefPage2 = useRef<HTMLDivElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -83,18 +111,26 @@ export default function XRayReportGenerator() {
     };
 
     const handleExportPDF = async () => {
-        if (!reportRef.current) return;
+        if (!reportRefPage1.current || !reportRefPage2.current) return;
         
         setIsExporting(true);
         try {
-            const canvas = await html2canvas(reportRef.current, { scale: 2, useCORS: true });
-            const imgData = canvas.toDataURL('image/jpeg', 1.0);
-            
             const pdf = new jsPDF('p', 'mm', 'a4');
             const pdfWidth = pdf.internal.pageSize.getWidth();
-            const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
             
-            pdf.addImage(imgData, 'JPEG', 0, 0, pdfWidth, pdfHeight);
+            // Page 1
+            const canvas1 = await html2canvas(reportRefPage1.current, { scale: 2, useCORS: true });
+            const imgData1 = canvas1.toDataURL('image/jpeg', 1.0);
+            const pdfHeight1 = (canvas1.height * pdfWidth) / canvas1.width;
+            pdf.addImage(imgData1, 'JPEG', 0, 0, pdfWidth, pdfHeight1);
+            
+            // Page 2
+            pdf.addPage();
+            const canvas2 = await html2canvas(reportRefPage2.current, { scale: 2, useCORS: true });
+            const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
+            const pdfHeight2 = (canvas2.height * pdfWidth) / canvas2.width;
+            pdf.addImage(imgData2, 'JPEG', 0, 0, pdfWidth, pdfHeight2);
+            
             pdf.save(`Comparativa_${titular.replace(/\s+/g, '_')}.pdf`);
         } catch (err) {
             console.error("Error al exportar a PDF:", err);
@@ -154,8 +190,10 @@ export default function XRayReportGenerator() {
                     </button>
                 </div>
 
-                <div ref={reportRef} className="p-10 bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
-                    <div className="border-b-2 border-[#001f5c] pb-4 mb-6 flex justify-between items-end">
+                <div className="flex flex-col gap-4">
+                    {/* PAGE 1 */}
+                    <div ref={reportRefPage1} className="p-10 bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
+                        <div className="border-b-2 border-[#001f5c] pb-4 mb-6 flex justify-between items-end">
                         <h1 className="text-3xl font-bold text-[#001f5c] m-0">Informe de Comparativa de Rendimiento Histórico</h1>
                         <div className="text-slate-500 text-sm text-right">
                             Análisis: <span className="capitalize">{reportData.periodo_inicio}</span> – <span className="capitalize">{reportData.periodo_fin}</span>
@@ -202,8 +240,8 @@ export default function XRayReportGenerator() {
                             </tr>
                             <tr>
                                 <td className="p-3 border-b border-slate-200 bg-white">Rentabilidad Media Anual NOMINAL (TIR)</td>
-                                <td className="p-3 border-b border-slate-200 font-medium bg-white">{formatPercent(reportData.tir_nominal_cartera)}</td>
-                                <td className="p-3 border-b border-slate-200 text-slate-500 italic bg-white">~{formatPercent(reportData.tir_nominal_letras)} (Neto IRPF*)</td>
+                                <td className="p-3 border-b border-slate-200 font-medium bg-white"><strong className="font-bold">{formatPercent(reportData.tir_nominal_cartera)}</strong></td>
+                                <td className="p-3 border-b border-slate-200 font-medium bg-white"><strong className="font-bold">{formatPercent(reportData.tir_nominal_letras)}</strong> <span className="font-normal italic">({formatPercent(reportData.tir_nominal_letras_bruto)} bruto)*</span></td>
                             </tr>
                             <tr className="bg-[#f0fdf4]">
                                 <td className="p-3 border-b border-slate-200">Inversión Neta REAL (Aportaciones en € de hoy)</td>
@@ -224,7 +262,7 @@ export default function XRayReportGenerator() {
                     </table>
 
                     <div className="text-[11px] text-slate-500 italic mb-8 mt-[-1.5rem] text-justify">
-                        * Neto IRPF (Simulación Histórica): El resultado nominal de las Letras del Tesoro se ha calculado realizando una simulación hacia el pasado, descontando los impuestos correspondientes cada año y aplicando de manera recurrente las tasas de interés mensuales publicadas por el Banco de España para el mismo periodo exacto en el que estuvo invertida la cartera.
+                        * Neto IRPF (simulación histórica): el rendimiento de las Letras del Tesoro se ha calculado a partir de las tasas mensuales publicadas por el Banco de España, mostrando tanto el resultado neto tras impuestos como el rendimiento bruto antes de fiscalidad.
                     </div>
 
                     <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-6 flex items-center">
@@ -253,7 +291,10 @@ export default function XRayReportGenerator() {
                             </AreaChart>
                         </ResponsiveContainer>
                     </div>
+                    </div>
 
+                    {/* PAGE 2 */}
+                    <div ref={reportRefPage2} className="p-10 bg-white" style={{ fontFamily: 'Helvetica, Arial, sans-serif' }}>
                     <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-6 flex items-center">
                         3. Comparativa Final de Poder Adquisitivo
                     </h2>
@@ -292,22 +333,17 @@ export default function XRayReportGenerator() {
                     <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-4 flex items-center">
                         4. Conclusiones y Fiscalidad
                     </h2>
-                    <p className="text-slate-700 text-sm leading-relaxed mb-8 text-justify bg-slate-50 p-4 border border-slate-200 rounded">
-                        El tratamiento fiscal ha sido un factor crítico. Al no tributar por las ganancias latentes durante el periodo (Diferimiento), 
-                        el 100% del capital de la Cartera ha seguido generando interés compuesto. Por el contrario, el "peaje" anual del {reportData.impuesto_bizkaia}% 
-                        en IRPF sobre las Letras ha drenado el capital disponible para reinvertir en el mercado año a año.
-                        <br/><br/>
-                        <strong>Impacto Fiscal en las Letras del Tesoro (Rentabilidad Media Anual NOMINAL):</strong><br/>
-                        <span className="inline-block mt-2 ml-4">
-                            • <strong>Rentabilidad Bruta (sin IRPF):</strong> ~{formatPercent(reportData.tir_nominal_letras_bruto)}<br/>
-                            • <strong>Rentabilidad Neta (con IRPF {reportData.impuesto_bizkaia}%):</strong> ~{formatPercent(reportData.tir_nominal_letras)}
-                        </span>
-                    </p>
+                    <div className="text-slate-700 text-sm leading-relaxed mb-8 text-justify bg-slate-50 p-4 border border-slate-200 rounded space-y-4">
+                        {generateFinalCommentary(reportData).map((paragraph, idx) => (
+                            <p key={idx}>{paragraph}</p>
+                        ))}
+                    </div>
 
                     <div className="text-xs text-slate-400 border-t border-slate-200 pt-4 text-justify mt-8">
                         Este informe se basa en los datos proporcionados y el histórico de movimientos bancarios suministrado. 
                         Se ha utilizado la serie IPC General Nacional (INE) y el rendimiento en mercado secundario de las Letras del Tesoro a 1 año (Banco de España). 
-                        Las rentabilidades pasadas no garantizan rendimientos futuros. Generado por XRay Analytics.
+                        Las rentabilidades pasadas no garantizan rendimientos futuros.
+                    </div>
                     </div>
                 </div>
             </div>
