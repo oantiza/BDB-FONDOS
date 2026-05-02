@@ -1,0 +1,130 @@
+{
+  "isin": "LU0348927251",
+  "fileName": "morningstarreport20251204094544.pdf",
+  "report_date": "2025-12-04",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:39:46.898Z",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Sector Ecología",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.53,
+        "bond": 0,
+        "cash": 1.47,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.76,
+      "financial_services": 2.11,
+      "industrials": 43.21,
+      "healthcare": 2.53,
+      "consumer_cyclical": 7.88,
+      "consumer_defensive": 1.61,
+      "utilities": 7.89,
+      "real_estate": 0.95,
+      "basic_materials": 9.06
+    },
+    "regions": {
+      "macro": {
+        "americas": 65.94,
+        "europe_me_africa": 25.78,
+        "asia": 8.28
+      },
+      "detail": {
+        "americas": 65.94,
+        "united_states": 64.72,
+        "latin_america": 1.22,
+        "europe_me_africa": 25.78,
+        "united_kingdom": 3.73,
+        "eurozone": 13.4,
+        "europe_ex_euro": 8.65,
+        "asia": 8.28,
+        "japan": 4.73,
+        "asia_emerging": 3.55
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.5,
+        "large": 40.24,
+        "mid": 21.36,
+        "small": 19.99,
+        "micro": 0.91
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Broadcom Inc",
+        "weight": 4.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Waste Management Inc",
+        "weight": 3.31,
+        "sector": "industrials"
+      },
+      {
+        "name": "Emerson Electric Co",
+        "weight": 3.23,
+        "sector": "industrials"
+      },
+      {
+        "name": "Air Liquide SA",
+        "weight": 2.89,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 2.85,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Advanced Micro Devices Inc",
+        "weight": 2.83,
+        "sector": "technology"
+      },
+      {
+        "name": "GFL Environmental Inc",
+        "weight": 2.81,
+        "sector": "industrials"
+      },
+      {
+        "name": "American Water Works Co Inc",
+        "weight": 2.55,
+        "sector": "utilities"
+      },
+      {
+        "name": "Agilent Technologies Inc",
+        "weight": 2.49,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Trane Technologies PLC Class A",
+        "weight": 2.47,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 53,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.28
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Este Subfondo pretende conservar el capital del inversor y proporcionar una rentabilidad adecuada sobre la inversión. Este Subfondo utiliza además su índice de referencia como herramienta para la comparación de la rentabilidad."
+  }
+}

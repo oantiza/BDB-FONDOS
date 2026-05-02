@@ -1,0 +1,322 @@
+{
+  "isin": "LU0011889846",
+  "name": "Janus Henderson Horizon Euroland Fund A2 EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202070421.pdf",
+  "stableBaseName": "LU0011889846__2025-12-02__e1a0a1c3",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Zona Euro Cap. Grande",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.16,
+        "bond": 0,
+        "cash": 1.84,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 16.83,
+      "financial_services": 20.82,
+      "industrials": 29.71,
+      "healthcare": 5.23,
+      "consumer_cyclical": 6.6,
+      "consumer_defensive": 3.06,
+      "utilities": 5.45,
+      "energy": 3.89,
+      "communication_services": 4.48,
+      "basic_materials": 3.93
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.58,
+        "europe_me_africa": 97.42
+      },
+      "detail": {
+        "united_states": 2.58,
+        "united_kingdom": 3.93,
+        "eurozone": 93.49
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 43.48,
+        "large": 34.12,
+        "mid": 19.34,
+        "small": 2.96,
+        "micro": 0.1
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 6.23,
+        "sector": "Technology"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 4.76,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 4.67,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 4.16,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 3.9,
+        "sector": "Technology"
+      },
+      {
+        "name": "Poste Italiane SpA",
+        "weight": 3.69,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 3.43,
+        "sector": "Industrials"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.12,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 3.1,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.98,
+        "sector": "Utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 50,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.04
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "En circunstancias normales, el fondo invierte principalmente en acciones de empresas de la zona euro de cualquier sector. También puede invertir en cualquier otro tipo de valor que sea compatible con su objetivo, instrumentos del mercado monetario y depósitos bancarios. Al seleccionar las inversiones, el gestor trata de escoger varias acciones de la zona euro en base a un análisis del mercado y económico centrado en identificar las empresas con un valor más atractivo por su capacidad para generar efectivo en un plazo..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROZONE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 29.71,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.16,
+        "bond": 0,
+        "cash": 1.84,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 16.5203,
+        "financial_services": 20.4369,
+        "industrials": 29.1633,
+        "healthcare": 5.1338,
+        "consumer_cyclical": 6.4786,
+        "consumer_defensive": 3.0037,
+        "utilities": 5.3497,
+        "energy": 3.8184,
+        "communication_services": 4.3976,
+        "basic_materials": 3.8577
+      },
+      "equity_regions_total": {
+        "united_states": 2.5325,
+        "united_kingdom": 3.8577,
+        "eurozone": 91.7698
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 98.16,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 3.0037,
+          "mid": 18.9841,
+          "large": 76.1722
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROZONE_EQUITY",
+    "commercial_type": "RV Zona Euro Cap. Grande",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9816,
+      "bond": 0,
+      "cash": 0.0184,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.025325,
+      "united_kingdom": 0.038577,
+      "eurozone": 0.917698
+    },
+    "sectors": {
+      "technology": 0.165203,
+      "financial_services": 0.204369,
+      "industrials": 0.291633,
+      "healthcare": 0.051338,
+      "consumer_cyclical": 0.064786,
+      "consumer_defensive": 0.030037,
+      "utilities": 0.053497,
+      "energy": 0.038184,
+      "communication_services": 0.043976,
+      "basic_materials": 0.038577
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.030037,
+      "mid": 0.189841,
+      "large": 0.761722
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.16"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "89da83948197b806c600ce948c8128b4",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9816,
+          "bond": 0,
+          "cash": 0.0184,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9816
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9816
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9816
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:27:11.203Z"
+}

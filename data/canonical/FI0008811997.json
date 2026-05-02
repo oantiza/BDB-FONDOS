@@ -1,0 +1,279 @@
+{
+  "isin": "FI0008811997",
+  "name": "Evli Nordic Corporate Bond B",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202044246.pdf",
+  "stableBaseName": "FI0008811997__2025-12-02__7a396eec",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 94.58,
+        "cash": 5.23,
+        "other": 0.19
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 1.99,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 3.02,
+        "bbb": 37.55,
+        "bb": 8.48,
+        "b": 2.53,
+        "below_b": 0.16,
+        "not_rated": 48.26
+      },
+      "maturity_allocation": {
+        "1_3": 22.74,
+        "3_5": 41.04,
+        "5_7": 16.35,
+        "7_10": 5.5,
+        "over_10": 12.53
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 41.89,
+        "4_6": 39.87,
+        "over_6": 18.25
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Kesko Oyj 2030-02-02",
+        "weight": 2.27,
+        "sector": null
+      },
+      {
+        "name": "Tornator Oyj 2031-10-17",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "Kojamo Oyj 2032-03-12",
+        "weight": 1.49,
+        "sector": null
+      },
+      {
+        "name": "Kemira Oyj 2028-03-30",
+        "weight": 1.4,
+        "sector": null
+      },
+      {
+        "name": "Ellevio AB 2031-11-20",
+        "weight": 1.33,
+        "sector": null
+      },
+      {
+        "name": "Fortum Oyj 2033-05-26",
+        "weight": 1.31,
+        "sector": null
+      },
+      {
+        "name": "Vattenfall AB 2083-05-26",
+        "weight": 1.24,
+        "sector": null
+      },
+      {
+        "name": "Finnair Oyj 2029-05-24",
+        "weight": 1.23,
+        "sector": null
+      },
+      {
+        "name": "Storebrand Livsforsikring AS 2051-09-30",
+        "weight": 1.2,
+        "sector": null
+      },
+      {
+        "name": "S-Bank Plc 2028-03-08",
+        "weight": 1.2,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 264,
+      "top10_weight": 14.9
+    },
+    "costs": {
+      "management_fee": 0.75
+    },
+    "objective": "Evli Nordic Corporate Bond is an enhanced long-term fixed income fund that invests its assets in various fixed income instruments such as government bonds, emerging markets debt, corporate bonds, money market instruments, units of fixed income funds, and structured financial instruments. The fund may also invest its assets in derivatives contracts and the units of other mutual funds."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:emerging_markets",
+      "theme:financials",
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Flexible EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "emerging_debt",
+    "credit_bucket": "mixed_credit",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:emerging_markets",
+      "theme:financials",
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9458,
+      "cash": 0.0523,
+      "other": 0.0019
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "emerging_debt": 0.9458
+    },
+    "credit": {
+      "mixed_credit": 0.9458
+    },
+    "duration": {
+      "short": 0.9458
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=94.58",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.19,max_component=94.58",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "5d84f68937cb518e606bb50e5e02013c",
+    "warnings": [
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9458,
+          "cash": 0.0523,
+          "other": 0.0019,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9458
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9458
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9458
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:25:04.625Z"
+}

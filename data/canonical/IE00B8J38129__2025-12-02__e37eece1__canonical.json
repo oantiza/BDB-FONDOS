@@ -1,0 +1,274 @@
+{
+  "isin": "IE00B8J38129",
+  "name": "Algebris UCITS Funds plc - Algebris Financial Credit Fund R EUR Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202045048.pdf",
+  "stableBaseName": "IE00B8J38129__2025-12-02__e37eece1",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": null,
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0.73,
+        "bond": 78.58,
+        "cash": 14.59,
+        "other": 6.1
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 3.13,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 15.23,
+        "aa": 0,
+        "a": 3.26,
+        "bbb": 47.27,
+        "bb": 31.87,
+        "b": 2.37,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 4.14,
+        "4_6": 27.45,
+        "over_6": 68.42
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Credit Agricole S.A. 5.875%",
+        "weight": 1.88,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 8.875%",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander, S.A. 4.375%",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 9.25%",
+        "weight": 1.47,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG 8.125%",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG 7.125%",
+        "weight": 1.42,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 8.5%",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A. 6.375%",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 6.25%",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "Cooperatieve Rabobank U.A. 4.875%",
+        "weight": 1.23,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 2,
+      "holdings_count_bond": 172,
+      "top10_weight": 14.68
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "El objetivo del fondo Algebris Financial Credit Fund es generar un nivel alto de ingresos corrientes y conseguir un nivel moderado de apreciación del capital invirtiendo globalmente en deuda subordinada y senior del sector financiero, incluyendo acciones preferentes e instrumentos de capital híbrido (como instrumentos Additional Tier 1), con calificación crediticia «investment grade» o inferior. La exposición a divisa se cubre sistemáticamente. El fondo podría ser apropiado para inversores con un horizonte temporal de..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:financials",
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.7500000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": null,
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "mixed_credit",
+    "duration_bucket": "intermediate",
+    "strategy_tags": [
+      "theme:financials",
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.7500000000000001,
+    "sources_used": [
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.0073,
+      "bond": 0.7858,
+      "cash": 0.1459,
+      "other": 0.061
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.7858
+    },
+    "credit": {
+      "mixed_credit": 0.7858
+    },
+    "duration": {
+      "intermediate": 0.7858
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.7500000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=78.58",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.73,max_component=78.58",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "605809d7629a0dc630421f15a53329a6",
+    "warnings": [
+      "missing_category_morningstar",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.0073,
+          "bond": 0.7858,
+          "cash": 0.1459,
+          "other": 0.061,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7858
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7858
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7858
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:25:50.723Z"
+}

@@ -1,0 +1,276 @@
+{
+  "isin": "LU1340702932",
+  "name": "MFS Meridian Funds - Global Opportunistic Bond Fund A1 EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202045107.pdf",
+  "stableBaseName": "LU1340702932__2025-12-02__f324e70e",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Global Flexible Bond - USD Hedged",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 74.56,
+        "cash": 25.34,
+        "other": 0.1
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 6.89,
+      "effective_maturity": 8.78,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 20.74,
+        "aa": 6.51,
+        "a": 22.3,
+        "bbb": 26.44,
+        "bb": 9.97,
+        "b": 5.71,
+        "below_b": 0.64,
+        "not_rated": 7.7
+      },
+      "maturity_allocation": {
+        "1_3": 2.39,
+        "3_5": 15.8,
+        "5_7": 15.09,
+        "7_10": 23.58,
+        "over_10": 34.96
+      },
+      "coupon_allocation": {
+        "0": 0.69,
+        "0_4": 46,
+        "4_6": 32.37,
+        "over_6": 20.94
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "10 Year Treasury Note Future Dec...",
+        "weight": 4.28,
+        "sector": null
+      },
+      {
+        "name": "Ust Bond 2Yr Future Dec 31 25",
+        "weight": 3.08,
+        "sector": null
+      },
+      {
+        "name": "Canadian Bond 10Yr Future Dec 18 25",
+        "weight": 1.87,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of)...",
+        "weight": 1.69,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 1.45% 2036-03-01",
+        "weight": 1.61,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of) 8.88% 2035-02-28",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Greece (Republic Of) 3.63% 2035-06-15",
+        "weight": 1.56,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of)...",
+        "weight": 1.55,
+        "sector": null
+      },
+      {
+        "name": "Korea (Republic Of) 1.5% 2030-12-10",
+        "weight": 1.55,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 718,
+      "top10_weight": 20.34
+    },
+    "costs": {
+      "management_fee": 0.55
+    },
+    "objective": "The Fund's objective is total return, measured in U.S. dollars. The Fund will invest primarily (at least 70%) in debt instruments. The Fund normally focuses its investments in issuers located in developed markets, but may also invest in issuers located in emerging markets. The Fund will invest in corporate and government issuers, mortgage-backed securities and other securitized instruments as well as investment grade and below investment grade debt instruments. The Fund may invest a relatively large percentage of its..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:emerging_markets",
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "Global Flexible Bond - USD Hedged",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "emerging_debt",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "intermediate",
+    "strategy_tags": [
+      "theme:emerging_markets",
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.7456,
+      "cash": 0.2534,
+      "other": 0.001
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "emerging_debt": 0.7456
+    },
+    "credit": {
+      "investment_grade": 0.7456
+    },
+    "duration": {
+      "intermediate": 0.7456
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=74.56",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.1,max_component=74.56",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "41c9b6036f6a994c516cea13143085ed",
+    "warnings": [
+      "missing_rating_stars",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.7456,
+          "cash": 0.2534,
+          "other": 0.001,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7456
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7456
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7456
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:25:50.140Z"
+}

@@ -1,0 +1,160 @@
+{
+  "isin": "IE00BYX5P602",
+  "fileName": "morningstarreport20251229072341.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:05.645Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-26",
+      "asset_allocation": {
+        "equity": 98.39,
+        "bond": 0,
+        "cash": 1.56,
+        "other": 0.05
+      }
+    },
+    "sectors": {
+      "technology": 28.05,
+      "financial_services": 16.68,
+      "industrials": 10.55,
+      "healthcare": 9.77,
+      "consumer_cyclical": 10.01,
+      "consumer_defensive": 5.2,
+      "utilities": 2.51,
+      "energy": 3.28,
+      "communication_services": 9.04,
+      "real_estate": 1.82,
+      "basic_materials": 3.08
+    },
+    "regions": {
+      "macro": {
+        "americas": 75.5,
+        "europe_me_africa": 16.31,
+        "asia": 8.18
+      },
+      "detail": {
+        "united_states": 71.96,
+        "canada": 3.4,
+        "latin_america": 0.15,
+        "united_kingdom": 3.56,
+        "eurozone": 8.49,
+        "europe_ex_euro": 4.05,
+        "middle_east": 0.21,
+        "japan": 5.45,
+        "australasia": 1.62,
+        "other": 0.98,
+        "asia_emerging": 0.13
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 47.12,
+        "large": 35.53,
+        "mid": 16.86,
+        "small": 0.5,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 5.35,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 4.69,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 3.98,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 2.58,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.11,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 1.83,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 1.78,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 1.66,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 1.55,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "E-mini S&P 500 Future Mar...",
+        "weight": 1.27,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1319,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.8
+    },
+    "costs": {
+      "management_fee": 0.17
+    },
+    "objective": "Tiene como objetivo proporcionar a los inversores un rendimiento total, teniendo en cuenta los rendimientos de capital e ingresos, que refleje, antes de comisiones y gastos, el rendimiento del MSCI World Index. Para las clases de acción con cobertura cambiaria, el rendimiento se cubrirá en la divisa base de la clase de acción correspondiente. Si desea información más detallada sobre los objetivos, consulte el Documento de datos fundamentales para el inversor (DFI) y el Folleto informativo."
+  }
+}

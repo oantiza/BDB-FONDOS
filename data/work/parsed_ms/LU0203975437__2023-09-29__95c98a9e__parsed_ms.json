@@ -1,0 +1,123 @@
+{
+  "isin": "LU0203975437",
+  "fileName": "morningstarreport20230929083032.pdf",
+  "report_date": "2023-09-29",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:01:54.766Z",
+  "ms": {
+    "report_date": "2023-09-29",
+    "category_morningstar": "RV Global Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2023-07-30",
+      "asset_allocation": {
+        "equity": 96.26,
+        "bond": 0,
+        "cash": 3.74,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 13.56,
+      "financial_services": 21.92,
+      "industrials": 17.12,
+      "healthcare": 10.6,
+      "consumer_cyclical": 9.23,
+      "consumer_defensive": 8.45,
+      "utilities": 1.63,
+      "energy": 8.51,
+      "communication_services": 3.58,
+      "basic_materials": 5.4
+    },
+    "regions": {
+      "macro": {
+        "americas": 38.9,
+        "europe_me_africa": 49.86,
+        "asia": 11.25
+      },
+      "detail": {
+        "united_states": 38.9,
+        "united_kingdom": 13.44,
+        "eurozone": 31.32,
+        "europe_ex_euro": 5.09,
+        "japan": 7.98,
+        "other": 3.27
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 29.19,
+        "large": 36.45,
+        "mid": 31.82,
+        "small": 2.48,
+        "micro": 0.06
+      },
+      "style": null,
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.54,
+        "sector": "Energía"
+      },
+      {
+        "name": "Stellantis NV",
+        "weight": 2.32,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 2,
+        "sector": "Energía"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 1.99,
+        "sector": "Industria"
+      },
+      {
+        "name": "CRH PLC",
+        "weight": 1.71,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Rheinmetall AG",
+        "weight": 1.68,
+        "sector": "Industria"
+      },
+      {
+        "name": "The Cigna Group",
+        "weight": 1.67,
+        "sector": "Salud"
+      },
+      {
+        "name": "Rexel SA",
+        "weight": 1.57,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Cisco Systems Inc",
+        "weight": 1.54,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Chubb Ltd",
+        "weight": 1.54,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 117,
+      "holdings_count_bond": 0,
+      "top10_weight": 18.58
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El objetivo del subfondo es lograr el crecimiento del capital a largo plazo invirtiendo en títulos de renta variable de empresas establecidas en todo el mundo. Las inversiones del subfondo se centrarán en empresas que se hallen infravaloradas y conjuguen una valoración atractiva con un catalizador de cambio. Estas empresas pueden ser tanto empresas de gran capitalización como empresas de mediana capitalización. Las inversiones en títulos de renta variable de esas empresas representarán al menos dos tercios del..."
+  }
+}

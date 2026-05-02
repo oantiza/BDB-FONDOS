@@ -1,0 +1,273 @@
+{
+  "isin": "LU1362999481",
+  "name": "Robeco High Yield Bonds D €",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202045100.pdf",
+  "stableBaseName": "LU1362999481__2025-12-02__3624ccae",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Bonos Alto Rendimiento Global",
+    "rating_stars": 2,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0.06,
+        "bond": 98.87,
+        "cash": 0.65,
+        "other": 0.43
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.82,
+      "effective_maturity": 3.9,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 1.16,
+        "a": 0,
+        "bbb": 8.8,
+        "bb": 62.54,
+        "b": 22.8,
+        "below_b": 4.12,
+        "not_rated": 0.58
+      },
+      "maturity_allocation": {
+        "1_3": 13.9,
+        "3_5": 30.54,
+        "5_7": 31.05,
+        "7_10": 6.82,
+        "over_10": 4.41
+      },
+      "coupon_allocation": {
+        "0": 0.28,
+        "0_4": 19.73,
+        "4_6": 35.06,
+        "over_6": 44.93
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "5 Year Treasury Note Future Dec...",
+        "weight": 10.21,
+        "sector": null
+      },
+      {
+        "name": "Robeco European High Yield Bonds ZH €",
+        "weight": 3.63,
+        "sector": null
+      },
+      {
+        "name": "10 Year Treasury Note Future Dec...",
+        "weight": 1.92,
+        "sector": null
+      },
+      {
+        "name": "EMRLD Borrower LP / Emerald Co-Issuer...",
+        "weight": 0.98,
+        "sector": null
+      },
+      {
+        "name": "Canpack SA And Canpack US LLC...",
+        "weight": 0.89,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes 4% 2025-12-15",
+        "weight": 0.88,
+        "sector": null
+      },
+      {
+        "name": "Carnival Corporation 5.875% 2031-06-15",
+        "weight": 0.69,
+        "sector": null
+      },
+      {
+        "name": "CNX Resources Corporation 6% 2029-01-15",
+        "weight": 0.62,
+        "sector": null
+      },
+      {
+        "name": "Albertsons Cos Inc / Safeway Inc / New...",
+        "weight": 0.61,
+        "sector": null
+      },
+      {
+        "name": "Venture Global LNG Inc. 9.875% 2032-02-01",
+        "weight": 0.61,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 492,
+      "top10_weight": 21.05
+    },
+    "costs": {
+      "management_fee": 1.1
+    },
+    "objective": "Robeco High Yield Bonds (EUR) invierte en bonos corporativos de alto rendimiento de todo el mundo cuya calificación crediticia máxima es BBB. Normalmente, los bonos de alto rendimiento registran resultados superiores a los de los bonos tradicionales, ya que cada uno de estos bonos por separado conlleva un mayor riesgo. La fortaleza del fondo radica en la activa reducción de este riesgo al agrupar 100 títulos diferentes y repartir las inversiones entre sectores y clases de calificaciones diferentes. La selección de los..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:high_yield"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "commercial_type": "RF Bonos Alto Rendimiento Global",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "high_yield",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:high_yield"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.0006,
+      "bond": 0.9887,
+      "cash": 0.0065,
+      "other": 0.0043
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "high_yield": 0.9887
+    },
+    "credit": {
+      "high_yield": 0.9887
+    },
+    "duration": {
+      "short": 0.9887
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.87",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.06,max_component=98.87",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "8e3cb9cf1018d7edc8445a079c22dc6c",
+    "warnings": [
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.0006,
+          "bond": 0.9887,
+          "cash": 0.0065,
+          "other": 0.0043,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9887
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9887
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9887
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:25:42.734Z"
+}

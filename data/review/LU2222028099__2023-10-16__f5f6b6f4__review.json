@@ -1,0 +1,264 @@
+{
+  "isin": "LU2222028099",
+  "name": "Merchbanc FCP Renta Fija Flex A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20231016085559.pdf",
+  "stableBaseName": "LU2222028099__2023-10-16__f5f6b6f4",
+  "report_date": "2023-10-16",
+  "ms": {
+    "report_date": "2023-10-16",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2023-09-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 87.25,
+        "cash": 7.21,
+        "other": 5.54
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 20.84,
+        "3_5": 31.6,
+        "5_7": 19.72,
+        "7_10": 19.75,
+        "over_10": 7.38
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 14.91,
+        "4_6": 48.81,
+        "over_6": 36.28
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Bank of Ireland Group PLC 7.5%",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 6.75%",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Unicaja Banco S A 7.25%",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 5.375%",
+        "weight": 1.54,
+        "sector": null
+      },
+      {
+        "name": "Arion Bank hf 4.875%",
+        "weight": 1.52,
+        "sector": null
+      },
+      {
+        "name": "Commerzbank AG 6.75%",
+        "weight": 1.43,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya Argentaria SA FXDFR...",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "Dexia Banque Internationale a Luxembourg...",
+        "weight": 1.37,
+        "sector": null
+      },
+      {
+        "name": "Raiffeisen Bank International AG 8.659%",
+        "weight": 1.3,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 5.85%",
+        "weight": 1.09,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 194,
+      "top10_weight": 14.52
+    },
+    "costs": {
+      "management_fee": 0.44
+    },
+    "objective": "The objective of the Sub-Fund is to seek medium-term capital appreciation in EUR through a broad range of fixed income investments."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Flexible EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.8725,
+      "cash": 0.0721,
+      "other": 0.0554
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.8725
+    },
+    "credit": null,
+    "duration": {
+      "short": 0.8725
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=87.25",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "7d357ebc8c9e9e642235ecb3347095f6",
+    "warnings": [
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.8725,
+          "cash": 0.0721,
+          "other": 0.0554,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8725
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8725
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T09:01:45.982Z"
+}

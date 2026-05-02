@@ -1,0 +1,322 @@
+{
+  "isin": "LU1111642820",
+  "name": "Eleva European Selection A2 EUR acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013905.pdf",
+  "stableBaseName": "LU1111642820__2025-12-02__a0a9cca9",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 92.91,
+        "bond": 0,
+        "cash": 2.85,
+        "other": 4.24
+      }
+    },
+    "sectors": {
+      "technology": 9.73,
+      "financial_services": 25.62,
+      "industrials": 20.77,
+      "healthcare": 12.17,
+      "consumer_cyclical": 7.44,
+      "consumer_defensive": 5.02,
+      "utilities": 5.2,
+      "communication_services": 2.92,
+      "basic_materials": 11.13
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.12,
+        "europe_me_africa": 97.88
+      },
+      "detail": {
+        "united_states": 2.12,
+        "united_kingdom": 23.59,
+        "eurozone": 55.98,
+        "other": 18.31
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 46.03,
+        "large": 49.53,
+        "mid": 4.44,
+        "small": 0,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3.37,
+        "sector": "healthcare"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.06,
+        "sector": "technology"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 2.98,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 2.92,
+        "sector": "industrials"
+      },
+      {
+        "name": "Rolls-Royce Holdings PLC",
+        "weight": 2.71,
+        "sector": "industrials"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 2.45,
+        "sector": "utilities"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.38,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.38,
+        "sector": "utilities"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 2.34,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 2.29,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 51,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.88
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El Subfondo trata de lograr rentabilidades ajustadas al riesgo a largo plazo superiores y crecimiento del capital mediante la inversión principalmente en acciones europeas y valores relacionados con la renta variable."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 25.62,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 92.91,
+        "bond": 0,
+        "cash": 2.85,
+        "other": 4.24
+      },
+      "equity_sectors_total": {
+        "technology": 9.0401,
+        "financial_services": 23.8035,
+        "industrials": 19.2974,
+        "healthcare": 11.3071,
+        "consumer_cyclical": 6.9125,
+        "consumer_defensive": 4.6641,
+        "utilities": 4.8313,
+        "communication_services": 2.713,
+        "basic_materials": 10.3409
+      },
+      "equity_regions_total": {
+        "united_states": 1.9697,
+        "united_kingdom": 21.9175,
+        "eurozone": 52.011,
+        "other": 17.0118
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 92.91,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 4.1252,
+          "large": 88.7848
+        },
+        "style_weights_total": {
+          "blend": 92.91
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Blend",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9291,
+      "bond": 0,
+      "cash": 0.0285,
+      "other": 0.0424
+    },
+    "equity_regions": {
+      "united_states": 0.019697,
+      "united_kingdom": 0.219175,
+      "eurozone": 0.52011,
+      "other": 0.170118
+    },
+    "sectors": {
+      "technology": 0.090401,
+      "financial_services": 0.238035,
+      "industrials": 0.192974,
+      "healthcare": 0.113071,
+      "consumer_cyclical": 0.069125,
+      "consumer_defensive": 0.046641,
+      "utilities": 0.048313,
+      "communication_services": 0.02713,
+      "basic_materials": 0.103409
+    },
+    "equity_styles": {
+      "blend": 0.9291
+    },
+    "market_caps": {
+      "mid": 0.041252,
+      "large": 0.887848
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.91"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "afbcea1fdbfe533069be5b982899c9c2",
+    "warnings": [
+      "unknown_region_key:Europe - ex Euro"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9291,
+          "bond": 0,
+          "cash": 0.0285,
+          "other": 0.0424,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9291
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.929099
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9291
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9291
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:04:09.638Z"
+}

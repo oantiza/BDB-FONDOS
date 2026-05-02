@@ -1,0 +1,122 @@
+{
+  "isin": "LU0384381660",
+  "fileName": "morningstarreport20251202073205.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:28:51.199Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Infraestructura",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.42,
+        "bond": 0.45,
+        "cash": 1.01,
+        "other": 0.11
+      }
+    },
+    "sectors": {
+      "industrials": 14.92,
+      "utilities": 50.29,
+      "energy": 23.19,
+      "communication_services": 1.42,
+      "real_estate": 10.17
+    },
+    "regions": {
+      "macro": {
+        "americas": 62.48,
+        "europe_me_africa": 26.21,
+        "asia": 11.31
+      },
+      "detail": {
+        "united_states": 47.79,
+        "canada": 12.8,
+        "latin_america": 1.89,
+        "united_kingdom": 4.98,
+        "eurozone": 20.65,
+        "europe_ex_euro": 0.58,
+        "japan": 2.45,
+        "australasia": 3.54,
+        "other": 0.82,
+        "asia_emerging": 4.5
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 12.59,
+        "large": 32.87,
+        "mid": 48.18,
+        "small": 5.94,
+        "micro": 0.42
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Enbridge Inc",
+        "weight": 4.96,
+        "sector": "Energy"
+      },
+      {
+        "name": "American Tower Corp",
+        "weight": 4.5,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 3.88,
+        "sector": "Utilities"
+      },
+      {
+        "name": "Vinci SA",
+        "weight": 3.55,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Williams Companies Inc",
+        "weight": 3.49,
+        "sector": "Energy"
+      },
+      {
+        "name": "Exelon Corp",
+        "weight": 3.03,
+        "sector": "Utilities"
+      },
+      {
+        "name": "TC Energy Corp",
+        "weight": 2.62,
+        "sector": "Energy"
+      },
+      {
+        "name": "Italgas SpA",
+        "weight": 2.52,
+        "sector": "Utilities"
+      },
+      {
+        "name": "Cheniere Energy Inc",
+        "weight": 2.49,
+        "sector": "Energy"
+      },
+      {
+        "name": "Sempra",
+        "weight": 2.33,
+        "sector": "Utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 60,
+      "holdings_count_bond": 0,
+      "top10_weight": 33.36
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo de inversión es buscar el crecimiento del capital a largo plazo, medido en dólares de EE.UU., a través de la inversión en valores de renta variable de empresas ubicadas en todo el mundo que trabajan en los sectores de las infraestructuras (carreteras, autopistas, túneles, puentes), distribución y almacenamiento de energía eléctrica y transporte y distribución de recursos naturales como el gas natural."
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "isin": "LU0554840230",
+  "fileName": "morningstarreport20251202125724.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:36:54.143Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.43,
+        "bond": 0,
+        "cash": 3.57,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 28.15,
+      "financial_services": 7.59,
+      "industrials": 2.44,
+      "healthcare": 13,
+      "consumer_cyclical": 18.09,
+      "consumer_defensive": 9.41,
+      "communication_services": 19.95,
+      "basic_materials": 1.37
+    },
+    "regions": {
+      "macro": {
+        "americas": 68.57,
+        "europe_me_africa": 19.86,
+        "asia": 11.58
+      },
+      "detail": {
+        "united_states": 65.86,
+        "canada": 1.62,
+        "latin_america": 1.08,
+        "united_kingdom": 3.18,
+        "eurozone": 10.45,
+        "europe_ex_euro": 6.23,
+        "japan": 1.81,
+        "other": 2.96,
+        "asia_emerging": 6.8
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 62.79,
+        "large": 23.13,
+        "mid": 13.11,
+        "small": 0.97,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 7.36,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.98,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.87,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.23,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Uber Technologies Inc",
+        "weight": 3.22,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 3.22,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Netflix Inc",
+        "weight": 3.16,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 3.12,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Galderma Group AG Registered...",
+        "weight": 3.09,
+        "sector": "Salud"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 2.87,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 56,
+      "holdings_count_bond": 0,
+      "top10_weight": 41.13
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo del subfondo es lograr el crecimiento del capital a largo plazo invirtiendo en títulos de renta variable de empresas de todo el mundo que operen en el sector de bienes de consumo. Las inversiones en títulos de renta variable de esas empresas representarán al menos dos tercios del patrimonio total del subfondo. El subfondo se centrará en la inversión en sociedades que operan fundamentalmente en economías maduras."
+  }
+}

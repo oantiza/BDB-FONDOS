@@ -1,0 +1,350 @@
+{
+  "isin": "LU0279459456",
+  "name": "Schroder International Selection Fund Global Emerging Market Opportunities A Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211062312.pdf",
+  "stableBaseName": "LU0279459456__2025-12-11__22ec36e3",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 97.52,
+        "bond": 0,
+        "cash": 2.48,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 35.17,
+      "financial_services": 19.54,
+      "industrials": 8.14,
+      "healthcare": 0.09,
+      "consumer_cyclical": 18.19,
+      "utilities": 3.78,
+      "energy": 1.03,
+      "communication_services": 10.42,
+      "real_estate": 1.49,
+      "basic_materials": 2.15
+    },
+    "regions": {
+      "macro": {
+        "americas": 8.43,
+        "europe_me_africa": 14.71,
+        "asia": 76.86
+      },
+      "detail": {
+        "other": 56.4,
+        "latin_america": 8.43,
+        "eurozone": 5.43,
+        "europe_emerging": 5.32,
+        "middle_east": 3.95,
+        "asia": 76.86,
+        "asia_emerging": 43.6
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 53.3,
+        "large": 25.16,
+        "mid": 18.35,
+        "small": 3.09,
+        "micro": 0.1
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.49,
+        "sector": null
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 6.48,
+        "sector": null
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 4.24,
+        "sector": null
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.86,
+        "sector": null
+      },
+      {
+        "name": "Hon Hai Precision Industry Co...",
+        "weight": 2.64,
+        "sector": null
+      },
+      {
+        "name": "Axis Bank Ltd",
+        "weight": 2.3,
+        "sector": null
+      },
+      {
+        "name": "Trip.com Group Ltd",
+        "weight": 2.26,
+        "sector": null
+      },
+      {
+        "name": "Tencent Music Entertainment...",
+        "weight": 2.04,
+        "sector": null
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 2.04,
+        "sector": null
+      },
+      {
+        "name": "Midea Group Co Ltd Class A",
+        "weight": 1.94,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 63,
+      "holdings_count_bond": 0,
+      "top10_weight": 36.28
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Fondo exclusivo que invierte principalmente en renta variable de mercados emergentes, pero que también puede invertir en efectivo y en renta fija. Tiene como objetivo lograr una rentabilidad anual del 15% durante 3 años consecutivos. El fondo puede ser muy defensivo e invertir hasta el 60% en efectivo y renta fija."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "sector:technology",
+      "theme:emerging_markets"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 35.17,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 97.52,
+        "bond": 0,
+        "cash": 2.48,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 34.2978,
+        "financial_services": 19.0554,
+        "industrials": 7.9381,
+        "healthcare": 0.0878,
+        "consumer_cyclical": 17.7389,
+        "utilities": 3.6863,
+        "energy": 1.0045,
+        "communication_services": 10.1616,
+        "real_estate": 1.453,
+        "basic_materials": 2.0967
+      },
+      "equity_regions_total": {
+        "other": 55.0013,
+        "latin_america": 8.2209,
+        "eurozone": 5.2953,
+        "europe_emerging": 5.1881,
+        "middle_east": 3.852,
+        "asia": 74.9539,
+        "asia_emerging": 42.5187
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 97.52,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 3.1109,
+          "mid": 17.8949,
+          "large": 76.5142
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Global Emergente",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:technology",
+      "theme:emerging_markets"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9752,
+      "bond": 0,
+      "cash": 0.0248,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.27502,
+      "latin_america": 0.041107,
+      "eurozone": 0.026478,
+      "europe_emerging": 0.025942,
+      "middle_east": 0.019261,
+      "asia": 0.374788,
+      "asia_emerging": 0.212604
+    },
+    "sectors": {
+      "technology": 0.314909,
+      "financial_services": 0.174959,
+      "industrials": 0.072885,
+      "healthcare": 0.080615,
+      "consumer_cyclical": 0.162872,
+      "utilities": 0.033846,
+      "energy": 0.009223,
+      "communication_services": 0.0933,
+      "real_estate": 0.013341,
+      "basic_materials": 0.019251
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.031109,
+      "mid": 0.178949,
+      "large": 0.765142
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.52",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "d52c01af59f3d8a053830cee3e843a5f",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:199.99",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9752,
+          "bond": 0,
+          "cash": 0.0248,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9752
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.975201
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9752
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:42:02.775Z"
+}

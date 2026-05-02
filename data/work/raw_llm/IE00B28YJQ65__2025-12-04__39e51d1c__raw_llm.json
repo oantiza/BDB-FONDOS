@@ -1,0 +1,164 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:39:12.473Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE00B28YJQ65",
+    "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities Fund Inc (EUR)",
+    "currency": "EUR",
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Sector Salud",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 92.64,
+      "bond": 0.1,
+      "cash": 7.25,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 36.48,
+      "europe_me_africa": 50.77,
+      "asia": 12.75
+    },
+    "regions_detail": {
+      "América": 36.48,
+      "Estados Unidos": 34.39,
+      "Canadá": 2.09,
+      "Iberoamérica": 0,
+      "Europa/O. Medio/Africa": 50.77,
+      "Reino Unido": 2.47,
+      "Zona Euro": 23.92,
+      "Europa - ex Euro": 20.02,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 4.36,
+      "Asia": 12.75,
+      "Japón": 1.45,
+      "Australasia": 0,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 11.3
+    },
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 100,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 34.47,
+      "mid": 31.72,
+      "small": 27.67,
+      "micro": 6.15
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Northern Trust Global US...",
+        "weight": 8.72,
+        "sector": null
+      },
+      {
+        "name": "UCB SA",
+        "weight": 7.63,
+        "sector": null
+      },
+      {
+        "name": "argenx SE",
+        "weight": 6.08,
+        "sector": null
+      },
+      {
+        "name": "Zealand Pharma AS",
+        "weight": 5.25,
+        "sector": null
+      },
+      {
+        "name": "Fresenius SE & Co KGaA",
+        "weight": 4.65,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Industries...",
+        "weight": 4.04,
+        "sector": null
+      },
+      {
+        "name": "Boston Scientific Corp",
+        "weight": 3.86,
+        "sector": null
+      },
+      {
+        "name": "H. Lundbeck AS Ordinary Shares...",
+        "weight": 3.81,
+        "sector": null
+      },
+      {
+        "name": "Cytokinetics Inc",
+        "weight": 3.45,
+        "sector": null
+      },
+      {
+        "name": "Ascendis Pharma AS ADR",
+        "weight": 3.28,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 32,
+      "holdings_count_bond": 0,
+      "top10_weight": 50.76
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo de inversión del Fondo es lograr la revalorización del capital a largo plazo, invirtiendo en una cartera diversificada de empresas de la salud a nivel mundial. Invertirá en todo momento al menos dos tercios de sus activos totales."
+  }
+}

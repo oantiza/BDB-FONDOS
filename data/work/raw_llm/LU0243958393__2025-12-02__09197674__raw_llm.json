@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:25:32.552Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0243958393",
+    "name": "Invesco Funds - Invesco Euro Corporate Bond Fund E Accumulation EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 3,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 95.73,
+      "cash": 3.59,
+      "other": 0.67
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 5.43,
+      "effective_maturity": 6.27,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 3.58,
+        "aa": 9.13,
+        "a": 26.16,
+        "bbb": 50.88,
+        "bb": 9.43,
+        "b": 0.42,
+        "below_b": 0.31,
+        "not_rated": 0.1
+      },
+      "maturity_allocation": {
+        "1_3": 4.59,
+        "3_5": 17.89,
+        "5_7": 26.51,
+        "7_10": 28.44,
+        "over_10": 19.9
+      },
+      "coupon_allocation": {
+        "0": 0.01,
+        "0_4": 61.32,
+        "4_6": 32.44,
+        "over_6": 6.22
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Invesco Euro Liquidity Port Agcy Acc",
+        "weight": 1.25,
+        "sector": null
+      },
+      {
+        "name": "National Grid North America Inc.",
+        "weight": 0.97,
+        "sector": null
+      },
+      {
+        "name": "Becton Dickinson Euro Finance S.A.R.L.",
+        "weight": 0.83,
+        "sector": null
+      },
+      {
+        "name": "Bank of America Corp. 4.134% 2028-06-12",
+        "weight": 0.83,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc. 3% 2033-05-06",
+        "weight": 0.8,
+        "sector": null
+      },
+      {
+        "name": "Nestle Finance International Limited",
+        "weight": 0.8,
+        "sector": null
+      },
+      {
+        "name": "Novo Nordisk Finance (Netherlands) B.V.",
+        "weight": 0.74,
+        "sector": null
+      },
+      {
+        "name": "AT&T Inc 3.15% 2030-06-01",
+        "weight": 0.73,
+        "sector": null
+      },
+      {
+        "name": "Honeywell International Inc.",
+        "weight": 0.73,
+        "sector": null
+      },
+      {
+        "name": "Tritax EuroBox PLC 0.95% 2026-06-02",
+        "weight": 0.7,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 339,
+      "top10_weight": 8.38
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El fondo invierte con el objetivo de alcanzar, a medio y largo plazo, una rentabilidad global competitiva en euros y brindar una seguridad del capital comparativamente mayor que la de la renta variable. El fondo invertirá al menos dos terceras partes de su patrimonio total (excluidas las inversiones accesorias en activos líquidos) en valores o instrumentos de deuda denominados en euros de emisores empresariales."
+  }
+}

@@ -1,0 +1,113 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:56:40.980Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0616839501",
+    "name": "DWS Invest Euro High Yield Corporates LC",
+    "currency": "EUR",
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Bonos Alto Rendimiento EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ene. 2026",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 95.99,
+      "cash": 3.88,
+      "other": 0.13
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {
+        "1_3": 20.19,
+        "3_5": 48.95,
+        "5_7": 18.34,
+        "7_10": 2.07,
+        "over_10": 5.91
+      },
+      "coupon_allocation": {
+        "0": 0.07,
+        "0_4": 18.62,
+        "4_6": 39.67,
+        "over_6": 41.64
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Deutsche Managed Euro Z EUR Acc",
+        "weight": 1.51,
+        "sector": null
+      },
+      {
+        "name": "Electricite de France SA 3.375%",
+        "weight": 1.08,
+        "sector": null
+      },
+      {
+        "name": "Bayer AG 5.375%2082-03-25",
+        "weight": 1.05,
+        "sector": null
+      },
+      {
+        "name": "Rino Mastrotto Group S.p.A 6.77%2031-07-31",
+        "weight": 0.98,
+        "sector": null
+      },
+      {
+        "name": "Fiber Midco SpA 10.75%2029-06-15",
+        "weight": 0.94,
+        "sector": null
+      },
+      {
+        "name": "Softbank Group Corp. 5.125%2027-09-19",
+        "weight": 0.81,
+        "sector": null
+      },
+      {
+        "name": "Telenet Finance Luxembourg Notes S.A.R.L...",
+        "weight": 0.8,
+        "sector": null
+      },
+      {
+        "name": "Manuchar Group BV 7.014%2032-07-07",
+        "weight": 0.79,
+        "sector": null
+      },
+      {
+        "name": "INEOS Quattro Finance 2 PLC 8.5%2029-03-15",
+        "weight": 0.78,
+        "sector": null
+      },
+      {
+        "name": "Telefonica Europe B V 5.752%",
+        "weight": 0.78,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 3,
+      "holdings_count_bond": 383,
+      "top10_weight": 9.54
+    },
+    "costs": {
+      "management_fee": 1.1
+    },
+    "objective": "El objetivo de la política de inversión consiste en obtener una revalorización duradera en comparación con la escala de referencia (ML Euro BBB NonFinancial Fixed & FRN High Yield Constrained). Para lograr este objetivo, el fondo invierte en bonos corporativos de todo el mundo. En este sentido, se centra en los denominados bonos de alto rendimiento (high yield)."
+  }
+}

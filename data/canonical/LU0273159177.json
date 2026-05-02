@@ -1,0 +1,329 @@
+{
+  "isin": "LU0273159177",
+  "name": "DWS Invest Gold and Precious Metals Equities LC",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260305083512.pdf",
+  "stableBaseName": "LU0273159177__2026-03-05__5956ab76",
+  "report_date": "2026-03-05",
+  "ms": {
+    "report_date": "2026-03-05",
+    "category_morningstar": "RV Sector Oro y Metales preciosos",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 97.95,
+        "bond": 0,
+        "cash": 1.87,
+        "other": 0.19
+      }
+    },
+    "sectors": {
+      "industrials": 0.45,
+      "basic_materials": 99.55
+    },
+    "regions": {
+      "macro": {
+        "americas": 74.7,
+        "europe_me_africa": 15.36,
+        "asia": 9.94
+      },
+      "detail": {
+        "other": 90.06,
+        "united_states": 22.18,
+        "canada": 52.25,
+        "latin_america": 0.27,
+        "united_kingdom": 4.8,
+        "middle_east": 10.56,
+        "asia": 9.94,
+        "japan": 0.45,
+        "australasia": 8.62,
+        "asia_emerging": 0.87
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 8.21,
+        "large": 38.71,
+        "mid": 44.18,
+        "small": 8.01,
+        "micro": 0.88
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Newmont Corp",
+        "weight": 8.89,
+        "sector": null
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 8.04,
+        "sector": null
+      },
+      {
+        "name": "Franco-Nevada Corp",
+        "weight": 7.37,
+        "sector": null
+      },
+      {
+        "name": "Gold Fields Ltd",
+        "weight": 6.03,
+        "sector": null
+      },
+      {
+        "name": "Anglogold Ashanti PLC",
+        "weight": 5.84,
+        "sector": null
+      },
+      {
+        "name": "Royal Gold Inc",
+        "weight": 4.88,
+        "sector": null
+      },
+      {
+        "name": "Endeavour Mining PLC",
+        "weight": 4.7,
+        "sector": null
+      },
+      {
+        "name": "Kinross Gold Corp",
+        "weight": 4.08,
+        "sector": null
+      },
+      {
+        "name": "Wheaton Precious Metals Corp",
+        "weight": 3.86,
+        "sector": null
+      },
+      {
+        "name": "Northern Star Resources Ltd",
+        "weight": 3.51,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 63,
+      "holdings_count_bond": 0,
+      "top10_weight": 57.2
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Invierte en acciones de empresas prometedoras a escala internacional cuyo campo de actividad es el sector de metales nobles."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:materials",
+      "sector:materials",
+      "theme:precious_metals"
+    ],
+    "top_sector": "basic_materials",
+    "top_sector_weight": 99.55,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 97.95,
+        "bond": 0,
+        "cash": 1.87,
+        "other": 0.19
+      },
+      "equity_sectors_total": {
+        "industrials": 0.4408,
+        "basic_materials": 97.5092
+      },
+      "equity_regions_total": {
+        "other": 88.2138,
+        "united_states": 21.7253,
+        "canada": 51.1789,
+        "latin_america": 0.2645,
+        "united_kingdom": 4.7016,
+        "middle_east": 10.3435,
+        "asia": 9.7362,
+        "japan": 0.4408,
+        "australasia": 8.4433,
+        "asia_emerging": 0.8522
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 97.95,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 8.7086,
+          "mid": 43.2786,
+          "large": 45.9627
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Oro y Metales preciosos",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:materials",
+      "sector:materials",
+      "theme:precious_metals"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9795,
+      "bond": 0,
+      "cash": 0.0187,
+      "other": 0.0019
+    },
+    "equity_regions": {
+      "other": 0.246807,
+      "united_states": 0.060784,
+      "canada": 0.14319,
+      "latin_america": 0.074003,
+      "united_kingdom": 0.013154,
+      "middle_east": 0.028939,
+      "asia": 0.02724,
+      "japan": 0.123328,
+      "australasia": 0.023623,
+      "asia_emerging": 0.238431
+    },
+    "sectors": {
+      "industrials": 0.304941,
+      "basic_materials": 0.674559
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.087086,
+      "mid": 0.432786,
+      "large": 0.459627
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.95",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.19,max_component=97.95"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "5d97e6710397db55beb0eac6711cd997",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9795,
+          "bond": 0,
+          "cash": 0.0187,
+          "other": 0.0019,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.979499
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9795
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.979499
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:55:19.372Z"
+}

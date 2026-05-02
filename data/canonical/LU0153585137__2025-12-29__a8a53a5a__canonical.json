@@ -1,0 +1,333 @@
+{
+  "isin": "LU0153585137",
+  "name": "Vontobel Fund - European Equity B EUR Cap",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072135.pdf",
+  "stableBaseName": "LU0153585137__2025-12-29__a8a53a5a",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Cap. Grande Growth",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 97.01,
+        "bond": 0,
+        "cash": 2.99,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 7.24,
+      "financial_services": 14.83,
+      "industrials": 23.62,
+      "healthcare": 9.2,
+      "consumer_cyclical": 18.92,
+      "consumer_defensive": 9.9,
+      "utilities": 7.47,
+      "communication_services": 3.52,
+      "real_estate": 2.5,
+      "basic_materials": 2.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 8.11,
+        "europe_me_africa": 91.89
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 6.81,
+        "canada": 1.3,
+        "united_kingdom": 27.62,
+        "eurozone": 39.81,
+        "europe_ex_euro": 24.47
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.07,
+        "large": 35.15,
+        "mid": 32.77,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 99.99
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 4.94,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Diploma PLC",
+        "weight": 4.62,
+        "sector": "industrials"
+      },
+      {
+        "name": "Halma PLC",
+        "weight": 4.53,
+        "sector": "industrials"
+      },
+      {
+        "name": "Galderma Group AG Registered...",
+        "weight": 4.38,
+        "sector": "healthcare"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 3.78,
+        "sector": "utilities"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 3.54,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Terna SpA",
+        "weight": 3.47,
+        "sector": "utilities"
+      },
+      {
+        "name": "Chocoladefabriken Lindt &...",
+        "weight": 3.3,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Ferrari NV",
+        "weight": 3.29,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "NatWest Group PLC",
+        "weight": 3.26,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 44,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.11
+    },
+    "costs": {
+      "management_fee": 1.65
+    },
+    "objective": null
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [],
+    "top_sector": "industrials",
+    "top_sector_weight": 23.62,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 97.01,
+        "bond": 0,
+        "cash": 2.99,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 7.0235,
+        "financial_services": 14.3866,
+        "industrials": 22.9138,
+        "healthcare": 8.9249,
+        "consumer_cyclical": 18.3543,
+        "consumer_defensive": 9.604,
+        "utilities": 7.2466,
+        "communication_services": 3.4148,
+        "real_estate": 2.4253,
+        "basic_materials": 2.6969
+      },
+      "equity_regions_total": {
+        "other": 97.01,
+        "united_states": 6.6064,
+        "canada": 1.2611,
+        "united_kingdom": 26.7942,
+        "eurozone": 38.6197,
+        "europe_ex_euro": 23.7383
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 97.01,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "mid": 31.7934,
+          "large": 65.2166
+        },
+        "style_weights_total": {
+          "growth": 97.01
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Growth",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9701,
+      "bond": 0,
+      "cash": 0.0299,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.485026,
+      "united_states": 0.03303,
+      "canada": 0.006305,
+      "united_kingdom": 0.133964,
+      "eurozone": 0.193089,
+      "europe_ex_euro": 0.118686
+    },
+    "sectors": {
+      "technology": 0.070249,
+      "financial_services": 0.143895,
+      "industrials": 0.229184,
+      "healthcare": 0.089267,
+      "consumer_cyclical": 0.18358,
+      "consumer_defensive": 0.096059,
+      "utilities": 0.07248,
+      "communication_services": 0.034155,
+      "real_estate": 0.024258,
+      "basic_materials": 0.026974
+    },
+    "equity_styles": {
+      "growth": 0.9701
+    },
+    "market_caps": {
+      "mid": 0.317934,
+      "large": 0.652166
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.01"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "141c79042b0cba4ee899032f27dba386",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.01"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9701,
+          "bond": 0,
+          "cash": 0.0299,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9701
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.970101
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9701
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9701
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:45:21.723Z"
+}

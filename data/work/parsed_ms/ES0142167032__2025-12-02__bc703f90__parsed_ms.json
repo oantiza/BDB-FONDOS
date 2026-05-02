@@ -1,0 +1,113 @@
+{
+  "isin": "ES0142167032",
+  "fileName": "morningstarreport20251202041226.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:05.319Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 95.6,
+        "cash": 0.73,
+        "other": 3.67
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 6.25,
+        "3_5": 23.31,
+        "5_7": 17.58,
+        "7_10": 30.64,
+        "over_10": 22.23
+      },
+      "coupon_allocation": {
+        "0": 7.73,
+        "0_4": 40.13,
+        "4_6": 50.65,
+        "over_6": 1.48
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 0% 2025-11-03",
+        "weight": 4.43,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 3.15% 2034-04-15",
+        "weight": 1.72,
+        "sector": null
+      },
+      {
+        "name": "ACS Actividades De Construccion Y...",
+        "weight": 1.5,
+        "sector": null
+      },
+      {
+        "name": "Obgs. Landsbankinn Hf 3.625 2032-11-03",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "Obgs. La Mondiale 4.375 2035-10-20",
+        "weight": 1.19,
+        "sector": null
+      },
+      {
+        "name": "Hungary (Republic Of) 5.38% 2033-09-12",
+        "weight": 1.16,
+        "sector": null
+      },
+      {
+        "name": "Raiffeisenlandesbank...",
+        "weight": 1.13,
+        "sector": null
+      },
+      {
+        "name": "Bank Millennium SA 5.31% 2029-09-25",
+        "weight": 1.11,
+        "sector": null
+      },
+      {
+        "name": "Compania Espanola De Petroleos Sa...",
+        "weight": 1.11,
+        "sector": null
+      },
+      {
+        "name": "Bank Gospodarstwa Krajowego...",
+        "weight": 1.11,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 169,
+      "top10_weight": 15.73
+    },
+    "costs": {
+      "management_fee": 1.15
+    },
+    "objective": "Invierte en activos de renta fija y mercado monetario públicos o privados, sin límite predeterminado en cuanto a la duración y rating. La inversión en renta fija se centrará, en emisiones de los Estados pertenecientes a la OCDE, principalmente en emisiones de entidades españolas. Las inversiones se realizarán en valores negociados en los principales mercados mundiales. La exposición en activos de mercados emergentes no superará, en ningún caso, el 15%. El Fondo podrá invertir en activos denominados en otras divisas,..."
+  }
+}

@@ -1,0 +1,359 @@
+{
+  "isin": "ES0182105033",
+  "name": "Merch-Universal FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260131110825.pdf",
+  "stableBaseName": "ES0182105033__2026-01-31__482ade27",
+  "report_date": "2026-01-31",
+  "ms": {
+    "report_date": "2026-01-31",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 57.4,
+        "bond": 15.81,
+        "cash": 22.09,
+        "other": 4.7
+      }
+    },
+    "sectors": {
+      "technology": 13.18,
+      "financial_services": 8.22,
+      "industrials": 1.73,
+      "healthcare": 40.8,
+      "consumer_cyclical": 21.72,
+      "consumer_defensive": 9.88,
+      "communication_services": 1.75,
+      "basic_materials": 2.72
+    },
+    "regions": {
+      "macro": {
+        "americas": 60.72,
+        "europe_me_africa": 27.43,
+        "asia": 11.86
+      },
+      "detail": {
+        "united_states": 60.72,
+        "eurozone": 11.32,
+        "europe_ex_euro": 16.1,
+        "japan": 1.32,
+        "other": 3.73,
+        "asia_emerging": 6.81
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 0%2026-01-05",
+        "weight": 20.43,
+        "sector": null
+      },
+      {
+        "name": "Biogen Inc",
+        "weight": 4.14,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 3.72,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 3.37,
+        "sector": "financial_services"
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 3.23,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Victoria's Secret & Co",
+        "weight": 2.92,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 2.89,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Qualcomm Inc",
+        "weight": 2.85,
+        "sector": "technology"
+      },
+      {
+        "name": "Booking Holdings Inc...",
+        "weight": 2.44,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 7,
+      "top10_weight": 49.32
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "La inversión en renta variable oscilará entre 30%-75% de la exposición total (aunque habitualmente estará por debajo del 60%), mayoritariamente en compañías de alta capitalización, de cualquier sector. El resto se invertirá en renta fija pública y/o privada (hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo), y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja calidad...."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 40.8,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 57.4,
+        "bond": 15.81,
+        "cash": 22.09,
+        "other": 4.7
+      },
+      "equity_sectors_total": {
+        "technology": 7.5653,
+        "financial_services": 4.7183,
+        "industrials": 0.993,
+        "healthcare": 23.4192,
+        "consumer_cyclical": 12.4673,
+        "consumer_defensive": 5.6711,
+        "communication_services": 1.0045,
+        "basic_materials": 1.5613
+      },
+      "equity_regions_total": {
+        "united_states": 34.8533,
+        "eurozone": 6.4977,
+        "europe_ex_euro": 9.2414,
+        "japan": 0.7577,
+        "other": 2.141,
+        "asia_emerging": 3.9089
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 57.4,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Moderados EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.574,
+      "bond": 0.1581,
+      "cash": 0.2209,
+      "other": 0.047
+    },
+    "equity_regions": {
+      "united_states": 0.151087,
+      "eurozone": 0.028167,
+      "europe_ex_euro": 0.040061,
+      "japan": 0.328459,
+      "other": 0.009281,
+      "asia_emerging": 0.016945
+    },
+    "sectors": {
+      "technology": 0.027889,
+      "financial_services": 0.017394,
+      "industrials": 0.366061,
+      "healthcare": 0.086333,
+      "consumer_cyclical": 0.04596,
+      "consumer_defensive": 0.020906,
+      "communication_services": 0.003703,
+      "basic_materials": 0.005756
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.1581
+    },
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=57.4",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "657a380c126c29042626cf93120b41f1",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data",
+      "fi_missing_duration_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.574,
+          "bond": 0.1581,
+          "cash": 0.2209,
+          "other": 0.047,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.574
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.574002
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.1581
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|duration_missing"
+  },
+  "generated_at": "2026-04-22T16:52:16.387Z"
+}

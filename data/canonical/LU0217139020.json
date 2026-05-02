@@ -1,0 +1,357 @@
+{
+  "isin": "LU0217139020",
+  "name": "Pictet-Premium Brands P EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125713.pdf",
+  "stableBaseName": "LU0217139020__2025-12-02__d755f64a",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Consumo",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.37,
+        "bond": 0.19,
+        "cash": 1.44,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 7.89,
+      "financial_services": 14.06,
+      "healthcare": 9.05,
+      "consumer_cyclical": 59.23,
+      "consumer_defensive": 9.77
+    },
+    "regions": {
+      "macro": {
+        "americas": 42.43,
+        "europe_me_africa": 54.99,
+        "asia": 2.57
+      },
+      "detail": {
+        "united_states": 42.43,
+        "united_kingdom": 4.71,
+        "eurozone": 35.02,
+        "europe_ex_euro": 15.26,
+        "japan": 2.57
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 37.2,
+        "large": 33.81,
+        "mid": 27.54,
+        "small": 1.45,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "American Express Co",
+        "weight": 5.37,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 4.76,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Hermes International SA",
+        "weight": 4.72,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Compagnie Financiere Richemont...",
+        "weight": 4.7,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 4.69,
+        "sector": "technology"
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 4.66,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 4.63,
+        "sector": "financial_services"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 4.58,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Galderma Group AG Registered...",
+        "weight": 4.14,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Hilton Worldwide Holdings Inc",
+        "weight": 4.13,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 34,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.39
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo del fondo es invertir en todo el mundo en acciones de empresas de los segmentos alto y medio-alto de los mercados de consumo, que se beneficien de un fuerte reconocimiento de marca, y que ofrezcan productos y servicios de alta calidad y gran valor simbólico. Basándose en el profundo conocimiento del equipo de inversión y la competencia sectorial de un comité consultivo propio, el fondo trata de identificar empresas con un fuerte potencial comercial."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_CONSUMER_CYCLICAL",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical"
+    ],
+    "top_sector": "consumer_cyclical",
+    "top_sector_weight": 59.23,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.37,
+        "bond": 0.19,
+        "cash": 1.44,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 7.7614,
+        "financial_services": 13.8308,
+        "healthcare": 8.9025,
+        "consumer_cyclical": 58.2646,
+        "consumer_defensive": 9.6107
+      },
+      "equity_regions_total": {
+        "united_states": 41.7384,
+        "united_kingdom": 4.6332,
+        "eurozone": 34.4492,
+        "europe_ex_euro": 15.0113,
+        "japan": 2.5281
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.37,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 1.4264,
+          "mid": 27.0911,
+          "large": 69.8525
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_CONSUMER_CYCLICAL",
+    "commercial_type": "RV Sector Consumo",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9837,
+      "bond": 0.0019,
+      "cash": 0.0144,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.417426,
+      "united_kingdom": 0.046337,
+      "eurozone": 0.344526,
+      "europe_ex_euro": 0.150128,
+      "japan": 0.025284
+    },
+    "sectors": {
+      "technology": 0.077614,
+      "financial_services": 0.138308,
+      "healthcare": 0.089025,
+      "consumer_cyclical": 0.582646,
+      "consumer_defensive": 0.096107
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.014264,
+      "mid": 0.270911,
+      "large": 0.698525
+    },
+    "bond_types": {
+      "flexible": 0.0019
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0019
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.37",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.19,max_component=98.37",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "1a5aa395f4384d157638840219b0fd6c",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9837,
+          "bond": 0.0019,
+          "cash": 0.0144,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.983701
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9837
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9837
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0019
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0019
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:37:00.728Z"
+}

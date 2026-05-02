@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:43:02.159Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU2050860480",
+    "name": "Fidelity Funds - UK Special Situations Fund A-ACC-EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV RU Cap. Mediana",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 100.35,
+      "bond": 2.14,
+      "cash": -2.92,
+      "other": 0.43
+    },
+    "regions_macro": {
+      "americas": 2.71,
+      "europe_me_africa": 93.54,
+      "asia": 3.75
+    },
+    "regions_detail": {
+      "Estados Unidos": 2.71,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Reino Unido": 79.99,
+      "Zona Euro": 12.3,
+      "Europa - ex Euro": 0.86,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0.39,
+      "Japón": 0,
+      "Australasia": 1.49,
+      "Asia - Desarrollada": 1.18,
+      "Asia - Emergente": 1.09
+    },
+    "sectors": {
+      "technology": 1.43,
+      "financial_services": 27.46,
+      "industrials": 19.39,
+      "healthcare": 8.71,
+      "consumer_cyclical": 5.25,
+      "consumer_defensive": 12.86,
+      "utilities": 4.62,
+      "energy": 6.51,
+      "communication_services": 3.75,
+      "real_estate": 2.9,
+      "basic_materials": 7.13
+    },
+    "equity_market_cap": {
+      "giant": 13.18,
+      "large": 23.4,
+      "mid": 23.67,
+      "small": 28.05,
+      "micro": 11.7
+    },
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Fidelity ILF - USD A Acc",
+        "weight": 9.61,
+        "sector": null
+      },
+      {
+        "name": "Standard Chartered PLC",
+        "weight": 4.1,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Aviva PLC",
+        "weight": 3.89,
+        "sector": "financial_services"
+      },
+      {
+        "name": "DCC PLC",
+        "weight": 3.42,
+        "sector": "energy"
+      },
+      {
+        "name": "British American Tobacco PLC",
+        "weight": 3.23,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "CFD on TotalEnergies...",
+        "weight": 3.09,
+        "sector": null
+      },
+      {
+        "name": "Lloyds Banking Group PLC",
+        "weight": 2.83,
+        "sector": "financial_services"
+      },
+      {
+        "name": "NatWest Group PLC",
+        "weight": 2.83,
+        "sector": "financial_services"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.69,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Imperial Brands PLC",
+        "weight": 2.57,
+        "sector": "consumer_defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 136,
+      "holdings_count_bond": 0,
+      "top10_weight": 38.26
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The fund aims to achieve capital growth over the long term. The fund invests at least 70% of its assets, in equities of companies that are listed, headquartered, or do most of their business in the UK. The fund seeks to invest in special situations equities (equities that are undervalued and whose recovery potential is not recognised by the market). The fund will have a mixture of investments in larger, medium, and smaller sized companies. The fund may also invest in money market instruments on an ancillary basis."
+  }
+}

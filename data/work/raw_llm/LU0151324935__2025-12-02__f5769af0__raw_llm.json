@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:36:46.306Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0151324935",
+    "name": "Candriam Bonds Credit Opportunities Class N EUR Cap",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "Global Flexible Bond - EUR Hedged",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "30 sep. 2025",
+    "asset_allocation": {
+      "equity": -0.17,
+      "bond": 96.82,
+      "cash": 3.21,
+      "other": 0.14
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 1.53,
+      "effective_maturity": 2.4,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 1.7,
+        "bbb": 10.65,
+        "bb": 59.42,
+        "b": 20.01,
+        "below_b": 0,
+        "not_rated": 8.22
+      },
+      "maturity_allocation": {
+        "1_3": 49.42,
+        "3_5": 29.35,
+        "5_7": 11.5,
+        "7_10": 2.26,
+        "over_10": 2.18
+      },
+      "coupon_allocation": {
+        "0": 0.16,
+        "0_4": 53.26,
+        "4_6": 34.78,
+        "over_6": 11.79
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Lorca Telecom Bondco S.A.U. 4%2027-09-18",
+        "weight": 3.71,
+        "sector": null
+      },
+      {
+        "name": "Azelis Finance NV 5.75%2028-03-15",
+        "weight": 3.63,
+        "sector": null
+      },
+      {
+        "name": "Coty Inc. 5.75%2028-09-15",
+        "weight": 3.24,
+        "sector": null
+      },
+      {
+        "name": "James Hardie International Finance...",
+        "weight": 3.21,
+        "sector": null
+      },
+      {
+        "name": "Candriam Monétaire SICAV Z C",
+        "weight": 3.07,
+        "sector": null
+      },
+      {
+        "name": "Veolia Environnement S.A. 2.25%",
+        "weight": 3.05,
+        "sector": null
+      },
+      {
+        "name": "Grifols S.A. 7.5%2030-05-01",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "Tk Elevator Midco GmbH 4.375%2027-07-15",
+        "weight": 2.8,
+        "sector": null
+      },
+      {
+        "name": "Abertis Infraestructuras Finance B.V....",
+        "weight": 2.8,
+        "sector": null
+      },
+      {
+        "name": "Amber Finco PLC 6.625%2029-07-15",
+        "weight": 2.56,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 63,
+      "top10_weight": 30.93
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "Candriam Bonds Credit Opportunities es un compartimento de la Sicav Candriam Bonds dedicado a explotar las oportunidades de inversión en obligaciones High Yield europeas y norteamericanas. El 75% del fondo se invierte en obligaciones High Yield y el 25% restante en obligaciones Investment Grade.El riesgo divisa está 100% cubierto."
+  }
+}

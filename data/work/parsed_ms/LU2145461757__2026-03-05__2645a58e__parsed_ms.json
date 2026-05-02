@@ -1,0 +1,151 @@
+{
+  "isin": "LU2145461757",
+  "fileName": "morningstarreport20260305083435.pdf",
+  "report_date": "2026-03-05",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:55:22.199Z",
+  "ms": {
+    "report_date": "2026-03-05",
+    "category_morningstar": "RV Sector Energía Alternativa",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-02-27",
+      "asset_allocation": {
+        "equity": 97.69,
+        "bond": 0,
+        "cash": 2.31,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 48.79,
+      "industrials": 41.7,
+      "consumer_cyclical": 1.26,
+      "utilities": 8.25
+    },
+    "regions": {
+      "macro": {
+        "americas": 47.64,
+        "europe_me_africa": 28.13,
+        "asia": 24.24
+      },
+      "detail": {
+        "other": 84.47999999999999,
+        "united_states": 45.71,
+        "canada": 1.93,
+        "united_kingdom": 6.68,
+        "eurozone": 18.24,
+        "europe_ex_euro": 3.21,
+        "asia": 24.23,
+        "japan": 7.28,
+        "asia_emerging": 8.25
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 12.57,
+        "large": 41.78,
+        "mid": 32.35,
+        "small": 11.78,
+        "micro": 1.51
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Vertiv Holdings Co Class A",
+        "weight": 4.27,
+        "sector": null
+      },
+      {
+        "name": "Quanta Services Inc",
+        "weight": 3.76,
+        "sector": null
+      },
+      {
+        "name": "Lumentum Holdings Inc",
+        "weight": 3.6,
+        "sector": null
+      },
+      {
+        "name": "Infineon Technologies AG",
+        "weight": 3.47,
+        "sector": null
+      },
+      {
+        "name": "SSE PLC",
+        "weight": 3.36,
+        "sector": null
+      },
+      {
+        "name": "nVent Electric PLC",
+        "weight": 3.15,
+        "sector": null
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 3.11,
+        "sector": null
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 2.9,
+        "sector": null
+      },
+      {
+        "name": "HD Hyundai Electric",
+        "weight": 2.7,
+        "sector": null
+      },
+      {
+        "name": "Asia Vital Components Co Ltd",
+        "weight": 2.67,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 54,
+      "holdings_count_bond": 0,
+      "top10_weight": 33
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The Sub-fund has as its sustainable investment objective to further the transformation and decarbonization of the global energy sector through investments in clean energy production sources, energy efficient products and infrastructure as well as technologies supporting the electrification of the industrial, transportation and heating sectors. The foregoing is implemented by mainly investing in companies that advance the following United Nations Sustainable Development Goals (UN SDGs): Affordable and clean energy goal..."
+  }
+}

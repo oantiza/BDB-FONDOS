@@ -1,0 +1,124 @@
+{
+  "isin": "LU0469270010",
+  "fileName": "morningstarreport20251202013817.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:03:27.995Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 32.46,
+      "financial_services": 23.66,
+      "industrials": 7.86,
+      "healthcare": 0.71,
+      "consumer_cyclical": 9.97,
+      "consumer_defensive": 1.91,
+      "utilities": 3.58,
+      "energy": 1.08,
+      "communication_services": 8.08,
+      "real_estate": 0.02,
+      "basic_materials": 10.67
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 2.18,
+        "asia": 97.82
+      },
+      "detail": {
+        "united_kingdom": 2.18,
+        "other": 43.68,
+        "asia_emerging": 54.14
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 58.69,
+        "large": 32.49,
+        "mid": 8.82,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 10.91,
+        "sector": "Technology"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 6.56,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 5.97,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 5.47,
+        "sector": "Technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 4.47,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "NetEase Inc Ordinary Shares",
+        "weight": 2.9,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "KB Financial Group Inc",
+        "weight": 2.8,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "GAIL (India) Ltd",
+        "weight": 2.73,
+        "sector": "Utilities"
+      },
+      {
+        "name": "Zijin Mining Group Co Ltd...",
+        "weight": 2.38,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Zhejiang Huayou Cobalt Co Ltd...",
+        "weight": 2.25,
+        "sector": "Basic Materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 53,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.43
+    },
+    "costs": {
+      "management_fee": 2.15
+    },
+    "objective": "El objetivo es invertir en una cartera de valores de renta variable de empresas de la región de Asia, excluido Japón. El universo de la cartera de inversión estará formado por los países que figuran en el MSCI AC (All Country) Asia ex Japan Index y el MSCI Frontier Markets Index, si bien la cartera puede invertir en valores no incluidos en ambos."
+  }
+}

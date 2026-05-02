@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:01:56.134Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0184894006",
+    "name": "Myinvestor ACWI FI",
+    "currency": "EUR",
+    "report_date": "2024-06-23",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 may. 2024",
+    "asset_allocation": {
+      "equity": 100,
+      "bond": 0,
+      "cash": 0.06,
+      "other": -0.06
+    },
+    "regions_macro": {
+      "americas": 65.64,
+      "europe_me_africa": 17.22,
+      "asia": 17.15
+    },
+    "regions_detail": {
+      "Estados Unidos": 62.16,
+      "Canadá": 2.72,
+      "Iberoamérica": 0.75,
+      "Reino Unido": 3.27,
+      "Zona Euro": 7.55,
+      "Europa - ex Euro": 5.1,
+      "Europa emergente": 0.28,
+      "Oriente Medio / África": 1.02,
+      "Japón": 7.8,
+      "Australasia": 1.53,
+      "Asia - Desarrollada": 3.35,
+      "Asia - Emergente": 4.46
+    },
+    "sectors": {
+      "technology": 24.78,
+      "financial_services": 15.37,
+      "industrials": 10.3,
+      "healthcare": 11.57,
+      "consumer_cyclical": 11.02,
+      "consumer_defensive": 6.01,
+      "utilities": 2.43,
+      "energy": 4.05,
+      "communication_services": 8.54,
+      "real_estate": 2.3,
+      "basic_materials": 3.65
+    },
+    "equity_market_cap": {
+      "giant": 48.79,
+      "large": 33.28,
+      "mid": 15.43,
+      "small": 1.51,
+      "micro": 0.99
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Xtrackers S&P 500 Swap ETF 1D",
+        "weight": 18.37,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 ETF",
+        "weight": 18.12,
+        "sector": null
+      },
+      {
+        "name": "Amundi Stoxx Europe 600 ETF C",
+        "weight": 14.56,
+        "sector": null
+      },
+      {
+        "name": "iShares S&P 500 Swap ETF USD Acc",
+        "weight": 10.05,
+        "sector": null
+      },
+      {
+        "name": "iShares MSCI EM ETF USD Acc",
+        "weight": 8.98,
+        "sector": null
+      },
+      {
+        "name": "Micro E-mini S&P 500 Index...",
+        "weight": 8.95,
+        "sector": null
+      },
+      {
+        "name": "Amundi IS Prime Japan ETF DR",
+        "weight": 7.61,
+        "sector": null
+      },
+      {
+        "name": "E-mini S&P 500 Future June...",
+        "weight": 6.63,
+        "sector": null
+      },
+      {
+        "name": "UBS(Lux)FS MSCI Canada CAD Aacc",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "L&G Asia Pacific ex Japan...",
+        "weight": 2.22,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 98.33
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Invierte 0%-100% del patrimonio en IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la Gestora. El objetivo es alcanzar una rentabilidad similar al MSCI ACWI (NR). Para ello, el 75%-100% de la exposición total será renta variable de emisores/ mercados de cualquier país, incluidos emergentes, de cualquier sector y capitalización, a través de ETF e IIC financieras y de forma secundaria, a través de futuros. Se empleará tanto el modelo de réplica física..."
+  }
+}

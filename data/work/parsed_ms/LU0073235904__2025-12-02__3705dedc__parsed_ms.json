@@ -1,0 +1,122 @@
+{
+  "isin": "LU0073235904",
+  "fileName": "morningstarreport20251202044329.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:25:20.328Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 95.52,
+        "cash": 2.41,
+        "other": 2.08
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 1.88,
+      "effective_maturity": 2.48,
+      "avg_credit_quality": "A",
+      "credit_quality": {
+        "aaa": 29.55,
+        "aa": 6.72,
+        "a": 32.37,
+        "bbb": 30.89,
+        "bb": 0.28,
+        "b": 0.11,
+        "below_b": 0,
+        "not_rated": 0.07
+      },
+      "maturity_allocation": {
+        "1_3": 34.98,
+        "3_5": 52.55,
+        "5_7": 1.45,
+        "7_10": 0.21,
+        "over_10": 2.59
+      },
+      "coupon_allocation": {
+        "0": 2.99,
+        "0_4": 90.56,
+        "4_6": 5.86,
+        "over_6": 0.59
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 3.5% 2029-05-31",
+        "weight": 8.11,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 2.903% 2028-10-15",
+        "weight": 4.82,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0.75% 2028-05-25",
+        "weight": 3.19,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 1.6% 2028-11-22",
+        "weight": 2.66,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 2.75% 2030-02-25",
+        "weight": 2.61,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 2.753% 2029-04-15",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Luxembourg (Grand Duchy Of)...",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "MS Liquidity Fds Euro GovLiqMSRsrvEURInc",
+        "weight": 1.93,
+        "sector": null
+      },
+      {
+        "name": "European Union 3.125% 2028-12-05",
+        "weight": 1.87,
+        "sector": null
+      },
+      {
+        "name": "BNG Bank N.V. 2.5% 2030-05-21",
+        "weight": 1.81,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 280,
+      "top10_weight": 31.03
+    },
+    "costs": {
+      "management_fee": 0.8
+    },
+    "objective": "El objetivo de inversión del Short Maturity Euro Bond Fund es proporcionar una tasa de rentabilidad atractiva, cifrada en Euros, mediante una selección de mercados e instrumentos. El Subfondo pretende lograr este objetivo invirtiendo en valores de renta fija de elevada calidad denominados en Euros. Con objeto de reducir la volatilidad, el Subfondo invertirá principalmente, en valores individuales con vencimientos de, como máximo, cinco años."
+  }
+}

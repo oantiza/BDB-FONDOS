@@ -1,0 +1,122 @@
+{
+  "isin": "ES0162296000",
+  "fileName": "morningstarreport20251229072924.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:22.080Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Fixed Term Bond",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 96.07,
+        "cash": 3.93,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 100,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 53.47,
+        "4_6": 35.73,
+        "over_6": 10.8
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Banco BPM S.p.A.",
+        "weight": 4.26,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of) 2.125%",
+        "weight": 4.14,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 5.85%",
+        "weight": 4.04,
+        "sector": null
+      },
+      {
+        "name": "Bank Polska Kasa Opieki SA 5.5%",
+        "weight": 4,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A.",
+        "weight": 3.89,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Lufthansa AG 3.75%",
+        "weight": 3.82,
+        "sector": null
+      },
+      {
+        "name": "Unicaja Banco, S.A.U. 7.25%",
+        "weight": 3.82,
+        "sector": null
+      },
+      {
+        "name": "Jyske Bank AS 5.5%",
+        "weight": 3.76,
+        "sector": null
+      },
+      {
+        "name": "Aareal Bank AG 0.25%",
+        "weight": 3.72,
+        "sector": null
+      },
+      {
+        "name": "Ford Motor Credit Company LLC 6.125%",
+        "weight": 3.44,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 48,
+      "top10_weight": 38.91
+    },
+    "costs": {
+      "management_fee": 0.52
+    },
+    "objective": "Invierte al menos el 50% de la exposición total en renta fija privada y el resto en renta fija pública. Los emisores/mercados serán OCDE y UE (máximo 10% de la exposición total en emisores emergentes). La TAE dependerá de cuándo se suscriba. Si el partícipe reembolsa antes del vencimiento no se beneficiará del objetivo de rentabilidad y podrá tener pérdidas significativas. LA RENTABILIDAD ESTIMADA NO ESTÁ GARANTIZADA. Las emisiones tendrán en el momento de la compra de la cartera al menos media calidad crediticia..."
+  }
+}

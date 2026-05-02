@@ -1,0 +1,134 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:44:08.616Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1697016019",
+    "name": "Sigma Investment House FCP - Selection AggressiveClass A EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 89.68,
+      "bond": 0.19,
+      "cash": 9.8,
+      "other": 0.33
+    },
+    "regions_macro": {
+      "americas": 62.69,
+      "europe_me_africa": 23.75,
+      "asia": 13.56
+    },
+    "regions_detail": {
+      "América": 62.69,
+      "Estados Unidos": 60.79,
+      "Canadá": 1.06,
+      "Iberoamérica": 0.84,
+      "Europa/O. Medio/Africa": 23.75,
+      "Reino Unido": 5.31,
+      "Zona Euro": 13.24,
+      "Europa - ex Euro": 4.13,
+      "Europa emergente": 0.49,
+      "Oriente Medio / África": 0.59,
+      "Asia": 13.56,
+      "Japón": 7.02,
+      "Australasia": 0.34,
+      "Asia - Desarrollada": 2.66,
+      "Asia - Emergente": 3.54
+    },
+    "sectors": {
+      "technology": 19.77,
+      "financial_services": 14.51,
+      "industrials": 15.02,
+      "healthcare": 9.21,
+      "consumer_cyclical": 12.45,
+      "consumer_defensive": 6.66,
+      "utilities": 2.38,
+      "energy": 3.06,
+      "communication_services": 8.01,
+      "real_estate": 1.29,
+      "basic_materials": 7.67
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": "Mid-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Robeco BP Global Premium Eqs...",
+        "weight": 8.61,
+        "sector": null
+      },
+      {
+        "name": "Ossiam Shiller BclyCp®US...",
+        "weight": 7.54,
+        "sector": null
+      },
+      {
+        "name": "Eleva European Selection I EUR...",
+        "weight": 7.39,
+        "sector": null
+      },
+      {
+        "name": "Magallanes V.I. UCITS European...",
+        "weight": 6.87,
+        "sector": null
+      },
+      {
+        "name": "AB Select US Equity I EUR H",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Select Equity I...",
+        "weight": 6.08,
+        "sector": null
+      },
+      {
+        "name": "Capital Group New Pers (LUX)...",
+        "weight": 5.18,
+        "sector": null
+      },
+      {
+        "name": "Findlay Park American I EUR Acc",
+        "weight": 4.94,
+        "sector": null
+      },
+      {
+        "name": "abrdn Liquidity-Euro Fund L-2...",
+        "weight": 4.82,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 Equal Weight...",
+        "weight": 4.81,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 62.51
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to achieve a combination of income and long-term capital appreciation, with a maximum annualized volatility, under normal market conditions, of 30%. There is however no guarantee that this objective will be achieved."
+  }
+}

@@ -1,0 +1,349 @@
+{
+  "isin": "IE00BF0GL212",
+  "name": "Polar Capital Funds PLC - Artificial Intelligence Fund R USD Acc (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202042434.pdf",
+  "stableBaseName": "IE00BF0GL212__2025-12-02__f70b4b14",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.43,
+        "bond": 0.02,
+        "cash": 1.55,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 43.62,
+      "financial_services": 1.48,
+      "industrials": 27.09,
+      "healthcare": 2.75,
+      "consumer_cyclical": 4.74,
+      "consumer_defensive": 4.68,
+      "energy": 1.21,
+      "communication_services": 9.76,
+      "real_estate": 2.58,
+      "basic_materials": 2.09
+    },
+    "regions": {
+      "macro": {
+        "americas": 61.35,
+        "europe_me_africa": 10.53,
+        "asia": 28.11
+      },
+      "detail": {
+        "united_states": 59.88,
+        "canada": 1.47,
+        "united_kingdom": 4.23,
+        "eurozone": 4.36,
+        "europe_ex_euro": 1.95,
+        "japan": 15.02,
+        "other": 7.38,
+        "asia_emerging": 5.71
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 35.73,
+        "large": 34.81,
+        "mid": 26.01,
+        "small": 3.45,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 5.62,
+        "sector": "Technology"
+      },
+      {
+        "name": "Caterpillar Inc",
+        "weight": 3.16,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Lam Research Corp",
+        "weight": 3.08,
+        "sector": "Technology"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.98,
+        "sector": "Technology"
+      },
+      {
+        "name": "Vertiv Holdings Co Class A",
+        "weight": 2.84,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Micron Technology Inc",
+        "weight": 2.68,
+        "sector": "Technology"
+      },
+      {
+        "name": "Fujikura Ltd",
+        "weight": 2.55,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Cloudflare Inc",
+        "weight": 2.47,
+        "sector": "Technology"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 2.38,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Advanced Micro Devices Inc",
+        "weight": 2.34,
+        "sector": "Technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 71,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.1
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "The Fund's investment objective is to achieve long term capital appreciation. The Fund will seek to achieve its investment objective by primarily investing in a diversified portfolio of global equity securities which may be listed or traded on a Regulated Market. The Fund is not expected to invest more than 20% of its Net Asset Value in emerging markets. The securities in which the Fund will primarily invest will include equity and equity related securities including, but not limited to, ordinary and preference shares..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:industrials",
+      "sector:technology",
+      "theme:ai",
+      "theme:emerging_markets"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 43.62,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.43,
+        "bond": 0.02,
+        "cash": 1.55,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 42.9352,
+        "financial_services": 1.4568,
+        "industrials": 26.6647,
+        "healthcare": 2.7068,
+        "consumer_cyclical": 4.6656,
+        "consumer_defensive": 4.6065,
+        "energy": 1.191,
+        "communication_services": 9.6068,
+        "real_estate": 2.5395,
+        "basic_materials": 2.0572
+      },
+      "equity_regions_total": {
+        "united_states": 58.9399,
+        "canada": 1.4469,
+        "united_kingdom": 4.1636,
+        "eurozone": 4.2915,
+        "europe_ex_euro": 1.9194,
+        "japan": 14.7842,
+        "other": 7.2641,
+        "asia_emerging": 5.6204
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 98.43,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 3.3958,
+          "mid": 25.6016,
+          "large": 69.4325
+        },
+        "style_weights_total": {
+          "growth": 98.43
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Growth",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:industrials",
+      "sector:technology",
+      "theme:ai",
+      "theme:emerging_markets"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9843,
+      "bond": 0.0002,
+      "cash": 0.0155,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.589399,
+      "canada": 0.014469,
+      "united_kingdom": 0.041636,
+      "eurozone": 0.042915,
+      "europe_ex_euro": 0.019194,
+      "japan": 0.147842,
+      "other": 0.072641,
+      "asia_emerging": 0.056204
+    },
+    "sectors": {
+      "technology": 0.429352,
+      "financial_services": 0.014568,
+      "industrials": 0.266647,
+      "healthcare": 0.027068,
+      "consumer_cyclical": 0.046656,
+      "consumer_defensive": 0.046065,
+      "energy": 0.01191,
+      "communication_services": 0.096068,
+      "real_estate": 0.025395,
+      "basic_materials": 0.020572
+    },
+    "equity_styles": {
+      "growth": 0.9843
+    },
+    "market_caps": {
+      "small": 0.033958,
+      "mid": 0.256016,
+      "large": 0.694326
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.43",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.02,max_component=98.43"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "9f0c207cf8cac7f14837ddd445ccc09b",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9843,
+          "bond": 0.0002,
+          "cash": 0.0155,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9843
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.984301
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9843
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9843
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:24:27.369Z"
+}

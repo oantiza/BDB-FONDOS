@@ -1,0 +1,120 @@
+{
+  "isin": "LU0565135745",
+  "fileName": "morningstarreport20251202045920.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:26:11.182Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Agresivos USD",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 80.48,
+        "bond": 1.47,
+        "cash": 8.03,
+        "other": 10.02
+      }
+    },
+    "sectors": {
+      "technology": 13.41,
+      "financial_services": 12.41,
+      "industrials": 12.9,
+      "healthcare": 12.93,
+      "consumer_cyclical": 8.98,
+      "consumer_defensive": 10.54,
+      "energy": 7.12,
+      "communication_services": 10.66,
+      "real_estate": 3.17,
+      "basic_materials": 7.87
+    },
+    "regions": {
+      "macro": {
+        "americas": 58.38,
+        "europe_me_africa": 23.1,
+        "asia": 18.52
+      },
+      "detail": {
+        "united_states": 49.4,
+        "canada": 5,
+        "latin_america": 3.97,
+        "united_kingdom": 8.13,
+        "eurozone": 9.63,
+        "europe_ex_euro": 5.35,
+        "japan": 7.58,
+        "other": 9.19,
+        "asia_emerging": 1.75
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Amundi Physical Gold ETC C",
+        "weight": 5.56,
+        "sector": null
+      },
+      {
+        "name": "Oracle Corp",
+        "weight": 2.57,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 2.41,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.33,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Xtrackers Physical Gold ETC",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "iShares Physical Gold ETC",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 2.18,
+        "sector": "Energía"
+      },
+      {
+        "name": "Becton Dickinson & Co",
+        "weight": 2.16,
+        "sector": "Salud"
+      },
+      {
+        "name": "HCA Healthcare Inc",
+        "weight": 1.9,
+        "sector": "Salud"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 1.74,
+        "sector": "Consumo Cíclico"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 117,
+      "holdings_count_bond": 2,
+      "top10_weight": 25.31
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "Gestión profesional con el objetivo de obtener la mayor rentabilidad posible (no tiene un benchmark de referencia que igualar o batir). Enfoque: Bottom-up."
+  }
+}

@@ -1,0 +1,119 @@
+{
+  "isin": "LU0171309270",
+  "fileName": "morningstarreport20251202125732.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:37:20.843Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Salud",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.89,
+        "bond": 0,
+        "cash": 0.11,
+        "other": 0.01
+      }
+    },
+    "sectors": {
+      "healthcare": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 78.04,
+        "europe_me_africa": 20.42,
+        "asia": 1.54
+      },
+      "detail": {
+        "united_states": 78.04,
+        "united_kingdom": 5.13,
+        "eurozone": 4.29,
+        "europe_ex_euro": 10.53,
+        "middle_east": 0.47,
+        "japan": 1.23,
+        "asia_emerging": 0.31
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 22.24,
+        "large": 57.24,
+        "mid": 18.16,
+        "small": 1.91,
+        "micro": 0.45
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Johnson & Johnson",
+        "weight": 8.02,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 6.29,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "AbbVie Inc",
+        "weight": 5.66,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Abbott Laboratories",
+        "weight": 5.54,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 5.13,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "UnitedHealth Group Inc",
+        "weight": 4.14,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.32,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Medtronic PLC",
+        "weight": 3.17,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 3,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.76,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 86,
+      "holdings_count_bond": 6,
+      "top10_weight": 47.02
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo trata de maximizar el crecimiento del capital, expresado en dólares estadounidenses, invirtiendo en valores de renta variable cotizados de empresas con una presencia significativa en los sectores de asistencia sanitaria, farmacéutico y de tecnología y suministros médicos. El Fondo también podrá invertir en empresas dedicadas al desarrollo de la biotecnología. El Fondo invierte a escala internacional. La posición sujeta a riesgo de cambio no será normalmente objeto de cobertura."
+  }
+}

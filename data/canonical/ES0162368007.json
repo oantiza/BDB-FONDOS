@@ -1,0 +1,367 @@
+{
+  "isin": "ES0162368007",
+  "name": "Metavalor Internacional I FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072916.pdf",
+  "stableBaseName": "ES0162368007__2025-12-29__78b75228",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 87.54,
+        "bond": 0,
+        "cash": 12.46,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 9.3,
+      "financial_services": 36.45,
+      "industrials": 29.58,
+      "healthcare": 2.91,
+      "consumer_cyclical": 7.47,
+      "energy": 5.12,
+      "basic_materials": 9.17
+    },
+    "regions": {
+      "macro": {
+        "americas": 16.34,
+        "europe_me_africa": 83.66
+      },
+      "detail": {
+        "americas": 16.34,
+        "united_states": 11.06,
+        "canada": 5.27,
+        "europe_me_africa": 83.66,
+        "united_kingdom": 3.96,
+        "eurozone": 79.18,
+        "europe_ex_euro": 0.22,
+        "europe_emerging": 0.3
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 46.58,
+        "large": 32.71,
+        "mid": 17.83,
+        "small": 2.89,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Meta Finanzas I FI",
+        "weight": 9.04,
+        "sector": null
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 6.37,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 6.03,
+        "sector": "industrials"
+      },
+      {
+        "name": "ACS Actividades de...",
+        "weight": 5.7,
+        "sector": "industrials"
+      },
+      {
+        "name": "Infineon Technologies AG",
+        "weight": 5.22,
+        "sector": "technology"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 5.09,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Intesa Sanpaolo",
+        "weight": 4.65,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 4.62,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Frontline PLC",
+        "weight": 4.48,
+        "sector": "energy"
+      },
+      {
+        "name": "Bankinter SA",
+        "weight": 4.07,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 24,
+      "holdings_count_bond": 0,
+      "top10_weight": 55.27
+    },
+    "costs": {
+      "management_fee": 0.75
+    },
+    "objective": "La exposición a Renta Variable será superior al 75%. No existirá un porcentaje predeterminado para la inversión en determinados sectores, países, divisas o áreas geográficas, tanto en tipo de emisores como de mercados. Así pues, el fondo podrá asumir riesgo de inversión inherente a los mercados emergentes o a divisas distintas de euro, hasta el 100% de la exposición total. El fondo no tendrá predeterminación alguna respecto a la capitalización de las empresas en las que invierta, pudiendo hacerlo en empresas tanto de..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 36.45,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 87.54,
+        "bond": 0,
+        "cash": 12.46,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 8.1412,
+        "financial_services": 31.9083,
+        "industrials": 25.8943,
+        "healthcare": 2.5474,
+        "consumer_cyclical": 6.5392,
+        "energy": 4.482,
+        "basic_materials": 8.0274
+      },
+      "equity_regions_total": {
+        "americas": 14.304,
+        "united_states": 9.6819,
+        "canada": 4.6134,
+        "europe_me_africa": 73.236,
+        "united_kingdom": 3.4666,
+        "eurozone": 69.3142,
+        "europe_ex_euro": 0.1926,
+        "europe_emerging": 0.2626
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 87.54,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 2.5297,
+          "mid": 15.6068,
+          "large": 69.4035
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "Global Small-Cap Equity",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.8754,
+      "bond": 0,
+      "cash": 0.1246,
+      "other": 0
+    },
+    "equity_regions": {
+      "americas": 0.056882,
+      "united_states": 0.038501,
+      "canada": 0.018346,
+      "europe_me_africa": 0.291233,
+      "united_kingdom": 0.013785,
+      "eurozone": 0.275637,
+      "europe_ex_euro": 0.07659,
+      "europe_emerging": 0.104426
+    },
+    "sectors": {
+      "technology": 0.081412,
+      "financial_services": 0.319084,
+      "industrials": 0.258944,
+      "healthcare": 0.025474,
+      "consumer_cyclical": 0.065392,
+      "energy": 0.04482,
+      "basic_materials": 0.080274
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.025297,
+      "mid": 0.156068,
+      "large": 0.694035
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=87.54",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "5bcda5e071dd1ceb13a645d2b1d94be9",
+    "warnings": [
+      "regions_sum_overflow:199.99",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.8754,
+          "bond": 0,
+          "cash": 0.1246,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8754
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8754
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8754
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:47:17.359Z"
+}

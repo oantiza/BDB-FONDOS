@@ -1,0 +1,169 @@
+
+
+Informe a 2 diciembre 2025
+Sycomore Sélection Crédit R
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Morningstar Eurozone Corporate
+Bond GR EUR
+Usado a lo largo del informe
+Bloomberg Euro Agg Corp Ex
+Fincl TR EUR
+QQQQQ
+RF Deuda Corporativa EUR
+ 
+Objetivo de inversión
+ 
+-
+9.0K
+9.5
+10.0
+10.5
+11.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2020202120222023202411/25Rentabilidad
+-0,431,31-10,899,355,373,57Fondo
+-3,162,603,451,451,150,58+/- Índice
+-2,592,272,481,640,800,56+/- Categoría
+)&&&&&
+Cuartil
+Medidas de riesgo
+Alfa 3a1,79
+Beta 3a0,68
+R²79,83
+Rátio de Inf.0,85
+Tracking Error1,68
+Sharpe 3a1,00
+Volatilidad2,78
+Riesgo 3ainf med
+Riesgo 5asup med
+Riesgo 10asup med
+Los cálculos usan Morningstar EZN Corp Bd GR EUR (donde sea aplicable)
+Rentab. acum. %
+(28 nov. 2025)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+0,75
+2,36
+3,79
+5,82
+1,62
+0,00
+1,09
+1,52
+1,80
+2,02
+0,00
+0,83
+1,23
+1,29
+1,63
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+2025-0,202,031,25-
+20241,000,252,681,35
+20232,121,300,455,23
+2022-3,95-9,88-0,423,39
+20210,510,740,34-0,29
+ 
+Cartera31 oct. 2025
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones0,010,000,01
+Obligaciones98,331,0297,31
+Efectivo3,401,182,21
+Otro0,470,000,47
+Style Box™ de RF de Morningstar
+ 
+Duración
+Baja   Med.  Alta
+Bajo
+Med
+AltoCalidad crediticia
+Duración efectiva-
+Vencimiento
+efectivo
+4,98
+Calidad crediticia
+media
+BB
+Calidad
+crediticia
+% RF% RF
+AAA0,00BBB36,33
+AA0,09BB34,43
+A1,74B25,47
+Bajo B0,06
+Sin calificación1,87
+Datos a31 oct. 2025
+10 mayores posiciones% cart
+Aeroporti di Roma S.p.A. 4.875%2033-07-101,42
+La Poste 5%1,36
+Roquette Freres 5.494%1,30
+Altarea SCA 5.5%2031-10-021,26
+Banijay Entertainment S.A.S. 7%2029-05-011,21
+ 
+ 
+LKQ Dutch Bond BV 4.125%2031-03-131,18
+Poste Italiane S.p.A. 2.625%1,14
+TDC Net AS 6.5%2031-06-011,14
+Stellantis N.V 4.25%2031-06-161,10
+SNF Group SA 4.5%2032-03-151,10
+ 
+ 
+Número total de acciones1
+Número total de bonos233
+% de activos en las 10 mayores posiciones12,23
+Rango de vencimientos% RF
+1 a 311,17
+3 a 534,11
+5 a 733,59
+7 a 1013,02
+10 a 151,86
+15 a 201,54
+20 a 301,37
+Más de 301,59
+Rango de cupón% RF
+Cupón 00,01
+Cupón 0 a 421,88
+Cupón 4 a 662,79
+Cupón 6 a 814,90
+Cupón 8 a 100,00
+Cupón 10 a 120,00
+Cupón sobre 120,41
+ 
+Operaciones
+ 
+Gestora del fondoSycomore Asset Management
+Fecha Creación5 dic. 2012
+Nombre del gestorStanislas De Bailliencourt
+Fecha de incorporación31 ago. 2012
+VL (28 nov. 2025)EUR 136,12
+Patrimonio (Mill)EUR 857,06
+DomicilioFrancia
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINFR0011288513
+Inversión mínima
+Inversión mínima adicional
+Comisión de gestión1,20%
+Comisión de salida0 PCT
+Comisión de distribución0,60%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2025 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

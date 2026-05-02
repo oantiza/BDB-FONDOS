@@ -1,0 +1,132 @@
+{
+  "isin": "LU0823394852",
+  "fileName": "morningstarreport20260312092013.pdf",
+  "report_date": "2026-03-12",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:55:40.244Z",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Global - EUR Cubierto",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 2.58,
+        "bond": 1.92,
+        "cash": 2.71,
+        "other": 92.79
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "BNP Paribas InstiCash USD 1D...",
+        "weight": 6.88,
+        "sector": null
+      },
+      {
+        "name": "Dow Jones Industrial Average...",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "SK Hynix Inc. 1.75%2030-04-11",
+        "weight": 2.71,
+        "sector": null
+      },
+      {
+        "name": "Ping An Insurance (Group)...",
+        "weight": 2.36,
+        "sector": null
+      },
+      {
+        "name": "Seagate HDD Cayman...",
+        "weight": 2.06,
+        "sector": null
+      },
+      {
+        "name": "Alibaba Group Holding Ltd....",
+        "weight": 1.48,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs Finance Corp....",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "CMS Energy Corporation...",
+        "weight": 1.41,
+        "sector": null
+      },
+      {
+        "name": "Uber Technologies Inc...",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "Akamai Technologies, Inc....",
+        "weight": 1.25,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 9,
+      "holdings_count_bond": 3,
+      "top10_weight": 23.77
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "El Fondo trata de incrementar el valor de sus activos a medio plazo invirtiendo en bonos convertibles emitidos por empresas de todo el mundo. El gestor intenta optimizar las características de riesgo y rentabilidad del Fondo, invirtiendo en una «combinación de convertibles» y evitando los bonos convertibles que se comportan como bonos o valores de renta variable normales. Después de la cobertura, la exposición a divisas diferentes del EUR no puede exceder el 25%. Es gestionado de manera activa y, como tal, puede..."
+  }
+}

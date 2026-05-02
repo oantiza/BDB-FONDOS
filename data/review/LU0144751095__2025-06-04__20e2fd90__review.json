@@ -1,0 +1,273 @@
+{
+  "isin": "LU0144751095",
+  "name": "Candriam Bonds Euro High Yield Class N EUR Cap",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250604083223.pdf",
+  "stableBaseName": "LU0144751095__2025-06-04__20e2fd90",
+  "report_date": "2025-06-04",
+  "ms": {
+    "report_date": "2025-06-04",
+    "category_morningstar": "RF Bonos Alto Rendimiento EUR",
+    "rating_stars": 3,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-03-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 93.89,
+        "cash": 6.06,
+        "other": 0.05
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.72,
+      "effective_maturity": 3.66,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 14.09,
+        "bb": 57.36,
+        "b": 22.45,
+        "below_b": 0.86,
+        "not_rated": 5.24
+      },
+      "maturity_allocation": {
+        "1_3": 23.88,
+        "3_5": 34.25,
+        "5_7": 24.45,
+        "7_10": 4.03,
+        "over_10": 7.29
+      },
+      "coupon_allocation": {
+        "0": 0.75,
+        "0_4": 29.21,
+        "4_6": 44.67,
+        "over_6": 25.37
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Candriam Monétaire SICAV Z C",
+        "weight": 4.1,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Finance Netherlands...",
+        "weight": 3.69,
+        "sector": null
+      },
+      {
+        "name": "Lorca Telecom Bondco S.A.U. 4% 2027-09-18",
+        "weight": 3.48,
+        "sector": null
+      },
+      {
+        "name": "Fibercop S.p.A. 7.875% 2028-07-31",
+        "weight": 2.28,
+        "sector": null
+      },
+      {
+        "name": "VMED O2 UK Financing I PLC...",
+        "weight": 2.17,
+        "sector": null
+      },
+      {
+        "name": "ELM BV 3.75%",
+        "weight": 2.16,
+        "sector": null
+      },
+      {
+        "name": "Verisure Holding AB (publ)...",
+        "weight": 2.1,
+        "sector": null
+      },
+      {
+        "name": "Grifols S.A. 7.125% 2030-05-01",
+        "weight": 2.06,
+        "sector": null
+      },
+      {
+        "name": "Telefonica Europe B V 6.75%",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "LKQ Dutch Bond BV 4.125% 2031-03-13",
+        "weight": 1.96,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 123,
+      "top10_weight": 25.96
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Candriam Bonds Euro High Yield satisface los requisitos de la directiva OICVM IV (UCITS IV) y proporciona liquidez diaria, ofrece a los inversores exposición al mercado europeo de renta fija corporativa de alto rendimiento, con el fin de obtener beneficios de la deuda empresarial que genera un rendimiento atractivo con un elevado riesgo crediticio. El fondo invierte principalmente en títulos de renta fija o en instrumentos derivados (derivados de crédito basados en índices o en empresas individuales), denominados en..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:high_yield"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "commercial_type": "RF Bonos Alto Rendimiento EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "high_yield",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:high_yield"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9389,
+      "cash": 0.0606,
+      "other": 0.0005
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "high_yield": 0.9389
+    },
+    "credit": {
+      "high_yield": 0.9389
+    },
+    "duration": {
+      "short": 0.9389
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.89",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.05,max_component=93.89",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "fc3001bd825610a0956b37067bbf2406",
+    "warnings": [
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9389,
+          "cash": 0.0606,
+          "other": 0.0005,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9389
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9389
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9389
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "region_incomplete|asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.89|asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.05,max_component=93.89|region_incomplete"
+  },
+  "generated_at": "2026-04-18T23:07:20.754Z"
+}

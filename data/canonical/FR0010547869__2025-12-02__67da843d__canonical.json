@@ -1,0 +1,336 @@
+{
+  "isin": "FR0010547869",
+  "name": "Sextant PME A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013832.pdf",
+  "stableBaseName": "FR0010547869__2025-12-02__67da843d",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Zona Euro Cap. Pequeña",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 97.43,
+        "bond": 0.02,
+        "cash": 2.53,
+        "other": 0.01
+      }
+    },
+    "sectors": {
+      "technology": 22.4,
+      "financial_services": 13.47,
+      "industrials": 28.81,
+      "healthcare": 2.44,
+      "consumer_cyclical": 20.7,
+      "consumer_defensive": 3.84,
+      "utilities": 0.5,
+      "energy": 0.18,
+      "communication_services": 2.72,
+      "real_estate": 0.16,
+      "basic_materials": 4.78
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 99.9,
+        "asia": 0.1
+      },
+      "detail": {
+        "united_kingdom": 2.77,
+        "eurozone": 84.3,
+        "europe_ex_euro": 12.32,
+        "other": 0.51,
+        "asia_emerging": 0.1
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0.34,
+        "mid": 10.71,
+        "small": 56.04,
+        "micro": 32.91
+      },
+      "style": null,
+      "style_box_cell": "Small-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Kontron AG Akt. nach...",
+        "weight": 3.27,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Viel & Compagnie",
+        "weight": 2.86,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 2.64,
+        "sector": "Industria"
+      },
+      {
+        "name": "Moltiply Group SpA",
+        "weight": 2.63,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Norconsult ASA",
+        "weight": 2.55,
+        "sector": "Industria"
+      },
+      {
+        "name": "Westwing Group SE Bearer Shares",
+        "weight": 2.47,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "MBB SE",
+        "weight": 2.33,
+        "sector": "Industria"
+      },
+      {
+        "name": "Groupe Guillin SA",
+        "weight": 2.28,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Jacquet Metals Ordinary Shares",
+        "weight": 2.15,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Aubay",
+        "weight": 2.04,
+        "sector": "Tecnología"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 117,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.24
+    },
+    "costs": {
+      "management_fee": 2.2
+    },
+    "objective": "SEXTANT PME is a sub-fund that applies a discretionary strategy. Its objective is to outperform the benchmark (MSCI EMU (EuropeanEconomic and Monetary Union) Micro Cap Net Return EUR) through a selection of European SMEs. Its investment horizon is over five years. The sub-fund also aims to build a portfolio of companies demonstrating strong sustainability and governance practices, notably throughthe adoption of an ESG score improvement approach and by setting a minimum threshold for sustainable investments."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials",
+      "theme:esg"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 28.81,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 97.43,
+        "bond": 0.02,
+        "cash": 2.53,
+        "other": 0.01
+      },
+      "equity_sectors_total": {
+        "technology": 21.8243,
+        "financial_services": 13.1238,
+        "industrials": 28.0696,
+        "healthcare": 2.3773,
+        "consumer_cyclical": 20.168,
+        "consumer_defensive": 3.7413,
+        "utilities": 0.4872,
+        "energy": 0.1754,
+        "communication_services": 2.6501,
+        "real_estate": 0.1559,
+        "basic_materials": 4.6572
+      },
+      "equity_regions_total": {
+        "united_kingdom": 2.6988,
+        "eurozone": 82.1335,
+        "europe_ex_euro": 12.0034,
+        "other": 0.4969,
+        "asia_emerging": 0.0974
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Small-Blend",
+        "weight_total": 97.43,
+        "size_bucket": "small",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 86.664,
+          "mid": 10.4348,
+          "large": 0.3313
+        },
+        "style_weights_total": {
+          "blend": 97.43
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Zona Euro Cap. Pequeña",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Small-Blend",
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:esg"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9743,
+      "bond": 0.0002,
+      "cash": 0.0253,
+      "other": 0.0001
+    },
+    "equity_regions": {
+      "united_kingdom": 0.016827,
+      "eurozone": 0.512094,
+      "europe_ex_euro": 0.07484,
+      "other": 0.309812,
+      "asia_emerging": 0.060728
+    },
+    "sectors": {
+      "technology": 0.119148,
+      "financial_services": 0.071649,
+      "industrials": 0.153244,
+      "healthcare": 0.012979,
+      "consumer_cyclical": 0.110106,
+      "consumer_defensive": 0.020425,
+      "utilities": 0.265984,
+      "energy": 0.095759,
+      "communication_services": 0.014468,
+      "real_estate": 0.085113,
+      "basic_materials": 0.025426
+    },
+    "equity_styles": {
+      "blend": 0.9743
+    },
+    "market_caps": {
+      "small": 0.648372,
+      "mid": 0.078067,
+      "large": 0.24786
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.43",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.01,max_component=97.43"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "29000158c0bd45d60c21261bc967102f",
+    "warnings": [
+      "unknown_region_key:europe_emerging"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9743,
+          "bond": 0.0002,
+          "cash": 0.0253,
+          "other": 0.0001,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.974301
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.974301
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9743
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.974299
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:03:33.333Z"
+}

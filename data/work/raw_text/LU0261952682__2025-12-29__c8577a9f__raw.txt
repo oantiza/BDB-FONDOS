@@ -1,0 +1,211 @@
+
+
+Informe a 29 diciembre 2025
+Fidelity Funds - Euro 50 Index Fund A-Acc-EUR
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Morningstar Developed Eurozone
+Target Market Exposure NR EUR
+Usado a lo largo del informe
+Solactive Euro 50 NR EUR
+QQQQ
+RV Zona Euro Cap. Grande
+ 
+Objetivo de inversión
+ 
+Fidelity Funds - EURO STOXX 50 Fund: pretende
+reproducir la rentabilidad del Dow Jones EURO STOXX
+50 Index. La política del Gestor del fondo para lograr
+este objetivo, es la utilización de metodología de
+reproducción. Para ello, se invertirá principalmente en
+todos los valores que esten representados en el Dow
+Jones EURO STOXX 50 Index. Para lograr el objetivo de
+inversión, el gestor del fondo utilizará futuros sobre
+índices.
+7.5K
+10.0
+12.5
+15.0
+17.5
+20.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2020202120222023202411/25Rentabilidad
+-3,4424,22-9,1722,7311,8318,77Fondo
+-2,691,482,854,002,29-2,18+/- Índice
+-1,752,314,465,784,652,68+/- Categoría
+(*&&&*
+Cuartil
+Medidas de riesgo
+Alfa 3a0,40
+Beta 3a1,05
+R²97,38
+Rátio de Inf.0,51
+Tracking Error2,05
+Sharpe 3a1,05
+Volatilidad12,11
+Riesgo 3asup med
+Riesgo 5asup med
+Riesgo 10asup med
+Los cálculos usan Morningstar Dev Ezn TME NR EUR (donde sea aplicable)
+Rentab. acum. %
+(26 dic. 2025)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+4,72
+10,13
+20,35
+18,02
+13,26
+-0,14
+0,26
+-3,31
+1,37
+1,68
+0,50
+1,39
+1,24
+2,49
+2,44
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+20257,503,084,44-
+202413,37-1,952,31-1,67
+202314,333,75-4,748,60
+2022-8,94-9,57-3,7614,62
+202111,045,070,066,41
+ 
+Cartera31 oct. 2025
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones100,010,00100,01
+Obligaciones0,110,000,11
+Efectivo0,790,91-0,12
+Otro0,000,000,00
+Style Box™ de RV de Morningstar% RV
+ 
+Estilo
+Valor  Mixto Crecimiento
+Peq.
+Med.
+GrandeTamaño
+Gigante80,65
+Grande18,29
+Mediano1,06
+Pequeño0,00
+Micro0,00
+ 
+CMMEUR 118955
+AméricaEuropaAsia
+<2525-5050-75>75
+10 mayores posicionesSector% cart
+ASML Holding NV
+a
+8,83
+SAP SE
+a
+5,73
+Siemens AG
+p
+4,53
+Lvmh Moet Hennessy Louis...
+t
+3,95
+Allianz SE
+y
+3,36
+ 
+ 
+Schneider Electric SE
+p
+3,32
+Banco Santander SA
+y
+3,23
+Airbus SE
+p
+3,13
+TotalEnergies SE
+o
+2,75
+Safran SA
+p
+2,70
+ 
+ 
+Número total de acciones50
+Número total de bonos0
+% de activos en las 10 mayores posiciones41,53
+Distribución por sectores% RV
+h Cíclico
+39,37
+r Materiales Básicos3,34
+t Consumo Cíclico12,28
+y Servicios Financieros23,75
+u Inmobiliario-
+ 
+ 
+j Sensible al ciclo
+44,83
+i Servicios de Comunicación2,19
+o Energía3,60
+p Industria21,45
+a Tecnología17,60
+ 
+ 
+k Defensivo
+15,79
+s Consumo Defensivo5,34
+d Salud5,43
+f Servicios Públicos5,03
+Desglose por regiones% RV
+América1,06
+Estados Unidos1,06
+Canadá0,00
+Iberoamérica0,00
+Europa/O. Medio/Africa98,94
+Reino Unido0,00
+Zona Euro97,76
+Europa - ex Euro1,18
+Europa emergente0,00
+Oriente Medio / África0,00
+Asia0,00
+Japón0,00
+Australasia0,00
+Asia - Desarrollada0,00
+Asia - Emergente0,00
+ 
+Operaciones
+ 
+Gestora del fondoFidelity (FIL Inv Mgmt...
+Fecha Creación25 sep. 2006
+Nombre del gestorNot Disclosed
+Fecha de incorporación3 ene. 2017
+VL (26 dic. 2025)EUR 26,20
+Patrimonio (Mill)EUR 727,53
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU0261952682
+Inversión mínima2.500
+Inversión mínima adicional1.000
+Comisión de gestión0,20%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2025 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

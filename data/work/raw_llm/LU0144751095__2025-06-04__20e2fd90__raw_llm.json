@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:02:19.980Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0144751095",
+    "name": "Candriam Bonds Euro High Yield Class N EUR Cap",
+    "currency": "EUR",
+    "report_date": "2025-06-04",
+    "category_morningstar": "RF Bonos Alto Rendimiento EUR",
+    "rating_stars": 3,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 mar. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 93.89,
+      "cash": 6.06,
+      "other": 0.05
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 2.72,
+      "effective_maturity": 3.66,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 14.09,
+        "bb": 57.36,
+        "b": 22.45,
+        "below_b": 0.86,
+        "not_rated": 5.24
+      },
+      "maturity_allocation": {
+        "1_3": 23.88,
+        "3_5": 34.25,
+        "5_7": 24.45,
+        "7_10": 4.03,
+        "over_10": 7.29
+      },
+      "coupon_allocation": {
+        "0": 0.75,
+        "0_4": 29.21,
+        "4_6": 44.67,
+        "over_6": 25.37
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Candriam Monétaire SICAV Z C",
+        "weight": 4.1,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Finance Netherlands...",
+        "weight": 3.69,
+        "sector": null
+      },
+      {
+        "name": "Lorca Telecom Bondco S.A.U. 4% 2027-09-18",
+        "weight": 3.48,
+        "sector": null
+      },
+      {
+        "name": "Fibercop S.p.A. 7.875% 2028-07-31",
+        "weight": 2.28,
+        "sector": null
+      },
+      {
+        "name": "VMED O2 UK Financing I PLC...",
+        "weight": 2.17,
+        "sector": null
+      },
+      {
+        "name": "ELM BV 3.75%",
+        "weight": 2.16,
+        "sector": null
+      },
+      {
+        "name": "Verisure Holding AB (publ)...",
+        "weight": 2.1,
+        "sector": null
+      },
+      {
+        "name": "Grifols S.A. 7.125% 2030-05-01",
+        "weight": 2.06,
+        "sector": null
+      },
+      {
+        "name": "Telefonica Europe B V 6.75%",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "LKQ Dutch Bond BV 4.125% 2031-03-13",
+        "weight": 1.96,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 123,
+      "top10_weight": 25.96
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Candriam Bonds Euro High Yield satisface los requisitos de la directiva OICVM IV (UCITS IV) y proporciona liquidez diaria, ofrece a los inversores exposición al mercado europeo de renta fija corporativa de alto rendimiento, con el fin de obtener beneficios de la deuda empresarial que genera un rendimiento atractivo con un elevado riesgo crediticio. El fondo invierte principalmente en títulos de renta fija o en instrumentos derivados (derivados de crédito basados en índices o en empresas individuales), denominados en..."
+  }
+}

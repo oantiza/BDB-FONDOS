@@ -1,0 +1,19 @@
+{
+  "total": 670,
+  "counts": {
+    "LIMITED": 217,
+    "FULL": 453
+  },
+  "reasons": {
+    "FI_UNKNOWN_DURATION_BUCKET": 31,
+    "HEURISTIC_STYLE_DEDUCTION": 135,
+    "REGION_PRIMARY_BORDERLINE": 28,
+    "FI_UNKNOWN_CREDIT_BUCKET": 30,
+    "FI_UNKNOWN_SUBTYPE": 4
+  },
+  "policy": {
+    "FULL": "entra por defecto en optimización",
+    "LIMITED": "entra solo si se permite universo ampliado o sin restricciones finas",
+    "EXCLUDED": "no entra en optimización"
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "isin": "IE00BZ4D7648",
+  "fileName": "morningstarreport20251229072329.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:45:43.218Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 95.9,
+        "bond": 0.04,
+        "cash": 4.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 72.45,
+      "financial_services": 0.85,
+      "industrials": 10.95,
+      "healthcare": 0.75,
+      "consumer_cyclical": 4,
+      "communication_services": 10.38,
+      "basic_materials": 0.62
+    },
+    "regions": {
+      "macro": {
+        "americas": 70.82,
+        "europe_me_africa": 4.45,
+        "asia": 24.73
+      },
+      "detail": {
+        "other": 88,
+        "united_states": 66.68,
+        "canada": 3.41,
+        "latin_america": 0.73,
+        "united_kingdom": 1.31,
+        "eurozone": 2.34,
+        "europe_ex_euro": 0.81,
+        "asia": 24.73,
+        "japan": 8.51,
+        "asia_emerging": 3.48
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 46.53,
+        "large": 34.43,
+        "mid": 18.16,
+        "small": 0.88,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 9.53,
+        "sector": null
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 5.55,
+        "sector": null
+      },
+      {
+        "name": "Advanced Micro Devices Inc",
+        "weight": 4.57,
+        "sector": null
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.5,
+        "sector": null
+      },
+      {
+        "name": "Northern Trust Global US...",
+        "weight": 3.6,
+        "sector": null
+      },
+      {
+        "name": "Cloudflare Inc",
+        "weight": 2.65,
+        "sector": null
+      },
+      {
+        "name": "KLA Corp",
+        "weight": 2.34,
+        "sector": null
+      },
+      {
+        "name": "Lam Research Corp",
+        "weight": 2.12,
+        "sector": null
+      },
+      {
+        "name": "Celestica Inc Ordinary Shares...",
+        "weight": 2.1,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.07,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 70,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.03
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo de este fondo es invertir en una cartera diversificada de empresas de tecnología a nivel mundial."
+  }
+}

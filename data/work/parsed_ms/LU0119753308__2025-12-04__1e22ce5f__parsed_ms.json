@@ -1,0 +1,154 @@
+{
+  "isin": "LU0119753308",
+  "fileName": "morningstarreport20251204094513.pdf",
+  "report_date": "2025-12-04",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:39:37.895Z",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.03,
+        "bond": 0,
+        "cash": 0.97,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 6.03,
+      "financial_services": 21.45,
+      "industrials": 21.94,
+      "healthcare": 15.85,
+      "consumer_cyclical": 6.74,
+      "consumer_defensive": 11.39,
+      "utilities": 2.44,
+      "communication_services": 10.77,
+      "real_estate": 0.39,
+      "basic_materials": 3.01
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.72,
+        "europe_me_africa": 97.28
+      },
+      "detail": {
+        "americas": 2.72,
+        "united_states": 2.23,
+        "latin_america": 0.49,
+        "europe_me_africa": 97.28,
+        "united_kingdom": 16.27,
+        "eurozone": 54.53,
+        "europe_ex_euro": 26.48
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.87,
+        "large": 40.17,
+        "mid": 40.65,
+        "small": 1.31,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.22,
+        "sector": null
+      },
+      {
+        "name": "Aena SME SA",
+        "weight": 1.99,
+        "sector": null
+      },
+      {
+        "name": "ABB Ltd",
+        "weight": 1.95,
+        "sector": null
+      },
+      {
+        "name": "Anheuser-Busch InBev SA/NV",
+        "weight": 1.8,
+        "sector": null
+      },
+      {
+        "name": "Orange SA",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "AXA SA",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Poste Italiane SpA",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Schindler Holding AG Non Voting",
+        "weight": 1.56,
+        "sector": null
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 1.54,
+        "sector": null
+      },
+      {
+        "name": "GSK PLC",
+        "weight": 1.51,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 162,
+      "holdings_count_bond": 0,
+      "top10_weight": 17.46
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "El objetivo del fondo es obtener crecimiento de capital a largo plazo invirtiendo en una cartera diversificada de compañías de gran capitalización con sede en un país europeo o que realicen la mayoría de su actividad en países europeos (incluyendo Reino Unido)."
+  }
+}

@@ -1,0 +1,131 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:02:27.346Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0583242994",
+    "name": "MFS Meridian Funds - Prudent Wealth Fund A1 EUR",
+    "currency": "EUR",
+    "report_date": "2025-06-03",
+    "category_morningstar": "Mixtos Moderados USD",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 abr. 2025",
+    "asset_allocation": {
+      "equity": 70.88,
+      "bond": 14.95,
+      "cash": 7.67,
+      "other": 6.5
+    },
+    "regions_macro": {
+      "americas": 17.84,
+      "europe_me_africa": 68.05,
+      "asia": 14.11
+    },
+    "regions_detail": {
+      "Estados Unidos": 14.01,
+      "Canadá": 0.87,
+      "Iberoamérica": 2.96,
+      "Reino Unido": 14.19,
+      "Zona Euro": 51.92,
+      "Europa - ex Euro": 0.22,
+      "Europa emergente": 1.58,
+      "Oriente Medio / África": 0.13,
+      "Japón": 9.58,
+      "Australasia": 0.31,
+      "Asia - Desarrollada": 4.16,
+      "Asia - Emergente": 0.06
+    },
+    "sectors": {
+      "technology": 13.46,
+      "financial_services": 18.7,
+      "industrials": 12.99,
+      "healthcare": 4.61,
+      "consumer_cyclical": 16.23,
+      "consumer_defensive": 4.05,
+      "utilities": 0,
+      "energy": 0.38,
+      "communication_services": 21.41,
+      "real_estate": 5.43,
+      "basic_materials": 2.74
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "iShares Physical Gold ETC",
+        "weight": 6.5,
+        "sector": null
+      },
+      {
+        "name": "Euronext NV",
+        "weight": 5.51,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Amadeus IT Group SA",
+        "weight": 3.72,
+        "sector": "technology"
+      },
+      {
+        "name": "Scout24 SE",
+        "weight": 3.2,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 3.05,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Knorr-Bremse AG Bearer Shares",
+        "weight": 2.92,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 2.92,
+        "sector": "technology"
+      },
+      {
+        "name": "Nintendo Co Ltd",
+        "weight": 2.76,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Edenred SE",
+        "weight": 2.41,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Infrastrutture Wireless...",
+        "weight": 2.35,
+        "sector": "real_estate"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 50,
+      "holdings_count_bond": 51,
+      "top10_weight": 35.35
+    },
+    "costs": {
+      "management_fee": 1.15
+    },
+    "objective": "El objetivo del fondo es la revalorización de capital, medida en dólares estadounidenses."
+  }
+}

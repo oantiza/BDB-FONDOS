@@ -1,0 +1,133 @@
+{
+  "isin": "LU1939214695",
+  "fileName": "morningstarreport20260111033700.pdf",
+  "report_date": "2026-01-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:57.921Z",
+  "ms": {
+    "report_date": "2026-01-11",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 98.61,
+        "bond": 0,
+        "cash": 1.39,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 31.03,
+      "financial_services": 21.15,
+      "industrials": 11.2,
+      "healthcare": 9.96,
+      "consumer_cyclical": 8.23,
+      "consumer_defensive": 5.1,
+      "utilities": 1.8,
+      "communication_services": 6.13,
+      "real_estate": 1.61,
+      "basic_materials": 3.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 71.65,
+        "europe_me_africa": 17.07,
+        "asia": 11.28
+      },
+      "detail": {
+        "other": 93.11,
+        "united_states": 65.59,
+        "canada": 5.71,
+        "latin_america": 0.34,
+        "united_kingdom": 3.74,
+        "eurozone": 9.52,
+        "europe_ex_euro": 2.84,
+        "middle_east": 0.97,
+        "asia": 11.28,
+        "japan": 3.21,
+        "australasia": 0.79,
+        "asia_emerging": 2.89
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 44.16,
+        "large": 34.63,
+        "mid": 18.27,
+        "small": 2.94,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 6.58,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.26,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 3.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.5,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 2.21,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Lam Research Corp",
+        "weight": 2.12,
+        "sector": "technology"
+      },
+      {
+        "name": "Citigroup Inc",
+        "weight": 1.79,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Cummins Inc",
+        "weight": 1.74,
+        "sector": "industrials"
+      },
+      {
+        "name": "Cisco Systems Inc",
+        "weight": 1.67,
+        "sector": "technology"
+      },
+      {
+        "name": "Next PLC",
+        "weight": 1.65,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 93,
+      "holdings_count_bond": 0,
+      "top10_weight": 29.38
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The sub-fund invests its assets with a particular focus on companies demonstrating sustainability, and a high level of gender diversity and equality in management. The fund's objective is to invest on companies that are Gender Diverse according to our criteria but that also present strong fundamentals and develop their business in an attractive way. In actively managing the fund's portfolio, the management team focuses on companies that demonstrate sustainability and a high level of gender diversity and equality in..."
+  }
+}

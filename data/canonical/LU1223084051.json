@@ -1,0 +1,315 @@
+{
+  "isin": "LU1223084051",
+  "name": "Schroder International Selection Fund Global Gold A Accumulation PLN Hedged",
+  "currency": "PLN",
+  "fileName": "morningstarreport20251202072919.pdf",
+  "stableBaseName": "LU1223084051__2025-12-02__f413161e",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 94.86,
+        "bond": 0.24,
+        "cash": 4.7,
+        "other": 0.2
+      }
+    },
+    "sectors": {
+      "consumer_defensive": 0.13,
+      "basic_materials": 99.87
+    },
+    "regions": {
+      "macro": {
+        "americas": 73.24,
+        "europe_me_africa": 12.19,
+        "asia": 14.56
+      },
+      "detail": {
+        "united_states": 13.77,
+        "canada": 58.84,
+        "latin_america": 0.62,
+        "united_kingdom": 4.59,
+        "middle_east": 7.61,
+        "australasia": 14.56
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 13.03,
+        "large": 22.05,
+        "mid": 39.93,
+        "small": 19.33,
+        "micro": 5.66
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 8.26,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 5.03,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Equinox Gold Corp Ordinary...",
+        "weight": 4.5,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 4.45,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Alamos Gold Inc Class A",
+        "weight": 4.13,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Coeur Mining Inc",
+        "weight": 3.7,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Anglogold Ashanti PLC",
+        "weight": 3.65,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Kinross Gold Corp",
+        "weight": 3.59,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Endeavour Mining PLC",
+        "weight": 3.24,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "B2Gold Corp",
+        "weight": 3.22,
+        "sector": "Materiales Básicos"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 78,
+      "holdings_count_bond": 2,
+      "top10_weight": 43.77
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The Fund aims to provide capital growth in excess of the FTSE Gold Mines index after fees have been deducted over a three to five year period by investing in equity and equity related securities of companies in the gold industry. The Fund is actively managed and invests at least two-thirds of its assets in equity and equity related securities of companies worldwide involved in the gold industry. It will also invest in gold and other precious metals through eligible assets and gold and other precious metals..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:materials",
+      "sector:materials",
+      "theme:precious_metals"
+    ],
+    "top_sector": "basic_materials",
+    "top_sector_weight": 99.87,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 94.86,
+        "bond": 0.24,
+        "cash": 4.7,
+        "other": 0.2
+      },
+      "equity_sectors_total": {
+        "consumer_defensive": 0.1233,
+        "basic_materials": 94.7367
+      },
+      "equity_regions_total": {
+        "united_states": 13.0622,
+        "canada": 55.8156,
+        "latin_america": 0.5881,
+        "united_kingdom": 4.3541,
+        "middle_east": 7.2188,
+        "australasia": 13.8116
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 94.86,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 23.7055,
+          "mid": 37.8776,
+          "large": 33.2769
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Otros",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:materials",
+      "sector:materials",
+      "theme:precious_metals"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9486,
+      "bond": 0.0024,
+      "cash": 0.047,
+      "other": 0.002
+    },
+    "equity_regions": {
+      "united_states": 0.080947,
+      "canada": 0.345893,
+      "latin_america": 0.36445,
+      "united_kingdom": 0.026983,
+      "middle_east": 0.044735,
+      "australasia": 0.085591
+    },
+    "sectors": {
+      "consumer_defensive": 0.109243,
+      "basic_materials": 0.839357
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.237055,
+      "mid": 0.378776,
+      "large": 0.332769
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=94.86",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.2,max_component=94.86"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "2c56fccbba074169ef8ad7ae4ea6b30c",
+    "warnings": [
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9486,
+          "bond": 0.0024,
+          "cash": 0.047,
+          "other": 0.002,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.948599
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9486
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9486
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:27:47.160Z"
+}

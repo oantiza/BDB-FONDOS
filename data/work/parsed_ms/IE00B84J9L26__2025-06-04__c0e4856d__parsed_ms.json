@@ -1,0 +1,122 @@
+{
+  "isin": "IE00B84J9L26",
+  "fileName": "morningstarreport20250604084428.pdf",
+  "report_date": "2025-06-04",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:02:44.148Z",
+  "ms": {
+    "report_date": "2025-06-04",
+    "category_morningstar": "Global Flexible Bond - EUR Hedged",
+    "rating_stars": 4,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-03-30",
+      "asset_allocation": {
+        "equity": 0.58,
+        "bond": 100,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 3.96,
+      "effective_maturity": 5.6,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 65.7,
+        "aa": 7.86,
+        "a": 7.2,
+        "bbb": 9.58,
+        "bb": 3.51,
+        "b": 2.45,
+        "below_b": 3.69,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 13.61,
+        "3_5": 10.32,
+        "5_7": 8.24,
+        "7_10": 10.11,
+        "over_10": 38.35
+      },
+      "coupon_allocation": {
+        "0": 0.58,
+        "0_4": 29.25,
+        "4_6": 48.71,
+        "over_6": 21.45
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 10.46,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 10.2,
+        "sector": null
+      },
+      {
+        "name": "10 Year Treasury Note Future June...",
+        "weight": 9.64,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 8.5,
+        "sector": null
+      },
+      {
+        "name": "Fin Fut Uk Gilt Ice 06/26/252025-06-27",
+        "weight": 6.95,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 6.78,
+        "sector": null
+      },
+      {
+        "name": "5 Year Treasury Note Future June...",
+        "weight": 4.33,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 3.17,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 3.08,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 2.95,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 26,
+      "holdings_count_bond": 6447,
+      "top10_weight": 66.06
+    },
+    "costs": {
+      "management_fee": 1.45
+    },
+    "objective": "El fondo tiene como objetivo generar ingresos, manteniendo y aumentando su inversión original. El fondo invierte principalmente en una gama de valores de renta fija (que son préstamos que pagan un tipo de interés fijo o variable) emitidos por sociedades o gobiernos de todo el mundo que proporcionan un nivel de ingresos constante y en aumento. El fondo también puede invertir hasta un 50% en valores con calificaciones inferiores, de « Baa3» o más bajas, asignadas por estas mismas agencias (con la excepción de que esta..."
+  }
+}

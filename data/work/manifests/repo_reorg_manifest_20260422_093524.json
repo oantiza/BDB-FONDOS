@@ -1,0 +1,1881 @@
+﻿{
+    "generated_at":  "2026-04-22T09:35:23.5327779+02:00",
+    "root":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS",
+    "created_dirs":  [
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\parser",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\overrides",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\overrides\\05_overrides",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\tests",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\schemas",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\legacy_roots",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\exports",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs",
+                         "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\scripts_backup"
+                     ],
+    "moved_count":  304,
+    "skipped_count":  0,
+    "removed_empty_dirs":  [
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\ERRORES",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\ENTRADA_TEST",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\test_input",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\06_exports",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\scripts",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\schemas",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\tests",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\docs",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\reports",
+                               "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps"
+                           ],
+    "moves":  [
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0125323008__2023-09-29__5aaed64b.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0125323008__2023-09-29__5aaed64b.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0138922036__2023-07-04__ec1174b2.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0138922036__2023-07-04__ec1174b2.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0165242001__2024-06-22__5a9466a0.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0165242001__2024-06-22__5a9466a0.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0165242001__2024-06-23__5a9466a0.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0165242001__2024-06-23__5a9466a0.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0182105033__2025-11-28__34667365.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0182105033__2025-11-28__34667365.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\ES0184894006__2024-06-23__af8ac8b1.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\ES0184894006__2024-06-23__af8ac8b1.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\IE0003867441__2025-12-02__65bd2c2b.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\IE0003867441__2025-12-02__65bd2c2b.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\IE00B23S7K36__2025-12-02__0a880b9f.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\IE00B23S7K36__2025-12-02__0a880b9f.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\IE00B84J9L26__2025-06-04__c0e4856d.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\IE00B84J9L26__2025-06-04__c0e4856d.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\IE00BD5CTX77__2025-06-04__abb65f06.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\IE00BD5CTX77__2025-06-04__abb65f06.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0034353002__2025-06-04__c74238d6.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0034353002__2025-06-04__c74238d6.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0072462186__2025-05-30__9e0441e4.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0072462186__2025-05-30__9e0441e4.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0115769746__2022-11-07__78b4326b.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0115769746__2022-11-07__78b4326b.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0144751095__2025-06-04__20e2fd90.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0144751095__2025-06-04__20e2fd90.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0170473374__2023-09-07__11b598fd.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0170473374__2023-09-07__11b598fd.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0188151921__2025-12-02__da4f1c9e.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0188151921__2025-12-02__da4f1c9e.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0203975437__2023-09-29__95c98a9e.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0203975437__2023-09-29__95c98a9e.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0210531983__2025-05-30__2ace7f5f.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0210531983__2025-05-30__2ace7f5f.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0243957239__2025-05-30__32f6b881.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0243957239__2025-05-30__32f6b881.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0252500524__2023-07-04__5a3e6fcc.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0252500524__2023-07-04__5a3e6fcc.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0273148055__2025-12-02__57b3f522.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0273148055__2025-12-02__57b3f522.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0300507208__2025-12-02__ad73713c.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0300507208__2025-12-02__ad73713c.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0313923228__2025-03-23__d1860514.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0313923228__2025-03-23__d1860514.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0336084032__2025-06-04__a4612611.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0336084032__2025-06-04__a4612611.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0348926287__2020-11-18__0153cbe2.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0348926287__2020-11-18__0153cbe2.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0524465548__2025-12-01__785e93ec.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0524465548__2025-12-01__785e93ec.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0583242994__2025-06-03__d5783851.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0583242994__2025-06-03__d5783851.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0712123511__2025-06-03__d0f2c44c.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0712123511__2025-06-03__d0f2c44c.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0712123511__2025-06-04__d0f2c44c.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0712123511__2025-06-04__d0f2c44c.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0813337002__2025-12-02__6be7dfea.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0813337002__2025-12-02__6be7dfea.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU0857700040__2025-05-30__8ca345b8.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU0857700040__2025-05-30__8ca345b8.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU1164220854__2025-06-04__5ead03bd.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU1164220854__2025-06-04__5ead03bd.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU1278917536__2023-09-29__e4a9eb69.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU1278917536__2023-09-29__e4a9eb69.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU1481583711__2025-06-04__85fc956c.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU1481583711__2025-06-04__85fc956c.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU1486845537__2025-06-04__46bd6b3a.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU1486845537__2025-06-04__46bd6b3a.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\00_input_pdfs\\LU2222028099__2023-10-16__f5f6b6f4.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\LU2222028099__2023-10-16__f5f6b6f4.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "backup input pdfs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20221107040050.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20221107040050.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20230704082429.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230704082429.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20230704082443.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230704082443.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20230907083119.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230907083119.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20230929082801.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230929082801.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20230929083032.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230929083032.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20231016085559.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20231016085559.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20240623090100.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20240623090100.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20240623090216.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20240623090216.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250323062034.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250323062034.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250530065759.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250530065759.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250530070434.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250530070434.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250530070448.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250530070448.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250530070514.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250530070514.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250603033051.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250603033051.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604082937.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604082937.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604083103.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604083103.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604083223.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604083223.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604083809.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604083809.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604083956.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604083956.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604084100.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604084100.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604084428.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604084428.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604084633.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604084633.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20250604085334.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20250604085334.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20251128083924.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251128083924.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20251201100541.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251201100541.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20251202013736.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251202013736.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\morningstarreport20251202013747.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251202013747.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "processed pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\ERRORES\\morningstarreport20230929083019.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20230929083019.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "error pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\ERRORES\\morningstarreport20251101032156.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251101032156.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "error pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\ERRORES\\morningstarreport20251101032156__2026-04-18T23-10-42-368Z__1.pdf",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\input_pdfs\\morningstarreport20251101032156__2026-04-18T23-10-42-368Z__1.pdf",
+                      "kind":  "input_pdf",
+                      "note":  "error pdf archive"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\ES0125323008__2023-09-29__5aaed64b__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0125323008__2023-09-29__5aaed64b__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\ES0165242001__2024-06-23__5a9466a0__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0165242001__2024-06-23__5a9466a0__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\ES0182105033__2025-11-28__34667365__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0182105033__2025-11-28__34667365__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\ES0184894006__2024-06-23__af8ac8b1__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0184894006__2024-06-23__af8ac8b1__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\IE0003867441__2025-12-02__65bd2c2b__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\IE0003867441__2025-12-02__65bd2c2b__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\IE00B23S7K36__2025-12-02__0a880b9f__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\IE00B23S7K36__2025-12-02__0a880b9f__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0072462186__2025-05-30__9e0441e4__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0072462186__2025-05-30__9e0441e4__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0115769746__2022-11-07__78b4326b__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0115769746__2022-11-07__78b4326b__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0188151921__2025-12-02__da4f1c9e__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0188151921__2025-12-02__da4f1c9e__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0203975437__2023-09-29__95c98a9e__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0203975437__2023-09-29__95c98a9e__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0210531983__2025-05-30__2ace7f5f__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0210531983__2025-05-30__2ace7f5f__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0243957239__2025-05-30__32f6b881__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0243957239__2025-05-30__32f6b881__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0273148055__2025-12-02__57b3f522__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0273148055__2025-12-02__57b3f522__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0300507208__2025-12-02__ad73713c__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0300507208__2025-12-02__ad73713c__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0313923228__2025-03-23__d1860514__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0313923228__2025-03-23__d1860514__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0524465548__2025-12-01__785e93ec__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0524465548__2025-12-01__785e93ec__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0583242994__2025-06-03__d5783851__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0583242994__2025-06-03__d5783851__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0813337002__2025-12-02__6be7dfea__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0813337002__2025-12-02__6be7dfea__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical\\LU0857700040__2025-05-30__8ca345b8__canonical.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0857700040__2025-05-30__8ca345b8__canonical.json",
+                      "kind":  "canonical_json",
+                      "note":  "canonical payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\ES0125323008.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0125323008.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\ES0138922036.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0138922036.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\ES0165242001.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0165242001.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\ES0182105033.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0182105033.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\ES0184894006.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\ES0184894006.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\IE00B23S7K36.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\IE00B23S7K36.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\IE00B84J9L26.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\IE00B84J9L26.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\IE00BD5CTX77.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\IE00BD5CTX77.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0034353002.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0034353002.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0072462186.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0072462186.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0115769746.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0115769746.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0144751095.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0144751095.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0170473374.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0170473374.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0203975437.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0203975437.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0210531983.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0210531983.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0243957239.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0243957239.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0252500524.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0252500524.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0273148055.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0273148055.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0313923228.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0313923228.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0336084032.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0336084032.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0524465548.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0524465548.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0583242994.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0583242994.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0712123511.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0712123511.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU0857700040.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU0857700040.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU1164220854.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU1164220854.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU1481583711.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU1481583711.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU1486845537.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU1486845537.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\PROCESADOS\\LU2222028099.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\canonical\\LU2222028099.json",
+                      "kind":  "canonical_json",
+                      "note":  "latest processed json"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\ES0138922036__2023-07-04__ec1174b2__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\ES0138922036__2023-07-04__ec1174b2__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\IE00B84J9L26__2025-06-04__c0e4856d__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\IE00B84J9L26__2025-06-04__c0e4856d__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\IE00BD5CTX77__2025-06-04__abb65f06__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\IE00BD5CTX77__2025-06-04__abb65f06__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0034353002__2025-06-04__c74238d6__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0034353002__2025-06-04__c74238d6__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0144751095__2025-06-04__20e2fd90__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0144751095__2025-06-04__20e2fd90__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0170473374__2023-09-07__11b598fd__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0170473374__2023-09-07__11b598fd__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0203975437__2023-09-29__95c98a9e__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0203975437__2023-09-29__95c98a9e__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0210531983__2025-05-30__2ace7f5f__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0210531983__2025-05-30__2ace7f5f__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0252500524__2023-07-04__5a3e6fcc__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0252500524__2023-07-04__5a3e6fcc__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0273148055__2025-12-02__57b3f522__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0273148055__2025-12-02__57b3f522__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0336084032__2025-06-04__a4612611__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0336084032__2025-06-04__a4612611__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0348926287__2020-11-18__0153cbe2__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0348926287__2020-11-18__0153cbe2__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0712123511__2025-06-03__d0f2c44c__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0712123511__2025-06-03__d0f2c44c__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU0857700040__2025-05-30__8ca345b8__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU0857700040__2025-05-30__8ca345b8__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU1164220854__2025-06-04__5ead03bd__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU1164220854__2025-06-04__5ead03bd__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU1278917536__2023-09-29__e4a9eb69__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU1278917536__2023-09-29__e4a9eb69__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU1481583711__2025-06-04__85fc956c__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU1481583711__2025-06-04__85fc956c__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU1486845537__2025-06-04__46bd6b3a__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU1486845537__2025-06-04__46bd6b3a__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\LU2222028099__2023-10-16__f5f6b6f4__review.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\LU2222028099__2023-10-16__f5f6b6f4__review.json",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides\\review_queue\\review_queue.ndjson",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\review\\review_queue.ndjson",
+                      "kind":  "review_json",
+                      "note":  "review queue"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\ES0125323008__2023-09-29__5aaed64b__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\ES0125323008__2023-09-29__5aaed64b__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\ES0165242001__2024-06-22__5a9466a0__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\ES0165242001__2024-06-22__5a9466a0__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\ES0184894006__2024-06-23__af8ac8b1__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\ES0184894006__2024-06-23__af8ac8b1__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0072462186__2025-05-30__9e0441e4__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0072462186__2025-05-30__9e0441e4__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0115769746__2022-11-07__78b4326b__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0115769746__2022-11-07__78b4326b__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0210531983__2025-05-30__2ace7f5f__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0210531983__2025-05-30__2ace7f5f__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0243957239__2025-05-30__32f6b881__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0243957239__2025-05-30__32f6b881__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0313923228__2025-03-23__d1860514__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0313923228__2025-03-23__d1860514__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0336084032__2025-06-04__a4612611__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0336084032__2025-06-04__a4612611__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0583242994__2025-06-03__d5783851__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0583242994__2025-06-03__d5783851__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\LU0712123511__2025-06-04__d0f2c44c__error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\LU0712123511__2025-06-04__d0f2c44c__error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\morningstarreport20230929083019__llm_error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\morningstarreport20230929083019__llm_error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\errors\\morningstarreport20251101032156__llm_error.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\error\\morningstarreport20251101032156__llm_error.json",
+                      "kind":  "error_json",
+                      "note":  "error payloads"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0125323008__2023-09-29__5aaed64b__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0125323008__2023-09-29__5aaed64b__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0138922036__2023-07-04__ec1174b2__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0138922036__2023-07-04__ec1174b2__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0165242001__2024-06-22__5a9466a0__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0165242001__2024-06-22__5a9466a0__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0165242001__2024-06-23__5a9466a0__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0165242001__2024-06-23__5a9466a0__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0182105033__2025-11-28__34667365__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0182105033__2025-11-28__34667365__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\ES0184894006__2024-06-23__af8ac8b1__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\ES0184894006__2024-06-23__af8ac8b1__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\IE0003867441__2025-12-02__65bd2c2b__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\IE0003867441__2025-12-02__65bd2c2b__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\IE00B23S7K36__2025-12-02__0a880b9f__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\IE00B23S7K36__2025-12-02__0a880b9f__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\IE00B84J9L26__2025-06-04__c0e4856d__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\IE00B84J9L26__2025-06-04__c0e4856d__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\IE00BD5CTX77__2025-06-04__abb65f06__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\IE00BD5CTX77__2025-06-04__abb65f06__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0034353002__2025-06-04__c74238d6__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0034353002__2025-06-04__c74238d6__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0072462186__2025-05-30__9e0441e4__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0072462186__2025-05-30__9e0441e4__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0115769746__2022-11-07__78b4326b__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0115769746__2022-11-07__78b4326b__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0144751095__2025-06-04__20e2fd90__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0144751095__2025-06-04__20e2fd90__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0170473374__2023-09-07__11b598fd__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0170473374__2023-09-07__11b598fd__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0188151921__2025-12-02__da4f1c9e__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0188151921__2025-12-02__da4f1c9e__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0203975437__2023-09-29__95c98a9e__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0203975437__2023-09-29__95c98a9e__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0210531983__2025-05-30__2ace7f5f__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0210531983__2025-05-30__2ace7f5f__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0243957239__2025-05-30__32f6b881__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0243957239__2025-05-30__32f6b881__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0252500524__2023-07-04__5a3e6fcc__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0252500524__2023-07-04__5a3e6fcc__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0273148055__2025-12-02__57b3f522__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0273148055__2025-12-02__57b3f522__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0300507208__2025-12-02__ad73713c__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0300507208__2025-12-02__ad73713c__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0313923228__2025-03-23__d1860514__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0313923228__2025-03-23__d1860514__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0336084032__2025-06-04__a4612611__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0336084032__2025-06-04__a4612611__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0348926287__2020-11-18__0153cbe2__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0348926287__2020-11-18__0153cbe2__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0524465548__2025-12-01__785e93ec__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0524465548__2025-12-01__785e93ec__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0583242994__2025-06-03__d5783851__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0583242994__2025-06-03__d5783851__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0712123511__2025-06-03__d0f2c44c__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0712123511__2025-06-03__d0f2c44c__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0712123511__2025-06-04__d0f2c44c__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0712123511__2025-06-04__d0f2c44c__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0813337002__2025-12-02__6be7dfea__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0813337002__2025-12-02__6be7dfea__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU0857700040__2025-05-30__8ca345b8__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU0857700040__2025-05-30__8ca345b8__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU1164220854__2025-06-04__5ead03bd__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU1164220854__2025-06-04__5ead03bd__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU1278917536__2023-09-29__e4a9eb69__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU1278917536__2023-09-29__e4a9eb69__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU1481583711__2025-06-04__85fc956c__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU1481583711__2025-06-04__85fc956c__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU1486845537__2025-06-04__46bd6b3a__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU1486845537__2025-06-04__46bd6b3a__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\01_raw_text\\LU2222028099__2023-10-16__f5f6b6f4__raw.txt",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_text\\LU2222028099__2023-10-16__f5f6b6f4__raw.txt",
+                      "kind":  "work_artifact",
+                      "note":  "raw text"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0125323008__2023-09-29__5aaed64b__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0125323008__2023-09-29__5aaed64b__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0138922036__2023-07-04__ec1174b2__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0138922036__2023-07-04__ec1174b2__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0165242001__2024-06-22__5a9466a0__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0165242001__2024-06-22__5a9466a0__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0165242001__2024-06-23__5a9466a0__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0165242001__2024-06-23__5a9466a0__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0182105033__2025-11-28__34667365__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0182105033__2025-11-28__34667365__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\ES0184894006__2024-06-23__af8ac8b1__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\ES0184894006__2024-06-23__af8ac8b1__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\IE0003867441__2025-12-02__65bd2c2b__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\IE0003867441__2025-12-02__65bd2c2b__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\IE00B23S7K36__2025-12-02__0a880b9f__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\IE00B23S7K36__2025-12-02__0a880b9f__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\IE00B84J9L26__2025-06-04__c0e4856d__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\IE00B84J9L26__2025-06-04__c0e4856d__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\IE00BD5CTX77__2025-06-04__abb65f06__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\IE00BD5CTX77__2025-06-04__abb65f06__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0034353002__2025-06-04__c74238d6__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0034353002__2025-06-04__c74238d6__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0072462186__2025-05-30__9e0441e4__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0072462186__2025-05-30__9e0441e4__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0115769746__2022-11-07__78b4326b__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0115769746__2022-11-07__78b4326b__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0144751095__2025-06-04__20e2fd90__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0144751095__2025-06-04__20e2fd90__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0170473374__2023-09-07__11b598fd__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0170473374__2023-09-07__11b598fd__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0188151921__2025-12-02__da4f1c9e__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0188151921__2025-12-02__da4f1c9e__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0203975437__2023-09-29__95c98a9e__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0203975437__2023-09-29__95c98a9e__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0210531983__2025-05-30__2ace7f5f__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0210531983__2025-05-30__2ace7f5f__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0243957239__2025-05-30__32f6b881__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0243957239__2025-05-30__32f6b881__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0252500524__2023-07-04__5a3e6fcc__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0252500524__2023-07-04__5a3e6fcc__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0273148055__2025-12-02__57b3f522__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0273148055__2025-12-02__57b3f522__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0300507208__2025-12-02__ad73713c__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0300507208__2025-12-02__ad73713c__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0313923228__2025-03-23__d1860514__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0313923228__2025-03-23__d1860514__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0336084032__2025-06-04__a4612611__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0336084032__2025-06-04__a4612611__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0348926287__2020-11-18__0153cbe2__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0348926287__2020-11-18__0153cbe2__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0524465548__2025-12-01__785e93ec__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0524465548__2025-12-01__785e93ec__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0583242994__2025-06-03__d5783851__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0583242994__2025-06-03__d5783851__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0712123511__2025-06-03__d0f2c44c__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0712123511__2025-06-03__d0f2c44c__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0712123511__2025-06-04__d0f2c44c__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0712123511__2025-06-04__d0f2c44c__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0813337002__2025-12-02__6be7dfea__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0813337002__2025-12-02__6be7dfea__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU0857700040__2025-05-30__8ca345b8__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU0857700040__2025-05-30__8ca345b8__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU1164220854__2025-06-04__5ead03bd__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU1164220854__2025-06-04__5ead03bd__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU1278917536__2023-09-29__e4a9eb69__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU1278917536__2023-09-29__e4a9eb69__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU1481583711__2025-06-04__85fc956c__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU1481583711__2025-06-04__85fc956c__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU1486845537__2025-06-04__46bd6b3a__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU1486845537__2025-06-04__46bd6b3a__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\02_raw_llm\\LU2222028099__2023-10-16__f5f6b6f4__raw_llm.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\raw_llm\\LU2222028099__2023-10-16__f5f6b6f4__raw_llm.json",
+                      "kind":  "work_artifact",
+                      "note":  "raw llm"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0125323008__2023-09-29__5aaed64b__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0125323008__2023-09-29__5aaed64b__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0138922036__2023-07-04__ec1174b2__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0138922036__2023-07-04__ec1174b2__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0165242001__2024-06-22__5a9466a0__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0165242001__2024-06-22__5a9466a0__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0165242001__2024-06-23__5a9466a0__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0165242001__2024-06-23__5a9466a0__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0182105033__2025-11-28__34667365__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0182105033__2025-11-28__34667365__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\ES0184894006__2024-06-23__af8ac8b1__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\ES0184894006__2024-06-23__af8ac8b1__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\IE0003867441__2025-12-02__65bd2c2b__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\IE0003867441__2025-12-02__65bd2c2b__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\IE00B23S7K36__2025-12-02__0a880b9f__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\IE00B23S7K36__2025-12-02__0a880b9f__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\IE00B84J9L26__2025-06-04__c0e4856d__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\IE00B84J9L26__2025-06-04__c0e4856d__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\IE00BD5CTX77__2025-06-04__abb65f06__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\IE00BD5CTX77__2025-06-04__abb65f06__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0034353002__2025-06-04__c74238d6__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0034353002__2025-06-04__c74238d6__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0072462186__2025-05-30__9e0441e4__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0072462186__2025-05-30__9e0441e4__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0115769746__2022-11-07__78b4326b__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0115769746__2022-11-07__78b4326b__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0144751095__2025-06-04__20e2fd90__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0144751095__2025-06-04__20e2fd90__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0170473374__2023-09-07__11b598fd__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0170473374__2023-09-07__11b598fd__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0188151921__2025-12-02__da4f1c9e__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0188151921__2025-12-02__da4f1c9e__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0203975437__2023-09-29__95c98a9e__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0203975437__2023-09-29__95c98a9e__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0210531983__2025-05-30__2ace7f5f__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0210531983__2025-05-30__2ace7f5f__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0243957239__2025-05-30__32f6b881__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0243957239__2025-05-30__32f6b881__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0252500524__2023-07-04__5a3e6fcc__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0252500524__2023-07-04__5a3e6fcc__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0273148055__2025-12-02__57b3f522__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0273148055__2025-12-02__57b3f522__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0300507208__2025-12-02__ad73713c__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0300507208__2025-12-02__ad73713c__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0313923228__2025-03-23__d1860514__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0313923228__2025-03-23__d1860514__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0336084032__2025-06-04__a4612611__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0336084032__2025-06-04__a4612611__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0348926287__2020-11-18__0153cbe2__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0348926287__2020-11-18__0153cbe2__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0524465548__2025-12-01__785e93ec__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0524465548__2025-12-01__785e93ec__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0583242994__2025-06-03__d5783851__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0583242994__2025-06-03__d5783851__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0712123511__2025-06-03__d0f2c44c__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0712123511__2025-06-03__d0f2c44c__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0712123511__2025-06-04__d0f2c44c__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0712123511__2025-06-04__d0f2c44c__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0813337002__2025-12-02__6be7dfea__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0813337002__2025-12-02__6be7dfea__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU0857700040__2025-05-30__8ca345b8__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU0857700040__2025-05-30__8ca345b8__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU1164220854__2025-06-04__5ead03bd__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU1164220854__2025-06-04__5ead03bd__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU1278917536__2023-09-29__e4a9eb69__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU1278917536__2023-09-29__e4a9eb69__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU1481583711__2025-06-04__85fc956c__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU1481583711__2025-06-04__85fc956c__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU1486845537__2025-06-04__46bd6b3a__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU1486845537__2025-06-04__46bd6b3a__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\03_parsed_ms\\LU2222028099__2023-10-16__f5f6b6f4__parsed_ms.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\parsed_ms\\LU2222028099__2023-10-16__f5f6b6f4__parsed_ms.json",
+                      "kind":  "work_artifact",
+                      "note":  "parsed morningstar"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\batch_manifest.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\batch_manifest.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-15-839Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-15-839Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-19-549Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-19-549Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-23-953Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-20-23-953Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-21-19-286Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-21-19-286Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-21-23-834Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-21-23-834Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-22-46-479Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-22-46-479Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-22-49-970Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-22-49-970Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-23-31-245Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-23-31-245Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-23-35-587Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-23-35-587Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-00-627Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-00-627Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-00-632Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-00-632Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-15-218Z.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\manifests\\manual_overrides_validation_manifest_2026-04-18T16-58-15-218Z.json",
+                      "kind":  "work_artifact",
+                      "note":  "manifests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-20-15-839Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-20-15-839Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-20-19-549Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-20-19-549Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-20-23-953Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-20-23-953Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-21-19-286Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-21-19-286Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-21-23-834Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-21-23-834Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-22-46-479Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-22-46-479Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-22-49-970Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-22-49-970Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-23-31-245Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-23-31-245Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-23-35-587Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-23-35-587Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-58-00-627Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-58-00-627Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-58-00-632Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-58-00-632Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\manual_overrides_validation_2026-04-18T16-58-15-218Z.log",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\manual_overrides_validation_2026-04-18T16-58-15-218Z.log",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs\\parser_errors.ndjson",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\logs\\parser_errors.ndjson",
+                      "kind":  "work_artifact",
+                      "note":  "logs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\scripts\\apply_manual_overrides.js",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\scripts_backup\\apply_manual_overrides.js",
+                      "kind":  "work_artifact",
+                      "note":  "backup scripts"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\scripts\\validate_manual_overrides.js",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\scripts_backup\\validate_manual_overrides.js",
+                      "kind":  "work_artifact",
+                      "note":  "backup scripts"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\scripts\\validate_manual_overrides.js",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\overrides\\validate_manual_overrides.js",
+                      "kind":  "governance_script",
+                      "note":  "institutional validator"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\schemas\\manual_override.schema.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\schemas\\manual_override.schema.json",
+                      "kind":  "schema",
+                      "note":  "manual override schema"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\tests\\manual_overrides",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\tests\\manual_overrides",
+                      "kind":  "test_suite",
+                      "note":  "manual overrides regression tests"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\docs\\baseline_validation_v2.md",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\parser\\baseline_validation_v2.md",
+                      "kind":  "parser_doc",
+                      "note":  "legacy parser docs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\docs\\CONVENTIONS.md",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\parser\\CONVENTIONS.md",
+                      "kind":  "parser_doc",
+                      "note":  "legacy parser docs"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\prompts_chat.md",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\parser\\prompts_chat.md",
+                      "kind":  "parser_doc",
+                      "note":  "parser prompts"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\reports\\taxonomy_v2_audit",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\taxonomy_v2_audit",
+                      "kind":  "audit_doc",
+                      "note":  "taxonomy reports"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\reports\\taxonomy_v2_review",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\taxonomy_v2_review",
+                      "kind":  "audit_doc",
+                      "note":  "taxonomy reports"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\audit_funds_v3_details.jsonl",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\audit_funds_v3_details.jsonl",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\audit_funds_v3_summary.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\audit_funds_v3_summary.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\audit_inconsistent_derived.csv",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\audit_inconsistent_derived.csv",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\audit_unknown_subtypes.csv",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\audit_unknown_subtypes.csv",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\BDB-FONDOS_backup.zip",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\BDB-FONDOS_backup.zip",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\funds_eligibility.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\funds_eligibility.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\funds_v3.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\funds_v3.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\funds_v3_backup.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\funds_v3_backup.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\funds_v3_region_inferred.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\funds_v3_region_inferred.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\funds_v3_repaired.json",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\funds_v3_repaired.json",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\memory_graph.jsonl",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\memory_graph.jsonl",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old\\audits_and_dumps\\no_fill_report.md",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\docs\\audits\\legacy\\no_fill_report.md",
+                      "kind":  "audit_doc",
+                      "note":  "legacy audits and dumps"
+                  },
+                  {
+                      "source":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\_backup_old",
+                      "target":  "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\legacy_roots\\_backup_old",
+                      "kind":  "legacy_root",
+                      "note":  "residual root after structured migration"
+                  }
+              ],
+    "skipped":  [
+
+                ]
+}

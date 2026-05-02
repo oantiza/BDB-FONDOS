@@ -1,0 +1,125 @@
+{
+  "isin": "LU0115769746",
+  "fileName": "morningstarreport20221107040050.pdf",
+  "report_date": "2022-11-07",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:01:50.758Z",
+  "ms": {
+    "report_date": "2022-11-07",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2022-07-30",
+      "asset_allocation": {
+        "equity": 96.61,
+        "bond": 0.25,
+        "cash": 3.1,
+        "other": 0.04
+      }
+    },
+    "sectors": {
+      "technology": 24.04,
+      "financial_services": 17.09,
+      "industrials": 12.38,
+      "healthcare": 19.6,
+      "consumer_cyclical": 8.36,
+      "consumer_defensive": 3.21,
+      "utilities": 4.03,
+      "energy": 2.85,
+      "communication_services": 5.8,
+      "real_estate": 0.8,
+      "basic_materials": 1.83
+    },
+    "regions": {
+      "macro": {
+        "americas": 67.31,
+        "europe_me_africa": 22.22,
+        "asia": 10.47
+      },
+      "detail": {
+        "united_states": 65.23,
+        "canada": 2.08,
+        "united_kingdom": 5.79,
+        "eurozone": 11.96,
+        "europe_ex_euro": 4.48,
+        "japan": 9.18,
+        "other": 1.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 29.24,
+        "large": 46.28,
+        "mid": 22.09,
+        "small": 2.39,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Microsoft Corp",
+        "weight": 4.65,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Fidelity ILF - USD A Acc",
+        "weight": 3.96,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.78,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 2.69,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "UnitedHealth Group Inc",
+        "weight": 2.27,
+        "sector": "Salud"
+      },
+      {
+        "name": "Canadian Pacific Railway Ltd",
+        "weight": 2.01,
+        "sector": "Industria"
+      },
+      {
+        "name": "Bristol-Myers Squibb Co",
+        "weight": 1.97,
+        "sector": "Salud"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 1.85,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "IQVIA Holdings Inc",
+        "weight": 1.79,
+        "sector": "Salud"
+      },
+      {
+        "name": "AmerisourceBergen Corp",
+        "weight": 1.77,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 105,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.74
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Subfondo tiene como objetivo lograr el crecimiento del capital a largo plazo de una cartera formada básicamente por renta variable de empresas de todo el mundo. El Gestor de Inversiones no contará con ninguna limitación en cuanto a su elección de empresas por región, sector o tamaño y seleccionará los valores de renta variable principalmente en función de la disponibilidad de oportunidades de inversión interesantes."
+  }
+}

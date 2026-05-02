@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:28:14.957Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0348784041",
+    "name": "Allianz Global Investors Fund - Allianz Oriental Income AT EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia Pacífico (incl. Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 sep. 2025",
+    "asset_allocation": {
+      "equity": 89.88,
+      "bond": 1.39,
+      "cash": 8.71,
+      "other": 0.02
+    },
+    "regions_macro": {
+      "americas": 3.95,
+      "europe_me_africa": 0,
+      "asia": 96.05
+    },
+    "regions_detail": {
+      "Estados Unidos": 3.95,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Reino Unido": 0,
+      "Zona Euro": 0,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 31.29,
+      "Australasia": 8.85,
+      "Asia - Desarrollada": 24.59,
+      "Asia - Emergente": 31.32
+    },
+    "sectors": {
+      "technology": 20.79,
+      "financial_services": 12.16,
+      "industrials": 33.96,
+      "healthcare": 14.02,
+      "consumer_cyclical": 5.44,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 3.44,
+      "communication_services": 7.42,
+      "real_estate": 1.26,
+      "basic_materials": 1.51
+    },
+    "equity_market_cap": {
+      "giant": 47.34,
+      "large": 22.94,
+      "mid": 20.62,
+      "small": 7.84,
+      "micro": 1.25
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Mitsubishi Heavy Industries Ltd",
+        "weight": 5.75,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Ping An Insurance (Group) Co....",
+        "weight": 4.37,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Mainfreight Ltd",
+        "weight": 4.07,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Aspeed Technology Inc",
+        "weight": 3.96,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 3.52,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Hanwha Aerospace Co Ltd",
+        "weight": 3.38,
+        "sector": "Industrials"
+      },
+      {
+        "name": "PetroChina Co Ltd Class H",
+        "weight": 3.21,
+        "sector": "Energy"
+      },
+      {
+        "name": "Hitachi Ltd",
+        "weight": 2.74,
+        "sector": "Industrials"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.71,
+        "sector": "Technology"
+      },
+      {
+        "name": "Hoya Corp",
+        "weight": 2.69,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 1,
+      "top10_weight": 36.38
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo tiene por objetivo ofrecer a los inversores una combinación de ingresos y crecimiento por encima de la media de flujo de capital través de la inversión en deuda, bonos convertibles y valores de alto rendimiento de las empresas en la región Asia Pacífico."
+  }
+}

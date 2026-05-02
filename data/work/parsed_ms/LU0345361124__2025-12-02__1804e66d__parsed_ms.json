@@ -1,0 +1,126 @@
+{
+  "isin": "LU0345361124",
+  "fileName": "morningstarreport20251202073131.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:28:42.620Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia Pacífico (ex-Japón)",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.73,
+        "bond": 0.61,
+        "cash": 2.66,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 10,
+      "financial_services": 14.79,
+      "industrials": 7.77,
+      "healthcare": 5.27,
+      "consumer_cyclical": 29.13,
+      "consumer_defensive": 4.76,
+      "communication_services": 12.1,
+      "real_estate": 4.66,
+      "basic_materials": 11.52
+    },
+    "regions": {
+      "macro": {
+        "americas": 11.5,
+        "europe_me_africa": 2.7,
+        "asia": 85.8
+      },
+      "detail": {
+        "united_states": 4.54,
+        "canada": 6.96,
+        "eurozone": 2.7,
+        "australasia": 6.88,
+        "other": 28.97,
+        "asia_emerging": 49.95
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 48.84,
+        "large": 40.31,
+        "mid": 10.85,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 9.77,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Techtronic Industries Co Ltd",
+        "weight": 5.77,
+        "sector": "Industria"
+      },
+      {
+        "name": "HDFC Bank Ltd ADR",
+        "weight": 5.23,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 5.04,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Yum China Holdings Inc",
+        "weight": 4.3,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Wheaton Precious Metals Corp",
+        "weight": 4.15,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Sea Ltd ADR",
+        "weight": 3.88,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "PDD Holdings Inc ADR",
+        "weight": 3.75,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.58,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "ResMed Inc",
+        "weight": 3.55,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 49.01
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo tiene por objetivo proporcionar crecimiento de capital a largo plazo de una cartera compuesta principalmente de valores de sociedades que tengan su sede o ejerzan una parte predominante de su actividad en los países de la región de Asia Pacífico (excepto Japón). El fondo invertirá en una mezcla de grandes, medianas y pequeñas empresas. El fondo también puede invertir en otros valores mobiliarios, instrumentos del mercado monetario, dinero en efectivo y depósitos. El fondo también puede invertir en OICVM y IIC."
+  }
+}

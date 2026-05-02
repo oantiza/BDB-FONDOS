@@ -1,0 +1,113 @@
+{
+  "isin": "ES0168662031",
+  "fileName": "morningstarreport20251229072927.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:30.276Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RF Diversificada EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 94.22,
+        "cash": 5.78,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 23.67,
+        "3_5": 28.7,
+        "5_7": 27.24,
+        "7_10": 7.64,
+        "over_10": 2.25
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 51.02,
+        "4_6": 40.3,
+        "over_6": 8.68
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "France (Republic Of) 2.75%2030-02-25",
+        "weight": 2.89,
+        "sector": null
+      },
+      {
+        "name": "Bankinter SA2026-07-17",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "Euronet Worldwide, Inc.2026-02-22",
+        "weight": 2.81,
+        "sector": null
+      },
+      {
+        "name": "Credito Emiliano S.p.A.2028-05-30",
+        "weight": 2.3,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes2028-06-30",
+        "weight": 2.3,
+        "sector": null
+      },
+      {
+        "name": "Banco BPM S.p.A.2027-06-14",
+        "weight": 2.27,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A.2027-03-08",
+        "weight": 2.25,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)2032-07-30",
+        "weight": 1.69,
+        "sector": null
+      },
+      {
+        "name": "Banco de Credito Social Cooperativo...",
+        "weight": 1.6,
+        "sector": null
+      },
+      {
+        "name": "CPI Property Group S.A. 7%2029-02-07",
+        "weight": 1.56,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 60,
+      "top10_weight": 22.52
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "Se invierte el 100% de la exposición total en activos de renta fija pública y/o privada, incluidos depósitos e instrumentos del mercado monetario cotizados o no, que sean líquidos. En renta fija privada, no hay predeterminación en cuanto a emisores y/o mercados. En renta fija pública, principalmente en emisores y/o mercados de estados miembros de la zona euro. Al menos un 75% de la cartera tendrá un rating igual o superior al del Reino de España o Investment Grade. Hasta un 25% de la cartera podrá estar invertido en..."
+  }
+}

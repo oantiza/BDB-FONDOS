@@ -1,0 +1,336 @@
+{
+  "isin": "LU0524465548",
+  "name": "Alken Fund - Small Cap Europe Class A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251201100541.pdf",
+  "stableBaseName": "LU0524465548__2025-12-01__785e93ec",
+  "report_date": "2025-12-01",
+  "ms": {
+    "report_date": "2025-12-01",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 95.65,
+        "bond": 0,
+        "cash": 4.35,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 9.77,
+      "financial_services": 16.79,
+      "industrials": 33.13,
+      "healthcare": 0.84,
+      "consumer_cyclical": 8.42,
+      "consumer_defensive": 0.08,
+      "energy": 9.13,
+      "communication_services": 13.72,
+      "real_estate": 1.14,
+      "basic_materials": 6.97
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.04,
+        "europe_me_africa": 98.96
+      },
+      "detail": {
+        "united_states": 0.43,
+        "canada": 0.61,
+        "united_kingdom": 12.2,
+        "eurozone": 82.9,
+        "europe_ex_euro": 2.95,
+        "europe_emerging": 0.62,
+        "middle_east": 0.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 8.33,
+        "large": 2.67,
+        "mid": 57.76,
+        "small": 27.16,
+        "micro": 4.08
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Small-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Zegona Communications PLC",
+        "weight": 8.93,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Rheinmetall AG",
+        "weight": 7.97,
+        "sector": "Industrials"
+      },
+      {
+        "name": "VusionGroup",
+        "weight": 5.71,
+        "sector": "Technology"
+      },
+      {
+        "name": "Telecom Italia SpA",
+        "weight": 4.19,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Elis SA",
+        "weight": 3.67,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Vallourec SA",
+        "weight": 3.41,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Technip Energies NV Ordinary...",
+        "weight": 3.25,
+        "sector": "Energy"
+      },
+      {
+        "name": "Theon International PLC",
+        "weight": 3.17,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Lottomatica Group SpA",
+        "weight": 3.07,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "BFF Bank SpA",
+        "weight": 2.95,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 66,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.32
+    },
+    "costs": {
+      "management_fee": 1.95
+    },
+    "objective": "El fondo invertirá al menos el 75% de su activo total en valores de renta variable emitidos por pequeñas y medianas empresas que tienen su sede, o llevan a cabo la parte principal de su actividad, en Europa."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials",
+      "theme:small_cap"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 33.13,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 95.65,
+        "bond": 0,
+        "cash": 4.35,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 9.345,
+        "financial_services": 16.0596,
+        "industrials": 31.6888,
+        "healthcare": 0.8035,
+        "consumer_cyclical": 8.0537,
+        "consumer_defensive": 0.0765,
+        "energy": 8.7328,
+        "communication_services": 13.1232,
+        "real_estate": 1.0904,
+        "basic_materials": 6.6668
+      },
+      "equity_regions_total": {
+        "united_states": 0.4113,
+        "canada": 0.5835,
+        "united_kingdom": 11.6693,
+        "eurozone": 79.2939,
+        "europe_ex_euro": 2.8217,
+        "europe_emerging": 0.593,
+        "middle_east": 0.2774
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Small-Blend",
+        "weight_total": 95.65,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 29.8811,
+          "mid": 55.2474,
+          "large": 10.5215
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Cap. Pequeña",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Small-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:small_cap"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9565,
+      "bond": 0,
+      "cash": 0.0435,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.14035,
+      "canada": 0.199111,
+      "united_kingdom": 0.03982,
+      "eurozone": 0.270579,
+      "europe_ex_euro": 0.009629,
+      "europe_emerging": 0.202353,
+      "middle_east": 0.094659
+    },
+    "sectors": {
+      "technology": 0.048908,
+      "financial_services": 0.08405,
+      "industrials": 0.165847,
+      "healthcare": 0.420522,
+      "consumer_cyclical": 0.04215,
+      "consumer_defensive": 0.040037,
+      "energy": 0.045704,
+      "communication_services": 0.068682,
+      "real_estate": 0.005707,
+      "basic_materials": 0.034892
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.298811,
+      "mid": 0.552474,
+      "large": 0.105215
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=95.65"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "4a083c5451d796b164eb7bc989d31563",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9565,
+          "bond": 0,
+          "cash": 0.0435,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.956501
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.956499
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9565
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:03:01.967Z"
+}

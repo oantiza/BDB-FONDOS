@@ -1,0 +1,28 @@
+{
+  "isin": "LU1234567890",
+  "classification_v2": {
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "strategy_tags": [
+      "theme:climate"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "asset_mix": {
+      "equity": 0.9,
+      "bond": 0.05,
+      "cash": 0.05,
+      "other": 0
+    }
+  },
+  "eligibility": {
+    "review_required": false
+  },
+  "quality_flags": {
+    "manual_override": false
+  },
+  "manual_notes": {
+    "tags": "not-array"
+  }
+}
+

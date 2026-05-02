@@ -1,0 +1,339 @@
+{
+  "isin": "ES0162332037",
+  "name": "Merchfondo FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202040415.pdf",
+  "stableBaseName": "ES0162332037__2025-12-02__7cff562c",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Med/Peq",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 1.71,
+        "cash": 0,
+        "other": 1.43
+      }
+    },
+    "sectors": {
+      "technology": 18.75,
+      "financial_services": 6.91,
+      "industrials": 2.73,
+      "healthcare": 33.69,
+      "consumer_cyclical": 27.67,
+      "consumer_defensive": 7.33,
+      "communication_services": 1.51,
+      "basic_materials": 1.41
+    },
+    "regions": {
+      "macro": {
+        "americas": 66.77,
+        "europe_me_africa": 21.27,
+        "asia": 11.96
+      },
+      "detail": {
+        "united_states": 66.77,
+        "united_kingdom": 2.82,
+        "eurozone": 10.51,
+        "europe_ex_euro": 7.16,
+        "middle_east": 0.78,
+        "japan": 2.26,
+        "other": 1.88,
+        "asia_emerging": 7.82
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 16.5,
+        "large": 27.9,
+        "mid": 18.96,
+        "small": 22.35,
+        "micro": 14.29
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NIO Inc ADR",
+        "weight": 5.01,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Arcus Biosciences Inc",
+        "weight": 4.67,
+        "sector": "Salud"
+      },
+      {
+        "name": "QuantumScape Corp Ordinary...",
+        "weight": 4.27,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "InMode Ltd",
+        "weight": 4.01,
+        "sector": "Salud"
+      },
+      {
+        "name": "Victoria's Secret & Co",
+        "weight": 3.91,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 3.62,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 3.13,
+        "sector": "Salud"
+      },
+      {
+        "name": "Biogen Inc",
+        "weight": 2.97,
+        "sector": "Salud"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.93,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Incyte Corp",
+        "weight": 2.81,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 101,
+      "holdings_count_bond": 0,
+      "top10_weight": 37.33
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "Se invierte un 0%-100% de la exposición total en renta variable, mayoritariamente en compañías de alta capitalización, de cualquier sector o en activos de renta fija pública y/o privada (incluyendo hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo) y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja calidad. La inversión en renta fija de baja calidad crediticia o en..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:consumer_cyclical",
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 33.69,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 1.71,
+        "cash": 0,
+        "other": 1.43
+      },
+      "equity_sectors_total": {
+        "technology": 18.75,
+        "financial_services": 6.91,
+        "industrials": 2.73,
+        "healthcare": 33.69,
+        "consumer_cyclical": 27.67,
+        "consumer_defensive": 7.33,
+        "communication_services": 1.51,
+        "basic_materials": 1.41
+      },
+      "equity_regions_total": {
+        "united_states": 66.77,
+        "united_kingdom": 2.82,
+        "eurozone": 10.51,
+        "europe_ex_euro": 7.16,
+        "middle_east": 0.78,
+        "japan": 2.26,
+        "other": 1.88,
+        "asia_emerging": 7.82
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 100,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 36.64,
+          "mid": 18.96,
+          "large": 44.4
+        },
+        "style_weights_total": {
+          "blend": 100
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Med/Peq",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:consumer_cyclical",
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.969556,
+      "bond": 0.016579,
+      "cash": 0,
+      "other": 0.013865
+    },
+    "equity_regions": {
+      "united_states": 0.365293,
+      "united_kingdom": 0.015428,
+      "eurozone": 0.057499,
+      "europe_ex_euro": 0.039172,
+      "middle_east": 0.426732,
+      "japan": 0.012364,
+      "other": 0.010285,
+      "asia_emerging": 0.042783
+    },
+    "sectors": {
+      "technology": 0.181792,
+      "financial_services": 0.066996,
+      "industrials": 0.026469,
+      "healthcare": 0.326643,
+      "consumer_cyclical": 0.268276,
+      "consumer_defensive": 0.071068,
+      "communication_services": 0.01464,
+      "basic_materials": 0.013671
+    },
+    "equity_styles": {
+      "blend": 0.969556
+    },
+    "market_caps": {
+      "small": 0.355245,
+      "mid": 0.183828,
+      "large": 0.430483
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0314,sum_after=1",
+      "asset_allocation_sum_mismatch"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "bb2b8d62757606b9bdc3ab1592ad1c8f",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "asset_allocation_sum_mismatch:103.14"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.969556,
+          "bond": 0.016579,
+          "cash": 0,
+          "other": 0.013865,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969556
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969555
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969556
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969556
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:13:27.263Z"
+}

@@ -1,0 +1,118 @@
+{
+  "isin": "IE00B2NXKW18",
+  "fileName": "morningstarreport20251202073316.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:29:14.431Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-08-31",
+      "asset_allocation": {
+        "equity": 98.88,
+        "bond": 0,
+        "cash": 1.12,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 34.41,
+      "financial_services": 11.49,
+      "healthcare": 45.69,
+      "consumer_cyclical": 3.46,
+      "communication_services": 4.95
+    },
+    "regions": {
+      "macro": {
+        "americas": 71.74,
+        "europe_me_africa": 28.26
+      },
+      "detail": {
+        "united_states": 71.74,
+        "eurozone": 16.45,
+        "europe_ex_euro": 11.81
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.36,
+        "large": 33.96,
+        "mid": 33.68,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 100
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "UnitedHealth Group Inc",
+        "weight": 7.79,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 7.51,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 7.32,
+        "sector": "Technology"
+      },
+      {
+        "name": "IDEXX Laboratories Inc",
+        "weight": 4.91,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.9,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 4.67,
+        "sector": "Technology"
+      },
+      {
+        "name": "Edwards Lifesciences Corp",
+        "weight": 4.56,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Lonza Group Ltd",
+        "weight": 4.53,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Dassault Systemes SE",
+        "weight": 4.33,
+        "sector": "Technology"
+      },
+      {
+        "name": "West Pharmaceutical Services Inc",
+        "weight": 4.28,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 22,
+      "holdings_count_bond": 0,
+      "top10_weight": 54.79
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The investment objective of the Fund is to seek capital appreciation through investment in equity or equity related securities (i.e. equity warrants and convertible bonds) of the highest quality companies listed on the stock exchanges of the OECD countries. Investment will be made predominantly in the equities of issuers established in the U.S. and Western European OECD member countries. Fund may purchase securities denominated in any of the major convertible currencies of the member countries of the OECD."
+  }
+}

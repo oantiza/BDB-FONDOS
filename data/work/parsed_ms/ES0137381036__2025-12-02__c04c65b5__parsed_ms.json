@@ -1,0 +1,117 @@
+{
+  "isin": "ES0137381036",
+  "fileName": "morningstarreport20251202042641.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:28.055Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV España",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 93.31,
+        "bond": 5.49,
+        "cash": 1.2,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.69,
+      "financial_services": 20.07,
+      "industrials": 9.63,
+      "healthcare": 2.39,
+      "consumer_cyclical": 20.9,
+      "consumer_defensive": 4.64,
+      "utilities": 21.56,
+      "energy": 2.86,
+      "real_estate": 6.4,
+      "basic_materials": 5.85
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 3.62,
+        "eurozone": 96.38
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.62,
+        "large": 17.67,
+        "mid": 28.09,
+        "small": 12.3,
+        "micro": 9.32
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Iberdrola SA",
+        "weight": 9.23,
+        "sector": "utilities"
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 7.32,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 5.49,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 5.47,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 4.6,
+        "sector": "financial_services"
+      },
+      {
+        "name": "EDP-Energias De Portugal SA",
+        "weight": 3.95,
+        "sector": "utilities"
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 3.66,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Cellnex Telecom SA",
+        "weight": 3.64,
+        "sector": "real_estate"
+      },
+      {
+        "name": "CIE Automotive SA",
+        "weight": 2.97,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Amadeus IT Group SA",
+        "weight": 2.87,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 37,
+      "holdings_count_bond": 0,
+      "top10_weight": 49.2
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "El Fondo invertirá más del 75% de su exposición total en Renta Variable y de ella, al menos, el 80% será de emisores y mercados españoles y portugueses. El resto de la exposición a renta variable se podrá invertir en emisores/mercados de la OCDE. Los emisores podrán ser de alta, media o baja capitalización y de cualquier sector. La inversión en activos de baja capitalización puede influir negativamente en la liquidez del fondo. El resto de la exposición total se invertirá en Renta Fija pública y/o privada (incluyendo..."
+  }
+}

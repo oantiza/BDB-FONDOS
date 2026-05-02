@@ -1,0 +1,148 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:55:42.348Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0203937692",
+    "name": "UBS (Lux) Bond SICAV - Convert Global (EUR) P-acc",
+    "currency": "EUR",
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Global - EUR Cubierto",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 ene. 2026",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 2.11,
+      "cash": 5.54,
+      "other": 92.35
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {},
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 0,
+      "mid": 0,
+      "small": 0,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "SK Hynix Inc. 1.75%2030-04-11",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs International...",
+        "weight": 1.82,
+        "sector": null
+      },
+      {
+        "name": "EchoStar Corp. 3.875%2030-11-30",
+        "weight": 1.8,
+        "sector": null
+      },
+      {
+        "name": "Ping An Insurance (Group)...",
+        "weight": 1.78,
+        "sector": null
+      },
+      {
+        "name": "Lumentum Holdings Inc....",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Gold Pole Capital Co Ltd....",
+        "weight": 1.4,
+        "sector": null
+      },
+      {
+        "name": "MKS Inc. 1.25%2030-06-01",
+        "weight": 1.08,
+        "sector": null
+      },
+      {
+        "name": "Saipem SPA 2.875%2029-09-11",
+        "weight": 1.05,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs Finance Corp....",
+        "weight": 1.03,
+        "sector": null
+      },
+      {
+        "name": "Bridgebio Pharma Inc...",
+        "weight": 1.02,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 5,
+      "top10_weight": 14.98
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": "Invierte a escala mundial en bonos convertibles, combinando el potencial alcista de las acciones con las características defensivas de los bonos. Gestión activa y amplia cobertura frente al EUR. El objetivo de inversión consiste en explotar el potencial de riesgo-rendimiento de los mercados mundiales de bonos convertibles."
+  }
+}

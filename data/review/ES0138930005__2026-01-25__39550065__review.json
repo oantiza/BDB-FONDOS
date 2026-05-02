@@ -1,0 +1,355 @@
+{
+  "isin": "ES0138930005",
+  "name": "Fonvalcem B FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091340.pdf",
+  "stableBaseName": "ES0138930005__2026-01-25__39550065",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 91.77,
+        "bond": 0,
+        "cash": 6.16,
+        "other": 2.08
+      }
+    },
+    "sectors": {
+      "technology": 14.26,
+      "financial_services": 12.02,
+      "industrials": 0.23,
+      "consumer_cyclical": 19.68,
+      "consumer_defensive": 13.4,
+      "utilities": 6.95,
+      "energy": 9.34,
+      "communication_services": 5.49,
+      "real_estate": 5.61,
+      "basic_materials": 13
+    },
+    "regions": {
+      "macro": {
+        "americas": 52.84,
+        "europe_me_africa": 47.16
+      },
+      "detail": {
+        "united_states": 46.84,
+        "canada": 5.99,
+        "united_kingdom": 0.21,
+        "eurozone": 43.12,
+        "europe_ex_euro": 3.83
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Mapfre SA",
+        "weight": 8.03,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 0%2026-01-02",
+        "weight": 6.16,
+        "sector": null
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 5.34,
+        "sector": null
+      },
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 5.18,
+        "sector": null
+      },
+      {
+        "name": "Repsol SA",
+        "weight": 5.06,
+        "sector": null
+      },
+      {
+        "name": "Merlin Properties SOCIMI SA",
+        "weight": 4.87,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.7,
+        "sector": null
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 4.58,
+        "sector": null
+      },
+      {
+        "name": "Ferrari NV",
+        "weight": 4.51,
+        "sector": null
+      },
+      {
+        "name": "Walmart Inc",
+        "weight": 4.44,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 24,
+      "holdings_count_bond": 0,
+      "top10_weight": 52.86
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Invertirá entre 0%-100% del patrimonio en otras IIC financieras, que sean activo apto, armonizadas o no (máximo del 30% en IIC no armonizadas), pertenecientes o no al grupo de la Gestora. Se invierte, de manera directa o indirecta, más del 75% de la exposición total en renta variable, de emisores/ mercados OCDE, de cualquier sector, y sin predeterminación en cuanto a la capitalización bursátil, pudiendo ser ésta alta, media o baja. La inversión en renta variable de baja capitalización puede influir negativamente en la..."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": "consumer_cyclical",
+    "top_sector_weight": 19.68,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 91.77,
+        "bond": 0,
+        "cash": 6.16,
+        "other": 2.08
+      },
+      "equity_sectors_total": {
+        "technology": 13.0864,
+        "financial_services": 11.0308,
+        "industrials": 0.2111,
+        "consumer_cyclical": 18.0603,
+        "consumer_defensive": 12.2972,
+        "utilities": 6.378,
+        "energy": 8.5713,
+        "communication_services": 5.0382,
+        "real_estate": 5.1483,
+        "basic_materials": 11.9301
+      },
+      "equity_regions_total": {
+        "united_states": 42.9851,
+        "canada": 5.497,
+        "united_kingdom": 0.1927,
+        "eurozone": 39.5712,
+        "europe_ex_euro": 3.5148
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 91.77,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Agresivos EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9177,
+      "bond": 0,
+      "cash": 0.0616,
+      "other": 0.0208
+    },
+    "equity_regions": {
+      "united_states": 0.355901,
+      "canada": 0.045513,
+      "united_kingdom": 0.159549,
+      "eurozone": 0.327635,
+      "europe_ex_euro": 0.029101
+    },
+    "sectors": {
+      "technology": 0.106607,
+      "financial_services": 0.089862,
+      "industrials": 0.171971,
+      "consumer_cyclical": 0.147127,
+      "consumer_defensive": 0.100178,
+      "utilities": 0.051958,
+      "energy": 0.069825,
+      "communication_services": 0.041043,
+      "real_estate": 0.04194,
+      "basic_materials": 0.097188
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=91.77",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "0e52a1223920ddb0220fc124e7a55e40",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9177,
+          "bond": 0,
+          "cash": 0.0616,
+          "other": 0.0208,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.917699
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.917699
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|duration_missing"
+  },
+  "generated_at": "2026-04-22T16:49:30.694Z"
+}

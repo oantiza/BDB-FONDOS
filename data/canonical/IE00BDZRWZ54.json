@@ -1,0 +1,272 @@
+{
+  "isin": "IE00BDZRWZ54",
+  "name": "Neuberger Berman Short Duration Emerging Market Debt Fund EUR A Accumulating Class",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202041200.pdf",
+  "stableBaseName": "IE00BDZRWZ54__2025-12-02__5d2fc2cc",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente - Sesgo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 93.14,
+        "cash": 5.52,
+        "other": 1.33
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.77,
+      "effective_maturity": 3.95,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 1.86,
+        "aa": 10.56,
+        "a": 21.05,
+        "bbb": 18.7,
+        "bb": 24.53,
+        "b": 15.69,
+        "below_b": 6.08,
+        "not_rated": 1.53
+      },
+      "maturity_allocation": {
+        "1_3": 27.58,
+        "3_5": 46.99,
+        "5_7": 13.38,
+        "7_10": 2.23,
+        "over_10": 0.58
+      },
+      "coupon_allocation": {
+        "0": 0.63,
+        "0_4": 15.27,
+        "4_6": 43.02,
+        "over_6": 41.08
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Bills",
+        "weight": 1.97,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of)",
+        "weight": 1.97,
+        "sector": null
+      },
+      {
+        "name": "Petroleos Mexicanos Sa De CV",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "Ivory Coast (Republic Of)",
+        "weight": 1.94,
+        "sector": null
+      },
+      {
+        "name": "Panama (Republic of)",
+        "weight": 1.93,
+        "sector": null
+      },
+      {
+        "name": "Colombia (Republic Of)",
+        "weight": 1.78,
+        "sector": null
+      },
+      {
+        "name": "Saudi Arabia (Kingdom of)",
+        "weight": 1.5,
+        "sector": null
+      },
+      {
+        "name": "Panama (Republic of)",
+        "weight": 1.28,
+        "sector": null
+      },
+      {
+        "name": "Uzbekneftegaz JSC",
+        "weight": 1.12,
+        "sector": null
+      },
+      {
+        "name": "Development Bank of Mongolia LLC",
+        "weight": 1.06,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 341,
+      "top10_weight": 16.5
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The Portfolio aims to achieve a target average return of 3% over cash before fees over a market cycle (typically 3 years) by investing in a diversified selection of Hard Currency-denominated short duration sovereign and corporate debt issued in Emerging Market Countries. Investors should note that the target return is not guaranteed over a market cycle, a 12-month or any period and the Portfolio's capital is at risk. Investors should also note that, over the course of a market cycle, there may be significant periods..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "EMERGING_MARKETS_BOND",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "theme:emerging_markets"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9300000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "EMERGING_MARKETS_BOND",
+    "commercial_type": "RF Global Emergente - Sesgo EUR",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "emerging_debt",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:emerging_markets"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9300000000000002,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9314,
+      "cash": 0.0552,
+      "other": 0.0133
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "emerging_debt": 0.9314
+    },
+    "credit": {
+      "high_yield": 0.9314
+    },
+    "duration": {
+      "short": 0.9314
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9300000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.14",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "bb4335f73c107a8e8a3f26b4821a5a3d",
+    "warnings": [
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9314,
+          "cash": 0.0552,
+          "other": 0.0133,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9314
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9314
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9314
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:23:39.376Z"
+}

@@ -1,0 +1,123 @@
+{
+  "isin": "LU1213836080",
+  "fileName": "morningstarreport20251202125430.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:30:24.544Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.2,
+        "bond": 0.19,
+        "cash": 0.13,
+        "other": 1.49
+      }
+    },
+    "sectors": {
+      "technology": 71.61,
+      "financial_services": 0.98,
+      "industrials": 3.9,
+      "consumer_cyclical": 8.84,
+      "consumer_defensive": 0.06,
+      "energy": 1.4,
+      "communication_services": 10.52,
+      "real_estate": 2.7
+    },
+    "regions": {
+      "macro": {
+        "americas": 59.6,
+        "europe_me_africa": 16.04,
+        "asia": 24.36
+      },
+      "detail": {
+        "united_states": 59.6,
+        "united_kingdom": 1.99,
+        "eurozone": 9.81,
+        "europe_ex_euro": 3.48,
+        "middle_east": 0.76,
+        "japan": 2.52,
+        "other": 14.41,
+        "asia_emerging": 7.43
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 38.3,
+        "large": 30.96,
+        "mid": 22.82,
+        "small": 7.05,
+        "micro": 0.87
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.26,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 5.66,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.65,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.28,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.1,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Telefonaktiebolaget L M...",
+        "weight": 2.8,
+        "sector": "technology"
+      },
+      {
+        "name": "Salesforce Inc",
+        "weight": 2.17,
+        "sector": "technology"
+      },
+      {
+        "name": "Marvell Technology Inc",
+        "weight": 2.12,
+        "sector": "technology"
+      },
+      {
+        "name": "Workday Inc Class A",
+        "weight": 2.02,
+        "sector": "technology"
+      },
+      {
+        "name": "Texas Instruments Inc",
+        "weight": 1.98,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 106,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.05
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo pretende facilitar a los inversores un crecimiento de capital a largo plazo, invirtiendo principalmente en valores de renta variable de empresas en todo el mundo que ya tengan, o vayan a desarrollar productos, procesos o servicios, que den u obtengan beneficios de los avances y mejoras tecnológicas."
+  }
+}

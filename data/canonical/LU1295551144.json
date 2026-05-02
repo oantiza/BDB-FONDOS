@@ -1,0 +1,397 @@
+{
+  "isin": "LU1295551144",
+  "name": "Capital Group New Perspective Fund (LUX) B (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091435.pdf",
+  "stableBaseName": "LU1295551144__2026-01-25__d5b87cc8",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 96.28,
+        "bond": 0,
+        "cash": 3.46,
+        "other": 0.26
+      }
+    },
+    "sectors": {
+      "technology": 25.86,
+      "financial_services": 13.32,
+      "industrials": 13.25,
+      "healthcare": 13.07,
+      "consumer_cyclical": 12.95,
+      "consumer_defensive": 4.3,
+      "utilities": 0.87,
+      "energy": 1.41,
+      "communication_services": 10.97,
+      "real_estate": 0.47,
+      "basic_materials": 3.54
+    },
+    "regions": {
+      "macro": {
+        "americas": 60.28,
+        "europe_me_africa": 26.61,
+        "asia": 13.12
+      },
+      "detail": {
+        "other": 93.68,
+        "united_states": 55.18,
+        "canada": 3.86,
+        "latin_america": 1.24,
+        "united_kingdom": 5.85,
+        "eurozone": 15.69,
+        "europe_ex_euro": 4.79,
+        "middle_east": 0.27,
+        "asia": 13.12,
+        "japan": 4.13,
+        "australasia": 0.29,
+        "asia_emerging": 1.91
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 56.7,
+        "large": 27.9,
+        "mid": 14.68,
+        "small": 0.73,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 3.94,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 3.55,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 3.52,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 3.32,
+        "sector": "technology"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 2.92,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 2.55,
+        "sector": "technology"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 1.72,
+        "sector": "healthcare"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 1.6,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 1.44,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 1.38,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 252,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.94
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo de inversión del Fondo es generar un crecimiento a largo plazo del capital. El Fondo pretende aprovechar las oportunidades de inversión generadas por la evolución estructural del comercio internacional, así como las relaciones económicas y políticas, invirtiendo en acciones ordinarias de empresas de todo el mundo, incluidos los mercados emergentes. Para lograr su objetivo de inversión, el Fondo invierte sobre todo en acciones ordinarias que, en opinión del Asesor de inversiones, tengan potencial de..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 25.86,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.28,
+        "bond": 0,
+        "cash": 3.46,
+        "other": 0.26
+      },
+      "equity_sectors_total": {
+        "technology": 24.898,
+        "financial_services": 12.8245,
+        "industrials": 12.7571,
+        "healthcare": 12.5838,
+        "consumer_cyclical": 12.4683,
+        "consumer_defensive": 4.14,
+        "utilities": 0.8376,
+        "energy": 1.3575,
+        "communication_services": 10.5619,
+        "real_estate": 0.4525,
+        "basic_materials": 3.4083
+      },
+      "equity_regions_total": {
+        "other": 90.1951,
+        "united_states": 53.1273,
+        "canada": 3.7164,
+        "latin_america": 1.1939,
+        "united_kingdom": 5.6324,
+        "eurozone": 15.1063,
+        "europe_ex_euro": 4.6118,
+        "middle_east": 0.26,
+        "asia": 12.6319,
+        "japan": 3.9764,
+        "australasia": 0.2792,
+        "asia_emerging": 1.8389
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 96.28,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 0.7028,
+          "mid": 14.1325,
+          "large": 81.4447
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Growth",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_inferred_weak",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9628,
+      "bond": 0,
+      "cash": 0.0346,
+      "other": 0.0026
+    },
+    "equity_regions": {
+      "other": 0.353079,
+      "united_states": 0.207973,
+      "canada": 0.014548,
+      "latin_america": 0.004674,
+      "united_kingdom": 0.022049,
+      "eurozone": 0.059135,
+      "europe_ex_euro": 0.018053,
+      "middle_east": 0.10178,
+      "asia": 0.049449,
+      "japan": 0.015566,
+      "australasia": 0.109296,
+      "asia_emerging": 0.007199
+    },
+    "sectors": {
+      "technology": 0.107012,
+      "financial_services": 0.05512,
+      "industrials": 0.05483,
+      "healthcare": 0.054086,
+      "consumer_cyclical": 0.053589,
+      "consumer_defensive": 0.017794,
+      "utilities": 0.360003,
+      "energy": 0.005835,
+      "communication_services": 0.045395,
+      "real_estate": 0.194486,
+      "basic_materials": 0.014649
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.407975,
+      "mid": 0.082039,
+      "large": 0.472786
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.28",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.26,max_component=96.28",
+      "credit_missing",
+      "duration_inferred_weak"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "3b175473120f98a5d7089c068becbd77",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.01",
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_duration_inferred_weak",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9628,
+          "bond": 0,
+          "cash": 0.0346,
+          "other": 0.0026,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.962801
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.962799
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9628
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:50:12.461Z"
+}

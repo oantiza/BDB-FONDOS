@@ -1,0 +1,316 @@
+{
+  "isin": "BE0947853660",
+  "name": "DPAM B - Equities US Dividend Sustainable B EUR Cap",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202073211.pdf",
+  "stableBaseName": "BE0947853660__2025-12-02__027b424d",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": null,
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.59,
+        "bond": 0,
+        "cash": 1.41,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 32.67,
+      "financial_services": 19.39,
+      "industrials": 10.95,
+      "healthcare": 13.6,
+      "consumer_cyclical": 5.08,
+      "consumer_defensive": 5.61,
+      "utilities": 3.45,
+      "communication_services": 3.15,
+      "real_estate": 2.18,
+      "basic_materials": 3.93
+    },
+    "regions": {
+      "macro": {
+        "americas": 100
+      },
+      "detail": {
+        "united_states": 100
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.67,
+        "large": 41.74,
+        "mid": 22.52,
+        "small": 3.07,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Microsoft Corp",
+        "weight": 8.74,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 6.93,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 5.9,
+        "sector": "technology"
+      },
+      {
+        "name": "JPMorgan Chase & Co",
+        "weight": 3.47,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Comfort Systems USA Inc",
+        "weight": 2.91,
+        "sector": "industrials"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 2.86,
+        "sector": "healthcare"
+      },
+      {
+        "name": "American Express Co",
+        "weight": 2.5,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Walmart Inc",
+        "weight": 2.41,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Morgan Stanley",
+        "weight": 2.27,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Cisco Systems Inc",
+        "weight": 1.98,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 60,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.98
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo del fondo tratar de obtener el máximo rendimiento posible. El fondo invierte en acciones estadounidenses cotizadas. El fondo mantendrá una importante diversificación de los riesgos, especialmente mediante una amplia diversificación sectorial. La asignación de la cartera cambiará según la evaluación de las perspectivas macroeconómicas y de la situación en los mercados financieros. Por ejemplo, el fondo puede favorecer o evitar unos sectores o estilos de inversión entre otros, dependiendo de las perspectivas..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector:technology",
+      "theme:esg",
+      "theme:income"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 32.67,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.8700000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.59,
+        "bond": 0,
+        "cash": 1.41,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 32.2094,
+        "financial_services": 19.1166,
+        "industrials": 10.7956,
+        "healthcare": 13.4082,
+        "consumer_cyclical": 5.0084,
+        "consumer_defensive": 5.5309,
+        "utilities": 3.4014,
+        "communication_services": 3.1056,
+        "real_estate": 2.1493,
+        "basic_materials": 3.8746
+      },
+      "equity_regions_total": {
+        "united_states": 98.59
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.59,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 3.0267,
+          "mid": 22.2025,
+          "large": 73.3608
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": null,
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:technology",
+      "theme:esg",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.8700000000000002,
+    "sources_used": [
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9859,
+      "bond": 0,
+      "cash": 0.0141,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.9859
+    },
+    "sectors": {
+      "technology": 0.322061,
+      "financial_services": 0.191147,
+      "industrials": 0.107945,
+      "healthcare": 0.134068,
+      "consumer_cyclical": 0.050079,
+      "consumer_defensive": 0.055303,
+      "utilities": 0.034011,
+      "communication_services": 0.031053,
+      "real_estate": 0.021491,
+      "basic_materials": 0.038742
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.030267,
+      "mid": 0.222025,
+      "large": 0.733608
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.8700000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.59"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "4ceadb3289fcd81b0111593a28e136fd",
+    "warnings": [
+      "missing_category_morningstar",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9859,
+          "bond": 0,
+          "cash": 0.0141,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9859
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9859
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9859
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:07.820Z"
+}

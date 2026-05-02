@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:25:04.622Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "FI0008811997",
+    "name": "Evli Nordic Corporate Bond B",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 94.58,
+      "cash": 5.23,
+      "other": 0.19
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 1.99,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 3.02,
+        "bbb": 37.55,
+        "bb": 8.48,
+        "b": 2.53,
+        "below_b": 0.16,
+        "not_rated": 48.26
+      },
+      "maturity_allocation": {
+        "1_3": 22.74,
+        "3_5": 41.04,
+        "5_7": 16.35,
+        "7_10": 5.5,
+        "over_10": 12.53
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 41.89,
+        "4_6": 39.87,
+        "over_6": 18.25
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Kesko Oyj 2030-02-02",
+        "weight": 2.27,
+        "sector": null
+      },
+      {
+        "name": "Tornator Oyj 2031-10-17",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "Kojamo Oyj 2032-03-12",
+        "weight": 1.49,
+        "sector": null
+      },
+      {
+        "name": "Kemira Oyj 2028-03-30",
+        "weight": 1.4,
+        "sector": null
+      },
+      {
+        "name": "Ellevio AB 2031-11-20",
+        "weight": 1.33,
+        "sector": null
+      },
+      {
+        "name": "Fortum Oyj 2033-05-26",
+        "weight": 1.31,
+        "sector": null
+      },
+      {
+        "name": "Vattenfall AB 2083-05-26",
+        "weight": 1.24,
+        "sector": null
+      },
+      {
+        "name": "Finnair Oyj 2029-05-24",
+        "weight": 1.23,
+        "sector": null
+      },
+      {
+        "name": "Storebrand Livsforsikring AS 2051-09-30",
+        "weight": 1.2,
+        "sector": null
+      },
+      {
+        "name": "S-Bank Plc 2028-03-08",
+        "weight": 1.2,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 264,
+      "top10_weight": 14.9
+    },
+    "costs": {
+      "management_fee": 0.75
+    },
+    "objective": "Evli Nordic Corporate Bond is an enhanced long-term fixed income fund that invests its assets in various fixed income instruments such as government bonds, emerging markets debt, corporate bonds, money market instruments, units of fixed income funds, and structured financial instruments. The fund may also invest its assets in derivatives contracts and the units of other mutual funds."
+  }
+}

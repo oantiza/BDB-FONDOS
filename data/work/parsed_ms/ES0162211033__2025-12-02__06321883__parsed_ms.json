@@ -1,0 +1,123 @@
+{
+  "isin": "ES0162211033",
+  "fileName": "morningstarreport20251202040357.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:12:49.072Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-08-31",
+      "asset_allocation": {
+        "equity": 73.76,
+        "bond": 19.7,
+        "cash": 0,
+        "other": 6.54
+      }
+    },
+    "sectors": {
+      "technology": 17.84,
+      "financial_services": 2.65,
+      "industrials": 7.16,
+      "healthcare": 25.16,
+      "consumer_cyclical": 33.69,
+      "consumer_defensive": 9.57,
+      "basic_materials": 3.93
+    },
+    "regions": {
+      "macro": {
+        "americas": 3.58,
+        "europe_me_africa": 93.58,
+        "asia": 2.84
+      },
+      "detail": {
+        "united_states": 3.58,
+        "united_kingdom": 10.31,
+        "eurozone": 58.55,
+        "europe_ex_euro": 24.72,
+        "other": 2.84
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 17.4,
+        "sector": null
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 5.18,
+        "sector": "Salud"
+      },
+      {
+        "name": "Bayerische Motoren Werke AG",
+        "weight": 4.94,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 4.74,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Hugo Boss AG",
+        "weight": 4.3,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Valeo SA",
+        "weight": 3.98,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.61,
+        "sector": "Salud"
+      },
+      {
+        "name": "Renishaw PLC",
+        "weight": 3.14,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Novo Nordisk AS ADR",
+        "weight": 3.08,
+        "sector": "Salud"
+      },
+      {
+        "name": "Rio Tinto PLC Ordinary Shares",
+        "weight": 2.9,
+        "sector": "Materiales Básicos"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 31,
+      "holdings_count_bond": 1,
+      "top10_weight": 53.26
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "La inversión en renta variable oscilará entre 30%-75% de la exposición total (habitualmente por debajo del 70%), mayoritariamente en compañías de alta capitalización, de cualquier sector. El resto se invertirá en renta fija pública y/o privada (incluyendo hasta un 10% en depósitos) y tesorería, sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo) y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja..."
+  }
+}

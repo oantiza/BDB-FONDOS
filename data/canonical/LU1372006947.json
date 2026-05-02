@@ -1,0 +1,352 @@
+{
+  "isin": "LU1372006947",
+  "name": "Cobas LUX SICAV - Cobas Selection Fund Class P Acc EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260111033600.pdf",
+  "stableBaseName": "LU1372006947__2026-01-11__c7928208",
+  "report_date": "2026-01-11",
+  "ms": {
+    "report_date": "2026-01-11",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-06-29",
+      "asset_allocation": {
+        "equity": 96.93,
+        "bond": 1.21,
+        "cash": 1.85,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 2.61,
+      "financial_services": 0.95,
+      "industrials": 23.77,
+      "healthcare": 11.31,
+      "consumer_cyclical": 16.91,
+      "consumer_defensive": 2.87,
+      "energy": 26.43,
+      "communication_services": 1.1,
+      "real_estate": 1.43,
+      "basic_materials": 12.61
+    },
+    "regions": {
+      "macro": {
+        "americas": 14.04,
+        "europe_me_africa": 69.74,
+        "asia": 16.22
+      },
+      "detail": {
+        "other": 95.02,
+        "united_states": 9.45,
+        "canada": 1.91,
+        "latin_america": 2.69,
+        "united_kingdom": 8.3,
+        "eurozone": 42.05,
+        "europe_ex_euro": 12.24,
+        "middle_east": 7.15,
+        "asia": 16.22,
+        "japan": 1.82,
+        "asia_emerging": 3.16
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 3.84,
+        "large": 11.28,
+        "mid": 20.82,
+        "small": 48.38,
+        "micro": 15.68
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Atalaya Mining Copper SA",
+        "weight": 4.89,
+        "sector": null
+      },
+      {
+        "name": "Golar LNG Ltd",
+        "weight": 4.4,
+        "sector": null
+      },
+      {
+        "name": "Danieli & C. Officine...",
+        "weight": 3.72,
+        "sector": null
+      },
+      {
+        "name": "CK Hutchison Holdings Ltd",
+        "weight": 3.72,
+        "sector": null
+      },
+      {
+        "name": "Currys PLC",
+        "weight": 2.92,
+        "sector": null
+      },
+      {
+        "name": "BW Energy Ltd Ordinary Shares",
+        "weight": 2.57,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Industries...",
+        "weight": 2.52,
+        "sector": null
+      },
+      {
+        "name": "Tecnicas Reunidas SA",
+        "weight": 2.48,
+        "sector": null
+      },
+      {
+        "name": "BW Offshore Ltd",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Bayer AG",
+        "weight": 2.43,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 78,
+      "holdings_count_bond": 1,
+      "top10_weight": 32.12
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The Sub-Fund seeks to provide principal preservation and long term capital appreciation by offering an exposure to Global Equities. There is however no guarantee that the Sub-Fund will achieve its investment objective. The Sub-Fund is actively managed. The benchmark index MSCI Europe Total Net Return is used for comparison purposes only. The Sub-Fund can deviate significantly from the benchmark index. The Sub-Fund normally invests in the common stocks of companies with, in the Investment Manager's opinion, a..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:energy"
+    ],
+    "top_sector": "energy",
+    "top_sector_weight": 26.43,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.93,
+        "bond": 1.21,
+        "cash": 1.85,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 2.5299,
+        "financial_services": 0.9208,
+        "industrials": 23.0403,
+        "healthcare": 10.9628,
+        "consumer_cyclical": 16.3909,
+        "consumer_defensive": 2.7819,
+        "energy": 25.6186,
+        "communication_services": 1.0662,
+        "real_estate": 1.3861,
+        "basic_materials": 12.2229
+      },
+      "equity_regions_total": {
+        "other": 92.1029,
+        "united_states": 9.1599,
+        "canada": 1.8514,
+        "latin_america": 2.6074,
+        "united_kingdom": 8.0452,
+        "eurozone": 40.7591,
+        "europe_ex_euro": 11.8642,
+        "middle_east": 6.9305,
+        "asia": 15.722,
+        "japan": 1.7641,
+        "asia_emerging": 3.063
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 96.93,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 62.0934,
+          "mid": 20.1808,
+          "large": 14.6558
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "Global Small-Cap Equity",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:energy"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9693,
+      "bond": 0.0121,
+      "cash": 0.0185,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.460491,
+      "united_states": 0.045797,
+      "canada": 0.009257,
+      "latin_america": 0.013036,
+      "united_kingdom": 0.040224,
+      "eurozone": 0.203785,
+      "europe_ex_euro": 0.059318,
+      "middle_east": 0.034651,
+      "asia": 0.078606,
+      "japan": 0.00882,
+      "asia_emerging": 0.015314
+    },
+    "sectors": {
+      "technology": 0.013038,
+      "financial_services": 0.47455,
+      "industrials": 0.118742,
+      "healthcare": 0.056499,
+      "consumer_cyclical": 0.084473,
+      "consumer_defensive": 0.014337,
+      "energy": 0.13203,
+      "communication_services": 0.005495,
+      "real_estate": 0.007144,
+      "basic_materials": 0.062993
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.620934,
+      "mid": 0.201808,
+      "large": 0.146558
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.93"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "357051e638fa58457ab999369e64fd4d",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.01"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9693,
+          "bond": 0.0121,
+          "cash": 0.0185,
+          "other": 0,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969299
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.969301
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9693
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:47:50.838Z"
+}

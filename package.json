@@ -1,0 +1,39 @@
+{
+  "dependencies": {
+    "@google/generative-ai": "^0.24.1",
+    "csv-parse": "^6.2.1",
+    "dotenv": "^17.4.2",
+    "firebase-admin": "^13.8.0",
+    "html2canvas": "^1.4.1",
+    "jspdf": "^4.2.0",
+    "minimist": "^1.2.8",
+    "p-limit": "^7.3.0",
+    "pdf-parse": "^1.1.4"
+  },
+  "name": "bdb-fondos",
+  "version": "1.0.0",
+  "description": "BDB-FONDOS is a specialized platform for financial portfolio analysis, optimization, and reporting. It leverages Firebase for data and computation, with a React frontend and Python-based cloud functions for quantitative analysis.",
+  "main": "audit_derived_unknowns.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "manual-overrides:test": "node tests/manual_overrides/test_validate_manual_overrides.js",
+    "manual-overrides:validate": "node overrides/validate_manual_overrides.js",
+    "manual-overrides:validate:strict": "node overrides/validate_manual_overrides.js --strict --fail-on-warning",
+    "manual-overrides:gate": "npm run manual-overrides:test && npm run manual-overrides:validate"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oantiza/BDB-FONDOS.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/oantiza/BDB-FONDOS/issues"
+  },
+  "homepage": "https://github.com/oantiza/BDB-FONDOS#readme"
+}

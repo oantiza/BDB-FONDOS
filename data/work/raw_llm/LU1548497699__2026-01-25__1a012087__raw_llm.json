@@ -1,0 +1,144 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:50:16.169Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1548497699",
+    "name": "Allianz Global Investors Fund - Allianz Global Artificial Intelligence AT EUR",
+    "currency": "EUR",
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "2025-12-31",
+    "asset_allocation": {
+      "equity": 96.59,
+      "bond": 0.23,
+      "cash": 2.66,
+      "other": 0.52
+    },
+    "regions_macro": {
+      "americas": 88.87,
+      "europe_me_africa": 4.73,
+      "asia": 6.4
+    },
+    "regions_detail": {
+      "América": 88.87,
+      "Estados Unidos": 82.73,
+      "Canadá": 3.6,
+      "Iberoamérica": 2.55,
+      "Europa/O. Medio/Africa": 4.73,
+      "Reino Unido": 1.27,
+      "Zona Euro": 3.44,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0.02,
+      "Asia": 6.4,
+      "Japón": 0.04,
+      "Australasia": 0,
+      "Asia - Desarrollada": 4.93,
+      "Asia - Emergente": 1.43
+    },
+    "sectors": {
+      "technology": 58.78,
+      "financial_services": 11.8,
+      "industrials": 6.95,
+      "healthcare": 8.52,
+      "consumer_cyclical": 6.35,
+      "consumer_defensive": 0,
+      "utilities": 1.96,
+      "energy": 0.01,
+      "communication_services": 5.58,
+      "real_estate": 0.02,
+      "basic_materials": 0.03
+    },
+    "equity_market_cap": {
+      "giant": 52.39,
+      "large": 36.6,
+      "mid": 10.42,
+      "small": 0.05,
+      "micro": 0.54
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 7.35,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 6.87,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.26,
+        "sector": "technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.71,
+        "sector": "technology"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 3.96,
+        "sector": "healthcare"
+      },
+      {
+        "name": "JPMorgan Chase & Co",
+        "weight": 3.62,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 3.35,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Caterpillar Inc",
+        "weight": 3.34,
+        "sector": "industrials"
+      },
+      {
+        "name": "Lam Research Corp",
+        "weight": 3.2,
+        "sector": "technology"
+      },
+      {
+        "name": "Amphenol Corp Class A",
+        "weight": 3.2,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 0,
+      "top10_weight": 44.86
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Crecimiento del capital a largo plazo mediante la inversión en los mercados mundiales de renta variable de sociedades cuyos negocios se beneficiarán de la evolución de la inteligencia artificial o están actualmente relacionados con la misma. Los activos del Compartimento pueden invertirse en mercados emergentes.Se aplica la Restricción de Hong Kong y Taiwán.Se aplica la Restricción GITA (Alternativa 1); sin embargo, al menos el 70 % de los activos del Compartimento se invierte en participación de renta variable."
+  }
+}

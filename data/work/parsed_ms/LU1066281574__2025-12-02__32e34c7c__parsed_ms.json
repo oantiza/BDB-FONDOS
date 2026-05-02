@@ -1,0 +1,117 @@
+{
+  "isin": "LU1066281574",
+  "fileName": "morningstarreport20251202041113.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:04.584Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV España",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 94.53,
+        "bond": 0,
+        "cash": 5.47,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.02,
+      "financial_services": 10.73,
+      "industrials": 7.6,
+      "healthcare": 13.21,
+      "consumer_cyclical": 20.05,
+      "consumer_defensive": 2.73,
+      "utilities": 21.17,
+      "energy": 3.59,
+      "real_estate": 12.47,
+      "basic_materials": 3.44
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 1.39,
+        "eurozone": 98.61
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 24.09,
+        "large": 12.25,
+        "mid": 44.17,
+        "small": 12.91,
+        "micro": 6.58
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Iberdrola SA",
+        "weight": 8.24,
+        "sector": "Utilities"
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 7.82,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Corporacion Acciona Energias...",
+        "weight": 4.62,
+        "sector": "Utilities"
+      },
+      {
+        "name": "Grifols SA Ordinary Shares -...",
+        "weight": 4.46,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Cellnex Telecom SA",
+        "weight": 3.74,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Repsol SA",
+        "weight": 3.39,
+        "sector": "Energy"
+      },
+      {
+        "name": "Merlin Properties SOCIMI SA",
+        "weight": 3,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Laboratorios Farmaceuticos...",
+        "weight": 2.86,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Atrys Health SA",
+        "weight": 2.85,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "CIE Automotive SA",
+        "weight": 2.71,
+        "sector": "Consumer Cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.69
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": null
+  }
+}

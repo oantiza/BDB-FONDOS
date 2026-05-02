@@ -1,0 +1,127 @@
+{
+  "isin": "ES0141116030",
+  "fileName": "morningstarreport20251202040346.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:12:48.199Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 84.17,
+        "bond": 12.32,
+        "cash": 2.46,
+        "other": 1.05
+      }
+    },
+    "sectors": {
+      "technology": 4.79,
+      "financial_services": 4.55,
+      "industrials": 14.05,
+      "consumer_cyclical": 37.28,
+      "consumer_defensive": 15.01,
+      "utilities": 2.74,
+      "energy": 6.29,
+      "communication_services": 4.74,
+      "real_estate": 1.25,
+      "basic_materials": 9.3
+    },
+    "regions": {
+      "macro": {
+        "americas": 19.86,
+        "europe_me_africa": 21.01,
+        "asia": 59.13
+      },
+      "detail": {
+        "united_states": 10.09,
+        "canada": 9.77,
+        "united_kingdom": 4.13,
+        "eurozone": 10.49,
+        "europe_ex_euro": 1.07,
+        "europe_emerging": 1.49,
+        "middle_east": 3.83,
+        "japan": 6.64,
+        "other": 26.86,
+        "asia_emerging": 25.63
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 1.03,
+        "large": 8.08,
+        "mid": 41.54,
+        "small": 21.22,
+        "micro": 28.12
+      },
+      "style": null,
+      "style_box_cell": "Mid-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Sasol Ltd",
+        "weight": 3.22,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 0% 2025-11-04",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 0% 2025-11-04",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 0% 2025-11-04",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Linamar Corp",
+        "weight": 2.43,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Brilliance China Automotive...",
+        "weight": 2.39,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Mazda Motor Corp",
+        "weight": 2.01,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 98,
+      "holdings_count_bond": 0,
+      "top10_weight": 24.83
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "Se invertirá más del 75% de la exposición total en renta variable de cualquier capitalización y sector, y el resto en renta fija pública y/o privada(incluyendo depósitos e instrumentos del mercado monetario cotizados o no, líquidos). La exposición a riesgo divisa será del 0- 100%. No existe objetivo predeterminado ni límites máximos en lo que se refiere a la distribución de activos por tipo de emisor, ni duración, ni por rating, capitalización bursátil, divisa, sector económico o países(incluidos emergentes)."
+  }
+}

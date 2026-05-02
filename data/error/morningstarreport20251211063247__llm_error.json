@@ -1,0 +1,6 @@
+{
+  "fileName": "morningstarreport20251211063247.pdf",
+  "error": "error_llm_json",
+  "message": "[GoogleGenerativeAI Error]: Error fetching from https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-pro:generateContent: [429 Too Many Requests] Your project has exceeded its monthly spending cap. Please go to AI Studio at https://ai.studio/spend to manage your project spend cap.",
+  "generated_at": "2026-04-22T09:57:57.192Z"
+}

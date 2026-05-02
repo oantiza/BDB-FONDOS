@@ -1,0 +1,160 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-18T17:05:19.738Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": []
+  },
+  "raw_response": {
+    "isin": "LU1278917536",
+    "name": "DWS Invest CROCI Sectors Plus NC",
+    "currency": "EUR",
+    "report_date": "2023-09-29",
+    "category_morningstar": "RV Global Cap. Grande Value",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 jul. 2023",
+    "asset_allocation": {
+      "equity": 99.95,
+      "bond": 0,
+      "cash": 0.05,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 45.74,
+      "europe_me_africa": 28.94,
+      "asia": 25.32
+    },
+    "regions_detail": {
+      "Estados Unidos": 45.74,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Reino Unido": 12.98,
+      "Zona Euro": 9.75,
+      "Europa - ex Euro": 6.22,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 21.84,
+      "Australasia": 0,
+      "Asia - Desarrollada": 3.48,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 28.88,
+      "financial_services": 0,
+      "industrials": 3.04,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 34.86,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 33.23
+    },
+    "equity_market_cap": {
+      "giant": 22.89,
+      "large": 49.5,
+      "mid": 27.61,
+      "small": 0,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 100,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": "Large-Value",
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "EOG Resources Inc",
+        "weight": 3.77,
+        "sector": "Energy"
+      },
+      {
+        "name": "Marathon Petroleum Corp",
+        "weight": 3.76,
+        "sector": "Energy"
+      },
+      {
+        "name": "The Mosaic Co",
+        "weight": 3.67,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "ConocoPhillips",
+        "weight": 3.63,
+        "sector": "Energy"
+      },
+      {
+        "name": "Nucor Corp",
+        "weight": 3.63,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Coterra Energy Inc Ordinary...",
+        "weight": 3.54,
+        "sector": "Energy"
+      },
+      {
+        "name": "Pioneer Natural Resources Co",
+        "weight": 3.51,
+        "sector": "Energy"
+      },
+      {
+        "name": "Nippon Steel Corp",
+        "weight": 3.51,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "STMicroelectronics NV",
+        "weight": 3.48,
+        "sector": "Technology"
+      },
+      {
+        "name": "LyondellBasell Industries NV...",
+        "weight": 3.47,
+        "sector": "Basic Materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 30,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.98
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo de la política de inversión de DWS Invest CROCI Sectors Plus consiste en obtener una revalorización a largo plazo mediante la inversión fundamentalmente en acciones globales de gran capitalización que se consideren infravaloradas de conformidad con la metodología CROCI y la estrategia de inversión CROCI Sectors Plus. La estrategia de inversión está diseñada para seleccionar acciones con la menor relación económica CROCI entre precio y beneficio (“PER económico CROCI”) de los tres sectores con el PER..."
+  }
+}

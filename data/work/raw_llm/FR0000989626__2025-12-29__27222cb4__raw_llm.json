@@ -1,0 +1,109 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:44:55.937Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "FR0000989626",
+    "name": "Groupama Trésorerie IC",
+    "currency": "EUR",
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mercado Monetario Estable EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 15.17,
+      "cash": 84.83,
+      "other": 0
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Groupama Entreprises IC",
+        "weight": 3.45,
+        "sector": null
+      },
+      {
+        "name": "Groupama Monétaire IC",
+        "weight": 3.43,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)...",
+        "weight": 2.43,
+        "sector": null
+      },
+      {
+        "name": "Societe Generale S.A....",
+        "weight": 0.65,
+        "sector": null
+      },
+      {
+        "name": "BPCE SA 2.468%2026-03-06",
+        "weight": 0.55,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 170,
+      "top10_weight": 10.51
+    },
+    "costs": {
+      "management_fee": 0.12
+    },
+    "objective": "The Fund's management objective is to seek to outperform the money market interest rates slightly, after deduction of management fees, over the recommended term of investment. This objective will be implemented via an active managerial approach that promotes the sustainability of issuers through an analysis of the ESG (environmental, social and governance) characteristics of the securities held in the portfolio."
+  }
+}

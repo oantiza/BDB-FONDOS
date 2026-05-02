@@ -1,0 +1,57 @@
+isin,name,ms_category_morningstar,asset_class,asset_subtype,primary_region,confidence,reason
+BE6213829094,DPAM B - Real Estate Europe Dividend Sustainable B Cap,Inmobiliario - Indirecto Europa,Inmobiliario,THEMATIC_EQUITY,Europa,0.99,Incoherencia asset_class / asset_subtype
+ES0133593030,"EUROBOLSA SELECCION SICAV, SA",,Otros,GLOBAL_EQUITY,Global,0.7000000000000001,Incoherencia asset_class / asset_subtype
+ES0175316019,Dunas Valor Flexible R FI,Alt - Multistrategy,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Europa,0.99,Incoherencia asset_class / asset_subtype
+ES0175414012,Dunas Valor Equilibrado R FI,Alt - Multistrategy,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Europa,0.99,Incoherencia asset_class / asset_subtype
+ES0175437005,Dunas Valor Prudente R FI,Alt - Multistrategy,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Europa,0.99,Incoherencia asset_class / asset_subtype
+FI0008804463,Evli Euro Liquidity B,RF Ultra Corto Plazo EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+FR0000989626,Groupama Trésorerie IC,Mercado Monetario Estable EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+FR0000989915,Oddo BHF Immobilier CR-EUR,Property - Indirect Eurozone,Inmobiliario,EUROZONE_EQUITY,Europa,0.99,Incoherencia asset_class / asset_subtype
+FR0010794792,Candriam Diversified Futures Classique,Alt - Systematic Futures,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Global,0.99,Incoherencia asset_class / asset_subtype
+FR0011170182,Ofi Invest Precious Metals R,Materias Primas - Metales Preciosos,Commodities,PRECIOUS_METALS,USA,0.9300000000000002,Incoherencia asset_class / asset_subtype
+IE00B53H0P79,PIMCO GIS Global Advantage Fund E Class EUR (Partially Hedged) Accumulation,RF Global,RF,GLOBAL_EQUITY,Global,0.9000000000000001,Renta fija con subtipo de equity
+IE00BD2ZKT29,Principal Global Investors Funds - Finisterre Unconstrained Emerging Market Fxd Inc Fd A Hdg Acc EUR,RF Global Emergente - Sesgo EUR,RF,THEMATIC_EQUITY,Emergentes,0.9300000000000002,Renta fija con subtipo de equity
+IE00BJ7B9456,PIMCO GIS Global Low Duration Real Return Fund E Class EUR (Hedged) Accumulation,Morningstar Global Treasury Inflation-Linked Securities GR Hedged EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+IE00BLP5S460,JupiterMerian Global Equity Absolute Return Fund L (EUR) Hedged Acc,Alt - Market Neutral - Equity,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Global,0.99,Incoherencia asset_class / asset_subtype
+IE00BYVJR916,Jupiter Gold & Silver Fund L EUR Acc,RV Sector Oro y Metales preciosos,RV,PRECIOUS_METALS,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0093583077,Candriam Money Market Euro C Acc EUR,Mercado Monetario Estable EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU0102219945,Goldman Sachs Europe CORE Equity Portfolio Base Inc EUR,RV Europa Cap. Grande Blend,RV,PRECIOUS_METALS,Europa,0.99,Incoherencia asset_class / asset_subtype
+LU0121204431,Goldman Sachs Global Sustainable Equity - X Cap EUR,RV Global Cap. Grande Growth,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU0127786431,Goldman Sachs Eurozone Equity Income - P Cap EUR,RV Zona Euro Cap. Grande,RV,PRECIOUS_METALS,Europa,0.99,Incoherencia asset_class / asset_subtype
+LU0133264522,Goldman Sachs Global Equity Income Portfolio E Acc EUR,RV Global Alto Dividendo,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU0133267202,Goldman Sachs Emerging Markets Equity Portfolio E Acc EUR,RV Global Emergente,RV,PRECIOUS_METALS,Emergentes,0.99,Incoherencia asset_class / asset_subtype
+LU0170473374,Franklin European Total Return Fund A(acc)EUR,RF Diversificada EUR,RF,EUROPE_EQUITY,Europa,0.9300000000000002,Renta fija con subtipo de equity
+LU0171306680,BlackRock Global Funds - World Gold Fund E2 (EUR),RV Sector Oro y Metales preciosos,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU0252500524,JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR,EUR Money Market - Short Term,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU0264738294,Janus Henderson Horizon Global Property Equities Fund A2 EUR,Inmobiliario - Indirecto Global,Inmobiliario,GLOBAL_EQUITY,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0273148055,DWS Invest Gold and Precious Metals Equities NC,RV Sector Oro y Metales preciosos,RV,PRECIOUS_METALS,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0273159177,DWS Invest Gold and Precious Metals Equities LC,RV Sector Oro y Metales preciosos,RV,PRECIOUS_METALS,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0273690064,Goldman Sachs Asia Equity Growth & Income - P Cap EUR,RV Asia (ex-Japón),RV,PRECIOUS_METALS,Japón,0.99,Incoherencia asset_class / asset_subtype
+LU0333810850,Goldman Sachs India Equity Portfolio E Acc EUR,RV India,RV,PRECIOUS_METALS,Asia,0.99,Incoherencia asset_class / asset_subtype
+LU0360646680,BNP Paribas Funds Euro Defensive Equity Classic Capitalisation,Alt - Long/Short Equity - Europe,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Europa,0.99,Incoherencia asset_class / asset_subtype
+LU0398684661,Goldman Sachs Alternative Beta - P Cap EUR (hedged i),Alt - Multistrategy,Alternativos,SYSTEMATIC_ALTERNATIVE,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0455556406,UBS (Lux) Bond SICAV - Global Inflation-linked (USD) (EUR hedged) P-acc,Morningstar Global Treasury Inflation-Linked Securities GR Hedged EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU0496368142,Franklin Gold & Precious Metals Fund A(acc)EUR-H1,RV Sector Otros,RV,PRECIOUS_METALS,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0496369389,Franklin Gold & Precious Metals Fund N(acc)EUR,RV Sector Oro y Metales preciosos,RV,PRECIOUS_METALS,USA,0.99,Incoherencia asset_class / asset_subtype
+LU0501220429,Global Evolution Funds Frontier Markets R EUR,RF Global Emergente - Sesgo EUR,RF,GLOBAL_EQUITY,Emergentes,0.9300000000000002,Renta fija con subtipo de equity
+LU0546917344,Goldman Sachs Euro Long Duration Bond - P Cap EUR,RF Largo Plazo EUR,RF,PRECIOUS_METALS,Global,0.9000000000000001,Incoherencia asset_class / asset_subtype
+LU0568620560,Amundi Funds - Cash EUR A2 EUR (C),Mercado Monetario Estable EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU0568620727,Amundi Funds - Cash EUR G2 EUR (C),Mercado Monetario Estable EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU0607983896,Nordea 1 - Alpha 15 MA Fund BP EUR,Alt - Multistrategy,Alternativos,SYSTEMATIC_ALTERNATIVE,USA,0.9800000000000002,Incoherencia asset_class / asset_subtype
+LU0795636256,Schroder International Selection Fund Emerging Markets Hard Currency A Accumulation EUR Hedged,RF Global Emergente - Sesgo EUR,RF,GLOBAL_EQUITY,Emergentes,0.9300000000000002,Renta fija con subtipo de equity
+LU0910636546,Goldman Sachs Emerging Markets Debt Blend Portfolio Other Currency Acc EUR,RF Global Emergente - Sesgo EUR,RF,PRECIOUS_METALS,Emergentes,0.9300000000000002,Incoherencia asset_class / asset_subtype
+LU0910636892,Goldman Sachs Emerging Markets Debt Blend Portfolio E Acc EUR,RF Global Emergente - Sesgo EUR,RF,PRECIOUS_METALS,Emergentes,0.9300000000000002,Incoherencia asset_class / asset_subtype
+LU1021288268,AB - Mortgage Income Portfolio A2 EUR Acc,RF Flexible USD,RF,GLOBAL_INCOME_EQUITY,Global,0.9000000000000001,Renta fija con subtipo de equity
+LU1061675168,Goldman Sachs Frontier Markets Debt (Hard Currency) - X Cap EUR (hedged i),RF Global Emergente - Sesgo EUR,RF,PRECIOUS_METALS,Emergentes,0.9300000000000002,Incoherencia asset_class / asset_subtype
+LU1103307408,Goldman Sachs Absolute Return Tracker Portfolio Other Currency Acc EUR-Hedged,Alt - Multistrategy,Alternativos,SYSTEMATIC_ALTERNATIVE,Global,0.9000000000000001,Incoherencia asset_class / asset_subtype
+LU1162516717,BlackRock Systematic Global Equity Absolute Return Fund A2 EUR Hedged,Alt - Market Neutral - Equity,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Global,0.9500000000000002,Incoherencia asset_class / asset_subtype
+LU1223083087,Schroder International Selection Fund Global Gold A Accumulation EUR Hedged,RV Sector Otros,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU1223084051,Schroder International Selection Fund Global Gold A Accumulation PLN Hedged,RV Sector Otros,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU1317704135,Carmignac Portfolio Long-Short European Equities E EUR Acc,Alt - Long/Short Equity - Europe,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Europa,0.99,Incoherencia asset_class / asset_subtype
+LU1373035234,BlackRock Strategic Funds - BSF Systematic Style Factor Fund E2 EUR Hedged,Alt - Multistrategy,Alternativos,SYSTEMATIC_ALTERNATIVE,USA,0.99,Incoherencia asset_class / asset_subtype
+LU1542714578,Goldman Sachs Europe Sustainable Equity - X Cap EUR,RV Europa Cap. Grande Growth,RV,PRECIOUS_METALS,Europa,0.99,Incoherencia asset_class / asset_subtype
+LU1578889864,Ninety One Global Strategy Fund - Global Gold Fund A Acc EUR Hedged,RV Sector Otros,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU1717592262,Groupama Global Inflation Short Duration NC,Morningstar Global Treasury Inflation-Linked Securities GR Hedged EUR,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU1873127366,JPMorgan Liquidity Funds - EUR Liquidity LVNAV Fund A (acc.),EUR Money Market - Short Term,Monetario,MONEY_MARKET,Global,0.9000000000000001,Monetario con subtipo no monetario
+LU2094235707,Goldman Sachs Global Future Technology Leaders Equity Portfolio Class E Shares EUR Acc,RV Sector Tecnología,RV,PRECIOUS_METALS,Global,0.99,Incoherencia asset_class / asset_subtype
+LU2210151341,Fidelity Funds - Absolute Return Global Equity Fund A-PF-Acc-Euro (Euro/USD hedged),Alt - Market Neutral - Equity,Alternativos,ALTERNATIVE_MULTI_STRATEGY,Global,0.99,Incoherencia asset_class / asset_subtype

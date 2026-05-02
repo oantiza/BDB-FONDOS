@@ -1,0 +1,126 @@
+{
+  "isin": "LU0200684180",
+  "fileName": "morningstarreport20251202040928.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:13:40.324Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 94.46,
+        "cash": 5.46,
+        "other": 0.08
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 6.26,
+      "effective_maturity": 10.08,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 3,
+        "a": 11.38,
+        "bbb": 31.04,
+        "bb": 25.08,
+        "b": 13.67,
+        "below_b": 14.71,
+        "not_rated": 1.12
+      },
+      "maturity_allocation": {
+        "1_3": 8.44,
+        "3_5": 13.31,
+        "5_7": 15.08,
+        "7_10": 30.38,
+        "over_10": 31.03
+      },
+      "coupon_allocation": {
+        "0": 2.16,
+        "0_4": 13.2,
+        "4_6": 44.8,
+        "over_6": 39.85
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "BGF Emerging Markets Corp Bd X2",
+        "weight": 3.47,
+        "sector": null
+      },
+      {
+        "name": "Argentina (Republic Of) 2035-07-09",
+        "weight": 1.52,
+        "sector": null
+      },
+      {
+        "name": "Ukraine (Republic of) 2034-02-01",
+        "weight": 1.27,
+        "sector": null
+      },
+      {
+        "name": "Argentina (Republic Of) 2038-01-09",
+        "weight": 1.21,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of) 2035-03-24",
+        "weight": 1.21,
+        "sector": null
+      },
+      {
+        "name": "Chile (Republic Of) 2034-01-31",
+        "weight": 1.2,
+        "sector": null
+      },
+      {
+        "name": "Ecuador (Republic Of) 2035-07-31",
+        "weight": 1.18,
+        "sector": null
+      },
+      {
+        "name": "Mexico (United Mexican States) 2033-05-19",
+        "weight": 1.03,
+        "sector": null
+      },
+      {
+        "name": "Oman (Sultanate Of) 2047-03-08",
+        "weight": 1.03,
+        "sector": null
+      },
+      {
+        "name": "Turkey (Republic of) 2030-07-13",
+        "weight": 0.97,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 295,
+      "top10_weight": 14.1
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El Emerging Markets Bond Fund busca maximizar la rentabilidad total, invirtiendo, al menos, el 90% de su patrimonio neto total en valores negociables de renta fija y, al menos, el 70% de su patrimonio neto total en valores negociables de renta fija emitidos por gobiernos, agencias y empresas domiciliadas o que desarrollen una parte predominante de su actividad económica en mercados en desarrollo. El Subfondo podrá invertir en la gama completa de valores disponibles, incluidos valores de deuda sin categoría de..."
+  }
+}

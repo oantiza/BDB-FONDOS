@@ -1,0 +1,127 @@
+{
+  "isin": "LU0115141201",
+  "fileName": "morningstarreport20251202070435.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:27:13.069Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Value",
+    "rating_stars": 2,
+    "medalist_rating": "Neutral",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.77,
+        "bond": 0.05,
+        "cash": 1.18,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 8.42,
+      "financial_services": 20.67,
+      "industrials": 22.25,
+      "healthcare": 12.13,
+      "consumer_cyclical": 4.67,
+      "consumer_defensive": 6.64,
+      "utilities": 4.98,
+      "energy": 6.47,
+      "communication_services": 3.52,
+      "real_estate": 1.36,
+      "basic_materials": 8.9
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.32,
+        "europe_me_africa": 96.49,
+        "asia": 1.19
+      },
+      "detail": {
+        "united_states": 2.32,
+        "united_kingdom": 26.22,
+        "eurozone": 60.36,
+        "europe_ex_euro": 9.91,
+        "other": 1.19
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.17,
+        "large": 35.58,
+        "mid": 22.25,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 100,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Banco Santander SA",
+        "weight": 4.32,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 3.76,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 3.37,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 2.79,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.73,
+        "sector": "Industria"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.72,
+        "sector": "Energía"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.69,
+        "sector": "Salud"
+      },
+      {
+        "name": "Thales",
+        "weight": 2.58,
+        "sector": "Industria"
+      },
+      {
+        "name": "UPM-Kymmene Oyj",
+        "weight": 2.39,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Rolls-Royce Holdings PLC",
+        "weight": 2.3,
+        "sector": "Industria"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 54,
+      "holdings_count_bond": 0,
+      "top10_weight": 29.65
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El fondo tiene como objetivo generar acrecentamiento del capital a largo plazo mediante una cartera de inversiones en compañías europeas. Al menos 70% de los activos totales de la cartera (después de haber deducido los activos líquidos con carácter accesorio) serán invertidos en valores de renta variable y otros valores relacionados emitidos por compañías incorporadas en cualquier país europeo o que lleven la mayor parte de su actividad comercial en ese continente."
+  }
+}

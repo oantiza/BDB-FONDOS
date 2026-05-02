@@ -1,0 +1,130 @@
+{
+  "isin": "ES0161992005",
+  "fileName": "morningstarreport20251202041054.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:14:34.905Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-07-30",
+      "asset_allocation": {
+        "equity": 24.53,
+        "bond": 68.39,
+        "cash": 0,
+        "other": 7.83
+      }
+    },
+    "sectors": {
+      "technology": 19.18,
+      "financial_services": 11.49,
+      "industrials": 5.38,
+      "healthcare": 28.12,
+      "consumer_cyclical": 12.42,
+      "consumer_defensive": 4.18,
+      "utilities": 4.82,
+      "energy": 6.44,
+      "communication_services": 6.91,
+      "real_estate": 0.01,
+      "basic_materials": 1.05
+    },
+    "regions": {
+      "macro": {
+        "americas": 64.82,
+        "europe_me_africa": 30.48,
+        "asia": 4.7
+      },
+      "detail": {
+        "united_states": 62.24,
+        "canada": 1.99,
+        "latin_america": 0.59,
+        "united_kingdom": 0.81,
+        "eurozone": 20.24,
+        "europe_ex_euro": 8.55,
+        "europe_emerging": 0.88,
+        "asia_emerging": 4.7
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Long-Term Euro BTP Future Sept...",
+        "weight": 4.8,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 1.73,
+        "sector": null
+      },
+      {
+        "name": "ACS Actividades De...",
+        "weight": 1.11,
+        "sector": null
+      },
+      {
+        "name": "Toyota Finance Australia Ltd...",
+        "weight": 1.09,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A....",
+        "weight": 0.97,
+        "sector": null
+      },
+      {
+        "name": "Raiffeisenlandesbank...",
+        "weight": 0.96,
+        "sector": null
+      },
+      {
+        "name": "Axa SA 2.88%2049-06-02",
+        "weight": 0.87,
+        "sector": null
+      },
+      {
+        "name": "Bank of Ireland Group PLC...",
+        "weight": 0.83,
+        "sector": null
+      },
+      {
+        "name": "Landsbankinn hf. 3.5%2030-06-24",
+        "weight": 0.83,
+        "sector": null
+      },
+      {
+        "name": "Alibaba Group Holding Ltd ADR",
+        "weight": 0.82,
+        "sector": "Consumer Cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 85,
+      "holdings_count_bond": 177,
+      "top10_weight": 14.01
+    },
+    "costs": {
+      "management_fee": 1.4
+    },
+    "objective": "Se invertirá, directamente o indirectamente a través de IIC (máximo un 10% del patrimonio), entre un 0%-100% de la exposición total en renta variable y/o en activos de renta fija pública y/o privada (incluyendo depósitos e instrumentos del mercado monetario cotizados o no, que sean líquidos). Se invertirá en emisiones/emisores de calidad crediticia media (entre BBB- y BBB+) o superior (mínimo A-), pudiéndose invertir hasta un 50% de la exposición total en emisiones/emisores de renta fija de baja calidad crediticia..."
+  }
+}

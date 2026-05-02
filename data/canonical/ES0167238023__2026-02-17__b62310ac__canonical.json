@@ -1,0 +1,345 @@
+{
+  "isin": "ES0167238023",
+  "name": "Estela Global Equities R FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260217045821.pdf",
+  "stableBaseName": "ES0167238023__2026-02-17__b62310ac",
+  "report_date": "2026-02-17",
+  "ms": {
+    "report_date": "2026-02-17",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 90.46,
+        "bond": 7.57,
+        "cash": 0,
+        "other": 1.97
+      }
+    },
+    "sectors": {
+      "financial_services": 2.13,
+      "industrials": 6.15,
+      "healthcare": 26.13,
+      "consumer_cyclical": 15.38,
+      "consumer_defensive": 30.3,
+      "communication_services": 17.77,
+      "basic_materials": 2.14
+    },
+    "regions": {
+      "macro": {
+        "americas": 21.19,
+        "europe_me_africa": 59.44,
+        "asia": 19.37
+      },
+      "detail": {
+        "united_states": 21.19,
+        "united_kingdom": 15.61,
+        "eurozone": 36.45,
+        "europe_ex_euro": 7.39,
+        "japan": 8.91,
+        "australasia": 4.7,
+        "asia_emerging": 5.76
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 9.94,
+        "large": 13.42,
+        "mid": 27.15,
+        "small": 45.85,
+        "micro": 3.64
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Baxter International Inc",
+        "weight": 8.79,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 7.57,
+        "sector": null
+      },
+      {
+        "name": "Stroeer SE & Co KGaA",
+        "weight": 6.63,
+        "sector": "communication_services"
+      },
+      {
+        "name": "B&M European Value Retail SA",
+        "weight": 6.54,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Carl Zeiss Meditec AG",
+        "weight": 5.93,
+        "sector": "healthcare"
+      },
+      {
+        "name": "JCDecaux SE",
+        "weight": 5.48,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 4.74,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Burberry Group PLC",
+        "weight": 4.49,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "CSL Ltd",
+        "weight": 4.25,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Morinaga & Co Ltd",
+        "weight": 4.23,
+        "sector": "consumer_defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 23,
+      "holdings_count_bond": 0,
+      "top10_weight": 58.65
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "Se invierte hasta 10% del patrimonio en IIC financieras (activo apto), armonizadas o no, del grupo o no de la Gestora. Se invierte, directa o indirectamente, al menos 80% de la exposición total en activos de renta variable, y el resto en renta fija (incluyendo depósitos/ instrumentos del mercado monetario cotizados o no, líquidos) con al menos mediana calidad crediticia (mínimo BBB-). Se invierte en compañías que cumplan criterios de calidad (disponer de ratios de valoración que reflejen ventajas competitivas en..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:consumer_defensive",
+      "sector:healthcare"
+    ],
+    "top_sector": "consumer_defensive",
+    "top_sector_weight": 30.3,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 90.46,
+        "bond": 7.57,
+        "cash": 0,
+        "other": 1.97
+      },
+      "equity_sectors_total": {
+        "financial_services": 1.9268,
+        "industrials": 5.5633,
+        "healthcare": 23.6372,
+        "consumer_cyclical": 13.9127,
+        "consumer_defensive": 27.4094,
+        "communication_services": 16.0747,
+        "basic_materials": 1.9358
+      },
+      "equity_regions_total": {
+        "united_states": 19.1685,
+        "united_kingdom": 14.1208,
+        "eurozone": 32.9727,
+        "europe_ex_euro": 6.685,
+        "japan": 8.06,
+        "australasia": 4.2516,
+        "asia_emerging": 5.2105
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 90.46,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 44.7687,
+          "mid": 24.5599,
+          "large": 21.1315
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "Global Small-Cap Equity",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:consumer_defensive",
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9046,
+      "bond": 0.0757,
+      "cash": 0,
+      "other": 0.0197
+    },
+    "equity_regions": {
+      "united_states": 0.191666,
+      "united_kingdom": 0.141194,
+      "eurozone": 0.329694,
+      "europe_ex_euro": 0.066843,
+      "japan": 0.080592,
+      "australasia": 0.042512,
+      "asia_emerging": 0.0521
+    },
+    "sectors": {
+      "financial_services": 0.019268,
+      "industrials": 0.055633,
+      "healthcare": 0.236372,
+      "consumer_cyclical": 0.139127,
+      "consumer_defensive": 0.274094,
+      "communication_services": 0.160747,
+      "basic_materials": 0.019358
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.447687,
+      "mid": 0.245599,
+      "large": 0.211315
+    },
+    "bond_types": {
+      "corporate": 0.0757
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0757
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=90.46",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "30e4b0c384a3dcdb07e85df1f00a9564",
+    "warnings": [
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9046,
+          "bond": 0.0757,
+          "cash": 0,
+          "other": 0.0197,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.904601
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.904599
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.904601
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0757
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0757
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:53:14.062Z"
+}

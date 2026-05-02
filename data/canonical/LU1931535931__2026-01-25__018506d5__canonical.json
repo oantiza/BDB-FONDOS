@@ -1,0 +1,325 @@
+{
+  "isin": "LU1931535931",
+  "name": "Allianz Pet and Animal Wellbeing AT EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091651.pdf",
+  "stableBaseName": "LU1931535931__2026-01-25__018506d5",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 98.51,
+        "bond": 0,
+        "cash": 1.49,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "financial_services": 8.16,
+      "healthcare": 37.16,
+      "consumer_cyclical": 21.89,
+      "consumer_defensive": 24.34,
+      "basic_materials": 8.45
+    },
+    "regions": {
+      "macro": {
+        "americas": 69.77,
+        "europe_me_africa": 25.45,
+        "asia": 4.79
+      },
+      "detail": {
+        "united_states": 68.2,
+        "canada": 1.11,
+        "latin_america": 0.46,
+        "united_kingdom": 7.45,
+        "eurozone": 10.4,
+        "europe_ex_euro": 7.6,
+        "japan": 3.78,
+        "asia_emerging": 1
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 10.77,
+        "large": 9.34,
+        "mid": 51.63,
+        "small": 18.04,
+        "micro": 10.23
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "IDEXX Laboratories Inc",
+        "weight": 8.63,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Zoetis Inc Class A",
+        "weight": 7.46,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Tractor Supply Co",
+        "weight": 7.04,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Chewy Inc",
+        "weight": 6.6,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Virbac SA",
+        "weight": 5.27,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Elanco Animal Health Inc",
+        "weight": 4.31,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Merck & Co Inc",
+        "weight": 3.69,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Freshpet Inc",
+        "weight": 3.59,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 3.58,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Colgate-Palmolive Co",
+        "weight": 3.57,
+        "sector": "consumer_defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 38,
+      "holdings_count_bond": 0,
+      "top10_weight": 53.75
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Long-term capital growth by investing in global Equity Markets with a focus on the evolution and development of pet and animal wellbeing in accordance with E/S characteristics."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 37.16,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.51,
+        "bond": 0,
+        "cash": 1.49,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "financial_services": 8.0384,
+        "healthcare": 36.6063,
+        "consumer_cyclical": 21.5638,
+        "consumer_defensive": 23.9773,
+        "basic_materials": 8.3241
+      },
+      "equity_regions_total": {
+        "united_states": 67.1838,
+        "canada": 1.0935,
+        "latin_america": 0.4531,
+        "united_kingdom": 7.339,
+        "eurozone": 10.245,
+        "europe_ex_euro": 7.4868,
+        "japan": 3.7237,
+        "asia_emerging": 0.9851
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.51,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 27.846,
+          "mid": 50.8556,
+          "large": 19.8084
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "commercial_type": "RV Sector Otros",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9851,
+      "bond": 0,
+      "cash": 0.0149,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.274741,
+      "canada": 0.004472,
+      "latin_america": 0.18529,
+      "united_kingdom": 0.030012,
+      "eurozone": 0.041896,
+      "europe_ex_euro": 0.030616,
+      "japan": 0.015228,
+      "asia_emerging": 0.402846
+    },
+    "sectors": {
+      "financial_services": 0.080384,
+      "healthcare": 0.366063,
+      "consumer_cyclical": 0.215638,
+      "consumer_defensive": 0.239773,
+      "basic_materials": 0.083241
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.27846,
+      "mid": 0.508556,
+      "large": 0.198084
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.51"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "42e1d53a12a071bf823a48e12b59391d",
+    "warnings": [
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9851,
+          "bond": 0,
+          "cash": 0.0149,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985101
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985099
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9851
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:51:10.071Z"
+}

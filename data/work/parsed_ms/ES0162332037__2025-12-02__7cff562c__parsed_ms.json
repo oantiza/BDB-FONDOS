@@ -1,0 +1,123 @@
+{
+  "isin": "ES0162332037",
+  "fileName": "morningstarreport20251202040415.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:13:27.262Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Med/Peq",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 1.71,
+        "cash": 0,
+        "other": 1.43
+      }
+    },
+    "sectors": {
+      "technology": 18.75,
+      "financial_services": 6.91,
+      "industrials": 2.73,
+      "healthcare": 33.69,
+      "consumer_cyclical": 27.67,
+      "consumer_defensive": 7.33,
+      "communication_services": 1.51,
+      "basic_materials": 1.41
+    },
+    "regions": {
+      "macro": {
+        "americas": 66.77,
+        "europe_me_africa": 21.27,
+        "asia": 11.96
+      },
+      "detail": {
+        "united_states": 66.77,
+        "united_kingdom": 2.82,
+        "eurozone": 10.51,
+        "europe_ex_euro": 7.16,
+        "middle_east": 0.78,
+        "japan": 2.26,
+        "other": 1.88,
+        "asia_emerging": 7.82
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 16.5,
+        "large": 27.9,
+        "mid": 18.96,
+        "small": 22.35,
+        "micro": 14.29
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NIO Inc ADR",
+        "weight": 5.01,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Arcus Biosciences Inc",
+        "weight": 4.67,
+        "sector": "Salud"
+      },
+      {
+        "name": "QuantumScape Corp Ordinary...",
+        "weight": 4.27,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "InMode Ltd",
+        "weight": 4.01,
+        "sector": "Salud"
+      },
+      {
+        "name": "Victoria's Secret & Co",
+        "weight": 3.91,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 3.62,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 3.13,
+        "sector": "Salud"
+      },
+      {
+        "name": "Biogen Inc",
+        "weight": 2.97,
+        "sector": "Salud"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.93,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Incyte Corp",
+        "weight": 2.81,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 101,
+      "holdings_count_bond": 0,
+      "top10_weight": 37.33
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "Se invierte un 0%-100% de la exposición total en renta variable, mayoritariamente en compañías de alta capitalización, de cualquier sector o en activos de renta fija pública y/o privada (incluyendo hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo) y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja calidad. La inversión en renta fija de baja calidad crediticia o en..."
+  }
+}

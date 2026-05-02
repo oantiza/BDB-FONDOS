@@ -1,0 +1,328 @@
+{
+  "isin": "LU0028119013",
+  "name": "Invesco Funds - Invesco Pan European Small Cap Equity Fund A Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211063247.pdf",
+  "stableBaseName": "LU0028119013__2025-12-11__c0fef9c7",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.5,
+        "bond": 0.15,
+        "cash": 1.35,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 7.6,
+      "financial_services": 18.04,
+      "industrials": 29.91,
+      "healthcare": 9.96,
+      "consumer_cyclical": 8,
+      "consumer_defensive": 2.59,
+      "energy": 4.26,
+      "communication_services": 11.39,
+      "real_estate": 3.1,
+      "basic_materials": 5.15
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "other": 100,
+        "united_kingdom": 24.71,
+        "eurozone": 45.44,
+        "europe_ex_euro": 29.85
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 61.4,
+        "small": 36.51,
+        "micro": 2.09
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Bawag Group AG Ordinary Shares",
+        "weight": 4.5,
+        "sector": "financial_services"
+      },
+      {
+        "name": "SigmaRoc PLC",
+        "weight": 3.73,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "CTS Eventim AG & Co. KGaA",
+        "weight": 3.65,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Konecranes Oyj",
+        "weight": 3.58,
+        "sector": "industrials"
+      },
+      {
+        "name": "Asker Healthcare Group AB",
+        "weight": 3.52,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Bufab AB",
+        "weight": 3.19,
+        "sector": "industrials"
+      },
+      {
+        "name": "Karnov Group AB",
+        "weight": 2.78,
+        "sector": "industrials"
+      },
+      {
+        "name": "Bankinter SA",
+        "weight": 2.77,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Laboratorios Farmaceuticos...",
+        "weight": 2.75,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Lion Finance Group PLC",
+        "weight": 2.67,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 44,
+      "holdings_count_bond": 0,
+      "top10_weight": 33.14
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del fondo es obtener crecimiento del capital a largo plazo invirtiendo en una cartera diversificada de pequeñas compañías europeas (incluyendo el Reino Unido). El fondo puede ocasionalmente invertir en situaciones especiales como recovery stocks, fusiones y, a su debido tiempo, en los mercados emergentes de Países del Este europeo. El fondo intenta limitar el riesgo invirtiendo en un abanico más amplio de compañías de lo que podría ser habitual en una cartera convencional."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials",
+      "theme:small_cap"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 29.91,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.5,
+        "bond": 0.15,
+        "cash": 1.35,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 7.486,
+        "financial_services": 17.7694,
+        "industrials": 29.4613,
+        "healthcare": 9.8106,
+        "consumer_cyclical": 7.88,
+        "consumer_defensive": 2.5511,
+        "energy": 4.1961,
+        "communication_services": 11.2192,
+        "real_estate": 3.0535,
+        "basic_materials": 5.0728
+      },
+      "equity_regions_total": {
+        "other": 98.5,
+        "united_kingdom": 24.3393,
+        "eurozone": 44.7584,
+        "europe_ex_euro": 29.4023
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.5,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 38.021,
+          "mid": 60.479
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Cap. Pequeña",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:small_cap"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.985,
+      "bond": 0.0015,
+      "cash": 0.0135,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.4925,
+      "united_kingdom": 0.121697,
+      "eurozone": 0.223792,
+      "europe_ex_euro": 0.147011
+    },
+    "sectors": {
+      "technology": 0.07486,
+      "financial_services": 0.177694,
+      "industrials": 0.294613,
+      "healthcare": 0.098106,
+      "consumer_cyclical": 0.0788,
+      "consumer_defensive": 0.025511,
+      "energy": 0.041961,
+      "communication_services": 0.112192,
+      "real_estate": 0.030535,
+      "basic_materials": 0.050728
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.38021,
+      "mid": 0.60479
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.5",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.15,max_component=98.5"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "4205dc605b2d674ee455d6874f897658",
+    "warnings": [
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.985,
+          "bond": 0.0015,
+          "cash": 0.0135,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:43:34.802Z"
+}

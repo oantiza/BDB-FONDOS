@@ -1,0 +1,161 @@
+{
+  "isin": "LU1697018494",
+  "fileName": "morningstarreport20251229072058.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:44:40.052Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "EAA Fund EUR Flexible Allocation-Global",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 59.59,
+        "bond": 35.56,
+        "cash": 4.58,
+        "other": 0.27
+      }
+    },
+    "sectors": {
+      "technology": 24.99,
+      "financial_services": 16.47,
+      "industrials": 12.85,
+      "healthcare": 8.36,
+      "consumer_cyclical": 13.43,
+      "consumer_defensive": 3.57,
+      "utilities": 3.12,
+      "energy": 3.61,
+      "communication_services": 8.81,
+      "real_estate": 1.77,
+      "basic_materials": 3.04
+    },
+    "regions": {
+      "macro": {
+        "americas": 56.03,
+        "europe_me_africa": 20.7,
+        "asia": 23.27
+      },
+      "detail": {
+        "other": 81.78,
+        "united_states": 54.24,
+        "canada": 0.17,
+        "latin_america": 1.61,
+        "united_kingdom": 3.36,
+        "eurozone": 11.67,
+        "europe_ex_euro": 4.96,
+        "europe_emerging": 0.32,
+        "middle_east": 0.4,
+        "asia": 23.27,
+        "japan": 12.21,
+        "asia_emerging": 6.01
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "JPM US Select Equity Plus I...",
+        "weight": 17.99,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Select Equity I...",
+        "weight": 15.82,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Corp Bd I (acc) EUR H",
+        "weight": 13.92,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Government Bond I...",
+        "weight": 13.16,
+        "sector": null
+      },
+      {
+        "name": "JPM Emerging Mkts Opps I (acc)...",
+        "weight": 7.02,
+        "sector": null
+      },
+      {
+        "name": "JPM Global High Yield Bond I...",
+        "weight": 5.99,
+        "sector": null
+      },
+      {
+        "name": "JPM Europe Equity Plus I perf...",
+        "weight": 5.37,
+        "sector": null
+      },
+      {
+        "name": "JPM Europe Select Equity I...",
+        "weight": 5.28,
+        "sector": null
+      },
+      {
+        "name": "JPM Japan Strategic Value I...",
+        "weight": 4.32,
+        "sector": null
+      },
+      {
+        "name": "JPM Emerging Markets Debt I...",
+        "weight": 4.09,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 3,
+      "top10_weight": 92.97
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The objective of the Sub-Fund is to provide maximum long-term return through investing mainly in assets of the JP Morgan Management."
+  }
+}

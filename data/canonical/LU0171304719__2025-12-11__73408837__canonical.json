@@ -1,0 +1,323 @@
+{
+  "isin": "LU0171304719",
+  "name": "BlackRock Global Funds - World Financials Fund A2 (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211055030.pdf",
+  "stableBaseName": "LU0171304719__2025-12-11__73408837",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Sector Finanzas",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.43,
+        "bond": 0.09,
+        "cash": 0.48,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 2.7,
+      "financial_services": 94.61,
+      "industrials": 2.1,
+      "real_estate": 0.58
+    },
+    "regions": {
+      "macro": {
+        "americas": 64.4,
+        "europe_me_africa": 33.09,
+        "asia": 2.51
+      },
+      "detail": {
+        "united_states": 57.02,
+        "latin_america": 7.38,
+        "united_kingdom": 7.48,
+        "eurozone": 15.47,
+        "europe_ex_euro": 6.5,
+        "europe_emerging": 1.47,
+        "middle_east": 2.17,
+        "asia_emerging": 2.51
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 7.4,
+        "large": 38.93,
+        "mid": 34.4,
+        "small": 14.16,
+        "micro": 5.11
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "BlackRock ICS USD LiqEnvtlyAwr...",
+        "weight": 9.39,
+        "sector": null
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 6.98,
+        "sector": null
+      },
+      {
+        "name": "Citigroup Inc",
+        "weight": 5.8,
+        "sector": null
+      },
+      {
+        "name": "Charles Schwab Corp",
+        "weight": 4.04,
+        "sector": null
+      },
+      {
+        "name": "The Goldman Sachs Group Inc",
+        "weight": 3.68,
+        "sector": null
+      },
+      {
+        "name": "Banco Macro SA ADR",
+        "weight": 3.02,
+        "sector": null
+      },
+      {
+        "name": "UBS Group AG Registered Shares",
+        "weight": 2.76,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG",
+        "weight": 2.7,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC",
+        "weight": 2.56,
+        "sector": null
+      },
+      {
+        "name": "Citizens Financial Group Inc",
+        "weight": 2.51,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.44
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Este Fondo trata de maximizar el crecimiento del capital, expresado en dólares estadounidenses, invirtiendo en valores de renta variable cotizados de empresas con una presencia significativa en el sector financiero."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_FINANCIALS",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:financials",
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 94.61,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.43,
+        "bond": 0.09,
+        "cash": 0.48,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 2.6846,
+        "financial_services": 94.0707,
+        "industrials": 2.088,
+        "real_estate": 0.5767
+      },
+      "equity_regions_total": {
+        "united_states": 56.695,
+        "latin_america": 7.3379,
+        "united_kingdom": 7.4374,
+        "eurozone": 15.3818,
+        "europe_ex_euro": 6.463,
+        "europe_emerging": 1.4616,
+        "middle_east": 2.1576,
+        "asia_emerging": 2.4957
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.43,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 19.1602,
+          "mid": 34.2039,
+          "large": 46.0659
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_FINANCIALS",
+    "commercial_type": "RV Sector Finanzas",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:financials",
+      "sector:financials"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9943,
+      "bond": 0.0009,
+      "cash": 0.0048,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.56695,
+      "latin_america": 0.073379,
+      "united_kingdom": 0.074374,
+      "eurozone": 0.153818,
+      "europe_ex_euro": 0.06463,
+      "europe_emerging": 0.014616,
+      "middle_east": 0.021576,
+      "asia_emerging": 0.024957
+    },
+    "sectors": {
+      "technology": 0.017055,
+      "financial_services": 0.597614,
+      "industrials": 0.013265,
+      "real_estate": 0.366367
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.191602,
+      "mid": 0.342039,
+      "large": 0.460659
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.43",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.09,max_component=99.43"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "07ab54015a6fc2227c23e2b4735e4d76",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9943,
+          "bond": 0.0009,
+          "cash": 0.0048,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9943
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.994301
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9943
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:40:50.522Z"
+}

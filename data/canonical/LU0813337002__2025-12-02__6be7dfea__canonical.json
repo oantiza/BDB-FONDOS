@@ -1,0 +1,323 @@
+{
+  "isin": "LU0813337002",
+  "name": "DWS Invest Latin American Equities NC",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013750.pdf",
+  "stableBaseName": "LU0813337002__2025-12-02__6be7dfea",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Latinoamérica",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 94.41,
+        "bond": 0,
+        "cash": 5.59,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 1.12,
+      "financial_services": 28.97,
+      "industrials": 12.56,
+      "healthcare": 3.04,
+      "consumer_cyclical": 3.19,
+      "consumer_defensive": 2.96,
+      "utilities": 12.86,
+      "energy": 7.99,
+      "communication_services": 1.51,
+      "real_estate": 8.12,
+      "basic_materials": 17.66
+    },
+    "regions": {
+      "macro": {
+        "americas": 100
+      },
+      "detail": {
+        "united_states": 1.44,
+        "latin_america": 98.56
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.61,
+        "large": 39.41,
+        "mid": 17.36,
+        "small": 0.11,
+        "micro": 0.51
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Grupo Mexico SAB de CV Class B",
+        "weight": 4.64,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Centrais Eletricas Brasileiras...",
+        "weight": 3.79,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Itau Unibanco Holding SA...",
+        "weight": 3.3,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Bank Bradesco SA ADR",
+        "weight": 3.27,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 3.18,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Fibra Uno Administracion SA de...",
+        "weight": 2.96,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Nu Holdings Ltd Ordinary...",
+        "weight": 2.93,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Companhia De Saneamento Basico...",
+        "weight": 2.91,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Localiza Rent A Car SA",
+        "weight": 2.76,
+        "sector": "Industria"
+      },
+      {
+        "name": "Itau Unibanco Holding SA ADR",
+        "weight": 2.46,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 71,
+      "holdings_count_bond": 0,
+      "top10_weight": 32.21
+    },
+    "costs": {
+      "management_fee": 2.2
+    },
+    "objective": "The objective of the investment policy for the fund is to achieve an above-average return. At least 70% of the sub-fund's assets are invested in equities, stock certificates, participation and dividend right certificates, convertible bonds and equity warrants issued by companies registered in a Latin-American country (or having their principal business activity in a Latin-American country or which, as holding companies, hold primarily interest in companies registered in a Latin-American country such as e.g. Argentina,..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "sector:financials",
+      "theme:income"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 28.97,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 94.41,
+        "bond": 0,
+        "cash": 5.59,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 1.0574,
+        "financial_services": 27.3506,
+        "industrials": 11.8579,
+        "healthcare": 2.8701,
+        "consumer_cyclical": 3.0117,
+        "consumer_defensive": 2.7945,
+        "utilities": 12.1411,
+        "energy": 7.5434,
+        "communication_services": 1.4256,
+        "real_estate": 7.6661,
+        "basic_materials": 16.6728
+      },
+      "equity_regions_total": {
+        "united_states": 1.3595,
+        "latin_america": 93.0505
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 94.41,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 0.5853,
+          "mid": 16.3896,
+          "large": 77.4351
+        },
+        "style_weights_total": {
+          "blend": 94.41
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Latinoamérica",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9441,
+      "bond": 0,
+      "cash": 0.0559,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.013595,
+      "latin_america": 0.930505
+    },
+    "sectors": {
+      "technology": 0.010576,
+      "financial_services": 0.27356,
+      "industrials": 0.118603,
+      "healthcare": 0.028707,
+      "consumer_cyclical": 0.030123,
+      "consumer_defensive": 0.027951,
+      "utilities": 0.121435,
+      "energy": 0.075449,
+      "communication_services": 0.014259,
+      "real_estate": 0.076676,
+      "basic_materials": 0.166761
+    },
+    "equity_styles": {
+      "blend": 0.9441
+    },
+    "market_caps": {
+      "small": 0.362694,
+      "mid": 0.101562,
+      "large": 0.479844
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=94.41"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "b36bde8c576aa5ba7150b033b43c0393",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9441,
+          "bond": 0,
+          "cash": 0.0559,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9441
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9441
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9441
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9441
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:03:17.048Z"
+}

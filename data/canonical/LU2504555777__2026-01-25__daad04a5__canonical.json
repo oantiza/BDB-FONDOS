@@ -1,0 +1,381 @@
+{
+  "isin": "LU2504555777",
+  "name": "Fidelity Funds - Global Industrials Fund A-Acc-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091402.pdf",
+  "stableBaseName": "LU2504555777__2026-01-25__daad04a5",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Sector Materiales Insustriales",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.89,
+        "bond": 0.05,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 6.83,
+      "industrials": 44.79,
+      "consumer_cyclical": 4.73,
+      "energy": 20.11,
+      "basic_materials": 23.53
+    },
+    "regions": {
+      "macro": {
+        "americas": 59.26,
+        "europe_me_africa": 27.34,
+        "asia": 13.39
+      },
+      "detail": {
+        "other": 87.16,
+        "united_states": 50.96,
+        "canada": 7.73,
+        "latin_america": 0.58,
+        "united_kingdom": 4.1,
+        "eurozone": 17.09,
+        "europe_ex_euro": 5.49,
+        "middle_east": 0.67,
+        "asia": 13.39,
+        "japan": 9.74,
+        "australasia": 2.22,
+        "asia_emerging": 0.87
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 18.72,
+        "large": 28.71,
+        "mid": 43.09,
+        "small": 8.44,
+        "micro": 1.04
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 2.92,
+        "sector": "Energy"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 2.78,
+        "sector": "Energy"
+      },
+      {
+        "name": "Union Pacific Corp",
+        "weight": 2.77,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 2.58,
+        "sector": "Industrials"
+      },
+      {
+        "name": "CSX Corp",
+        "weight": 2.56,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.56,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Teledyne Technologies Inc",
+        "weight": 2.5,
+        "sector": "Technology"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 2.36,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Daikin Industries Ltd",
+        "weight": 2.27,
+        "sector": "Industrials"
+      },
+      {
+        "name": "L3Harris Technologies Inc",
+        "weight": 2.25,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 79,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.54
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo pretende ofrecer a los inversores un crecimiento del capital a largo plazo invirtiendo principalmente en títulos de renta variable de empresas de todo el mundo dedicadas a la investigación, desarrollo, fabricación, distribución, suministro o venta de materiales, equipos, productos o servicios relacionados con industrias cíclicas y de recursos naturales."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_INDUSTRIALS",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:industrials",
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 44.79,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.89,
+        "bond": 0.05,
+        "cash": 0.06,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 6.8225,
+        "industrials": 44.7407,
+        "consumer_cyclical": 4.7248,
+        "energy": 20.0879,
+        "basic_materials": 23.5041
+      },
+      "equity_regions_total": {
+        "other": 87.0641,
+        "united_states": 50.9039,
+        "canada": 7.7215,
+        "latin_america": 0.5794,
+        "united_kingdom": 4.0955,
+        "eurozone": 17.0712,
+        "europe_ex_euro": 5.484,
+        "middle_east": 0.6693,
+        "asia": 13.3753,
+        "japan": 9.7293,
+        "australasia": 2.2176,
+        "asia_emerging": 0.869
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.89,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 9.4696,
+          "mid": 43.0426,
+          "large": 47.3778
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_INDUSTRIALS",
+    "commercial_type": "RV Sector Materiales Insustriales",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:industrials",
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9989,
+      "bond": 0.0005,
+      "cash": 0.0006,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.212412,
+      "united_states": 0.124191,
+      "canada": 0.018838,
+      "latin_america": 0.141357,
+      "united_kingdom": 0.009992,
+      "eurozone": 0.041649,
+      "europe_ex_euro": 0.013379,
+      "middle_east": 0.16329,
+      "asia": 0.032632,
+      "japan": 0.023737,
+      "australasia": 0.00541,
+      "asia_emerging": 0.212012
+    },
+    "sectors": {
+      "technology": 0.068232,
+      "industrials": 0.447452,
+      "consumer_cyclical": 0.047253,
+      "energy": 0.200899,
+      "basic_materials": 0.235065
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.094696,
+      "mid": 0.430426,
+      "large": 0.473778
+    },
+    "bond_types": {
+      "flexible": 0.0005
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0005
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.89",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.05,max_component=99.89",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "d2852f5081fc454c9c65e51af1d67437",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9989,
+          "bond": 0.0005,
+          "cash": 0.0006,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.998899
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.998901
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9989
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0005
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0005
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:49:59.123Z"
+}

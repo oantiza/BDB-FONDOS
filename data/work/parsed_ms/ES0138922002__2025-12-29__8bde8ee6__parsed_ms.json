@@ -1,0 +1,127 @@
+{
+  "isin": "ES0138922002",
+  "fileName": "morningstarreport20251229072933.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:34.701Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Fixed Term Bond",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 89.08,
+        "cash": 10.92,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 16.67,
+        "3_5": 16.67,
+        "5_7": 33.33,
+        "7_10": 16.67,
+        "over_10": 16.67
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 83.33,
+        "4_6": 16.67,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.91%2025-12-01",
+        "weight": 14.85,
+        "sector": null
+      },
+      {
+        "name": "Volkswagen Bank GmbH 1.25%2025-12-15",
+        "weight": 4.29,
+        "sector": null
+      },
+      {
+        "name": "McDonald's Corp. 2.88%2025-12-17",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "Linde Inc. 1.63%2025-12-01",
+        "weight": 2.89,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 99.21
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "Invierte el 100% de la exposición total en renta fija principalmente privada y minoritariamente pública, incluyendo depósitos, instrumentos del mercado monetario cotizados o no, líquidos y hasta un 25% en deuda subordinada (derecho de cobro posterior a acreedores comunes). Los emisores/mercados serán OCDE (excluyendo emergentes) con al menos mediana calidad crediticia (mínimo BBB-) o la del Reino de España si fuera inferior, y hasta un 10% en baja calidad (inferior BBB-) o sin rating. Si hay bajadas sobrevenidas de..."
+  }
+}

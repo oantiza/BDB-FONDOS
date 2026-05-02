@@ -1,0 +1,123 @@
+{
+  "isin": "LU0289214628",
+  "fileName": "morningstarreport20251202041757.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:09.303Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 88.34,
+        "bond": 0.41,
+        "cash": 10.68,
+        "other": 0.57
+      }
+    },
+    "sectors": {
+      "technology": 9.95,
+      "financial_services": 22.97,
+      "industrials": 21.83,
+      "healthcare": 10.88,
+      "consumer_cyclical": 9.26,
+      "consumer_defensive": 5.57,
+      "utilities": 3.08,
+      "energy": 3.52,
+      "communication_services": 6.66,
+      "real_estate": 1.92,
+      "basic_materials": 4.37
+    },
+    "regions": {
+      "macro": {
+        "americas": 3.46,
+        "europe_me_africa": 96.54
+      },
+      "detail": {
+        "united_states": 2.13,
+        "canada": 0.42,
+        "latin_america": 0.91,
+        "united_kingdom": 12.38,
+        "eurozone": 53.78,
+        "europe_ex_euro": 30.37
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 39.71,
+        "large": 24.24,
+        "mid": 28.3,
+        "small": 7.75,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "JPM EUR lqdty LVNAV X (T0 acc.)",
+        "weight": 9.52,
+        "sector": null
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.36,
+        "sector": "technology"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.61,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 1.8,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 1.71,
+        "sector": "healthcare"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 1.71,
+        "sector": "technology"
+      },
+      {
+        "name": "Deutsche Telekom AG",
+        "weight": 1.66,
+        "sector": "communication_services"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 1.47,
+        "sector": "financial_services"
+      },
+      {
+        "name": "HSBC Holdings PLC",
+        "weight": 1.29,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 1.2,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 207,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.33
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo mediante la búsqueda de riesgo frente a empresas europeas mediante inversiones directas en títulos de esas empresas y por medio del uso de instrumentos derivados financieros."
+  }
+}

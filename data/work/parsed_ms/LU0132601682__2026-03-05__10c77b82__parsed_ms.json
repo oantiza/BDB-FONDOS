@@ -1,0 +1,122 @@
+{
+  "isin": "LU0132601682",
+  "fileName": "morningstarreport20260305031716.pdf",
+  "report_date": "2026-03-05",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:55:10.266Z",
+  "ms": {
+    "report_date": "2026-03-05",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.21,
+        "cash": 2.33,
+        "other": 0.46
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 4.76,
+      "effective_maturity": 5.15,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 2.48,
+        "aa": 1.7,
+        "a": 32.97,
+        "bbb": 58.98,
+        "bb": 2.91,
+        "b": 0.08,
+        "below_b": 0,
+        "not_rated": 0.88
+      },
+      "maturity_allocation": {
+        "1_3": 8.52,
+        "3_5": 18.87,
+        "5_7": 24.31,
+        "7_10": 21.17,
+        "over_10": 25.43
+      },
+      "coupon_allocation": {
+        "0": 0.42,
+        "0_4": 70.13,
+        "4_6": 26.51,
+        "over_6": 2.94
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "MS Liquidity Fds Euro GovLiqMSRsrvEURInc",
+        "weight": 2.08,
+        "sector": null
+      },
+      {
+        "name": "The Toronto-Dominion Bank",
+        "weight": 0.67,
+        "sector": null
+      },
+      {
+        "name": "GA Global Funding Trust",
+        "weight": 0.56,
+        "sector": null
+      },
+      {
+        "name": "UBS Group AG",
+        "weight": 0.53,
+        "sector": null
+      },
+      {
+        "name": "UBS Group AG",
+        "weight": 0.52,
+        "sector": null
+      },
+      {
+        "name": "Pernod Ricard SA",
+        "weight": 0.51,
+        "sector": null
+      },
+      {
+        "name": "Bayer AG",
+        "weight": 0.49,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs Group, Inc.",
+        "weight": 0.47,
+        "sector": null
+      },
+      {
+        "name": "U.S. Bancorp.",
+        "weight": 0.46,
+        "sector": null
+      },
+      {
+        "name": "QNB Finance Ltd",
+        "weight": 0.45,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 538,
+      "top10_weight": 6.74
+    },
+    "costs": {
+      "management_fee": 0.8
+    },
+    "objective": "El objetivo de inversión del Euro Corporate Bond Fund es proporcionar una tasa de rentabilidad atractiva, cifrada en Euros, invirtiendo, principalmente, en valores de renta fija de elevada calidad denominados en Euros y emitidos por empresas y emisores no gubernamentales."
+  }
+}

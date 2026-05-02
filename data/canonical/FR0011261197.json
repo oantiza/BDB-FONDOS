@@ -1,0 +1,344 @@
+{
+  "isin": "FR0011261197",
+  "name": "R-co Valor F EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260220050352.pdf",
+  "stableBaseName": "FR0011261197__2026-02-20__ba8b2aad",
+  "report_date": "2026-02-20",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 71.89,
+        "bond": 2.73,
+        "cash": 25.05,
+        "other": 0.33
+      }
+    },
+    "sectors": {
+      "technology": 14.7,
+      "financial_services": 10.71,
+      "industrials": 14.07,
+      "healthcare": 11.49,
+      "consumer_cyclical": 15.25,
+      "consumer_defensive": 0.79,
+      "utilities": 2.11,
+      "energy": 1.05,
+      "communication_services": 12.03,
+      "real_estate": 0.54,
+      "basic_materials": 17.26
+    },
+    "regions": {
+      "macro": {
+        "americas": 58.81,
+        "europe_me_africa": 18.31,
+        "asia": 22.88
+      },
+      "detail": {
+        "other": 77.12,
+        "united_states": 40.48,
+        "canada": 12.58,
+        "latin_america": 5.75,
+        "united_kingdom": 2.64,
+        "eurozone": 12.8,
+        "europe_ex_euro": 2.87,
+        "asia": 22.88,
+        "asia_emerging": 22.88
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "RMM Court Terme IC",
+        "weight": 4.95,
+        "sector": null
+      },
+      {
+        "name": "RMM Trésorerie 6M I EUR",
+        "weight": 4.47,
+        "sector": null
+      },
+      {
+        "name": "Ivanhoe Mines Ltd Class A",
+        "weight": 2.44,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Freeport-McMoRan Inc",
+        "weight": 2.41,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 2.34,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 2.29,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Grab Holdings Ltd Class A",
+        "weight": 2.22,
+        "sector": "technology"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.15,
+        "sector": "industrials"
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 2.11,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 2.1,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 48,
+      "holdings_count_bond": 2,
+      "top10_weight": 27.47
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": "The objective of R-co Valor is to seek performance from investments in global equity and fixed-income markets by implementing a discretionary management approach based primarily on the selection of financial instruments on the basis of a financial analysis of issuers."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:financials",
+      "theme:income"
+    ],
+    "top_sector": "basic_materials",
+    "top_sector_weight": 17.26,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 71.89,
+        "bond": 2.73,
+        "cash": 25.05,
+        "other": 0.33
+      },
+      "equity_sectors_total": {
+        "technology": 10.5678,
+        "financial_services": 7.6994,
+        "industrials": 10.1149,
+        "healthcare": 8.2602,
+        "consumer_cyclical": 10.9632,
+        "consumer_defensive": 0.5679,
+        "utilities": 1.5169,
+        "energy": 0.7548,
+        "communication_services": 8.6484,
+        "real_estate": 0.3882,
+        "basic_materials": 12.4082
+      },
+      "equity_regions_total": {
+        "other": 55.4416,
+        "united_states": 29.1011,
+        "canada": 9.0438,
+        "latin_america": 4.1337,
+        "united_kingdom": 1.8979,
+        "eurozone": 9.2019,
+        "europe_ex_euro": 2.0632,
+        "asia": 16.4484,
+        "asia_emerging": 16.4484
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 71.89,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "large": 71.89
+        },
+        "style_weights_total": {
+          "blend": 71.89
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Flexibles EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:financials",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.7189,
+      "bond": 0.0273,
+      "cash": 0.2505,
+      "other": 0.0033
+    },
+    "equity_regions": {
+      "other": 0.277208,
+      "united_states": 0.145505,
+      "canada": 0.045219,
+      "latin_america": 0.020668,
+      "united_kingdom": 0.009489,
+      "eurozone": 0.04601,
+      "europe_ex_euro": 0.010316,
+      "asia": 0.082242,
+      "asia_emerging": 0.082242
+    },
+    "sectors": {
+      "technology": 0.031488,
+      "financial_services": 0.022942,
+      "industrials": 0.030139,
+      "healthcare": 0.024613,
+      "consumer_cyclical": 0.032667,
+      "consumer_defensive": 0.169215,
+      "utilities": 0.00452,
+      "energy": 0.224905,
+      "communication_services": 0.025769,
+      "real_estate": 0.11567,
+      "basic_materials": 0.036972
+    },
+    "equity_styles": {
+      "blend": 0.7189
+    },
+    "market_caps": {
+      "large": 0.7189
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=71.89",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.33,max_component=71.89"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "b0e9aabf975585b31049496aea05c142",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.7189,
+          "bond": 0.0273,
+          "cash": 0.2505,
+          "other": 0.0033,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.718899
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7189
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7189
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7189
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:53:50.685Z"
+}

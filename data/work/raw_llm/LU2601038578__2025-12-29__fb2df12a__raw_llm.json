@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:44:51.700Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU2601038578",
+    "name": "Invesco Funds - Invesco Global Founders & Owners Fund A Accumulation EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "30 sep. 2025",
+    "asset_allocation": {
+      "equity": 88.79,
+      "bond": 0.01,
+      "cash": 1.51,
+      "other": 9.69
+    },
+    "regions_macro": {
+      "americas": 65.8,
+      "europe_me_africa": 20.44,
+      "asia": 13.76
+    },
+    "regions_detail": {
+      "Estados Unidos": 54.31,
+      "Canadá": 8.66,
+      "Iberoamérica": 2.83,
+      "Reino Unido": 4.58,
+      "Zona Euro": 7.51,
+      "Europa - ex Euro": 8.36,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 2.33,
+      "Asia - Emergente": 11.43
+    },
+    "sectors": {
+      "technology": 26.54,
+      "financial_services": 5.82,
+      "industrials": 25.52,
+      "healthcare": 13.68,
+      "consumer_cyclical": 13.18,
+      "consumer_defensive": 2.35,
+      "utilities": 0,
+      "energy": 2.58,
+      "communication_services": 9.77,
+      "real_estate": 0,
+      "basic_materials": 0.56
+    },
+    "equity_market_cap": {
+      "giant": 47.89,
+      "large": 14.98,
+      "mid": 28.92,
+      "small": 8.21,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": "Large-Growth",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "3i Group Ord",
+        "weight": 9.69,
+        "sector": null
+      },
+      {
+        "name": "Viking Holdings Ltd",
+        "weight": 6.77,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 6.43,
+        "sector": null
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 5.79,
+        "sector": null
+      },
+      {
+        "name": "Lifco AB Class B",
+        "weight": 5.13,
+        "sector": null
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 4.36,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 4.32,
+        "sector": null
+      },
+      {
+        "name": "Canadian Pacific Kansas City Ltd",
+        "weight": 4.27,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 4.18,
+        "sector": null
+      },
+      {
+        "name": "Recordati SpA Az nom Post...",
+        "weight": 3.78,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 31,
+      "holdings_count_bond": 0,
+      "top10_weight": 54.72
+    },
+    "costs": {
+      "management_fee": 1.4
+    },
+    "objective": "The objective of the Fund is to achieve long-term capital growth. The Fund intends to achieve its objective by investing primarily in a concentrated portfolio of global equities issued by companies whose management or board contains (i) company founders and/or (ii) individuals with material share ownership. Up to 10% of the NAV of the Fund may be exposed to China A shares listed on the Shanghai or Shenzhen Stock Exchanges, via Stock Connect. Up to 30% of the NAV of the Fund may be invested in aggregate in Money Market..."
+  }
+}

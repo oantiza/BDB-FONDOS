@@ -1,0 +1,350 @@
+{
+  "isin": "ES0165243025",
+  "name": "Myinvestor Value C FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202041027.pdf",
+  "stableBaseName": "ES0165243025__2025-12-02__c6af19c4",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 95.74,
+        "bond": 1.87,
+        "cash": 0,
+        "other": 2.39
+      }
+    },
+    "sectors": {
+      "technology": 8.97,
+      "industrials": 24.29,
+      "consumer_cyclical": 12.34,
+      "consumer_defensive": 4.21,
+      "energy": 13.66,
+      "basic_materials": 36.54
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 99.53,
+        "asia": 0.47
+      },
+      "detail": {
+        "united_kingdom": 16.62,
+        "eurozone": 78.14,
+        "europe_ex_euro": 4.77,
+        "asia_emerging": 0.47
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 41.69,
+        "small": 51.15,
+        "micro": 7.16
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Verbio SE",
+        "weight": 7.07,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "DCC PLC",
+        "weight": 5.48,
+        "sector": "energy"
+      },
+      {
+        "name": "Fuchs SE Participating Preferred",
+        "weight": 5.22,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Alten",
+        "weight": 5.18,
+        "sector": "technology"
+      },
+      {
+        "name": "Aalberts NV",
+        "weight": 5.11,
+        "sector": "industrials"
+      },
+      {
+        "name": "Vallourec SA",
+        "weight": 5.09,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Fugro NV",
+        "weight": 4.88,
+        "sector": "energy"
+      },
+      {
+        "name": "Forvia SE",
+        "weight": 4.78,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "easyJet PLC",
+        "weight": 4.59,
+        "sector": "industrials"
+      },
+      {
+        "name": "Husqvarna AB Class B",
+        "weight": 3.97,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 0,
+      "top10_weight": 51.37
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "El objetivo de gestión del fondo es obtener una rentabilidad satisfactoria y sostenida en el tiempo, con un tipo de gestión de \"inversión en valor\", seleccionando activos infravalorados por el mercado con un alto potencial de revalorización. Se invierte, directamente, más del 75% de la exposición total en renta variable de cualquier sector y capitalización, lo que puede influir negativamente en la liquidez del fondo. La parte no invertida en renta variable estará expuesta a renta fija pública..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:materials"
+    ],
+    "top_sector": "basic_materials",
+    "top_sector_weight": 36.54,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 95.74,
+        "bond": 1.87,
+        "cash": 0,
+        "other": 2.39
+      },
+      "equity_sectors_total": {
+        "technology": 8.5879,
+        "industrials": 23.2552,
+        "consumer_cyclical": 11.8143,
+        "consumer_defensive": 4.0307,
+        "energy": 13.0781,
+        "basic_materials": 34.9834
+      },
+      "equity_regions_total": {
+        "united_kingdom": 15.912,
+        "eurozone": 74.8112,
+        "europe_ex_euro": 4.5668,
+        "asia_emerging": 0.45
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 95.74,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 55.826,
+          "mid": 39.914
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Pequeña",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:materials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9574,
+      "bond": 0.0187,
+      "cash": 0,
+      "other": 0.0239
+    },
+    "equity_regions": {
+      "united_kingdom": 0.10859,
+      "eurozone": 0.510544,
+      "europe_ex_euro": 0.031166,
+      "asia_emerging": 0.3071
+    },
+    "sectors": {
+      "technology": 0.08587,
+      "industrials": 0.232529,
+      "consumer_cyclical": 0.118131,
+      "consumer_defensive": 0.040303,
+      "energy": 0.130768,
+      "basic_materials": 0.349799
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.55826,
+      "mid": 0.39914
+    },
+    "bond_types": {
+      "corporate": 0.0187
+    },
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=95.74",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "2fff7d27b78a1f879ce4f9b8d2cfc0f8",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9574,
+          "bond": 0.0187,
+          "cash": 0,
+          "other": 0.0239,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9574
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9574
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9574
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0187
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:14:28.724Z"
+}

@@ -1,0 +1,356 @@
+{
+  "isin": "LU1697016019",
+  "name": "Sigma Investment House FCP - Selection AggressiveClass A EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229071959.pdf",
+  "stableBaseName": "LU1697016019__2025-12-29__5aaec659",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 89.68,
+        "bond": 0.19,
+        "cash": 9.8,
+        "other": 0.33
+      }
+    },
+    "sectors": {
+      "technology": 19.77,
+      "financial_services": 14.51,
+      "industrials": 15.02,
+      "healthcare": 9.21,
+      "consumer_cyclical": 12.45,
+      "consumer_defensive": 6.66,
+      "utilities": 2.38,
+      "energy": 3.06,
+      "communication_services": 8.01,
+      "real_estate": 1.29,
+      "basic_materials": 7.67
+    },
+    "regions": {
+      "macro": {
+        "americas": 62.69,
+        "europe_me_africa": 23.75,
+        "asia": 13.56
+      },
+      "detail": {
+        "other": 89.1,
+        "united_states": 60.79,
+        "canada": 1.06,
+        "latin_america": 0.84,
+        "united_kingdom": 5.31,
+        "eurozone": 13.24,
+        "europe_ex_euro": 4.13,
+        "europe_emerging": 0.49,
+        "middle_east": 0.59,
+        "asia": 13.56,
+        "japan": 7.02,
+        "australasia": 0.34,
+        "asia_emerging": 3.54
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Robeco BP Global Premium Eqs...",
+        "weight": 8.61,
+        "sector": null
+      },
+      {
+        "name": "Ossiam Shiller BclyCp®US...",
+        "weight": 7.54,
+        "sector": null
+      },
+      {
+        "name": "Eleva European Selection I EUR...",
+        "weight": 7.39,
+        "sector": null
+      },
+      {
+        "name": "Magallanes V.I. UCITS European...",
+        "weight": 6.87,
+        "sector": null
+      },
+      {
+        "name": "AB Select US Equity I EUR H",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Select Equity I...",
+        "weight": 6.08,
+        "sector": null
+      },
+      {
+        "name": "Capital Group New Pers (LUX)...",
+        "weight": 5.18,
+        "sector": null
+      },
+      {
+        "name": "Findlay Park American I EUR Acc",
+        "weight": 4.94,
+        "sector": null
+      },
+      {
+        "name": "abrdn Liquidity-Euro Fund L-2...",
+        "weight": 4.82,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 Equal Weight...",
+        "weight": 4.81,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 62.51
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to achieve a combination of income and long-term capital appreciation, with a maximum annualized volatility, under normal market conditions, of 30%. There is however no guarantee that this objective will be achieved."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "theme:income"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 19.77,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 89.68,
+        "bond": 0.19,
+        "cash": 9.8,
+        "other": 0.33
+      },
+      "equity_sectors_total": {
+        "technology": 17.7297,
+        "financial_services": 13.0126,
+        "industrials": 13.4699,
+        "healthcare": 8.2595,
+        "consumer_cyclical": 11.1652,
+        "consumer_defensive": 5.9727,
+        "utilities": 2.1344,
+        "energy": 2.7442,
+        "communication_services": 7.1834,
+        "real_estate": 1.1569,
+        "basic_materials": 6.8785
+      },
+      "equity_regions_total": {
+        "other": 79.9049,
+        "united_states": 54.5165,
+        "canada": 0.9506,
+        "latin_america": 0.7533,
+        "united_kingdom": 4.762,
+        "eurozone": 11.8736,
+        "europe_ex_euro": 3.7038,
+        "europe_emerging": 0.4394,
+        "middle_east": 0.5291,
+        "asia": 12.1606,
+        "japan": 6.2955,
+        "australasia": 0.3049,
+        "asia_emerging": 3.1747
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 89.68,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 89.68
+        },
+        "style_weights_total": {
+          "blend": 89.68
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Agresivos EUR",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.8968,
+      "bond": 0.0019,
+      "cash": 0.098,
+      "other": 0.0033
+    },
+    "equity_regions": {
+      "other": 0.15114,
+      "united_states": 0.103118,
+      "canada": 0.179806,
+      "latin_america": 0.142487,
+      "united_kingdom": 0.009007,
+      "eurozone": 0.022459,
+      "europe_ex_euro": 0.007006,
+      "europe_emerging": 0.083112,
+      "middle_east": 0.100079,
+      "asia": 0.023002,
+      "japan": 0.011908,
+      "australasia": 0.057672,
+      "asia_emerging": 0.006005
+    },
+    "sectors": {
+      "technology": 0.177244,
+      "financial_services": 0.130087,
+      "industrials": 0.134658,
+      "healthcare": 0.08257,
+      "consumer_cyclical": 0.111618,
+      "consumer_defensive": 0.059709,
+      "utilities": 0.021338,
+      "energy": 0.027434,
+      "communication_services": 0.071812,
+      "real_estate": 0.011566,
+      "basic_materials": 0.068764
+    },
+    "equity_styles": {
+      "blend": 0.8968
+    },
+    "market_caps": {
+      "mid": 0.8968
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=89.68",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.19,max_component=89.68"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "e7c796cfb46ae536457f4c8dd1d500d2",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.01",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.8968,
+          "bond": 0.0019,
+          "cash": 0.098,
+          "other": 0.0033,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.896801
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8968
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8968
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8968
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:44:08.618Z"
+}

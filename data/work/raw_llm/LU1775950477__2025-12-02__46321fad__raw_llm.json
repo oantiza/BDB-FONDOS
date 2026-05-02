@@ -1,0 +1,161 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:03:45.650Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1775950477",
+    "name": "Invesco Funds - Invesco Asian Equity Fund E Accumulation EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 95.93,
+      "bond": 0.12,
+      "cash": 3.86,
+      "other": 0.08
+    },
+    "regions_macro": {
+      "americas": 1.06,
+      "europe_me_africa": 2.2,
+      "asia": 96.74
+    },
+    "regions_detail": {
+      "Estados Unidos": 1.06,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Reino Unido": 1.86,
+      "Zona Euro": 0,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0.34,
+      "Japón": 0,
+      "Australasia": 0.95,
+      "Asia - Desarrollada": 43.19,
+      "Asia - Emergente": 52.59
+    },
+    "sectors": {
+      "technology": 31.01,
+      "financial_services": 22.51,
+      "industrials": 5.62,
+      "healthcare": 0.74,
+      "consumer_cyclical": 12.59,
+      "consumer_defensive": 5.64,
+      "utilities": 2.07,
+      "energy": 0.97,
+      "communication_services": 13.04,
+      "real_estate": 1.86,
+      "basic_materials": 3.97
+    },
+    "equity_market_cap": {
+      "giant": 57.71,
+      "large": 37.39,
+      "mid": 3.78,
+      "small": 1.1,
+      "micro": 0.02
+    },
+    "equity_style": {
+      "value": null,
+      "blend": null,
+      "growth": null
+    },
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.78,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 7.2,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 6.34,
+        "sector": "technology"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 4.17,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 3.72,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.54,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Kasikornbank Public Co Ltd",
+        "weight": 3.02,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Invesco US Dollar Liqdty Port...",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "NetEase Inc Ordinary Shares",
+        "weight": 2.37,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd...",
+        "weight": 2.32,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 45.4
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "El objetivo del Fondo es conseguir una revalorización a largo plazo del capital. El Fondo pretende alcanzar este objetivo invirtiendo principalmente en renta variable o valores vinculados a renta variable de (i) empresas y otras entidades con su domicilio social en un país asiático, (ii) empresas y otras entidades con su domicilio social fuera de Asia pero que lleven a cabo su actividad empresarial predominantemente en uno o más países asiáticos o (iii) sociedades de cartera, cuyas participaciones se mantengan..."
+  }
+}

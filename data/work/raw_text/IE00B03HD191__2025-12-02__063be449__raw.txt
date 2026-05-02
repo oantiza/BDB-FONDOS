@@ -1,0 +1,207 @@
+
+
+Informe a 2 diciembre 2025
+Vanguard Global Stock Index Fund EUR Acc
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Morningstar Global Target
+Market Exposure NR USD
+Usado a lo largo del informe
+MSCI World NR USD
+QQQQ
+RV Global Cap. Grande Blend
+ 
+Objetivo de inversión
+ 
+The Fund seeks to provide long-term growth of capital
+by tracking the performance of the Index. To the extent
+practicable, the Fund uses a full replication strategy to
+select securities, so that the Fund invests in all the
+constituents of the Index, making the weight of such
+investments approximate those of the Index.
+10.0K
+12.5
+15.0
+17.5
+20.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2020202120222023202411/25Rentabilidad
+6,2530,98-12,8519,5426,507,08Fondo
+-0,013,41-0,181,541,47-0,86+/- Índice
+1,575,121,364,096,731,76+/- Categoría
+*&*&&*
+Cuartil
+Medidas de riesgo
+Alfa 3a0,12
+Beta 3a1,03
+R²99,18
+Rátio de Inf.0,43
+Tracking Error1,12
+Sharpe 3a0,95
+Volatilidad11,93
+Riesgo 3amed
+Riesgo 5amed
+Riesgo 10amed
+Los cálculos usan Morningstar Global TME NR USD (donde sea aplicable)
+Rentab. acum. %
+(1 dic. 2025)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+5,82
+11,15
+5,66
+14,52
+13,25
+-0,41
+-0,62
+-1,18
+0,45
+0,85
+1,11
+2,67
+1,48
+3,46
+3,29
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+2025-5,882,577,12-
+202411,323,462,107,58
+20235,886,35-0,576,77
+2022-3,08-10,790,070,72
+20219,226,772,309,80
+ 
+Cartera31 oct. 2025
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones99,930,0099,93
+Obligaciones0,000,000,00
+Efectivo0,000,000,00
+Otro0,070,000,07
+Style Box™ de RV de Morningstar% RV
+ 
+Estilo
+Valor  Mixto Crecimiento
+Peq.
+Med.
+GrandeTamaño
+Gigante47,33
+Grande34,99
+Mediano17,06
+Pequeño0,62
+Micro0,00
+ 
+CMMUSD 261370
+AméricaEuropaAsia
+<2525-5050-75>75
+10 mayores posicionesSector% cart
+NVIDIA Corp
+a
+6,01
+Apple Inc
+a
+4,91
+Microsoft Corp
+a
+4,45
+Amazon.com Inc
+t
+2,84
+Broadcom Inc
+a
+2,01
+ 
+ 
+Alphabet Inc Class A
+i
+2,00
+Meta Platforms Inc Class A
+i
+1,71
+Alphabet Inc Class C
+i
+1,68
+Tesla Inc
+t
+1,61
+JPMorgan Chase & Co
+y
+1,05
+ 
+ 
+Número total de acciones1329
+Número total de bonos0
+% de activos en las 10 mayores posiciones28,28
+Distribución por sectores% RV
+h Cíclico
+30,75
+r Materiales Básicos2,91
+t Consumo Cíclico10,15
+y Servicios Financieros15,83
+u Inmobiliario1,85
+ 
+ 
+j Sensible al ciclo
+52,29
+i Servicios de Comunicación8,87
+o Energía3,36
+p Industria10,53
+a Tecnología29,53
+ 
+ 
+k Defensivo
+16,96
+s Consumo Defensivo5,21
+d Salud9,23
+f Servicios Públicos2,53
+Desglose por regiones% RV
+América76,15
+Estados Unidos72,75
+Canadá3,26
+Iberoamérica0,14
+Europa/O. Medio/Africa15,72
+Reino Unido3,47
+Zona Euro8,25
+Europa - ex Euro3,80
+Europa emergente0,00
+Oriente Medio / África0,19
+Asia8,13
+Japón5,49
+Australasia1,64
+Asia - Desarrollada0,95
+Asia - Emergente0,05
+ 
+Operaciones
+ 
+Gestora del fondoVanguard Group (Ireland)...
+Fecha Creación10 dic. 2002
+Nombre del gestorNot Disclosed
+Fecha de incorporación4 ago. 1998
+VL (1 dic. 2025)EUR 55,23
+Patrimonio (Mill)USD 24727,36
+DomicilioIrlanda
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINIE00B03HD191
+Inversión mínima
+Inversión mínima adicional
+Comisión de gestión0,18%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2025 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

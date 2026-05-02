@@ -1,0 +1,339 @@
+{
+  "isin": "LU1213836080",
+  "name": "Fidelity Funds - Global Technology Fund A-Acc-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125430.pdf",
+  "stableBaseName": "LU1213836080__2025-12-02__5ce7c49f",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.2,
+        "bond": 0.19,
+        "cash": 0.13,
+        "other": 1.49
+      }
+    },
+    "sectors": {
+      "technology": 71.61,
+      "financial_services": 0.98,
+      "industrials": 3.9,
+      "consumer_cyclical": 8.84,
+      "consumer_defensive": 0.06,
+      "energy": 1.4,
+      "communication_services": 10.52,
+      "real_estate": 2.7
+    },
+    "regions": {
+      "macro": {
+        "americas": 59.6,
+        "europe_me_africa": 16.04,
+        "asia": 24.36
+      },
+      "detail": {
+        "united_states": 59.6,
+        "united_kingdom": 1.99,
+        "eurozone": 9.81,
+        "europe_ex_euro": 3.48,
+        "middle_east": 0.76,
+        "japan": 2.52,
+        "other": 14.41,
+        "asia_emerging": 7.43
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 38.3,
+        "large": 30.96,
+        "mid": 22.82,
+        "small": 7.05,
+        "micro": 0.87
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.26,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 5.66,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.65,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.28,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.1,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Telefonaktiebolaget L M...",
+        "weight": 2.8,
+        "sector": "technology"
+      },
+      {
+        "name": "Salesforce Inc",
+        "weight": 2.17,
+        "sector": "technology"
+      },
+      {
+        "name": "Marvell Technology Inc",
+        "weight": 2.12,
+        "sector": "technology"
+      },
+      {
+        "name": "Workday Inc Class A",
+        "weight": 2.02,
+        "sector": "technology"
+      },
+      {
+        "name": "Texas Instruments Inc",
+        "weight": 1.98,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 106,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.05
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo pretende facilitar a los inversores un crecimiento de capital a largo plazo, invirtiendo principalmente en valores de renta variable de empresas en todo el mundo que ya tengan, o vayan a desarrollar productos, procesos o servicios, que den u obtengan beneficios de los avances y mejoras tecnológicas."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_TECH",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 71.61,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.2,
+        "bond": 0.19,
+        "cash": 0.13,
+        "other": 1.49
+      },
+      "equity_sectors_total": {
+        "technology": 70.321,
+        "financial_services": 0.9624,
+        "industrials": 3.8298,
+        "consumer_cyclical": 8.6809,
+        "consumer_defensive": 0.0589,
+        "energy": 1.3748,
+        "communication_services": 10.3306,
+        "real_estate": 2.6514
+      },
+      "equity_regions_total": {
+        "united_states": 58.5272,
+        "united_kingdom": 1.9542,
+        "eurozone": 9.6334,
+        "europe_ex_euro": 3.4174,
+        "middle_east": 0.7463,
+        "japan": 2.4746,
+        "other": 14.1506,
+        "asia_emerging": 7.2963
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 98.2,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 7.7774,
+          "mid": 22.4092,
+          "large": 68.0133
+        },
+        "style_weights_total": {
+          "growth": 98.2
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_TECH",
+    "commercial_type": "RV Sector Tecnología",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:technology"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.982,
+      "bond": 0.0019,
+      "cash": 0.0013,
+      "other": 0.0149
+    },
+    "equity_regions": {
+      "united_states": 0.333987,
+      "united_kingdom": 0.011152,
+      "eurozone": 0.054973,
+      "europe_ex_euro": 0.019501,
+      "middle_east": 0.425878,
+      "japan": 0.014121,
+      "other": 0.080751,
+      "asia_emerging": 0.041637
+    },
+    "sectors": {
+      "technology": 0.346457,
+      "financial_services": 0.474154,
+      "industrials": 0.018869,
+      "consumer_cyclical": 0.042769,
+      "consumer_defensive": 0.029019,
+      "energy": 0.006773,
+      "communication_services": 0.050897,
+      "real_estate": 0.013063
+    },
+    "equity_styles": {
+      "growth": 0.982
+    },
+    "market_caps": {
+      "small": 0.077774,
+      "mid": 0.224092,
+      "large": 0.680134
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.2",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.13,max_component=98.2"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "43357706a12f55601790488080ab31cf",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.982,
+          "bond": 0.0019,
+          "cash": 0.0013,
+          "other": 0.0149,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.982
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.982001
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.982
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.982
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:30:24.545Z"
+}

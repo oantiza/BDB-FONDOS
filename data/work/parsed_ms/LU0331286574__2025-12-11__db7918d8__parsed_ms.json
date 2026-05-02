@@ -1,0 +1,148 @@
+{
+  "isin": "LU0331286574",
+  "fileName": "morningstarreport20251211062809.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:43:02.105Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Sector Energía Alternativa",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.94,
+        "bond": 0.02,
+        "cash": 3.04,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 28.71,
+      "industrials": 37.6,
+      "utilities": 25.2,
+      "basic_materials": 8.49
+    },
+    "regions": {
+      "macro": {
+        "americas": 44.53,
+        "europe_me_africa": 47.76,
+        "asia": 7.71
+      },
+      "detail": {
+        "other": 44.53,
+        "united_states": 42.11,
+        "canada": 2.42,
+        "europe_me_africa": 47.76,
+        "united_kingdom": 9.81,
+        "eurozone": 30.98,
+        "europe_ex_euro": 6.96,
+        "asia": 7.71,
+        "japan": 1.29,
+        "developed_asia": 2.29,
+        "asia_emerging": 4.13
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.94,
+        "large": 40.57,
+        "mid": 33.66,
+        "small": 4.6,
+        "micro": 3.23
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Vestas Wind Systems AS",
+        "weight": 4.76,
+        "sector": "Industria"
+      },
+      {
+        "name": "NextEra Energy Inc",
+        "weight": 4.74,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "EDP Renovaveis SA",
+        "weight": 4.72,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Nextracker Inc Ordinary Shares...",
+        "weight": 4.09,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "SSE PLC",
+        "weight": 4.09,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 4.01,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 4.01,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 4,
+        "sector": "Industria"
+      },
+      {
+        "name": "BlackRock ICS USD LiqEnvtlyAwr...",
+        "weight": 3.34,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 44,
+      "holdings_count_bond": 0,
+      "top10_weight": 42.78
+    },
+    "costs": {
+      "management_fee": 1.65
+    },
+    "objective": "El Fondo trata de maximizar la revalorización del capital en dólares estadounidenses, gestionando simultáneamente el riesgo. El Fondo invierte, principalmente, en valores de renta variable cotizados de empresas internacionales con una presencia significativa en los sectores de energías alternativas y de tecnologías relacionadas con la energía. Se pondrá especial énfasis en las energías renovables, la automoción y la generación de electricidad in situ, el almacenamiento de energía y las tecnologías instrumentales..."
+  }
+}

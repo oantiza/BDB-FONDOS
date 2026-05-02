@@ -1,0 +1,337 @@
+{
+  "isin": "LU0157179127",
+  "name": "JPMorgan Investment Funds - Global Select Equity Fund D (acc) EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260115105042.pdf",
+  "stableBaseName": "LU0157179127__2026-01-15__85d99c9a",
+  "report_date": "2026-01-15",
+  "ms": {
+    "report_date": "2026-01-15",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.49,
+        "bond": 0,
+        "cash": 0.51,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 26.42,
+      "financial_services": 15.05,
+      "industrials": 9.11,
+      "healthcare": 9.75,
+      "consumer_cyclical": 14.48,
+      "consumer_defensive": 4.54,
+      "utilities": 3.97,
+      "energy": 3.55,
+      "communication_services": 10.68,
+      "real_estate": 0.75,
+      "basic_materials": 1.69
+    },
+    "regions": {
+      "macro": {
+        "americas": 76.05,
+        "europe_me_africa": 12.75,
+        "asia": 11.2
+      },
+      "detail": {
+        "united_states": 76.05,
+        "united_kingdom": 1.49,
+        "eurozone": 8.48,
+        "europe_ex_euro": 2.78,
+        "japan": 4.7,
+        "developed_asia": 3.57,
+        "asia_emerging": 2.93
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 52.79,
+        "large": 40.28,
+        "mid": 6.93,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 6.05,
+        "sector": null
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 5.95,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.63,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 3.99,
+        "sector": null
+      },
+      {
+        "name": "Johnson & Johnson",
+        "weight": 3.13,
+        "sector": null
+      },
+      {
+        "name": "JPM USD Liquidity LVNAV X...",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.87,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.72,
+        "sector": null
+      },
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 2.65,
+        "sector": null
+      },
+      {
+        "name": "The Walt Disney Co",
+        "weight": 2.32,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 72,
+      "holdings_count_bond": 0,
+      "top10_weight": 38.26
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Obtener una tasa de rendimiento superior a la de los mercados de renta variable mundiales, mediante la inversión principalmente en empresas a escala mundial."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 26.42,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.49,
+        "bond": 0,
+        "cash": 0.51,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 26.2853,
+        "financial_services": 14.9732,
+        "industrials": 9.0635,
+        "healthcare": 9.7003,
+        "consumer_cyclical": 14.4062,
+        "consumer_defensive": 4.5168,
+        "utilities": 3.9498,
+        "energy": 3.5319,
+        "communication_services": 10.6255,
+        "real_estate": 0.7462,
+        "basic_materials": 1.6814
+      },
+      "equity_regions_total": {
+        "united_states": 75.6621,
+        "united_kingdom": 1.4824,
+        "eurozone": 8.4368,
+        "europe_ex_euro": 2.7658,
+        "japan": 4.676,
+        "developed_asia": 3.5518,
+        "asia_emerging": 2.9151
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 99.49,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 6.8947,
+          "large": 92.5953
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Blend",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9949,
+      "bond": 0,
+      "cash": 0.0051,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.756621,
+      "united_kingdom": 0.014824,
+      "eurozone": 0.084368,
+      "europe_ex_euro": 0.027658,
+      "japan": 0.04676,
+      "developed_asia": 0.035518,
+      "asia_emerging": 0.029151
+    },
+    "sectors": {
+      "technology": 0.150855,
+      "financial_services": 0.085933,
+      "industrials": 0.052017,
+      "healthcare": 0.055671,
+      "consumer_cyclical": 0.082679,
+      "consumer_defensive": 0.025922,
+      "utilities": 0.022668,
+      "energy": 0.02027,
+      "communication_services": 0.060981,
+      "real_estate": 0.428254,
+      "basic_materials": 0.00965
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.068947,
+      "large": 0.925953
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.49",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.51,max_component=99.49"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "980b74f1c4d4e7cd6ab7e18ee9c2ddaf",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9949,
+          "bond": 0,
+          "cash": 0.0051,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9949
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9949
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9949
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:49:04.972Z"
+}

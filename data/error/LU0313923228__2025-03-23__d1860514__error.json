@@ -1,0 +1,310 @@
+{
+  "isin": "LU0313923228",
+  "name": "BlackRock Strategic Funds - European Opportunities Extension Fund A2 EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250323062034.pdf",
+  "stableBaseName": "LU0313923228__2025-03-23__d1860514",
+  "report_date": "2025-03-23",
+  "ms": {
+    "report_date": "2025-03-23",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": null,
+      "asset_allocation": {
+        "equity": 99.02,
+        "bond": 0.16,
+        "cash": 0,
+        "other": 1.99
+      }
+    },
+    "sectors": {
+      "technology": 7.57,
+      "financial_services": 13.35,
+      "industrials": 34.24,
+      "healthcare": 12.69,
+      "consumer_cyclical": 10.54,
+      "consumer_defensive": 6.32,
+      "communication_services": 2.39,
+      "basic_materials": 12.89
+    },
+    "regions": {
+      "macro": {
+        "americas": 5.04,
+        "europe_me_africa": 94.96
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 21.95,
+        "large": 32.93,
+        "mid": 30.48,
+        "small": 14.64,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Novo Nordisk AS Class B",
+        "weight": 5.02,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Blk Ics Eur As Liq Envirally...",
+        "weight": 4.03,
+        "sector": null
+      },
+      {
+        "name": "MTU Aero Engines AG",
+        "weight": 3.72,
+        "sector": "industrials"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 3.42,
+        "sector": "industrials"
+      },
+      {
+        "name": "Hermes International SA",
+        "weight": 3.29,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "AIB Group PLC",
+        "weight": 3.29,
+        "sector": "financial_services"
+      },
+      {
+        "name": "CRH PLC",
+        "weight": 3.18,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.05,
+        "sector": "industrials"
+      },
+      {
+        "name": "London Stock Exchange Group...",
+        "weight": 2.98,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Halma PLC",
+        "weight": 2.97,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 137,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.95
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El BlackRock European Extension Strategies Fund tiene por objeto proporcionar el crecimiento a largo plazo de una cartera de capital predominantemente en posiciones a largo, pero con la flexibilidad necesaria para establecer posiciones cortas sintéticas. El Fondo tratará de alcanzar este objetivo de inversión a través de una inversión de al menos el 70% del total de sus activos en las acciones y valores relacionadas con la renta variable, incluidos los derivados) de las empresas domiciliadas en, o que el ejercicio de la parte predominante de su actividad económica en Europa."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 34.24,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.02,
+        "bond": 0.16,
+        "cash": 0,
+        "other": 1.99
+      },
+      "equity_sectors_total": {
+        "technology": 7.4958,
+        "financial_services": 13.2192,
+        "industrials": 33.9044,
+        "healthcare": 12.5656,
+        "consumer_cyclical": 10.4367,
+        "consumer_defensive": 6.2581,
+        "communication_services": 2.3666,
+        "basic_materials": 12.7637
+      },
+      "equity_regions_total": {
+        "americas": 4.9906,
+        "europe_me_africa": 94.0294
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 99.02,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 14.4965,
+          "mid": 30.1813,
+          "large": 54.3422
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Mediana",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9902,
+      "bond": 0.0016,
+      "cash": 0,
+      "other": 0.0199
+    },
+    "equity_regions": {
+      "americas": 4.9906,
+      "europe_me_africa": 94.0294
+    },
+    "sectors": {
+      "technology": 7.4958,
+      "financial_services": 13.2192,
+      "industrials": 33.9044,
+      "healthcare": 12.5656,
+      "consumer_cyclical": 10.4367,
+      "consumer_defensive": 6.2581,
+      "communication_services": 2.3666,
+      "basic_materials": 12.7637
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 14.4965,
+      "mid": 30.1813,
+      "large": 54.3422
+    },
+    "bond_types": {
+      "flexible": 0.0016
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0016
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "credit_missing",
+      "asset_allocation_sum_mismatch"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "ec5a29c8b09577ded4f8a14c9e59ce22",
+    "warnings": [
+      "fi_missing_credit_data",
+      "asset_allocation_sum_mismatch:101.17"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": false,
+    "errors": [
+      "asset_mix_sum_not_1:1.011700"
+    ],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": false,
+        "errors": [
+          "asset_mix_sum_not_1:1.011700"
+        ],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9902,
+          "bond": 0.0016,
+          "cash": 0,
+          "other": 0.0199,
+          "sum": 1.0117
+        }
+      }
+    }
+  },
+  "routing": {
+    "status": "error_math_validation",
+    "reason": "asset_mix_sum_not_1:1.011700"
+  },
+  "generated_at": "2026-04-18T17:05:45.954Z"
+}

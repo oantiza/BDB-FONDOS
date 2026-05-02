@@ -1,0 +1,132 @@
+{
+  "isin": "LU1902444584",
+  "fileName": "morningstarreport20251229072113.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:44:49.772Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 99.02,
+        "cash": 0.33,
+        "other": 0.66
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 6.11,
+        "3_5": 25.2,
+        "5_7": 20.91,
+        "7_10": 25.27,
+        "over_10": 17.82
+      },
+      "coupon_allocation": {
+        "0": 0.01,
+        "0_4": 54.17,
+        "4_6": 42.12,
+        "over_6": 3.69
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Bobl Future Dec 25",
+        "weight": 2.25,
+        "sector": null
+      },
+      {
+        "name": "CPR Invest Clmt Ultra S/T Bd I EUR Acc",
+        "weight": 0.96,
+        "sector": null
+      },
+      {
+        "name": "Cooperatieve Rabobank U.A. 1.5% 2038-04-26",
+        "weight": 0.89,
+        "sector": null
+      },
+      {
+        "name": "Sogecap SA 5% 2045-04-03",
+        "weight": 0.88,
+        "sector": null
+      },
+      {
+        "name": "Pandora A/S 3.875% 2030-05-31",
+        "weight": 0.86,
+        "sector": null
+      },
+      {
+        "name": "Siemens Financieringsmaatschappij N.V.",
+        "weight": 0.84,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya Argentaria SA",
+        "weight": 0.83,
+        "sector": null
+      },
+      {
+        "name": "Danske Bank A/S 2.019% 2029-04-10",
+        "weight": 0.81,
+        "sector": null
+      },
+      {
+        "name": "Credit Agricole Assurances",
+        "weight": 0.78,
+        "sector": null
+      },
+      {
+        "name": "Unibail-Rodamco-Westfield SE 4.875%",
+        "weight": 0.76,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 316,
+      "top10_weight": 9.86
+    },
+    "costs": {
+      "management_fee": 0.52
+    },
+    "objective": "The Compartment's objective is to outperform the BLOOMBERG BARCLAYS EURO-AGG CORPORATE Total Return, over any 3 year period, while integrating Environmental, Social and Governance (E, S, and G – or, when taken together, ESG) criteria in the investment process. The investment strategy of the Compartment aims to select bonds denominated in Euro issued by companies of any sectors around the world. Each sector is analysed, and securities are selected based on the fund manager's investment convictions. The final portfolio..."
+  }
+}

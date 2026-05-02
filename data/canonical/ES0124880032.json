@@ -1,0 +1,281 @@
+{
+  "isin": "ES0124880032",
+  "name": "UBS Renta Fija 0-5 B FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260128102413.pdf",
+  "stableBaseName": "ES0124880032__2026-01-28__651e9dbe",
+  "report_date": "2026-01-28",
+  "ms": {
+    "report_date": "2026-01-28",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 100,
+        "cash": 0,
+        "other": 1.08
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 12.11,
+        "3_5": 32.75,
+        "5_7": 12.92,
+        "7_10": 2.18,
+        "over_10": 8.51
+      },
+      "coupon_allocation": {
+        "0": 0.2,
+        "0_4": 59.05,
+        "4_6": 34.21,
+        "over_6": 6.54
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "2 Year Treasury Note Future Mar...",
+        "weight": 20.49,
+        "sector": null
+      },
+      {
+        "name": "Euro Bund Future Mar 262026-03-06",
+        "weight": 5.76,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future Mar 262026-03-06",
+        "weight": 4.71,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 2.47,
+        "sector": null
+      },
+      {
+        "name": "UBS Corto Plazo A FI",
+        "weight": 2.26,
+        "sector": null
+      },
+      {
+        "name": "Kutxabank SA 4.75%2027-06-15",
+        "weight": 1.74,
+        "sector": null
+      },
+      {
+        "name": "NatWest Group PLC 3.673%2031-08-05",
+        "weight": 1.63,
+        "sector": null
+      },
+      {
+        "name": "E.ON SE 3.125%2030-03-05",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "JPMorgan Chase & Co. 4.452%2029-12-05",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 4%2037-03-05",
+        "weight": 1.42,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 128,
+      "top10_weight": 43.67
+    },
+    "costs": {
+      "management_fee": 0.8
+    },
+    "objective": "El fondo invertirá, de forma directa o indirecta a través de IICs (máximo 10% del patrimonio), el 100% de la exposición total en activos de renta fija pública y/o privada incluidos depósitos, cédulas hipotecarias e instrumentos del mercado monetario, cotizados o no, que sean líquidos, deuda subordinada (con derecho de cobro posterior a acreedores comunes) y como máximo un 15% en titulizaciones líquidas. Se podrá invertir hasta un 30% de la exposición total en bonos contingentes convertibles (se emiten normalmente a..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Diversificada Corto Plazo EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "convertible",
+    "credit_bucket": null,
+    "duration_bucket": "short",
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.989315,
+      "cash": 0,
+      "other": 0.010685
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "convertible": 0.989315
+    },
+    "credit": null,
+    "duration": {
+      "short": 0.989315
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0108,sum_after=1",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "589eafa378fa3efd2ba5cbc6efd7c711",
+    "warnings": [
+      "regions_all_unrecognized",
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.989315,
+          "cash": 0,
+          "other": 0.010685,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.989315
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.989315
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:51:45.315Z"
+}

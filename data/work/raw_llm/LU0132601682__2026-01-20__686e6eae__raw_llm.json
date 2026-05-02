@@ -1,0 +1,126 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:49:07.005Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0132601682",
+    "name": "Morgan Stanley Investment Funds - Euro Corporate Bond Fund A",
+    "currency": "EUR",
+    "report_date": "2026-01-20",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 dic. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 107.24,
+      "cash": 0.58,
+      "other": -7.83
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 4.69,
+      "effective_maturity": 5.27,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 2.4,
+        "aa": 1.89,
+        "a": 32.49,
+        "bbb": 59.23,
+        "bb": 2.99,
+        "b": 0.09,
+        "below_b": 0,
+        "not_rated": 0.92
+      },
+      "maturity_allocation": {
+        "1_3": 7.94,
+        "3_5": 16.51,
+        "5_7": 21.72,
+        "7_10": 17.98,
+        "over_10": 22.23
+      },
+      "coupon_allocation": {
+        "0": 0.11,
+        "0_4": 70.39,
+        "4_6": 26.59,
+        "over_6": 2.91
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Schatz Future Mar 26",
+        "weight": 7.78,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future Mar 26",
+        "weight": 4.39,
+        "sector": null
+      },
+      {
+        "name": "MS Liquidity Fds Euro GovLiqMSRsrvEURInc",
+        "weight": 2.07,
+        "sector": null
+      },
+      {
+        "name": "Euro OAT Future Mar 26",
+        "weight": 1.23,
+        "sector": null
+      },
+      {
+        "name": "The Toronto-Dominion Bank 4.03%",
+        "weight": 0.72,
+        "sector": null
+      },
+      {
+        "name": "GA Global Funding Trust 4.133%",
+        "weight": 0.58,
+        "sector": null
+      },
+      {
+        "name": "UBS Group AG 3.162%",
+        "weight": 0.55,
+        "sector": null
+      },
+      {
+        "name": "UBS Group AG 3.25%",
+        "weight": 0.53,
+        "sector": null
+      },
+      {
+        "name": "Pernod Ricard SA 3.25%",
+        "weight": 0.52,
+        "sector": null
+      },
+      {
+        "name": "Bayer AG 5.5%",
+        "weight": 0.5,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 537,
+      "top10_weight": 18.87
+    },
+    "costs": {
+      "management_fee": 0.8
+    },
+    "objective": "El objetivo de inversión del Euro Corporate Bond Fund es proporcionar una tasa de rentabilidad atractiva, cifrada en Euros, invirtiendo, principalmente, en valores de renta fija de elevada calidad denominados en Euros y emitidos por empresas y emisores no gubernamentales."
+  }
+}

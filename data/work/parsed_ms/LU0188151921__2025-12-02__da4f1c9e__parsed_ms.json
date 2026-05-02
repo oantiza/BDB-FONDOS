@@ -1,0 +1,157 @@
+{
+  "isin": "LU0188151921",
+  "fileName": "morningstarreport20251202013755.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:03:11.449Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 89.27,
+        "bond": 0,
+        "cash": 10.73,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 36,
+      "financial_services": 21.29,
+      "industrials": 5.91,
+      "healthcare": 3.81,
+      "consumer_cyclical": 17.6,
+      "consumer_defensive": 2.28,
+      "utilities": 1.13,
+      "energy": 1.62,
+      "communication_services": 7.27,
+      "real_estate": 1.41,
+      "basic_materials": 1.69
+    },
+    "regions": {
+      "macro": {
+        "americas": 12.68,
+        "europe_me_africa": 11,
+        "asia": 76.32
+      },
+      "detail": {
+        "united_states": 1.29,
+        "latin_america": 11.4,
+        "united_kingdom": 0.02,
+        "eurozone": 6.23,
+        "europe_emerging": 1.27,
+        "middle_east": 3.47,
+        "other": 42.37,
+        "asia_emerging": 33.95
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 67.69,
+        "large": 16.72,
+        "mid": 14.37,
+        "small": 1.09,
+        "micro": 0.13
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.79,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 6.89,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 4.6,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 3.79,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 2.86,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 2.73,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 2.59,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "MediaTek Inc",
+        "weight": 2.4,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 2.25,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Hon Hai Precision Industry Co...",
+        "weight": 2.14,
+        "sector": "Tecnología"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 85,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.05
+    },
+    "costs": {
+      "management_fee": 2.15
+    },
+    "objective": "Crecimiento de capital a largo plazo invirtiendo principalmente en títulos de renta variable en compañías de mercados emergentes, o aquellas empresas que obtienen una parte importante de sus ingresos y beneficios de su actividad en mercados emergentes."
+  }
+}

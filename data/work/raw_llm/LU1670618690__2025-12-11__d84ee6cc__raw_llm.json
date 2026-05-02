@@ -1,0 +1,164 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:41:43.933Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1670618690",
+    "name": "M&G (Lux) Global Emerging Markets Fund EUR A Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 96.48,
+      "bond": 0.03,
+      "cash": 3.49,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 20.86,
+      "europe_me_africa": 17.32,
+      "asia": 61.83
+    },
+    "regions_detail": {
+      "América": 20.86,
+      "Estados Unidos": 1.92,
+      "Canadá": 1.46,
+      "Iberoamérica": 17.47,
+      "Europa/O. Medio/Africa": 17.32,
+      "Reino Unido": 3.55,
+      "Zona Euro": 5.59,
+      "Europa - ex Euro": 0.47,
+      "Europa emergente": 0.55,
+      "Oriente Medio / África": 7.16,
+      "Asia": 61.83,
+      "Japón": 0,
+      "Australasia": 0.72,
+      "Asia - Desarrollada": 24.65,
+      "Asia - Emergente": 36.46
+    },
+    "sectors": {
+      "technology": 16.9,
+      "financial_services": 25.14,
+      "industrials": 6.85,
+      "healthcare": 1.34,
+      "consumer_cyclical": 21.78,
+      "consumer_defensive": 3.32,
+      "utilities": 3.14,
+      "energy": 4.6,
+      "communication_services": 5.09,
+      "real_estate": 5.13,
+      "basic_materials": 6.71
+    },
+    "equity_market_cap": {
+      "giant": 46.04,
+      "large": 19.68,
+      "mid": 21.88,
+      "small": 11.24,
+      "micro": 1.17
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 7.42,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 5.39,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 2.8,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Northern Trust Global US...",
+        "weight": 2.72,
+        "sector": null
+      },
+      {
+        "name": "Absa Group Ltd",
+        "weight": 2.33,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 2.22,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 2.21,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd...",
+        "weight": 2.13,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Vale SA",
+        "weight": 2.06,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 1.97,
+        "sector": "Consumo Cíclico"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 103,
+      "holdings_count_bond": 0,
+      "top10_weight": 31.24
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The Fund aims to provide a higher total return (capital growth plus income) than that of the global emerging markets equity market over any five-year period while applying ESG Criteria. The Fund employs a bottom-up stock picking approach to identify companies whose long-term prospects are, in the Investment Manager's opinion, being undervalued. The Fund's approach incorporates three elements: return on capital, valuations and corporate governance."
+  }
+}

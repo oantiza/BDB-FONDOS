@@ -1,0 +1,366 @@
+{
+  "isin": "ES0168799056",
+  "name": "Gestión Boutique IV Alclam US Equities FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260217045758.pdf",
+  "stableBaseName": "ES0168799056__2026-02-17__23603420",
+  "report_date": "2026-02-17",
+  "ms": {
+    "report_date": "2026-02-17",
+    "category_morningstar": "RV USA Cap. Grande Blend",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 94.79,
+        "bond": 0,
+        "cash": 1.3,
+        "other": 3.91
+      }
+    },
+    "sectors": {
+      "technology": 42.13,
+      "financial_services": 0.82,
+      "industrials": 20.88,
+      "healthcare": 1.24,
+      "consumer_cyclical": 10.54,
+      "utilities": 4.16,
+      "energy": 5.66,
+      "communication_services": 8.48,
+      "basic_materials": 6.1
+    },
+    "regions": {
+      "macro": {
+        "americas": 94.07,
+        "europe_me_africa": 1.37,
+        "asia": 4.56
+      },
+      "detail": {
+        "united_states": 84.38,
+        "canada": 6.41,
+        "latin_america": 3.28,
+        "eurozone": 1.37,
+        "developed_asia": 4.56
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 29.6,
+        "large": 38.29,
+        "mid": 20.99,
+        "small": 9.8,
+        "micro": 1.32
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "SanDisk Corp Ordinary Shares",
+        "weight": 6.28,
+        "sector": "technology"
+      },
+      {
+        "name": "Micron Technology Inc",
+        "weight": 5.42,
+        "sector": "technology"
+      },
+      {
+        "name": "Comfort Systems USA Inc",
+        "weight": 4.98,
+        "sector": "industrials"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.32,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.17,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 3.9,
+        "sector": "communication_services"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 3.75,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 3.68,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Seagate Technology Holdings PLC",
+        "weight": 3.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 3.25,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 49,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.07
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "Invierte más del 75% de la exposición total en renta variable de cualquier capitalización y sector, principalmente de emisores/mercados de EEUU. La inversión en renta variable de baja capitalización puede influir negativamente en la liquidez del compartimento. La exposición a riesgo divisa sera del 50-100% de la exposición total (principalmente USD). Se gestiona mediante análisis cualitativo, seleccionando compañías sólidas de distintos sectores, con buenas perspectivas de crecimiento (balances sólidos, competitividad..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "US_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 42.13,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 94.79,
+        "bond": 0,
+        "cash": 1.3,
+        "other": 3.91
+      },
+      "equity_sectors_total": {
+        "technology": 39.935,
+        "financial_services": 0.7773,
+        "industrials": 19.7922,
+        "healthcare": 1.1754,
+        "consumer_cyclical": 9.9909,
+        "utilities": 3.9433,
+        "energy": 5.3651,
+        "communication_services": 8.0382,
+        "basic_materials": 5.7822
+      },
+      "equity_regions_total": {
+        "united_states": 79.9838,
+        "canada": 6.076,
+        "latin_america": 3.1091,
+        "eurozone": 1.2986,
+        "developed_asia": 4.3224
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 94.79,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 10.5406,
+          "mid": 19.8964,
+          "large": 64.3529
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "US_EQUITY",
+    "commercial_type": "RV USA Cap. Grande Blend",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9479,
+      "bond": 0,
+      "cash": 0.013,
+      "other": 0.0391
+    },
+    "equity_regions": {
+      "united_states": 0.799839,
+      "canada": 0.06076,
+      "latin_america": 0.031091,
+      "eurozone": 0.012986,
+      "developed_asia": 0.043224
+    },
+    "sectors": {
+      "technology": 0.220401,
+      "financial_services": 0.428991,
+      "industrials": 0.109233,
+      "healthcare": 0.006487,
+      "consumer_cyclical": 0.05514,
+      "utilities": 0.021763,
+      "energy": 0.02961,
+      "communication_services": 0.044363,
+      "basic_materials": 0.031912
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.105406,
+      "mid": 0.198964,
+      "large": 0.64353
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=94.79",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "139b54223d151019553a79d605ae67a4",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9479,
+          "bond": 0,
+          "cash": 0.013,
+          "other": 0.0391,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9479
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9479
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9479
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:52:47.935Z"
+}

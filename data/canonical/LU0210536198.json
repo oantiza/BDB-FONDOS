@@ -1,0 +1,348 @@
+{
+  "isin": "LU0210536198",
+  "name": "JPMorgan Funds - US Growth Fund A (acc) - USD",
+  "currency": "USD",
+  "fileName": "morningstarreport20260125091616.pdf",
+  "stableBaseName": "LU0210536198__2026-01-25__13b18abf",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV USA Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 98.72,
+        "bond": 0,
+        "cash": 1.28,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 48.9,
+      "financial_services": 8.75,
+      "industrials": 5.6,
+      "healthcare": 9.96,
+      "consumer_cyclical": 12.84,
+      "consumer_defensive": 2.27,
+      "utilities": 0.29,
+      "energy": 0.06,
+      "communication_services": 11.33
+    },
+    "regions": {
+      "macro": {
+        "americas": 97.4,
+        "asia": 2.6
+      },
+      "detail": {
+        "other": 99.03,
+        "united_states": 95.03,
+        "canada": 1.86,
+        "latin_america": 0.51,
+        "asia": 2.6,
+        "asia_emerging": 0.97
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 63.52,
+        "large": 25.9,
+        "mid": 10.27,
+        "small": 0.3,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 9.93,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 9.89,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 7.94,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 6.08,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 6.04,
+        "sector": "technology"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 4.08,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 3.08,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 3.05,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.68,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 2.14,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 72,
+      "holdings_count_bond": 0,
+      "top10_weight": 54.91
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo invirtiendo principalmente en una cartera de empresas estadounidenses orientadas al crecimiento."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "US_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 48.9,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.72,
+        "bond": 0,
+        "cash": 1.28,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 48.2741,
+        "financial_services": 8.638,
+        "industrials": 5.5283,
+        "healthcare": 9.8325,
+        "consumer_cyclical": 12.6756,
+        "consumer_defensive": 2.2409,
+        "utilities": 0.2863,
+        "energy": 0.0592,
+        "communication_services": 11.185
+      },
+      "equity_regions_total": {
+        "other": 97.7624,
+        "united_states": 93.8136,
+        "canada": 1.8362,
+        "latin_america": 0.5035,
+        "asia": 2.5667,
+        "asia_emerging": 0.9576
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 98.72,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 0.2962,
+          "mid": 10.1396,
+          "large": 88.2843
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "US_EQUITY",
+    "commercial_type": "RV USA Cap. Grande Growth",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9872,
+      "bond": 0,
+      "cash": 0.0128,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.282123,
+      "united_states": 0.270727,
+      "canada": 0.005299,
+      "latin_america": 0.1453,
+      "asia": 0.007407,
+      "asia_emerging": 0.276344
+    },
+    "sectors": {
+      "technology": 0.358521,
+      "financial_services": 0.064153,
+      "industrials": 0.041057,
+      "healthcare": 0.073024,
+      "consumer_cyclical": 0.094139,
+      "consumer_defensive": 0.016643,
+      "utilities": 0.212629,
+      "energy": 0.043967,
+      "communication_services": 0.083069
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.228366,
+      "mid": 0.078175,
+      "large": 0.680659
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.72",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "84d94ec6f81537481ea67e1c569ea864",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9872,
+          "bond": 0,
+          "cash": 0.0128,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9872
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.987202
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9872
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:50:37.717Z"
+}

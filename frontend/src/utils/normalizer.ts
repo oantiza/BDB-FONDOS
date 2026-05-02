@@ -1,0 +1,665 @@
+// normalizer.js - Fund Data Normalization Utility
+// Extracted from App.jsx for better code organization
+
+import { translateAssetSubtype } from './taxonomyTranslators';
+
+function toNumber(x: any): number | null {
+  if (x === null || x === undefined || x === '') return null
+  const n = typeof x === 'number' ? x : parseFloat(x)
+  return Number.isFinite(n) ? n : null
+}
+
+// Helper para normalizar porcentaje: formateo estricto
+// Si > 1.5 => asumimos que es base 100 (ej: 8.5 -> 0.085)
+// Si <= 1.5 => asumimos que es decimal (ej: 0.085 -> 0.085)
+// Retorna NULL si no es un número válido. NUNCA default.
+export function asDecimalPct(v: any): number | null {
+  const n = toNumber(v)
+  if (n === null) return null
+  return Math.abs(n) > 1.5 ? n / 100 : n
+}
+
+// Max drawdown a decimal negativo: -0.14/0.14/-14/14 -> -0.14
+// Retorna NULL si no es válido.
+function maxDdToDecimalNegative(value: any): number | null {
+  const val = asDecimalPct(value)
+  if (val === null) return null
+  const absVal = Math.abs(val)
+  return absVal === 0 ? 0 : -absVal
+}
+
+function normalizeStars(v: any): number | null {
+  const n = toNumber(v)
+  if (n === null) return null
+  // Morningstar stars válidas: 0..5 (0 a veces significa “sin rating” en algunos exports)
+  if (n < 0 || n > 5) return null
+  return Math.round(n)
+}
+
+export const REGION_DISPLAY_LABELS: Record<string, string> = {
+  united_states: "EE.UU.",
+  canada: "Canadá",
+  latin_america: "Iberoamérica",
+  eurozone: "Zona Euro",
+  europe_ex_euro: "Europa (ex-Euro)",
+  united_kingdom: "Reino Unido",
+  europe_emerging: "Europa Emergente",
+  japan: "Japón",
+  developed_asia: "Asia Desarrollada",
+  china: "China",
+  asia_emerging: "Asia Emergente",
+  middle_east: "Oriente Medio",
+  africa: "África",
+  australasia: "Australasia",
+  americas: "Américas",
+  europe_me_africa: "EMEA",
+  asia: "Asia",
+  other: "Otros"
+};
+
+const ASSET_TYPE_V2_UI_MAP: Record<string, string> = {
+  EQUITY: "EQUITY",
+  equity: "EQUITY",
+  FIXED_INCOME: "FIXED_INCOME",
+  fixed_income: "FIXED_INCOME",
+  MIXED: "MIXED",
+  mixed: "MIXED",
+  allocation: "MIXED",
+  MONETARY: "MONETARY",
+  MONEY_MARKET: "MONETARY",
+  money_market: "MONETARY",
+  monetario: "MONETARY",
+  ALTERNATIVE: "ALTERNATIVE",
+  alternative: "ALTERNATIVE",
+  REAL_ESTATE: "REAL_ESTATE",
+  REAL_ASSET: "REAL_ESTATE",
+  real_asset: "REAL_ESTATE",
+  COMMODITIES: "COMMODITIES",
+  commodities: "COMMODITIES",
+  OTHER: "OTHER",
+  other: "OTHER",
+  UNKNOWN: "UNKNOWN",
+  unknown: "UNKNOWN",
+};
+
+const REGION_V2_UI_MAP: Record<string, string> = {
+  GLOBAL: "GLOBAL",
+  Global: "GLOBAL",
+  EUROPE: "EUROPE",
+  Europe: "EUROPE",
+  EUROPA: "EUROPE",
+  Europa: "EUROPE",
+  EUROZONE: "EUROZONE",
+  "ZONA EURO": "EUROZONE",
+  "Zona Euro": "EUROZONE",
+  US: "US",
+  USA: "US",
+  "EE.UU.": "US",
+  "EEUU": "US",
+  JAPAN: "JAPAN",
+  "Japón": "JAPAN",
+  "Japon": "JAPAN",
+  EMERGING: "EMERGING",
+  Emergentes: "EMERGING",
+  EMERGENTES: "EMERGING",
+  "IBEROAMERICA": "EMERGING",
+  "IBEROAMÉRICA": "EMERGING",
+  ASIA_DEV: "ASIA_DEV",
+  "ASIA DESARROLLADA": "ASIA_DEV",
+  UNKNOWN: "UNKNOWN",
+};
+
+const STYLE_BOX_V2_UI_MAP: Record<string, string> = {
+  "LARGE-VALUE": "LARGE_VALUE",
+  "LARGE_BLEND": "LARGE_CORE",
+  "LARGE-CORE": "LARGE_CORE",
+  "LARGE-GROWTH": "LARGE_GROWTH",
+  "MID-VALUE": "MID_VALUE",
+  "MID-BLEND": "MID_CORE",
+  "MID-CORE": "MID_CORE",
+  "MID-GROWTH": "MID_GROWTH",
+  "SMALL-VALUE": "SMALL_VALUE",
+  "SMALL-BLEND": "SMALL_CORE",
+  "SMALL-CORE": "SMALL_CORE",
+  "SMALL-GROWTH": "SMALL_GROWTH",
+};
+
+const MARKET_CAP_V2_UI_MAP: Record<string, string> = {
+  LARGE: "LARGE",
+  large: "LARGE",
+  MID: "MID",
+  mid: "MID",
+  SMALL: "SMALL",
+  small: "SMALL",
+  MULTI: "MULTI",
+  multi: "MULTI",
+  multi_cap: "MULTI",
+};
+
+const CREDIT_BUCKET_V2_UI_MAP: Record<string, string> = {
+  HIGH_QUALITY: "HIGH_QUALITY",
+  high_quality: "HIGH_QUALITY",
+  INVESTMENT_GRADE: "HIGH_QUALITY",
+  investment_grade: "HIGH_QUALITY",
+  MEDIUM_QUALITY: "MEDIUM_QUALITY",
+  medium_quality: "MEDIUM_QUALITY",
+  LOW_QUALITY: "LOW_QUALITY",
+  low_quality: "LOW_QUALITY",
+  HIGH_YIELD: "LOW_QUALITY",
+  high_yield: "LOW_QUALITY",
+};
+
+const DURATION_BUCKET_V2_UI_MAP: Record<string, string> = {
+  ULTRASHORT: "SHORT",
+  ultrashort: "SHORT",
+  SHORT: "SHORT",
+  short: "SHORT",
+  INTERMEDIATE: "MEDIUM",
+  intermediate: "MEDIUM",
+  MEDIUM: "MEDIUM",
+  medium: "MEDIUM",
+  LONG: "LONG",
+  long: "LONG",
+  FLEXIBLE: "FLEXIBLE",
+  flexible: "FLEXIBLE",
+};
+
+function normalizeTokenUpper(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return String(value).trim().replace(/\s+/g, "_").replace(/-/g, "_").toUpperCase();
+}
+
+function normalizeV2AssetType(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return ASSET_TYPE_V2_UI_MAP[String(value)] || ASSET_TYPE_V2_UI_MAP[normalizeTokenUpper(value) || ""] || null;
+}
+
+function normalizeV2Region(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return REGION_V2_UI_MAP[String(value)] || REGION_V2_UI_MAP[normalizeTokenUpper(value) || ""] || null;
+}
+
+function normalizeV2StyleBox(value: any): string | null {
+  const token = normalizeTokenUpper(value);
+  if (!token) return null;
+  return STYLE_BOX_V2_UI_MAP[token] || token;
+}
+
+function normalizeV2MarketCap(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return MARKET_CAP_V2_UI_MAP[String(value)] || MARKET_CAP_V2_UI_MAP[normalizeTokenUpper(value) || ""] || null;
+}
+
+function normalizeV2CreditBucket(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return CREDIT_BUCKET_V2_UI_MAP[String(value)] || CREDIT_BUCKET_V2_UI_MAP[normalizeTokenUpper(value) || ""] || null;
+}
+
+function normalizeV2DurationBucket(value: any): string | null {
+  if (value === null || value === undefined || value === "") return null;
+  return DURATION_BUCKET_V2_UI_MAP[String(value)] || DURATION_BUCKET_V2_UI_MAP[normalizeTokenUpper(value) || ""] || null;
+}
+
+function normalizeExposurePct(value: any): number | null {
+  const n = toNumber(value);
+  if (n === null) return null;
+  return Math.abs(n) <= 1.5 ? n * 100 : n;
+}
+
+function normalizeRegionExposureKey(value: string): string {
+  const raw = String(value || "");
+  const normalized = normalizeV2Region(raw);
+  if (normalized === "US") return "us";
+  if (normalized === "EUROPE") return "europe";
+  if (normalized === "EUROZONE") return "eurozone";
+  if (normalized === "EMERGING") return "emerging";
+  if (normalized === "JAPAN") return "japan";
+  if (normalized === "ASIA_DEV") return "asia_dev";
+  const token = normalizeTokenUpper(raw);
+  if (!token) return raw;
+  if (token === "LATIN_AMERICA" || token === "IBEROAMERICA" || token === "IBEROAMÉRICA") return "latin_america";
+  if (token === "UNITED_STATES" || token === "AMERICAS") return "us";
+  return token.toLowerCase();
+}
+
+function normalizeExposureMapPct(
+  input: any,
+  keyNormalizer: (key: string) => string = (key) => String(key)
+): Record<string, number> | null {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return null;
+  const out: Record<string, number> = {};
+  Object.entries(input).forEach(([key, value]) => {
+    const pct = normalizeExposurePct(value);
+    if (pct === null || pct <= 0) return;
+    const normalizedKey = keyNormalizer(key);
+    out[normalizedKey] = (out[normalizedKey] || 0) + pct;
+  });
+  return Object.keys(out).length ? out : null;
+}
+
+export function normalizeClassificationV2ForUI(raw: any) {
+  if (!raw || typeof raw !== 'object') return null;
+
+  const normalized = {
+    ...raw,
+    asset_type: normalizeV2AssetType(raw.asset_type) || raw.asset_type || null,
+    asset_subtype: normalizeTokenUpper(raw.asset_subtype) || raw.asset_subtype || null,
+    region_primary: normalizeV2Region(raw.region_primary) || raw.region_primary || null,
+    equity_style_box: normalizeV2StyleBox(raw.equity_style_box) || raw.equity_style_box || null,
+    market_cap_bias: normalizeV2MarketCap(raw.market_cap_bias) || raw.market_cap_bias || null,
+    credit_bucket: normalizeV2CreditBucket(raw.credit_bucket) || raw.credit_bucket || null,
+    duration_bucket: normalizeV2DurationBucket(raw.duration_bucket) || raw.duration_bucket || null,
+    fi_credit_bucket:
+      normalizeV2CreditBucket(raw.fi_credit_bucket || raw.credit_bucket) ||
+      raw.fi_credit_bucket ||
+      raw.credit_bucket ||
+      null,
+    fi_duration_bucket:
+      normalizeV2DurationBucket(raw.fi_duration_bucket || raw.duration_bucket) ||
+      raw.fi_duration_bucket ||
+      raw.duration_bucket ||
+      null,
+    fi_type: normalizeTokenUpper(raw.fi_type || raw.fixed_income_type) || raw.fi_type || raw.fixed_income_type || null,
+    fixed_income_type: raw.fixed_income_type ? String(raw.fixed_income_type).toLowerCase() : null,
+    complexity_flag: normalizeTokenUpper(raw.complexity_flag || raw.vehicle_complexity) || raw.complexity_flag || raw.vehicle_complexity || null,
+    warnings: Array.isArray(raw.warnings) ? raw.warnings : [],
+    sources_used: Array.isArray(raw.sources_used)
+      ? raw.sources_used
+      : Array.isArray(raw.source_priority_used)
+        ? raw.source_priority_used
+        : [],
+  } as any;
+
+  if (normalized.is_sector_fund === undefined || normalized.is_sector_fund === null) {
+    normalized.is_sector_fund = String(normalized.asset_subtype || "").startsWith("SECTOR_EQUITY_");
+  }
+
+  return normalized;
+}
+
+export function normalizePortfolioExposureV2ForUI(raw: any) {
+  if (!raw || typeof raw !== 'object') return null;
+
+  const mixSource = raw.economic_exposure || raw.asset_mix || null;
+  const economicExposure = mixSource
+    ? {
+        equity: normalizeExposurePct(mixSource.equity) || 0,
+        bond: normalizeExposurePct(mixSource.bond) || 0,
+        cash: normalizeExposurePct(mixSource.cash) || 0,
+        other: normalizeExposurePct(mixSource.other) || 0,
+        alternative: normalizeExposurePct(mixSource.alternative ?? mixSource.alternatives) || 0,
+        real_asset: normalizeExposurePct(mixSource.real_asset ?? mixSource.real_estate) || 0,
+      }
+    : null;
+
+  return {
+    ...raw,
+    economic_exposure: economicExposure,
+    fi_credit: normalizeExposureMapPct(raw.fi_credit || raw.credit),
+    fi_duration: normalizeExposureMapPct(raw.fi_duration || raw.duration),
+    fi_types: normalizeExposureMapPct(raw.fi_types || raw.bond_types),
+    equity_regions: normalizeExposureMapPct(raw.equity_regions, normalizeRegionExposureKey),
+    equity_styles: normalizeExposureMapPct(raw.equity_styles),
+    sectors: normalizeExposureMapPct(raw.sectors),
+    market_caps: normalizeExposureMapPct(raw.market_caps),
+    bond_types: normalizeExposureMapPct(raw.bond_types),
+    credit: normalizeExposureMapPct(raw.credit),
+    duration: normalizeExposureMapPct(raw.duration),
+    alternatives: normalizeExposureMapPct(raw.alternatives),
+    warnings: Array.isArray(raw.warnings) ? raw.warnings : [],
+  } as any;
+}
+
+// --- ADAPTER HELPERS ---
+// Helper to safely downcast V2 canonical types to legacy UI expected strings
+function mapV2ToLegacyAssetClass(v2Type: string | null): string | null {
+  if (!v2Type) return null;
+  switch (v2Type) {
+    case 'EQUITY': return 'RV';
+    case 'FIXED_INCOME': return 'RF';
+    case 'MIXED': return 'Mixto';
+    case 'MONETARY': return 'Monetario';
+    case 'ALTERNATIVE': return 'Alternativos';
+    case 'COMMODITIES': return 'Materias Primas';
+    case 'REAL_ESTATE': return 'Inmobiliario';
+    default: return v2Type;
+  }
+}
+
+/**
+ * Adapts strict V3 structure to Legacy format for UI compatibility.
+ * READ-ONLY: No default values, no inventions.
+ */
+export function adaptFundV3ToLegacy(docData: any) {
+  if (!docData) return {}
+
+  const derived = docData.derived || {}
+  const ms = docData.ms || {}
+  const manual = docData.manual || {}
+  const costs = manual.costs || {}
+  const v2 = normalizeClassificationV2ForUI(docData.classification_v2) || {}
+  const exposureV2 = normalizePortfolioExposureV2ForUI(docData.portfolio_exposure_v2)
+
+  // [V2-FIRST INTENT] Downcasted to legacy UI strings to prevent strict comparisons from breaking
+  const v2AssetClass = mapV2ToLegacyAssetClass(v2.asset_type) || null;
+  const v2Region = v2.region_primary || null;
+  const v2Category = v2.asset_subtype || null;
+
+  // [COMPATIBILITY FALLBACK]
+  const fallbackAssetClass = derived.asset_class || docData.asset_class || null;
+  const fallbackRegion = derived.primary_region || docData.primary_region || null;
+  const fallbackCategory = ms.category_morningstar || docData.category_morningstar || null;
+
+  return {
+    ...docData,
+    classification_v2: Object.keys(v2).length ? v2 : docData.classification_v2,
+    portfolio_exposure_v2: exposureV2 || docData.portfolio_exposure_v2 || null,
+    asset_class: v2AssetClass || fallbackAssetClass,
+    primary_region: v2Region || fallbackRegion,
+    category_morningstar: v2Category || fallbackCategory,
+    rating_stars: normalizeStars(ms.rating_stars || docData.rating_stars),
+    ter: costs.ter || docData.ter || null,
+    retrocession: costs.retrocession || docData.retrocession || null,
+    ms: ms
+  }
+}
+
+/**
+ * Normalizes raw fund data from Firestore into a standardized format
+ * with computed fields for std_type, std_region, std_perf_norm, and std_extra.
+ * STRICT MODE: No heuristics, no defaults.
+ */
+export function normalizeFundData(docDataInput: any) {
+  // IMPORTANT: aquí asumimos que ya llega adaptado o al menos compatible.
+  const docData = {
+    ...(docDataInput || {}),
+    classification_v2:
+      normalizeClassificationV2ForUI(docDataInput?.classification_v2) || docDataInput?.classification_v2,
+    portfolio_exposure_v2:
+      normalizePortfolioExposureV2ForUI(docDataInput?.portfolio_exposure_v2) || docDataInput?.portfolio_exposure_v2,
+  }
+
+  // 1. Asset Class & Region (Strict from adapter/docData)
+  // [V2-FIRST INTENT] Attempt canonical fields first in case it bypassed adapter
+  // [COMPATIBILITY FALLBACK] Read the fields injected or original legacy fields
+  let std_type = docData.classification_v2?.asset_type ?? docData.asset_class ?? null
+  let std_region = docData.classification_v2?.region_primary ?? docData.primary_region ?? null
+
+  // [FALLBACK] Region from MS Breakdown if missing
+  if (!std_region && docData.ms?.regions?.detail) {
+    try {
+      const regions = docData.ms.regions.detail;
+      const sorted = Object.entries(regions).sort((a: any, b: any) => b[1] - a[1]);
+      if (sorted.length > 0) {
+        // Map common keys to our schema labels or keep raw if handled elsewhere
+        // REGION_DISPLAY_LABELS keys match these mostly (united_states, eurozone, etc)
+        std_region = sorted[0][0];
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  // 2. Perf / Stats (Strict formatting only)
+  // Check MS V3 location first (Risk Volatility)
+  const msRisk = docData?.ms?.risk_volatility || {};
+
+  const stdVol = docData?.std_perf?.volatility
+  const msVol = docData?.perf?.volatility // Legacy fallback source
+  const riskVol = msRisk.std_dev_3y // New V3 source
+
+  const rawVol = stdVol !== undefined && stdVol !== null ? stdVol : (riskVol !== undefined ? riskVol : msVol)
+  const vol = asDecimalPct(rawVol)
+
+  const sharpe = toNumber(docData?.std_perf?.sharpe ?? msRisk.sharpe_ratio_3y ?? docData?.perf?.sharpe)
+  const alpha = toNumber(docData?.std_perf?.alpha ?? msRisk.alpha_3y ?? docData?.perf?.alpha)
+  const beta = toNumber(docData?.std_perf?.beta ?? msRisk.beta_3y ?? docData?.perf?.beta)
+
+  // CAGR 3Y: Strict. No calculation from returns_history.
+  const cagrRaw =
+    (docData?.std_perf?.cagr3y ?? docData?.std_perf?.return) ??
+    (docData?.perf?.cagr3y ?? docData?.perf?.return)
+  const ret3y = asDecimalPct(cagrRaw)
+
+  // Max Drawdown
+  const mddRaw =
+    (docData?.std_perf?.max_drawdown ?? docData?.std_perf?.maxDrawdown) ??
+    (docData?.perf?.max_drawdown ?? docData?.perf?.maxDrawdown)
+  const max_drawdown = maxDdToDecimalNegative(mddRaw)
+
+  // History Years (Calculated only if history_start exists OR from returns_history keys)
+  let yearsHistory: number | null = null
+  if (docData.history_start) {
+    try {
+      const startDate = docData.history_start.toDate
+        ? docData.history_start.toDate()
+        : new Date(docData.history_start)
+      const now = new Date()
+      if (!isNaN(startDate.getTime())) {
+        yearsHistory = (now.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24 * 365.25)
+      }
+    } catch {
+      /* ignore */
+    }
+  } else if (docData.returns_history && typeof docData.returns_history === 'object') {
+    const years = Object.keys(docData.returns_history).filter((k) => !isNaN(parseInt(k)))
+    if (years.length > 0) yearsHistory = years.length
+  } else if (Array.isArray(docData.yearly_returns)) {
+    if (docData.yearly_returns.length > 0) yearsHistory = docData.yearly_returns.length
+  }
+
+  // Costs (Strict)
+  const ter = asDecimalPct(docData.costs?.ter)
+  const mgmtFee = asDecimalPct(docData.costs?.management_fee)
+
+  // Sectors (Format array if needed, else null)
+  let finalSectors: any = docData.sectors || docData.holding_breakdown?.sectors || docData.ms?.sectors || null
+  if (finalSectors && !Array.isArray(finalSectors) && typeof finalSectors === 'object') {
+    finalSectors = Object.entries(finalSectors).map(([k, v]) => ({
+      name: String(k).replace(/_/g, ' '),
+      weight: v,
+    }))
+  }
+
+  // Holdings (Map top10 if available)
+  // FIX: Added docData.ms?.holdings_top10 as source
+  const holdings = docData.holdings || docData.holdings_top10 || docData.ms?.holdings_top10 || [];
+
+  // Description / Objective
+  // FIX: Added docData.ms?.objective as source for description
+  const description = docData.description || docData.ms?.objective || null;
+
+  // Duration / Maturity (Strict -> Fallback to Allocation)
+  let duration = toNumber(
+    docData.metrics?.duration ||
+    docData.metrics?.effective_duration ||
+    docData.risk?.effective_duration ||
+    docData.fixed_income?.effective_duration
+  )
+
+  let effectiveMaturity = toNumber(
+    docData.metrics?.effective_maturity ||
+    docData.metrics?.maturity ||
+    docData.fixed_income?.effective_maturity
+  )
+
+  // [FALLBACK] Calculate Duration/Maturity from Allocations if missing
+  if (!effectiveMaturity && docData.ms?.fixed_income?.maturity_allocation) {
+    try {
+      const matAlloc = docData.ms.fixed_income.maturity_allocation;
+      // Midpoints for buckets
+      const buckets: Record<string, number> = {
+        '1_3': 2,
+        '3_5': 4,
+        '5_7': 6,
+        '7_10': 8.5,
+        '10_15': 12.5,
+        '15_20': 17.5,
+        'over_20': 25,
+        'over_10': 15, // fallback if over_20 not present
+        'under_1': 0.5 // if exists
+      };
+
+      let wSum = 0;
+      let totalW = 0;
+      Object.entries(matAlloc).forEach(([k, v]) => {
+        const weight = toNumber(v) || 0;
+        if (weight > 0 && buckets[k]) {
+          wSum += weight * buckets[k];
+          totalW += weight;
+        }
+      });
+
+      if (totalW > 50) { // Only if we have significant data
+        effectiveMaturity = wSum / totalW;
+        // Heuristic: Duration is often slightly less than maturity
+        if (!duration) duration = effectiveMaturity * 0.9;
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  // Credit Quality (Strict)
+  const crQuality: any =
+    docData.credit_quality ||
+    docData.risk?.credit_quality ||
+    docData.fixed_income?.avg_credit_quality ||
+    null
+
+  // ⭐ Ratings (Strict)
+  const mstarStars = normalizeStars(docData.rating_stars ?? docData?.ms?.rating_stars)
+  const overallRaw = docData.rating_overall ?? docData?.ms?.rating_overall ?? docData.rating ?? null
+  const mstarOverall = normalizeStars(overallRaw)
+
+  const srriRaw = docData.risk_srri ?? docData.riskSrri ?? docData.srri
+  let riskSrri: number | null = toNumber(srriRaw)
+  if (riskSrri !== null) {
+    if (riskSrri < 0 || riskSrri > 7) riskSrri = null
+  }
+
+  // Patrimonio (Strict)
+  const patrimonioRaw =
+    docData.patrimonio ?? docData?.std_extra?.patrimonio ?? docData?.extra?.patrimonio ?? docData?.aum
+  const patrimonioNum = toNumber(patrimonioRaw)
+
+  return {
+    ...docData,
+    sectors: finalSectors,
+    holdings: holdings,
+    description: description,
+
+    // Normalized Fields (can be null)
+    std_type: std_type,
+    std_region: std_region,
+
+    // ⭐ devolvemos ambos: así la UI tiene el que esté usando
+    rating_stars: mstarStars,
+    rating_overall: mstarOverall,
+
+    risk_srri: riskSrri,
+    patrimonio: patrimonioNum,
+
+    std_perf_norm: {
+      volatility: vol,
+      cagr3y: ret3y,
+      sharpe: sharpe,
+      alpha: alpha,
+      beta: beta,
+      max_drawdown: max_drawdown,
+    },
+
+    std_extra: {
+      patrimonio: patrimonioNum,
+      currency: docData.currency || null,
+      company: docData.fund_company || docData.company || null,
+      // [V2-FIRST INTENT] then [COMPATIBILITY FALLBACK]
+      category: docData.classification_v2?.asset_subtype ?? docData.category_morningstar ?? docData.category ?? null,
+      assetClass: std_type,
+      regionDetail: std_region,
+      yearsHistory: yearsHistory,
+      mgmtFee: mgmtFee, // strictly flattened
+      ter: ter, // strictly flattened
+      duration: duration,
+      credit_quality: crQuality,
+      effective_maturity: effectiveMaturity,
+      yield_to_maturity: toNumber(docData.metrics?.yield || docData.metrics?.ytm),
+
+      // ✅ CLAVE: muchas pantallas leen rating desde std_extra
+      rating_stars: mstarStars,
+      rating_overall: mstarOverall,
+    },
+
+    // ✅ DATA QUALITY ADAPTER (Frontend Shim)
+    // Permite que componentes UI vean 'points_count' aunque venga como 'history_points'
+    data_quality: {
+      ...(docData.data_quality || {}),
+      points_count: (docData.data_quality?.points_count ?? docData.data_quality?.history_points ?? 0),
+      history_points: (docData.data_quality?.history_points ?? 0)
+    }
+  }
+}
+
+// --- V2 CANONICAL HELPERS ---
+
+export function getCanonicalType(fund: any): string {
+    const classV2 = normalizeClassificationV2ForUI(fund?.classification_v2);
+    if (classV2?.asset_type) {
+        return classV2.asset_type;
+    }
+    return fund?.derived?.asset_class || fund?.std_type || fund?.asset_class || 'Desconocido';
+}
+
+export function getCanonicalSubtype(fund: any): string {
+    const classV2 = normalizeClassificationV2ForUI(fund?.classification_v2);
+    let rawSubtype = '';
+    if (classV2?.asset_subtype) {
+        rawSubtype = classV2.asset_subtype;
+    } else {
+        rawSubtype = fund?.category_morningstar || fund?.std_extra?.category || '';
+    }
+    
+    if (!rawSubtype || rawSubtype === 'Desconocido' || rawSubtype.toUpperCase() === 'UNKNOWN') {
+        return 'Desconocido';
+    }
+    const translated = translateAssetSubtype(rawSubtype);
+    return translated || rawSubtype;
+}
+
+export function getCanonicalRegion(fund: any): string {
+    const classV2 = normalizeClassificationV2ForUI(fund?.classification_v2);
+    if (classV2?.region_primary) {
+        return classV2.region_primary;
+    }
+    return fund?.primary_region || fund?.std_region || 'Desconocido';
+}
+
+export function getCanonicalRiskBucket(fund: any): string | null {
+    const classV2 = normalizeClassificationV2ForUI(fund?.classification_v2);
+    if (classV2?.risk_bucket) {
+        return String(classV2.risk_bucket).toUpperCase();
+    }
+    return null;
+}
+
+export function getCanonicalFlags(fund: any): string[] {
+    const flags: string[] = [];
+    const classV2 = normalizeClassificationV2ForUI(fund?.classification_v2);
+    if (!classV2) return flags;
+    if (classV2.is_thematic) flags.push("Temático");
+    if (classV2.is_sector_fund) flags.push("Sectorial");
+    if (classV2.is_index_like) flags.push("Indexado");
+    
+    if (classV2.market_cap_bias === "SMALL") flags.push("Small Cap");
+    if (classV2.market_cap_bias === "MID") flags.push("Mid Cap");
+    
+    if (classV2.asset_subtype === "HIGH_YIELD_BOND") flags.push("High Yield");
+    if (classV2.asset_subtype === "EMERGING_MARKETS_BOND" || classV2.asset_subtype === "EMERGING_MARKETS_EQUITY" || classV2.region_primary === "EMERGING") {
+        if (!flags.includes("Emergente")) flags.push("Emergente");
+    }
+    
+    if (classV2.complexity_flag === "COMPLEX") flags.push("Complejo");
+    if (classV2.complexity_flag === "HIGHLY_COMPLEX") flags.push("Muy Complejo");
+    
+    return flags;
+}
+
+export function hasLegacyTaxonomyOnly(fund: any): boolean {
+    return !fund?.classification_v2 && !!(fund?.derived?.asset_class || fund?.asset_class || fund?.std_type);
+}

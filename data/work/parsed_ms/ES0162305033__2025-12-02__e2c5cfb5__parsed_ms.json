@@ -1,0 +1,151 @@
+{
+  "isin": "ES0162305033",
+  "fileName": "morningstarreport20251202040401.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:12:50.066Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 7.17
+      }
+    },
+    "sectors": {
+      "technology": 74.17,
+      "industrials": 0.16,
+      "healthcare": 3.47,
+      "consumer_cyclical": 15.29,
+      "communication_services": 6.45,
+      "basic_materials": 0.45
+    },
+    "regions": {
+      "macro": {
+        "americas": 76.23,
+        "europe_me_africa": 19.47,
+        "asia": 4.3
+      },
+      "detail": {
+        "united_states": 76.23,
+        "united_kingdom": 4.06,
+        "eurozone": 3.45,
+        "europe_ex_euro": 5.28,
+        "middle_east": 6.68,
+        "japan": 0.46,
+        "other": 3.85
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Deckers Outdoor Corp",
+        "weight": 7.3,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Option On Adobe Inc",
+        "weight": 5.13,
+        "sector": null
+      },
+      {
+        "name": "Option On Texas Instruments Inc",
+        "weight": 4.74,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 4.72,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Mobileye Global Inc Ordinary...",
+        "weight": 4.59,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Okta Inc Class A",
+        "weight": 4.57,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "GitLab Inc Class A",
+        "weight": 4.57,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Marvell Technology Inc",
+        "weight": 4.54,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "STMicroelectronics NV",
+        "weight": 4.46,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Figma Inc Class A",
+        "weight": 3.89,
+        "sector": "Tecnología"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 68,
+      "holdings_count_bond": 0,
+      "top10_weight": 48.51
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "Se invierte un 0%-100% de la exposición total en renta variable, mayoritariamente en compañías de alta capitalización, de cualquier sector, o en activos de renta fija pública y/o privada (incluyendo hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo) y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija puede ser de baja calidad. Invertirá en empresas que, por diferentes motivos y de forma..."
+  }
+}

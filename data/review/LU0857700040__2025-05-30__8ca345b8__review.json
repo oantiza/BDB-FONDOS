@@ -1,0 +1,316 @@
+{
+  "isin": "LU0857700040",
+  "name": "Fidelity Funds - European Dividend Fund A-MINCOME(G)-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250530070448.pdf",
+  "stableBaseName": "LU0857700040__2025-05-30__8ca345b8",
+  "report_date": "2025-05-30",
+  "ms": {
+    "report_date": "2025-05-30",
+    "category_morningstar": "RV Europa Alto Dividendo",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 91.69,
+        "bond": 0.19,
+        "cash": 4.4,
+        "other": 3.72
+      }
+    },
+    "sectors": {
+      "technology": 7.22,
+      "financial_services": 25.57,
+      "industrials": 16.97,
+      "healthcare": 6.02,
+      "consumer_cyclical": 11.39,
+      "consumer_defensive": 16.39,
+      "utilities": 3.38,
+      "energy": 3.37,
+      "communication_services": 6.59,
+      "real_estate": 1.56,
+      "basic_materials": 1.55
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.03,
+        "europe_me_africa": 97.97
+      },
+      "detail": {
+        "united_states": 2.03,
+        "united_kingdom": 27.4,
+        "eurozone": 61,
+        "other": 9.57
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.33,
+        "large": 45.24,
+        "mid": 20.41,
+        "small": 2.03,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": null,
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 0
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Tiene como objetivo generar ingresos y un crecimiento del capital a largo plazo. Como mínimo un 70% se invierte en acciones de empresas que generen renta y cuya sede se encuentre en Europa, o que lleven a cabo una parte fundamental de su actividad en dicha región. La selección de activos queda determinada por una atractiva rentabilidad por dividendos, además de por el potencial de crecimiento del capital."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:financials",
+      "theme:income"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 25.57,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 91.69,
+        "bond": 0.19,
+        "cash": 4.4,
+        "other": 3.72
+      },
+      "equity_sectors_total": {
+        "technology": 6.62,
+        "financial_services": 23.4451,
+        "industrials": 15.5598,
+        "healthcare": 5.5197,
+        "consumer_cyclical": 10.4435,
+        "consumer_defensive": 15.028,
+        "utilities": 3.0991,
+        "energy": 3.09,
+        "communication_services": 6.0424,
+        "real_estate": 1.4304,
+        "basic_materials": 1.4212
+      },
+      "equity_regions_total": {
+        "united_states": 1.8613,
+        "united_kingdom": 25.1231,
+        "eurozone": 55.9309,
+        "other": 8.7747
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Value",
+        "weight_total": 91.69,
+        "size_bucket": "large",
+        "style": "value",
+        "size_weights_total": {
+          "small": 1.8611,
+          "mid": 18.7121,
+          "large": 71.1168
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Alto Dividendo",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Value",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:financials",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9169,
+      "bond": 0.0019,
+      "cash": 0.044,
+      "other": 0.0372
+    },
+    "equity_regions": {
+      "united_states": 1.8613,
+      "united_kingdom": 25.1231,
+      "eurozone": 55.9309,
+      "other": 8.7747
+    },
+    "sectors": {
+      "technology": 6.62,
+      "financial_services": 23.4451,
+      "industrials": 15.5598,
+      "healthcare": 5.5197,
+      "consumer_cyclical": 10.4435,
+      "consumer_defensive": 15.028,
+      "utilities": 3.0991,
+      "energy": 3.09,
+      "communication_services": 6.0424,
+      "real_estate": 1.4304,
+      "basic_materials": 1.4212
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 1.8611,
+      "mid": 18.7121,
+      "large": 71.1168
+    },
+    "bond_types": {
+      "flexible": 0.0019
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0019
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "aace257fdc6f6cb4a877dc39698d59a1",
+    "warnings": [
+      "unknown_region_key:Europa - ex Euro",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9169,
+          "bond": 0.0019,
+          "cash": 0.044,
+          "other": 0.0372,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9169
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.916992
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9169
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0019
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0019
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|credit_missing"
+  },
+  "generated_at": "2026-04-18T17:05:47.021Z"
+}

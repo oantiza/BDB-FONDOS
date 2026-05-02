@@ -1,0 +1,122 @@
+{
+  "isin": "LU0248183906",
+  "fileName": "morningstarreport20251202125413.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:30:08.011Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.87,
+        "bond": 0,
+        "cash": 1.13,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 32.43,
+      "financial_services": 19.65,
+      "industrials": 11.04,
+      "healthcare": 4.67,
+      "consumer_cyclical": 16.77,
+      "consumer_defensive": 0.78,
+      "utilities": 0.03,
+      "energy": 0.74,
+      "communication_services": 9.96,
+      "real_estate": 3.17,
+      "basic_materials": 0.76
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.03,
+        "europe_me_africa": 1.88,
+        "asia": 97.09
+      },
+      "detail": {
+        "united_states": 1.03,
+        "united_kingdom": 1.88,
+        "other": 46.59,
+        "asia_emerging": 50.5
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 69.65,
+        "large": 26.32,
+        "mid": 2.92,
+        "small": 0.07,
+        "micro": 1.05
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.9,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 8.47,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 5.34,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 4.62,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.3,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.18,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Schroder ISF Indian Opports I...",
+        "weight": 3.11,
+        "sector": null
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 3,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 2.86,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 2.83,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 67,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.62
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Fondo es proporcionar revalorización del capital mediante la inversión en valores de renta variable de sociedades asiáticas (a excepción de Japón)."
+  }
+}

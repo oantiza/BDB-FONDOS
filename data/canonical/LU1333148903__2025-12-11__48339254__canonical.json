@@ -1,0 +1,342 @@
+{
+  "isin": "LU1333148903",
+  "name": "Azvalor Lux SICAV Azvalor International R",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211060418.pdf",
+  "stableBaseName": "LU1333148903__2025-12-11__48339254",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Cap. Med/Peq",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2024-12-31",
+      "asset_allocation": {
+        "equity": 96.79,
+        "bond": 0.95,
+        "cash": 2.26,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "financial_services": 4.1,
+      "industrials": 9.17,
+      "healthcare": 2.92,
+      "consumer_cyclical": 2.3,
+      "consumer_defensive": 17.36,
+      "utilities": 2.38,
+      "energy": 39.75,
+      "communication_services": 3.02,
+      "real_estate": 1.63,
+      "basic_materials": 17.35
+    },
+    "regions": {
+      "macro": {
+        "americas": 35.82,
+        "europe_me_africa": 60.67,
+        "asia": 3.51
+      },
+      "detail": {
+        "united_states": 16.51,
+        "canada": 10.17,
+        "latin_america": 9.14,
+        "united_kingdom": 20.44,
+        "eurozone": 33.37,
+        "europe_ex_euro": 5.1,
+        "europe_emerging": 0.56,
+        "middle_east": 1.2,
+        "australasia": 2.5,
+        "other": 1.01
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 4.65,
+        "large": 15.39,
+        "mid": 22.08,
+        "small": 38.38,
+        "micro": 19.51
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Barrick Gold Crp",
+        "weight": 5.63,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Sprott Physical",
+        "weight": 5.12,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Prairiesky Royalty Ltd",
+        "weight": 4.75,
+        "sector": "energy"
+      },
+      {
+        "name": "Tenaris S.A.",
+        "weight": 4.36,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Nov Inc",
+        "weight": 3.97,
+        "sector": "energy"
+      },
+      {
+        "name": "Imperial Brands Plc",
+        "weight": 3.44,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Tullow Oil Plc",
+        "weight": 3.28,
+        "sector": "energy"
+      },
+      {
+        "name": "Schlumberger Ag",
+        "weight": 2.94,
+        "sector": "energy"
+      },
+      {
+        "name": "Borr Drilling Ltd",
+        "weight": 2.15,
+        "sector": "energy"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 73,
+      "holdings_count_bond": 1,
+      "top10_weight": 42.15
+    },
+    "costs": {
+      "management_fee": 2.2
+    },
+    "objective": "El objetivo de este Subfondo es superar la rentabilidad del Indice MSCI Europe Total Return Net en un período mínimo de inversión recomendado de cinco años. Para lograr este objetivo, el Subfondo invertirá al menos un 75% de sus activos en renta variable y valores afines. La selección de acciones se basa en un riguroso análisis fundamental de compañías de cualquier capitalización bursátil, y tiene por objeto centrarse en aquellas cuya valoración de mercado no representa su valor intrínseco estimado. Para más..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:energy"
+    ],
+    "top_sector": "energy",
+    "top_sector_weight": 39.75,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.79,
+        "bond": 0.95,
+        "cash": 2.26,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "financial_services": 3.9684,
+        "industrials": 8.8756,
+        "healthcare": 2.8263,
+        "consumer_cyclical": 2.2262,
+        "consumer_defensive": 16.8027,
+        "utilities": 2.3036,
+        "energy": 38.474,
+        "communication_services": 2.9231,
+        "real_estate": 1.5777,
+        "basic_materials": 16.7931
+      },
+      "equity_regions_total": {
+        "united_states": 15.98,
+        "canada": 9.8435,
+        "latin_america": 8.8466,
+        "united_kingdom": 19.7839,
+        "eurozone": 32.2988,
+        "europe_ex_euro": 4.9363,
+        "europe_emerging": 0.542,
+        "middle_east": 1.1615,
+        "australasia": 2.4198,
+        "other": 0.9776
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 96.79,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 56.0261,
+          "mid": 21.3691,
+          "large": 19.3948
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Med/Peq",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:energy"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9679,
+      "bond": 0.0095,
+      "cash": 0.0226,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.062561,
+      "canada": 0.038537,
+      "latin_america": 0.034634,
+      "united_kingdom": 0.077453,
+      "eurozone": 0.126449,
+      "europe_ex_euro": 0.019325,
+      "europe_emerging": 0.212191,
+      "middle_east": 0.004547,
+      "australasia": 0.009473,
+      "other": 0.382728
+    },
+    "sectors": {
+      "financial_services": 0.039692,
+      "industrials": 0.088774,
+      "healthcare": 0.028269,
+      "consumer_cyclical": 0.022266,
+      "consumer_defensive": 0.168061,
+      "utilities": 0.023041,
+      "energy": 0.384817,
+      "communication_services": 0.029237,
+      "real_estate": 0.01578,
+      "basic_materials": 0.167964
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.560261,
+      "mid": 0.213691,
+      "large": 0.193948
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.79",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.95,max_component=96.79"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "0f58e38b84a78b674623acbf2787b46c",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9679,
+          "bond": 0.0095,
+          "cash": 0.0226,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.967898
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.967901
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9679
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:41:51.459Z"
+}

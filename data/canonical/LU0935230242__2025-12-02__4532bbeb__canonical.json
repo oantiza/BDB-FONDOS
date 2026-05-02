@@ -1,0 +1,329 @@
+{
+  "isin": "LU0935230242",
+  "name": "Natixis AM Funds - Ostrum Europe MinVol RE/A (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202071205 (1).pdf",
+  "stableBaseName": "LU0935230242__2025-12-02__4532bbeb",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.14,
+        "bond": 0,
+        "cash": 0.86,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 3.01,
+      "financial_services": 18.7,
+      "industrials": 10.79,
+      "healthcare": 15.08,
+      "consumer_cyclical": 4.62,
+      "consumer_defensive": 15.2,
+      "utilities": 9.59,
+      "energy": 3.67,
+      "communication_services": 11.02,
+      "real_estate": 4.57,
+      "basic_materials": 3.75
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.52,
+        "europe_me_africa": 97.48
+      },
+      "detail": {
+        "united_states": 2.52,
+        "united_kingdom": 18.14,
+        "eurozone": 60.69,
+        "europe_ex_euro": 18.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 19.74,
+        "large": 40.64,
+        "mid": 38.23,
+        "small": 1.39,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Orange SA",
+        "weight": 2.61,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Coca-Cola Europacific Partners...",
+        "weight": 2.46,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Koninklijke Ahold Delhaize NV",
+        "weight": 2.43,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Unilever PLC",
+        "weight": 2.34,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Swiss Prime Site AG",
+        "weight": 2.12,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Haleon PLC",
+        "weight": 2.06,
+        "sector": "Salud"
+      },
+      {
+        "name": "Koninklijke KPN NV",
+        "weight": 2.02,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Euronext NV",
+        "weight": 1.92,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Tryg AS",
+        "weight": 1.91,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Danone SA",
+        "weight": 1.84,
+        "sector": "Consumo Defensivo"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 118,
+      "holdings_count_bond": 0,
+      "top10_weight": 21.7
+    },
+    "costs": {
+      "management_fee": 2.5
+    },
+    "objective": "El objetivo de inversión del Subfondo es superar la rentabilidad del índice MSCI Europe Dividend Net Reinvested Euro durante el periodo de inversión mínimo recomendado de cinco años y ofrecer al mismo tiempo una menor volatilidad. El índice MSCI Europe Dividend Net Reinvested Euro es un índice de referencia que replica la rentabilidad de los mercados de renta variable europea. La cartera del Subfondo invierte al menos un 90% de su patrimonio neto en valores de renta variable europea. La divisa de referencia del..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:income"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 18.7,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.14,
+        "bond": 0,
+        "cash": 0.86,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 2.9841,
+        "financial_services": 18.5392,
+        "industrials": 10.6972,
+        "healthcare": 14.9503,
+        "consumer_cyclical": 4.5803,
+        "consumer_defensive": 15.0693,
+        "utilities": 9.5075,
+        "energy": 3.6384,
+        "communication_services": 10.9252,
+        "real_estate": 4.5307,
+        "basic_materials": 3.7178
+      },
+      "equity_regions_total": {
+        "united_states": 2.4983,
+        "united_kingdom": 17.984,
+        "eurozone": 60.1681,
+        "europe_ex_euro": 18.4797
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 99.14,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 1.378,
+          "mid": 37.9012,
+          "large": 59.8607
+        },
+        "style_weights_total": {
+          "blend": 99.14
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Blend",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9914,
+      "bond": 0,
+      "cash": 0.0086,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.024985,
+      "united_kingdom": 0.179858,
+      "eurozone": 0.601741,
+      "europe_ex_euro": 0.184815
+    },
+    "sectors": {
+      "technology": 0.029841,
+      "financial_services": 0.185392,
+      "industrials": 0.106972,
+      "healthcare": 0.149503,
+      "consumer_cyclical": 0.045803,
+      "consumer_defensive": 0.150693,
+      "utilities": 0.095075,
+      "energy": 0.036384,
+      "communication_services": 0.109252,
+      "real_estate": 0.045307,
+      "basic_materials": 0.037178
+    },
+    "equity_styles": {
+      "blend": 0.9914
+    },
+    "market_caps": {
+      "small": 0.01378,
+      "mid": 0.379012,
+      "large": 0.598608
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.14",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.86,max_component=99.14"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "48ded3863834600de72519277476e432",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9914,
+          "bond": 0,
+          "cash": 0.0086,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.991399
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:27:40.460Z"
+}

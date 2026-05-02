@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:48:36.172Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0630951415",
+    "name": "Fidelity Funds - Emerging Asia Fund E-Acc-EUR",
+    "currency": "EUR",
+    "report_date": "2026-01-11",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 98.05,
+      "bond": 0.3,
+      "cash": 1.13,
+      "other": 0.52
+    },
+    "regions_macro": {
+      "americas": 3.48,
+      "europe_me_africa": 1.56,
+      "asia": 94.96
+    },
+    "regions_detail": {
+      "Estados Unidos": 0.99,
+      "Canadá": 0,
+      "Iberoamérica": 2.5,
+      "Reino Unido": 1.2,
+      "Zona Euro": 0.36,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 1.49,
+      "Asia - Desarrollada": 36.25,
+      "Asia - Emergente": 57.22
+    },
+    "sectors": {
+      "technology": 32.3,
+      "financial_services": 13.4,
+      "industrials": 5.88,
+      "healthcare": 4.22,
+      "consumer_cyclical": 17.15,
+      "consumer_defensive": 4.44,
+      "utilities": 0.24,
+      "energy": 1.59,
+      "communication_services": 13.24,
+      "real_estate": 2.43,
+      "basic_materials": 5.12
+    },
+    "equity_market_cap": {
+      "giant": 60.92,
+      "large": 17.75,
+      "mid": 12.35,
+      "small": 6.52,
+      "micro": 2.46
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.68,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 8.68,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 4.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 4.1,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.46,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Trip.com Group Ltd",
+        "weight": 2.93,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 2.47,
+        "sector": "financial_services"
+      },
+      {
+        "name": "BYTEDANCE",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "PT Bank Central Asia Tbk",
+        "weight": 2.41,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Wiwynn Corp Ordinary Shares",
+        "weight": 1.89,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 112,
+      "holdings_count_bond": 1,
+      "top10_weight": 42.93
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo tiene por objetivo generar a largo plazo el crecimiento del capital mediante la inversión principalmente en valores de las sociedades que tengan su domicilio social o el ejercicio de una parte predominante de su actividad en los países menos desarrollados de Asia que son considerados como mercados emergentes MSCI de acuerdo con el Índice de Mercados Emergentes de Asia."
+  }
+}

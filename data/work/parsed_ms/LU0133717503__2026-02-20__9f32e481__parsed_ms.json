@@ -1,0 +1,122 @@
+{
+  "isin": "LU0133717503",
+  "fileName": "morningstarreport20260220050420.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:53:52.787Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 94.91,
+        "cash": 5.09,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 4.53,
+      "effective_maturity": 9.31,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 6.2,
+        "aa": 11.29,
+        "a": 25.13,
+        "bbb": 47.44,
+        "bb": 7.88,
+        "b": 1.35,
+        "below_b": 0.09,
+        "not_rated": 0.63
+      },
+      "maturity_allocation": {
+        "1_3": 15.45,
+        "3_5": 26.66,
+        "5_7": 20.57,
+        "7_10": 16.61,
+        "over_10": 16.37
+      },
+      "coupon_allocation": {
+        "0": 0.99,
+        "0_4": 53.95,
+        "4_6": 33.71,
+        "over_6": 11.35
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Bund Future Mar 26",
+        "weight": 1.16,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 1.02,
+        "sector": null
+      },
+      {
+        "name": "TotalEnergies Capital International S.A....",
+        "weight": 0.97,
+        "sector": null
+      },
+      {
+        "name": "TotalEnergies Capital International S.A....",
+        "weight": 0.9,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 0.88,
+        "sector": null
+      },
+      {
+        "name": "Novo Nordisk Finance (Netherlands) B.V....",
+        "weight": 0.78,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs Group, Inc. 2.737%2029-12-18",
+        "weight": 0.75,
+        "sector": null
+      },
+      {
+        "name": "Hungary (Republic Of) 4.25%2033-05-26",
+        "weight": 0.67,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future Mar 26",
+        "weight": 0.67,
+        "sector": null
+      },
+      {
+        "name": "Wintershall Dea Finance B.V....",
+        "weight": 0.66,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 727,
+      "top10_weight": 8.47
+    },
+    "costs": {
+      "management_fee": 0.75
+    },
+    "objective": "Proporcionar un rendimiento de crecimiento de capital y de ingresos principalmente mediante la inversión en una cartera de bonos y otros títulos de renta fija y flotante denominados en euros y emitidos por gobiernos, organismos públicos y emisores supranacionales y empresariales. El fondo mantendrá un mínimo del 80% de su patrimonio neto en valores no soberanos."
+  }
+}

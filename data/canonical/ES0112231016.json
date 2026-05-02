@@ -1,0 +1,327 @@
+{
+  "isin": "ES0112231016",
+  "name": "Avantage Fund B FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072911.pdf",
+  "stableBaseName": "ES0112231016__2025-12-29__5f712c30",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 74.53,
+        "bond": 22.86,
+        "cash": 2.61,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 15.78,
+      "financial_services": 11.76,
+      "industrials": 21.06,
+      "healthcare": 10.18,
+      "consumer_cyclical": 20.63,
+      "consumer_defensive": 2.35,
+      "utilities": 4.53,
+      "energy": 0.31,
+      "communication_services": 3.36,
+      "real_estate": 3.35,
+      "basic_materials": 6.69
+    },
+    "regions": {
+      "macro": {
+        "americas": 41.85,
+        "europe_me_africa": 58.16
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 24.33,
+        "canada": 1.74,
+        "latin_america": 15.78,
+        "united_kingdom": 4.83,
+        "eurozone": 51.77,
+        "europe_ex_euro": 1.56
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Argentina (Republic Of)",
+        "weight": 11.61,
+        "sector": null
+      },
+      {
+        "name": "Irsa Inversiones y",
+        "weight": 6.17,
+        "sector": null
+      },
+      {
+        "name": "Renta 4 Banco SA",
+        "weight": 4.7,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 4.56,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Pampa Energia SA ADR",
+        "weight": 3.43,
+        "sector": "utilities"
+      },
+      {
+        "name": "Banco Macro S.A. 4.01%2029-05-23",
+        "weight": 3.4,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 3.31,
+        "sector": "technology"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 3.13,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Fluidra SA",
+        "weight": 2.95,
+        "sector": "industrials"
+      },
+      {
+        "name": "Prosegur Compania De Seguridad",
+        "weight": 2.9,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 3,
+      "top10_weight": 46.15
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "Además de criterios financieros, se aplican criterios de Inversión Socialmente Responsable (ASG), que siguen estrategias de inversion basadas en criterios excluyentes y valorativos. La mayoría de la cartera promueve criterios ASG (medioambientales, sociales y de gobernanza). Se invierte, directa o indirectamente a través de IIC, un 0-100% de la exposición total en renta variable o en activos de renta fija pública/ privada (incluyendo depósitos e instrumentos del mercado monetario cotizados o no, líquidos) sin..."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": "industrials",
+    "top_sector_weight": 21.06,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 74.53,
+        "bond": 22.86,
+        "cash": 2.61,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 11.7608,
+        "financial_services": 8.7647,
+        "industrials": 15.696,
+        "healthcare": 7.5872,
+        "consumer_cyclical": 15.3755,
+        "consumer_defensive": 1.7515,
+        "utilities": 3.3762,
+        "energy": 0.231,
+        "communication_services": 2.5042,
+        "real_estate": 2.4968,
+        "basic_materials": 4.9861
+      },
+      "equity_regions_total": {
+        "other": 74.53,
+        "united_states": 18.1331,
+        "canada": 1.2968,
+        "latin_america": 11.7608,
+        "united_kingdom": 3.5998,
+        "eurozone": 38.5842,
+        "europe_ex_euro": 1.1627
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 74.53,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "large": 74.53
+        },
+        "style_weights_total": {
+          "blend": 74.53
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Flexibles EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.7453,
+      "bond": 0.2286,
+      "cash": 0.0261,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.372632,
+      "united_states": 0.090661,
+      "canada": 0.006484,
+      "latin_america": 0.058801,
+      "united_kingdom": 0.017998,
+      "eurozone": 0.192911,
+      "europe_ex_euro": 0.005813
+    },
+    "sectors": {
+      "technology": 0.089994,
+      "financial_services": 0.067068,
+      "industrials": 0.120106,
+      "healthcare": 0.058057,
+      "consumer_cyclical": 0.117654,
+      "consumer_defensive": 0.013403,
+      "utilities": 0.025835,
+      "energy": 0.176762,
+      "communication_services": 0.019162,
+      "real_estate": 0.019106,
+      "basic_materials": 0.038154
+    },
+    "equity_styles": {
+      "blend": 0.7453
+    },
+    "market_caps": {
+      "large": 0.7453
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=74.53"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "6e850c9aba6c416114cef15ff1951f88",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.01"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.7453,
+          "bond": 0.2286,
+          "cash": 0.0261,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7453
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.745301
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7453
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7453
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:47:55.604Z"
+}

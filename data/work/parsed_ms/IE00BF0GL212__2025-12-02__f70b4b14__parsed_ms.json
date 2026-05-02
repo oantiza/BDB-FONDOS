@@ -1,0 +1,125 @@
+{
+  "isin": "IE00BF0GL212",
+  "fileName": "morningstarreport20251202042434.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:27.369Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.43,
+        "bond": 0.02,
+        "cash": 1.55,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 43.62,
+      "financial_services": 1.48,
+      "industrials": 27.09,
+      "healthcare": 2.75,
+      "consumer_cyclical": 4.74,
+      "consumer_defensive": 4.68,
+      "energy": 1.21,
+      "communication_services": 9.76,
+      "real_estate": 2.58,
+      "basic_materials": 2.09
+    },
+    "regions": {
+      "macro": {
+        "americas": 61.35,
+        "europe_me_africa": 10.53,
+        "asia": 28.11
+      },
+      "detail": {
+        "united_states": 59.88,
+        "canada": 1.47,
+        "united_kingdom": 4.23,
+        "eurozone": 4.36,
+        "europe_ex_euro": 1.95,
+        "japan": 15.02,
+        "other": 7.38,
+        "asia_emerging": 5.71
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 35.73,
+        "large": 34.81,
+        "mid": 26.01,
+        "small": 3.45,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 5.62,
+        "sector": "Technology"
+      },
+      {
+        "name": "Caterpillar Inc",
+        "weight": 3.16,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Lam Research Corp",
+        "weight": 3.08,
+        "sector": "Technology"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.98,
+        "sector": "Technology"
+      },
+      {
+        "name": "Vertiv Holdings Co Class A",
+        "weight": 2.84,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Micron Technology Inc",
+        "weight": 2.68,
+        "sector": "Technology"
+      },
+      {
+        "name": "Fujikura Ltd",
+        "weight": 2.55,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Cloudflare Inc",
+        "weight": 2.47,
+        "sector": "Technology"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 2.38,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Advanced Micro Devices Inc",
+        "weight": 2.34,
+        "sector": "Technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 71,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.1
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "The Fund's investment objective is to achieve long term capital appreciation. The Fund will seek to achieve its investment objective by primarily investing in a diversified portfolio of global equity securities which may be listed or traded on a Regulated Market. The Fund is not expected to invest more than 20% of its Net Asset Value in emerging markets. The securities in which the Fund will primarily invest will include equity and equity related securities including, but not limited to, ordinary and preference shares..."
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "isin": "LU1819480192",
+  "fileName": "morningstarreport20251202125426.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:30:25.286Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.55,
+        "bond": 0,
+        "cash": 1.45,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 69.2,
+      "financial_services": 1.42,
+      "industrials": 5.44,
+      "healthcare": 3.82,
+      "consumer_cyclical": 10.4,
+      "utilities": 0.02,
+      "communication_services": 9.7
+    },
+    "regions": {
+      "macro": {
+        "americas": 89.04,
+        "europe_me_africa": 1.48,
+        "asia": 9.48
+      },
+      "detail": {
+        "united_states": 83.78,
+        "canada": 1.32,
+        "latin_america": 3.94,
+        "united_kingdom": 1.34,
+        "eurozone": 0.11,
+        "europe_ex_euro": 0.02,
+        "japan": 0.03,
+        "other": 7.04,
+        "asia_emerging": 2.41
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 53.97,
+        "large": 25.51,
+        "mid": 16.55,
+        "small": 3.93,
+        "micro": 0.04
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Amazon.com Inc",
+        "weight": 6.41,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.34,
+        "sector": "Technology"
+      },
+      {
+        "name": "Zscaler Inc",
+        "weight": 4.92,
+        "sector": "Technology"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 4.76,
+        "sector": "Technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 4.76,
+        "sector": "Technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.43,
+        "sector": "Technology"
+      },
+      {
+        "name": "Snowflake Inc Ordinary Shares",
+        "weight": 4.33,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.17,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Oracle Corp",
+        "weight": 4.08,
+        "sector": "Technology"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 3.94,
+        "sector": "Consumer Cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 47.13
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The actively managed Sub-Fund is a dynamic fund seeking long-term performance through exposure on growth securities in international markets. Particularly the Sub-Fund seeks to invest in companies developing Artificial Intelligence and/or companies benefiting from it. The objective of the Sub-Fund is to achieve, over the recommended investment period, a performance net of fees higher than that of its benchmark index, the MSCI World Index Net Total Return. However, the Sub-Fund does not aim to replicate the performance..."
+  }
+}

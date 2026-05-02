@@ -1,0 +1,371 @@
+{
+  "isin": "LU0119750205",
+  "name": "Invesco Funds - Invesco Sustainable Pan European Systematic Equity Fund A Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260220050346.pdf",
+  "stableBaseName": "LU0119750205__2026-02-20__966a6fdf",
+  "report_date": "2026-02-20",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 99.22,
+        "bond": 0,
+        "cash": 0.78,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.02,
+      "financial_services": 22.48,
+      "industrials": 21.85,
+      "healthcare": 16.55,
+      "consumer_cyclical": 5.44,
+      "consumer_defensive": 11.73,
+      "utilities": 2.98,
+      "communication_services": 10.75,
+      "real_estate": 0.23,
+      "basic_materials": 2.96
+    },
+    "regions": {
+      "macro": {
+        "americas": 3.1,
+        "europe_me_africa": 96.9
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 2.74,
+        "latin_america": 0.37,
+        "united_kingdom": 15.65,
+        "eurozone": 53.68,
+        "europe_ex_euro": 27.57
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 19.6,
+        "large": 40.46,
+        "mid": 38.99,
+        "small": 0.95,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.36,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Aena SME SA",
+        "weight": 2.04,
+        "sector": "industrials"
+      },
+      {
+        "name": "ABB Ltd",
+        "weight": 1.87,
+        "sector": "industrials"
+      },
+      {
+        "name": "Orange SA",
+        "weight": 1.87,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Schindler Holding AG Non Voting",
+        "weight": 1.75,
+        "sector": "industrials"
+      },
+      {
+        "name": "AerCap Holdings NV",
+        "weight": 1.74,
+        "sector": "industrials"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 1.74,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Anheuser-Busch InBev SA/NV",
+        "weight": 1.68,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "AXA SA",
+        "weight": 1.67,
+        "sector": "financial_services"
+      },
+      {
+        "name": "GSK PLC",
+        "weight": 1.67,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 155,
+      "holdings_count_bond": 0,
+      "top10_weight": 18.39
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "El objetivo del fondo es obtener crecimiento de capital a largo plazo invirtiendo en una cartera diversificada de compañías de gran capitalización con sede en un país europeo o que realicen la mayoría de su actividad en países europeos (incluyendo Reino Unido)."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:esg"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 22.48,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.22,
+        "bond": 0,
+        "cash": 0.78,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 4.9808,
+        "financial_services": 22.3047,
+        "industrials": 21.6796,
+        "healthcare": 16.4209,
+        "consumer_cyclical": 5.3976,
+        "consumer_defensive": 11.6385,
+        "utilities": 2.9568,
+        "communication_services": 10.6662,
+        "real_estate": 0.2282,
+        "basic_materials": 2.9369
+      },
+      "equity_regions_total": {
+        "other": 99.22,
+        "united_states": 2.7186,
+        "latin_america": 0.3671,
+        "united_kingdom": 15.5279,
+        "eurozone": 53.2613,
+        "europe_ex_euro": 27.355
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 99.22,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 0.9426,
+          "mid": 38.6859,
+          "large": 59.5915
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Blend",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "theme:esg"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9922,
+      "bond": 0,
+      "cash": 0.0078,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.419289,
+      "united_states": 0.011488,
+      "latin_america": 0.155131,
+      "united_kingdom": 0.065619,
+      "eurozone": 0.225074,
+      "europe_ex_euro": 0.115598
+    },
+    "sectors": {
+      "technology": 0.040574,
+      "financial_services": 0.181694,
+      "industrials": 0.176602,
+      "healthcare": 0.133765,
+      "consumer_cyclical": 0.043969,
+      "consumer_defensive": 0.094807,
+      "utilities": 0.024086,
+      "communication_services": 0.086887,
+      "real_estate": 0.185892,
+      "basic_materials": 0.023924
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.485749,
+      "mid": 0.199359,
+      "large": 0.307092
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.22",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.78,max_component=99.22",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "5e2d7e3ee6b2c159fac1487ae655c92c",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.01",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9922,
+          "bond": 0,
+          "cash": 0.0078,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.992199
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9922
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9922
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:53:36.274Z"
+}

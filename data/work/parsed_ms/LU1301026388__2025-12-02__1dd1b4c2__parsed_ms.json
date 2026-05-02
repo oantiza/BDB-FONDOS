@@ -1,0 +1,128 @@
+{
+  "isin": "LU1301026388",
+  "fileName": "morningstarreport20251202013910.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:04:05.850Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Zona Euro Cap. Mediana",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.21,
+        "bond": 0.06,
+        "cash": 3.72,
+        "other": 0.01
+      }
+    },
+    "sectors": {
+      "technology": 13.41,
+      "financial_services": 23.94,
+      "industrials": 25.33,
+      "healthcare": 10.79,
+      "consumer_cyclical": 7.53,
+      "consumer_defensive": 5.45,
+      "utilities": 7.29,
+      "communication_services": 4,
+      "real_estate": 0.01,
+      "basic_materials": 2.25
+    },
+    "regions": {
+      "macro": {
+        "americas": 0.9,
+        "europe_me_africa": 99.08,
+        "asia": 0.02
+      },
+      "detail": {
+        "united_states": 0.9,
+        "latin_america": 0.01,
+        "united_kingdom": 1.21,
+        "eurozone": 95.93,
+        "europe_ex_euro": 1.94,
+        "japan": 0.01,
+        "other": 0.01
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 65.76,
+        "large": 27.22,
+        "mid": 7.01,
+        "small": 0.01,
+        "micro": 0
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 7.1,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Intesa Sanpaolo",
+        "weight": 4.98,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 4.96,
+        "sector": "Industria"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 4.64,
+        "sector": "Industria"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 4.13,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 4.04,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 3.59,
+        "sector": "Industria"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 3.07,
+        "sector": "Salud"
+      },
+      {
+        "name": "Danone SA",
+        "weight": 3.07,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "EDP-Energias De Portugal SA",
+        "weight": 2.88,
+        "sector": "Servicios Públicos"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 47,
+      "holdings_count_bond": 0,
+      "top10_weight": 42.46
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "The Sub-Fund (denominated in EUR) aims to outperform the Euro Stoxx Total Return index (with dividend reinvested) over a minimum recommended five-year investment horizon through a thematic SRI strategy. The Sub-Fund has Sustainable Investment as its objective according to Article 9 of the SFDR, by investing in companies valuing their human capital as a core pillar for sustainable development."
+  }
+}

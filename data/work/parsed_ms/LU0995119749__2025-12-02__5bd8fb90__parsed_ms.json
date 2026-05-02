@@ -1,0 +1,117 @@
+{
+  "isin": "LU0995119749",
+  "fileName": "morningstarreport20251202040831.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:13:21.021Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 88.89,
+        "cash": 10.83,
+        "other": 0.28
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": null,
+        "large": null,
+        "mid": null,
+        "small": null,
+        "micro": null
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 4.34,
+      "effective_maturity": 9.72,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 4.95,
+        "aa": 8.51,
+        "a": 17.19,
+        "bbb": 52.09,
+        "bb": 11.96,
+        "b": 5.36,
+        "below_b": 0.2
+      },
+      "maturity_allocation": {
+        "1_3": 11.22,
+        "3_5": 28.27,
+        "5_7": 20.88,
+        "7_10": 15.09,
+        "over_10": 16.94
+      },
+      "coupon_allocation": {
+        "0": 0.81,
+        "0_4": 43.05,
+        "4_6": 35.8,
+        "over_6": 20.34
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Schatz Future Dec 25",
+        "weight": 2.8,
+        "sector": null
+      },
+      {
+        "name": "Euro Bund Future Dec 25",
+        "weight": 1.61,
+        "sector": null
+      },
+      {
+        "name": "Gtc Finance Dac Callable Bond Fixed...",
+        "weight": 1.07,
+        "sector": null
+      },
+      {
+        "name": "Bank of Nova Scotia 7.35%",
+        "weight": 0.96,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 0.88,
+        "sector": null
+      },
+      {
+        "name": "The Toronto-Dominion Bank 2.772%",
+        "weight": 0.85,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%",
+        "weight": 0.84,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 0.79,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 556,
+      "top10_weight": 9.79
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El objetivo del Fondo es ofrecer crecimiento del capital e ingresos. Al menos dos terceras partes del Fondo (a excepción del efectivo) se invertirán en bonos emitidos en euros por empresas de todo el mundo. Un máximo del 20% del Fondo se podrá invertir en bonos emitidos por gobiernos y organismos gubernamentales."
+  }
+}

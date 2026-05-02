@@ -1,0 +1,311 @@
+{
+  "isin": "LU0171309270",
+  "name": "BlackRock Global Funds - World Healthscience Fund E2 (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125732.pdf",
+  "stableBaseName": "LU0171309270__2025-12-02__8f18444c",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Salud",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.89,
+        "bond": 0,
+        "cash": 0.11,
+        "other": 0.01
+      }
+    },
+    "sectors": {
+      "healthcare": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 78.04,
+        "europe_me_africa": 20.42,
+        "asia": 1.54
+      },
+      "detail": {
+        "united_states": 78.04,
+        "united_kingdom": 5.13,
+        "eurozone": 4.29,
+        "europe_ex_euro": 10.53,
+        "middle_east": 0.47,
+        "japan": 1.23,
+        "asia_emerging": 0.31
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 22.24,
+        "large": 57.24,
+        "mid": 18.16,
+        "small": 1.91,
+        "micro": 0.45
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Johnson & Johnson",
+        "weight": 8.02,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 6.29,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "AbbVie Inc",
+        "weight": 5.66,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Abbott Laboratories",
+        "weight": 5.54,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 5.13,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "UnitedHealth Group Inc",
+        "weight": 4.14,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.32,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Medtronic PLC",
+        "weight": 3.17,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 3,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.76,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 86,
+      "holdings_count_bond": 6,
+      "top10_weight": 47.02
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo trata de maximizar el crecimiento del capital, expresado en dólares estadounidenses, invirtiendo en valores de renta variable cotizados de empresas con una presencia significativa en los sectores de asistencia sanitaria, farmacéutico y de tecnología y suministros médicos. El Fondo también podrá invertir en empresas dedicadas al desarrollo de la biotecnología. El Fondo invierte a escala internacional. La posición sujeta a riesgo de cambio no será normalmente objeto de cobertura."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 100,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.89,
+        "bond": 0,
+        "cash": 0.11,
+        "other": 0.01
+      },
+      "equity_sectors_total": {
+        "healthcare": 99.89
+      },
+      "equity_regions_total": {
+        "united_states": 77.9542,
+        "united_kingdom": 5.1244,
+        "eurozone": 4.2853,
+        "europe_ex_euro": 10.5184,
+        "middle_east": 0.4695,
+        "japan": 1.2286,
+        "asia_emerging": 0.3097
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.89,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 2.3574,
+          "mid": 18.14,
+          "large": 79.3926
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "commercial_type": "RV Sector Salud",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9989,
+      "bond": 0,
+      "cash": 0.0011,
+      "other": 0.0001
+    },
+    "equity_regions": {
+      "united_states": 0.439858,
+      "united_kingdom": 0.028915,
+      "eurozone": 0.02418,
+      "europe_ex_euro": 0.05935,
+      "middle_east": 0.264916,
+      "japan": 0.006932,
+      "asia_emerging": 0.174749
+    },
+    "sectors": {
+      "healthcare": 0.9989
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.023574,
+      "mid": 0.1814,
+      "large": 0.793926
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.89",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.01,max_component=99.89"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "d1d2b74a1f988754a7f8d7d0bfdf5728",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9989,
+          "bond": 0,
+          "cash": 0.0011,
+          "other": 0.0001,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9989
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9989
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9989
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:37:20.843Z"
+}

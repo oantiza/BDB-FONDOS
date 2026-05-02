@@ -1,0 +1,336 @@
+{
+  "isin": "LU0302445910",
+  "name": "Schroder International Selection Fund Global Climate Change Equity A Accumulation",
+  "currency": "USD",
+  "fileName": "morningstarreport20260220050708.pdf",
+  "stableBaseName": "LU0302445910__2026-02-20__0baf73e5",
+  "report_date": "2026-02-20",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Sector Ecología",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 98.83,
+        "bond": 0,
+        "cash": 1.17,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.96,
+      "financial_services": 2.17,
+      "industrials": 32.89,
+      "consumer_cyclical": 13.84,
+      "consumer_defensive": 5.17,
+      "utilities": 8.45,
+      "communication_services": 7.1,
+      "real_estate": 1.36,
+      "basic_materials": 4.06
+    },
+    "regions": {
+      "macro": {
+        "americas": 48.54,
+        "europe_me_africa": 32.11,
+        "asia": 19.35
+      },
+      "detail": {
+        "united_states": 48.54,
+        "united_kingdom": 3.91,
+        "eurozone": 20.34,
+        "europe_ex_euro": 7.85,
+        "japan": 8.94,
+        "other": 3.42,
+        "asia_emerging": 7
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 35.91,
+        "large": 31.21,
+        "mid": 29.31,
+        "small": 3.58,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 7.01,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.14,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.52,
+        "sector": null
+      },
+      {
+        "name": "Analog Devices Inc",
+        "weight": 3.47,
+        "sector": null
+      },
+      {
+        "name": "Vestas Wind Systems AS",
+        "weight": 3.08,
+        "sector": null
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "NextEra Energy Inc",
+        "weight": 2.61,
+        "sector": null
+      },
+      {
+        "name": "Nextpower Inc Class A",
+        "weight": 2.58,
+        "sector": null
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.4,
+        "sector": null
+      },
+      {
+        "name": "Infineon Technologies AG",
+        "weight": 2.24,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 59,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.92
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo proporciona capital de crecimiento a través de la inversión principalmente en acciones de valores de emisores de todo el mundo que se beneficiarán de los esfuerzos para acomodar o limitar el impacto del cambio climático mundial."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:industrials",
+      "theme:climate"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 32.89,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.83,
+        "bond": 0,
+        "cash": 1.17,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.668,
+        "financial_services": 2.1446,
+        "industrials": 32.5052,
+        "consumer_cyclical": 13.6781,
+        "consumer_defensive": 5.1095,
+        "utilities": 8.3511,
+        "communication_services": 7.0169,
+        "real_estate": 1.3441,
+        "basic_materials": 4.0125
+      },
+      "equity_regions_total": {
+        "united_states": 47.9721,
+        "united_kingdom": 3.8643,
+        "eurozone": 20.102,
+        "europe_ex_euro": 7.7582,
+        "japan": 8.8354,
+        "other": 3.38,
+        "asia_emerging": 6.9181
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.83,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 3.5378,
+          "mid": 28.9642,
+          "large": 66.3281
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Ecología",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:climate"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9883,
+      "bond": 0,
+      "cash": 0.0117,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.479721,
+      "united_kingdom": 0.038643,
+      "eurozone": 0.20102,
+      "europe_ex_euro": 0.077582,
+      "japan": 0.088354,
+      "other": 0.0338,
+      "asia_emerging": 0.069181
+    },
+    "sectors": {
+      "technology": 0.24668,
+      "financial_services": 0.021446,
+      "industrials": 0.325052,
+      "consumer_cyclical": 0.136781,
+      "consumer_defensive": 0.051095,
+      "utilities": 0.083511,
+      "communication_services": 0.070169,
+      "real_estate": 0.013441,
+      "basic_materials": 0.040125
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.035378,
+      "mid": 0.289642,
+      "large": 0.66328
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.83"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "f6be06d5c6bc63f2eeba6851996764fc",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9883,
+          "bond": 0,
+          "cash": 0.0117,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988301
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9883
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9883
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:54:52.573Z"
+}

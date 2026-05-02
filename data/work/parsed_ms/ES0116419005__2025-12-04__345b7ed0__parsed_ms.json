@@ -1,0 +1,132 @@
+{
+  "isin": "ES0116419005",
+  "fileName": "morningstarreport20251204093144.pdf",
+  "report_date": "2025-12-04",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:38:57.426Z",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "Fixed Term Bond",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 73.91,
+        "cash": 24.07,
+        "other": 2.02
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 5.35,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 82.71,
+        "4_6": 14.13,
+        "over_6": 3.16
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of)",
+        "weight": 3.96,
+        "sector": null
+      },
+      {
+        "name": "Aareal Bank AG",
+        "weight": 3.33,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG",
+        "weight": 3.29,
+        "sector": null
+      },
+      {
+        "name": "Autostrade per l'Italia S.p.A.",
+        "weight": 3.25,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of)",
+        "weight": 3.24,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A.",
+        "weight": 3.19,
+        "sector": null
+      },
+      {
+        "name": "Hypo Vorarlberg Bank AG",
+        "weight": 3.05,
+        "sector": null
+      },
+      {
+        "name": "Hungary (Republic Of)",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "Leonardo S.p.A.",
+        "weight": 2.75,
+        "sector": null
+      },
+      {
+        "name": "RCI Banque S.A.",
+        "weight": 2.72,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 36,
+      "top10_weight": 31.73
+    },
+    "costs": {
+      "management_fee": 0.52
+    },
+    "objective": "El fondo estará expuesto en un 100% en renta fija privada (mínimo 50% de la exposición total) y pública (incluyendo depósitos e instrumentos del mercado monetario cotizados o no, líquidos). Los emisores/ mercados serán OCDE/UE con un máximo del 10% de la exposición total en emisores emergentes. Al menos, el 90% de la cartera tendrá vencimiento esperado dentro de los seis meses anteriores o posteriores al 30/04/2026. Las emisiones tendrán al menos media calidad crediticia (mínimo BBB-) o la de España si ésta fuera..."
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "isin": "ES0184894006",
+  "fileName": "morningstarreport20240623090216.pdf",
+  "report_date": "2024-06-23",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:01:56.134Z",
+  "ms": {
+    "report_date": "2024-06-23",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2024-05-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.78,
+      "financial_services": 15.37,
+      "industrials": 10.3,
+      "healthcare": 11.57,
+      "consumer_cyclical": 11.02,
+      "consumer_defensive": 6.01,
+      "utilities": 2.43,
+      "energy": 4.05,
+      "communication_services": 8.54,
+      "real_estate": 2.3,
+      "basic_materials": 3.65
+    },
+    "regions": {
+      "macro": {
+        "americas": 65.64,
+        "europe_me_africa": 17.22,
+        "asia": 17.15
+      },
+      "detail": {
+        "united_states": 62.16,
+        "canada": 2.72,
+        "latin_america": 0.75,
+        "united_kingdom": 3.27,
+        "eurozone": 7.55,
+        "europe_ex_euro": 5.1,
+        "europe_emerging": 0.28,
+        "middle_east": 1.02,
+        "japan": 7.8,
+        "australasia": 1.53,
+        "other": 3.35,
+        "asia_emerging": 4.46
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 48.79,
+        "large": 33.28,
+        "mid": 15.43,
+        "small": 1.51,
+        "micro": 0.99
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Xtrackers S&P 500 Swap ETF 1D",
+        "weight": 18.37,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 ETF",
+        "weight": 18.12,
+        "sector": null
+      },
+      {
+        "name": "Amundi Stoxx Europe 600 ETF C",
+        "weight": 14.56,
+        "sector": null
+      },
+      {
+        "name": "iShares S&P 500 Swap ETF USD Acc",
+        "weight": 10.05,
+        "sector": null
+      },
+      {
+        "name": "iShares MSCI EM ETF USD Acc",
+        "weight": 8.98,
+        "sector": null
+      },
+      {
+        "name": "Micro E-mini S&P 500 Index...",
+        "weight": 8.95,
+        "sector": null
+      },
+      {
+        "name": "Amundi IS Prime Japan ETF DR",
+        "weight": 7.61,
+        "sector": null
+      },
+      {
+        "name": "E-mini S&P 500 Future June...",
+        "weight": 6.63,
+        "sector": null
+      },
+      {
+        "name": "UBS(Lux)FS MSCI Canada CAD Aacc",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "L&G Asia Pacific ex Japan...",
+        "weight": 2.22,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 98.33
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Invierte 0%-100% del patrimonio en IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la Gestora. El objetivo es alcanzar una rentabilidad similar al MSCI ACWI (NR). Para ello, el 75%-100% de la exposición total será renta variable de emisores/ mercados de cualquier país, incluidos emergentes, de cualquier sector y capitalización, a través de ETF e IIC financieras y de forma secundaria, a través de futuros. Se empleará tanto el modelo de réplica física..."
+  }
+}

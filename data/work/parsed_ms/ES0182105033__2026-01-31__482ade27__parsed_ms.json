@@ -1,0 +1,152 @@
+{
+  "isin": "ES0182105033",
+  "fileName": "morningstarreport20260131110825.pdf",
+  "report_date": "2026-01-31",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:52:16.386Z",
+  "ms": {
+    "report_date": "2026-01-31",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 57.4,
+        "bond": 15.81,
+        "cash": 22.09,
+        "other": 4.7
+      }
+    },
+    "sectors": {
+      "technology": 13.18,
+      "financial_services": 8.22,
+      "industrials": 1.73,
+      "healthcare": 40.8,
+      "consumer_cyclical": 21.72,
+      "consumer_defensive": 9.88,
+      "communication_services": 1.75,
+      "basic_materials": 2.72
+    },
+    "regions": {
+      "macro": {
+        "americas": 60.72,
+        "europe_me_africa": 27.43,
+        "asia": 11.86
+      },
+      "detail": {
+        "united_states": 60.72,
+        "eurozone": 11.32,
+        "europe_ex_euro": 16.1,
+        "japan": 1.32,
+        "other": 3.73,
+        "asia_emerging": 6.81
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 0%2026-01-05",
+        "weight": 20.43,
+        "sector": null
+      },
+      {
+        "name": "Biogen Inc",
+        "weight": 4.14,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 3.72,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 3.37,
+        "sector": "financial_services"
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 3.23,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Victoria's Secret & Co",
+        "weight": 2.92,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 2.89,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Qualcomm Inc",
+        "weight": 2.85,
+        "sector": "technology"
+      },
+      {
+        "name": "Booking Holdings Inc...",
+        "weight": 2.44,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 7,
+      "top10_weight": 49.32
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "La inversión en renta variable oscilará entre 30%-75% de la exposición total (aunque habitualmente estará por debajo del 60%), mayoritariamente en compañías de alta capitalización, de cualquier sector. El resto se invertirá en renta fija pública y/o privada (hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo), y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja calidad...."
+  }
+}

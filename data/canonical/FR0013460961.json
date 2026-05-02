@@ -1,0 +1,267 @@
+{
+  "isin": "FR0013460961",
+  "name": "EdR SICAV - Short Duration Credit B EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204093442.pdf",
+  "stableBaseName": "FR0013460961__2025-12-04__40c9e899",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.96,
+        "cash": 0.93,
+        "other": 1.11
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 30.73,
+        "3_5": 32.17,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 6.62
+      },
+      "coupon_allocation": {
+        "0": 0.39,
+        "0_4": 48.81,
+        "4_6": 30.31,
+        "over_6": 20.49
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Bobl Future Dec 25",
+        "weight": 4.24,
+        "sector": null
+      },
+      {
+        "name": "ELO SA 2.875%",
+        "weight": 2.32,
+        "sector": null
+      },
+      {
+        "name": "Renault S.A. 2.375%",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "EC Finance PLC 3.25%",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "V.F. Corp 4.125%",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Iqvia Inc 1.75%",
+        "weight": 1.46,
+        "sector": null
+      },
+      {
+        "name": "Virgin Media Vendor Financing Notes III...",
+        "weight": 1.38,
+        "sector": null
+      },
+      {
+        "name": "Vestas Wind Systems AS 4.125%",
+        "weight": 1.35,
+        "sector": null
+      },
+      {
+        "name": "Schaeffler AG 4.5%",
+        "weight": 1.34,
+        "sector": null
+      },
+      {
+        "name": "EP Infrastructure AS 1.698%",
+        "weight": 1.31,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 199,
+      "top10_weight": 18.65
+    },
+    "costs": {
+      "management_fee": 0.7
+    },
+    "objective": null
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Flexible EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9796,
+      "cash": 0.0093,
+      "other": 0.0111
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "flexible": 0.9796
+    },
+    "credit": null,
+    "duration": {
+      "short": 0.9796
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.96",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.93,max_component=97.96",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "e168d7766c12ae8575682175978535fa",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9796,
+          "cash": 0.0093,
+          "other": 0.0111,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9796
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9796
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:39:15.557Z"
+}

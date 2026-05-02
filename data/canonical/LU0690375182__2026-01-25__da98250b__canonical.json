@@ -1,0 +1,354 @@
+{
+  "isin": "LU0690375182",
+  "name": "Fundsmith Equity Fund T EUR Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091613.pdf",
+  "stableBaseName": "LU0690375182__2026-01-25__da98250b",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-30",
+      "asset_allocation": {
+        "equity": 99.4,
+        "bond": 0,
+        "cash": 0.6,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 20.67,
+      "financial_services": 5.15,
+      "industrials": 3.91,
+      "healthcare": 29.81,
+      "consumer_cyclical": 10.2,
+      "consumer_defensive": 19.53,
+      "communication_services": 10.73
+    },
+    "regions": {
+      "macro": {
+        "americas": 72.5,
+        "europe_me_africa": 27.5
+      },
+      "detail": {
+        "united_states": 72.5,
+        "united_kingdom": 4.35,
+        "eurozone": 15.27,
+        "europe_ex_euro": 7.89
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.21,
+        "large": 30.62,
+        "mid": 27.17,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Stryker Corp",
+        "weight": 6.61,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "IDEXX Laboratories Inc",
+        "weight": 6.53,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 6.02,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 5.55,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.17,
+        "sector": "Technology"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 5.12,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Automatic Data Processing Inc",
+        "weight": 4.87,
+        "sector": "Technology"
+      },
+      {
+        "name": "Philip Morris International Inc",
+        "weight": 4.71,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 4.64,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Waters Corp",
+        "weight": 4.43,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 27,
+      "holdings_count_bond": 0,
+      "top10_weight": 53.66
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The investment objective of the Sub-fund is to achieve long term growth in value. The Sub-fund will invest in equities on a global basis. The Subfund's approach is to be a long-term investor in its chosen stocks. It will not adopt short-term trading strategies."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 29.81,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.4,
+        "bond": 0,
+        "cash": 0.6,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 20.546,
+        "financial_services": 5.1191,
+        "industrials": 3.8865,
+        "healthcare": 29.6311,
+        "consumer_cyclical": 10.1388,
+        "consumer_defensive": 19.4128,
+        "communication_services": 10.6656
+      },
+      "equity_regions_total": {
+        "united_states": 72.065,
+        "united_kingdom": 4.3239,
+        "eurozone": 15.1784,
+        "europe_ex_euro": 7.8427
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 99.4,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "mid": 27.007,
+          "large": 72.393
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Growth",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.994,
+      "bond": 0,
+      "cash": 0.006,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.720578,
+      "united_kingdom": 0.043235,
+      "eurozone": 0.151769,
+      "europe_ex_euro": 0.078419
+    },
+    "sectors": {
+      "technology": 0.20546,
+      "financial_services": 0.051191,
+      "industrials": 0.038865,
+      "healthcare": 0.296311,
+      "consumer_cyclical": 0.101388,
+      "consumer_defensive": 0.194128,
+      "communication_services": 0.106656
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.27007,
+      "large": 0.72393
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.4",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.6,max_component=99.4",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "473295e9a2fdf118e99673048e884053",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.994,
+          "bond": 0,
+          "cash": 0.006,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.994001
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.993999
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.994
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:50:43.957Z"
+}

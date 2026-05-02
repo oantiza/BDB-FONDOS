@@ -1,0 +1,144 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:52:28.195Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0496369389",
+    "name": "Franklin Gold & Precious Metals Fund N(acc)EUR",
+    "currency": "EUR",
+    "report_date": "2026-02-03",
+    "category_morningstar": "RV Sector Oro y Metales preciosos",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 dic. 2025",
+    "asset_allocation": {
+      "equity": 98.21,
+      "bond": 0,
+      "cash": 1.79,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 66.57,
+      "europe_me_africa": 10.21,
+      "asia": 23.22
+    },
+    "regions_detail": {
+      "América": 66.57,
+      "Estados Unidos": 7.05,
+      "Canadá": 59.19,
+      "Iberoamérica": 0.33,
+      "Europa/O. Medio/Africa": 10.21,
+      "Reino Unido": 4.49,
+      "Zona Euro": 0,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 5.72,
+      "Asia": 23.22,
+      "Japón": 0,
+      "Australasia": 22.82,
+      "Asia - Desarrollada": 0.11,
+      "Asia - Emergente": 0.29
+    },
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0.35,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 99.65
+    },
+    "equity_market_cap": {
+      "giant": 7.52,
+      "large": 10,
+      "mid": 38.64,
+      "small": 24.53,
+      "micro": 19.3
+    },
+    "equity_style": {
+      "value": null,
+      "blend": null,
+      "growth": null
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 4.64,
+        "sector": null
+      },
+      {
+        "name": "G Mining Ventures Corp",
+        "weight": 4.44,
+        "sector": null
+      },
+      {
+        "name": "Equinox Gold Corp Ordinary...",
+        "weight": 3.63,
+        "sector": null
+      },
+      {
+        "name": "Anglogold Ashanti PLC",
+        "weight": 2.94,
+        "sector": null
+      },
+      {
+        "name": "Torex Gold Resources Inc",
+        "weight": 2.51,
+        "sector": null
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 2.5,
+        "sector": null
+      },
+      {
+        "name": "Perseus Mining Ltd",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "Alamos Gold Inc Class A",
+        "weight": 2.38,
+        "sector": null
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 2.36,
+        "sector": null
+      },
+      {
+        "name": "Orla Mining Ltd",
+        "weight": 2.23,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 208,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.07
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "Crecimiento del capital a largo plazo invirtiendo principalmente en activos de renta variable que cotizan en bolsa y valores relacionados con renta variable que reúnen las condiciones para ser valores negociables, en todo el mundo incluyendo países emergentes."
+  }
+}

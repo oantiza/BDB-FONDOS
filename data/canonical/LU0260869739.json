@@ -1,0 +1,329 @@
+{
+  "isin": "LU0260869739",
+  "name": "Franklin U.S. Opportunities Fund A(acc)EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202073254.pdf",
+  "stableBaseName": "LU0260869739__2025-12-02__783d9a17",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV USA Cap. Grande Growth",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.75,
+        "bond": 0,
+        "cash": 0,
+        "other": 1.32
+      }
+    },
+    "sectors": {
+      "technology": 47.41,
+      "financial_services": 4.91,
+      "industrials": 7.77,
+      "healthcare": 7.64,
+      "consumer_cyclical": 11.66,
+      "consumer_defensive": 1.37,
+      "communication_services": 17.15,
+      "real_estate": 0.52,
+      "basic_materials": 1.58
+    },
+    "regions": {
+      "macro": {
+        "americas": 98.69,
+        "asia": 1.31
+      },
+      "detail": {
+        "united_states": 97.28,
+        "canada": 1.15,
+        "latin_america": 0.25,
+        "japan": 0.24,
+        "other": 1.07
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 56.98,
+        "large": 25.4,
+        "mid": 14.71,
+        "small": 2.31,
+        "micro": 0.61
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 10.5,
+        "sector": "Technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 6.97,
+        "sector": "Technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 6.23,
+        "sector": "Technology"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 5.61,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 5.53,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 5.31,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 3.65,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 2.49,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 2.42,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Amphenol Corp Class A",
+        "weight": 2.31,
+        "sector": "Technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 75,
+      "holdings_count_bond": 1,
+      "top10_weight": 51.04
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Crecimiento del capital a largo plazo invirtiendo en títulos de renta variable de emisores americanos con fuerte potencial de crecimiento comparado con la media de la economía."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "US_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 47.41,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.75,
+        "bond": 0,
+        "cash": 0,
+        "other": 1.32
+      },
+      "equity_sectors_total": {
+        "technology": 46.8174,
+        "financial_services": 4.8486,
+        "industrials": 7.6729,
+        "healthcare": 7.5445,
+        "consumer_cyclical": 11.5143,
+        "consumer_defensive": 1.3529,
+        "communication_services": 16.9356,
+        "real_estate": 0.5135,
+        "basic_materials": 1.5603
+      },
+      "equity_regions_total": {
+        "united_states": 96.064,
+        "canada": 1.1356,
+        "latin_america": 0.2469,
+        "japan": 0.237,
+        "other": 1.0566
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 98.75,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 2.8832,
+          "mid": 14.5247,
+          "large": 81.3421
+        },
+        "style_weights_total": {
+          "growth": 98.75
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "US_EQUITY",
+    "commercial_type": "RV USA Cap. Grande Growth",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9875,
+      "bond": 0,
+      "cash": 0,
+      "other": 0.0132
+    },
+    "equity_regions": {
+      "united_states": 0.646885,
+      "canada": 0.007647,
+      "latin_america": 0.16626,
+      "japan": 0.159593,
+      "other": 0.007115
+    },
+    "sectors": {
+      "technology": 0.309046,
+      "financial_services": 0.032006,
+      "industrials": 0.05065,
+      "healthcare": 0.049802,
+      "consumer_cyclical": 0.076007,
+      "consumer_defensive": 0.008931,
+      "communication_services": 0.111793,
+      "real_estate": 0.338966,
+      "basic_materials": 0.0103
+    },
+    "equity_styles": {
+      "growth": 0.9875
+    },
+    "market_caps": {
+      "small": 0.028832,
+      "mid": 0.145247,
+      "large": 0.813421
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.75"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "dcbb7fc07c0cea5e530e3c0081405e5c",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9875,
+          "bond": 0,
+          "cash": 0,
+          "other": 0.0132,
+          "sum": 1.0007
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9875
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.987501
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9875
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9875
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:08.241Z"
+}

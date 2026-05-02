@@ -1,0 +1,139 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:53:11.520Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU2278574558",
+    "name": "Buy & Hold Luxembourg B&H Equity Class 2",
+    "currency": "EUR",
+    "report_date": "2026-02-17",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 dic. 2025",
+    "asset_allocation": {
+      "equity": 99.99,
+      "bond": 0,
+      "cash": 0,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 56.47,
+      "europe_me_africa": 40.09,
+      "asia": 3.44
+    },
+    "regions_detail": {
+      "América": 56.47,
+      "Estados Unidos": 43.99,
+      "Canadá": 9.54,
+      "Iberoamérica": 2.93,
+      "Europa/O. Medio/Africa": 40.09,
+      "Reino Unido": 6.46,
+      "Zona Euro": 24.96,
+      "Europa - ex Euro": 8.66,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Asia": 3.44,
+      "Japón": 0,
+      "Australasia": 3.44,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 23.79,
+      "financial_services": 19.31,
+      "industrials": 9.06,
+      "healthcare": 16.3,
+      "consumer_cyclical": 6.33,
+      "consumer_defensive": 2.63,
+      "utilities": 0,
+      "energy": 13.62,
+      "communication_services": 5.25,
+      "real_estate": 0,
+      "basic_materials": 3.71
+    },
+    "equity_market_cap": {
+      "giant": 32.94,
+      "large": 26.49,
+      "mid": 9.47,
+      "small": 28.82,
+      "micro": 2.28
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": "Large-Growth",
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 5.25,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Brookfield Corp Registered Shs...",
+        "weight": 5.16,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Novo Nordisk AS Class B",
+        "weight": 5.01,
+        "sector": "healthcare"
+      },
+      {
+        "name": "EPAM Systems Inc",
+        "weight": 4.61,
+        "sector": "technology"
+      },
+      {
+        "name": "Repsol SA",
+        "weight": 4.49,
+        "sector": "energy"
+      },
+      {
+        "name": "International Petroleum Corp",
+        "weight": 4.38,
+        "sector": "energy"
+      },
+      {
+        "name": "UnitedHealth Group Inc",
+        "weight": 4.19,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 3.65,
+        "sector": "healthcare"
+      },
+      {
+        "name": "American Express Co",
+        "weight": 3.44,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 30,
+      "holdings_count_bond": 0,
+      "top10_weight": 48.51
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": "El objetivo de inversión de Buy & Hold Luxembourg – B&H Equity (el \"Subfondo\") es lograr la revalorización del capital a largo plazo invirtiendo en todo el mundo (incluidos países emergentes) en los mercados bursátiles internacionales."
+  }
+}

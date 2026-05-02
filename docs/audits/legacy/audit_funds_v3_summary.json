@@ -1,0 +1,111 @@
+{
+  "total_funds": 670,
+  "coverage": {
+    "classification_v2": 1.0,
+    "portfolio_exposure_v2": 1.0
+  },
+  "counts": {
+    "missing_classification_v2": 0,
+    "missing_portfolio_exposure_v2": 0,
+    "history_not_ok": 15,
+    "low_audit_score_under_0_75": 651,
+    "severity_ok": 0,
+    "severity_warning": 132,
+    "severity_critical": 538
+  },
+  "distribution": {
+    "asset_type": {
+      "fixed_income": 190,
+      "equity": 340,
+      "real_estate": 3,
+      "mixed": 97,
+      "alternative": 13,
+      "monetary": 10,
+      "commodities": 17
+    },
+    "region_primary": {
+      "unknown": 129,
+      "global": 296,
+      "usa": 65,
+      "europe": 77,
+      "eurozone": 52,
+      "japan": 7,
+      "asia_dev": 16,
+      "emerging": 28
+    }
+  },
+  "top_issues": {
+    "noncanonical_equity_region:asia_dev": 669,
+    "equity_regions.europe:normalized_from_0_100": 409,
+    "sectors.technology:normalized_from_0_100": 407,
+    "sectors.financials:normalized_from_0_100": 391,
+    "sectors.healthcare:normalized_from_0_100": 377,
+    "equity_regions.us:normalized_from_0_100": 367,
+    "inconsistent_equity_asset_type:equity_exposure=0.0": 340,
+    "equity_regions.asia_dev:normalized_from_0_100": 278,
+    "inconsistent_fixed_income_asset_type:bond_exposure=0.0": 190,
+    "equity_regions.emerging:normalized_from_0_100": 175,
+    "equity_regions.japan:normalized_from_0_100": 170,
+    "invalid_region_primary_postcanonical": 145,
+    "noncanonical_region_primary:unknown": 129,
+    "noncanonical_asset_type:mixed": 97,
+    "noncanonical_asset_type:commodities": 17,
+    "noncanonical_region_primary:asia_dev": 16,
+    "history_not_ok": 15,
+    "weak_alternative_exposure:alt+other=0.0": 13,
+    "noncanonical_asset_type:monetary": 10,
+    "equity_styles.large_growth:normalized_from_0_100": 5,
+    "equity_regions_sum_suspicious:1.7227": 5,
+    "equity_regions_sum_suspicious:1.7128": 4,
+    "equity_regions_sum_suspicious:1.9009": 4,
+    "equity_styles.mid_growth:normalized_from_0_100": 4,
+    "noncanonical_asset_type:real_estate": 3,
+    "equity_regions_sum_suspicious:1.7425": 3,
+    "equity_regions_sum_suspicious:1.5742": 3,
+    "equity_regions_sum_suspicious:1.8316": 3,
+    "equity_regions_sum_suspicious:1.7426": 3,
+    "equity_regions_sum_suspicious:1.4555": 3,
+    "equity_styles.mid_core:normalized_from_0_100": 2,
+    "equity_styles.large_core:normalized_from_0_100": 2,
+    "sectors_sum_suspicious:2.3245": 2,
+    "equity_regions_sum_suspicious:1.5445": 2,
+    "sectors_sum_suspicious:1.6961": 2,
+    "equity_regions_sum_suspicious:1.3069": 2,
+    "equity_styles.small_growth:normalized_from_0_100": 2,
+    "equity_regions_sum_suspicious:1.9504": 2,
+    "equity_regions_sum_suspicious:1.5049": 2,
+    "equity_regions_sum_suspicious:1.7821": 2,
+    "equity_regions_sum_suspicious:1.6136": 2,
+    "equity_regions_sum_suspicious:1.802": 1,
+    "equity_regions_sum_suspicious:1.6733": 1,
+    "equity_regions_sum_suspicious:1.7129": 1,
+    "equity_regions_sum_suspicious:2.8612": 1,
+    "equity_regions_sum_suspicious:1.6633": 1,
+    "equity_regions_sum_suspicious:1.4554": 1,
+    "equity_regions_sum_suspicious:2.0395": 1,
+    "equity_regions_sum_suspicious:1.4653": 1,
+    "equity_regions_sum_suspicious:2.4256": 1
+  },
+  "top_warnings": {
+    "HEURISTIC_STYLE_DEDUCTION": 135,
+    "FI_UNKNOWN_DURATION_BUCKET": 31,
+    "FI_UNKNOWN_CREDIT_BUCKET": 30,
+    "REGION_PRIMARY_BORDERLINE": 28,
+    "COMMODITIES_RECLASSIFIED_FROM_EQUITY": 9,
+    "FI_UNKNOWN_SUBTYPE": 4
+  },
+  "audit_score": {
+    "mean": 0.6571,
+    "median": 0.655,
+    "min": 0.495,
+    "max": 0.795
+  },
+  "recommendation": {
+    "status": "priority_review",
+    "priorities": [
+      "P0: cerrar diccionarios canónicos de taxonomía y regiones",
+      "P1: revisar coherencia entre classification_v2 y portfolio_exposure_v2",
+      "P1: endurecer elegibilidad para optimización y frontera"
+    ]
+  }
+}

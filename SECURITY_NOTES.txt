@@ -1,0 +1,3 @@
+No se han detectado credenciales en texto plano (claves API, contraseñas, secretos Firebase) en los directorios de código subidos (functions_python, frontend, cargador_lotes_v_2.js).
+Todas las variables de entorno están externalizadas.
+Se han excluido intencionadamente: `.env`, `.env.local`, y `serviceAccountKey.json`.

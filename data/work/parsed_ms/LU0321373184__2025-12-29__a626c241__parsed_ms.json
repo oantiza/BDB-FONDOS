@@ -1,0 +1,146 @@
+{
+  "isin": "LU0321373184",
+  "fileName": "morningstarreport20251229065928.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:43:47.363Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Alto Dividendo",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 9.49,
+      "financial_services": 23.64,
+      "industrials": 16.69,
+      "healthcare": 19.18,
+      "consumer_cyclical": 5.77,
+      "consumer_defensive": 7.87,
+      "utilities": 3.25,
+      "energy": 3.78,
+      "communication_services": 6.23,
+      "basic_materials": 4.1
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.01,
+        "europe_me_africa": 98.99
+      },
+      "detail": {
+        "united_states": 1.01,
+        "united_kingdom": 27.24,
+        "eurozone": 47.17,
+        "europe_ex_euro": 24.58
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 33.12,
+        "large": 38.54,
+        "mid": 24.51,
+        "small": 3.83,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Siemens AG",
+        "weight": 3.81,
+        "sector": "industrials"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.47,
+        "sector": "healthcare"
+      },
+      {
+        "name": "SKF AB Class B",
+        "weight": 3.33,
+        "sector": "industrials"
+      },
+      {
+        "name": "Bank of Ireland Group PLC",
+        "weight": 3.21,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Standard Chartered PLC",
+        "weight": 3.08,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Compagnie Financiere Richemont",
+        "weight": 3,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 2.7,
+        "sector": "technology"
+      },
+      {
+        "name": "Novo Nordisk AS Class B",
+        "weight": 2.67,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Svenska Handelsbanken AB Class A",
+        "weight": 2.59,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 325,
+      "holdings_count_bond": 0,
+      "top10_weight": 31.89
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Generar ingresos y crecimiento de capital principalmente a través de la inversión en acciones y valores relacionados con la renta variable de las empresas europeas. El Fondo también selectivamente entrará en contratos de opción para generar ingresos adicionales."
+  }
+}

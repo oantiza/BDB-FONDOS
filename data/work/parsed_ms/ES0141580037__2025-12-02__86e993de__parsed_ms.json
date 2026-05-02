@@ -1,0 +1,113 @@
+{
+  "isin": "ES0141580037",
+  "fileName": "morningstarreport20251202041047.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:14:18.391Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 96.79,
+        "cash": 0.87,
+        "other": 2.34
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 37.27,
+        "3_5": 48.31,
+        "5_7": 7.83,
+        "7_10": 1.5,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 68.18,
+        "4_6": 31.01,
+        "over_6": 0.81
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 2.8% 2025-11-03",
+        "weight": 3.61,
+        "sector": null
+      },
+      {
+        "name": "Powszechna Kasa Oszczednosci Bank Polski...",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 3.13% 2029-05-14",
+        "weight": 1.74,
+        "sector": null
+      },
+      {
+        "name": "Morgan Stanley 3% 2028-04-05",
+        "weight": 1.72,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 3.88% 2028-06-11",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 3.15% 2034-04-15",
+        "weight": 1.45,
+        "sector": null
+      },
+      {
+        "name": "Citigroup Inc. 3.18% 2029-04-29",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "Kutxabank SA 4.75% 2027-06-15",
+        "weight": 1.35,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander, S.A. 3.25% 2029-04-02",
+        "weight": 1.32,
+        "sector": null
+      },
+      {
+        "name": "Landsbankinn hf. 3.5% 2030-06-24",
+        "weight": 1.31,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 129,
+      "top10_weight": 17.66
+    },
+    "costs": {
+      "management_fee": 0.55
+    },
+    "objective": "La inversión se centrará en valores de renta fija, tanto públicos como privados, sin distribución geográfica predeterminada, en emisores/ mercados OCDE y hasta un 15% en emergentes. Los activos estarán denominados en euros, aunque podrá invertir en activos denominados en otras divisas, con un máximo del 10%. La duración media del fondo oscilará entre 6 y 24 meses. Las inversiones se realizarán en emisiones que tengan como mínimo una calificación crediticia media (rating mínimo BBB-, según Standard & Poor ́s o..."
+  }
+}

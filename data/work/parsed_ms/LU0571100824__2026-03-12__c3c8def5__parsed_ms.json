@@ -1,0 +1,135 @@
+{
+  "isin": "LU0571100824",
+  "fileName": "morningstarreport20260312093203.pdf",
+  "report_date": "2026-03-12",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:56:12.256Z",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Europa",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 7.26,
+        "bond": 9.58,
+        "cash": 1.24,
+        "other": 81.91
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": {
+        "americas": 3.46,
+        "europe_me_africa": 96.54
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 3.46,
+        "united_kingdom": 3.19,
+        "eurozone": 87.55,
+        "europe_ex_euro": 5.8
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Schneider Electric SE",
+        "weight": 4.83,
+        "sector": null
+      },
+      {
+        "name": "Groupama Monétaire IC",
+        "weight": 4.01,
+        "sector": null
+      },
+      {
+        "name": "STMicroelectronics N.V.",
+        "weight": 3.81,
+        "sector": null
+      },
+      {
+        "name": "Rheinmetall AG 2.25%2030-02-07",
+        "weight": 3.57,
+        "sector": null
+      },
+      {
+        "name": "Euro Bund Future Mar",
+        "weight": 3.09,
+        "sector": null
+      },
+      {
+        "name": "Merrill Lynch B.V.",
+        "weight": 2.85,
+        "sector": null
+      },
+      {
+        "name": "International Consolidated",
+        "weight": 2.76,
+        "sector": null
+      },
+      {
+        "name": "Saipem SPA 2.875%2029-09-11",
+        "weight": 2.65,
+        "sector": null
+      },
+      {
+        "name": "TUI AG 1.95%2031-07-26",
+        "weight": 2.62,
+        "sector": null
+      },
+      {
+        "name": "Legrand SA 1.5%2033-06-23",
+        "weight": 2.48,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 24,
+      "holdings_count_bond": 16,
+      "top10_weight": 32.66
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The investment objective of this Subfund is to outperform the FTSE Europe Convertible index through active management of convertible bonds. This objective will be implemented via a managerial approach that promotes the sustainability of issuers through an analysis of the environmental, social and governance (ESG) characteristics of the securities held in the portfolio."
+  }
+}

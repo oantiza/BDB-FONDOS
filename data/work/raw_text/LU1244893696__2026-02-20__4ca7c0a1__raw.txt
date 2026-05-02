@@ -1,0 +1,209 @@
+
+
+Informe a 20 febrero 2026
+Edmond de Rothschild Fund - Big Data A-EUR accumulating
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Morningstar Global Technology
+NR USD
+Usado a lo largo del informe
+MSCI World NR USD
+QQQ
+RV Sector Tecnología
+ 
+Objetivo de inversión
+ 
+The objective of the Sub-Fund is to outperform its
+benchmark over a 5-year investment period, by
+investing on international capital markets and through
+the selection of, among others, companies involved in
+technology sectors or related to advanced analytics -Big
+Data - technologies. The Sub-Fund is actively managed.
+10.0K
+12.5
+15.0
+17.5
+20.0
+22.5
+25.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2021202220232024202501/26Rentabilidad
+29,50-10,7321,2518,715,252,04Fondo
+-9,2117,24-25,80-19,04-4,872,09+/- Índice
+6,9321,30-13,33-8,41-5,68-0,51+/- Categoría
+*&(((*
+Cuartil
+Medidas de riesgo
+Alfa 3a1,32
+Beta 3a0,41
+R²40,89
+Rátio de Inf.-1,07
+Tracking Error13,56
+Sharpe 3a0,99
+Volatilidad9,88
+Riesgo 3aBajo
+Riesgo 5aBajo
+Riesgo 10aBajo
+Los cálculos usan Morningstar Gbl Tech NR USD (donde sea aplicable)
+Rentab. acum. %
+(19 feb. 2026)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+-0,34
+1,88
+-1,43
+11,38
+9,42
+-1,51
+-7,85
+-8,04
+-13,90
+-6,12
+-1,16
+-4,20
+-4,33
+-7,62
+3,07
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+2025-4,192,215,352,02
+20249,31-2,065,325,29
+20237,416,241,474,72
+2022-1,20-10,06-3,123,69
+202111,197,890,077,87
+ 
+Cartera31 dic. 2025
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones96,050,0096,05
+Obligaciones0,730,270,46
+Efectivo3,930,443,49
+Otro0,000,000,00
+Style Box™ de RV de Morningstar% RV
+ 
+Estilo
+Valor  Mixto Crecimiento
+Peq.
+Med.
+GrandeTamaño
+Gigante26,53
+Grande16,87
+Mediano28,24
+Pequeño26,97
+Micro1,39
+ 
+CMMEUR 31970
+AméricaEuropaAsia
+<2525-5050-75>75
+10 mayores posicionesSector% cart
+Akamai Technologies Inc
+a
+4,68
+Alphabet Inc Class A
+i
+4,47
+SLB Ltd
+o
+4,34
+Match Group Inc Ordinary...
+i
+4,06
+Illumina Inc
+d
+3,36
+ 
+ 
+Roche Holding AG
+d
+3,04
+Booz Allen Hamilton Holding...
+p
+2,89
+Amundi Fds Cash USD J2 USD C
+-
+2,84
+Bruker Corp
+d
+2,81
+Check Point Software...
+a
+2,70
+ 
+ 
+Número total de acciones53
+Número total de bonos0
+% de activos en las 10 mayores posiciones35,20
+Distribución por sectores% RV
+h Cíclico
+8,77
+r Materiales Básicos-
+t Consumo Cíclico1,83
+y Servicios Financieros5,77
+u Inmobiliario1,17
+ 
+ 
+j Sensible al ciclo
+76,21
+i Servicios de Comunicación20,78
+o Energía4,52
+p Industria9,70
+a Tecnología41,21
+ 
+ 
+k Defensivo
+15,02
+s Consumo Defensivo-
+d Salud15,02
+f Servicios Públicos-
+Desglose por regiones% RV
+América56,67
+Estados Unidos55,04
+Canadá1,63
+Iberoamérica0,00
+Europa/O. Medio/Africa27,20
+Reino Unido2,10
+Zona Euro19,13
+Europa - ex Euro3,16
+Europa emergente0,00
+Oriente Medio / África2,81
+Asia16,13
+Japón1,93
+Australasia0,00
+Asia - Desarrollada10,52
+Asia - Emergente3,67
+ 
+Operaciones
+ 
+Gestora del fondoEdmond de Rothschild...
+Fecha Creación31 ago. 2015
+Nombre del gestorJacques-Aurélien Marcireau
+Fecha de incorporación31 ago. 2015
+VL (19 feb. 2026)EUR 326,50
+Patrimonio (Mill)EUR 2642,36
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU1244893696
+Inversión mínima1  Part.
+Inversión mínima adicional
+Comisión de gestión1,60%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2026 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

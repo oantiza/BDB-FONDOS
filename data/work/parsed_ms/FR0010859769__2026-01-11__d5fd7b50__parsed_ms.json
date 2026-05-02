@@ -1,0 +1,151 @@
+{
+  "isin": "FR0010859769",
+  "fileName": "morningstarreport20260111035324.pdf",
+  "report_date": "2026-01-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:48:23.325Z",
+  "ms": {
+    "report_date": "2026-01-11",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": "Gold",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 96.53,
+        "bond": 0,
+        "cash": 3.31,
+        "other": 0.16
+      }
+    },
+    "sectors": {
+      "technology": 30.99,
+      "financial_services": 23.27,
+      "industrials": 9,
+      "healthcare": 23.28,
+      "consumer_cyclical": 10.36,
+      "consumer_defensive": 3.1
+    },
+    "regions": {
+      "macro": {
+        "americas": 74.91,
+        "europe_me_africa": 4.06,
+        "asia": 21.03
+      },
+      "detail": {
+        "other": 88.3,
+        "united_states": 62.11,
+        "latin_america": 12.8,
+        "united_kingdom": 4.06,
+        "asia": 21.03,
+        "japan": 8.19,
+        "asia_emerging": 3.5
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 72.82,
+        "large": 27.18,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Giant-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Amazon.com Inc",
+        "weight": 10,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 9.97,
+        "sector": "technology"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 6.77,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 6.52,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 6.52,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Stryker Corp",
+        "weight": 4.84,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 4.82,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Itau Unibanco Holding SA...",
+        "weight": 4.77,
+        "sector": "financial_services"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 4.65,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Weg SA",
+        "weight": 4.6,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 19,
+      "holdings_count_bond": 0,
+      "top10_weight": 63.46
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "Es un fondo dinámico que busca resultados a largo plazo a través de la exposición a valores de mercados internacionales. El índice de referencia es el MSCI All Country World."
+  }
+}

@@ -1,0 +1,156 @@
+{
+  "isin": "LU0117858752",
+  "fileName": "morningstarreport20251211054834.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:40:31.543Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Europa Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.66,
+        "bond": 0.12,
+        "cash": 2.78,
+        "other": 0.45
+      }
+    },
+    "sectors": {
+      "technology": 0.9,
+      "financial_services": 41.74,
+      "industrials": 8.12,
+      "healthcare": 10.89,
+      "consumer_cyclical": 6.06,
+      "consumer_defensive": 6.92,
+      "utilities": 3.96,
+      "energy": 9.91,
+      "communication_services": 4.34,
+      "real_estate": 2.27,
+      "basic_materials": 4.88
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.85,
+        "europe_me_africa": 98.16
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 1.38,
+        "canada": 0.24,
+        "latin_america": 0.23,
+        "united_kingdom": 26.24,
+        "eurozone": 51.09,
+        "europe_ex_euro": 20.64,
+        "middle_east": 0.19
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 43.82,
+        "large": 30.53,
+        "mid": 17.56,
+        "small": 7.9,
+        "micro": 0.2
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "HSBC Holdings PLC",
+        "weight": 3.74,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.69,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 3.55,
+        "sector": "energy"
+      },
+      {
+        "name": "JPM EUR lqdty LVNAV X (T0 acc.)",
+        "weight": 2.87,
+        "sector": null
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.62,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 2.45,
+        "sector": "financial_services"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.18,
+        "sector": "energy"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 1.94,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 1.9,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 1.67,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 205,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.6
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo invirtiendo en una cartera de empresas europeas orientada al valor."
+  }
+}

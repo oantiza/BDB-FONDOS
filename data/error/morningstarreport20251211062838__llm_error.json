@@ -1,0 +1,6 @@
+{
+  "fileName": "morningstarreport20251211062838.pdf",
+  "error": "error_llm_json",
+  "message": "Gemini no devolvió un JSON objeto parseable",
+  "generated_at": "2026-04-22T16:46:20.555Z"
+}

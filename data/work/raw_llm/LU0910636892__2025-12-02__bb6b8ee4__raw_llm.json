@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:24:13.982Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0910636892",
+    "name": "Goldman Sachs Emerging Markets Debt Blend Portfolio E Acc EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente - Sesgo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 sep. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 127.43,
+      "cash": -27.43,
+      "other": 0
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 6.1,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 6.81,
+        "aa": 2.89,
+        "a": 5.85,
+        "bbb": 33.61,
+        "bb": 35.31,
+        "b": 9.66,
+        "below_b": 4.07,
+        "not_rated": 1.8
+      },
+      "maturity_allocation": {
+        "1_3": 25.82,
+        "3_5": 18.52,
+        "5_7": 20.46,
+        "7_10": 13.92,
+        "over_10": 16.5
+      },
+      "coupon_allocation": {
+        "0": 0.28,
+        "0_4": 18.11,
+        "4_6": 25.59,
+        "over_6": 56.03
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "GS USD Liquid Reserve X Acc (T)",
+        "weight": 4.43,
+        "sector": null
+      },
+      {
+        "name": "2 Year Treasury Note Future Dec...",
+        "weight": 3.04,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of) 8.25% 2032-03-31",
+        "weight": 2.85,
+        "sector": null
+      },
+      {
+        "name": "Indonesia (Republic of) 6.5% 2030-07-15",
+        "weight": 1.91,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 1.82,
+        "sector": null
+      },
+      {
+        "name": "US Treasury Bond Future Dec 25 2025-12-19",
+        "weight": 1.7,
+        "sector": null
+      },
+      {
+        "name": "Colombia (Republic Of) 6% 2028-04-28",
+        "weight": 1.7,
+        "sector": null
+      },
+      {
+        "name": "Peru (Republic Of) 5.94% 2029-02-12",
+        "weight": 1.63,
+        "sector": null
+      },
+      {
+        "name": "Colombia (Republic Of) 7% 2031-03-26",
+        "weight": 1.56,
+        "sector": null
+      },
+      {
+        "name": "Czech (Republic of) 1.75% 2032-06-23",
+        "weight": 1.54,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 287,
+      "top10_weight": 22.19
+    },
+    "costs": {
+      "management_fee": 1.4
+    },
+    "objective": "La Cartera tiene como objetivo ofrecer unos rendimientos y un crecimiento del capital a largo plazo. La Cartera invertirá principalmente en valores de renta fija de cualquier tipo de emisor de países emergentes, entre los cuales pueden encontrarse valores emitidos por gobiernos y emisores corporativos. Los valores antedichos pueden estar denominados en USD o en la divisa local de ese país. Cuando estos emisores son empresas, pueden estar radicadas en mercados emergentes u obtener la mayoría de sus beneficios o..."
+  }
+}

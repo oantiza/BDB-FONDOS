@@ -1,0 +1,152 @@
+{
+  "isin": "LU3038481936",
+  "name": "Hamco SICAV - Global Value R EUR Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204050316.pdf",
+  "stableBaseName": "LU3038481936__2025-12-04__9eddf738",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": null,
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": null,
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 0
+    },
+    "costs": null,
+    "objective": "The Sub-Fund follows a value-investing approach, selecting global companies undervalued by the market with potential for revaluation. Investment decisions consider profitability, indebtedness, capitalization, liquidity, growth expectations, business-cycle positioning, capital efficiency, cash-flow generation, margins, and other quantitative and qualitative factors. Long-term capital growth is prioritized. The Sub-Fund may invest in higher-risk companies with challenging performance, high debt or earnings volatility,..."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Agresivos EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:GLOBAL_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+      "credit_missing",
+      "fi_type_inference_weak",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": null,
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "aa887e5b4cc6ae8902309026e32b742d",
+    "warnings": [
+      "regions_all_unrecognized",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "asset_allocation_sum_mismatch:0.00",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": false,
+    "errors": [
+      "portfolio_exposure_v2_missing"
+    ],
+    "warnings": []
+  },
+  "routing": {
+    "status": "error_math_validation",
+    "reason": "portfolio_exposure_v2_missing"
+  },
+  "generated_at": "2026-04-22T16:38:22.198Z"
+}

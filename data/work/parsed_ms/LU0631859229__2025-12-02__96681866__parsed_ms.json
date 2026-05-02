@@ -1,0 +1,124 @@
+{
+  "isin": "LU0631859229",
+  "fileName": "morningstarreport20251202123200.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:29:46.111Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa ex-RU Cap. Med/Peq",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 11.54,
+      "financial_services": 9.48,
+      "industrials": 33.08,
+      "healthcare": 12.12,
+      "consumer_cyclical": 2.09,
+      "consumer_defensive": 9.32,
+      "energy": 3.64,
+      "communication_services": 1.95,
+      "real_estate": 8.29,
+      "basic_materials": 8.48
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.13,
+        "europe_me_africa": 97.87
+      },
+      "detail": {
+        "united_states": 2.13,
+        "united_kingdom": 0.02,
+        "eurozone": 72.56,
+        "europe_ex_euro": 25.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 3.14,
+        "mid": 61.33,
+        "small": 30.52,
+        "micro": 5
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Metso Corp",
+        "weight": 4.13,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Cloetta AB Class B",
+        "weight": 3.96,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Bankinter SA",
+        "weight": 3.75,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Montana Aerospace AG",
+        "weight": 3.4,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Virbac SA",
+        "weight": 3.34,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Laboratorios Farmaceuticos...",
+        "weight": 3.32,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Nexans",
+        "weight": 3.2,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Buzzi SpA",
+        "weight": 3.18,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "DO & Co AG",
+        "weight": 3.16,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Construcciones y Auxiliar de...",
+        "weight": 3.06,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 45,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.5
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El fondo pretende lograr un crecimiento de capital a largo plazo. Invierte al menos dos tercios de su patrimonio neto en acciones seleccionadas y otros títulos de renta variable de sociedades de pequeña y mediana capitalización con sede social sita o que desempeñen la mayor parte de sus actividades económicas en Europa y que se encuentren fundamentalmente dirigidas por sus propietarios. Se considerará que las sociedades se encuentran dirigidas por su propietario si uno o varios accionistas ostentan participaciones..."
+  }
+}

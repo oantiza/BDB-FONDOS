@@ -1,0 +1,155 @@
+{
+  "isin": "LU2504555777",
+  "fileName": "morningstarreport20260125091402.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:49:59.122Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Sector Materiales Insustriales",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.89,
+        "bond": 0.05,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 6.83,
+      "industrials": 44.79,
+      "consumer_cyclical": 4.73,
+      "energy": 20.11,
+      "basic_materials": 23.53
+    },
+    "regions": {
+      "macro": {
+        "americas": 59.26,
+        "europe_me_africa": 27.34,
+        "asia": 13.39
+      },
+      "detail": {
+        "other": 87.16,
+        "united_states": 50.96,
+        "canada": 7.73,
+        "latin_america": 0.58,
+        "united_kingdom": 4.1,
+        "eurozone": 17.09,
+        "europe_ex_euro": 5.49,
+        "middle_east": 0.67,
+        "asia": 13.39,
+        "japan": 9.74,
+        "australasia": 2.22,
+        "asia_emerging": 0.87
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 18.72,
+        "large": 28.71,
+        "mid": 43.09,
+        "small": 8.44,
+        "micro": 1.04
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 2.92,
+        "sector": "Energy"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 2.78,
+        "sector": "Energy"
+      },
+      {
+        "name": "Union Pacific Corp",
+        "weight": 2.77,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 2.58,
+        "sector": "Industrials"
+      },
+      {
+        "name": "CSX Corp",
+        "weight": 2.56,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.56,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Teledyne Technologies Inc",
+        "weight": 2.5,
+        "sector": "Technology"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 2.36,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Daikin Industries Ltd",
+        "weight": 2.27,
+        "sector": "Industrials"
+      },
+      {
+        "name": "L3Harris Technologies Inc",
+        "weight": 2.25,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 79,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.54
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo pretende ofrecer a los inversores un crecimiento del capital a largo plazo invirtiendo principalmente en títulos de renta variable de empresas de todo el mundo dedicadas a la investigación, desarrollo, fabricación, distribución, suministro o venta de materiales, equipos, productos o servicios relacionados con industrias cíclicas y de recursos naturales."
+  }
+}

@@ -1,0 +1,372 @@
+{
+  "isin": "LU1899019175",
+  "name": "Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260125091717.pdf",
+  "stableBaseName": "LU1899019175__2026-01-25__14251344",
+  "report_date": "2026-01-25",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "EAA Fund EUR Flexible Allocation-Global",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 96.14,
+        "bond": 1.65,
+        "cash": 2.19,
+        "other": 0.01
+      }
+    },
+    "sectors": {
+      "technology": 24.01,
+      "financial_services": 1.13,
+      "industrials": 31.4,
+      "healthcare": 10.71,
+      "consumer_cyclical": 0.42,
+      "consumer_defensive": 1.12,
+      "utilities": 13.58,
+      "real_estate": 4.82,
+      "basic_materials": 12.81
+    },
+    "regions": {
+      "macro": {
+        "americas": 42.03,
+        "europe_me_africa": 57.52,
+        "asia": 0.46
+      },
+      "detail": {
+        "united_states": 42.03,
+        "united_kingdom": 8.75,
+        "eurozone": 38.49,
+        "europe_ex_euro": 10.28,
+        "japan": 0.46
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 22.9,
+        "large": 37,
+        "mid": 30.41,
+        "small": 6.83,
+        "micro": 2.86
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "SSE PLC",
+        "weight": 2.62,
+        "sector": "utilities"
+      },
+      {
+        "name": "First Solar Inc",
+        "weight": 2.51,
+        "sector": "technology"
+      },
+      {
+        "name": "Veolia Environnement SA",
+        "weight": 2.17,
+        "sector": "industrials"
+      },
+      {
+        "name": "Vestas Wind Systems AS",
+        "weight": 2.13,
+        "sector": "industrials"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 1.9,
+        "sector": "technology"
+      },
+      {
+        "name": "Sopra Steria Group SA",
+        "weight": 1.79,
+        "sector": "technology"
+      },
+      {
+        "name": "Orsted AS",
+        "weight": 1.78,
+        "sector": "utilities"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 1.74,
+        "sector": "industrials"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 1.73,
+        "sector": "utilities"
+      },
+      {
+        "name": "Sika AG",
+        "weight": 1.67,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 83,
+      "holdings_count_bond": 1,
+      "top10_weight": 20.05
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The Sub-Fund aims to achieve a combination of income and long-term capital appreciation, by actively managing a diversified portfolio of equities, bonds, ETFs, UCITs and UCIs and other asset classes, with Environmental, Social, and Governance ('ESG') criteria."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:industrials",
+      "theme:esg",
+      "theme:income"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 31.4,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.14,
+        "bond": 1.65,
+        "cash": 2.19,
+        "other": 0.01
+      },
+      "equity_sectors_total": {
+        "technology": 23.0832,
+        "financial_services": 1.0864,
+        "industrials": 30.188,
+        "healthcare": 10.2966,
+        "consumer_cyclical": 0.4038,
+        "consumer_defensive": 1.0768,
+        "utilities": 13.0558,
+        "real_estate": 4.6339,
+        "basic_materials": 12.3155
+      },
+      "equity_regions_total": {
+        "united_states": 40.4076,
+        "united_kingdom": 8.4123,
+        "eurozone": 37.0043,
+        "europe_ex_euro": 9.8832,
+        "japan": 0.4422
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 96.14,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 9.316,
+          "mid": 29.2362,
+          "large": 57.5879
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "EAA Fund EUR Flexible Allocation-Global",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:esg",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9614,
+      "bond": 0.0165,
+      "cash": 0.0219,
+      "other": 0.0001
+    },
+    "equity_regions": {
+      "united_states": 0.277629,
+      "united_kingdom": 0.057798,
+      "eurozone": 0.254246,
+      "europe_ex_euro": 0.067905,
+      "japan": 0.303823
+    },
+    "sectors": {
+      "technology": 0.163039,
+      "financial_services": 0.007673,
+      "industrials": 0.21322,
+      "healthcare": 0.072726,
+      "consumer_cyclical": 0.285207,
+      "consumer_defensive": 0.007606,
+      "utilities": 0.092214,
+      "real_estate": 0.03273,
+      "basic_materials": 0.086985
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.09316,
+      "mid": 0.292362,
+      "large": 0.575878
+    },
+    "bond_types": {
+      "corporate": 0.0165
+    },
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.14",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.01,max_component=96.14",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "47992bcbd8a0fb972550029d99818e52",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9614,
+          "bond": 0.0165,
+          "cash": 0.0219,
+          "other": 0.0001,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.961401
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9614
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9614
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0165
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|duration_missing"
+  },
+  "generated_at": "2026-04-22T16:51:30.739Z"
+}

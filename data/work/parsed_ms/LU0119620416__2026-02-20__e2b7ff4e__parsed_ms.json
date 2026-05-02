@@ -1,0 +1,120 @@
+{
+  "isin": "LU0119620416",
+  "fileName": "morningstarreport20260220050505.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:54:36.260Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 98.43,
+        "bond": 0.75,
+        "cash": 1.49,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 23.19,
+      "financial_services": 23.63,
+      "industrials": 9.11,
+      "healthcare": 12.71,
+      "consumer_cyclical": 9.81,
+      "consumer_defensive": 13.89,
+      "communication_services": 7.66
+    },
+    "regions": {
+      "macro": {
+        "americas": 80.4,
+        "europe_me_africa": 19.6
+      },
+      "detail": {
+        "united_states": 80.4,
+        "united_kingdom": 9.09,
+        "eurozone": 10.51
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 29.51,
+        "large": 46.75,
+        "mid": 23.73,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "SAP SE",
+        "weight": 6.41,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 6.15,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 5.54,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Coca-Cola Co",
+        "weight": 4.53,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 4.48,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Intercontinental Exchange Inc",
+        "weight": 3.99,
+        "sector": "financial_services"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 3.94,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.87,
+        "sector": "industrials"
+      },
+      {
+        "name": "S&P Global Inc",
+        "weight": 3.7,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Procter & Gamble Co",
+        "weight": 3.65,
+        "sector": "consumer_defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 33,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.25
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo de inversión es la obtención de una tasa de rentabilidad a largo plazo atractiva, cifrada en Dólares estadounidenses, invirtiendo principalmente en valores de renta variable emitidos por empresas de países desarrollados."
+  }
+}

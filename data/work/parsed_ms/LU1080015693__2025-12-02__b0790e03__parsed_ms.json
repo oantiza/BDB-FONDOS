@@ -1,0 +1,113 @@
+{
+  "isin": "LU1080015693",
+  "fileName": "morningstarreport20251202040838.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:13:18.557Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Deuda Corporativa Global Emergente - Sesgo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0.23,
+        "bond": 93.91,
+        "cash": 5.86,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 10.17,
+        "3_5": 30.77,
+        "5_7": 26.38,
+        "7_10": 16.44,
+        "over_10": 13.93
+      },
+      "coupon_allocation": {
+        "0": 1.45,
+        "0_4": 8.32,
+        "4_6": 28.8,
+        "over_6": 61.43
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Bills 0% 2025-11-18",
+        "weight": 2.79,
+        "sector": null
+      },
+      {
+        "name": "HTA Group Limited (Mauritius)...",
+        "weight": 2.42,
+        "sector": null
+      },
+      {
+        "name": "Enel Chile S.A. 4.875% 2028-06-12",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "Transportadora de Gas Internacional S.A....",
+        "weight": 2.14,
+        "sector": null
+      },
+      {
+        "name": "Millicom International Cellular SA...",
+        "weight": 2.11,
+        "sector": null
+      },
+      {
+        "name": "Klabin Austria GmbH 7% 2049-04-03",
+        "weight": 2.07,
+        "sector": null
+      },
+      {
+        "name": "Aydem Yenilenebilir Enerji A S...",
+        "weight": 1.93,
+        "sector": null
+      },
+      {
+        "name": "Embraer Netherlands Finance B.V....",
+        "weight": 1.87,
+        "sector": null
+      },
+      {
+        "name": "Votorantim Cimentos S.A. 7.25% 2041-04-05",
+        "weight": 1.83,
+        "sector": null
+      },
+      {
+        "name": "LATAM Airlines Group SA 7.875% 2030-04-15",
+        "weight": 1.79,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 2,
+      "holdings_count_bond": 92,
+      "top10_weight": 21.17
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The objective of the Sub-Fund is to achieve long-term optimum growth of the invested capital via investments in regulated capital and money markets. In particular, the Sub-Fund aims to outperform its benchmark. The Sub-Fund is actively managed. Environmental, social and/or governance (ESG) criteria are one of the elements on which management focuses. The Sub-Fund's assets will be mainly invested in bonds such as fixed, variable, adjustable, floating, minimal, maximal, indexed or zero-coupon bonds, Convertible or..."
+  }
+}

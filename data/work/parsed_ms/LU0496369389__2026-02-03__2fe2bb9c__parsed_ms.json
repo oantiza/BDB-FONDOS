@@ -1,0 +1,122 @@
+{
+  "isin": "LU0496369389",
+  "fileName": "morningstarreport20260203064910.pdf",
+  "report_date": "2026-02-03",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:52:28.195Z",
+  "ms": {
+    "report_date": "2026-02-03",
+    "category_morningstar": "RV Sector Oro y Metales preciosos",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 98.21,
+        "bond": 0,
+        "cash": 1.79,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "consumer_defensive": 0.35,
+      "basic_materials": 99.65
+    },
+    "regions": {
+      "macro": {
+        "americas": 66.57,
+        "europe_me_africa": 10.21,
+        "asia": 23.22
+      },
+      "detail": {
+        "other": 76.89,
+        "united_states": 7.05,
+        "canada": 59.19,
+        "latin_america": 0.33,
+        "united_kingdom": 4.49,
+        "middle_east": 5.72,
+        "asia": 23.22,
+        "australasia": 22.82,
+        "asia_emerging": 0.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 7.52,
+        "large": 10,
+        "mid": 38.64,
+        "small": 24.53,
+        "micro": 19.3
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 4.64,
+        "sector": null
+      },
+      {
+        "name": "G Mining Ventures Corp",
+        "weight": 4.44,
+        "sector": null
+      },
+      {
+        "name": "Equinox Gold Corp Ordinary...",
+        "weight": 3.63,
+        "sector": null
+      },
+      {
+        "name": "Anglogold Ashanti PLC",
+        "weight": 2.94,
+        "sector": null
+      },
+      {
+        "name": "Torex Gold Resources Inc",
+        "weight": 2.51,
+        "sector": null
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 2.5,
+        "sector": null
+      },
+      {
+        "name": "Perseus Mining Ltd",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "Alamos Gold Inc Class A",
+        "weight": 2.38,
+        "sector": null
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 2.36,
+        "sector": null
+      },
+      {
+        "name": "Orla Mining Ltd",
+        "weight": 2.23,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 208,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.07
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "Crecimiento del capital a largo plazo invirtiendo principalmente en activos de renta variable que cotizan en bolsa y valores relacionados con renta variable que reúnen las condiciones para ser valores negociables, en todo el mundo incluyendo países emergentes."
+  }
+}

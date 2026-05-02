@@ -1,0 +1,118 @@
+{
+  "isin": "LU1966822956",
+  "fileName": "morningstarreport20251202045902.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:26:00.791Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-06-29",
+      "asset_allocation": {
+        "equity": 18.7,
+        "bond": 74.72,
+        "cash": 6.59,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 4.15,
+      "financial_services": 19.04,
+      "industrials": 17.26,
+      "healthcare": 2.45,
+      "consumer_cyclical": 8.87,
+      "consumer_defensive": 8.07,
+      "utilities": 6.54,
+      "energy": 5.84,
+      "communication_services": 9.84,
+      "real_estate": 7.29,
+      "basic_materials": 10.65
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.57,
+        "europe_me_africa": 93.08,
+        "asia": 4.35
+      },
+      "detail": {
+        "united_states": 2.57,
+        "united_kingdom": 8.95,
+        "eurozone": 79.74,
+        "europe_ex_euro": 4.39,
+        "other": 2.43,
+        "asia_emerging": 1.92
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Mid-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Euro Stoxx 50 Future Sept...",
+        "weight": 3.39,
+        "sector": null
+      },
+      {
+        "name": "Lagardere SA 0.0475%2030-06-12",
+        "weight": 1.73,
+        "sector": null
+      },
+      {
+        "name": "Volkswagen International...",
+        "weight": 1.7,
+        "sector": null
+      },
+      {
+        "name": "Enel S.p.A. 0.06625%",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Eni SpA 0.045%",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Unibail-Rodamco-Westfield SE...",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Stellantis N.V...",
+        "weight": 1.55,
+        "sector": null
+      },
+      {
+        "name": "Electricite de France SA 0.075%",
+        "weight": 1.42,
+        "sector": null
+      },
+      {
+        "name": "Ceconomy AG 0.0625%2029-07-15",
+        "weight": 1.4,
+        "sector": null
+      },
+      {
+        "name": "Bank of Ireland Group PLC...",
+        "weight": 1.37,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 38,
+      "holdings_count_bond": 79,
+      "top10_weight": 17.47
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The investment objective of the Sub-Fund is to outperform on a risk adjusted basis the Bloomberg Series-E-Euro Govt 7-10 year bond index in Euros (BERPG4 Index). This means obtaining a Sharpe ratio higher than the index. The benchmark represented by the above-mentioned Index is used for reference purposes only, i.e the Sub-Fund is not constrained (neither for purposes of defining the asset allocation nor for tracking the return of the index or for the purpose of computing any fees) by any benchmark in the meaning of..."
+  }
+}

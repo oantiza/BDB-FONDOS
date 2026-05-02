@@ -1,0 +1,153 @@
+{
+  "isin": "LU0602539867",
+  "fileName": "morningstarreport20251229072346.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:15.904Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.36,
+        "bond": 0,
+        "cash": 0.64,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 32.98,
+      "financial_services": 14.23,
+      "industrials": 10.85,
+      "healthcare": 2.72,
+      "consumer_cyclical": 20.58,
+      "consumer_defensive": 1.99,
+      "communication_services": 9.87,
+      "real_estate": 3.26,
+      "basic_materials": 3.54
+    },
+    "regions": {
+      "macro": {
+        "americas": 10.11,
+        "europe_me_africa": 9.48,
+        "asia": 80.41
+      },
+      "detail": {
+        "other": 53.349999999999994,
+        "latin_america": 10.11,
+        "united_kingdom": 2.43,
+        "europe_emerging": 7.04,
+        "asia": 80.41,
+        "asia_emerging": 46.65
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 66.98,
+        "large": 24.81,
+        "mid": 8.21,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.64,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 7.95,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 7.23,
+        "sector": "technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 5.51,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 4.25,
+        "sector": "technology"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 3.39,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "OTP Bank PLC",
+        "weight": 3.21,
+        "sector": "financial_services"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 2.84,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Xiaomi Corp Class B",
+        "weight": 2.62,
+        "sector": "technology"
+      },
+      {
+        "name": "Antofagasta PLC",
+        "weight": 2.42,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 0,
+      "top10_weight": 49.05
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo tiene por objetivo conseguir un crecimiento del capital a largo plazo. Sus inversiones se guían por la firme convicción de que las sociedades de los mercados emergentes que cumplen con las normas internacionales de gestión medioambiental, social y empresarial tienen buenas perspectivas de crecimiento y generación de exceso de rentabilidad. El fondo invertirá al menos dos tercios de su patrimonio neto en valores de sociedades que operen en los países emergentes. El fondo también podrá invertir en otros..."
+  }
+}

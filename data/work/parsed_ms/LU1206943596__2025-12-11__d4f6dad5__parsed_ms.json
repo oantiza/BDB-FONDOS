@@ -1,0 +1,157 @@
+{
+  "isin": "LU1206943596",
+  "fileName": "morningstarreport20251211054819.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:40:18.124Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-07-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 16.85,
+      "financial_services": 33.5,
+      "industrials": 8.67,
+      "healthcare": 1.37,
+      "consumer_cyclical": 15.16,
+      "consumer_defensive": 6.19,
+      "energy": 1.05,
+      "communication_services": 0.63,
+      "real_estate": 2.93,
+      "basic_materials": 13.67
+    },
+    "regions": {
+      "macro": {
+        "americas": 16.96,
+        "europe_me_africa": 30.59,
+        "asia": 52.44
+      },
+      "detail": {
+        "united_states": 2.18,
+        "canada": 3.06,
+        "latin_america": 11.72,
+        "united_kingdom": 4.97,
+        "eurozone": 2.77,
+        "europe_emerging": 4.91,
+        "middle_east": 17.95,
+        "developed_asia": 23.25,
+        "asia_emerging": 29.19
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 29.57,
+        "large": 33,
+        "mid": 23.1,
+        "small": 13.15,
+        "micro": 1.18
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "CFD on Taiwan Semiconductor...",
+        "weight": 8.18,
+        "sector": null
+      },
+      {
+        "name": "Naspers Ltd Class N",
+        "weight": 7.2,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "CFD on Samsung Electronics Co...",
+        "weight": 4.21,
+        "sector": null
+      },
+      {
+        "name": "CFD on ICICI Bank Ltd...",
+        "weight": 3.39,
+        "sector": null
+      },
+      {
+        "name": "CFD on Elite Material Co...",
+        "weight": 3.28,
+        "sector": null
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.09,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Piraeus Financial Holdings SA",
+        "weight": 3.06,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Kaspi.kz JSC ADS",
+        "weight": 2.99,
+        "sector": "technology"
+      },
+      {
+        "name": "OTP Bank PLC",
+        "weight": 2.99,
+        "sector": "financial_services"
+      },
+      {
+        "name": "CFD on Nu Holdings Ltd...",
+        "weight": 2.91,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 330,
+      "holdings_count_bond": 0,
+      "top10_weight": 41.29
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Tiene como objetivo obtener un crecimiento del capital a largo plazo. Como mínimo un 70% se invierte en acciones e instrumentos relacionados que proporcionen exposición a empresas cuya sede se encuentre en mercados emergentes mundiales, o que coticen o lleven a cabo una parte fundamental de su actividad en dichos mercados. Los mercados emergentes son (entre otros) los de América Latina, el sudeste asiático, África, Europa del Este (Rusia incluida) y Oriente Medio. El Subfondo puede invertir su patrimonio neto..."
+  }
+}

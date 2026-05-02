@@ -1,0 +1,119 @@
+{
+  "isin": "LU0260085492",
+  "fileName": "morningstarreport20251202071132.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:27:11.956Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.62,
+        "bond": 0,
+        "cash": 1.19,
+        "other": 0.19
+      }
+    },
+    "sectors": {
+      "technology": 9.98,
+      "financial_services": 29.84,
+      "industrials": 24.71,
+      "healthcare": 7.23,
+      "consumer_cyclical": 5.57,
+      "consumer_defensive": 11.65,
+      "utilities": 4.69,
+      "communication_services": 1.87,
+      "basic_materials": 4.45
+    },
+    "regions": {
+      "macro": {
+        "americas": 4.45,
+        "europe_me_africa": 95.55
+      },
+      "detail": {
+        "united_states": 4.45,
+        "united_kingdom": 17.66,
+        "eurozone": 64.56,
+        "europe_ex_euro": 13.33
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 43.7,
+        "large": 38.6,
+        "mid": 17.7,
+        "small": 0,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 4.17,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "London Stock Exchange Group PLC",
+        "weight": 4.08,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 4.06,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 3.96,
+        "sector": "Consumo Defensivo"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 3.83,
+        "sector": "Industria"
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 3.66,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3.64,
+        "sector": "Salud"
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 3.52,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "FinecoBank SpA",
+        "weight": 3.41,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 3.34,
+        "sector": "Consumo Defensivo"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 41,
+      "holdings_count_bond": 0,
+      "top10_weight": 37.66
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Fondo es lograr un crecimiento del capital a largo plazo. El Fondo invertirá en las acciones y títulos asociados de empresas que tengan su domicilio social o desarrollen la mayor parte de su actividad económica en Europa."
+  }
+}

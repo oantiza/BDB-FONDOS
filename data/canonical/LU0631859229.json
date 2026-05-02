@@ -1,0 +1,325 @@
+{
+  "isin": "LU0631859229",
+  "name": "Bellevue Funds (Lux) - Bellevue Entrepreneur Europe Small B EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202123200.pdf",
+  "stableBaseName": "LU0631859229__2025-12-02__96681866",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa ex-RU Cap. Med/Peq",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 11.54,
+      "financial_services": 9.48,
+      "industrials": 33.08,
+      "healthcare": 12.12,
+      "consumer_cyclical": 2.09,
+      "consumer_defensive": 9.32,
+      "energy": 3.64,
+      "communication_services": 1.95,
+      "real_estate": 8.29,
+      "basic_materials": 8.48
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.13,
+        "europe_me_africa": 97.87
+      },
+      "detail": {
+        "united_states": 2.13,
+        "united_kingdom": 0.02,
+        "eurozone": 72.56,
+        "europe_ex_euro": 25.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 3.14,
+        "mid": 61.33,
+        "small": 30.52,
+        "micro": 5
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Metso Corp",
+        "weight": 4.13,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Cloetta AB Class B",
+        "weight": 3.96,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Bankinter SA",
+        "weight": 3.75,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Montana Aerospace AG",
+        "weight": 3.4,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Virbac SA",
+        "weight": 3.34,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Laboratorios Farmaceuticos...",
+        "weight": 3.32,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Nexans",
+        "weight": 3.2,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Buzzi SpA",
+        "weight": 3.18,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "DO & Co AG",
+        "weight": 3.16,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Construcciones y Auxiliar de...",
+        "weight": 3.06,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 45,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.5
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El fondo pretende lograr un crecimiento de capital a largo plazo. Invierte al menos dos tercios de su patrimonio neto en acciones seleccionadas y otros títulos de renta variable de sociedades de pequeña y mediana capitalización con sede social sita o que desempeñen la mayor parte de sus actividades económicas en Europa y que se encuentren fundamentalmente dirigidas por sus propietarios. Se considerará que las sociedades se encuentran dirigidas por su propietario si uno o varios accionistas ostentan participaciones..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 33.08,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 11.54,
+        "financial_services": 9.48,
+        "industrials": 33.08,
+        "healthcare": 12.12,
+        "consumer_cyclical": 2.09,
+        "consumer_defensive": 9.32,
+        "energy": 3.64,
+        "communication_services": 1.95,
+        "real_estate": 8.29,
+        "basic_materials": 8.48
+      },
+      "equity_regions_total": {
+        "united_states": 2.13,
+        "united_kingdom": 0.02,
+        "eurozone": 72.56,
+        "europe_ex_euro": 25.29
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 100,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 35.5236,
+          "mid": 61.3361,
+          "large": 3.1403
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa ex-RU Cap. Med/Peq",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 1,
+      "bond": 0,
+      "cash": 0,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.020886,
+      "united_kingdom": 0.019612,
+      "eurozone": 0.711512,
+      "europe_ex_euro": 0.24799
+    },
+    "sectors": {
+      "technology": 0.115412,
+      "financial_services": 0.094809,
+      "industrials": 0.330833,
+      "healthcare": 0.121212,
+      "consumer_cyclical": 0.020902,
+      "consumer_defensive": 0.093209,
+      "energy": 0.036404,
+      "communication_services": 0.019502,
+      "real_estate": 0.082908,
+      "basic_materials": 0.084808
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.355236,
+      "mid": 0.613361,
+      "large": 0.031403
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "559fc24a2160a54e0cf07da4e66723b6",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 1,
+          "bond": 0,
+          "cash": 0,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999999
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:46.111Z"
+}

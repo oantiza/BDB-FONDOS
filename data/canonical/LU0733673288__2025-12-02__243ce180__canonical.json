@@ -1,0 +1,273 @@
+{
+  "isin": "LU0733673288",
+  "name": "Nordea 1 - European Cross Credit Fund BP EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202040811.pdf",
+  "stableBaseName": "LU0733673288__2025-12-02__243ce180",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 96.63,
+        "cash": 3.37,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 3.49,
+      "effective_maturity": 4.13,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 2.25,
+        "aa": 0,
+        "a": 0,
+        "bbb": 35.7,
+        "bb": 44.88,
+        "b": 17.17,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 11.04,
+        "3_5": 42.16,
+        "5_7": 26.27,
+        "7_10": 9.15,
+        "over_10": 11.15
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 36.38,
+        "4_6": 49.77,
+        "over_6": 13.84
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Schatz Future Dec 25",
+        "weight": 5.23,
+        "sector": null
+      },
+      {
+        "name": "Tdc Net A/S 4.625% 22-10-2033",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Aegis Lux 1a Sarl 29-10-2031",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Dufry One B.V. 4.75%",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "AlmavivA S.p.A. 5%",
+        "weight": 1.67,
+        "sector": null
+      },
+      {
+        "name": "Prysmian S.p.A. 5.25%",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Future PLC 6.75%",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Fiserv Funding ULC 3.5%",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "H Lundbeck A S 3.375%",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Matterhorn Telecom Sa 3.875%...",
+        "weight": 1.66,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 114,
+      "top10_weight": 20.33
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El fondo tiene por objetivo conservar el capital del Accionista y proporcionar una rentabilidad adecuada invirtiendo en bonos empresariales de emisores europeos. El fondo invertirá al menos dos tercios de su patrimonio total en bonos empresariales que cumplan las siguientes condiciones: (i) Contar, en el momento de la inversión, con una calificación crediticia entre BBB+ y B/B3 o equivalente. (ii) No haber sido emitidos por instituciones financieras. No obstante, el fondo podrá invertir en valores de sociedades de..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9300000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Flexible EUR",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "high_yield",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "intermediate",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9300000000000002,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9663,
+      "cash": 0.0337,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "high_yield": 0.9663
+    },
+    "credit": {
+      "high_yield": 0.9663
+    },
+    "duration": {
+      "intermediate": 0.9663
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9300000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.63",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "2c3a68c214e059cac1bf56aad01ee46c",
+    "warnings": [
+      "missing_rating_stars",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9663,
+          "cash": 0.0337,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9663
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9663
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9663
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:13:19.237Z"
+}

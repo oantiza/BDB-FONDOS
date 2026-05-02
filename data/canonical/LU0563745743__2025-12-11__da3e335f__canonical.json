@@ -1,0 +1,353 @@
+{
+  "isin": "LU0563745743",
+  "name": "Bestinver Tordesillas SICAV Iberia A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211053848.pdf",
+  "stableBaseName": "LU0563745743__2025-12-11__da3e335f",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV España",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 91.82,
+        "bond": 0,
+        "cash": 8.18,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 13.99,
+      "financial_services": 26.07,
+      "industrials": 9.97,
+      "healthcare": 10.92,
+      "consumer_cyclical": 7.05,
+      "consumer_defensive": 8.21,
+      "utilities": 5.43,
+      "communication_services": 10.55,
+      "real_estate": 4.41,
+      "basic_materials": 3.42
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 12.7,
+        "eurozone": 87.3
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 27.01,
+        "large": 15.73,
+        "mid": 46.67,
+        "small": 8.77,
+        "micro": 1.8
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Indra Sistemas SA SHS Class -A-",
+        "weight": 10.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Zegona Communications PLC",
+        "weight": 9.68,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 5.95,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Grifols SA Ordinary Shares -...",
+        "weight": 5.6,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 4.57,
+        "sector": "financial_services"
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 4.53,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Distribuidora Internacional De...",
+        "weight": 4.26,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 4.05,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Banco de Sabadell SA",
+        "weight": 4.04,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Ferrovial SE",
+        "weight": 3.47,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 28,
+      "holdings_count_bond": 0,
+      "top10_weight": 56.47
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El objetivo del Fondo es conseguir una apreciación del capital mediante la inversión de sus activos principalmente en acciones cotizadas en España y Portugal. Las inversiones del Fondo en acciones se realizarán sin restricciones a la capitalización bursátil de la Sociedad. Las inversiones del Fondo en acciones distintas de las que cotizan en Portugal y España deberán realizarse en países miembros de la OCDE (Organización para la Cooperación y el Desarrollo Económicos) o en Brasil, y no podrán superar el 20% del total..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 26.07,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 91.82,
+        "bond": 0,
+        "cash": 8.18,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 12.8456,
+        "financial_services": 23.9375,
+        "industrials": 9.1545,
+        "healthcare": 10.0267,
+        "consumer_cyclical": 6.4733,
+        "consumer_defensive": 7.5384,
+        "utilities": 4.9858,
+        "communication_services": 9.687,
+        "real_estate": 4.0493,
+        "basic_materials": 3.1402
+      },
+      "equity_regions_total": {
+        "united_kingdom": 11.6611,
+        "eurozone": 80.1589
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 91.82,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 9.7073,
+          "mid": 42.861,
+          "large": 39.2517
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV España",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:financials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9182,
+      "bond": 0,
+      "cash": 0.0818,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_kingdom": 0.116611,
+      "eurozone": 0.801589
+    },
+    "sectors": {
+      "technology": 0.12843,
+      "financial_services": 0.239327,
+      "industrials": 0.091527,
+      "healthcare": 0.100247,
+      "consumer_cyclical": 0.06472,
+      "consumer_defensive": 0.075369,
+      "utilities": 0.049848,
+      "communication_services": 0.096851,
+      "real_estate": 0.040485,
+      "basic_materials": 0.031396
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.097073,
+      "mid": 0.42861,
+      "large": 0.392517
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=91.82",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "b6c93112d6760baa5d92a34bd40864ae",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9182,
+          "bond": 0,
+          "cash": 0.0818,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9182
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9182
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9182
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:39:53.367Z"
+}

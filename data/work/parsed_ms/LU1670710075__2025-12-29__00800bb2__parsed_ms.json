@@ -1,0 +1,125 @@
+{
+  "isin": "LU1670710075",
+  "fileName": "morningstarreport20251229072120.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:45:04.970Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Alto Dividendo",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.28,
+        "bond": 0.01,
+        "cash": 0.71,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 18.33,
+      "financial_services": 18.88,
+      "industrials": 6.31,
+      "healthcare": 13.96,
+      "consumer_cyclical": 13.12,
+      "consumer_defensive": 6.85,
+      "utilities": 1.95,
+      "energy": 9.79,
+      "communication_services": 3.84,
+      "basic_materials": 6.97
+    },
+    "regions": {
+      "macro": {
+        "americas": 58.79,
+        "europe_me_africa": 28.29,
+        "asia": 12.93
+      },
+      "detail": {
+        "united_states": 42.11,
+        "canada": 16.68,
+        "united_kingdom": 13.62,
+        "eurozone": 7.7,
+        "europe_ex_euro": 6.57,
+        "middle_east": 0.39,
+        "japan": 3.97,
+        "australasia": 1.43,
+        "other": 7.53
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 24.74,
+        "large": 43.86,
+        "mid": 16.76,
+        "small": 14.57,
+        "micro": 0.08
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Amcor PLC Ordinary Shares",
+        "weight": 6.23,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Keyera Corp",
+        "weight": 5.23,
+        "sector": "Energía"
+      },
+      {
+        "name": "Methanex Corp",
+        "weight": 5.15,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Gibson Energy Inc",
+        "weight": 4.49,
+        "sector": "Energía"
+      },
+      {
+        "name": "VF Corp",
+        "weight": 4.44,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.32,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Aberdeen Group PLC",
+        "weight": 4.22,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Takeda Pharmaceutical Co Ltd",
+        "weight": 3.94,
+        "sector": "Salud"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 3.81,
+        "sector": "Servicios de Comunicación"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 39,
+      "holdings_count_bond": 0,
+      "top10_weight": 48.31
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El fondo tiene dos objetivos: proporcionar una combinación de crecimiento de capital e ingresos que sea superior a la del mercado bursátil global (según el índice MSCI ACWI Net Return Index) durante cualquier periodo de cinco años, y aumentar el flujo de ingresos cada año en dólares estadounidenses, al tiempo que aplica los criterios ESG (medioambientales, sociales y de gobernanza). Al menos el 80 % del fondo se invierte en acciones de empresas de cualquier parte del mundo. El fondo suele poseer acciones de menos de..."
+  }
+}

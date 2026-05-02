@@ -1,0 +1,117 @@
+{
+  "isin": "LU2131365186",
+  "fileName": "morningstarreport20251202073008.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:28:16.851Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV China",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 93.21,
+        "bond": 0,
+        "cash": 6.79,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 2.9,
+      "financial_services": 17.12,
+      "industrials": 7.98,
+      "healthcare": 7.3,
+      "consumer_cyclical": 17.68,
+      "consumer_defensive": 13.95,
+      "communication_services": 23.83,
+      "real_estate": 6.35,
+      "basic_materials": 2.88
+    },
+    "regions": {
+      "macro": {
+        "asia": 100
+      },
+      "detail": {
+        "asia": 100,
+        "other": 6.89,
+        "asia_emerging": 93.11
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 69.6,
+        "large": 14.83,
+        "mid": 13.76,
+        "small": 1.63,
+        "micro": 0.19
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 9.87,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "NetEase Inc ADR",
+        "weight": 8.47,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd ADR",
+        "weight": 7.71,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Kweichow Moutai Co Ltd Class A",
+        "weight": 6.56,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "China Merchants Bank Co Ltd...",
+        "weight": 4.06,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Far East Horizon Ltd",
+        "weight": 3.85,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.59,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "PDD Holdings Inc ADR",
+        "weight": 3.09,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "China Mobile Ltd",
+        "weight": 2.8,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 2.6,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 52.6
+    },
+    "costs": {
+      "management_fee": 2.34
+    },
+    "objective": "Cartera de renta variable que invierte activamente en compañías de Hong Kong Exposición al mercado de renta variable de Hong Kong Analistas dedicados tratan de identificar los valores más atractivos"
+  }
+}

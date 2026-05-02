@@ -1,0 +1,148 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:48:47.215Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE0032722484",
+    "name": "BNY Mellon Euroland Bond Fund EUR C Acc",
+    "currency": "EUR",
+    "report_date": "2026-01-14",
+    "category_morningstar": "RF Diversificada EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 9.81,
+      "bond": 84.18,
+      "cash": 5.17,
+      "other": 0.83
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {},
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 0,
+      "mid": 0,
+      "small": 0,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 6.29,
+      "effective_maturity": 7.99,
+      "avg_credit_quality": "A",
+      "credit_quality": {
+        "aaa": 33.33,
+        "aa": 9.57,
+        "a": 22.06,
+        "bbb": 30.03,
+        "bb": 3.61,
+        "b": 0.18,
+        "below_b": 0,
+        "not_rated": 1.23
+      },
+      "maturity_allocation": {
+        "1_3": 10.32,
+        "3_5": 11.5,
+        "5_7": 16.77,
+        "7_10": 17.8,
+        "over_10": 10.88
+      },
+      "coupon_allocation": {
+        "0": 34.43,
+        "0_4": 56.17,
+        "4_6": 7.93,
+        "over_6": 1.47
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Bund Future Dec 25",
+        "weight": 17.82,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future Dec 25",
+        "weight": 17.5,
+        "sector": null
+      },
+      {
+        "name": "Contra Re Futures At",
+        "weight": 8.51,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 6.04,
+        "sector": null
+      },
+      {
+        "name": "Long-Term Euro BTP Future Dec 25",
+        "weight": 5.56,
+        "sector": null
+      },
+      {
+        "name": "Euro Schatz Future Dec 25",
+        "weight": 5.05,
+        "sector": null
+      },
+      {
+        "name": "Euro OAT Future Dec 25",
+        "weight": 4.04,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 3.65%",
+        "weight": 3.99,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 2.71,
+        "sector": null
+      },
+      {
+        "name": "European Union 0%",
+        "weight": 2.46,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 286,
+      "top10_weight": 73.66
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "El objetivo del fondo es proporcionar una rentabilidad total superior al índice Citigroup Euro BIG Index invirtiendo como mínimo un 90% de sus activos en una cartera de bonos de renta fija u otros instrumentos de deuda emitidos por empresas, gobiernos, agencias gubernamentales u organizaciones supranacionales."
+  }
+}

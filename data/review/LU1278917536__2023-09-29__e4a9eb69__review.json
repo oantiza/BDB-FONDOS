@@ -1,0 +1,355 @@
+{
+  "isin": "LU1278917536",
+  "name": "DWS Invest CROCI Sectors Plus NC",
+  "currency": "EUR",
+  "fileName": "morningstarreport20230929083019.pdf",
+  "stableBaseName": "LU1278917536__2023-09-29__e4a9eb69",
+  "report_date": "2023-09-29",
+  "ms": {
+    "report_date": "2023-09-29",
+    "category_morningstar": "RV Global Cap. Grande Value",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2023-07-30",
+      "asset_allocation": {
+        "equity": 99.95,
+        "bond": 0,
+        "cash": 0.05,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 28.88,
+      "industrials": 3.04,
+      "energy": 34.86,
+      "basic_materials": 33.23
+    },
+    "regions": {
+      "macro": {
+        "americas": 45.74,
+        "europe_me_africa": 28.94,
+        "asia": 25.32
+      },
+      "detail": {
+        "united_states": 45.74,
+        "united_kingdom": 12.98,
+        "eurozone": 9.75,
+        "other": 9.7,
+        "japan": 21.84
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 22.89,
+        "large": 49.5,
+        "mid": 27.61,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 100,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "EOG Resources Inc",
+        "weight": 3.77,
+        "sector": "Energy"
+      },
+      {
+        "name": "Marathon Petroleum Corp",
+        "weight": 3.76,
+        "sector": "Energy"
+      },
+      {
+        "name": "The Mosaic Co",
+        "weight": 3.67,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "ConocoPhillips",
+        "weight": 3.63,
+        "sector": "Energy"
+      },
+      {
+        "name": "Nucor Corp",
+        "weight": 3.63,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Coterra Energy Inc Ordinary...",
+        "weight": 3.54,
+        "sector": "Energy"
+      },
+      {
+        "name": "Pioneer Natural Resources Co",
+        "weight": 3.51,
+        "sector": "Energy"
+      },
+      {
+        "name": "Nippon Steel Corp",
+        "weight": 3.51,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "STMicroelectronics NV",
+        "weight": 3.48,
+        "sector": "Technology"
+      },
+      {
+        "name": "LyondellBasell Industries NV...",
+        "weight": 3.47,
+        "sector": "Basic Materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 30,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.98
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo de la política de inversión de DWS Invest CROCI Sectors Plus consiste en obtener una revalorización a largo plazo mediante la inversión fundamentalmente en acciones globales de gran capitalización que se consideren infravaloradas de conformidad con la metodología CROCI y la estrategia de inversión CROCI Sectors Plus. La estrategia de inversión está diseñada para seleccionar acciones con la menor relación económica CROCI entre precio y beneficio (“PER económico CROCI”) de los tres sectores con el PER..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_TECH",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector:energy",
+      "sector:materials",
+      "sector:technology"
+    ],
+    "top_sector": "energy",
+    "top_sector_weight": 34.86,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.95,
+        "bond": 0,
+        "cash": 0.05,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 28.8656,
+        "industrials": 3.0385,
+        "energy": 34.8426,
+        "basic_materials": 33.2134
+      },
+      "equity_regions_total": {
+        "united_states": 45.7171,
+        "united_kingdom": 12.9735,
+        "eurozone": 9.7451,
+        "other": 9.6951,
+        "japan": 21.8291
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Value",
+        "weight_total": 99.95,
+        "size_bucket": "large",
+        "style": "value",
+        "size_weights_total": {
+          "mid": 27.5962,
+          "large": 72.3538
+        },
+        "style_weights_total": {
+          "value": 99.95
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_TECH",
+    "commercial_type": "RV Global Cap. Grande Value",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Large-Value",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:energy",
+      "sector:materials",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9995,
+      "bond": 0,
+      "cash": 0.0005,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 45.7171,
+      "united_kingdom": 12.9735,
+      "eurozone": 9.7451,
+      "other": 9.6951,
+      "japan": 21.8291
+    },
+    "sectors": {
+      "technology": 28.8656,
+      "industrials": 3.0385,
+      "energy": 34.8426,
+      "basic_materials": 33.2134
+    },
+    "equity_styles": {
+      "value": 99.95
+    },
+    "market_caps": {
+      "mid": 27.5962,
+      "large": 72.3538
+    },
+    "bond_types": {
+      "flexible": 0
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "67b66921c46a5408209ed1a10c4428df",
+    "warnings": [
+      "unknown_region_key:Europa - ex Euro",
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9995,
+          "bond": 0,
+          "cash": 0.0005,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999599
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999601
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9995
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9995
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|credit_missing"
+  },
+  "generated_at": "2026-04-18T17:05:19.745Z"
+}

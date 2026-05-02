@@ -1,0 +1,113 @@
+{
+  "isin": "LU1882457143",
+  "fileName": "morningstarreport20260312093229.pdf",
+  "report_date": "2026-03-12",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:56:46.968Z",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Deuda Corporativa Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 0.02,
+        "bond": 100,
+        "cash": 0,
+        "other": 0.58
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 17.86,
+        "3_5": 35.54,
+        "5_7": 17.5,
+        "7_10": 13.64,
+        "over_10": 4.37
+      },
+      "coupon_allocation": {
+        "0": 0.38,
+        "0_4": 3.41,
+        "4_6": 20.44,
+        "over_6": 75.76
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "5Y T-Note (CBT) Mar 26",
+        "weight": 5.33,
+        "sector": null
+      },
+      {
+        "name": "10 Year Treasury Note Future Mar...",
+        "weight": 3.12,
+        "sector": null
+      },
+      {
+        "name": "YPF Sociedad Anonima 8.5%",
+        "weight": 2.02,
+        "sector": null
+      },
+      {
+        "name": "Amundi Fds Asia Bd Inc Resp Z USD (C)",
+        "weight": 1.8,
+        "sector": null
+      },
+      {
+        "name": "Vedanta Resources Finance II PLC...",
+        "weight": 1.69,
+        "sector": null
+      },
+      {
+        "name": "Wynn Macau Ltd. 5.625%",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Auna SA AND Oncosalud S. A. C...",
+        "weight": 1.43,
+        "sector": null
+      },
+      {
+        "name": "Telecom Argentina SA 9.25%",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "Veon Holdings B.V. 3.375%",
+        "weight": 1.33,
+        "sector": null
+      },
+      {
+        "name": "Digicel International Finance Ltd/DIFL...",
+        "weight": 1.25,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 2,
+      "holdings_count_bond": 219,
+      "top10_weight": 20.95
+    },
+    "costs": {
+      "management_fee": 1.45
+    },
+    "objective": "Persigue proporcionar rendimientos y aumentar el valor de la inversión a medio y largo plazo. Valores en cartera El Subfondo invierte principalmente en bonos privados con calificación inferior a categoría de inversión de mercados emergentes o vinculados a mercados emergentes y que estén denominados en dólares estadounidenses o en monedas de otros países miembros de la OCDE. La exposición total a las monedas de mercados emergentes no superará el 25% del patrimonio del Subfondo. El Subfondo puede utilizar derivados para..."
+  }
+}

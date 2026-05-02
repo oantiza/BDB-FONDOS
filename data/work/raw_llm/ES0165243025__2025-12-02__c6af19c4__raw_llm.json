@@ -1,0 +1,161 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:14:28.723Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0165243025",
+    "name": "Myinvestor Value C FI",
+    "currency": "EUR",
+    "report_date": "2 diciembre 2025",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 95.74,
+      "bond": 1.87,
+      "cash": 0,
+      "other": 2.39
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 99.53,
+      "asia": 0.47
+    },
+    "regions_detail": {
+      "Estados Unidos": 0,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Reino Unido": 16.62,
+      "Zona Euro": 78.14,
+      "Europa - ex Euro": 4.77,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 0.47
+    },
+    "sectors": {
+      "technology": 8.97,
+      "financial_services": 0,
+      "industrials": 24.29,
+      "healthcare": 0,
+      "consumer_cyclical": 12.34,
+      "consumer_defensive": 4.21,
+      "utilities": 0,
+      "energy": 13.66,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 36.54
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 0,
+      "mid": 41.69,
+      "small": 51.15,
+      "micro": 7.16
+    },
+    "equity_style": {
+      "value": null,
+      "blend": null,
+      "growth": null
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Verbio SE",
+        "weight": 7.07,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "DCC PLC",
+        "weight": 5.48,
+        "sector": "energy"
+      },
+      {
+        "name": "Fuchs SE Participating Preferred",
+        "weight": 5.22,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Alten",
+        "weight": 5.18,
+        "sector": "technology"
+      },
+      {
+        "name": "Aalberts NV",
+        "weight": 5.11,
+        "sector": "industrials"
+      },
+      {
+        "name": "Vallourec SA",
+        "weight": 5.09,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Fugro NV",
+        "weight": 4.88,
+        "sector": "energy"
+      },
+      {
+        "name": "Forvia SE",
+        "weight": 4.78,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "easyJet PLC",
+        "weight": 4.59,
+        "sector": "industrials"
+      },
+      {
+        "name": "Husqvarna AB Class B",
+        "weight": 3.97,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 0,
+      "top10_weight": 51.37
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "El objetivo de gestión del fondo es obtener una rentabilidad satisfactoria y sostenida en el tiempo, con un tipo de gestión de \"inversión en valor\", seleccionando activos infravalorados por el mercado con un alto potencial de revalorización. Se invierte, directamente, más del 75% de la exposición total en renta variable de cualquier sector y capitalización, lo que puede influir negativamente en la liquidez del fondo. La parte no invertida en renta variable estará expuesta a renta fija pública..."
+  }
+}

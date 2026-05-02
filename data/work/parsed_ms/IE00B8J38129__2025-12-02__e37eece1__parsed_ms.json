@@ -1,0 +1,122 @@
+{
+  "isin": "IE00B8J38129",
+  "fileName": "morningstarreport20251202045048.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:25:50.722Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": null,
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0.73,
+        "bond": 78.58,
+        "cash": 14.59,
+        "other": 6.1
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 3.13,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 15.23,
+        "aa": 0,
+        "a": 3.26,
+        "bbb": 47.27,
+        "bb": 31.87,
+        "b": 2.37,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 4.14,
+        "4_6": 27.45,
+        "over_6": 68.42
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Credit Agricole S.A. 5.875%",
+        "weight": 1.88,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 8.875%",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander, S.A. 4.375%",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 9.25%",
+        "weight": 1.47,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG 8.125%",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG 7.125%",
+        "weight": 1.42,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 8.5%",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A. 6.375%",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 6.25%",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "Cooperatieve Rabobank U.A. 4.875%",
+        "weight": 1.23,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 2,
+      "holdings_count_bond": 172,
+      "top10_weight": 14.68
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "El objetivo del fondo Algebris Financial Credit Fund es generar un nivel alto de ingresos corrientes y conseguir un nivel moderado de apreciación del capital invirtiendo globalmente en deuda subordinada y senior del sector financiero, incluyendo acciones preferentes e instrumentos de capital híbrido (como instrumentos Additional Tier 1), con calificación crediticia «investment grade» o inferior. La exposición a divisa se cubre sistemáticamente. El fondo podría ser apropiado para inversores con un horizonte temporal de..."
+  }
+}

@@ -1,0 +1,392 @@
+{
+  "isin": "LU0093503737",
+  "name": "BlackRock Global Funds - ESG Multi-Asset Fund E2",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204093120.pdf",
+  "stableBaseName": "LU0093503737__2025-12-04__88e86e55",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 51.63,
+        "bond": 37.29,
+        "cash": 0,
+        "other": 11.88
+      }
+    },
+    "sectors": {
+      "technology": 40.21,
+      "financial_services": 15.6,
+      "industrials": 13.61,
+      "healthcare": 9.3,
+      "consumer_cyclical": 7.66,
+      "consumer_defensive": 2.19,
+      "utilities": 0.48,
+      "energy": 0.1,
+      "communication_services": 7.56,
+      "real_estate": 1.43,
+      "basic_materials": 1.85
+    },
+    "regions": {
+      "macro": {
+        "americas": 75.68,
+        "europe_me_africa": 16.87,
+        "asia": 7.45
+      },
+      "detail": {
+        "other": 93.70000000000002,
+        "united_states": 74.04,
+        "canada": 1.09,
+        "latin_america": 0.55,
+        "united_kingdom": 2.35,
+        "eurozone": 10.41,
+        "europe_ex_euro": 3.87,
+        "middle_east": 0.25,
+        "asia": 7.45,
+        "japan": 4.22,
+        "australasia": 1.03,
+        "asia_emerging": 1.04
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "E-mini S&P 500 ESG Index...",
+        "weight": 3.13,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 2.83,
+        "sector": null
+      },
+      {
+        "name": "iShares Physical Gold ETC",
+        "weight": 2.77,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 2.56,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great...",
+        "weight": 2.37,
+        "sector": null
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 2.12,
+        "sector": null
+      },
+      {
+        "name": "MSCI EMER MKT INDEX (ICE) DEC...",
+        "weight": 2.1,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic...",
+        "weight": 1.81,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury...",
+        "weight": 1.79,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 1.74,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 385,
+      "holdings_count_bond": 460,
+      "top10_weight": 23.22
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "Este Fondo tiene como objetivo maximizar el crecimiento del capital y simultáneamente gestionar el riesgo, expresado en euros, mediante la inversión en valores de renta fija de alta solvencia y de renta variable de todo el mundo. Este Fondo constituye un instrumento de diversificación y de estrategia de asignación de valores. Se podrán realizar operaciones de cobertura en euros contra el riesgo de divisas, cuando se estime oportuno."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:esg"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 40.21,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 51.63,
+        "bond": 37.29,
+        "cash": 0,
+        "other": 11.88
+      },
+      "equity_sectors_total": {
+        "technology": 20.7604,
+        "financial_services": 8.0543,
+        "industrials": 7.0268,
+        "healthcare": 4.8016,
+        "consumer_cyclical": 3.9549,
+        "consumer_defensive": 1.1307,
+        "utilities": 0.2478,
+        "energy": 0.0516,
+        "communication_services": 3.9032,
+        "real_estate": 0.7383,
+        "basic_materials": 0.9552
+      },
+      "equity_regions_total": {
+        "other": 48.3773,
+        "united_states": 38.2269,
+        "canada": 0.5628,
+        "latin_america": 0.284,
+        "united_kingdom": 1.2133,
+        "eurozone": 5.3747,
+        "europe_ex_euro": 1.9981,
+        "middle_east": 0.1291,
+        "asia": 3.8464,
+        "japan": 2.1788,
+        "australasia": 0.5318,
+        "asia_emerging": 0.537
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 51.63,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Moderados EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:esg"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.5163,
+      "bond": 0.3729,
+      "cash": 0,
+      "other": 0.1188
+    },
+    "equity_regions": {
+      "other": 0.081709,
+      "united_states": 0.064565,
+      "canada": 0.095056,
+      "latin_america": 0.047967,
+      "united_kingdom": 0.002049,
+      "eurozone": 0.009078,
+      "europe_ex_euro": 0.003375,
+      "middle_east": 0.021805,
+      "asia": 0.006497,
+      "japan": 0.00368,
+      "australasia": 0.089821,
+      "asia_emerging": 0.090699
+    },
+    "sectors": {
+      "technology": 0.04306,
+      "financial_services": 0.016706,
+      "industrials": 0.014575,
+      "healthcare": 0.009959,
+      "consumer_cyclical": 0.008203,
+      "consumer_defensive": 0.002345,
+      "utilities": 0.051397,
+      "energy": 0.010703,
+      "communication_services": 0.008096,
+      "real_estate": 0.153134,
+      "basic_materials": 0.198122
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.3729
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.3729
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=51.63",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "3c3c4f05fd0ba2a73b9b7e35faa95d0e",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.5163,
+          "bond": 0.3729,
+          "cash": 0,
+          "other": 0.1188,
+          "sum": 1.008
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.516301
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.5163
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.3729
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.3729
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T16:38:51.366Z"
+}

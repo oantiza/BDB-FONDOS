@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:27:09.067Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0182769002",
+    "name": "Valentum E FI",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": 4,
+    "medalist_rating": "Bronze",
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 jun. 2025",
+    "asset_allocation": {
+      "equity": 96.2,
+      "bond": 0,
+      "cash": 3.8,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 12.54,
+      "europe_me_africa": 84.32,
+      "asia": 3.14
+    },
+    "regions_detail": {
+      "Estados Unidos": 11.33,
+      "Canadá": 1.21,
+      "Iberoamérica": 0,
+      "Reino Unido": 7.74,
+      "Zona Euro": 64.62,
+      "Europa - ex Euro": 11.96,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 0.38,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 2.77
+    },
+    "sectors": {
+      "technology": 12.27,
+      "financial_services": 12.22,
+      "industrials": 21.16,
+      "healthcare": 8.28,
+      "consumer_cyclical": 17.99,
+      "consumer_defensive": 3.35,
+      "utilities": 0,
+      "energy": 4.46,
+      "communication_services": 11.64,
+      "real_estate": 0,
+      "basic_materials": 8.66
+    },
+    "equity_market_cap": {
+      "giant": 2.46,
+      "large": 5.36,
+      "mid": 31.23,
+      "small": 25.76,
+      "micro": 35.19
+    },
+    "equity_style": {
+      "value": null,
+      "blend": null,
+      "growth": null
+    },
+    "equity_style_box_cell": "Small-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Montana Aerospace AG",
+        "weight": 7.6,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Zegona Communications PLC",
+        "weight": 6.01,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Laboratorios Farmaceuticos...",
+        "weight": 4.1,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Flatex AG",
+        "weight": 4.06,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Alantra Partners SA",
+        "weight": 3.68,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Befesa SA Bearer Shares",
+        "weight": 3.42,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Trigano SA",
+        "weight": 3.12,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Tubacex SA",
+        "weight": 3.06,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "La Francaise de l'Energie",
+        "weight": 3.04,
+        "sector": "Energy"
+      },
+      {
+        "name": "Italian Sea Group",
+        "weight": 3,
+        "sector": "Consumer Cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 0,
+      "top10_weight": 41.08
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "El fondo tiene un mínimo del 75% de la exposición total en renta variable, sin que existan límites predeterminados en lo que se refiere a la distribución de activos por capitalización bursátil. La inversión en valores de baja capitalización puede influir negativamente en la liquidez del fondo. Los mercados/ emisores no están predeterminados. El resto de exposición estará en renta fija, con carácter de valor refugio, que podrá ser de emisores privados o públicos, sin límite de duración, aunque principalmente serán..."
+  }
+}

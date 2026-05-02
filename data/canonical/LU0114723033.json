@@ -1,0 +1,343 @@
+{
+  "isin": "LU0114723033",
+  "name": "Fidelity Funds - Global Industrials Fund E-Acc-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125728.pdf",
+  "stableBaseName": "LU0114723033__2025-12-02__854a4d26",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Materiales Insustriales",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.28,
+        "bond": 0.03,
+        "cash": 0.69,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 7.09,
+      "industrials": 45.44,
+      "consumer_cyclical": 4.95,
+      "energy": 19.98,
+      "basic_materials": 22.55
+    },
+    "regions": {
+      "macro": {
+        "americas": 58.34,
+        "europe_me_africa": 27.92,
+        "asia": 13.74
+      },
+      "detail": {
+        "other": 86.88000000000001,
+        "united_states": 50.67,
+        "canada": 7.11,
+        "latin_america": 0.56,
+        "united_kingdom": 4.34,
+        "eurozone": 17.26,
+        "europe_ex_euro": 5.59,
+        "middle_east": 0.73,
+        "asia": 13.74,
+        "japan": 10.18,
+        "australasia": 2.11,
+        "asia_emerging": 0.83
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 18.71,
+        "large": 26.68,
+        "mid": 45.13,
+        "small": 8.34,
+        "micro": 1.14
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Chevron Corp",
+        "weight": 2.92,
+        "sector": null
+      },
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.66,
+        "sector": null
+      },
+      {
+        "name": "Teledyne Technologies Inc",
+        "weight": 2.61,
+        "sector": null
+      },
+      {
+        "name": "Union Pacific Corp",
+        "weight": 2.61,
+        "sector": null
+      },
+      {
+        "name": "CSX Corp",
+        "weight": 2.58,
+        "sector": null
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 2.39,
+        "sector": null
+      },
+      {
+        "name": "L3Harris Technologies Inc",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "Rolls-Royce Holdings PLC",
+        "weight": 2.27,
+        "sector": null
+      },
+      {
+        "name": "Sandvik AB",
+        "weight": 2.19,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 80,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.46
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo pretende ofrecer a los inversores un crecimiento del capital a largo plazo invirtiendo principalmente en títulos de renta variable de empresas de todo el mundo dedicadas a la investigación, desarrollo, fabricación, distribución, suministro o venta de materiales, equipos, productos o servicios relacionados con industrias cíclicas y de recursos naturales."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_INDUSTRIALS",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:industrials",
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 45.44,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.28,
+        "bond": 0.03,
+        "cash": 0.69,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 7.039,
+        "industrials": 45.1128,
+        "consumer_cyclical": 4.9144,
+        "energy": 19.8361,
+        "basic_materials": 22.3876
+      },
+      "equity_regions_total": {
+        "other": 86.2545,
+        "united_states": 50.3052,
+        "canada": 7.0588,
+        "latin_america": 0.556,
+        "united_kingdom": 4.3088,
+        "eurozone": 17.1357,
+        "europe_ex_euro": 5.5498,
+        "middle_east": 0.7247,
+        "asia": 13.6411,
+        "japan": 10.1067,
+        "australasia": 2.0948,
+        "asia_emerging": 0.824
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.28,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 9.4117,
+          "mid": 44.8051,
+          "large": 45.0632
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_INDUSTRIALS",
+    "commercial_type": "RV Sector Materiales Insustriales",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:industrials",
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9928,
+      "bond": 0.0003,
+      "cash": 0.0069,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.21044,
+      "united_states": 0.122733,
+      "canada": 0.017222,
+      "latin_america": 0.135651,
+      "united_kingdom": 0.010512,
+      "eurozone": 0.041807,
+      "europe_ex_euro": 0.01354,
+      "middle_east": 0.176809,
+      "asia": 0.033281,
+      "japan": 0.024658,
+      "australasia": 0.005111,
+      "asia_emerging": 0.201036
+    },
+    "sectors": {
+      "technology": 0.070383,
+      "industrials": 0.451083,
+      "consumer_cyclical": 0.049139,
+      "energy": 0.198341,
+      "basic_materials": 0.223854
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.094117,
+      "mid": 0.448051,
+      "large": 0.450632
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.28",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.03,max_component=99.28"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "e6658a2691086c8ab6e9ab55685f28d1",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9928,
+          "bond": 0.0003,
+          "cash": 0.0069,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9928
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9928
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9928
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:37:19.420Z"
+}

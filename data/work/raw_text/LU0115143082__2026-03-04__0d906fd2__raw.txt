@@ -1,0 +1,205 @@
+
+
+Informe a 4 Mar 2026
+Invesco Funds - Invesco Asia Opportunities Equity Fund E Accumulation EUR
+Índice de la cat.
+Morningstar Asia ex-Japan Target
+Market Exposure NR USD
+Usado a lo largo del informe
+Benchmark del fondo
+MSCI AC Asia Ex Japan NR USD
+Rating Morningstar™
+QQ
+Categoría Morningstar™
+RV Asia (ex-Japón)
+Objetivo de inversión
+Obtener crecimiento de capital a largo plazo mediante
+una cartera diversificada de valores de compañías
+asiáticas, incluyendo inversiones en compañías
+pequeñas o medianas con una capitalización menor a
+1 billón de USD. Por lo menos 70% de los activos totales
+del fondo serán invertidos en compañías registradas en
+países asiáticos o bien incorporadas fuera de Asia pero
+que lleven al cabo la mayor parte de sus actividades
+comerciales en Asia. El fondo tendrá una actitud flexible
+pero agresiva en cuanto a la distribución geográfica
+cubriendo inversiones en el Extremo Oriente incluyendo
+el subcontinente indio pero excluyendo Japón y
+Australasia.
+Rentabilidad
+54
+77
+100
+123
+146
+169
+      
+202120222023202420252026-02
+-8,00-17,49-1,8417,417,5214,01 Fondo
+3,39-12,763,4017,6816,1413,83 Índice
+3,50-15,99-1,9216,4713,5814,03 Categoría
+Medidas de riesgo
+Alfa 3a-3,92
+Beta 3a0,95
+R² 3a89,49
+Ratio Info. 3a-1,26
+Tracking Error 3a4,38
+Sharpe 3a0,68
+Volatilidad a 3a.12,76
+Riesgo 3ainf med
+5Y Riskmed
+10Y Riskmed
+Los cálculos usan Morningstar Asia ex-Japan Target Market Exposure NR USD
+(donde sea aplicable)
+Rentab. acum. %Fondo+/- Ind+/- Cat
+3 meses8,55-4,05-3,30
+6 meses14,20-7,64-6,41
+1 año13,08-15,72-12,22
+3 años anualiz.8,94-5,74-2,41
+5 años anualiz.-2,25-7,37-4,47
+Datos acumulados a 03/03/2026
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+2026----
+2025-1,46-0,8511,26-1,09
+20244,059,900,602,07
+20232,28-5,07-0,631,74
+2022-9,72-4,52-7,093,02
+Cartera 31/01/2026
+Distribución de activos
+%
+Patrim
+onio
+ Acciones96,29
+ Obligaciones0,00
+ Efectivo3,71
+ Otro0,00
+Estilo de renta
+variable
+Estilo
+Valor  Mixto Crecimiento
+Peq.
+Med.
+GrandeTamaño
+Capitalización bursátil
+%
+Fondo
+Gigante76,94
+Grande19,02
+Mediano2,53
+Pequeño1,20
+Micro0,30
+Capitalización
+bursátil media de la
+cartera
+Fondo
+Cap. Burs. Med. USD105.987,
+15
+AmericaEuropeAsia
+<2525-5050-75>75
+10 mayores posiciones
+Nombre del activoSector%
+Samsung Electronics Co Ltd
+a
+10,03
+Taiwan Semiconductor...
+a
+9,63
+Tencent Holdings Ltd
+i
+7,36
+Alibaba Group Holding Ltd...
+t
+6,08
+MediaTek Inc
+a
+4,02
+ASE Technology Holding Co Ltd
+a
+3,23
+State Bank of India
+y
+3,17
+Quanta Computer Inc
+a
+3,17
+Asustek Computer Inc
+a
+3,10
+DBS Group Holdings Ltd
+y
+3,02
+% de activos en las 10 mayores posiciones52,80
+Número total de acciones diferentes en
+cartera
+60
+Número total de obligaciones diferentes en
+cartera
+0
+Distribución por sectores %Fondo
+hCíclico36,04
+rMateriales Básicos4,14
+tConsumo Cíclico13,96
+yServicios Financieros17,67
+uInmobiliario0,28
+jSensible al ciclo58,68
+iServicios de Comunicación12,55
+oEnergía-
+pIndustria5,03
+aTecnología41,10
+kDefensivo5,28
+sConsumo Defensivo1,99
+dSalud3,29
+fServicios Públicos-
+Desglose por regiones %Fondo
+América0,00
+Estados Unidos0,00
+Canadá0,00
+Iberoamérica0,00
+Europa0,00
+Reino Unido0,00
+Zona Euro0,00
+Europa - ex Euro0,00
+Europa emergente0,00
+África0,00
+Oriente Medio0,00
+Asia100,00
+Japón1,73
+Australasia0,00
+Asia - Desarrollada56,00
+Asia - Emergente42,28
+Operaciones
+Gestora del fondoInvesco Management S.A.
+Fecha Creación14/08/2000
+Nombre del gestorMike Shiao
+Fecha de incorporación02/07/2014
+VL (03/03/2026)EUR 133,11
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU0115143082
+Inversión mínima500,00
+Inversión mínima adicional0,00
+Comisión de Gestión2,25
+Comisión de salida-
+Comisión de distribución0,00
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+© 2026 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?
+
+Informe a 4 Mar 2026
+Invesco Funds - Invesco Asia Opportunities Equity Fund E Accumulation EUR
+Patrimonio (Mill) (31/01/2026)USD 330,88
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+© 2026 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

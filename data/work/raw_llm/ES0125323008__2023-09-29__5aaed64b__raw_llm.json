@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:01:49.812Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0125323008",
+    "name": "Gestión Value A FI",
+    "currency": "EUR",
+    "report_date": "2023-09-29",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": 4,
+    "medalist_rating": "Bronze",
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ago. 2023",
+    "asset_allocation": {
+      "equity": 57.65,
+      "bond": 0,
+      "cash": 5.82,
+      "other": 36.53
+    },
+    "regions_macro": {
+      "americas": 17.67,
+      "europe_me_africa": 79.12,
+      "asia": 3.22
+    },
+    "regions_detail": {
+      "Estados Unidos": 15.68,
+      "Canadá": 1.2,
+      "Iberoamérica": 0.79,
+      "Reino Unido": 10.7,
+      "Zona Euro": 58,
+      "Europa - ex Euro": 8.84,
+      "Europa emergente": 0.86,
+      "Oriente Medio / África": 0.72,
+      "Japón": 0.81,
+      "Australasia": 0,
+      "Asia - Desarrollada": 2.08,
+      "Asia - Emergente": 0.33
+    },
+    "sectors": {
+      "technology": 2.59,
+      "financial_services": 16.94,
+      "industrials": 21.76,
+      "healthcare": 4.24,
+      "consumer_cyclical": 16.42,
+      "consumer_defensive": 4.73,
+      "utilities": 0.1,
+      "energy": 13.3,
+      "communication_services": 2.81,
+      "real_estate": 0.47,
+      "basic_materials": 16.67
+    },
+    "equity_market_cap": {
+      "giant": 9.91,
+      "large": 16.09,
+      "mid": 28.96,
+      "small": 33,
+      "micro": 12.04
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Small-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Azvalor Internacional FI",
+        "weight": 16.56,
+        "sector": null
+      },
+      {
+        "name": "Cobas Selección B FI",
+        "weight": 15.97,
+        "sector": null
+      },
+      {
+        "name": "Magallanes European Equity P FI",
+        "weight": 14.87,
+        "sector": null
+      },
+      {
+        "name": "Bestinver Internacional FI",
+        "weight": 10.52,
+        "sector": null
+      },
+      {
+        "name": "Panza Valor FI",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "Magallanes Iberian Equity P FI",
+        "weight": 6.02,
+        "sector": null
+      },
+      {
+        "name": "Azvalor Iberia FI",
+        "weight": 6,
+        "sector": null
+      },
+      {
+        "name": "Cobas Iberia B FI",
+        "weight": 5.79,
+        "sector": null
+      },
+      {
+        "name": "Berkshire Hathaway Inc Class B",
+        "weight": 4.73,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Myinvestor Value A FI",
+        "weight": 4.52,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 0,
+      "top10_weight": 91.27
+    },
+    "costs": {
+      "management_fee": 0.9
+    },
+    "objective": "La gestión toma como referencia la rentabilidad del índice MSCI Europe Total Return Net El objetivo de gestión del fondo es obtener una rentabilidad satisfactoria y sostenida en el tiempo, con un tipo de gestión de \"inversión en valor\", seleccionando activos infravalorados por el mercado con un alto potencial de revalorización o bien seleccionando fondos que tengan este tipo de gestión. El fondo invertirá entre 50%-100% en otras IIC financieras, que sean activo apto, armonizadas o no (máximo 30% en IIC no..."
+  }
+}

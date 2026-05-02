@@ -1,0 +1,304 @@
+{
+  "isin": "IE00B3VXGD32",
+  "name": "Polar Capital Funds PLC - Biotechnology Fund R Inc (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125356.pdf",
+  "stableBaseName": "IE00B3VXGD32__2025-12-02__0d7f5921",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Biotecnología",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 95.72,
+        "bond": 0.05,
+        "cash": 4.23,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "healthcare": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 75.11,
+        "europe_me_africa": 24.89
+      },
+      "detail": {
+        "united_states": 72.44,
+        "canada": 2.67,
+        "united_kingdom": 5.63,
+        "eurozone": 9.42,
+        "europe_ex_euro": 9.84
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 4.16,
+        "large": 4.67,
+        "mid": 30.09,
+        "small": 37.68,
+        "micro": 23.39
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "argenx SE",
+        "weight": 5.84,
+        "sector": "Salud"
+      },
+      {
+        "name": "Rhythm Pharmaceuticals Inc",
+        "weight": 5,
+        "sector": "Salud"
+      },
+      {
+        "name": "Arcutis Biotherapeutics Inc...",
+        "weight": 4.72,
+        "sector": "Salud"
+      },
+      {
+        "name": "Northern Trust Global US...",
+        "weight": 4.63,
+        "sector": null
+      },
+      {
+        "name": "Revolution Medicines Inc...",
+        "weight": 4.39,
+        "sector": "Salud"
+      },
+      {
+        "name": "UCB SA",
+        "weight": 4.34,
+        "sector": "Salud"
+      },
+      {
+        "name": "Alnylam Pharmaceuticals Inc",
+        "weight": 4.07,
+        "sector": "Salud"
+      },
+      {
+        "name": "NewAmsterdam Pharma Co NV",
+        "weight": 3.91,
+        "sector": "Salud"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3.86,
+        "sector": "Salud"
+      },
+      {
+        "name": "Madrigal Pharmaceuticals Inc",
+        "weight": 3.78,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 48,
+      "holdings_count_bond": 0,
+      "top10_weight": 44.54
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Fondo es preservar el capital y lograr un crecimiento de este a largo plazo invirtiendo en acciones de empresas de todo el mundo de los sectores biotecnológico, de diagnóstico y de ciencias de la vida. El Fondo está ampliamente diversificado por países, por sectores biotecnológicos y por capitalización de mercado. El Fondo trata de superar la rentabilidad de un índice de referencia, el NASDAQ Biotechnology Index. El Fondo puede invertir en instrumentos financieros derivados con fines de cobertura, para..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 100,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 95.72,
+        "bond": 0.05,
+        "cash": 4.23,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "healthcare": 95.72
+      },
+      "equity_regions_total": {
+        "united_states": 69.3396,
+        "canada": 2.5557,
+        "united_kingdom": 5.389,
+        "eurozone": 9.0168,
+        "europe_ex_euro": 9.4188
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 95.72,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 58.4621,
+          "mid": 28.805,
+          "large": 8.4529
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+    "commercial_type": "RV Sector Biotecnología",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:healthcare",
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9572,
+      "bond": 0.0005,
+      "cash": 0.0423,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.693397,
+      "canada": 0.025557,
+      "united_kingdom": 0.05389,
+      "eurozone": 0.090168,
+      "europe_ex_euro": 0.094188
+    },
+    "sectors": {
+      "healthcare": 0.9572
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.584621,
+      "mid": 0.28805,
+      "large": 0.084529
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=95.72",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.05,max_component=95.72"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "f930cce7229ab1b82b6aecd0f16a4fb6",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9572,
+          "bond": 0.0005,
+          "cash": 0.0423,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9572
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9572
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9572
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:30:01.533Z"
+}

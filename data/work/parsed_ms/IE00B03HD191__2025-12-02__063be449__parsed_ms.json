@@ -1,0 +1,133 @@
+{
+  "isin": "IE00B03HD191",
+  "fileName": "morningstarreport20251202043155.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:25:03.155Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.93,
+        "bond": 0,
+        "cash": 0,
+        "other": 0.07
+      }
+    },
+    "sectors": {
+      "technology": 29.53,
+      "financial_services": 15.83,
+      "industrials": 10.53,
+      "healthcare": 9.23,
+      "consumer_cyclical": 10.15,
+      "consumer_defensive": 5.21,
+      "utilities": 2.53,
+      "energy": 3.36,
+      "communication_services": 8.87,
+      "real_estate": 1.85,
+      "basic_materials": 2.91
+    },
+    "regions": {
+      "macro": {
+        "americas": 76.15,
+        "europe_me_africa": 15.72,
+        "asia": 8.13
+      },
+      "detail": {
+        "united_states": 72.75,
+        "canada": 3.26,
+        "latin_america": 0.14,
+        "united_kingdom": 3.47,
+        "eurozone": 8.25,
+        "europe_ex_euro": 3.8,
+        "middle_east": 0.19,
+        "japan": 5.49,
+        "australasia": 1.64,
+        "other": 0.95,
+        "asia_emerging": 0.05
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 47.33,
+        "large": 34.99,
+        "mid": 17.06,
+        "small": 0.62,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 6.01,
+        "sector": null
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 4.91,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 4.45,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 2.01,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 1.68,
+        "sector": null
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 1.61,
+        "sector": null
+      },
+      {
+        "name": "JPMorgan Chase & Co",
+        "weight": 1.05,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1329,
+      "holdings_count_bond": 0,
+      "top10_weight": 28.28
+    },
+    "costs": {
+      "management_fee": 0.18
+    },
+    "objective": "The Fund seeks to provide long-term growth of capital by tracking the performance of the Index. To the extent practicable, the Fund uses a full replication strategy to select securities, so that the Fund invests in all the constituents of the Index, making the weight of such investments approximate those of the Index."
+  }
+}

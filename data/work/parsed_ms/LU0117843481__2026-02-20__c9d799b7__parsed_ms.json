@@ -1,0 +1,146 @@
+{
+  "isin": "LU0117843481",
+  "fileName": "morningstarreport20260220050328.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:53:15.164Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Taiwán Cap. Grande",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 99.9,
+        "bond": 0,
+        "cash": 0.1,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 67.47,
+      "financial_services": 16.93,
+      "industrials": 5.36,
+      "consumer_cyclical": 6.85,
+      "consumer_defensive": 1.82,
+      "basic_materials": 1.57
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.53,
+        "asia": 98.47
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 1.53,
+        "asia": 98.47
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.83,
+        "large": 43.52,
+        "mid": 9.57,
+        "small": 4.08,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.75,
+        "sector": "Technology"
+      },
+      {
+        "name": "MediaTek Inc",
+        "weight": 8.82,
+        "sector": "Technology"
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 8.59,
+        "sector": "Technology"
+      },
+      {
+        "name": "CTBC Financial Holding Co Ltd",
+        "weight": 4.52,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Hon Hai Precision Industry Co...",
+        "weight": 4.28,
+        "sector": "Technology"
+      },
+      {
+        "name": "Cathay Financial Holding Co Ltd",
+        "weight": 3.92,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Accton Technology Corp",
+        "weight": 3.43,
+        "sector": "Technology"
+      },
+      {
+        "name": "Elite Material Co Ltd",
+        "weight": 3.29,
+        "sector": "Technology"
+      },
+      {
+        "name": "Fubon Financial Holdings Co Ltd",
+        "weight": 2.91,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Mega Financial Holding Co Ltd",
+        "weight": 2.77,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 43,
+      "holdings_count_bond": 0,
+      "top10_weight": 52.28
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo invirtiendo principalmente en valores taiwaneses."
+  }
+}

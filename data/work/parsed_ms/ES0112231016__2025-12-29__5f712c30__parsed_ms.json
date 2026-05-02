@@ -1,0 +1,118 @@
+{
+  "isin": "ES0112231016",
+  "fileName": "morningstarreport20251229072911.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:55.603Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 74.53,
+        "bond": 22.86,
+        "cash": 2.61,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 15.78,
+      "financial_services": 11.76,
+      "industrials": 21.06,
+      "healthcare": 10.18,
+      "consumer_cyclical": 20.63,
+      "consumer_defensive": 2.35,
+      "utilities": 4.53,
+      "energy": 0.31,
+      "communication_services": 3.36,
+      "real_estate": 3.35,
+      "basic_materials": 6.69
+    },
+    "regions": {
+      "macro": {
+        "americas": 41.85,
+        "europe_me_africa": 58.16
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 24.33,
+        "canada": 1.74,
+        "latin_america": 15.78,
+        "united_kingdom": 4.83,
+        "eurozone": 51.77,
+        "europe_ex_euro": 1.56
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Argentina (Republic Of)",
+        "weight": 11.61,
+        "sector": null
+      },
+      {
+        "name": "Irsa Inversiones y",
+        "weight": 6.17,
+        "sector": null
+      },
+      {
+        "name": "Renta 4 Banco SA",
+        "weight": 4.7,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 4.56,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Pampa Energia SA ADR",
+        "weight": 3.43,
+        "sector": "utilities"
+      },
+      {
+        "name": "Banco Macro S.A. 4.01%2029-05-23",
+        "weight": 3.4,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 3.31,
+        "sector": "technology"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 3.13,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Fluidra SA",
+        "weight": 2.95,
+        "sector": "industrials"
+      },
+      {
+        "name": "Prosegur Compania De Seguridad",
+        "weight": 2.9,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 3,
+      "top10_weight": 46.15
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "Además de criterios financieros, se aplican criterios de Inversión Socialmente Responsable (ASG), que siguen estrategias de inversion basadas en criterios excluyentes y valorativos. La mayoría de la cartera promueve criterios ASG (medioambientales, sociales y de gobernanza). Se invierte, directa o indirectamente a través de IIC, un 0-100% de la exposición total en renta variable o en activos de renta fija pública/ privada (incluyendo depósitos e instrumentos del mercado monetario cotizados o no, líquidos) sin..."
+  }
+}

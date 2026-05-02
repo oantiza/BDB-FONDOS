@@ -1,0 +1,131 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:25:56.005Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1582988306",
+    "name": "M&G (Lux) Dynamic Allocation Fund EUR B Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 20.32,
+      "bond": 38.72,
+      "cash": 35.99,
+      "other": 4.97
+    },
+    "regions_macro": {
+      "americas": 39.28,
+      "europe_me_africa": 11.6,
+      "asia": 49.12
+    },
+    "regions_detail": {
+      "united_states": 28.08,
+      "canada": 0,
+      "latin_america": 11.2,
+      "united_kingdom": 8.04,
+      "eurozone": 3.5,
+      "europe_ex_euro": 0,
+      "europe_emerging": 0,
+      "africa_middle_east": 0.06,
+      "japan": 23.19,
+      "australasia": 3.61,
+      "asia_developed": 1.22,
+      "asia_emerging": 21.09
+    },
+    "sectors": {
+      "technology": 6.13,
+      "financial_services": 24.6,
+      "industrials": 9.29,
+      "healthcare": 14.11,
+      "consumer_cyclical": 10.11,
+      "consumer_defensive": 5.8,
+      "utilities": 0,
+      "energy": 0.87,
+      "communication_services": 8.33,
+      "real_estate": 4.54,
+      "basic_materials": 16.22
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 10.29,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)...",
+        "weight": 8.75,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)...",
+        "weight": 7.44,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 6.33,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great...",
+        "weight": 2.51,
+        "sector": null
+      },
+      {
+        "name": "M&G (Lux) Glb Cnvrts C H EUR Acc",
+        "weight": 2.17,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of)...",
+        "weight": 2.04,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great...",
+        "weight": 2.01,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 1.98,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 1.6,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 202,
+      "holdings_count_bond": 935,
+      "top10_weight": 45.12
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "The Fund aims to deliver a positive total return (the combination of income and capital growth) of 5-10% per annum in any three-year period, through investment in a range of global assets while applying ESG Criteria. The Fund has a highly flexible investment approach with the freedom to invest in different types of assets issued anywhere in the world and denominated in any currency. The Fund will normally invest within the following net allocation ranges: 0-80% in fixed income, 20-60% in equities and 0-20% in 'other'..."
+  }
+}

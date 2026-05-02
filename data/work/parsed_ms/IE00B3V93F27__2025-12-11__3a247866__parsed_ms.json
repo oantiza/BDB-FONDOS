@@ -1,0 +1,156 @@
+{
+  "isin": "IE00B3V93F27",
+  "fileName": "morningstarreport20251211060444.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:10.079Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Alto Dividendo",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.21,
+        "bond": 0,
+        "cash": 1.79,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 11.76,
+      "financial_services": 17.14,
+      "industrials": 13.88,
+      "healthcare": 20.33,
+      "consumer_cyclical": 10.72,
+      "consumer_defensive": 8.76,
+      "utilities": 6.47,
+      "energy": 5.74,
+      "communication_services": 5.2
+    },
+    "regions": {
+      "macro": {
+        "americas": 47.15,
+        "europe_me_africa": 35.98,
+        "asia": 16.87
+      },
+      "detail": {
+        "other": 94.03999999999999,
+        "united_states": 45.85,
+        "latin_america": 1.31,
+        "united_kingdom": 8.62,
+        "eurozone": 24.85,
+        "europe_ex_euro": 2.52,
+        "asia": 16.87,
+        "japan": 1.7,
+        "asia_emerging": 4.26
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 31.26,
+        "large": 37.51,
+        "mid": 27.11,
+        "small": 4.12,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "CME Group Inc Class A",
+        "weight": 3.29,
+        "sector": null
+      },
+      {
+        "name": "Cisco Systems Inc",
+        "weight": 3.03,
+        "sector": null
+      },
+      {
+        "name": "Industria De Diseno Textil SA",
+        "weight": 2.72,
+        "sector": null
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 2.55,
+        "sector": null
+      },
+      {
+        "name": "Johnson & Johnson",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "Phillips 66",
+        "weight": 2.32,
+        "sector": null
+      },
+      {
+        "name": "Medtronic PLC",
+        "weight": 2.28,
+        "sector": null
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.24,
+        "sector": null
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 2.18,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 60,
+      "holdings_count_bond": 0,
+      "top10_weight": 25.38
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo es lograr el crecimiento del capital a largo plazo, invirtiendo principalmente en renta variable global."
+  }
+}

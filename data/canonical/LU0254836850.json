@@ -1,0 +1,370 @@
+{
+  "isin": "LU0254836850",
+  "name": "Robeco Capital Growth Funds - Robeco Emerging Stars Equities D EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204094501.pdf",
+  "stableBaseName": "LU0254836850__2025-12-04__cd7a4ec7",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.64,
+        "bond": 0,
+        "cash": 1.37,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 27.58,
+      "financial_services": 29.56,
+      "industrials": 5.54,
+      "consumer_cyclical": 22.33,
+      "consumer_defensive": 0.38,
+      "utilities": 0.78,
+      "energy": 2.46,
+      "communication_services": 4.73,
+      "real_estate": 4.47,
+      "basic_materials": 2.17
+    },
+    "regions": {
+      "macro": {
+        "americas": 11.11,
+        "europe_me_africa": 14.91,
+        "asia": 73.97
+      },
+      "detail": {
+        "latin_america": 11.11,
+        "eurozone": 3.8,
+        "europe_emerging": 3.14,
+        "middle_east": 7.97,
+        "other": 39.47,
+        "asia_emerging": 34.5
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 60.98,
+        "large": 31.8,
+        "mid": 7.22,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.91,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 5.42,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Naspers Ltd Class N",
+        "weight": 4.97,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 4.95,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "SK Square",
+        "weight": 3.61,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Itau Unibanco Holding SA ADR",
+        "weight": 3.59,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 3.36,
+        "sector": "Industria"
+      },
+      {
+        "name": "Hana Financial Group Inc",
+        "weight": 2.89,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 2.73,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Kia Corp",
+        "weight": 2.71,
+        "sector": "Consumo Cíclico"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 55,
+      "holdings_count_bond": 0,
+      "top10_weight": 44.13
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del subfondo es lograr el crecimiento del capital a largo plazo invirtiendo fundamentalmente en títulos de renta variable de empresas de países emergentes o de empresas que desarrollen una parte preponderante de sus operaciones en esos países. Las inversiones en títulos de renta variable de emisores de países emergentes representarán al menos dos tercios del patrimonio total del subfondo. El subfondo no invertirá normalmente en economías maduras. En todo caso, las inversiones en mercados maduros no..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "sector:financials",
+      "sector:technology",
+      "theme:emerging_markets"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 29.56,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.64,
+        "bond": 0,
+        "cash": 1.37,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 27.2049,
+        "financial_services": 29.158,
+        "industrials": 5.4647,
+        "consumer_cyclical": 22.0263,
+        "consumer_defensive": 0.3748,
+        "utilities": 0.7694,
+        "energy": 2.4265,
+        "communication_services": 4.6657,
+        "real_estate": 4.4092,
+        "basic_materials": 2.1405
+      },
+      "equity_regions_total": {
+        "latin_america": 10.9589,
+        "eurozone": 3.7483,
+        "europe_emerging": 3.0973,
+        "middle_east": 7.8616,
+        "other": 38.9332,
+        "asia_emerging": 34.0308
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.64,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "mid": 7.1218,
+          "large": 91.5182
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Global Emergente",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:financials",
+      "sector:technology",
+      "theme:emerging_markets"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9864,
+      "bond": 0,
+      "cash": 0.0137,
+      "other": 0
+    },
+    "equity_regions": {
+      "latin_america": 0.1096,
+      "eurozone": 0.037487,
+      "europe_emerging": 0.030976,
+      "middle_east": 0.078624,
+      "other": 0.389371,
+      "asia_emerging": 0.340342
+    },
+    "sectors": {
+      "technology": 0.12663,
+      "financial_services": 0.135721,
+      "industrials": 0.025436,
+      "consumer_cyclical": 0.102525,
+      "consumer_defensive": 0.174457,
+      "utilities": 0.358131,
+      "energy": 0.011295,
+      "communication_services": 0.021717,
+      "real_estate": 0.020523,
+      "basic_materials": 0.009963
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.071218,
+      "large": 0.915182
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.64",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "951b671257ee9776d80732e2a8b1f588",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9864,
+          "bond": 0,
+          "cash": 0.0137,
+          "other": 0,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9864
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.986398
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9864
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:39:24.431Z"
+}

@@ -1,0 +1,130 @@
+{
+  "isin": "LU2210151341",
+  "fileName": "morningstarreport20251229072356.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:12.477Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Alt - Market Neutral - Equity",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 0.47,
+        "cash": 100,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 18.36,
+      "financial_services": 20.88,
+      "industrials": 7.12,
+      "healthcare": 8.41,
+      "consumer_cyclical": 14.37,
+      "consumer_defensive": 6.8,
+      "utilities": 6.04,
+      "energy": 0.89,
+      "communication_services": 7.76,
+      "real_estate": 1.2,
+      "basic_materials": 8.17
+    },
+    "regions": {
+      "macro": {
+        "americas": 43.33,
+        "europe_me_africa": 32.18,
+        "asia": 24.49
+      },
+      "detail": {
+        "other": 82.57,
+        "united_states": 36.61,
+        "canada": 5.92,
+        "latin_america": 0.8,
+        "united_kingdom": 8.04,
+        "eurozone": 18.08,
+        "europe_ex_euro": 6.05,
+        "asia": 24.49,
+        "japan": 8.42,
+        "australasia": 3.73,
+        "asia_emerging": 5.28
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Fidelity ILF - USD A Acc",
+        "weight": 4.17,
+        "sector": null
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "L3Harris Technologies Inc",
+        "weight": 2.22,
+        "sector": null
+      },
+      {
+        "name": "CFD on Siemens Energy AG...",
+        "weight": 2.14,
+        "sector": null
+      },
+      {
+        "name": "Royal Bank of Canada",
+        "weight": 2.08,
+        "sector": null
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 2.07,
+        "sector": null
+      },
+      {
+        "name": "Morgan Stanley",
+        "weight": 2.04,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 2.04,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.02,
+        "sector": null
+      },
+      {
+        "name": "Compagnie Financiere Richemont...",
+        "weight": 2.01,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 190,
+      "holdings_count_bond": 0,
+      "top10_weight": 23.13
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The fund aims to provide an absolute return over the medium to long term. The fund invests at least 70% of its assets, in equities of companies anywhere in the world, including emerging markets, as well as cash and money market instruments. In actively managing the fund, the Investment Manager combines qualitative and quantitative market analysis into a disciplined portfolio construction process to allocate investments across various securities."
+  }
+}

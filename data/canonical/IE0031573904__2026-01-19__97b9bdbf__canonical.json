@@ -1,0 +1,384 @@
+{
+  "isin": "IE0031573904",
+  "name": "Brandes Global Value Fund A Euro Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260119080423.pdf",
+  "stableBaseName": "IE0031573904__2026-01-19__97b9bdbf",
+  "report_date": "2026-01-19",
+  "ms": {
+    "report_date": "2026-01-19",
+    "category_morningstar": "RV Global Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.65,
+        "bond": 0,
+        "cash": 1.35,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 16.43,
+      "financial_services": 16.62,
+      "industrials": 7.78,
+      "healthcare": 25.44,
+      "consumer_cyclical": 8.63,
+      "consumer_defensive": 9.91,
+      "utilities": 0.97,
+      "energy": 6.07,
+      "communication_services": 4.22,
+      "real_estate": 0.71,
+      "basic_materials": 3.23
+    },
+    "regions": {
+      "macro": {
+        "americas": 52.13,
+        "europe_me_africa": 33.03,
+        "asia": 14.83
+      },
+      "detail": {
+        "united_states": 44.54,
+        "canada": 1.19,
+        "latin_america": 6.4,
+        "united_kingdom": 11.06,
+        "eurozone": 18.87,
+        "europe_ex_euro": 3.1,
+        "japan": 1.07,
+        "other": 9.79,
+        "asia_emerging": 3.97
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.23,
+        "large": 35.54,
+        "mid": 26.66,
+        "small": 5.58,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "GSK PLC",
+        "weight": 2.86,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 2.52,
+        "sector": "healthcare"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.45,
+        "sector": "energy"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 2.45,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Shell PLC ADR (Representing -...",
+        "weight": 2.44,
+        "sector": "energy"
+      },
+      {
+        "name": "Erste Group Bank AG.",
+        "weight": 2.36,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Textron Inc",
+        "weight": 2.36,
+        "sector": "industrials"
+      },
+      {
+        "name": "UBS Group AG Registered Shares",
+        "weight": 2.22,
+        "sector": "financial_services"
+      },
+      {
+        "name": "The Cigna Group",
+        "weight": 2.21,
+        "sector": "healthcare"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 2.17,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 67,
+      "holdings_count_bond": 0,
+      "top10_weight": 24.05
+    },
+    "costs": {
+      "management_fee": 0.7
+    },
+    "objective": "El objetivo del fondo es lograr una revalorización del capital a largo plazo invirtiendo principalmente en valores de renta variable global de los emisores cotizados o negociados en mercados organizados. Al menos dos tercios de las inversiones estarán en títulos de renta variable."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:healthcare"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 25.44,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.65,
+        "bond": 0,
+        "cash": 1.35,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 16.2082,
+        "financial_services": 16.3956,
+        "industrials": 7.675,
+        "healthcare": 25.0966,
+        "consumer_cyclical": 8.5135,
+        "consumer_defensive": 9.7762,
+        "utilities": 0.9569,
+        "energy": 5.9881,
+        "communication_services": 4.163,
+        "real_estate": 0.7004,
+        "basic_materials": 3.1864
+      },
+      "equity_regions_total": {
+        "united_states": 43.9387,
+        "canada": 1.1739,
+        "latin_america": 6.3136,
+        "united_kingdom": 10.9107,
+        "eurozone": 18.6153,
+        "europe_ex_euro": 3.0582,
+        "japan": 1.0556,
+        "other": 9.6578,
+        "asia_emerging": 3.9164
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.65,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 5.5041,
+          "mid": 26.2975,
+          "large": 66.8484
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Value",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "sector:healthcare"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_inferred_weak",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9865,
+      "bond": 0,
+      "cash": 0.0135,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.439431,
+      "canada": 0.01174,
+      "latin_america": 0.063142,
+      "united_kingdom": 0.109118,
+      "eurozone": 0.186171,
+      "europe_ex_euro": 0.030585,
+      "japan": 0.010557,
+      "other": 0.096588,
+      "asia_emerging": 0.039168
+    },
+    "sectors": {
+      "technology": 0.060858,
+      "financial_services": 0.061562,
+      "industrials": 0.028818,
+      "healthcare": 0.094232,
+      "consumer_cyclical": 0.031966,
+      "consumer_defensive": 0.036707,
+      "utilities": 0.359294,
+      "energy": 0.022484,
+      "communication_services": 0.015631,
+      "real_estate": 0.262984,
+      "basic_materials": 0.011964
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.055041,
+      "mid": 0.262975,
+      "large": 0.668484
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.65",
+      "credit_missing",
+      "duration_inferred_weak"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "217844f95249c09e22ed5f34abd23ebf",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_duration_inferred_weak",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9865,
+          "bond": 0,
+          "cash": 0.0135,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9865
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9865
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9865
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:49:16.658Z"
+}

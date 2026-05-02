@@ -1,0 +1,118 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:56:20.281Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE00BMW2TK08",
+    "name": "Lazard Global Convertibles Recovery Fund BP Acc EUR Hedged",
+    "currency": "EUR",
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Global - EUR Cubierto",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 4.78,
+      "bond": 10.25,
+      "cash": -10.96,
+      "other": 95.93
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {},
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "5 Year Treasury Note Future...",
+        "weight": 10.25,
+        "sector": null
+      },
+      {
+        "name": "E-Mini Russ 2000 Dec25 Xcme...",
+        "weight": 3.21,
+        "sector": null
+      },
+      {
+        "name": "Baidu Inc. 0%2032-03-12",
+        "weight": 2.83,
+        "sector": null
+      },
+      {
+        "name": "Cellnex Telecom S.A.U...",
+        "weight": 2.65,
+        "sector": null
+      },
+      {
+        "name": "LG Chem Ltd 1.75%2028-06-16",
+        "weight": 2.51,
+        "sector": null
+      },
+      {
+        "name": "Lumentum Holdings Inc....",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "JD.com Inc. 0.25%2029-06-01",
+        "weight": 2.23,
+        "sector": null
+      },
+      {
+        "name": "NCL Corporation Ltd....",
+        "weight": 2.19,
+        "sector": null
+      },
+      {
+        "name": "MKS Inc. 1.25%2030-06-01",
+        "weight": 2.1,
+        "sector": null
+      },
+      {
+        "name": "ON Semiconductor Corp....",
+        "weight": 2.08,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 1,
+      "top10_weight": 32.37
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The investment objective of the Fund is to maximise total return from income and capital growth."
+  }
+}

@@ -1,0 +1,129 @@
+{
+  "isin": "LU0235308482",
+  "fileName": "morningstarreport20260217045753.pdf",
+  "report_date": "2026-02-17",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:52:45.779Z",
+  "ms": {
+    "report_date": "2026-02-17",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-07-30",
+      "asset_allocation": {
+        "equity": 95.72,
+        "bond": 0,
+        "cash": 3.17,
+        "other": 1.1
+      }
+    },
+    "sectors": {
+      "technology": 13.11,
+      "financial_services": 13.88,
+      "industrials": 32.88,
+      "healthcare": 1.16,
+      "consumer_cyclical": 8.44,
+      "utilities": 4.22,
+      "energy": 7.4,
+      "communication_services": 13.16,
+      "real_estate": 1.58,
+      "basic_materials": 4.19
+    },
+    "regions": {
+      "macro": {
+        "americas": 0.23,
+        "europe_me_africa": 99.16,
+        "asia": 0.61
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 0.02,
+        "canada": 0.21,
+        "united_kingdom": 12.42,
+        "eurozone": 84.29,
+        "europe_ex_euro": 2.29,
+        "europe_emerging": 0.16,
+        "asia": 0.61
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 8.79,
+        "large": 19.53,
+        "mid": 59.85,
+        "small": 11.52,
+        "micro": 0.32
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Zegona Communications PLC",
+        "weight": 8.74,
+        "sector": null
+      },
+      {
+        "name": "Vusion",
+        "weight": 8.01,
+        "sector": null
+      },
+      {
+        "name": "Rheinmetall AG",
+        "weight": 6.53,
+        "sector": null
+      },
+      {
+        "name": "RWE AG Class A",
+        "weight": 4.04,
+        "sector": null
+      },
+      {
+        "name": "Technip Energies NV Ordinary...",
+        "weight": 3.55,
+        "sector": null
+      },
+      {
+        "name": "Ryanair Holdings PLC",
+        "weight": 3.09,
+        "sector": null
+      },
+      {
+        "name": "Lottomatica Group SpA",
+        "weight": 2.97,
+        "sector": null
+      },
+      {
+        "name": "BFF Bank SpA",
+        "weight": 2.77,
+        "sector": null
+      },
+      {
+        "name": "MTU Aero Engines AG",
+        "weight": 2.64,
+        "sector": null
+      },
+      {
+        "name": "Ayvens",
+        "weight": 2.6,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 70,
+      "holdings_count_bond": 0,
+      "top10_weight": 44.93
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo es la inversión en valores de renta variable de empresas europeas infravaloradas con un alto potencial de crecimiento. Es un fondo de retorno, lo que implica una relativa tolerancia de riesgo medio, con el objetivo de alcanzar un rendimiento relativo neto en el Dow Jones STOXX 600 EUR Índice."
+  }
+}

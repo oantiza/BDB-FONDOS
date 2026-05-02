@@ -1,0 +1,117 @@
+{
+  "isin": "IE00B23S7K36",
+  "fileName": "morningstarreport20260422074619.pdf",
+  "report_date": "2026-04-22",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T07:50:00.375Z",
+  "ms": {
+    "report_date": "2026-04-22",
+    "category_morningstar": "RV Brasil",
+    "rating_stars": 4,
+    "medalist_rating": "Bronze",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-02-27",
+      "asset_allocation": {
+        "equity": 96.26,
+        "bond": 0,
+        "cash": 0,
+        "other": 5.85
+      }
+    },
+    "sectors": {
+      "technology": 3.13,
+      "financial_services": 31.73,
+      "industrials": 11.78,
+      "consumer_cyclical": 8.02,
+      "consumer_defensive": 6.89,
+      "utilities": 11.34,
+      "energy": 6.74,
+      "communication_services": 5.04,
+      "real_estate": 3.07,
+      "basic_materials": 12.26
+    },
+    "regions": {
+      "macro": {
+        "americas": 100
+      },
+      "detail": {
+        "other": 100,
+        "latin_america": 100
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 41.52,
+        "large": 32.38,
+        "mid": 22.95,
+        "small": 3.15,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Bank Bradesco SA ADR",
+        "weight": 8.21,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Nu Holdings Ltd Ordinary...",
+        "weight": 8.05,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Petroleo Brasileiro SA...",
+        "weight": 6.49,
+        "sector": "energy"
+      },
+      {
+        "name": "Axia Energia",
+        "weight": 5.91,
+        "sector": "utilities"
+      },
+      {
+        "name": "Itausa Investimentos ITAU SA...",
+        "weight": 4.67,
+        "sector": "industrials"
+      },
+      {
+        "name": "Cia Paranaense De Energia...",
+        "weight": 4.51,
+        "sector": "utilities"
+      },
+      {
+        "name": "Blackrock Inst Us Dol Hrt",
+        "weight": 4.33,
+        "sector": null
+      },
+      {
+        "name": "Vibra Energia SA",
+        "weight": 4.17,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Vale SA",
+        "weight": 3.98,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Embraer SA ADR",
+        "weight": 3.88,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 54.2
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El Subfondo busca la revalorización del capital a largo plazo invirtiendo principalmente (es decir, al menos tres cuartas partes de su patrimonio) en una cartera de acciones y otros valores de renta variable de empresas con sede registrada en Brasil o que lleven a cabo una parte preponderante de sus actividades en dicho país"
+  }
+}

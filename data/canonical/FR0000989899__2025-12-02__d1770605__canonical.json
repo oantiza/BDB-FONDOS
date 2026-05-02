@@ -1,0 +1,317 @@
+{
+  "isin": "FR0000989899",
+  "name": "Oddo BHF Avenir CR-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202071357.pdf",
+  "stableBaseName": "FR0000989899__2025-12-02__d1770605",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Francia Cap. Peq/Mediana",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 88.62,
+        "bond": 2.21,
+        "cash": 9.17,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 28.19,
+      "financial_services": 3.23,
+      "industrials": 27.58,
+      "healthcare": 29.3,
+      "consumer_cyclical": 3.4,
+      "energy": 1.56,
+      "communication_services": 5.6,
+      "basic_materials": 1.14
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.36,
+        "europe_me_africa": 98.64
+      },
+      "detail": {
+        "latin_america": 1.36,
+        "eurozone": 98.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 6.7,
+        "large": 12.56,
+        "mid": 59.88,
+        "small": 16.24,
+        "micro": 4.63
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Oddo BHF Money Market CI EUR",
+        "weight": 6.05,
+        "sector": null
+      },
+      {
+        "name": "Safran SA",
+        "weight": 5.94,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Rexel SA",
+        "weight": 5.88,
+        "sector": "Technology"
+      },
+      {
+        "name": "MTU Aero Engines AG",
+        "weight": 5.73,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Virbac SA",
+        "weight": 5.62,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "BioMerieux SA",
+        "weight": 5.52,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Ipsen SA",
+        "weight": 5.27,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Publicis Groupe SA",
+        "weight": 4.96,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Sopra Steria Group SA",
+        "weight": 4.01,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alten",
+        "weight": 3.52,
+        "sector": "Technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 52.49
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": null
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:healthcare",
+      "sector:industrials",
+      "sector:technology"
+    ],
+    "top_sector": "healthcare",
+    "top_sector_weight": 29.3,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 88.62,
+        "bond": 2.21,
+        "cash": 9.17,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.982,
+        "financial_services": 2.8624,
+        "industrials": 24.4414,
+        "healthcare": 25.9657,
+        "consumer_cyclical": 3.0131,
+        "energy": 1.3825,
+        "communication_services": 4.9627,
+        "basic_materials": 1.0103
+      },
+      "equity_regions_total": {
+        "latin_america": 1.2052,
+        "eurozone": 87.4148
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 88.62,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 18.4931,
+          "mid": 53.0603,
+          "large": 17.0665
+        },
+        "style_weights_total": {
+          "blend": 88.62
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Francia Cap. Peq/Mediana",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:healthcare",
+      "sector:industrials",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.8862,
+      "bond": 0.0221,
+      "cash": 0.0917,
+      "other": 0
+    },
+    "equity_regions": {
+      "latin_america": 0.012052,
+      "eurozone": 0.874148
+    },
+    "sectors": {
+      "technology": 0.24982,
+      "financial_services": 0.028624,
+      "industrials": 0.244414,
+      "healthcare": 0.259657,
+      "consumer_cyclical": 0.030131,
+      "energy": 0.013825,
+      "communication_services": 0.049627,
+      "basic_materials": 0.010103
+    },
+    "equity_styles": {
+      "blend": 0.8862
+    },
+    "market_caps": {
+      "small": 0.184931,
+      "mid": 0.530604,
+      "large": 0.170665
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=88.62"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "01dffd863109efc146b9512d25295387",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.8862,
+          "bond": 0.0221,
+          "cash": 0.0917,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8862
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.886201
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8862
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8862
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:27:31.524Z"
+}

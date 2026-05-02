@@ -1,0 +1,123 @@
+{
+  "isin": "LU0011889846",
+  "fileName": "morningstarreport20251202070421.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:27:11.203Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Zona Euro Cap. Grande",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.16,
+        "bond": 0,
+        "cash": 1.84,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 16.83,
+      "financial_services": 20.82,
+      "industrials": 29.71,
+      "healthcare": 5.23,
+      "consumer_cyclical": 6.6,
+      "consumer_defensive": 3.06,
+      "utilities": 5.45,
+      "energy": 3.89,
+      "communication_services": 4.48,
+      "basic_materials": 3.93
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.58,
+        "europe_me_africa": 97.42
+      },
+      "detail": {
+        "united_states": 2.58,
+        "united_kingdom": 3.93,
+        "eurozone": 93.49
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 43.48,
+        "large": 34.12,
+        "mid": 19.34,
+        "small": 2.96,
+        "micro": 0.1
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 6.23,
+        "sector": "Technology"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 4.76,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 4.67,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 4.16,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 3.9,
+        "sector": "Technology"
+      },
+      {
+        "name": "Poste Italiane SpA",
+        "weight": 3.69,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 3.43,
+        "sector": "Industrials"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.12,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 3.1,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.98,
+        "sector": "Utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 50,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.04
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "En circunstancias normales, el fondo invierte principalmente en acciones de empresas de la zona euro de cualquier sector. También puede invertir en cualquier otro tipo de valor que sea compatible con su objetivo, instrumentos del mercado monetario y depósitos bancarios. Al seleccionar las inversiones, el gestor trata de escoger varias acciones de la zona euro en base a un análisis del mercado y económico centrado en identificar las empresas con un valor más atractivo por su capacidad para generar efectivo en un plazo..."
+  }
+}

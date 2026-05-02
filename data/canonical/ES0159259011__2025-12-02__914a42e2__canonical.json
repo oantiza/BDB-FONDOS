@@ -1,0 +1,332 @@
+{
+  "isin": "ES0159259011",
+  "name": "Magallanes European Equity M FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202070407.pdf",
+  "stableBaseName": "ES0159259011__2025-12-02__914a42e2",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-07-30",
+      "asset_allocation": {
+        "equity": 92.08,
+        "bond": 0,
+        "cash": 7.92,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 3.99,
+      "financial_services": 9.94,
+      "industrials": 25.91,
+      "consumer_cyclical": 17.57,
+      "consumer_defensive": 6.38,
+      "energy": 6.05,
+      "communication_services": 6.7,
+      "basic_materials": 23.46
+    },
+    "regions": {
+      "macro": {
+        "americas": 5.93,
+        "europe_me_africa": 94.07
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 5.93,
+        "united_kingdom": 12.77,
+        "eurozone": 60.24,
+        "europe_ex_euro": 17.8,
+        "europe_emerging": 2.37,
+        "middle_east": 0.89
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 3.35,
+        "large": 23.86,
+        "mid": 62.16,
+        "small": 10.24,
+        "micro": 0.39
+      },
+      "style": null,
+      "style_box_cell": "Mid-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "KION GROUP AG",
+        "weight": 4.63,
+        "sector": "Industrials"
+      },
+      {
+        "name": "SKF AB Class B",
+        "weight": 4.58,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Avolta AG",
+        "weight": 4.09,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Telecom Italia SpA Az.di Risp....",
+        "weight": 3.99,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "ArcelorMittal SA New Reg.Shs...",
+        "weight": 3.81,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Rexel SA",
+        "weight": 3.67,
+        "sector": "Technology"
+      },
+      {
+        "name": "Aker BP ASA",
+        "weight": 3.62,
+        "sector": "Energy"
+      },
+      {
+        "name": "Syensqo SA",
+        "weight": 3.51,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "Evonik Industries AG",
+        "weight": 3.45,
+        "sector": "Basic Materials"
+      },
+      {
+        "name": "easyJet PLC",
+        "weight": 3.36,
+        "sector": "Industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 37,
+      "holdings_count_bond": 0,
+      "top10_weight": 38.71
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Fondo de autor con alta vinculación a su gestor Iván Martín Aránguez. Su sustitución sería un cambio en la política de inversión. Se invertirá como mínimo el 75% de la exposición total en renta variable. Los emisores/ mercados europeos supondrán, al menos, el 75% de la exposición en renta variable y el resto se podrá invertir en emisores/mercados de otros países OCDE y, hasta un 10%, en valores de emisores/mercados de países emergentes. Los emisores podrán pertenecer a cualquier sector y ser de alta, media o baja..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 25.91,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 92.08,
+        "bond": 0,
+        "cash": 7.92,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 3.674,
+        "financial_services": 9.1528,
+        "industrials": 23.8579,
+        "consumer_cyclical": 16.1785,
+        "consumer_defensive": 5.8747,
+        "energy": 5.5708,
+        "communication_services": 6.1694,
+        "basic_materials": 21.602
+      },
+      "equity_regions_total": {
+        "other": 92.08,
+        "united_states": 5.4603,
+        "united_kingdom": 11.7586,
+        "eurozone": 55.469,
+        "europe_ex_euro": 16.3902,
+        "europe_emerging": 2.1823,
+        "middle_east": 0.8195
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Value",
+        "weight_total": 92.08,
+        "size_bucket": "mid",
+        "style": "value",
+        "size_weights_total": {
+          "small": 9.7881,
+          "mid": 57.2369,
+          "large": 25.055
+        },
+        "style_weights_total": {
+          "value": 92.08
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Mediana",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Value",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9208,
+      "bond": 0,
+      "cash": 0.0792,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.319602,
+      "united_states": 0.018952,
+      "united_kingdom": 0.040813,
+      "eurozone": 0.192528,
+      "europe_ex_euro": 0.056889,
+      "europe_emerging": 0.007575,
+      "middle_east": 0.284441
+    },
+    "sectors": {
+      "technology": 0.03674,
+      "financial_services": 0.091528,
+      "industrials": 0.238579,
+      "consumer_cyclical": 0.161785,
+      "consumer_defensive": 0.058747,
+      "energy": 0.055708,
+      "communication_services": 0.061694,
+      "basic_materials": 0.21602
+    },
+    "equity_styles": {
+      "value": 0.9208
+    },
+    "market_caps": {
+      "small": 0.097881,
+      "mid": 0.572369,
+      "large": 0.25055
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.08"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "ea607df0bfc9330e87f26c6a404bc1f2",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9208,
+          "bond": 0,
+          "cash": 0.0792,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9208
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.920801
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9208
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9208
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:27:12.963Z"
+}

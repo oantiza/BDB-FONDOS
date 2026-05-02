@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:14:17.282Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0184949016",
+    "name": "Sigma Investment House Megatrends B FI",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 97.28,
+      "bond": 0.03,
+      "cash": 0.73,
+      "other": 1.96
+    },
+    "regions_macro": {
+      "americas": 66,
+      "europe_me_africa": 14.25,
+      "asia": 19.75
+    },
+    "regions_detail": {
+      "Estados Unidos": 63.11,
+      "Canadá": 1.31,
+      "Iberoamérica": 1.58,
+      "Reino Unido": 1.56,
+      "Zona Euro": 8.41,
+      "Europa - ex Euro": 2.03,
+      "Europa emergente": 0.18,
+      "Oriente Medio / África": 2.06,
+      "Japón": 4.94,
+      "Australasia": 0.7,
+      "Asia - Desarrollada": 6.05,
+      "Asia - Emergente": 8.06
+    },
+    "sectors": {
+      "technology": 44.1,
+      "financial_services": 21.01,
+      "industrials": 8.81,
+      "healthcare": 7.05,
+      "consumer_cyclical": 5.44,
+      "consumer_defensive": 0.68,
+      "utilities": 0.72,
+      "energy": 0.95,
+      "communication_services": 8.42,
+      "real_estate": 0.84,
+      "basic_materials": 1.96
+    },
+    "equity_market_cap": {
+      "giant": 30.65,
+      "large": 32.7,
+      "mid": 21.52,
+      "small": 12.97,
+      "micro": 2.17
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 100
+    },
+    "equity_style_box_cell": "Large-Growth",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Invesco CoinShares Global...",
+        "weight": 10.01,
+        "sector": null
+      },
+      {
+        "name": "BlueBox Funds Global...",
+        "weight": 7.89,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers AI & Big Data ETF 1C",
+        "weight": 7.64,
+        "sector": null
+      },
+      {
+        "name": "Fidelity Global Financial Svcs...",
+        "weight": 7.23,
+        "sector": null
+      },
+      {
+        "name": "WisdomTree Cybersecurity ETF -...",
+        "weight": 6.99,
+        "sector": null
+      },
+      {
+        "name": "NB Next Gen Cnnctvity EUR IAcc",
+        "weight": 6.68,
+        "sector": null
+      },
+      {
+        "name": "Pictet-Digital I EUR",
+        "weight": 5.85,
+        "sector": null
+      },
+      {
+        "name": "EdRF Big Data N EUR",
+        "weight": 5.83,
+        "sector": null
+      },
+      {
+        "name": "VanEck Defense ETF A USD Acc",
+        "weight": 5.6,
+        "sector": null
+      },
+      {
+        "name": "Robeco Global Consumer Trends...",
+        "weight": 5.05,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 68.77
+    },
+    "costs": {
+      "management_fee": 0.95
+    },
+    "objective": "La gestión busca la generación de valor a través de la inversión en tendencias macroeconómicas y financieras con origen en cambios sociales, políticos, económicos o tecnológicos globales con incidencia trasversal a distintos sectores. Se invertirá 70%-100% del patrimonio en IIC financieras, activo apto, armonizadas o no, del grupo o no de la Gestora. Se invierte directa o indirectamente un 70%-100% de la exposición total en renta variable, sin predeterminación en la distribución de activos, capitalización, divisas o..."
+  }
+}

@@ -1,0 +1,125 @@
+{
+  "isin": "LU0212178916",
+  "fileName": "morningstarreport20251211055408.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:41:48.260Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "Europe Mid-Cap Equity",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-31",
+      "asset_allocation": {
+        "equity": 96.67,
+        "bond": 0,
+        "cash": 3.33,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 4.41,
+      "financial_services": 24.19,
+      "industrials": 32.68,
+      "healthcare": 7.73,
+      "consumer_cyclical": 6.25,
+      "consumer_defensive": 2.25,
+      "utilities": 3.88,
+      "energy": 3.52,
+      "communication_services": 2.96,
+      "real_estate": 7.81,
+      "basic_materials": 4.32
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.46,
+        "europe_me_africa": 97.54
+      },
+      "detail": {
+        "latin_america": 2.46,
+        "united_kingdom": 27.37,
+        "eurozone": 48.47,
+        "europe_ex_euro": 21.69
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 6.91,
+        "mid": 75.49,
+        "small": 17.6,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "BNP Paribas InstiCash € 1D...",
+        "weight": 4.01,
+        "sector": null
+      },
+      {
+        "name": "St James's Place PLC",
+        "weight": 2.82,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Bawag Group AG Ordinary Shares",
+        "weight": 2.74,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Azimut Holding SpA",
+        "weight": 2.57,
+        "sector": "financial_services"
+      },
+      {
+        "name": "KION GROUP AG",
+        "weight": 2.51,
+        "sector": "industrials"
+      },
+      {
+        "name": "Merlin Properties SOCIMI SA",
+        "weight": 2.51,
+        "sector": "real_estate"
+      },
+      {
+        "name": "ISS AS",
+        "weight": 2.51,
+        "sector": "industrials"
+      },
+      {
+        "name": "Indra Sistemas SA SHS Class -A-",
+        "weight": 2.48,
+        "sector": "technology"
+      },
+      {
+        "name": "NKT AS",
+        "weight": 2.46,
+        "sector": "industrials"
+      },
+      {
+        "name": "MITIE Group PLC",
+        "weight": 2.44,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 61,
+      "holdings_count_bond": 0,
+      "top10_weight": 27.06
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El fondo tiene por objeto aumentar el valor de sus activos a medio plazo mediante la inversión en todo momento un mínimo del 75% de los activos en acciones o de capital relacionados con los valores emitidos por las pequeñas empresas de la Unión Europea y se incluyen en el HSBC European Smaller Companies index o que tienen una capitalización bursátil por debajo de la más alta capitalización de mercado en ese índice. Estudios privados de investigación se utilizan para seleccionar la calidad, las existencias de pequeñas..."
+  }
+}

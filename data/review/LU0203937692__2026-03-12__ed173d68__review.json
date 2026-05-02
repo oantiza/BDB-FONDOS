@@ -1,0 +1,286 @@
+{
+  "isin": "LU0203937692",
+  "name": "UBS (Lux) Bond SICAV - Convert Global (EUR) P-acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260312092019.pdf",
+  "stableBaseName": "LU0203937692__2026-03-12__ed173d68",
+  "report_date": "2026-03-12",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Global - EUR Cubierto",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 2.11,
+        "cash": 5.54,
+        "other": 92.35
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "SK Hynix Inc. 1.75%2030-04-11",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs International...",
+        "weight": 1.82,
+        "sector": null
+      },
+      {
+        "name": "EchoStar Corp. 3.875%2030-11-30",
+        "weight": 1.8,
+        "sector": null
+      },
+      {
+        "name": "Ping An Insurance (Group)...",
+        "weight": 1.78,
+        "sector": null
+      },
+      {
+        "name": "Lumentum Holdings Inc....",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Gold Pole Capital Co Ltd....",
+        "weight": 1.4,
+        "sector": null
+      },
+      {
+        "name": "MKS Inc. 1.25%2030-06-01",
+        "weight": 1.08,
+        "sector": null
+      },
+      {
+        "name": "Saipem SPA 2.875%2029-09-11",
+        "weight": 1.05,
+        "sector": null
+      },
+      {
+        "name": "Goldman Sachs Finance Corp....",
+        "weight": 1.03,
+        "sector": null
+      },
+      {
+        "name": "Bridgebio Pharma Inc...",
+        "weight": 1.02,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 5,
+      "top10_weight": 14.98
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": "Invierte a escala mundial en bonos convertibles, combinando el potencial alcista de las acciones con las características defensivas de los bonos. Gestión activa y amplia cobertura frente al EUR. El objetivo de inversión consiste en explotar el potencial de riesgo-rendimiento de los mercados mundiales de bonos convertibles."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CONVERTIBLE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CONVERTIBLE_BOND",
+    "commercial_type": "RF Convertibles Global - EUR Cubierto",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "convertible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.0211,
+      "cash": 0.0554,
+      "other": 0.9235
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "convertible": 0.0211
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0211
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.35",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "ef220c6555bd2dfc49b661bbbf48d115",
+    "warnings": [
+      "regions_all_unrecognized",
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "class_exposure_tension:fixed_income_asset_type_with_bond_0.0211"
+    ],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.0211,
+          "cash": 0.0554,
+          "other": 0.9235,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0211
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0211
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0211"
+  },
+  "generated_at": "2026-04-22T16:55:42.348Z"
+}

@@ -1,0 +1,118 @@
+{
+  "isin": "ES0159201013",
+  "fileName": "morningstarreport20251202070351.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:27:03.116Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV España",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-07-30",
+      "asset_allocation": {
+        "equity": 91.45,
+        "bond": 0,
+        "cash": 8.55,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "financial_services": 12.23,
+      "industrials": 20.33,
+      "healthcare": 3.24,
+      "consumer_cyclical": 18.29,
+      "energy": 5.65,
+      "communication_services": 6.71,
+      "real_estate": 6.42,
+      "basic_materials": 27.14
+    },
+    "regions": {
+      "macro": {
+        "americas": 3.92,
+        "europe_me_africa": 96.08
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 3.92,
+        "united_kingdom": 6.96,
+        "eurozone": 89.12
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 2.53,
+        "large": 15.17,
+        "mid": 24.12,
+        "small": 49.24,
+        "micro": 8.94
+      },
+      "style": null,
+      "style_box_cell": "Small-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Repsol SA",
+        "weight": 5.17,
+        "sector": "Energía"
+      },
+      {
+        "name": "Ibersol SGPS SA",
+        "weight": 4.97,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "CTT-Correios de Portugal SA",
+        "weight": 4.93,
+        "sector": "Industria"
+      },
+      {
+        "name": "Semapa SA",
+        "weight": 4.89,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Mapfre SA",
+        "weight": 4.67,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Gestamp Automocion",
+        "weight": 4.64,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Melia Hotels International SA",
+        "weight": 4.5,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Acerinox SA",
+        "weight": 4.32,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Atalaya Mining Copper SA",
+        "weight": 4.08,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Miquel y Costas & Miquel SA",
+        "weight": 4.02,
+        "sector": "Materiales Básicos"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 27,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.17
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Fondo de autor, con alta vinculación a su gestor Iván Martín Aránguez. Su sustitución sería un cambio en la política de inversión. Se invertirá como mínimo el 75% de la exposición total en renta variable. Al menos el 60% de la exposición total estará en renta variable de la zona euro. Los emisores/mercados españoles y portugueses supondrán, al menos, el 75% de la exposición en renta variable y el resto se podrá invertir en emisores/ mercados de otros países OCDE. Los emisores podrán pertenecer a cualquier sector y ser..."
+  }
+}

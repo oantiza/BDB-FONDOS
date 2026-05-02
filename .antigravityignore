@@ -1,0 +1,5 @@
+*.zip
+logs/
+temp_backup/
+node_modules/
+.pytest_cache/

@@ -1,0 +1,131 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T07:49:56.737Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "ES0182105033",
+    "name": "Merch-Universal FI",
+    "currency": "EUR",
+    "report_date": "2026-04-22",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "28 feb. 2026",
+    "asset_allocation": {
+      "equity": 57.69,
+      "bond": 37.89,
+      "cash": 1.5,
+      "other": 2.92
+    },
+    "regions_macro": {
+      "americas": 59.92,
+      "europe_me_africa": 29.15,
+      "asia": 10.93
+    },
+    "regions_detail": {
+      "united_states": 59.92,
+      "canada": 0,
+      "latin_america": 0,
+      "united_kingdom": 0,
+      "eurozone": 11.93,
+      "europe_ex_euro": 17.22,
+      "europe_emerging": 0,
+      "africa_middle_east": 0,
+      "japan": 1.37,
+      "australasia": 0,
+      "asia_developed": 3.43,
+      "asia_emerging": 6.13
+    },
+    "sectors": {
+      "technology": 15.43,
+      "financial_services": 7.04,
+      "industrials": 2.15,
+      "healthcare": 42.71,
+      "consumer_cyclical": 18.98,
+      "consumer_defensive": 10.17,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 1.62,
+      "real_estate": 0,
+      "basic_materials": 1.91
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 22.41,
+        "sector": null
+      },
+      {
+        "name": "Biogen Inc",
+        "weight": 3.89,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 3.41,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 3.33,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.13,
+        "sector": null
+      },
+      {
+        "name": "Alnylam Pharmaceuticals Inc",
+        "weight": 3.11,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 3.08,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 2.87,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Qualcomm Inc",
+        "weight": 2.51,
+        "sector": "Technology"
+      },
+      {
+        "name": "Booking Holdings Inc...",
+        "weight": 2.31,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 7,
+      "top10_weight": 50.03
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "La inversión en renta variable oscilará entre 30%-75% de la exposición total (aunque habitualmente estará por debajo del 60%), mayoritariamente en compañías de alta capitalización, de cualquier sector. El resto se invertirá en renta fija pública y/o privada (hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertirse en renta fija a cualquier plazo), y sin exigencia de calidad crediticia determinada por lo que toda la cartera de renta fija podrá ser de baja calidad...."
+  }
+}

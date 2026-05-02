@@ -1,0 +1,341 @@
+{
+  "isin": "LU1697016878",
+  "name": "Sigma Investment House FCP - Selection Conservative Class A EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072408.pdf",
+  "stableBaseName": "LU1697016878__2025-12-29__6ef7b3d1",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 21.64,
+        "bond": 76.32,
+        "cash": 1.6,
+        "other": 0.45
+      }
+    },
+    "sectors": {
+      "technology": 14.76,
+      "financial_services": 14.61,
+      "industrials": 15.53,
+      "healthcare": 13.24,
+      "consumer_cyclical": 11.88,
+      "consumer_defensive": 7.9,
+      "utilities": 2.23,
+      "energy": 2.84,
+      "communication_services": 8.86,
+      "real_estate": 1.38,
+      "basic_materials": 6.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 57.26,
+        "europe_me_africa": 25.38,
+        "asia": 17.37
+      },
+      "detail": {
+        "united_states": 54.31,
+        "canada": 1.22,
+        "latin_america": 1.73,
+        "united_kingdom": 5.77,
+        "eurozone": 13.44,
+        "europe_ex_euro": 4.01,
+        "europe_emerging": 0.78,
+        "middle_east": 1.38,
+        "japan": 6.86,
+        "australasia": 0.53,
+        "other": 3.68,
+        "asia_emerging": 6.3
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Invesco Euro Corporate Bond Z...",
+        "weight": 8.07,
+        "sector": null
+      },
+      {
+        "name": "Loomis Sayles S/T Em Mkts Bd...",
+        "weight": 7.72,
+        "sector": null
+      },
+      {
+        "name": "Nordea 1 - European Covered...",
+        "weight": 7.29,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Euro Corporate Bond Z",
+        "weight": 7.24,
+        "sector": null
+      },
+      {
+        "name": "Evli Short Corporate Bond IB",
+        "weight": 7.2,
+        "sector": null
+      },
+      {
+        "name": "PIMCO GIS Lw Dur GlInGd...",
+        "weight": 6.32,
+        "sector": null
+      },
+      {
+        "name": "Muzinich Glbl Shrt...",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "abrdn Liquidity-Euro Fund L-2...",
+        "weight": 5.85,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers Eurz Govt Bd 3-5 ETF...",
+        "weight": 5.81,
+        "sector": null
+      },
+      {
+        "name": "M&G (Lux) Glb Fl Rt HY C H EUR...",
+        "weight": 5.69,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 67.48
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to achieve a combination of income and long-term capital appreciation, with a maximum annualized volatility, under normal market conditions, of 10%. There is however no guarantee that this objective will be achieved."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "theme:income"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 15.53,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 21.64,
+        "bond": 76.32,
+        "cash": 1.6,
+        "other": 0.45
+      },
+      "equity_sectors_total": {
+        "technology": 3.1941,
+        "financial_services": 3.1616,
+        "industrials": 3.3607,
+        "healthcare": 2.8651,
+        "consumer_cyclical": 2.5708,
+        "consumer_defensive": 1.7096,
+        "utilities": 0.4826,
+        "energy": 0.6146,
+        "communication_services": 1.9173,
+        "real_estate": 0.2986,
+        "basic_materials": 1.4672
+      },
+      "equity_regions_total": {
+        "united_states": 11.7527,
+        "canada": 0.264,
+        "latin_america": 0.3744,
+        "united_kingdom": 1.2486,
+        "eurozone": 2.9084,
+        "europe_ex_euro": 0.8678,
+        "europe_emerging": 0.1688,
+        "middle_east": 0.2986,
+        "japan": 1.4845,
+        "australasia": 0.1147,
+        "other": 0.7964,
+        "asia_emerging": 1.3633
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 21.64,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Defensivos EUR",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.2164,
+      "bond": 0.7632,
+      "cash": 0.016,
+      "other": 0.0045
+    },
+    "equity_regions": {
+      "united_states": 0.008278,
+      "canada": 0.018595,
+      "latin_america": 0.026371,
+      "united_kingdom": 0.000879,
+      "eurozone": 0.002049,
+      "europe_ex_euro": 0.061125,
+      "europe_emerging": 0.01189,
+      "middle_east": 0.021032,
+      "japan": 0.001046,
+      "australasia": 0.008079,
+      "other": 0.056096,
+      "asia_emerging": 0.00096
+    },
+    "sectors": {
+      "technology": 0.004325,
+      "financial_services": 0.004281,
+      "industrials": 0.00455,
+      "healthcare": 0.003879,
+      "consumer_cyclical": 0.003481,
+      "consumer_defensive": 0.002315,
+      "utilities": 0.065343,
+      "energy": 0.083215,
+      "communication_services": 0.002596,
+      "real_estate": 0.04043,
+      "basic_materials": 0.001987
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=76.32",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.45,max_component=76.32"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "c53fb39e9709f34d925c74829024e163",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.2164,
+          "bond": 0.7632,
+          "cash": 0.016,
+          "other": 0.0045,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.2164
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.216402
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:46:40.908Z"
+}

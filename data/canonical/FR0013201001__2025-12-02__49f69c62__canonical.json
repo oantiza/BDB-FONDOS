@@ -1,0 +1,267 @@
+{
+  "isin": "FR0013201001",
+  "name": "EdR SICAV - Euro Sustainable Credit R EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202040846.pdf",
+  "stableBaseName": "FR0013201001__2025-12-02__49f69c62",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "rating_stars": 4,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 98.28,
+        "cash": 0,
+        "other": 3.17
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 8.66,
+        "3_5": 21.15,
+        "5_7": 19.47,
+        "7_10": 21.81,
+        "over_10": 22.45
+      },
+      "coupon_allocation": {
+        "0": 1.48,
+        "0_4": 49.76,
+        "4_6": 31.19,
+        "over_6": 17.58
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Bund Future Dec 25",
+        "weight": 4.94,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 4.375%",
+        "weight": 1.68,
+        "sector": null
+      },
+      {
+        "name": "ASR Nederland N.V. 7%",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "TDC Net AS 6.5%",
+        "weight": 1.42,
+        "sector": null
+      },
+      {
+        "name": "Prologis Euro Finance LLC 4.625%",
+        "weight": 1.38,
+        "sector": null
+      },
+      {
+        "name": "Banco de Sabadell SA 4.25%",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "Alpha Bank S.A. 0%",
+        "weight": 1.19,
+        "sector": null
+      },
+      {
+        "name": "Aareal Bank AG 5.625%",
+        "weight": 1.19,
+        "sector": null
+      },
+      {
+        "name": "Lonza Finance International NV...",
+        "weight": 1.14,
+        "sector": null
+      },
+      {
+        "name": "Autostrade per l'Italia S.p.A....",
+        "weight": 1.12,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 168,
+      "top10_weight": 16.78
+    },
+    "costs": {
+      "management_fee": 1.15
+    },
+    "objective": "Tiene como objetivo proporcionar un rendimiento superior al de su índice de referencia, el Barclays Capital Euro Aggregate Corporate Total Return."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:esg",
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Deuda Corporativa EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "theme:esg",
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.968753,
+      "cash": 0,
+      "other": 0.031247
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.968753
+    },
+    "credit": null,
+    "duration": {
+      "long": 0.968753
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.28",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0145,sum_after=1",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "9e5a709f51c78cd287929130e2372c98",
+    "warnings": [
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.968753,
+          "cash": 0,
+          "other": 0.031247,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.968753
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.968753
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:13:14.761Z"
+}

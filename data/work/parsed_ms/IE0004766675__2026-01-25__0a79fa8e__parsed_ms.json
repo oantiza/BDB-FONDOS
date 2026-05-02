@@ -1,0 +1,119 @@
+{
+  "isin": "IE0004766675",
+  "fileName": "morningstarreport20260125091638.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:51:06.887Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Europa Cap. Grande Growth",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 97.44,
+        "bond": 0,
+        "cash": 1.58,
+        "other": 0.97
+      }
+    },
+    "sectors": {
+      "technology": 21.21,
+      "financial_services": 4.46,
+      "industrials": 23.96,
+      "healthcare": 20.43,
+      "consumer_cyclical": 15.44,
+      "consumer_defensive": 4.03,
+      "communication_services": 0.51,
+      "basic_materials": 9.95
+    },
+    "regions": {
+      "macro": {
+        "americas": 6.17,
+        "europe_me_africa": 93.83
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 6.17,
+        "united_kingdom": 16.98,
+        "eurozone": 54.63,
+        "europe_ex_euro": 22.22
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.65,
+        "large": 47.82,
+        "mid": 9.19,
+        "small": 0.35,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 5.98,
+        "sector": null
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 5.91,
+        "sector": null
+      },
+      {
+        "name": "Air Liquide SA",
+        "weight": 5.24,
+        "sector": null
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 4.55,
+        "sector": null
+      },
+      {
+        "name": "SAP SE",
+        "weight": 4.36,
+        "sector": null
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 4.32,
+        "sector": null
+      },
+      {
+        "name": "London Stock Exchange Group PLC",
+        "weight": 4.22,
+        "sector": null
+      },
+      {
+        "name": "Novonesis (Novozymes) B Class B",
+        "weight": 4.18,
+        "sector": null
+      },
+      {
+        "name": "Alcon Inc",
+        "weight": 3.66,
+        "sector": null
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.64,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.07
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The investment objective of the Fund is to create a professionally managed portfolio consisting of what, in the opinion of the Investment Manager, are high quality long-term growth companies having their headquarters or carrying out their predominant activities in Europe. In pursuit of the Investment Objective, the Investment Manager intends investing in shares or equity linked securities including depositary receipts, preferred stock, convertible bonds and debentures which are convertible into equity securities..."
+  }
+}

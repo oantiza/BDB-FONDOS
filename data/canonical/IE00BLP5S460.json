@@ -1,0 +1,384 @@
+{
+  "isin": "IE00BLP5S460",
+  "name": "JupiterMerian Global Equity Absolute Return Fund L (EUR) Hedged Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229071745.pdf",
+  "stableBaseName": "IE00BLP5S460__2025-12-29__08c754e1",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Alt - Market Neutral - Equity",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-09-30",
+      "asset_allocation": {
+        "equity": 67.67,
+        "bond": 0,
+        "cash": 31.46,
+        "other": 0.87
+      }
+    },
+    "sectors": {
+      "technology": 12.54,
+      "financial_services": 18.48,
+      "industrials": 9.56,
+      "healthcare": 12.6,
+      "consumer_cyclical": 15.75,
+      "consumer_defensive": 5.95,
+      "utilities": 2.75,
+      "energy": 4.12,
+      "communication_services": 6.21,
+      "real_estate": 4.04,
+      "basic_materials": 7.99
+    },
+    "regions": {
+      "macro": {
+        "americas": 26.03,
+        "europe_me_africa": 32.75,
+        "asia": 41.22
+      },
+      "detail": {
+        "united_states": 23.94,
+        "canada": 0.99,
+        "latin_america": 1.1,
+        "united_kingdom": 5.8,
+        "eurozone": 17.85,
+        "europe_ex_euro": 7.47,
+        "europe_emerging": 0.03,
+        "middle_east": 1.6,
+        "japan": 8.3,
+        "australasia": 5.68,
+        "other": 12.05,
+        "asia_emerging": 15.19
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 4.22,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 4.22,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 3.37,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 2.54,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 2.53,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 2.53,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 2.19,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 2.11,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%",
+        "weight": 1.69,
+        "sector": null
+      },
+      {
+        "name": "Kering SA",
+        "weight": 1.25,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1373,
+      "holdings_count_bond": 10,
+      "top10_weight": 26.64
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The objective of the Fund is capital appreciation while closely controlling risk. In addition, the Fund intends to deliver absolute returns that have a low correlation with equity and bond markets. The Fund aims to achieve its investment objective by investing primarily in a portfolio of equity securities of companies located worldwide and listed or traded on Regulated Markets and by pursuing the strategy detailed below. It is not proposed to concentrate investments in any one geographical region or sector."
+  },
+  "derived": {
+    "asset_class": "Alternativos",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 18.48,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 67.67,
+        "bond": 0,
+        "cash": 31.46,
+        "other": 0.87
+      },
+      "equity_sectors_total": {
+        "technology": 8.4858,
+        "financial_services": 12.5054,
+        "industrials": 6.4693,
+        "healthcare": 8.5264,
+        "consumer_cyclical": 10.658,
+        "consumer_defensive": 4.0264,
+        "utilities": 1.8609,
+        "energy": 2.788,
+        "communication_services": 4.2023,
+        "real_estate": 2.7339,
+        "basic_materials": 5.4068
+      },
+      "equity_regions_total": {
+        "united_states": 16.2002,
+        "canada": 0.6699,
+        "latin_america": 0.7444,
+        "united_kingdom": 3.9249,
+        "eurozone": 12.0791,
+        "europe_ex_euro": 5.0549,
+        "europe_emerging": 0.0203,
+        "middle_east": 1.0827,
+        "japan": 5.6166,
+        "australasia": 3.8437,
+        "other": 8.1542,
+        "asia_emerging": 10.2791
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 67.67,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "alternative",
+    "asset_subtype": "UNKNOWN",
+    "commercial_type": "Alt - Market Neutral - Equity",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:alternative:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:UNKNOWN",
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.6767,
+      "bond": 0,
+      "cash": 0.3146,
+      "other": 0.0087
+    },
+    "equity_regions": {
+      "united_states": 0.052279,
+      "canada": 0.216181,
+      "latin_america": 0.240222,
+      "united_kingdom": 0.012666,
+      "eurozone": 0.03898,
+      "europe_ex_euro": 0.016312,
+      "europe_emerging": 0.006551,
+      "middle_east": 0.003494,
+      "japan": 0.018125,
+      "australasia": 0.012404,
+      "other": 0.026314,
+      "asia_emerging": 0.033171
+    },
+    "sectors": {
+      "technology": 0.084867,
+      "financial_services": 0.125067,
+      "industrials": 0.0647,
+      "healthcare": 0.085273,
+      "consumer_cyclical": 0.106591,
+      "consumer_defensive": 0.040268,
+      "utilities": 0.018611,
+      "energy": 0.027883,
+      "communication_services": 0.042027,
+      "real_estate": 0.027342,
+      "basic_materials": 0.054073
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": {
+      "alternative": 0.0087
+    },
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=67.67",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.87,max_component=67.67",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "1831d6858191aad6beda163cbb6ea2d1",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.6767,
+          "bond": 0,
+          "cash": 0.3146,
+          "other": 0.0087,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.676699
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.676702
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T16:43:59.417Z"
+}

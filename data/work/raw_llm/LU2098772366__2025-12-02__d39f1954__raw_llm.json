@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:36:26.239Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU2098772366",
+    "name": "Candriam Bonds Credit Alpha C EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Otros",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ago. 2025",
+    "asset_allocation": {
+      "equity": 0.14,
+      "bond": 70.47,
+      "cash": 23.92,
+      "other": 5.47
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 1.01,
+      "effective_maturity": 1.8,
+      "avg_credit_quality": "B",
+      "credit_quality": {
+        "aaa": 19.33,
+        "aa": 8.41,
+        "a": 5,
+        "bbb": 14.06,
+        "bb": 5.22,
+        "b": 6.85,
+        "below_b": 0,
+        "not_rated": 67.96
+      },
+      "maturity_allocation": {
+        "1_3": 25.66,
+        "3_5": 18.68,
+        "5_7": 23.74,
+        "7_10": 2.75,
+        "over_10": 3.61
+      },
+      "coupon_allocation": {
+        "0": 18.21,
+        "0_4": 45.15,
+        "4_6": 23.14,
+        "over_6": 13.5
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Candriam Monétaire SICAV Z C",
+        "weight": 9.88,
+        "sector": null
+      },
+      {
+        "name": "Lorca Telecom Bondco S.A.U. 4%2027-09-18",
+        "weight": 4.64,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2025-11-12",
+        "weight": 4.57,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2025-12-17",
+        "weight": 4.56,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2025-12-31",
+        "weight": 4.55,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2026-02-11",
+        "weight": 4.54,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 2.75%2029-02-25",
+        "weight": 4.14,
+        "sector": null
+      },
+      {
+        "name": "Czechoslovak Group A.S. 5.25%2031-01-10",
+        "weight": 3.58,
+        "sector": null
+      },
+      {
+        "name": "VMED O2 UK Financing I PLC...",
+        "weight": 3.27,
+        "sector": null
+      },
+      {
+        "name": "Telefonica Europe B V 3.875%",
+        "weight": 3.27,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 53,
+      "top10_weight": 47.01
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The objective of the sub-fund is to use discretionary management to outperform the benchmark with a volatility objective below 10% under normal market conditions. However, the volatility may be higher, particularly under abnormal market conditions. The sub-fund will seek to benefit from investment opportunities (both buying and selling) in bonds and derivatives of private-sector issuers located in the developed countries. The sub-fund holds high yield securities which are generally poorly rated and exposed to higher..."
+  }
+}

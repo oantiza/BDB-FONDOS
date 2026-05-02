@@ -1,0 +1,264 @@
+{
+  "isin": "LU0501220429",
+  "name": "Global Evolution Funds Frontier Markets R EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260312092024.pdf",
+  "stableBaseName": "LU0501220429__2026-03-12__5202a5a0",
+  "report_date": "2026-03-12",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Global Emergente - Sesgo EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 92.14,
+        "cash": 6.11,
+        "other": 1.75
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 25.6,
+        "3_5": 15.11,
+        "5_7": 17.57,
+        "7_10": 13.35,
+        "over_10": 13.88
+      },
+      "coupon_allocation": {
+        "0": 7.76,
+        "0_4": 4.15,
+        "4_6": 12.56,
+        "over_6": 75.53
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Zambezi B.V.",
+        "weight": 2.01,
+        "sector": null
+      },
+      {
+        "name": "Argentina (Republic Of)",
+        "weight": 1.9,
+        "sector": null
+      },
+      {
+        "name": "Angola (Republic of)",
+        "weight": 1.73,
+        "sector": null
+      },
+      {
+        "name": "Kenya (Republic of)",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Congo (Republic of)",
+        "weight": 1.54,
+        "sector": null
+      },
+      {
+        "name": "Ecuador (Republic Of)",
+        "weight": 1.54,
+        "sector": null
+      },
+      {
+        "name": "Senegal (Republic of)",
+        "weight": 1.47,
+        "sector": null
+      },
+      {
+        "name": "Dominican Republic Banco Central",
+        "weight": 1.33,
+        "sector": null
+      },
+      {
+        "name": "Nigeria (Federal Republic of)",
+        "weight": 1.32,
+        "sector": null
+      },
+      {
+        "name": "Kyrgyzstan (Republic of)",
+        "weight": 1.31,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 216,
+      "top10_weight": 15.87
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo de inversión del Subfondo consiste en generar rentabilidad. Para lograr el objetivo de inversión, el Subfondo invierte principalmente en valores mobiliarios tradicionales tales como títulos de renta fija emitidos en divisas fuertes (típicamente denominados en USD) y en títulos de renta fija denominados en monedas locales emitidos por gobiernos soberanos, por organismos supranacionales y/o multilaterales de mercados frontera y en una gama de instrumentos de tipos de cambio."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "theme:emerging_markets"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9300000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Global Emergente - Sesgo EUR",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:emerging_markets"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9300000000000002,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9214,
+      "cash": 0.0611,
+      "other": 0.0175
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.9214
+    },
+    "credit": null,
+    "duration": {
+      "short": 0.9214
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9300000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.14",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "c4933f4ad39fe3a905310c97795490f5",
+    "warnings": [
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9214,
+          "cash": 0.0611,
+          "other": 0.0175,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9214
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9214
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:55:54.578Z"
+}

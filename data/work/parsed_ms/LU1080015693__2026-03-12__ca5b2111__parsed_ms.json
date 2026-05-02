@@ -1,0 +1,113 @@
+{
+  "isin": "LU1080015693",
+  "fileName": "morningstarreport20260312093221.pdf",
+  "report_date": "2026-03-12",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:56:38.303Z",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Deuda Corporativa Global Emergente - Sesgo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.13,
+        "cash": 2.66,
+        "other": 0.21
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 9.74,
+        "3_5": 36.81,
+        "5_7": 21.12,
+        "7_10": 18.4,
+        "over_10": 12.41
+      },
+      "coupon_allocation": {
+        "0": 0.55,
+        "0_4": 7.96,
+        "4_6": 24.93,
+        "over_6": 66.56
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "HTA Group Limited (Mauritius)...",
+        "weight": 2.32,
+        "sector": null
+      },
+      {
+        "name": "Millicom International Cellular SA...",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Transportadora de Gas Internacional S.A....",
+        "weight": 2.07,
+        "sector": null
+      },
+      {
+        "name": "Aydem Yenilenebilir Enerji A S...",
+        "weight": 1.97,
+        "sector": null
+      },
+      {
+        "name": "Simpar Europe 5.2%2031-01-26",
+        "weight": 1.84,
+        "sector": null
+      },
+      {
+        "name": "Grupo Energia Bogota SA 7.85%2033-11-09",
+        "weight": 1.84,
+        "sector": null
+      },
+      {
+        "name": "Votorantim Cimentos SA 7.25%2041-04-05",
+        "weight": 1.83,
+        "sector": null
+      },
+      {
+        "name": "LATAM Airlines Group SA 7.875%2030-04-15",
+        "weight": 1.81,
+        "sector": null
+      },
+      {
+        "name": "Klabin Austria GmbH 7%2049-04-03",
+        "weight": 1.79,
+        "sector": null
+      },
+      {
+        "name": "MARB BondCo PLC 3.95%2031-01-29",
+        "weight": 1.73,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 2,
+      "holdings_count_bond": 94,
+      "top10_weight": 19.28
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The objective of the Sub-Fund is to achieve long-term optimum growth of the invested capital via investments in regulated capital and money markets. In particular, the Sub-Fund aims to outperform its benchmark. The Sub-Fund is actively managed. Environmental, social and/or governance (ESG) criteria are one of the elements on which management focuses. The Sub-Fund's assets will be mainly invested in bonds such as fixed, variable, adjustable, floating, minimal, maximal, indexed or zero-coupon bonds, Convertible or..."
+  }
+}

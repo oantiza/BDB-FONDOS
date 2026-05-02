@@ -1,0 +1,339 @@
+{
+  "isin": "LU1244895394",
+  "name": "Edmond de Rothschild Fund - Big Data R EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125623.pdf",
+  "stableBaseName": "LU1244895394__2025-12-02__adc48f4d",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 94.87,
+        "bond": 0.23,
+        "cash": 4.9,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 39.48,
+      "financial_services": 5.54,
+      "industrials": 10.57,
+      "healthcare": 15.05,
+      "consumer_cyclical": 2.26,
+      "energy": 4.61,
+      "communication_services": 21.25,
+      "real_estate": 1.25
+    },
+    "regions": {
+      "macro": {
+        "americas": 56.72,
+        "europe_me_africa": 25.64,
+        "asia": 17.64
+      },
+      "detail": {
+        "united_states": 55.22,
+        "canada": 1.5,
+        "united_kingdom": 1.85,
+        "eurozone": 18.17,
+        "europe_ex_euro": 2.77,
+        "middle_east": 2.84,
+        "japan": 2.45,
+        "other": 11.16,
+        "asia_emerging": 4.03
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 26.96,
+        "large": 17.32,
+        "mid": 30.4,
+        "small": 22.62,
+        "micro": 2.7
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "SLB Ltd",
+        "weight": 4.37,
+        "sector": "Energía"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.27,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Match Group Inc Ordinary...",
+        "weight": 4,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Akamai Technologies Inc",
+        "weight": 3.91,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Illumina Inc",
+        "weight": 3.75,
+        "sector": "Salud"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 2.91,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Amundi Fds Cash USD J2 USD C",
+        "weight": 2.82,
+        "sector": null
+      },
+      {
+        "name": "Booz Allen Hamilton Holding...",
+        "weight": 2.8,
+        "sector": "Industria"
+      },
+      {
+        "name": "Verizon Communications Inc",
+        "weight": 2.71,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Check Point Software...",
+        "weight": 2.7,
+        "sector": "Tecnología"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 54,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.24
+    },
+    "costs": {
+      "management_fee": 2.1
+    },
+    "objective": "The objective of the Sub-Fund is to outperform its benchmark over a 5-year investment period, by investing on international capital markets and through the selection of, among others, companies involved in technology sectors or related to advanced analytics -Big Data - technologies. The Sub-Fund is actively managed."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector:technology",
+      "theme:ai",
+      "theme:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 39.48,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 94.87,
+        "bond": 0.23,
+        "cash": 4.9,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 37.4547,
+        "financial_services": 5.2558,
+        "industrials": 10.0278,
+        "healthcare": 14.2779,
+        "consumer_cyclical": 2.1441,
+        "energy": 4.3735,
+        "communication_services": 20.1599,
+        "real_estate": 1.1859
+      },
+      "equity_regions_total": {
+        "united_states": 52.3872,
+        "canada": 1.4231,
+        "united_kingdom": 1.7551,
+        "eurozone": 17.2379,
+        "europe_ex_euro": 2.6279,
+        "middle_east": 2.6943,
+        "japan": 2.3243,
+        "other": 10.5875,
+        "asia_emerging": 3.8233
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 94.87,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 24.0211,
+          "mid": 28.8405,
+          "large": 42.0084
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Tecnología",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:technology",
+      "theme:ai",
+      "theme:technology"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9487,
+      "bond": 0.0023,
+      "cash": 0.049,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.523924,
+      "canada": 0.014232,
+      "united_kingdom": 0.017553,
+      "eurozone": 0.172396,
+      "europe_ex_euro": 0.026282,
+      "middle_east": 0.026946,
+      "japan": 0.023245,
+      "other": 0.105885,
+      "asia_emerging": 0.038237
+    },
+    "sectors": {
+      "technology": 0.374509,
+      "financial_services": 0.052553,
+      "industrials": 0.100268,
+      "healthcare": 0.142765,
+      "consumer_cyclical": 0.021439,
+      "energy": 0.043731,
+      "communication_services": 0.201579,
+      "real_estate": 0.011858
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.240211,
+      "mid": 0.288405,
+      "large": 0.420084
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=94.87",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.23,max_component=94.87"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "035a27fdb1e596d9d85e06a006e4e65e",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9487,
+          "bond": 0.0023,
+          "cash": 0.049,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9487
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.948702
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9487
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:30:46.947Z"
+}

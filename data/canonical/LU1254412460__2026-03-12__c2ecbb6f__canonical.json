@@ -1,0 +1,273 @@
+{
+  "isin": "LU1254412460",
+  "name": "abrdn SICAV I - Indian Bond Fund A Acc EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260312093239.pdf",
+  "stableBaseName": "LU1254412460__2026-03-12__c2ecbb6f",
+  "report_date": "2026-03-12",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Otros",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.59,
+        "cash": 2.41,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 7.2,
+      "effective_maturity": null,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 20.07,
+        "aa": 9.52,
+        "a": 0,
+        "bbb": 68,
+        "bb": 0,
+        "b": 1.23,
+        "below_b": 0,
+        "not_rated": 1.18
+      },
+      "maturity_allocation": {
+        "1_3": 2.55,
+        "3_5": 22.73,
+        "5_7": 8.71,
+        "7_10": 18.54,
+        "over_10": 44.99
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 100
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "India (Republic of) 7.36%2052-09-12",
+        "weight": 11.26,
+        "sector": null
+      },
+      {
+        "name": "India (Republic of) 6.99%2051-12-15",
+        "weight": 11.05,
+        "sector": null
+      },
+      {
+        "name": "India (Republic of) 7.4%2062-09-19",
+        "weight": 10.05,
+        "sector": null
+      },
+      {
+        "name": "National Highways Authority of India",
+        "weight": 8.36,
+        "sector": null
+      },
+      {
+        "name": "India (Republic of) 6.67%2050-12-17",
+        "weight": 7.68,
+        "sector": null
+      },
+      {
+        "name": "Asian Infrastructure Investment Bank",
+        "weight": 4.99,
+        "sector": null
+      },
+      {
+        "name": "Corporacion Andina de Fomento",
+        "weight": 4.81,
+        "sector": null
+      },
+      {
+        "name": "Corporacion Andina de Fomento",
+        "weight": 4.71,
+        "sector": null
+      },
+      {
+        "name": "India (Republic of) 6.9%2034-08-05",
+        "weight": 4.41,
+        "sector": null
+      },
+      {
+        "name": "European Investment Bank 6.95%2029-03-01",
+        "weight": 4.02,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 20,
+      "top10_weight": 71.34
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "The Fund's investment objective is long term total return to be achieved by investing at least two-thirds of the Fund's assets in Indian Rupee denominated Debt and Debt-Related Securities which are issued by government or government-related bodies domiciled in India, and/ or corporations (including holding companies of such corporations) with their registered office, principal place of business or the preponderance of their business activities in India."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Otros",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "government",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9759,
+      "cash": 0.0241,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "government": 0.9759
+    },
+    "credit": {
+      "investment_grade": 0.9759
+    },
+    "duration": {
+      "long": 0.9759
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.59",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "8b9fe77e8f2e3dddc13eec121e56a3c0",
+    "warnings": [
+      "missing_rating_stars",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9759,
+          "cash": 0.0241,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9759
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9759
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9759
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:57:02.655Z"
+}

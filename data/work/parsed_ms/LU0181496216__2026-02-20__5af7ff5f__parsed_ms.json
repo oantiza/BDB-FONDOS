@@ -1,0 +1,150 @@
+{
+  "isin": "LU0181496216",
+  "fileName": "morningstarreport20260220050706.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:54:49.576Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 97.76,
+        "bond": 0,
+        "cash": 2.24,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 31.8,
+      "financial_services": 14.64,
+      "industrials": 8.57,
+      "healthcare": 5.21,
+      "consumer_cyclical": 15.57,
+      "consumer_defensive": 0.96,
+      "utilities": 0.91,
+      "energy": 2.33,
+      "communication_services": 10.94,
+      "real_estate": 2.07,
+      "basic_materials": 7
+    },
+    "regions": {
+      "macro": {
+        "asia": 100
+      },
+      "detail": {
+        "asia": 100,
+        "other": 48.71,
+        "asia_emerging": 51.29
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 76.24,
+        "large": 19.83,
+        "mid": 3.26,
+        "small": 0.67,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 10.14,
+        "sector": "technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.74,
+        "sector": "technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 5.83,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 5.63,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Ping An Insurance (Group) Co....",
+        "weight": 2.85,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 2.2,
+        "sector": "technology"
+      },
+      {
+        "name": "MediaTek Inc",
+        "weight": 1.96,
+        "sector": "technology"
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 1.89,
+        "sector": "industrials"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 1.71,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Zijin Mining Group Co Ltd...",
+        "weight": 1.66,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 91,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.61
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento de capital principalmente a través de la inversión en valores de renta variable de sociedades de las economías emergentes de Asia."
+  }
+}

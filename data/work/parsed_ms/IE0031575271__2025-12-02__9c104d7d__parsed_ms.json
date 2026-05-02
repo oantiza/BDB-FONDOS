@@ -1,0 +1,120 @@
+{
+  "isin": "IE0031575271",
+  "fileName": "morningstarreport20251202073231.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:29:16.068Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV USA Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 97.56,
+        "bond": 0,
+        "cash": 2.44,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 14.11,
+      "financial_services": 21.82,
+      "industrials": 10.71,
+      "healthcare": 25.37,
+      "consumer_cyclical": 4.67,
+      "consumer_defensive": 4.83,
+      "utilities": 0.81,
+      "energy": 7.52,
+      "communication_services": 6.12,
+      "basic_materials": 4.06
+    },
+    "regions": {
+      "macro": {
+        "americas": 98.27,
+        "europe_me_africa": 1.73
+      },
+      "detail": {
+        "united_states": 96.17,
+        "canada": 0.7,
+        "latin_america": 1.4,
+        "eurozone": 1.73
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 7.07,
+        "large": 30.23,
+        "mid": 46.05,
+        "small": 15.72,
+        "micro": 0.93
+      },
+      "style": null,
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Merck & Co Inc",
+        "weight": 2.88,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 2.87,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Citigroup Inc",
+        "weight": 2.8,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 2.79,
+        "sector": "Energy"
+      },
+      {
+        "name": "Textron Inc",
+        "weight": 2.6,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 2.52,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Wells Fargo & Co",
+        "weight": 2.51,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "GS USD Treasury Liq Res X Inc",
+        "weight": 2.44,
+        "sector": null
+      },
+      {
+        "name": "SS&C Technologies Holdings Inc",
+        "weight": 2.41,
+        "sector": "Technology"
+      },
+      {
+        "name": "HCA Healthcare Inc",
+        "weight": 2.39,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 59,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.22
+    },
+    "costs": {
+      "management_fee": 0.7
+    },
+    "objective": "El objetivo del fondo es una revalorización del capital a largo plazo invirtiendo al menos dos tercios del patrimonio en valores de renta variable de emisores de EE.UU."
+  }
+}

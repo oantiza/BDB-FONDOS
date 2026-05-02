@@ -1,0 +1,151 @@
+{
+  "isin": "LU0201075453",
+  "fileName": "morningstarreport20251211062751.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:43:07.292Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.1,
+        "bond": 0,
+        "cash": 0.9,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 8.67,
+      "financial_services": 25.78,
+      "industrials": 20.63,
+      "healthcare": 16.1,
+      "consumer_cyclical": 8.88,
+      "consumer_defensive": 7.89,
+      "utilities": 2.84,
+      "energy": 2.14,
+      "communication_services": 1.26,
+      "basic_materials": 5.81
+    },
+    "regions": {
+      "macro": {
+        "americas": 4.59,
+        "europe_me_africa": 95.41
+      },
+      "detail": {
+        "united_states": 4.59,
+        "united_kingdom": 12.21,
+        "eurozone": 68.09,
+        "europe_ex_euro": 15.11
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 54.06,
+        "large": 35.26,
+        "mid": 10.67,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Erste Group Bank AG.",
+        "weight": 4.48,
+        "sector": "financial_services"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3.83,
+        "sector": "healthcare"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.77,
+        "sector": "technology"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 3.4,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 3.31,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 3.16,
+        "sector": "healthcare"
+      },
+      {
+        "name": "argenx SE",
+        "weight": 2.97,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.82,
+        "sector": "utilities"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 2.76,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 2.74,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 48,
+      "holdings_count_bond": 0,
+      "top10_weight": 33.26
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Subfondo trata de alcanzar una rentabilidad a largo plazo superior a la rentabilidad que en ese mismo horizonte temporal suele normalmente obtenerse en los mercados de renta variable de Europa, invirtiendo en: - empresas domiciliadas en Europa (incluido el Reino Unido), -empresas que no tengan su domicilio social en Europa pero que (i) desarrollen una parte predominante de su actividad empresarial en Europa (incluido el Reino Unido), o (ii) sean sociedades de cartera que inviertan fundamentalmente en el capital de..."
+  }
+}

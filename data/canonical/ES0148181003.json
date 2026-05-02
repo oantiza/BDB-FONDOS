@@ -1,0 +1,384 @@
+{
+  "isin": "ES0148181003",
+  "name": "Indexa RV mixta internacional 75 FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072921.pdf",
+  "stableBaseName": "ES0148181003__2025-12-29__b24a827a",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-31",
+      "asset_allocation": {
+        "equity": 74.84,
+        "bond": 22.69,
+        "cash": 2.38,
+        "other": 0.1
+      }
+    },
+    "sectors": {
+      "technology": 26.41,
+      "financial_services": 16.12,
+      "industrials": 11.72,
+      "healthcare": 9.19,
+      "consumer_cyclical": 11.09,
+      "consumer_defensive": 5.14,
+      "utilities": 2.57,
+      "energy": 3.09,
+      "communication_services": 9.01,
+      "real_estate": 2.04,
+      "basic_materials": 3.61
+    },
+    "regions": {
+      "macro": {
+        "americas": 53.12,
+        "europe_me_africa": 23.38,
+        "asia": 23.5
+      },
+      "detail": {
+        "united_states": 52.39,
+        "canada": 0.01,
+        "latin_america": 0.72,
+        "united_kingdom": 5.02,
+        "eurozone": 11.71,
+        "europe_ex_euro": 5.23,
+        "europe_emerging": 0.31,
+        "middle_east": 1.11,
+        "japan": 11.5,
+        "australasia": 2.53,
+        "other": 3.71,
+        "asia_emerging": 5.76
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "iShares Core S&P Total US...",
+        "weight": 20.14,
+        "sector": null
+      },
+      {
+        "name": "Vanguard S&P 500 UCITS ETF",
+        "weight": 18.97,
+        "sector": null
+      },
+      {
+        "name": "Amundi Core Stoxx Eurp 600 ETF...",
+        "weight": 16.69,
+        "sector": null
+      },
+      {
+        "name": "Amundi Core Euro Govt Bd ETF Acc",
+        "weight": 9.12,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers Nikkei 225 ETF 1D",
+        "weight": 8.67,
+        "sector": null
+      },
+      {
+        "name": "Vanguard FTSE Emerg Markets...",
+        "weight": 7.54,
+        "sector": null
+      },
+      {
+        "name": "iShares JP Morgan $ EM Bond...",
+        "weight": 4.66,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers Global Govt Bd ETF...",
+        "weight": 4.52,
+        "sector": null
+      },
+      {
+        "name": "iShares Global Corp Bond EURH...",
+        "weight": 4.41,
+        "sector": null
+      },
+      {
+        "name": "iShares Core MSCI Pac ex-Jpn...",
+        "weight": 2.98,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 97.69
+    },
+    "costs": {
+      "management_fee": 0.34
+    },
+    "objective": "Se invierte más del 90% del patrimonio a través de IIC financieras (activo apto), preferentemente ETF y fondos indexados (que son aquellos que replican o tienen una alta correlación con un índice bursátil), armonizadas o no (máximo 30% en IIC no armonizadas), del Grupo o no de la Gestora. Se invierte, directa o indirectamente a través de IIC entre el 70% y 75% de la exposición total en activos de renta variable y el resto en activos de renta fija, pública y/o privada (incluyendo depósitos e instrumentos del mercado..."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 26.41,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": true,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 74.84,
+        "bond": 22.69,
+        "cash": 2.38,
+        "other": 0.1
+      },
+      "equity_sectors_total": {
+        "technology": 19.7652,
+        "financial_services": 12.0642,
+        "industrials": 8.7712,
+        "healthcare": 6.8778,
+        "consumer_cyclical": 8.2998,
+        "consumer_defensive": 3.8468,
+        "utilities": 1.9234,
+        "energy": 2.3126,
+        "communication_services": 6.7431,
+        "real_estate": 1.5267,
+        "basic_materials": 2.7017
+      },
+      "equity_regions_total": {
+        "united_states": 39.2087,
+        "canada": 0.0075,
+        "latin_america": 0.5388,
+        "united_kingdom": 3.757,
+        "eurozone": 8.7638,
+        "europe_ex_euro": 3.9141,
+        "europe_emerging": 0.232,
+        "middle_east": 0.8307,
+        "japan": 8.6066,
+        "australasia": 1.8935,
+        "other": 2.7766,
+        "asia_emerging": 4.3108
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 74.84,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Agresivos EUR",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:technology"
+    ],
+    "vehicle_complexity": "plain_vanilla",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.7484,
+      "bond": 0.2269,
+      "cash": 0.0238,
+      "other": 0.001
+    },
+    "equity_regions": {
+      "united_states": 0.125331,
+      "canada": 0.002397,
+      "latin_america": 0.172227,
+      "united_kingdom": 0.012009,
+      "eurozone": 0.028013,
+      "europe_ex_euro": 0.012511,
+      "europe_emerging": 0.074159,
+      "middle_east": 0.265533,
+      "japan": 0.027511,
+      "australasia": 0.006053,
+      "other": 0.008875,
+      "asia_emerging": 0.013779
+    },
+    "sectors": {
+      "technology": 0.197672,
+      "financial_services": 0.120654,
+      "industrials": 0.087721,
+      "healthcare": 0.068785,
+      "consumer_cyclical": 0.083006,
+      "consumer_defensive": 0.038472,
+      "utilities": 0.019236,
+      "energy": 0.023128,
+      "communication_services": 0.067438,
+      "real_estate": 0.015269,
+      "basic_materials": 0.02702
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.2269
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.2269
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=74.84",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.1,max_component=74.84",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "8a2976442ff5664a474a393a701e925b",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.7484,
+          "bond": 0.2269,
+          "cash": 0.0238,
+          "other": 0.001,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.748398
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.748401
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.2269
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.2269
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T16:47:14.953Z"
+}

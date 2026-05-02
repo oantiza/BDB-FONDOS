@@ -1,0 +1,347 @@
+{
+  "isin": "ES0184894006",
+  "name": "Myinvestor ACWI FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20240623090216.pdf",
+  "stableBaseName": "ES0184894006__2024-06-23__af8ac8b1",
+  "report_date": "2024-06-23",
+  "ms": {
+    "report_date": "2024-06-23",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2024-05-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.78,
+      "financial_services": 15.37,
+      "industrials": 10.3,
+      "healthcare": 11.57,
+      "consumer_cyclical": 11.02,
+      "consumer_defensive": 6.01,
+      "utilities": 2.43,
+      "energy": 4.05,
+      "communication_services": 8.54,
+      "real_estate": 2.3,
+      "basic_materials": 3.65
+    },
+    "regions": {
+      "macro": {
+        "americas": 65.64,
+        "europe_me_africa": 17.22,
+        "asia": 17.15
+      },
+      "detail": {
+        "united_states": 62.16,
+        "canada": 2.72,
+        "latin_america": 0.75,
+        "united_kingdom": 3.27,
+        "eurozone": 7.55,
+        "other": 13.93,
+        "europe_emerging": 0.28,
+        "japan": 7.8,
+        "australasia": 1.53
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 48.79,
+        "large": 33.28,
+        "mid": 15.43,
+        "small": 1.51,
+        "micro": 0.99
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Xtrackers S&P 500 Swap ETF 1D",
+        "weight": 18.37,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 ETF",
+        "weight": 18.12,
+        "sector": null
+      },
+      {
+        "name": "Amundi Stoxx Europe 600 ETF C",
+        "weight": 14.56,
+        "sector": null
+      },
+      {
+        "name": "iShares S&P 500 Swap ETF USD Acc",
+        "weight": 10.05,
+        "sector": null
+      },
+      {
+        "name": "iShares MSCI EM ETF USD Acc",
+        "weight": 8.98,
+        "sector": null
+      },
+      {
+        "name": "Micro E-mini S&P 500 Index...",
+        "weight": 8.95,
+        "sector": null
+      },
+      {
+        "name": "Amundi IS Prime Japan ETF DR",
+        "weight": 7.61,
+        "sector": null
+      },
+      {
+        "name": "E-mini S&P 500 Future June...",
+        "weight": 6.63,
+        "sector": null
+      },
+      {
+        "name": "UBS(Lux)FS MSCI Canada CAD Aacc",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "L&G Asia Pacific ex Japan...",
+        "weight": 2.22,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 98.33
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Invierte 0%-100% del patrimonio en IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la Gestora. El objetivo es alcanzar una rentabilidad similar al MSCI ACWI (NR). Para ello, el 75%-100% de la exposición total será renta variable de emisores/ mercados de cualquier país, incluidos emergentes, de cualquier sector y capitalización, a través de ETF e IIC financieras y de forma secundaria, a través de futuros. Se empleará tanto el modelo de réplica física..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": "technology",
+    "top_sector_weight": 24.78,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0.06,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.78,
+        "financial_services": 15.37,
+        "industrials": 10.3,
+        "healthcare": 11.57,
+        "consumer_cyclical": 11.02,
+        "consumer_defensive": 6.01,
+        "utilities": 2.43,
+        "energy": 4.05,
+        "communication_services": 8.54,
+        "real_estate": 2.3,
+        "basic_materials": 3.65
+      },
+      "equity_regions_total": {
+        "united_states": 62.16,
+        "canada": 2.72,
+        "latin_america": 0.75,
+        "united_kingdom": 3.27,
+        "eurozone": 7.55,
+        "other": 13.93,
+        "europe_emerging": 0.28,
+        "japan": 7.8,
+        "australasia": 1.53
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 100,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 2.5,
+          "mid": 15.43,
+          "large": 82.07
+        },
+        "style_weights_total": {
+          "blend": 100
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Blend",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 1,
+      "bond": 0,
+      "cash": 0.0006,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 62.16,
+      "canada": 2.72,
+      "latin_america": 0.75,
+      "united_kingdom": 3.27,
+      "eurozone": 7.55,
+      "other": 13.93,
+      "europe_emerging": 0.28,
+      "japan": 7.8,
+      "australasia": 1.53
+    },
+    "sectors": {
+      "technology": 24.78,
+      "financial_services": 15.37,
+      "industrials": 10.3,
+      "healthcare": 11.57,
+      "consumer_cyclical": 11.02,
+      "consumer_defensive": 6.01,
+      "utilities": 2.43,
+      "energy": 4.05,
+      "communication_services": 8.54,
+      "real_estate": 2.3,
+      "basic_materials": 3.65
+    },
+    "equity_styles": {
+      "blend": 100
+    },
+    "market_caps": {
+      "small": 2.5,
+      "mid": 15.43,
+      "large": 82.07
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": []
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "79d580c2518fc014aad03ba226f64956",
+    "warnings": [
+      "unknown_region_key:Europa - ex Euro",
+      "unknown_region_key:Oriente Medio / África",
+      "unknown_region_key:Asia - Desarrollada",
+      "unknown_region_key:Asia - Emergente"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": false,
+    "errors": [
+      "equity_regions_sum_gt_parent:2.019600>1.000000"
+    ],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 1,
+          "bond": 0,
+          "cash": 0.0006,
+          "other": 0,
+          "sum": 1.0006
+        }
+      },
+      "eqRegions": {
+        "ok": false,
+        "errors": [
+          "equity_regions_sum_gt_parent:2.019600>1.000000"
+        ],
+        "warnings": [],
+        "sum": 2.0196
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1.0002
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "error_math_validation",
+    "reason": "equity_regions_sum_gt_parent:2.019600>1.000000"
+  },
+  "generated_at": "2026-04-18T17:05:29.428Z"
+}

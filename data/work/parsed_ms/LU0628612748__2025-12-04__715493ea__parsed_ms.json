@@ -1,0 +1,123 @@
+{
+  "isin": "LU0628612748",
+  "fileName": "morningstarreport20251204093044.pdf",
+  "report_date": "2025-12-04",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:38:33.601Z",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Europa Alto Dividendo",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.92,
+        "bond": 0.03,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 3.28,
+      "financial_services": 24.57,
+      "industrials": 38.73,
+      "healthcare": 10.48,
+      "consumer_cyclical": 5.2,
+      "consumer_defensive": 2.12,
+      "utilities": 8.09,
+      "communication_services": 2.49,
+      "basic_materials": 5.05
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.72,
+        "europe_me_africa": 98.28
+      },
+      "detail": {
+        "united_states": 1.72,
+        "united_kingdom": 13.72,
+        "eurozone": 67.59,
+        "europe_ex_euro": 16.98
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 45.58,
+        "large": 42.12,
+        "mid": 12.3,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Legrand SA",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 3.2,
+        "sector": null
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 2.99,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo",
+        "weight": 2.94,
+        "sector": null
+      },
+      {
+        "name": "Safran SA",
+        "weight": 2.89,
+        "sector": null
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.81,
+        "sector": null
+      },
+      {
+        "name": "Weir Group PLC",
+        "weight": 2.75,
+        "sector": null
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 2.57,
+        "sector": null
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.52,
+        "sector": null
+      },
+      {
+        "name": "Sampo Oyj Class A",
+        "weight": 2.51,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 0,
+      "top10_weight": 28.49
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo invierte al menos el 70% de sus activos totales en valores de renta variable de empresas domiciliadas o que desarrollen una parte predominante de su actividad económica en Europa."
+  }
+}

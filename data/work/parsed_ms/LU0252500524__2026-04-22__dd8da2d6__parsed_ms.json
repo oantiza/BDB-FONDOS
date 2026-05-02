@@ -1,0 +1,44 @@
+{
+  "isin": "LU0252500524",
+  "fileName": "LU0252500524__2026-04-22__dd8da2d6.pdf",
+  "report_date": "2026-04-22",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T08:26:12.272Z",
+  "ms": {
+    "report_date": "2026-04-22",
+    "category_morningstar": "EUR Money Market - Short Term",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-03-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 0,
+        "cash": 100,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": null,
+    "holdings_stats": {
+      "holdings_count_equity": null,
+      "holdings_count_bond": null,
+      "top10_weight": null
+    },
+    "costs": {
+      "management_fee": 0.4
+    },
+    "objective": "Proporcionar un nivel de rendimiento competitivo en la moneda de referencia y un alto grado de liquidez invirtiendo principalmente en bonos y otros valores de deuda a corto plazo denominados en euros."
+  }
+}

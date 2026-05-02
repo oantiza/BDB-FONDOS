@@ -1,0 +1,347 @@
+{
+  "isin": "LU0329203656",
+  "name": "JPM Global Dividend D (acc) - EUR (hedged)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229071748.pdf",
+  "stableBaseName": "LU0329203656__2025-12-29__b23f1883",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.11,
+        "bond": 0,
+        "cash": 0.89,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 27.23,
+      "financial_services": 19.74,
+      "industrials": 13.52,
+      "healthcare": 9.66,
+      "consumer_cyclical": 9.14,
+      "consumer_defensive": 2.75,
+      "utilities": 6.09,
+      "energy": 5.44,
+      "communication_services": 5.59,
+      "real_estate": 0.47,
+      "basic_materials": 0.37
+    },
+    "regions": {
+      "macro": {
+        "americas": 62.07,
+        "europe_me_africa": 20.17,
+        "asia": 17.76
+      },
+      "detail": {
+        "united_states": 60.52,
+        "canada": 0.85,
+        "latin_america": 0.7,
+        "united_kingdom": 6.01,
+        "eurozone": 11.63,
+        "europe_ex_euro": 2.54,
+        "japan": 5.21,
+        "other": 8.91,
+        "asia_emerging": 3.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 41.04,
+        "large": 47.34,
+        "mid": 11.62,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Microsoft Corp",
+        "weight": 7.18,
+        "sector": "technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 5.22,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 3.14,
+        "sector": "technology"
+      },
+      {
+        "name": "Johnson & Johnson",
+        "weight": 2.6,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Fidelity National Information...",
+        "weight": 2.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 2.31,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 2.12,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Analog Devices Inc",
+        "weight": 2.09,
+        "sector": "technology"
+      },
+      {
+        "name": "Morgan Stanley",
+        "weight": 2.03,
+        "sector": "financial_services"
+      },
+      {
+        "name": "McDonald's Corp",
+        "weight": 1.99,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 74,
+      "holdings_count_bond": 0,
+      "top10_weight": 31
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Ofrecer crecimiento de capital a largo plazo mediante inversión principalmente en sociedades, a nivel global, que generen rendimientos altos y crecientes."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:technology",
+      "theme:income"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 27.23,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.11,
+        "bond": 0,
+        "cash": 0.89,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 26.9877,
+        "financial_services": 19.5643,
+        "industrials": 13.3997,
+        "healthcare": 9.574,
+        "consumer_cyclical": 9.0587,
+        "consumer_defensive": 2.7255,
+        "utilities": 6.0358,
+        "energy": 5.3916,
+        "communication_services": 5.5402,
+        "real_estate": 0.4658,
+        "basic_materials": 0.3667
+      },
+      "equity_regions_total": {
+        "united_states": 59.9814,
+        "canada": 0.8424,
+        "latin_america": 0.6938,
+        "united_kingdom": 5.9565,
+        "eurozone": 11.5265,
+        "europe_ex_euro": 2.5174,
+        "japan": 5.1636,
+        "other": 8.8307,
+        "asia_emerging": 3.6076
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 99.11,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 11.5166,
+          "large": 87.5934
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Otros",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:technology",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9911,
+      "bond": 0,
+      "cash": 0.0089,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.236651,
+      "canada": 0.332361,
+      "latin_america": 0.273732,
+      "united_kingdom": 0.023501,
+      "eurozone": 0.045477,
+      "europe_ex_euro": 0.009932,
+      "japan": 0.020372,
+      "other": 0.034841,
+      "asia_emerging": 0.014233
+    },
+    "sectors": {
+      "technology": 0.147347,
+      "financial_services": 0.106817,
+      "industrials": 0.073159,
+      "healthcare": 0.052272,
+      "consumer_cyclical": 0.049458,
+      "consumer_defensive": 0.014881,
+      "utilities": 0.032954,
+      "energy": 0.029437,
+      "communication_services": 0.030248,
+      "real_estate": 0.254316,
+      "basic_materials": 0.20021
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.115166,
+      "large": 0.875934
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.11",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.89,max_component=99.11"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "480e629810260ea8d10ec6dcd049bb5d",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9911,
+          "bond": 0,
+          "cash": 0.0089,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9911
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.991099
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9911
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:43:57.471Z"
+}

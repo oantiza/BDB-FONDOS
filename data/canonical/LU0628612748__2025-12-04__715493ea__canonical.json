@@ -1,0 +1,325 @@
+{
+  "isin": "LU0628612748",
+  "name": "BlackRock Global Funds - European Equity Income Fund E2",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204093044.pdf",
+  "stableBaseName": "LU0628612748__2025-12-04__715493ea",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Europa Alto Dividendo",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.92,
+        "bond": 0.03,
+        "cash": 0.06,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 3.28,
+      "financial_services": 24.57,
+      "industrials": 38.73,
+      "healthcare": 10.48,
+      "consumer_cyclical": 5.2,
+      "consumer_defensive": 2.12,
+      "utilities": 8.09,
+      "communication_services": 2.49,
+      "basic_materials": 5.05
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.72,
+        "europe_me_africa": 98.28
+      },
+      "detail": {
+        "united_states": 1.72,
+        "united_kingdom": 13.72,
+        "eurozone": 67.59,
+        "europe_ex_euro": 16.98
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 45.58,
+        "large": 42.12,
+        "mid": 12.3,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Legrand SA",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Industria De Diseno Textil SA...",
+        "weight": 3.2,
+        "sector": null
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 2.99,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo",
+        "weight": 2.94,
+        "sector": null
+      },
+      {
+        "name": "Safran SA",
+        "weight": 2.89,
+        "sector": null
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.81,
+        "sector": null
+      },
+      {
+        "name": "Weir Group PLC",
+        "weight": 2.75,
+        "sector": null
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 2.57,
+        "sector": null
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 2.52,
+        "sector": null
+      },
+      {
+        "name": "Sampo Oyj Class A",
+        "weight": 2.51,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 0,
+      "top10_weight": 28.49
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo invierte al menos el 70% de sus activos totales en valores de renta variable de empresas domiciliadas o que desarrollen una parte predominante de su actividad económica en Europa."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials",
+      "theme:income"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 38.73,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.92,
+        "bond": 0.03,
+        "cash": 0.06,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 3.2774,
+        "financial_services": 24.5503,
+        "industrials": 38.699,
+        "healthcare": 10.4716,
+        "consumer_cyclical": 5.1958,
+        "consumer_defensive": 2.1183,
+        "utilities": 8.0835,
+        "communication_services": 2.488,
+        "basic_materials": 5.046
+      },
+      "equity_regions_total": {
+        "united_states": 1.7186,
+        "united_kingdom": 13.709,
+        "eurozone": 67.5359,
+        "europe_ex_euro": 16.9664
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.92,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "mid": 12.2902,
+          "large": 87.6298
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Alto Dividendo",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9992,
+      "bond": 0.0003,
+      "cash": 0.0006,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.017184,
+      "united_kingdom": 0.137076,
+      "eurozone": 0.675292,
+      "europe_ex_euro": 0.169647
+    },
+    "sectors": {
+      "technology": 0.032771,
+      "financial_services": 0.245479,
+      "industrials": 0.386952,
+      "healthcare": 0.104706,
+      "consumer_cyclical": 0.051953,
+      "consumer_defensive": 0.021181,
+      "utilities": 0.080827,
+      "communication_services": 0.024878,
+      "basic_materials": 0.050455
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.122902,
+      "large": 0.876298
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.92",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.03,max_component=99.92"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "7f48c05cc733473f35e691f43ad6ecfc",
+    "warnings": [
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9992,
+          "bond": 0.0003,
+          "cash": 0.0006,
+          "other": 0,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999199
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999202
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9992
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:38:33.602Z"
+}

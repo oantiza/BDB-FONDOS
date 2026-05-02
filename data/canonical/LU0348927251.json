@@ -1,0 +1,347 @@
+{
+  "isin": "LU0348927251",
+  "name": "Nordea 1 - Global Climate and Environment Fund E EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251204094544.pdf",
+  "stableBaseName": "LU0348927251__2025-12-04__88ed6447",
+  "report_date": "2025-12-04",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "RV Sector Ecología",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.53,
+        "bond": 0,
+        "cash": 1.47,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.76,
+      "financial_services": 2.11,
+      "industrials": 43.21,
+      "healthcare": 2.53,
+      "consumer_cyclical": 7.88,
+      "consumer_defensive": 1.61,
+      "utilities": 7.89,
+      "real_estate": 0.95,
+      "basic_materials": 9.06
+    },
+    "regions": {
+      "macro": {
+        "americas": 65.94,
+        "europe_me_africa": 25.78,
+        "asia": 8.28
+      },
+      "detail": {
+        "americas": 65.94,
+        "united_states": 64.72,
+        "latin_america": 1.22,
+        "europe_me_africa": 25.78,
+        "united_kingdom": 3.73,
+        "eurozone": 13.4,
+        "europe_ex_euro": 8.65,
+        "asia": 8.28,
+        "japan": 4.73,
+        "asia_emerging": 3.55
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.5,
+        "large": 40.24,
+        "mid": 21.36,
+        "small": 19.99,
+        "micro": 0.91
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Broadcom Inc",
+        "weight": 4.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Waste Management Inc",
+        "weight": 3.31,
+        "sector": "industrials"
+      },
+      {
+        "name": "Emerson Electric Co",
+        "weight": 3.23,
+        "sector": "industrials"
+      },
+      {
+        "name": "Air Liquide SA",
+        "weight": 2.89,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 2.85,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Advanced Micro Devices Inc",
+        "weight": 2.83,
+        "sector": "technology"
+      },
+      {
+        "name": "GFL Environmental Inc",
+        "weight": 2.81,
+        "sector": "industrials"
+      },
+      {
+        "name": "American Water Works Co Inc",
+        "weight": 2.55,
+        "sector": "utilities"
+      },
+      {
+        "name": "Agilent Technologies Inc",
+        "weight": 2.49,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Trane Technologies PLC Class A",
+        "weight": 2.47,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 53,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.28
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Este Subfondo pretende conservar el capital del inversor y proporcionar una rentabilidad adecuada sobre la inversión. Este Subfondo utiliza además su índice de referencia como herramienta para la comparación de la rentabilidad."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:industrials",
+      "sector:industrials",
+      "theme:climate"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 43.21,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.53,
+        "bond": 0,
+        "cash": 1.47,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.396,
+        "financial_services": 2.079,
+        "industrials": 42.5748,
+        "healthcare": 2.4928,
+        "consumer_cyclical": 7.7642,
+        "consumer_defensive": 1.5863,
+        "utilities": 7.774,
+        "real_estate": 0.936,
+        "basic_materials": 8.9268
+      },
+      "equity_regions_total": {
+        "americas": 64.9707,
+        "united_states": 63.7686,
+        "latin_america": 1.2021,
+        "europe_me_africa": 25.401,
+        "united_kingdom": 3.6752,
+        "eurozone": 13.203,
+        "europe_ex_euro": 8.5228,
+        "asia": 8.1583,
+        "japan": 4.6605,
+        "asia_emerging": 3.4978
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.53,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 20.5928,
+          "mid": 21.046,
+          "large": 56.8912
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Ecología",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:industrials",
+      "sector:industrials",
+      "theme:climate"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9853,
+      "bond": 0,
+      "cash": 0.0147,
+      "other": 0
+    },
+    "equity_regions": {
+      "americas": 0.324853,
+      "united_states": 0.318843,
+      "latin_america": 0.00601,
+      "europe_me_africa": 0.127005,
+      "united_kingdom": 0.018376,
+      "eurozone": 0.066015,
+      "europe_ex_euro": 0.042614,
+      "asia": 0.040792,
+      "japan": 0.023303,
+      "asia_emerging": 0.017489
+    },
+    "sectors": {
+      "technology": 0.125723,
+      "financial_services": 0.010714,
+      "industrials": 0.219405,
+      "healthcare": 0.012846,
+      "consumer_cyclical": 0.040012,
+      "consumer_defensive": 0.008175,
+      "utilities": 0.040063,
+      "real_estate": 0.482359,
+      "basic_materials": 0.046003
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.205928,
+      "mid": 0.21046,
+      "large": 0.568912
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.53"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "d063668b83d2a4ed7fc0472662d005d5",
+    "warnings": [
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9853,
+          "bond": 0,
+          "cash": 0.0147,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:39:46.898Z"
+}

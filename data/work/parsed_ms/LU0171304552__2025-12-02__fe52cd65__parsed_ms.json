@@ -1,0 +1,139 @@
+{
+  "isin": "LU0171304552",
+  "fileName": "morningstarreport20251202125743.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:37:30.615Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Energía",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.28,
+        "bond": 0.01,
+        "cash": 1.7,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "industrials": 0.33,
+      "consumer_cyclical": 0.93,
+      "energy": 98.74
+    },
+    "regions": {
+      "macro": {
+        "americas": 76.59,
+        "europe_me_africa": 23.41
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 22.78,
+        "large": 39.54,
+        "mid": 33.23,
+        "small": 3.99,
+        "micro": 0.46
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Shell PLC",
+        "weight": 9.73,
+        "sector": "Energy"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 9.54,
+        "sector": "Energy"
+      },
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 8.87,
+        "sector": "Energy"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 8.15,
+        "sector": "Energy"
+      },
+      {
+        "name": "Valero Energy Corp",
+        "weight": 4.8,
+        "sector": "Energy"
+      },
+      {
+        "name": "Canadian Natural Resources Ltd",
+        "weight": 4.51,
+        "sector": "Energy"
+      },
+      {
+        "name": "Williams Companies Inc",
+        "weight": 4.5,
+        "sector": "Energy"
+      },
+      {
+        "name": "Suncor Energy Inc",
+        "weight": 4.38,
+        "sector": "Energy"
+      },
+      {
+        "name": "TC Energy Corp",
+        "weight": 4.31,
+        "sector": "Energy"
+      },
+      {
+        "name": "ConocoPhillips",
+        "weight": 4.24,
+        "sector": "Energy"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 31,
+      "holdings_count_bond": 0,
+      "top10_weight": 63.03
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El Fondo trata de maximizar el crecimiento del capital, expresado en dólares estadounidenses, invirtiendo en valores de renta variable cotizados de empresas con una participación significativa en actividades relacionadas con la exploración, desarrollo, producción y distribución de energía. Además, el Fondo podrá invertir en empresas dedicadas al desarrollo y explotación de nuevas tecnologías energéticas. El Fondo invierte a escala internacional. La posición sujeta a riesgo de cambio no será normalmente objeto de..."
+  }
+}

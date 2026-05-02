@@ -1,0 +1,122 @@
+{
+  "isin": "IE00B11YFH93",
+  "fileName": "morningstarreport20251202050036.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:26:12.717Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente - Moneda Local",
+    "rating_stars": 3,
+    "medalist_rating": "Neutral",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.37,
+        "cash": 2.63,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 5.7,
+      "effective_maturity": 8.64,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 1.7,
+        "aa": 2.89,
+        "a": 16.28,
+        "bbb": 39.14,
+        "bb": 33.34,
+        "b": 0,
+        "below_b": 0.44,
+        "not_rated": 6.21
+      },
+      "maturity_allocation": {
+        "1_3": 10.74,
+        "3_5": 17.32,
+        "5_7": 14.81,
+        "7_10": 26.41,
+        "over_10": 25.3
+      },
+      "coupon_allocation": {
+        "0": 5.42,
+        "0_4": 17.17,
+        "4_6": 8.63,
+        "over_6": 68.77
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "India (Republic of) 7.26% 2033-02-06",
+        "weight": 6.22,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of) 7% 2031-02-28",
+        "weight": 5.59,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0% 2026-02-03",
+        "weight": 5.28,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 4.59,
+        "sector": null
+      },
+      {
+        "name": "Mexico (United Mexican States)...",
+        "weight": 3.85,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of) 8% 2030-01-31",
+        "weight": 3.63,
+        "sector": null
+      },
+      {
+        "name": "Poland (Republic of) 1.75% 2032-04-25",
+        "weight": 3.58,
+        "sector": null
+      },
+      {
+        "name": "Malaysia (Government Of) 4.92% 2048-07-06",
+        "weight": 3.51,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 3.14,
+        "sector": null
+      },
+      {
+        "name": "Ministerio de Hacienda y Credito Publico...",
+        "weight": 2.92,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 48,
+      "top10_weight": 42.33
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Subfondo es conseguir una rentabilidad total superior, invirtiendo en una cartera de obligaciones y otros instrumentos de deuda, incluidos derivados sobre los mismos, en los mercados emergentes de todo el mundo."
+  }
+}

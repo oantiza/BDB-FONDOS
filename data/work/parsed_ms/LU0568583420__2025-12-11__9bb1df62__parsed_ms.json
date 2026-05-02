@@ -1,0 +1,147 @@
+{
+  "isin": "LU0568583420",
+  "fileName": "morningstarreport20251211062329.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:12.835Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Japón Cap. Med/Peq",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.73,
+        "bond": 0,
+        "cash": 3.27,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 6.8,
+      "financial_services": 8.89,
+      "industrials": 42.09,
+      "healthcare": 4.32,
+      "consumer_cyclical": 17.78,
+      "consumer_defensive": 5.31,
+      "utilities": 0.76,
+      "communication_services": 1.26,
+      "basic_materials": 12.8
+    },
+    "regions": {
+      "macro": {
+        "asia": 100
+      },
+      "detail": {
+        "asia": 100,
+        "japan": 100
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 7.32,
+        "mid": 53.7,
+        "small": 36.81,
+        "micro": 2.18
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Toppan Holdings Inc",
+        "weight": 4.13,
+        "sector": "industrials"
+      },
+      {
+        "name": "Kyocera Corp",
+        "weight": 3.88,
+        "sector": "industrials"
+      },
+      {
+        "name": "Kyoto Financial Group Inc",
+        "weight": 3.01,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Shizuoka Financial Group Inc",
+        "weight": 2.81,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Subaru Corp",
+        "weight": 2.45,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Ricoh Co Ltd",
+        "weight": 2.44,
+        "sector": "industrials"
+      },
+      {
+        "name": "Toda Corp",
+        "weight": 2.35,
+        "sector": "industrials"
+      },
+      {
+        "name": "NGK Insulators Ltd",
+        "weight": 2.28,
+        "sector": "industrials"
+      },
+      {
+        "name": "Iyogin Holdings Inc",
+        "weight": 2.19,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Seino Holdings Co Ltd",
+        "weight": 2.17,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 70,
+      "holdings_count_bond": 0,
+      "top10_weight": 27.7
+    },
+    "costs": {
+      "management_fee": 1.8
+    },
+    "objective": "Este fondo tiene como objetivo el crecimiento del capital a largo plazo mediante la inversión de al menos el 67% de sus activos totales en acciones de empresas japonesas, cotizadas en un mercado japonés regulado, que tienen activos o potencial de crecimiento infravalorados."
+  }
+}

@@ -1,0 +1,164 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:41:18.724Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0208853944",
+    "name": "JPMorgan Funds - Global Natural Resources Fund D (acc) - EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Sector Recursos Naturales",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 97.4,
+      "bond": 0.11,
+      "cash": 2.49,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 64.84,
+      "europe_me_africa": 21.58,
+      "asia": 13.58
+    },
+    "regions_detail": {
+      "América": 64.84,
+      "Estados Unidos": 35.91,
+      "Canadá": 23.92,
+      "Iberoamérica": 5.01,
+      "Europa/O. Medio/Africa": 21.58,
+      "Reino Unido": 9.34,
+      "Zona Euro": 5.93,
+      "Europa - ex Euro": 1.62,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 4.69,
+      "Asia": 13.58,
+      "Japón": 1.54,
+      "Australasia": 5.53,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 6.51
+    },
+    "sectors": {
+      "technology": 0.4,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 45.2,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 54.4
+    },
+    "equity_market_cap": {
+      "giant": 31.17,
+      "large": 34.52,
+      "mid": 30.84,
+      "small": 3,
+      "micro": 0.47
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 4.45,
+        "sector": null
+      },
+      {
+        "name": "Newmont Corp",
+        "weight": 4.24,
+        "sector": null
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 4.03,
+        "sector": null
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 4,
+        "sector": null
+      },
+      {
+        "name": "Valero Energy Corp",
+        "weight": 3.38,
+        "sector": null
+      },
+      {
+        "name": "Kinross Gold Corp",
+        "weight": 3.29,
+        "sector": null
+      },
+      {
+        "name": "Southern Copper Corp",
+        "weight": 3.09,
+        "sector": null
+      },
+      {
+        "name": "Zijin Mining Group Co Ltd...",
+        "weight": 2.83,
+        "sector": null
+      },
+      {
+        "name": "Williams Companies Inc",
+        "weight": 2.78,
+        "sector": null
+      },
+      {
+        "name": "Grupo Mexico SAB de CV Class B",
+        "weight": 2.78,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 68,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.86
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo mediante la inversión principalmente en empresas de recursos naturales a nivel mundial."
+  }
+}

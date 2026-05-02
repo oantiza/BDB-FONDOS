@@ -1,0 +1,121 @@
+{
+  "isin": "LU0270905242",
+  "fileName": "morningstarreport20251202125800.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:38:10.426Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Med/Peq",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.51,
+        "bond": 0.04,
+        "cash": 0.45,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 60.92,
+      "financial_services": 2.19,
+      "industrials": 15.67,
+      "healthcare": 8.66,
+      "real_estate": 8.69,
+      "basic_materials": 3.87
+    },
+    "regions": {
+      "macro": {
+        "americas": 90.68,
+        "europe_me_africa": 9.32
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 90.68,
+        "united_kingdom": 0.71,
+        "eurozone": 6.55,
+        "middle_east": 2.07
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 5.24,
+        "large": 38.67,
+        "mid": 47.4,
+        "small": 8.69,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Broadcom Inc",
+        "weight": 5.18,
+        "sector": "technology"
+      },
+      {
+        "name": "Palo Alto Networks Inc",
+        "weight": 5.05,
+        "sector": "technology"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 5.02,
+        "sector": "healthcare"
+      },
+      {
+        "name": "CrowdStrike Holdings Inc Class A",
+        "weight": 4.8,
+        "sector": "technology"
+      },
+      {
+        "name": "KLA Corp",
+        "weight": 4.75,
+        "sector": "technology"
+      },
+      {
+        "name": "Zscaler Inc",
+        "weight": 4.27,
+        "sector": "technology"
+      },
+      {
+        "name": "Synopsys Inc",
+        "weight": 4.05,
+        "sector": "technology"
+      },
+      {
+        "name": "Digital Realty Trust Inc",
+        "weight": 4.05,
+        "sector": "real_estate"
+      },
+      {
+        "name": "Johnson Controls International...",
+        "weight": 3.96,
+        "sector": "industrials"
+      },
+      {
+        "name": "Ecolab Inc",
+        "weight": 3.85,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 39,
+      "holdings_count_bond": 0,
+      "top10_weight": 44.98
+    },
+    "costs": {
+      "management_fee": 2.3
+    },
+    "objective": "Este fondo aplica una estrategia de crecimiento del capital invirtiendo principalmente en acciones o títulos similares emitidos por sociedades que contribuyen a garantizar la integridad, la salud y la libertad, tanto individuales como empresariales o políticas. Estas sociedades estarán activas principalmente, aunque no de forma exclusiva, en los ámbitos siguientes: seguridad en Internet, seguridad de los programas informáticos, de las telecomunicaciones, del material informático, seguridad física y protección de la..."
+  }
+}

@@ -1,0 +1,14 @@
+ms_sector_key,subcategory_tag
+technology,sector:technology
+financial_services,sector:financials
+financials,sector:financials
+industrials,sector:industrials
+healthcare,sector:healthcare
+consumer_cyclical,sector:consumer_cyclical
+consumer_defensive,sector:consumer_defensive
+utilities,sector:utilities
+energy,sector:energy
+communication_services,sector:communication_services
+real_estate,sector:real_estate
+basic_materials,sector:materials
+materials,sector:materials

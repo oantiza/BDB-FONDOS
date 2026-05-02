@@ -1,0 +1,175 @@
+
+
+Informe a 2 diciembre 2025
+Candriam Bonds Credit Opportunities Class N EUR Cap
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Morningstar Global Core Bond GR
+Hedged EUR
+Usado a lo largo del informe
+Euro Short Term Rate
+QQQ
+Global Flexible Bond - EUR
+Hedged
+ 
+Objetivo de inversión
+ 
+Candriam Bonds Credit Opportunities es un
+compartimento de la Sicav Candriam Bonds dedicado
+a explotar las oportunidades de inversión en
+obligaciones High Yield europeas y norteamericanas. El
+75% del fondo se invierte en obligaciones High Yield y
+el 25% restante en obligaciones Investment Grade.El
+riesgo divisa está 100% cubierto.
+9.0K
+9.5
+10.0
+10.5
+11.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2020202120222023202411/25Rentabilidad
+0,28-0,12-4,864,983,822,04Fondo
+-4,172,409,680,722,39-0,91+/- Índice
+-2,880,385,56-0,740,08-2,16+/- Categoría
+-*&(*)
+Cuartil
+Medidas de riesgo
+Alfa 3a0,70
+Beta 3a0,23
+R²61,03
+Rátio de Inf.0,36
+Tracking Error3,50
+Sharpe 3a0,44
+Volatilidad1,31
+Riesgo 3aBajo
+Riesgo 5ainf med
+Riesgo 10aBajo
+Los cálculos usan Morningstar Gbl Core Bd GR Hdg EUR (donde sea aplicable)
+Rentab. acum. %
+(28 nov. 2025)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+0,66
+1,26
+2,36
+3,52
+1,13
+-0,34
+-0,39
+0,72
+1,55
+3,03
+-0,25
+-1,41
+-1,40
+-0,69
+0,94
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+20250,220,710,60-
+20240,660,611,510,98
+20231,580,280,332,72
+2022-2,01-6,16-0,393,87
+20210,010,060,07-0,26
+ 
+Cartera30 sep. 2025
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones0,000,17-0,17
+Obligaciones97,250,4396,82
+Efectivo3,850,643,21
+Otro0,140,010,14
+Style Box™ de RF de Morningstar
+ 
+Duración
+Baja   Med.  Alta
+Bajo
+Med
+AltoCalidad crediticia
+Duración efectiva1,53
+Vencimiento
+efectivo
+2,40
+Calidad crediticia
+media
+BB
+Calidad
+crediticia
+% RF% RF
+AAA0,00BBB10,65
+AA0,00BB59,42
+A1,70B20,01
+Bajo B0,00
+Sin calificación8,22
+Datos a30 sep. 2025
+10 mayores posiciones% cart
+Lorca Telecom Bondco S.A.U. 4%2027-09-183,71
+Azelis Finance NV 5.75%2028-03-153,63
+Coty Inc. 5.75%2028-09-153,24
+James Hardie International Finance...3,21
+Candriam Monétaire SICAV Z C3,07
+ 
+ 
+Veolia Environnement S.A. 2.25%3,05
+Grifols S.A. 7.5%2030-05-012,88
+Tk Elevator Midco GmbH 4.375%2027-07-152,80
+Abertis Infraestructuras Finance B.V....2,80
+Amber Finco PLC 6.625%2029-07-152,56
+ 
+ 
+Número total de acciones0
+Número total de bonos63
+% de activos en las 10 mayores posiciones30,93
+Rango de vencimientos% RF
+1 a 349,42
+3 a 529,35
+5 a 711,50
+7 a 102,26
+10 a 150,05
+15 a 200,00
+20 a 300,05
+Más de 302,08
+Rango de cupón% RF
+Cupón 00,16
+Cupón 0 a 453,26
+Cupón 4 a 634,78
+Cupón 6 a 811,79
+Cupón 8 a 100,00
+Cupón 10 a 120,00
+Cupón sobre 120,00
+ 
+Operaciones
+ 
+Gestora del fondoCandriam
+Fecha Creación11 ago. 2004
+Nombre del gestorPatrick Zeenni
+Fecha de incorporación1 may. 2011
+VL (28 nov. 2025)EUR 194,19
+Patrimonio (Mill)EUR 634,79
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU0151324935
+Inversión mínima
+Inversión mínima adicional
+Comisión de gestión1,60%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2025 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

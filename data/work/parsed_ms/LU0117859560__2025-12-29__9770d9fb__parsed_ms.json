@@ -1,0 +1,123 @@
+{
+  "isin": "LU0117859560",
+  "fileName": "morningstarreport20251229065144.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:43:32.261Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.34,
+        "bond": 0.02,
+        "cash": 1.23,
+        "other": 0.41
+      }
+    },
+    "sectors": {
+      "technology": 7.05,
+      "financial_services": 19.69,
+      "industrials": 36.22,
+      "healthcare": 7.96,
+      "consumer_cyclical": 13.1,
+      "consumer_defensive": 3.87,
+      "utilities": 1.41,
+      "energy": 5.15,
+      "communication_services": 0.99,
+      "real_estate": 2.53,
+      "basic_materials": 2.03
+    },
+    "regions": {
+      "macro": {
+        "americas": 0.75,
+        "europe_me_africa": 99.25
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 0.75,
+        "united_kingdom": 27.34,
+        "eurozone": 46.65,
+        "europe_ex_euro": 24.19,
+        "middle_east": 1.06
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0.73,
+        "mid": 56.92,
+        "small": 39.45,
+        "micro": 2.9
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Bawag Group AG Ordinary Shares",
+        "weight": 1.58,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Lion Finance Group PLC",
+        "weight": 1.44,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Indra Sistemas SA SHS Class -A-",
+        "weight": 1.37,
+        "sector": "technology"
+      },
+      {
+        "name": "St James's Place PLC",
+        "weight": 1.31,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Diploma PLC",
+        "weight": 1.26,
+        "sector": "industrials"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 1.24,
+        "sector": "industrials"
+      },
+      {
+        "name": "Currys PLC",
+        "weight": 1.15,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Tecnicas Reunidas SA",
+        "weight": 1.12,
+        "sector": "industrials"
+      },
+      {
+        "name": "Games Workshop Group PLC",
+        "weight": 1.11,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Morgan Sindall Group PLC",
+        "weight": 1.09,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 180,
+      "holdings_count_bond": 0,
+      "top10_weight": 12.66
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo mediante la inversión principalmente en una cartera de acciones de valor de empresas europeas."
+  }
+}

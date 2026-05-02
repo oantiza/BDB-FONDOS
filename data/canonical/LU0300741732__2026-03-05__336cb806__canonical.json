@@ -1,0 +1,354 @@
+{
+  "isin": "LU0300741732",
+  "name": "Franklin Natural Resources Fund A(acc)EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260305083452.pdf",
+  "stableBaseName": "LU0300741732__2026-03-05__336cb806",
+  "report_date": "2026-03-05",
+  "ms": {
+    "report_date": "2026-03-05",
+    "category_morningstar": "RV Sector Energía",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 96.41,
+        "bond": 0,
+        "cash": 1.95,
+        "other": 1.64
+      }
+    },
+    "sectors": {
+      "technology": 0.68,
+      "industrials": 2.74,
+      "consumer_cyclical": 1.53,
+      "consumer_defensive": 0.63,
+      "energy": 46.79,
+      "basic_materials": 47.62
+    },
+    "regions": {
+      "macro": {
+        "americas": 86.74,
+        "europe_me_africa": 8.26,
+        "asia": 5.01
+      },
+      "detail": {
+        "other": 95.45,
+        "united_states": 57.79,
+        "canada": 27.84,
+        "latin_america": 1.11,
+        "united_kingdom": 5.34,
+        "eurozone": 1.49,
+        "europe_ex_euro": 1.29,
+        "middle_east": 0.14,
+        "asia": 5.01,
+        "australasia": 4.56
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.41,
+        "large": 28.4,
+        "mid": 40.91,
+        "small": 7.06,
+        "micro": 6.22
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Newmont Corp",
+        "weight": 4.42,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 4.36,
+        "sector": "energy"
+      },
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 3.58,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "ConocoPhillips",
+        "weight": 3.4,
+        "sector": "energy"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 3.24,
+        "sector": "energy"
+      },
+      {
+        "name": "BHP Group Ltd ADR",
+        "weight": 2.8,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Coterra Energy Inc Ordinary...",
+        "weight": 2.52,
+        "sector": "energy"
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 2.51,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Freeport-McMoRan Inc",
+        "weight": 2.17,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Lundin Mining Corp",
+        "weight": 2.08,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 89,
+      "holdings_count_bond": 0,
+      "top10_weight": 31.08
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo invierte en renta variable y deuda (principalmente bonos convertibles) de todo el mundo. El equipo de gestión del Fondo pretende gestionar activamente la cartera mediante la inversión de al menos un 80% de sus activos netos en empresas relacionadas directa o indirectamente con el sector de los recursos naturales. Entre los sectores en los que se centra el fondo están los de: petróleo integrado, exploración y producción de gas y petróleo oro y otros metales preciosos, producción de mineral de hierro y acero,..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_ENERGY",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:energy",
+      "sector_concentrated:materials",
+      "sector:energy",
+      "sector:materials",
+      "theme:energy"
+    ],
+    "top_sector": "basic_materials",
+    "top_sector_weight": 47.62,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.41,
+        "bond": 0,
+        "cash": 1.95,
+        "other": 1.64
+      },
+      "equity_sectors_total": {
+        "technology": 0.6556,
+        "industrials": 2.6416,
+        "consumer_cyclical": 1.4751,
+        "consumer_defensive": 0.6074,
+        "energy": 45.1102,
+        "basic_materials": 45.9104
+      },
+      "equity_regions_total": {
+        "other": 92.0233,
+        "united_states": 55.7153,
+        "canada": 26.8405,
+        "latin_america": 1.0702,
+        "united_kingdom": 5.1483,
+        "eurozone": 1.4365,
+        "europe_ex_euro": 1.2437,
+        "middle_east": 0.135,
+        "asia": 4.8301,
+        "australasia": 4.3963
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 96.41,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 12.8032,
+          "mid": 39.4413,
+          "large": 44.1654
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_ENERGY",
+    "commercial_type": "RV Sector Energía",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "convertible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:energy",
+      "sector_concentrated:materials",
+      "sector:energy",
+      "sector:materials",
+      "theme:energy"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9641,
+      "bond": 0,
+      "cash": 0.0195,
+      "other": 0.0164
+    },
+    "equity_regions": {
+      "other": 0.430251,
+      "united_states": 0.260495,
+      "canada": 0.125492,
+      "latin_america": 0.005004,
+      "united_kingdom": 0.024071,
+      "eurozone": 0.006716,
+      "europe_ex_euro": 0.005815,
+      "middle_east": 0.063119,
+      "asia": 0.022583,
+      "australasia": 0.020555
+    },
+    "sectors": {
+      "technology": 0.285437,
+      "industrials": 0.011501,
+      "consumer_cyclical": 0.006422,
+      "consumer_defensive": 0.264452,
+      "energy": 0.196402,
+      "basic_materials": 0.199886
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.128032,
+      "mid": 0.394413,
+      "large": 0.441654
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.41",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "3b400853733f6756c23d70a79fb53827",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.02",
+      "fi_missing_credit_data",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9641,
+          "bond": 0,
+          "cash": 0.0195,
+          "other": 0.0164,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.964101
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9641
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.964099
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:55:21.257Z"
+}

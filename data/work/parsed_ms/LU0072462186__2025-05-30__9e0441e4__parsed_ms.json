@@ -1,0 +1,125 @@
+{
+  "isin": "LU0072462186",
+  "fileName": "morningstarreport20250530070434.pdf",
+  "report_date": "2025-05-30",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:02:15.353Z",
+  "ms": {
+    "report_date": "2025-05-30",
+    "category_morningstar": "RV Europa Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 98.51,
+        "bond": 0.07,
+        "cash": 1.43,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 1.24,
+      "financial_services": 30.85,
+      "industrials": 31.03,
+      "healthcare": 11.72,
+      "consumer_cyclical": 8.15,
+      "consumer_defensive": 4.36,
+      "utilities": 6.25,
+      "energy": 2.67,
+      "communication_services": 0.86,
+      "real_estate": 1.32,
+      "basic_materials": 1.55
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.55,
+        "europe_me_africa": 98.45
+      },
+      "detail": {
+        "united_states": 1.55,
+        "united_kingdom": 31.83,
+        "eurozone": 53.75,
+        "europe_ex_euro": 12.87
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 38.51,
+        "large": 37.03,
+        "mid": 20.08,
+        "small": 4.38,
+        "micro": 0
+      },
+      "style": {
+        "value": 100,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Siemens AG",
+        "weight": 3.58,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Compagnie de Saint-Gobain SA",
+        "weight": 2.96,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 2.87,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "HSBC Holdings PLC",
+        "weight": 2.84,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Lloyds Banking Group PLC",
+        "weight": 2.72,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.63,
+        "sector": "Energy"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 2.45,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Thales",
+        "weight": 2.44,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Unilever PLC",
+        "weight": 2.38,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Enel SpA",
+        "weight": 2.35,
+        "sector": "Utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 27.2
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo tiene por objetivo maximizar la rentabilidad de su inversión a través de una combinación de crecimiento del capital y rendimientos de los activos del Fondo. El Fondo invierte al menos el 70% de su activo total en valores de renta variable (como acciones) de empresas domiciliadas o que desarrollen una parte predominante de su actividad económica en Europa. El Fondo pone especial énfasis en los valores de renta variable de aquellas empresas que están infravaloradas, en cuyo caso, en opinión del asesor de..."
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "isin": "LU0280435461",
+  "fileName": "morningstarreport20251211060422.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:06.546Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Sector Energía Alternativa",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.15,
+        "bond": 0.16,
+        "cash": 1.7,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 51.48,
+      "industrials": 20.63,
+      "consumer_cyclical": 2.76,
+      "utilities": 19.83,
+      "basic_materials": 5.31
+    },
+    "regions": {
+      "macro": {
+        "americas": 70.58,
+        "europe_me_africa": 29.42
+      },
+      "detail": {
+        "other": 70.58,
+        "united_states": 68.92,
+        "latin_america": 1.65,
+        "europe_me_africa": 29.42,
+        "united_kingdom": 4.31,
+        "eurozone": 22.95,
+        "europe_ex_euro": 2.17
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 15.17,
+        "large": 46.16,
+        "mid": 29.4,
+        "small": 8.03,
+        "micro": 1.24
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Broadcom Inc",
+        "weight": 6.38,
+        "sector": "technology"
+      },
+      {
+        "name": "Marvell Technology Inc",
+        "weight": 4.48,
+        "sector": "technology"
+      },
+      {
+        "name": "Applied Materials Inc",
+        "weight": 4.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Nextpower Inc Class A",
+        "weight": 4.12,
+        "sector": "technology"
+      },
+      {
+        "name": "Trane Technologies PLC Class A",
+        "weight": 4.09,
+        "sector": "industrials"
+      },
+      {
+        "name": "Linde PLC",
+        "weight": 3.98,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Compagnie de Saint-Gobain SA",
+        "weight": 3.85,
+        "sector": "industrials"
+      },
+      {
+        "name": "First Solar Inc",
+        "weight": 3.74,
+        "sector": "technology"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 3.7,
+        "sector": "utilities"
+      },
+      {
+        "name": "NXP Semiconductors NV",
+        "weight": 3.62,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 43,
+      "holdings_count_bond": 0,
+      "top10_weight": 42.3
+    },
+    "costs": {
+      "management_fee": 2.3
+    },
+    "objective": "Pictet Funds (LUX)-Clean Energy es una SICAV constituida en Luxemburgo. El objetivo del fondo es lograr el crecimiento del capital mediante la inversión de al menos dos tercios de su patrimonio en acciones emitidas por empresas de todo el mundo que contribuyen a, o se benefician de, la transición mundial hacia una producción y un consumo de energía que genere menos emisiones de CO2."
+  }
+}

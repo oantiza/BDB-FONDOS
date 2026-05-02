@@ -1,0 +1,124 @@
+{
+  "isin": "LU1697016878",
+  "fileName": "morningstarreport20251229072408.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:40.907Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 21.64,
+        "bond": 76.32,
+        "cash": 1.6,
+        "other": 0.45
+      }
+    },
+    "sectors": {
+      "technology": 14.76,
+      "financial_services": 14.61,
+      "industrials": 15.53,
+      "healthcare": 13.24,
+      "consumer_cyclical": 11.88,
+      "consumer_defensive": 7.9,
+      "utilities": 2.23,
+      "energy": 2.84,
+      "communication_services": 8.86,
+      "real_estate": 1.38,
+      "basic_materials": 6.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 57.26,
+        "europe_me_africa": 25.38,
+        "asia": 17.37
+      },
+      "detail": {
+        "united_states": 54.31,
+        "canada": 1.22,
+        "latin_america": 1.73,
+        "united_kingdom": 5.77,
+        "eurozone": 13.44,
+        "europe_ex_euro": 4.01,
+        "europe_emerging": 0.78,
+        "middle_east": 1.38,
+        "japan": 6.86,
+        "australasia": 0.53,
+        "other": 3.68,
+        "asia_emerging": 6.3
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Invesco Euro Corporate Bond Z...",
+        "weight": 8.07,
+        "sector": null
+      },
+      {
+        "name": "Loomis Sayles S/T Em Mkts Bd...",
+        "weight": 7.72,
+        "sector": null
+      },
+      {
+        "name": "Nordea 1 - European Covered...",
+        "weight": 7.29,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Euro Corporate Bond Z",
+        "weight": 7.24,
+        "sector": null
+      },
+      {
+        "name": "Evli Short Corporate Bond IB",
+        "weight": 7.2,
+        "sector": null
+      },
+      {
+        "name": "PIMCO GIS Lw Dur GlInGd...",
+        "weight": 6.32,
+        "sector": null
+      },
+      {
+        "name": "Muzinich Glbl Shrt...",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "abrdn Liquidity-Euro Fund L-2...",
+        "weight": 5.85,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers Eurz Govt Bd 3-5 ETF...",
+        "weight": 5.81,
+        "sector": null
+      },
+      {
+        "name": "M&G (Lux) Glb Fl Rt HY C H EUR...",
+        "weight": 5.69,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 67.48
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to achieve a combination of income and long-term capital appreciation, with a maximum annualized volatility, under normal market conditions, of 10%. There is however no guarantee that this objective will be achieved."
+  }
+}

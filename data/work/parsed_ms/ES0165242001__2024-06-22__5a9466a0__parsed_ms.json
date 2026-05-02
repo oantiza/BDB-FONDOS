@@ -1,0 +1,138 @@
+{
+  "isin": "ES0165242001",
+  "fileName": "morningstarreport20240623090100.pdf",
+  "report_date": "2024-06-22",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-18T17:05:17.182Z",
+  "ms": {
+    "report_date": "2024-06-22",
+    "category_morningstar": "RV USA Cap. Grande Blend",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2024-05-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 17.59,
+      "financial_services": 13.61,
+      "industrials": 13.89,
+      "healthcare": 12.83,
+      "consumer_cyclical": 11.41,
+      "consumer_defensive": 7.14,
+      "utilities": 5.11,
+      "energy": 3.63,
+      "communication_services": 4.68,
+      "real_estate": 5.71,
+      "basic_materials": 4.42
+    },
+    "regions": {
+      "macro": {
+        "americas": 98.95,
+        "europe_me_africa": 0.88,
+        "asia": 0.17
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 11.47,
+        "large": 30.56,
+        "mid": 53.51,
+        "small": 4.46,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Amundi S&P 500 Eql Wt ESG Ldrs...",
+        "weight": 18.04,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers S&P 500 EW ESG ETF 1C",
+        "weight": 17.89,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers S&P 500 EW ETF 1C",
+        "weight": 17.87,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 Equal Weight...",
+        "weight": 17.13,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500® Equal Weight...",
+        "weight": 16.16,
+        "sector": null
+      },
+      {
+        "name": "Micro E-mini S&P 500 Index...",
+        "weight": 10.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 4.69,
+        "sector": null
+      },
+      {
+        "name": "E-mini S&P 500 Future June...",
+        "weight": 3.5,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 100
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Se invierte un 0%-100% del patrimonio en IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la gestora. El objetivo es alcanzar una rentabilidad similar a la del índice S&P500 Equal Weight Index (TR) que mide la evolución de las empresas incluidas en el índice S&P 500 otorgando a cada una la ponderación fija del 0,20%. Para ello, entre el 75%-100% de la exposición total será renta variable de Estados Unidos de alta capitalización y de cualquier sector, a..."
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "isin": "LU0323041763",
+  "name": "Digital Funds Stars Europe R",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013844.pdf",
+  "stableBaseName": "LU0323041763__2025-12-02__298d0be4",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.31,
+        "bond": 0,
+        "cash": 0.09,
+        "other": 0.6
+      }
+    },
+    "sectors": {
+      "technology": 6.93,
+      "financial_services": 32.9,
+      "industrials": 26.36,
+      "healthcare": 7.85,
+      "consumer_cyclical": 6.51,
+      "consumer_defensive": 2.09,
+      "utilities": 4.37,
+      "energy": 2.45,
+      "communication_services": 2.79,
+      "real_estate": 1.36,
+      "basic_materials": 6.4
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.94,
+        "europe_me_africa": 97.56,
+        "asia": 0.49
+      },
+      "detail": {
+        "united_states": 0.32,
+        "latin_america": 1.63,
+        "united_kingdom": 17.14,
+        "eurozone": 60.41,
+        "europe_ex_euro": 18.62,
+        "middle_east": 1.38,
+        "other": 0.49
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 4.07,
+        "large": 27.4,
+        "mid": 45.88,
+        "small": 21.53,
+        "micro": 1.12
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Euro Stx50 F 1225",
+        "weight": 2.4,
+        "sector": null
+      },
+      {
+        "name": "Banco BPM SpA",
+        "weight": 1.7,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "NatWest Group PLC",
+        "weight": 1.7,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Societe Generale SA",
+        "weight": 1.66,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AUTO1 Group Bearer Shares",
+        "weight": 1.59,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Fresnillo PLC",
+        "weight": 1.58,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Unicaja Banco SA",
+        "weight": 1.55,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 1.52,
+        "sector": "Industria"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 1.44,
+        "sector": "Industria"
+      },
+      {
+        "name": "Orion Oyj Class B",
+        "weight": 1.4,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 158,
+      "holdings_count_bond": 0,
+      "top10_weight": 16.55
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo de DIGITAL FUNDS Stars Europe es superar al conjunto de los mercados europeos mediante la aplicación de un modelo por el que se identifican los títulos \"estrella\". El subfondo invertirá al menos un 80% en acciones de países miembros de la UE, Noruega y Suiza, seguidos por un mínimo de 3 intermediarios bursátiles y cuya capitalización sea superior a 100 millones de EUR."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 32.9,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.31,
+        "bond": 0,
+        "cash": 0.09,
+        "other": 0.6
+      },
+      "equity_sectors_total": {
+        "technology": 6.8822,
+        "financial_services": 32.673,
+        "industrials": 26.1781,
+        "healthcare": 7.7958,
+        "consumer_cyclical": 6.4651,
+        "consumer_defensive": 2.0756,
+        "utilities": 4.3398,
+        "energy": 2.4331,
+        "communication_services": 2.7707,
+        "real_estate": 1.3506,
+        "basic_materials": 6.3558
+      },
+      "equity_regions_total": {
+        "united_states": 0.3178,
+        "latin_america": 1.6188,
+        "united_kingdom": 17.0217,
+        "eurozone": 59.9932,
+        "europe_ex_euro": 18.4915,
+        "middle_east": 1.3705,
+        "other": 0.4866
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 99.31,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 22.4937,
+          "mid": 45.5634,
+          "large": 31.2529
+        },
+        "style_weights_total": {
+          "blend": 99.31
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Mediana",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9931,
+      "bond": 0,
+      "cash": 0.0009,
+      "other": 0.006
+    },
+    "equity_regions": {
+      "united_states": 0.17638,
+      "latin_america": 0.008984,
+      "united_kingdom": 0.094471,
+      "eurozone": 0.332965,
+      "europe_ex_euro": 0.102629,
+      "middle_east": 0.007606,
+      "other": 0.270065
+    },
+    "sectors": {
+      "technology": 0.068815,
+      "financial_services": 0.326698,
+      "industrials": 0.261755,
+      "healthcare": 0.07795,
+      "consumer_cyclical": 0.064645,
+      "consumer_defensive": 0.020754,
+      "utilities": 0.043394,
+      "energy": 0.024329,
+      "communication_services": 0.027704,
+      "real_estate": 0.013505,
+      "basic_materials": 0.063552
+    },
+    "equity_styles": {
+      "blend": 0.9931
+    },
+    "market_caps": {
+      "small": 0.224937,
+      "mid": 0.455634,
+      "large": 0.312529
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.31",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.09,max_component=99.31"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "8e3e0f440908d4fdb78a5797e4115022",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9931,
+          "bond": 0,
+          "cash": 0.0009,
+          "other": 0.006,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9931
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.993101
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9931
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9931
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:03:54.533Z"
+}

@@ -1,0 +1,150 @@
+{
+  "isin": "LU0248181363",
+  "fileName": "morningstarreport20251202072945.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:28:01.526Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Latinoamérica",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.47,
+        "bond": 0,
+        "cash": 0,
+        "other": 4.27
+      }
+    },
+    "sectors": {
+      "financial_services": 37.77,
+      "industrials": 6.15,
+      "healthcare": 2.91,
+      "consumer_cyclical": 3.08,
+      "consumer_defensive": 7.28,
+      "utilities": 10.04,
+      "energy": 7.74,
+      "communication_services": 3.48,
+      "real_estate": 1.02,
+      "basic_materials": 20.53
+    },
+    "regions": {
+      "macro": {
+        "americas": 99.25,
+        "europe_me_africa": 0.75
+      },
+      "detail": {
+        "canada": 1.28,
+        "latin_america": 97.98,
+        "united_kingdom": 0.75
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 50.44,
+        "large": 34.14,
+        "mid": 12.34,
+        "small": 2.56,
+        "micro": 0.51
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Nu Holdings Ltd Ordinary...",
+        "weight": 9.14,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Itau Unibanco Holding SA ADR",
+        "weight": 7.31,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Petroleo Brasileiro SA...",
+        "weight": 5.8,
+        "sector": "Energía"
+      },
+      {
+        "name": "Vale SA ADR",
+        "weight": 4.9,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Grupo Mexico SAB de CV Class B",
+        "weight": 4.89,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 4.43,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Banco BTG Pactual S.A. Units...",
+        "weight": 3.55,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "America Movil SAB de CV ADR -...",
+        "weight": 3.43,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Companhia De Saneamento Basico...",
+        "weight": 3.35,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "B3 SA - Brasil Bolsa Balcao",
+        "weight": 3.27,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 50.07
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento de capital principalmente a través de la inversión en valores de renta variable emitidos por sociedades latinoamericanas."
+  }
+}

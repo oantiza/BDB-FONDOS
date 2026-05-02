@@ -1,0 +1,125 @@
+{
+  "isin": "LU1697016019",
+  "fileName": "morningstarreport20251229071959.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:44:08.617Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Agresivos EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 89.68,
+        "bond": 0.19,
+        "cash": 9.8,
+        "other": 0.33
+      }
+    },
+    "sectors": {
+      "technology": 19.77,
+      "financial_services": 14.51,
+      "industrials": 15.02,
+      "healthcare": 9.21,
+      "consumer_cyclical": 12.45,
+      "consumer_defensive": 6.66,
+      "utilities": 2.38,
+      "energy": 3.06,
+      "communication_services": 8.01,
+      "real_estate": 1.29,
+      "basic_materials": 7.67
+    },
+    "regions": {
+      "macro": {
+        "americas": 62.69,
+        "europe_me_africa": 23.75,
+        "asia": 13.56
+      },
+      "detail": {
+        "other": 89.1,
+        "united_states": 60.79,
+        "canada": 1.06,
+        "latin_america": 0.84,
+        "united_kingdom": 5.31,
+        "eurozone": 13.24,
+        "europe_ex_euro": 4.13,
+        "europe_emerging": 0.49,
+        "middle_east": 0.59,
+        "asia": 13.56,
+        "japan": 7.02,
+        "australasia": 0.34,
+        "asia_emerging": 3.54
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Robeco BP Global Premium Eqs...",
+        "weight": 8.61,
+        "sector": null
+      },
+      {
+        "name": "Ossiam Shiller BclyCp®US...",
+        "weight": 7.54,
+        "sector": null
+      },
+      {
+        "name": "Eleva European Selection I EUR...",
+        "weight": 7.39,
+        "sector": null
+      },
+      {
+        "name": "Magallanes V.I. UCITS European...",
+        "weight": 6.87,
+        "sector": null
+      },
+      {
+        "name": "AB Select US Equity I EUR H",
+        "weight": 6.28,
+        "sector": null
+      },
+      {
+        "name": "JPM Global Select Equity I...",
+        "weight": 6.08,
+        "sector": null
+      },
+      {
+        "name": "Capital Group New Pers (LUX)...",
+        "weight": 5.18,
+        "sector": null
+      },
+      {
+        "name": "Findlay Park American I EUR Acc",
+        "weight": 4.94,
+        "sector": null
+      },
+      {
+        "name": "abrdn Liquidity-Euro Fund L-2...",
+        "weight": 4.82,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 Equal Weight...",
+        "weight": 4.81,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 62.51
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to achieve a combination of income and long-term capital appreciation, with a maximum annualized volatility, under normal market conditions, of 30%. There is however no guarantee that this objective will be achieved."
+  }
+}

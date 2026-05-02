@@ -1,0 +1,374 @@
+{
+  "isin": "LU0248184466",
+  "name": "Schroder International Selection Fund Asian Opportunities A Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211062743.pdf",
+  "stableBaseName": "LU0248184466__2025-12-11__08817470",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.14,
+        "bond": 0,
+        "cash": 0.86,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 31.29,
+      "financial_services": 20.85,
+      "industrials": 10.41,
+      "healthcare": 4.75,
+      "consumer_cyclical": 17.03,
+      "consumer_defensive": 0.71,
+      "utilities": 0.02,
+      "energy": 0.79,
+      "communication_services": 10.07,
+      "real_estate": 3.28,
+      "basic_materials": 0.8
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.01,
+        "europe_me_africa": 1.99,
+        "asia": 97
+      },
+      "detail": {
+        "other": 48.76,
+        "united_states": 1.01,
+        "united_kingdom": 1.99,
+        "asia": 97,
+        "asia_emerging": 51.25
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 68.14,
+        "large": 28.22,
+        "mid": 2.53,
+        "small": 1.11,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.61,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 8.52,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 4.96,
+        "sector": "technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 4.4,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.51,
+        "sector": "financial_services"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.45,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Schroder ISF Indian Opports I...",
+        "weight": 3.17,
+        "sector": null
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 2.99,
+        "sector": "financial_services"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 2.72,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 66,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.19
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Fondo es proporcionar revalorización del capital mediante la inversión en valores de renta variable de sociedades asiáticas (a excepción de Japón)."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Japón",
+    "subcategories": [
+      "sector:technology",
+      "theme:asia"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 31.29,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.14,
+        "bond": 0,
+        "cash": 0.86,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 31.0209,
+        "financial_services": 20.6707,
+        "industrials": 10.3205,
+        "healthcare": 4.7092,
+        "consumer_cyclical": 16.8835,
+        "consumer_defensive": 0.7039,
+        "utilities": 0.0198,
+        "energy": 0.7832,
+        "communication_services": 9.9834,
+        "real_estate": 3.2518,
+        "basic_materials": 0.7931
+      },
+      "equity_regions_total": {
+        "other": 48.3407,
+        "united_states": 1.0013,
+        "united_kingdom": 1.9729,
+        "asia": 96.1658,
+        "asia_emerging": 50.8093
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.14,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 1.1005,
+          "mid": 2.5082,
+          "large": 95.5313
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Asia (ex-Japón)",
+    "region_primary": "Japón",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:technology",
+      "theme:asia"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9914,
+      "bond": 0,
+      "cash": 0.0086,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.241691,
+      "united_states": 0.005006,
+      "united_kingdom": 0.009864,
+      "asia": 0.480805,
+      "asia_emerging": 0.254034
+    },
+    "sectors": {
+      "technology": 0.094095,
+      "financial_services": 0.0627,
+      "industrials": 0.031305,
+      "healthcare": 0.014284,
+      "consumer_cyclical": 0.051213,
+      "consumer_defensive": 0.213513,
+      "utilities": 0.006006,
+      "energy": 0.237567,
+      "communication_services": 0.030283,
+      "real_estate": 0.009864,
+      "basic_materials": 0.24057
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.011005,
+      "mid": 0.025082,
+      "large": 0.955313
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.14",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.86,max_component=99.14",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "368cdd6fcacc4f48250487e46358872e",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.01",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9914,
+          "bond": 0,
+          "cash": 0.0086,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9914
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:42:42.900Z"
+}

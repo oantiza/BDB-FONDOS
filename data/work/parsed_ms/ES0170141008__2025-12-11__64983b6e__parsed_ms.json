@@ -1,0 +1,129 @@
+{
+  "isin": "ES0170141008",
+  "fileName": "morningstarreport20251211060501.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:06.907Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Europa Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 97.8,
+        "bond": 0,
+        "cash": 2.2,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 25.16,
+      "financial_services": 1.74,
+      "industrials": 25.79,
+      "healthcare": 17.54,
+      "consumer_cyclical": 13.42,
+      "consumer_defensive": 8.48,
+      "basic_materials": 7.87
+    },
+    "regions": {
+      "macro": {
+        "americas": 5.19,
+        "europe_me_africa": 94.81
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 5.19,
+        "united_kingdom": 21.71,
+        "eurozone": 59.83,
+        "europe_ex_euro": 13.27
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 42.83,
+        "large": 40.1,
+        "mid": 17.07,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 6.05,
+        "sector": "technology"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 4.22,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 4.02,
+        "sector": "industrials"
+      },
+      {
+        "name": "Safran SA",
+        "weight": 3.9,
+        "sector": "industrials"
+      },
+      {
+        "name": "Diploma PLC",
+        "weight": 3.87,
+        "sector": "industrials"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 3.86,
+        "sector": "technology"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 3.59,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "KONE Oyj Class B",
+        "weight": 3.44,
+        "sector": "industrials"
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 3.42,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Sartorius Stedim Biotech SA",
+        "weight": 3.4,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 35,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.75
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El Fondo tendrá una exposición mínima a renta variable del 75% de la exposición total, a través de compañías líderes en sus mercados con altos niveles de retorno sobre su capital empleado, capaces de reinvertir los flujos de caja generados y con crecimiento estructural. Al menos el 75% de la exposición a renta variable será en emisores y mercados europeos, incluyendo Reino Unido, países nórdicos y Suiza. El resto se invertirá en emisores y mercados de la OCDE. Se invertirá en valores de cualquier sector y..."
+  }
+}

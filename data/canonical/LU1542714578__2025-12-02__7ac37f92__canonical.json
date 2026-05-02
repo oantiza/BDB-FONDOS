@@ -1,0 +1,325 @@
+{
+  "isin": "LU1542714578",
+  "name": "Goldman Sachs Europe Sustainable Equity - X Cap EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013935.pdf",
+  "stableBaseName": "LU1542714578__2025-12-02__7ac37f92",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 96.75,
+        "bond": 0,
+        "cash": 0.71,
+        "other": 2.55
+      }
+    },
+    "sectors": {
+      "technology": 14.26,
+      "financial_services": 23.31,
+      "industrials": 20.16,
+      "healthcare": 10.84,
+      "consumer_cyclical": 7.57,
+      "consumer_defensive": 8.44,
+      "utilities": 3.4,
+      "communication_services": 7.45,
+      "basic_materials": 4.56
+    },
+    "regions": {
+      "macro": {
+        "americas": 3.13,
+        "europe_me_africa": 96.87
+      },
+      "detail": {
+        "united_states": 3.13,
+        "united_kingdom": 21.26,
+        "eurozone": 58.35,
+        "europe_ex_euro": 17.27
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 58.71,
+        "large": 31.94,
+        "mid": 9.35,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 5.61,
+        "sector": "technology"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 4.52,
+        "sector": "technology"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 4.49,
+        "sector": "industrials"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 4.12,
+        "sector": "industrials"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 3.91,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Intesa Sanpaolo",
+        "weight": 3.87,
+        "sector": "financial_services"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 3.47,
+        "sector": "industrials"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 3.29,
+        "sector": "utilities"
+      },
+      {
+        "name": "Munchener...",
+        "weight": 3.14,
+        "sector": "financial_services"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.43
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "The Sub-Fund essentially invests in a diversified portfolio comprised of equities and/or other Transferable Securities (warrants on Transferable Securities – up to a maximum of 10% of the net assets of the Sub-Fund – and convertible bonds) issued by selected companies. The Sub-Fund uses active management to target companies with sustainable business models, focusing on products and services delivered, with deviation limits relative to the Index."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:esg"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 23.31,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.75,
+        "bond": 0,
+        "cash": 0.71,
+        "other": 2.55
+      },
+      "equity_sectors_total": {
+        "technology": 13.7965,
+        "financial_services": 22.5524,
+        "industrials": 19.5048,
+        "healthcare": 10.4877,
+        "consumer_cyclical": 7.324,
+        "consumer_defensive": 8.1657,
+        "utilities": 3.2895,
+        "communication_services": 7.2079,
+        "basic_materials": 4.4118
+      },
+      "equity_regions_total": {
+        "united_states": 3.0283,
+        "united_kingdom": 20.5691,
+        "eurozone": 56.4536,
+        "europe_ex_euro": 16.7087
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 96.75,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "mid": 9.0461,
+          "large": 87.7039
+        },
+        "style_weights_total": {
+          "growth": 96.75
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Growth",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:esg"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9675,
+      "bond": 0,
+      "cash": 0.0071,
+      "other": 0.0255
+    },
+    "equity_regions": {
+      "united_states": 0.03028,
+      "united_kingdom": 0.20567,
+      "eurozone": 0.564479,
+      "europe_ex_euro": 0.16707
+    },
+    "sectors": {
+      "technology": 0.137979,
+      "financial_services": 0.225547,
+      "industrials": 0.195068,
+      "healthcare": 0.104888,
+      "consumer_cyclical": 0.073247,
+      "consumer_defensive": 0.081665,
+      "utilities": 0.032898,
+      "communication_services": 0.072086,
+      "basic_materials": 0.044122
+    },
+    "equity_styles": {
+      "growth": 0.9675
+    },
+    "market_caps": {
+      "mid": 0.090461,
+      "large": 0.877039
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.75",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.71,max_component=96.75"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "85c52c05bc756f0cfb2caf0091ae83aa",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9675,
+          "bond": 0,
+          "cash": 0.0071,
+          "other": 0.0255,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.967499
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9675
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9675
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9675
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:12:56.270Z"
+}

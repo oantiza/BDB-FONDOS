@@ -1,0 +1,140 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:53:16.263Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE00B03HCZ61",
+    "name": "Vanguard Global Stock Index Fund Investor EUR Accumulation",
+    "currency": "EUR",
+    "report_date": "2026-02-19",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ene. 2026",
+    "asset_allocation": {
+      "equity": 99.95,
+      "bond": 0,
+      "cash": 0,
+      "other": 0.05
+    },
+    "regions_macro": {
+      "americas": 74.59,
+      "europe_me_africa": 16.9,
+      "asia": 8.52
+    },
+    "regions_detail": {
+      "América": 74.59,
+      "Estados Unidos": 71.02,
+      "Canadá": 3.42,
+      "Iberoamérica": 0.16,
+      "Europa/O. Medio/Africa": 16.9,
+      "Reino Unido": 3.69,
+      "Zona Euro": 8.77,
+      "Europa - ex Euro": 4.2,
+      "Europa emergente": 0.01,
+      "Oriente Medio / África": 0.23,
+      "Asia": 8.52,
+      "Japón": 5.7,
+      "Australasia": 1.69,
+      "Asia - Desarrollada": 0.99,
+      "Asia - Emergente": 0.13
+    },
+    "sectors": {
+      "technology": 27.04,
+      "financial_services": 16.32,
+      "industrials": 11.15,
+      "healthcare": 9.69,
+      "consumer_cyclical": 9.81,
+      "consumer_defensive": 5.39,
+      "utilities": 2.53,
+      "energy": 3.7,
+      "communication_services": 9.24,
+      "real_estate": 1.85,
+      "basic_materials": 3.29
+    },
+    "equity_market_cap": {
+      "giant": 47.58,
+      "large": 35.33,
+      "mid": 16.59,
+      "small": 0.49,
+      "micro": 0
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Giant-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 5.49,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 4.55,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 3.59,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 2.72,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.31,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 1.97,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 1.84,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 1.76,
+        "sector": "technology"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 1.44,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 0.99,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1328,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.66
+    },
+    "costs": {
+      "management_fee": 0.18
+    },
+    "objective": "The Fund seeks to provide long-term growth of capital by tracking the performance of the Index. To the extent practicable, the Fund uses a full replication strategy to select securities, so that the Fund invests in all the constituents of the Index, making the weight of such investments approximate those of the Index."
+  }
+}

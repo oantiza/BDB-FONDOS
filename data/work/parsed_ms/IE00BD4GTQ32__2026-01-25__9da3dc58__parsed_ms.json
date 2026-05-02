@@ -1,0 +1,142 @@
+{
+  "isin": "IE00BD4GTQ32",
+  "fileName": "morningstarreport20260125091358.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:49:48.195Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV Sector Infraestructura",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 94.84,
+        "bond": 0,
+        "cash": 5.06,
+        "other": 0.1
+      }
+    },
+    "sectors": {
+      "industrials": 30.1,
+      "utilities": 60.16,
+      "energy": 9.74
+    },
+    "regions": {
+      "macro": {
+        "americas": 50.51,
+        "europe_me_africa": 46.68,
+        "asia": 2.81
+      },
+      "detail": {
+        "united_states": 41.55,
+        "canada": 7.52,
+        "latin_america": 1.44,
+        "united_kingdom": 10.44,
+        "eurozone": 36.24,
+        "australasia": 2.81
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 12.28,
+        "large": 37.59,
+        "mid": 41.83,
+        "small": 8.31,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "SSE PLC",
+        "weight": 4.96,
+        "sector": "utilities"
+      },
+      {
+        "name": "Severn Trent PLC",
+        "weight": 4.94,
+        "sector": "utilities"
+      },
+      {
+        "name": "Entergy Corp",
+        "weight": 4.47,
+        "sector": "utilities"
+      },
+      {
+        "name": "TC Energy Corp",
+        "weight": 4.11,
+        "sector": "energy"
+      },
+      {
+        "name": "CenterPoint Energy Inc",
+        "weight": 3.81,
+        "sector": "utilities"
+      },
+      {
+        "name": "E.ON SE",
+        "weight": 3.67,
+        "sector": "utilities"
+      },
+      {
+        "name": "Vinci SA",
+        "weight": 3.39,
+        "sector": "industrials"
+      },
+      {
+        "name": "NextEra Energy Inc",
+        "weight": 3.27,
+        "sector": "utilities"
+      },
+      {
+        "name": "Getlink SE Act. Provenant...",
+        "weight": 3.26,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 31,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.94
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": null
+  }
+}

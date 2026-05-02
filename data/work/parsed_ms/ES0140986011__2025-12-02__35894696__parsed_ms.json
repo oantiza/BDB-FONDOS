@@ -1,0 +1,113 @@
+{
+  "isin": "ES0140986011",
+  "fileName": "morningstarreport20251202042706.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:24:43.771Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": null,
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 83.35,
+        "cash": 3.86,
+        "other": 12.79
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 13.13,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 84.59
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 63.52,
+        "4_6": 28.64,
+        "over_6": 7.85
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "ABN AMRO Bank N.V. 4.75%",
+        "weight": 5.81,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 4.45%",
+        "weight": 5.71,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander, S.A. 4.13%",
+        "weight": 5.68,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 5.88%",
+        "weight": 5.26,
+        "sector": null
+      },
+      {
+        "name": "Iberdrola Finanzas S.A.U. 1.58%",
+        "weight": 4.9,
+        "sector": null
+      },
+      {
+        "name": "Banco de Sabadell SA 5%",
+        "weight": 4.55,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.89%",
+        "weight": 4.21,
+        "sector": null
+      },
+      {
+        "name": "Eni SpA 2%",
+        "weight": 4.09,
+        "sector": null
+      },
+      {
+        "name": "TotalEnergies SE 1.63%",
+        "weight": 4.07,
+        "sector": null
+      },
+      {
+        "name": "Credit Agricole S.A. 4%",
+        "weight": 4.02,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 21,
+      "top10_weight": 48.3
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "Invierte al menos el 50% de la exposición total en deuda subordinada (con derecho de cobro posterior a los acreedores comunes), de entidades financieras y no financieras, incluyendo bonos convertibles y/o contingentes convertibles (podrán comportarse como activos de renta variable). El resto de la exposición se invertirá en renta fija pública y/o privada, incluyendo depósitos e instrumentos del mercado monetario, cotizados o no, líquidos y hasta un 10% en titulizaciones líquidas. La exposición a renta variable será..."
+  }
+}

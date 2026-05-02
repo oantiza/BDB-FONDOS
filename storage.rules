@@ -1,0 +1,20 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+    // Basic authentication function
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Admin check - replace with your actual admin email
+    function isAdmin() {
+      return request.auth != null && request.auth.token.email == "oantiza@gmail.com";
+    }
+
+    // REGLA GENERAL: Todo lo demás requiere autenticación
+    match /{allPaths=**} {
+      allow read: if isAuthenticated();
+      allow write: if isAdmin();
+    }
+  }
+}

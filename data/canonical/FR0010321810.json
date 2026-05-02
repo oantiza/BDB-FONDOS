@@ -1,0 +1,333 @@
+{
+  "isin": "FR0010321810",
+  "name": "Echiquier Agenor SRI Mid Cap Europe A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202123417.pdf",
+  "stableBaseName": "FR0010321810__2025-12-02__6fb649e3",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Europe Mid-Cap Equity",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.71,
+        "bond": 0.01,
+        "cash": 3.3,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 8.52,
+      "financial_services": 20.94,
+      "industrials": 38.42,
+      "healthcare": 10.26,
+      "consumer_cyclical": 4.02,
+      "consumer_defensive": 1.82,
+      "utilities": 2.7,
+      "energy": 0.39,
+      "communication_services": 6.7,
+      "real_estate": 2.42,
+      "basic_materials": 3.8
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.53,
+        "europe_me_africa": 98.47,
+        "asia": 0.01
+      },
+      "detail": {
+        "united_states": 1.53,
+        "united_kingdom": 13.71,
+        "eurozone": 62.09,
+        "europe_ex_euro": 22.67,
+        "other": 0.01
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 1.59,
+        "large": 11.31,
+        "mid": 87.1,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Diploma PLC",
+        "weight": 4.23,
+        "sector": "industrials"
+      },
+      {
+        "name": "LBPAM 3 Mois I",
+        "weight": 3.8,
+        "sector": null
+      },
+      {
+        "name": "SPIE SA",
+        "weight": 3.77,
+        "sector": "industrials"
+      },
+      {
+        "name": "Beijer Ref AB Class B",
+        "weight": 3.69,
+        "sector": "industrials"
+      },
+      {
+        "name": "Scout24 SE",
+        "weight": 3.46,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Recordati SpA Az nom Post...",
+        "weight": 3.23,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Alk-Abello AS Class B",
+        "weight": 3.21,
+        "sector": "healthcare"
+      },
+      {
+        "name": "BE Semiconductor Industries NV",
+        "weight": 3.17,
+        "sector": "technology"
+      },
+      {
+        "name": "Halma PLC",
+        "weight": 3.13,
+        "sector": "industrials"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 3.06,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.75
+    },
+    "costs": null,
+    "objective": "ECHIQUIER AGENOR es un fondo dinámico que pretende obtener una rentabilidad a largo plazo a través de la exposición al mercado de renta variable europea"
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials",
+      "theme:mid_cap"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 38.42,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.71,
+        "bond": 0.01,
+        "cash": 3.3,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 8.2397,
+        "financial_services": 20.2511,
+        "industrials": 37.156,
+        "healthcare": 9.9224,
+        "consumer_cyclical": 3.8877,
+        "consumer_defensive": 1.7601,
+        "utilities": 2.6112,
+        "energy": 0.3772,
+        "communication_services": 6.4796,
+        "real_estate": 2.3404,
+        "basic_materials": 3.675
+      },
+      "equity_regions_total": {
+        "united_states": 1.4797,
+        "united_kingdom": 13.2589,
+        "eurozone": 60.0472,
+        "europe_ex_euro": 21.9242,
+        "other": 0.0097
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 96.71,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 84.2344,
+          "large": 12.4756
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "Europe Mid-Cap Equity",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "theme:mid_cap"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9671,
+      "bond": 0.0001,
+      "cash": 0.033,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.01465,
+      "united_kingdom": 0.131272,
+      "eurozone": 0.594509,
+      "europe_ex_euro": 0.217065,
+      "other": 0.009604
+    },
+    "sectors": {
+      "technology": 0.059448,
+      "financial_services": 0.146108,
+      "industrials": 0.268075,
+      "healthcare": 0.071589,
+      "consumer_cyclical": 0.028049,
+      "consumer_defensive": 0.012699,
+      "utilities": 0.018839,
+      "energy": 0.272144,
+      "communication_services": 0.046749,
+      "real_estate": 0.016886,
+      "basic_materials": 0.026515
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.842344,
+      "large": 0.124756
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.71",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.01,max_component=96.71"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "39c0a808b3823419592a7f2daba1d13b",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9671,
+          "bond": 0.0001,
+          "cash": 0.033,
+          "other": 0,
+          "sum": 1.0002
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9671
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.967101
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9671
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:57.871Z"
+}

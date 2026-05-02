@@ -1,0 +1,153 @@
+{
+  "isin": "LU0117858596",
+  "fileName": "morningstarreport20251229072337.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:05.575Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 97.18,
+        "bond": 0.09,
+        "cash": 1.68,
+        "other": 1.05
+      }
+    },
+    "sectors": {
+      "technology": 7.97,
+      "financial_services": 24.07,
+      "industrials": 22.58,
+      "healthcare": 12.71,
+      "consumer_cyclical": 6.6,
+      "consumer_defensive": 8.25,
+      "utilities": 4.6,
+      "energy": 4.97,
+      "communication_services": 4.35,
+      "basic_materials": 3.91
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.92,
+        "europe_me_africa": 98.08
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 1.37,
+        "latin_america": 0.55,
+        "united_kingdom": 20.7,
+        "eurozone": 59.68,
+        "europe_ex_euro": 17.69
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 49.13,
+        "large": 34.16,
+        "mid": 13.32,
+        "small": 3.39,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.59,
+        "sector": "technology"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 2.66,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 2.63,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 2.57,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 2.24,
+        "sector": "industrials"
+      },
+      {
+        "name": "JPM EUR lqdty LVNAV X (T0 acc.)",
+        "weight": 2.07,
+        "sector": null
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 2.04,
+        "sector": "energy"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 1.85,
+        "sector": "financial_services"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 1.76,
+        "sector": "financial_services"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 1.69,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 131,
+      "holdings_count_bond": 0,
+      "top10_weight": 23.11
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo invirtiendo principalmente en acciones europeas."
+  }
+}

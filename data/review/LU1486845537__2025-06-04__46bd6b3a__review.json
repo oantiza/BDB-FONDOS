@@ -1,0 +1,272 @@
+{
+  "isin": "LU1486845537",
+  "name": "ODDO BHF Euro Credit Short Duration CR-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250604082937.pdf",
+  "stableBaseName": "LU1486845537__2025-06-04__46bd6b3a",
+  "report_date": "2025-06-04",
+  "ms": {
+    "report_date": "2025-06-04",
+    "category_morningstar": "RF Bonos Alto Rendimiento EUR",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 92.24,
+        "cash": 7.76,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 2.85,
+        "a": 2.94,
+        "bbb": 11.25,
+        "bb": 50.4,
+        "b": 32.57,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 45.21,
+        "3_5": 37.05,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0.06,
+        "0_4": 44.29,
+        "4_6": 26.68,
+        "over_6": 28.97
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "ZF Finance GmbH 3% 2025-09-21",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "Lorca Telecom Bondco S.A.U. 4% 2027-09-18",
+        "weight": 2.16,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Finance Netherlands...",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Zegona Finance PLC 6.75% 2029-07-15",
+        "weight": 1.84,
+        "sector": null
+      },
+      {
+        "name": "Eircom Finance Designated Activity...",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "Renault S.A. 1.25% 2025-06-24",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Netflix, Inc. 3% 2025-06-15",
+        "weight": 1.47,
+        "sector": null
+      },
+      {
+        "name": "Cirsa Finance International...",
+        "weight": 1.31,
+        "sector": null
+      },
+      {
+        "name": "CCO Holdings, LLC/ CCO Holdings Capital...",
+        "weight": 1.3,
+        "sector": null
+      },
+      {
+        "name": "Verisure Holding AB (publ)...",
+        "weight": 1.29,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 241,
+      "top10_weight": 17.55
+    },
+    "costs": {
+      "management_fee": 0.8
+    },
+    "objective": "El objetivo de inversión del Subfondo es conseguir un elevado nivel de ingresos y la apreciación del capital. El fondo invierte en obligaciones denominadas en euros. Se centra principalmente en obligaciones que cuentan con una calificación mínima de B3 o Botorgada por una agencia de calificación reconocida internacionalmente como Moody's o S&P. Como mínimo el 20% del patrimonio se invertirá en bonos de alto rendimiento que cuenten con una calificación máxima de BB+ o Ba1. Si un título sufre la rebaja de su..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "HIGH_YIELD_BOND",
+    "commercial_type": "RF Bonos Alto Rendimiento EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "high_yield",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9224,
+      "cash": 0.0776,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "high_yield": 0.9224
+    },
+    "credit": {
+      "high_yield": 0.9224
+    },
+    "duration": {
+      "short": 0.9224
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.24",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "d65be45d25da37c105f022942ba2e144",
+    "warnings": [
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9224,
+          "cash": 0.0776,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9224
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9224
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9224
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "region_incomplete|asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.24|region_incomplete"
+  },
+  "generated_at": "2026-04-18T23:07:14.923Z"
+}

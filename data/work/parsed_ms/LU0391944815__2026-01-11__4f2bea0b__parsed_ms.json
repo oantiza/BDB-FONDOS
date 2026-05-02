@@ -1,0 +1,133 @@
+{
+  "isin": "LU0391944815",
+  "fileName": "morningstarreport20260111035237.pdf",
+  "report_date": "2026-01-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:48:15.045Z",
+  "ms": {
+    "report_date": "2026-01-11",
+    "category_morningstar": "RV Global Cap. Med/Peq",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-30",
+      "asset_allocation": {
+        "equity": 97.94,
+        "bond": 0.13,
+        "cash": 1.93,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 32.65,
+      "financial_services": 3.1,
+      "industrials": 14.72,
+      "healthcare": 17.72,
+      "consumer_cyclical": 9.83,
+      "consumer_defensive": 4.24,
+      "utilities": 3.51,
+      "communication_services": 3.83,
+      "real_estate": 4.61,
+      "basic_materials": 5.79
+    },
+    "regions": {
+      "macro": {
+        "americas": 73.96,
+        "europe_me_africa": 22.7,
+        "asia": 3.34
+      },
+      "detail": {
+        "other": 97.85,
+        "united_states": 70.96,
+        "canada": 1.88,
+        "latin_america": 1.12,
+        "united_kingdom": 2.59,
+        "eurozone": 14.33,
+        "europe_ex_euro": 5.51,
+        "europe_emerging": 0.07,
+        "middle_east": 0.2,
+        "asia": 3.34,
+        "japan": 1.51,
+        "asia_emerging": 0.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 18.85,
+        "large": 37.07,
+        "mid": 31.55,
+        "small": 10.08,
+        "micro": 2.46
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 1.99,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "Ecolab Inc",
+        "weight": 1.36,
+        "sector": null
+      },
+      {
+        "name": "Infineon Technologies AG",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "SAP SE",
+        "weight": 1.24,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 1.23,
+        "sector": null
+      },
+      {
+        "name": "NXP Semiconductors NV",
+        "weight": 1.11,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 1.02,
+        "sector": null
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 1.02,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 394,
+      "holdings_count_bond": 0,
+      "top10_weight": 13.14
+    },
+    "costs": {
+      "management_fee": 2.5
+    },
+    "objective": "El fondo aplicará una estrategia de crecimiento del capital, invirtiendo por lo menos dos tercios del total de sus activos y riqueza total en acciones, o en cualquier otra de valores ligados a las acciones, emitidas por empresas de todo el mundo."
+  }
+}

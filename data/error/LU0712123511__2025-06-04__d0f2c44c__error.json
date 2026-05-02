@@ -1,0 +1,237 @@
+{
+  "isin": "LU0712123511",
+  "name": "Morgan Stanley Investment Funds - Global Fixed Income Opportunities Fund AH (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250604083956.pdf",
+  "stableBaseName": "LU0712123511__2025-06-04__d0f2c44c",
+  "report_date": "2025-06-04",
+  "ms": {
+    "report_date": "2025-06-04",
+    "category_morningstar": "Global Flexible Bond - EUR Hedged",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 100,
+        "cash": 13.74,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 4.23,
+      "effective_maturity": 5.34,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 3.2,
+        "aa": 22.62,
+        "a": 10.41,
+        "bbb": 21.71,
+        "bb": 11.47,
+        "b": 7.9,
+        "below_b": 4.06,
+        "not_rated": 18.63
+      },
+      "maturity_allocation": {
+        "1_3": 7.95,
+        "3_5": 13.85,
+        "5_7": 9.11,
+        "7_10": 11.96,
+        "over_10": 46.11
+      },
+      "coupon_allocation": {
+        "0": 28.28,
+        "0_4": 19.91,
+        "4_6": 30.05,
+        "over_6": 21.76
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Us 10yr Note Jun25",
+        "weight": 12.65,
+        "sector": null
+      },
+      {
+        "name": "Us 5yr Note Jun25",
+        "weight": 12.03,
+        "sector": null
+      },
+      {
+        "name": "Umbs:tba 5.500 13may2055 Fwd...",
+        "weight": 6.99,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future June 252025-06-06",
+        "weight": 6.97,
+        "sector": null
+      },
+      {
+        "name": "MS Liquidity Fds US Dlr Trs Lqdy MS Rsrv",
+        "weight": 5.79,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bills 0%2025-06-12",
+        "weight": 4.32,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 2.01,
+        "sector": null
+      },
+      {
+        "name": "Us Ultra 10yr Note Fut Jun25",
+        "weight": 1.86,
+        "sector": null
+      },
+      {
+        "name": "Euro Bund Future June 252025-06-06",
+        "weight": 1.6,
+        "sector": null
+      },
+      {
+        "name": "New Zealand (Government Of) 4.5%2035-05-15",
+        "weight": 1.6,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 558,
+      "top10_weight": 55.81
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "Objetivo Generar ingresos y crecimiento a largo plazo de su inversión Principales inversiones Valores de renta fija (por ej.: bonos) Como mínimo, el 70% de las inversiones del fondo Política de inversión Bonos emitidos en diversas monedas y lugares, por agencias estatales y empresas particulares. El fondo podrá invertir en bonos de menor calidad y mercados emergentes con el fin de lograr mejores rentabilidades. Otra información El fondo podrá invertir en títulos de renta fija que se convierten en renta variable al..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.3",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "Global Flexible Bond - EUR Hedged",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "mixed_credit",
+    "duration_bucket": "intermediate",
+    "strategy_tags": [
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 1,
+      "cash": 0.1374,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 1
+    },
+    "credit": {
+      "mixed_credit": 1
+    },
+    "duration": {
+      "intermediate": 1
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_allocation_sum_mismatch",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "b7f1ba14f7026e19bbdd889ea74b772e",
+    "warnings": [
+      "asset_allocation_sum_mismatch:113.74",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": false,
+    "errors": [
+      "asset_mix_sum_not_1:1.137400"
+    ],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": false,
+        "errors": [
+          "asset_mix_sum_not_1:1.137400"
+        ],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 1,
+          "cash": 0.1374,
+          "other": 0,
+          "sum": 1.1374
+        }
+      }
+    }
+  },
+  "routing": {
+    "status": "error_math_validation",
+    "reason": "asset_mix_sum_not_1:1.137400"
+  },
+  "generated_at": "2026-04-18T17:06:06.348Z"
+}

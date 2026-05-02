@@ -1,0 +1,161 @@
+{
+  "isin": "LU1670618690",
+  "fileName": "morningstarreport20251211055344.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:41:43.934Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Emergente",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 96.48,
+        "bond": 0.03,
+        "cash": 3.49,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 16.9,
+      "financial_services": 25.14,
+      "industrials": 6.85,
+      "healthcare": 1.34,
+      "consumer_cyclical": 21.78,
+      "consumer_defensive": 3.32,
+      "utilities": 3.14,
+      "energy": 4.6,
+      "communication_services": 5.09,
+      "real_estate": 5.13,
+      "basic_materials": 6.71
+    },
+    "regions": {
+      "macro": {
+        "americas": 20.86,
+        "europe_me_africa": 17.32,
+        "asia": 61.83
+      },
+      "detail": {
+        "other": 62.83,
+        "united_states": 1.92,
+        "canada": 1.46,
+        "latin_america": 17.47,
+        "united_kingdom": 3.55,
+        "eurozone": 5.59,
+        "europe_ex_euro": 0.47,
+        "europe_emerging": 0.55,
+        "middle_east": 7.16,
+        "asia": 61.83,
+        "australasia": 0.72,
+        "asia_emerging": 36.46
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 46.04,
+        "large": 19.68,
+        "mid": 21.88,
+        "small": 11.24,
+        "micro": 1.17
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 7.42,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 5.39,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 2.8,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Northern Trust Global US...",
+        "weight": 2.72,
+        "sector": null
+      },
+      {
+        "name": "Absa Group Ltd",
+        "weight": 2.33,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 2.22,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 2.21,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd...",
+        "weight": 2.13,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Vale SA",
+        "weight": 2.06,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 1.97,
+        "sector": "Consumo Cíclico"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 103,
+      "holdings_count_bond": 0,
+      "top10_weight": 31.24
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The Fund aims to provide a higher total return (capital growth plus income) than that of the global emerging markets equity market over any five-year period while applying ESG Criteria. The Fund employs a bottom-up stock picking approach to identify companies whose long-term prospects are, in the Investment Manager's opinion, being undervalued. The Fund's approach incorporates three elements: return on capital, valuations and corporate governance."
+  }
+}

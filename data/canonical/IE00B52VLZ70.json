@@ -1,0 +1,352 @@
+{
+  "isin": "IE00B52VLZ70",
+  "name": "Polar Capital Funds PLC - Polar Capital Global Insurance Fund R Acc (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125755.pdf",
+  "stableBaseName": "IE00B52VLZ70__2025-12-02__f466d8cc",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Finanzas",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-31",
+      "asset_allocation": {
+        "equity": 99.73,
+        "bond": 0,
+        "cash": 0.27,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "financial_services": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 78.61,
+        "europe_me_africa": 17.88,
+        "asia": 3.51
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 71.06,
+        "canada": 7.55,
+        "united_kingdom": 10.39,
+        "eurozone": 1.16,
+        "europe_ex_euro": 6.33,
+        "asia": 3.51
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 11.06,
+        "large": 16.7,
+        "mid": 32.33,
+        "small": 34.58,
+        "micro": 5.33
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "RenaissanceRe Holdings Ltd",
+        "weight": 9.78,
+        "sector": null
+      },
+      {
+        "name": "Arch Capital Group Ltd",
+        "weight": 9.13,
+        "sector": null
+      },
+      {
+        "name": "Chubb Ltd",
+        "weight": 6.31,
+        "sector": null
+      },
+      {
+        "name": "WR Berkley Corp",
+        "weight": 5.58,
+        "sector": null
+      },
+      {
+        "name": "Marsh & McLennan Companies Inc",
+        "weight": 5.08,
+        "sector": null
+      },
+      {
+        "name": "Beazley PLC",
+        "weight": 4.88,
+        "sector": null
+      },
+      {
+        "name": "Markel Group Inc",
+        "weight": 4.85,
+        "sector": null
+      },
+      {
+        "name": "Essent Group Ltd",
+        "weight": 4.74,
+        "sector": null
+      },
+      {
+        "name": "Lancashire Holdings Ltd",
+        "weight": 4.49,
+        "sector": null
+      },
+      {
+        "name": "The Travelers Companies Inc",
+        "weight": 4.33,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 34,
+      "holdings_count_bond": 0,
+      "top10_weight": 59.18
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El Fondo tiene por objetivo proporcionar beneficio total, invirtiendo, en todo el mundo, en acciones de sociedades del sector de los seguros. El Fondo invierte en acciones de sociedades que actúan en ámbitos diversos del sector de los seguros. Puede incluir sociedades de seguros generales, reaseguros, seguros de vida, intermediación de seguros y atención al asegurado. El Fondo trata de superar la rentabilidad de un índice de referencia, el MSCI World Insurance Index. El Fondo puede invertir en instrumentos financieros..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_FINANCIALS",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:financials",
+      "sector:financials",
+      "theme:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 100,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.73,
+        "bond": 0,
+        "cash": 0.27,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "financial_services": 99.73
+      },
+      "equity_regions_total": {
+        "other": 99.73,
+        "united_states": 70.8681,
+        "canada": 7.5296,
+        "united_kingdom": 10.3619,
+        "eurozone": 1.1569,
+        "europe_ex_euro": 6.3129,
+        "asia": 3.5005
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.73,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 39.8022,
+          "mid": 32.2427,
+          "large": 27.685
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_FINANCIALS",
+    "commercial_type": "RV Sector Finanzas",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:financials",
+      "sector:financials",
+      "theme:financials"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9973,
+      "bond": 0,
+      "cash": 0.0027,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.49865,
+      "united_states": 0.354341,
+      "canada": 0.037648,
+      "united_kingdom": 0.05181,
+      "eurozone": 0.005785,
+      "europe_ex_euro": 0.031565,
+      "asia": 0.017503
+    },
+    "sectors": {
+      "financial_services": 0.9973
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.398022,
+      "mid": 0.322427,
+      "large": 0.27685
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.73",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.27,max_component=99.73",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "a49a7b6df615366d047cff0bb90a4755",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9973,
+          "bond": 0,
+          "cash": 0.0027,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.997302
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9973
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.997299
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:38:04.170Z"
+}

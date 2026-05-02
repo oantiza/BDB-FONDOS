@@ -1,0 +1,113 @@
+{
+  "isin": "LU1697013008",
+  "fileName": "morningstarreport20260125091600.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:50:16.424Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RF Flexible USD",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 93.78,
+        "cash": 6.22,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 4.42,
+        "3_5": 15.01,
+        "5_7": 18.89,
+        "7_10": 49.12,
+        "over_10": 11.87
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 1.91,
+        "4_6": 40.22,
+        "over_6": 57.88
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Banco Bilbao Vizcaya Argentaria SA",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A.",
+        "weight": 2.02,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A.",
+        "weight": 1.94,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank AG New York Branch",
+        "weight": 1.67,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of)",
+        "weight": 1.49,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A.",
+        "weight": 1.31,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya Argentaria SA",
+        "weight": 1.28,
+        "sector": null
+      },
+      {
+        "name": "Santander Holdings USA Inc.",
+        "weight": 1.28,
+        "sector": null
+      },
+      {
+        "name": "MVM Energetika Zartkoruen Mukodo...",
+        "weight": 1.27,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC",
+        "weight": 1.26,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 143,
+      "top10_weight": 15.6
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The objective of the Sub-Fund is to seek medium-term capital appreciation in USD through a broad range of fixed income investments."
+  }
+}

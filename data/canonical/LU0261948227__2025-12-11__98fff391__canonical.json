@@ -1,0 +1,335 @@
+{
+  "isin": "LU0261948227",
+  "name": "Fidelity Funds - Germany Fund A-Acc-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211055404.pdf",
+  "stableBaseName": "LU0261948227__2025-12-11__98fff391",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Alemania Cap. Grande",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.87,
+        "bond": 0.06,
+        "cash": 0.07,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 13.55,
+      "financial_services": 11.86,
+      "industrials": 36.26,
+      "healthcare": 15.11,
+      "consumer_cyclical": 6.1,
+      "utilities": 5.47,
+      "communication_services": 8.19,
+      "real_estate": 2.95,
+      "basic_materials": 0.52
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.12,
+        "europe_me_africa": 98.12,
+        "asia": 0.77
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 1.12,
+        "united_kingdom": 0.68,
+        "eurozone": 95.24,
+        "europe_ex_euro": 2.2,
+        "asia": 0.77
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 49.45,
+        "large": 40.87,
+        "mid": 8.39,
+        "small": 1.19,
+        "micro": 0.11
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "SAP SE",
+        "weight": 9.6,
+        "sector": "technology"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 9.56,
+        "sector": "industrials"
+      },
+      {
+        "name": "Airbus SE",
+        "weight": 9.17,
+        "sector": "industrials"
+      },
+      {
+        "name": "Deutsche Telekom AG",
+        "weight": 6.06,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Fresenius SE & Co KGaA",
+        "weight": 5.11,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Siemens Energy AG Ordinary...",
+        "weight": 4.98,
+        "sector": "industrials"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 4.66,
+        "sector": "financial_services"
+      },
+      {
+        "name": "MTU Aero Engines AG",
+        "weight": 4.37,
+        "sector": "industrials"
+      },
+      {
+        "name": "Rheinmetall AG",
+        "weight": 4.25,
+        "sector": "industrials"
+      },
+      {
+        "name": "E.ON SE",
+        "weight": 3.18,
+        "sector": "utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 46,
+      "holdings_count_bond": 0,
+      "top10_weight": 60.92
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo pretende lograr crecimiento del capital, invirtiendo en una cartera de valores diversificada, integrada principalmente por renta variable alemana. La selección de acciones se realiza sobre la base del atractivo de cada compañía , más que de las perspectivas del sector en que operan."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 36.26,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.87,
+        "bond": 0.06,
+        "cash": 0.07,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 13.5324,
+        "financial_services": 11.8446,
+        "industrials": 36.2129,
+        "healthcare": 15.0904,
+        "consumer_cyclical": 6.0921,
+        "utilities": 5.4629,
+        "communication_services": 8.1794,
+        "real_estate": 2.9462,
+        "basic_materials": 0.5193
+      },
+      "equity_regions_total": {
+        "other": 99.87,
+        "united_states": 1.1185,
+        "united_kingdom": 0.6791,
+        "eurozone": 95.1162,
+        "europe_ex_euro": 2.1971,
+        "asia": 0.769
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.87,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 1.2982,
+          "mid": 8.3783,
+          "large": 90.1936
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Alemania Cap. Grande",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9987,
+      "bond": 0.0006,
+      "cash": 0.0007,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.290693,
+      "united_states": 0.003256,
+      "united_kingdom": 0.197667,
+      "eurozone": 0.276856,
+      "europe_ex_euro": 0.006395,
+      "asia": 0.223834
+    },
+    "sectors": {
+      "technology": 0.08933,
+      "financial_services": 0.078188,
+      "industrials": 0.239048,
+      "healthcare": 0.099615,
+      "consumer_cyclical": 0.040215,
+      "utilities": 0.036062,
+      "communication_services": 0.053994,
+      "real_estate": 0.019448,
+      "basic_materials": 0.3428
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.012982,
+      "mid": 0.083783,
+      "large": 0.901935
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.87",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.06,max_component=99.87"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "e8f8b18c7a943e80ce0b4b8c80cef061",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.01"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9987,
+          "bond": 0.0006,
+          "cash": 0.0007,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.998701
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9987
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9987
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:41:48.256Z"
+}

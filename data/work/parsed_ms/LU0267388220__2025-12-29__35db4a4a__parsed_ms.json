@@ -1,0 +1,122 @@
+{
+  "isin": "LU0267388220",
+  "fileName": "morningstarreport20251229072127.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:45:06.610Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 9.4,
+        "cash": 90.6,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0.2,
+      "effective_maturity": 0.67,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 16.5,
+        "aa": 16.09,
+        "a": 22.6,
+        "bbb": 29.24,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 15.58
+      },
+      "maturity_allocation": {
+        "1_3": 18.8,
+        "3_5": 32.92,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 8.86,
+        "0_4": 91.14,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "5 Year Treasury Note Future Dec...",
+        "weight": 14.07,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 10.64,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc. 2.5%2029-05-06",
+        "weight": 4.24,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 4.16,
+        "sector": null
+      },
+      {
+        "name": "Robert Bosch Finance LLC 2.75%2028-05-28",
+        "weight": 3.44,
+        "sector": null
+      },
+      {
+        "name": "Vier Gas Transport GMBH 4%2027-09-26",
+        "weight": 1.71,
+        "sector": null
+      },
+      {
+        "name": "Nestle Finance International Limited...",
+        "weight": 1.63,
+        "sector": null
+      },
+      {
+        "name": "T-Mobile USA, Inc. 3.55%2029-05-08",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of) 2%2026-12-10",
+        "weight": 0.99,
+        "sector": null
+      },
+      {
+        "name": "DSV Finance B.V 3.5%2029-06-26",
+        "weight": 0.77,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 17,
+      "top10_weight": 43.23
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "Invierte fundamentalmente en valores de deuda denominados en euros, y centra sus inversiones en bonos europeos a tipo de interés fijo con categoría de inversión con un vencimiento inferior a cinco años. La duración media de las inversiones del Subfondo no excederá de tres años y la duración residual de cada inversión de cinco años. En el caso de los bonos con un tipo de interés variable, la siguiente adaptación del tipo reemplaza el vencimiento. El Subfondo podrá invertir hasta un 30% de sus activos en valores de..."
+  }
+}

@@ -1,0 +1,135 @@
+{
+  "isin": "LU1244893696",
+  "fileName": "morningstarreport20260220050449.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:54:23.624Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Sector Tecnología",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 96.05,
+        "bond": 0.46,
+        "cash": 3.49,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 41.21,
+      "financial_services": 5.77,
+      "industrials": 9.7,
+      "healthcare": 15.02,
+      "consumer_cyclical": 1.83,
+      "energy": 4.52,
+      "communication_services": 20.78,
+      "real_estate": 1.17
+    },
+    "regions": {
+      "macro": {
+        "americas": 56.67,
+        "europe_me_africa": 27.2,
+        "asia": 16.13
+      },
+      "detail": {
+        "united_states": 55.04,
+        "canada": 1.63,
+        "united_kingdom": 2.1,
+        "eurozone": 19.13,
+        "europe_ex_euro": 3.16,
+        "middle_east": 2.81,
+        "japan": 1.93,
+        "other": 10.52,
+        "asia_emerging": 3.67
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 26.53,
+        "large": 16.87,
+        "mid": 28.24,
+        "small": 26.97,
+        "micro": 1.39
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Akamai Technologies Inc",
+        "weight": 4.68,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 4.47,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "SLB Ltd",
+        "weight": 4.34,
+        "sector": "Energía"
+      },
+      {
+        "name": "Match Group Inc Ordinary...",
+        "weight": 4.06,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Illumina Inc",
+        "weight": 3.36,
+        "sector": "Salud"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.04,
+        "sector": "Salud"
+      },
+      {
+        "name": "Booz Allen Hamilton Holding...",
+        "weight": 2.89,
+        "sector": "Industria"
+      },
+      {
+        "name": "Amundi Fds Cash USD J2 USD C",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "Bruker Corp",
+        "weight": 2.81,
+        "sector": "Salud"
+      },
+      {
+        "name": "Check Point Software...",
+        "weight": 2.7,
+        "sector": "Tecnología"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 53,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.2
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "The objective of the Sub-Fund is to outperform its benchmark over a 5-year investment period, by investing on international capital markets and through the selection of, among others, companies involved in technology sectors or related to advanced analytics -Big Data - technologies. The Sub-Fund is actively managed."
+  }
+}

@@ -1,0 +1,149 @@
+{
+  "isin": "LU1103303167",
+  "fileName": "morningstarreport20260220050444.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:54:18.039Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV USA Cap. Grande Value",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 95.26,
+        "bond": 0.69,
+        "cash": 4.05,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 3.4,
+      "financial_services": 10.18,
+      "industrials": 3.69,
+      "healthcare": 29.24,
+      "consumer_cyclical": 15.39,
+      "consumer_defensive": 9.35,
+      "energy": 14.73,
+      "communication_services": 7.09,
+      "real_estate": 4.15,
+      "basic_materials": 2.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 100
+      },
+      "detail": {
+        "united_states": 96.53,
+        "canada": 1.26,
+        "latin_america": 2.21
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 26.07,
+        "mid": 30.9,
+        "small": 28.83,
+        "micro": 14.2
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Verizon Communications Inc",
+        "weight": 4.91,
+        "sector": null
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 4.59,
+        "sector": null
+      },
+      {
+        "name": "Amundi Fds Cash USD I2 USD C",
+        "weight": 4.28,
+        "sector": null
+      },
+      {
+        "name": "Dentsply Sirona Inc",
+        "weight": 3.98,
+        "sector": null
+      },
+      {
+        "name": "Weyerhaeuser Co",
+        "weight": 3.96,
+        "sector": null
+      },
+      {
+        "name": "SLB Ltd",
+        "weight": 3.56,
+        "sector": null
+      },
+      {
+        "name": "Mohawk Industries Inc",
+        "weight": 3.55,
+        "sector": null
+      },
+      {
+        "name": "PulteGroup Inc",
+        "weight": 3.54,
+        "sector": null
+      },
+      {
+        "name": "Pfizer Inc",
+        "weight": 3.46,
+        "sector": null
+      },
+      {
+        "name": "Medtronic PLC",
+        "weight": 3.34,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.16
+    },
+    "costs": {
+      "management_fee": 1.7
+    },
+    "objective": "Based on a recommended investment horizon of more than five years, the Sub-Fund's investment objective is to generate performance by predominantly selecting North-American securities that are likely to reduce their discount relative to their business sector or the market on which they are listed. The Sub-Fund is actively managed. Environmental, social and/or governance (ESG) criteria are one of the elements on which management focuses."
+  }
+}

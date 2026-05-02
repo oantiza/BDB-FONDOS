@@ -1,0 +1,313 @@
+{
+  "isin": "LU0823411706",
+  "name": "BNP Paribas Funds Consumer InnovatorsClassic Capitalisation",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202073239.pdf",
+  "stableBaseName": "LU0823411706__2025-12-02__80d257da",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Consumo",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 99.91,
+        "bond": 0,
+        "cash": 0.09,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 11.25,
+      "consumer_cyclical": 79.23,
+      "consumer_defensive": 4.45,
+      "communication_services": 5.07
+    },
+    "regions": {
+      "macro": {
+        "americas": 75.57,
+        "europe_me_africa": 8.85,
+        "asia": 15.58
+      },
+      "detail": {
+        "united_states": 68.91,
+        "canada": 2.24,
+        "latin_america": 4.42,
+        "eurozone": 8.85,
+        "japan": 12.04,
+        "asia_emerging": 3.54
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 54.91,
+        "large": 21.18,
+        "mid": 16.3,
+        "small": 6.43,
+        "micro": 1.18
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Amazon.com Inc",
+        "weight": 10.97,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 10.03,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "The Home Depot Inc",
+        "weight": 8.51,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 5.72,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Sony Group Corp",
+        "weight": 5.69,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 4.42,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Booking Holdings Inc",
+        "weight": 3.81,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Hilton Worldwide Holdings Inc",
+        "weight": 3.8,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Fast Retailing Co Ltd",
+        "weight": 3.48,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Nike Inc Class B",
+        "weight": 3.22,
+        "sector": "Consumo Cíclico"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 45,
+      "holdings_count_bond": 0,
+      "top10_weight": 59.65
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Este subfondo invierte al menos dos tercios de sus activos en acciones o títulos asimilados de empresas que desarrollen una parte significativa de su actividad económica en los sectores de bienes de consumo duraderos, el ocio y los medios de comunicación, así como en sectores relacionados, y en instrumentos financieros derivados sobre este tipo de activos."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "SECTOR_EQUITY_CONSUMER_CYCLICAL",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical"
+    ],
+    "top_sector": "consumer_cyclical",
+    "top_sector_weight": 79.23,
+    "is_sector_fund": true,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.91,
+        "bond": 0,
+        "cash": 0.09,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 11.2399,
+        "consumer_cyclical": 79.1587,
+        "consumer_defensive": 4.446,
+        "communication_services": 5.0654
+      },
+      "equity_regions_total": {
+        "united_states": 68.848,
+        "canada": 2.238,
+        "latin_america": 4.416,
+        "eurozone": 8.842,
+        "japan": 12.0292,
+        "asia_emerging": 3.5368
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.91,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 7.6032,
+          "mid": 16.2853,
+          "large": 76.0215
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "SECTOR_EQUITY_CONSUMER_CYCLICAL",
+    "commercial_type": "RV Sector Consumo",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical"
+    ],
+    "vehicle_complexity": "sector",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9991,
+      "bond": 0,
+      "cash": 0.0009,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.68848,
+      "canada": 0.02238,
+      "latin_america": 0.04416,
+      "eurozone": 0.08842,
+      "japan": 0.120292,
+      "asia_emerging": 0.035368
+    },
+    "sectors": {
+      "technology": 0.112399,
+      "consumer_cyclical": 0.791587,
+      "consumer_defensive": 0.04446,
+      "communication_services": 0.050654
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.076032,
+      "mid": 0.162853,
+      "large": 0.760215
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.91",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.09,max_component=99.91"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "ee97b43a6e0391f9cc74748557836739",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9991,
+          "bond": 0,
+          "cash": 0.0009,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9991
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9991
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9991
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:17.599Z"
+}

@@ -1,0 +1,173 @@
+
+
+Informe a 23 marzo 2026
+Morgan Stanley Investment Funds - Euro Corporate Bond - Duration Hedged Fund A
+ 
+Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+-
+ 
+Not Benchmarked
+-
+RF Otros
+ 
+Objetivo de inversión
+ 
+The Fund’s investment objective is to increase the value
+of your investment through a combination of income
+and growth of capital (total return), while seeking to
+reduce the effect of interest rate movements. The fund
+invests at least 70% of total net assets in investment
+grade corporate bonds issued anywhere in the world,
+including emerging markets, and denominated in EUR.
+9.5K
+10.0
+10.5
+11.0
+11.5
+12.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2021202220232024202502/26Rentabilidad
+-0,07-3,718,177,744,380,17Fondo
+------+/- Índice
+------+/- Categoría
+&-----
+Cuartil
+Medidas de riesgo
+Alfa 3a-
+Beta 3a-
+R²-
+Rátio de Inf.-
+Tracking Error-
+Sharpe 3a1,51
+Volatilidad2,05
+Riesgo 3a-
+Riesgo 5a-
+Riesgo 10a-
+Rentab. acum. %
+(20 mar. 2026)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+-0,17
+0,52
+2,74
+7,07
+3,16
+-
+-
+-
+-
+-
+-
+-
+-
+-
+-
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+20251,101,121,370,72
+20242,961,091,392,10
+20230,692,142,262,84
+2022-2,14-5,610,004,24
+20210,130,50-0,03-0,66
+ 
+Cartera28 feb. 2026
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones0,000,000,00
+Obligaciones96,9180,4016,51
+Efectivo3,240,003,24
+Otro80,250,0080,25
+Style Box™ de RF de Morningstar
+ 
+Duración
+Baja   Med.  Alta
+Bajo
+Med
+AltoCalidad crediticia
+Duración efectiva0,09
+Vencimiento
+efectivo
+4,70
+Calidad crediticia
+media
+BBB
+Calidad
+crediticia
+% RF% RF
+AAA4,06BBB55,20
+AA2,82BB2,56
+A34,65B0,11
+Bajo B0,00
+Sin calificación0,61
+Datos a31 dic. 2025
+10 mayores posiciones% cart
+MS Liquidity Fds Euro GovLiqMSRsrvEURInc1,02
+Goldman Sachs Group, Inc. 3.984%2036-12-180,97
+DnB Bank ASA 2.52%2029-08-080,72
+Banco Santander SA 3.75%2036-01-120,67
+The Toronto-Dominion Bank 4.03%2036-01-230,65
+ 
+ 
+Banque Federative du Credit Mutuel...0,64
+JPMorgan Chase & Co. 3.136%2032-02-180,59
+GA Global Funding Trust 4.133%2035-09-160,52
+Royal Bank of Canada 3.125%2031-09-270,52
+Canadian Imperial Bank of Commerce...0,52
+ 
+ 
+Número total de acciones0
+Número total de bonos557
+% de activos en las 10 mayores posiciones6,81
+Rango de vencimientos% RF
+1 a 310,33
+3 a 518,39
+5 a 724,31
+7 a 1020,24
+10 a 159,52
+15 a 202,77
+20 a 303,89
+Más de 309,96
+Rango de cupón% RF
+Cupón 00,35
+Cupón 0 a 471,98
+Cupón 4 a 625,10
+Cupón 6 a 82,48
+Cupón 8 a 100,08
+Cupón 10 a 120,00
+Cupón sobre 120,00
+ 
+Operaciones
+ 
+Gestora del fondoMSIM Fund Management...
+Fecha Creación6 jul. 2018
+Nombre del gestorDipen Patel
+Fecha de incorporación6 jul. 2018
+VL (20 mar. 2026)EUR 34,93
+Patrimonio (Mill)EUR 396,28
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU1832969650
+Inversión mínima
+Inversión mínima adicional
+Comisión de gestión0,80%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2026 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

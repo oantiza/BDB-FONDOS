@@ -1,0 +1,144 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:41:49.986Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0153925689",
+    "name": "UBS (Lux) Key Selection SICAV - European Equity Value Opportunity (EUR) P-acc",
+    "currency": "EUR",
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Europa Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 96.91,
+      "bond": 0,
+      "cash": 0.51,
+      "other": 2.59
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 96.17,
+      "asia": 3.83
+    },
+    "regions_detail": {
+      "América": 0,
+      "Estados Unidos": 0,
+      "Canadá": 0,
+      "Iberoamérica": 0,
+      "Europa/O. Medio/Africa": 96.17,
+      "Reino Unido": 29.61,
+      "Zona Euro": 52.08,
+      "Europa - ex Euro": 14.48,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Asia": 3.83,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 3.83,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 5.56,
+      "financial_services": 20.45,
+      "industrials": 4.49,
+      "healthcare": 19.06,
+      "consumer_cyclical": 10.7,
+      "consumer_defensive": 14.56,
+      "utilities": 0,
+      "energy": 12.35,
+      "communication_services": 2,
+      "real_estate": 0,
+      "basic_materials": 10.83
+    },
+    "equity_market_cap": {
+      "giant": 48.83,
+      "large": 33.24,
+      "mid": 17.22,
+      "small": 0.7,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 5,
+        "sector": "financial_services"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 4.09,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Glencore PLC",
+        "weight": 3.71,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "BNP Paribas Act. Cat.A",
+        "weight": 3.39,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Roche Holding AG",
+        "weight": 3.32,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Bank of Ireland Group PLC",
+        "weight": 3.26,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Novartis AG Registered Shares",
+        "weight": 3.25,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 3.22,
+        "sector": "energy"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 3.08,
+        "sector": "energy"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.92,
+        "sector": "consumer_defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 44,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.25
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Las porciones de bonos y acciones pueden variar en un rango del 0-90% (neutral: 35%) y del 10-100% (neutral: 65%), respectivamente. Gestión muy activa del fondo. Las divisas se gestionan activamente y se cubren ampliamente frente a la moneda de referencia. Recurre a la experiencia probada de UBS en la asignación de activos, obtenida de su eficaz concepto de Global Securities Portfolio."
+  }
+}

@@ -1,0 +1,121 @@
+{
+  "isin": "LU1665237704",
+  "fileName": "morningstarreport20251202073216.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:29:01.255Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Sector Infraestructura",
+    "rating_stars": 2,
+    "medalist_rating": "Neutral",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 89.79,
+        "bond": 0.01,
+        "cash": 2.48,
+        "other": 7.72
+      }
+    },
+    "sectors": {
+      "financial_services": 5.02,
+      "industrials": 18.59,
+      "utilities": 33.95,
+      "energy": 20.16,
+      "real_estate": 18.68,
+      "basic_materials": 3.62
+    },
+    "regions": {
+      "macro": {
+        "americas": 63.39,
+        "europe_me_africa": 27.8,
+        "asia": 8.82
+      },
+      "detail": {
+        "united_states": 44.03,
+        "canada": 19.36,
+        "united_kingdom": 6.76,
+        "eurozone": 19.37,
+        "europe_ex_euro": 1.67,
+        "japan": 4.09,
+        "australasia": 2.28,
+        "asia_emerging": 2.45
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 16.93,
+        "large": 26.46,
+        "mid": 50.67,
+        "small": 5.94,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Equinix Inc",
+        "weight": 4.19,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "PrairieSky Royalty Ltd",
+        "weight": 4.12,
+        "sector": "Energía"
+      },
+      {
+        "name": "American Tower Corp",
+        "weight": 3.95,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "International Public...",
+        "weight": 3.58,
+        "sector": null
+      },
+      {
+        "name": "HICL Infrastructure PLC Ord",
+        "weight": 3.51,
+        "sector": null
+      },
+      {
+        "name": "Franco-Nevada Corp",
+        "weight": 3.25,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Gibson Energy Inc",
+        "weight": 3.08,
+        "sector": "Energía"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 3,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Sempra",
+        "weight": 2.99,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Infrastrutture Wireless...",
+        "weight": 2.93,
+        "sector": "Inmobiliario"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.6
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The Fund has two aims to deliver a higher total return (the combination of capital growth and income) than that of the global equities market over any five-year period; and to deliver an income stream that increases every year in US Dollar terms. The Fund invests in securities that meet the ESG Criteria, applying an Exclusionary Approach, that are SDG-contributing with a Positive ESG Tilt."
+  }
+}

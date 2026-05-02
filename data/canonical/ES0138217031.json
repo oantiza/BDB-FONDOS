@@ -1,0 +1,325 @@
+{
+  "isin": "ES0138217031",
+  "name": "Gesconsult Renta Fija Flexible A FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202042713.pdf",
+  "stableBaseName": "ES0138217031__2025-12-02__562b28d1",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 9.5,
+        "bond": 84.56,
+        "cash": 5.93,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 18.31,
+      "financial_services": 22.78,
+      "industrials": 16.83,
+      "healthcare": 3.95,
+      "consumer_cyclical": 10.44,
+      "consumer_defensive": 5.72,
+      "utilities": 5.67,
+      "energy": 6.44,
+      "communication_services": 4.14,
+      "real_estate": 0.92,
+      "basic_materials": 4.81
+    },
+    "regions": {
+      "macro": {
+        "americas": 12.85,
+        "europe_me_africa": 83.35,
+        "asia": 3.81
+      },
+      "detail": {
+        "united_states": 12.85,
+        "eurozone": 82.09,
+        "europe_ex_euro": 0.63,
+        "other": 0.62,
+        "japan": 0.68,
+        "developed_asia": 1.91,
+        "asia_emerging": 1.22
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Gesconsult Renta Variable...",
+        "weight": 7.99,
+        "sector": null
+      },
+      {
+        "name": "Grenergy Renovables Sa...",
+        "weight": 6.11,
+        "sector": null
+      },
+      {
+        "name": "Sacyr SA 5.8%2027-04-02",
+        "weight": 5.04,
+        "sector": null
+      },
+      {
+        "name": "Cellnex Telecom S.A.U...",
+        "weight": 5.01,
+        "sector": null
+      },
+      {
+        "name": "Amadeus IT Group SA...",
+        "weight": 4.98,
+        "sector": null
+      },
+      {
+        "name": "Repsol International Finance...",
+        "weight": 4.01,
+        "sector": null
+      },
+      {
+        "name": "Bankinter SA 7.38%2049-02-15",
+        "weight": 3.54,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 5.88%2048-10-09",
+        "weight": 3.38,
+        "sector": null
+      },
+      {
+        "name": "ABN AMRO Bank N.V....",
+        "weight": 3.31,
+        "sector": null
+      },
+      {
+        "name": "Grupo Pikolin S.L...",
+        "weight": 3.29,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 28,
+      "top10_weight": 46.67
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Se invertirá, directa o indirectamente a través de IIC (máximo 10% del patrimonio), entre un 0% - 30% de la exposición total en activos de Renta Variable y el resto en activos de Renta Fija pública y/o privada (incluyendo depósitos e instrumentos del mercado monetario no cotizados, que sean líquidos). La suma de inversiones en Renta Variable de entidades radicadas fuera del área euro, más la exposición al riesgo divisa no superará el 30%. Los emisores y mercados serán de países OCDE, fundamentalmente del área Euro...."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Europa",
+    "subcategories": [],
+    "top_sector": "financial_services",
+    "top_sector_weight": 22.78,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 9.5,
+        "bond": 84.56,
+        "cash": 5.93,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 1.7394,
+        "financial_services": 2.1641,
+        "industrials": 1.5988,
+        "healthcare": 0.3753,
+        "consumer_cyclical": 0.9918,
+        "consumer_defensive": 0.5434,
+        "utilities": 0.5386,
+        "energy": 0.6118,
+        "communication_services": 0.3933,
+        "real_estate": 0.0874,
+        "basic_materials": 0.4569
+      },
+      "equity_regions_total": {
+        "united_states": 1.2208,
+        "eurozone": 7.7986,
+        "europe_ex_euro": 0.0599,
+        "other": 0.0589,
+        "japan": 0.0646,
+        "developed_asia": 0.1815,
+        "asia_emerging": 0.1159
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 9.5,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "Mixtos Defensivos EUR",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "intermediate",
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "fi_block_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.095,
+      "bond": 0.8456,
+      "cash": 0.0593,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.002031,
+      "eurozone": 0.012975,
+      "europe_ex_euro": 0.009966,
+      "other": 0.0098,
+      "japan": 0.010748,
+      "developed_asia": 0.030197,
+      "asia_emerging": 0.019283
+    },
+    "sectors": {
+      "technology": 0.000408,
+      "financial_services": 0.000507,
+      "industrials": 0.000375,
+      "healthcare": 0.008796,
+      "consumer_cyclical": 0.023244,
+      "consumer_defensive": 0.012735,
+      "utilities": 0.012623,
+      "energy": 0.014338,
+      "communication_services": 0.009218,
+      "real_estate": 0.002048,
+      "basic_materials": 0.010708
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.8456
+    },
+    "credit": null,
+    "duration": {
+      "intermediate": 0.8456
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=84.56"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "4343d83d548e422aaf2ab359a9563419",
+    "warnings": [
+      "unknown_region_key:africa_middle_east",
+      "fi_block_missing_used_text_fallback"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.095,
+          "bond": 0.8456,
+          "cash": 0.0593,
+          "other": 0,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.095
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.095
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8456
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8456
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:24:49.724Z"
+}

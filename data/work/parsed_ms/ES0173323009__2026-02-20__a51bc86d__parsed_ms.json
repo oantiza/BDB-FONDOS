@@ -1,0 +1,156 @@
+{
+  "isin": "ES0173323009",
+  "fileName": "morningstarreport20260220050710.pdf",
+  "report_date": "2026-02-20",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:54:58.714Z",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 46.32,
+        "bond": 48.36,
+        "cash": 5.31,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 20.93,
+      "financial_services": 9.15,
+      "industrials": 16.02,
+      "healthcare": 14.96,
+      "consumer_cyclical": 9.84,
+      "consumer_defensive": 10.59,
+      "utilities": 4.19,
+      "communication_services": 7.23,
+      "basic_materials": 7.08
+    },
+    "regions": {
+      "macro": {
+        "americas": 36.14,
+        "europe_me_africa": 45.98,
+        "asia": 17.88
+      },
+      "detail": {
+        "other": 84.48,
+        "united_states": 36.14,
+        "united_kingdom": 4.25,
+        "eurozone": 32.91,
+        "europe_ex_euro": 8.82,
+        "asia": 17.88,
+        "japan": 3.81,
+        "australasia": 5.07,
+        "asia_emerging": 6.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 6.31,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 4.84,
+        "sector": null
+      },
+      {
+        "name": "European Investment Bank...",
+        "weight": 4,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 3.96,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 3.54,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 3.51,
+        "sector": null
+      },
+      {
+        "name": "European Bank For...",
+        "weight": 3.46,
+        "sector": null
+      },
+      {
+        "name": "European Investment Bank...",
+        "weight": 2.76,
+        "sector": null
+      },
+      {
+        "name": "Hungary (Republic Of)...",
+        "weight": 2.35,
+        "sector": null
+      },
+      {
+        "name": "Czech (Republic of) 1%2026-06-26",
+        "weight": 1.81,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 57,
+      "holdings_count_bond": 21,
+      "top10_weight": 36.54
+    },
+    "costs": {
+      "management_fee": 1.2
+    },
+    "objective": "Además de criterios financieros, se aplican criterios de Inversión Socialmente Responsable (ASG), que siguen estrategias de inversion basadas en criterios excluyentes y valorativos. La mayoría de la cartera promueve criterios ASG (medioambientales, sociales y de gobernaza) Se invierte un 0%-100% del patrimonio en IIC financieras, que sean activo apto, armonizadas o no, pertenecientes o no al grupo de la Gestora,(máximo 30% en IIC no armonizadas). Se invierte, directa o indirectamente, un 0-100% de la exposición total..."
+  }
+}

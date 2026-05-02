@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:24:59.441Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE00B18GC888",
+    "name": "Vanguard Global Bond Index Fund EUR Hedged Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global - EUR Cubierto",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 99.97,
+      "cash": 0.02,
+      "other": 0.01
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 6.3,
+      "effective_maturity": 8.27,
+      "avg_credit_quality": "A",
+      "credit_quality": {
+        "aaa": 13.5,
+        "aa": 43.55,
+        "a": 25.08,
+        "bbb": 16.41,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 1.46
+      },
+      "maturity_allocation": {
+        "1_3": 22.07,
+        "3_5": 19.09,
+        "5_7": 12.59,
+        "7_10": 13.78,
+        "over_10": 32.32
+      },
+      "coupon_allocation": {
+        "0": 3.79,
+        "0_4": 64.88,
+        "4_6": 27.78,
+        "over_6": 3.56
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 0.36,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)2029-08-15",
+        "weight": 0.33,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)2027-11-15",
+        "weight": 0.3,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2027-02-25",
+        "weight": 0.26,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 0.26,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 0.25,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 0.25,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great Britain and...",
+        "weight": 0.24,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 0.24,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)2029-11-25",
+        "weight": 0.24,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 16145,
+      "top10_weight": 2.72
+    },
+    "costs": {
+      "management_fee": 0.15
+    },
+    "objective": "The Fund seeks to provide returns consistent with the performance of the Index. The Fund will invest in a portfolio of securities that, insofar as possible and practicable, consists of a representative sample of the component securities of the Index. All of the Fund's investments will be selected through the sampling process."
+  }
+}

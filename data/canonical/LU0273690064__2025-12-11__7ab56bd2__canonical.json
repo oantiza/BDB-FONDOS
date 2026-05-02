@@ -1,0 +1,353 @@
+{
+  "isin": "LU0273690064",
+  "name": "Goldman Sachs Asia Equity Growth & Income - P Cap EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251211055319.pdf",
+  "stableBaseName": "LU0273690064__2025-12-11__7ab56bd2",
+  "report_date": "2025-12-11",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 98.84,
+        "bond": 0,
+        "cash": 1.16,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 24.77,
+      "financial_services": 18.01,
+      "industrials": 20.36,
+      "healthcare": 1.38,
+      "consumer_cyclical": 6.36,
+      "consumer_defensive": 4.09,
+      "communication_services": 15.2,
+      "real_estate": 5.9,
+      "basic_materials": 3.93
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 1.98,
+        "asia": 98.02
+      },
+      "detail": {
+        "united_kingdom": 1.98,
+        "other": 54.26,
+        "asia_emerging": 43.76
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 50.44,
+        "large": 26.14,
+        "mid": 23.41,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor",
+        "weight": 9.32,
+        "sector": null
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 4.69,
+        "sector": null
+      },
+      {
+        "name": "China Construction Bank Corp",
+        "weight": 3.99,
+        "sector": null
+      },
+      {
+        "name": "Neway Valve (Suzhou) Co Ltd",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Alibaba Group Holding Ltd",
+        "weight": 3.25,
+        "sector": null
+      },
+      {
+        "name": "Dynapack International",
+        "weight": 3.05,
+        "sector": null
+      },
+      {
+        "name": "HKT Trust and HKT Ltd",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "PICC Property and Casualty Co",
+        "weight": 2.88,
+        "sector": null
+      },
+      {
+        "name": "WinWay Technology Co Ltd",
+        "weight": 2.84,
+        "sector": null
+      },
+      {
+        "name": "PCCW Ltd",
+        "weight": 2.62,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 38.83
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo invierte (con un mínimo de 2/3) en una cartera diversificada de acciones y/u otros valores mobiliarios (warrants sobre valores mobiliarios - hasta un máximo del 10% de los activos netos del Subfondo y bonos convertibles) emitidos por las empresas establecidas, listadas o que comercializan en la región Asia-Pacífico (excepto Japón y Australia). El Subfondo se reserva el derecho a invertir hasta un 20% de su patrimonio neto en el Artículo 144A de Valores."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Japón",
+    "subcategories": [
+      "theme:asia",
+      "theme:income"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 24.77,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.84,
+        "bond": 0,
+        "cash": 1.16,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.4827,
+        "financial_services": 17.8011,
+        "industrials": 20.1238,
+        "healthcare": 1.364,
+        "consumer_cyclical": 6.2862,
+        "consumer_defensive": 4.0426,
+        "communication_services": 15.0237,
+        "real_estate": 5.8316,
+        "basic_materials": 3.8844
+      },
+      "equity_regions_total": {
+        "united_kingdom": 1.957,
+        "other": 53.6306,
+        "asia_emerging": 43.2524
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 98.84,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "mid": 23.1408,
+          "large": 75.6992
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Asia (ex-Japón)",
+    "region_primary": "Japón",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": "convertible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "theme:asia",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9884,
+      "bond": 0,
+      "cash": 0.0116,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_kingdom": 0.01957,
+      "other": 0.536306,
+      "asia_emerging": 0.432524
+    },
+    "sectors": {
+      "technology": 0.244827,
+      "financial_services": 0.178011,
+      "industrials": 0.201238,
+      "healthcare": 0.01364,
+      "consumer_cyclical": 0.062862,
+      "consumer_defensive": 0.040426,
+      "communication_services": 0.150237,
+      "real_estate": 0.058316,
+      "basic_materials": 0.038844
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "mid": 0.231408,
+      "large": 0.756992
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.84",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "9d6e0ae8df4abed0b85c9ba93eebb12a",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9884,
+          "bond": 0,
+          "cash": 0.0116,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9884
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988401
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9884
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:41:26.610Z"
+}

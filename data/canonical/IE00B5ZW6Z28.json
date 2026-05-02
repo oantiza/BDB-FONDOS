@@ -1,0 +1,277 @@
+{
+  "isin": "IE00B5ZW6Z28",
+  "name": "PIMCO GIS Emerging Local Bond Fund E Class EUR (Unhedged) Accumulation",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202041145.pdf",
+  "stableBaseName": "IE00B5ZW6Z28__2025-12-02__492a1420",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente - Moneda Local",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 100,
+        "cash": 0,
+        "other": 5.05
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 6.72,
+      "effective_maturity": 8.39,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 2.92,
+        "aa": 11.38,
+        "a": 21.92,
+        "bbb": 41.5,
+        "bb": 18.66,
+        "b": 2.87,
+        "below_b": 0.74,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 20.14,
+        "3_5": 41.82,
+        "5_7": 11.05,
+        "7_10": 11.72,
+        "over_10": 9.54
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "PIMCO US Dollar S/T Fl NAV Z USD...",
+        "weight": 7.57,
+        "sector": null
+      },
+      {
+        "name": "Mexico (United Mexican States)...",
+        "weight": 4.17,
+        "sector": null
+      },
+      {
+        "name": "Philippines (Republic Of) 6.25% 2029-02-28",
+        "weight": 4.11,
+        "sector": null
+      },
+      {
+        "name": "Mexico (United Mexican States)...",
+        "weight": 2.82,
+        "sector": null
+      },
+      {
+        "name": "Poland (Republic of) 4.5% 2030-07-25",
+        "weight": 2.63,
+        "sector": null
+      },
+      {
+        "name": "TRS R SOFRRATE+65/IN0020230051...",
+        "weight": 2.28,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of)...",
+        "weight": 2.16,
+        "sector": null
+      },
+      {
+        "name": "Indonesia (Republic of) 6.75% 2035-07-15",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "Peru (Republic Of) 6.15% 2032-08-12",
+        "weight": 1.95,
+        "sector": null
+      },
+      {
+        "name": "Colombia (Republic Of) 6% 2028-04-28",
+        "weight": 1.8,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 20,
+      "holdings_count_bond": 962,
+      "top10_weight": 31.46
+    },
+    "costs": {
+      "management_fee": 1.89
+    },
+    "objective": "El fondo invierte principalmente en un rango de valores de renta fija (que son préstamos que pagan un tipo de interés fijo o variable) emitidos por sociedades o gobiernos de mercados emergentes de todo el mundo. El asesor de inversiones escogerá valores con fechas de reembolso variables basándose en nuestras previsiones sobre variaciones en los tipos de interés y los tipos de cambio. En términos de inversión, los mercados emergentes son las regiones del mundo menos desarrolladas que en general todavía están..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "EMERGING_MARKETS_BOND",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "theme:emerging_markets",
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9300000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "EMERGING_MARKETS_BOND",
+    "commercial_type": "RF Global Emergente - Moneda Local",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "mixed_credit",
+    "duration_bucket": "intermediate",
+    "strategy_tags": [
+      "theme:emerging_markets",
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9300000000000002,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.951928,
+      "cash": 0,
+      "other": 0.048072
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.951928
+    },
+    "credit": {
+      "mixed_credit": 0.951928
+    },
+    "duration": {
+      "intermediate": 0.951928
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9300000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0505,sum_after=1",
+      "asset_allocation_sum_mismatch",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "ee0e3a1195e6104b14bceb9a00a48d4b",
+    "warnings": [
+      "asset_allocation_sum_mismatch:105.05",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.951928,
+          "cash": 0,
+          "other": 0.048072,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.951928
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.951928
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.951928
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:23:50.538Z"
+}

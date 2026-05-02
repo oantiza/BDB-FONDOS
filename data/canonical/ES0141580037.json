@@ -1,0 +1,261 @@
+{
+  "isin": "ES0141580037",
+  "name": "SIH Ahorro A FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202041047.pdf",
+  "stableBaseName": "ES0141580037__2025-12-02__86e993de",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 96.79,
+        "cash": 0.87,
+        "other": 2.34
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 37.27,
+        "3_5": 48.31,
+        "5_7": 7.83,
+        "7_10": 1.5,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 68.18,
+        "4_6": 31.01,
+        "over_6": 0.81
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 2.8% 2025-11-03",
+        "weight": 3.61,
+        "sector": null
+      },
+      {
+        "name": "Powszechna Kasa Oszczednosci Bank Polski...",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Barclays PLC 3.13% 2029-05-14",
+        "weight": 1.74,
+        "sector": null
+      },
+      {
+        "name": "Morgan Stanley 3% 2028-04-05",
+        "weight": 1.72,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 3.88% 2028-06-11",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 3.15% 2034-04-15",
+        "weight": 1.45,
+        "sector": null
+      },
+      {
+        "name": "Citigroup Inc. 3.18% 2029-04-29",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "Kutxabank SA 4.75% 2027-06-15",
+        "weight": 1.35,
+        "sector": null
+      },
+      {
+        "name": "Banco Santander, S.A. 3.25% 2029-04-02",
+        "weight": 1.32,
+        "sector": null
+      },
+      {
+        "name": "Landsbankinn hf. 3.5% 2030-06-24",
+        "weight": 1.31,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 129,
+      "top10_weight": 17.66
+    },
+    "costs": {
+      "management_fee": 0.55
+    },
+    "objective": "La inversión se centrará en valores de renta fija, tanto públicos como privados, sin distribución geográfica predeterminada, en emisores/ mercados OCDE y hasta un 15% en emergentes. Los activos estarán denominados en euros, aunque podrá invertir en activos denominados en otras divisas, con un máximo del 10%. La duración media del fondo oscilará entre 6 y 24 meses. Las inversiones se realizarán en emisiones que tengan como mínimo una calificación crediticia media (rating mínimo BBB-, según Standard & Poor ́s o..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Diversificada Corto Plazo EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": "short",
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.9679,
+      "cash": 0.0087,
+      "other": 0.0234
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.9679
+    },
+    "credit": null,
+    "duration": {
+      "short": 0.9679
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.79",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.87,max_component=96.79",
+      "credit_missing",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "576c4cca5cca8b1638338ff96a5180d4",
+    "warnings": [
+      "fi_missing_credit_data",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.9679,
+          "cash": 0.0087,
+          "other": 0.0234,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9679
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9679
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:14:18.391Z"
+}

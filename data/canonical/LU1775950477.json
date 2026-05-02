@@ -1,0 +1,386 @@
+{
+  "isin": "LU1775950477",
+  "name": "Invesco Funds - Invesco Asian Equity Fund E Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013856.pdf",
+  "stableBaseName": "LU1775950477__2025-12-02__46321fad",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 95.93,
+        "bond": 0.12,
+        "cash": 3.86,
+        "other": 0.08
+      }
+    },
+    "sectors": {
+      "technology": 31.01,
+      "financial_services": 22.51,
+      "industrials": 5.62,
+      "healthcare": 0.74,
+      "consumer_cyclical": 12.59,
+      "consumer_defensive": 5.64,
+      "utilities": 2.07,
+      "energy": 0.97,
+      "communication_services": 13.04,
+      "real_estate": 1.86,
+      "basic_materials": 3.97
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.06,
+        "europe_me_africa": 2.2,
+        "asia": 96.74
+      },
+      "detail": {
+        "united_states": 1.06,
+        "united_kingdom": 1.86,
+        "middle_east": 0.34,
+        "australasia": 0.95,
+        "other": 43.19,
+        "asia_emerging": 52.59
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 57.71,
+        "large": 37.39,
+        "mid": 3.78,
+        "small": 1.1,
+        "micro": 0.02
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.78,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 7.2,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 6.34,
+        "sector": "technology"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 4.17,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 3.72,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.54,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Kasikornbank Public Co Ltd",
+        "weight": 3.02,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Invesco US Dollar Liqdty Port...",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "NetEase Inc Ordinary Shares",
+        "weight": 2.37,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd...",
+        "weight": 2.32,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 45.4
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "El objetivo del Fondo es conseguir una revalorización a largo plazo del capital. El Fondo pretende alcanzar este objetivo invirtiendo principalmente en renta variable o valores vinculados a renta variable de (i) empresas y otras entidades con su domicilio social en un país asiático, (ii) empresas y otras entidades con su domicilio social fuera de Asia pero que lleven a cabo su actividad empresarial predominantemente en uno o más países asiáticos o (iii) sociedades de cartera, cuyas participaciones se mantengan..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Japón",
+    "subcategories": [
+      "sector:technology",
+      "theme:asia"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 31.01,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 95.93,
+        "bond": 0.12,
+        "cash": 3.86,
+        "other": 0.08
+      },
+      "equity_sectors_total": {
+        "technology": 29.7479,
+        "financial_services": 21.5938,
+        "industrials": 5.3913,
+        "healthcare": 0.7099,
+        "consumer_cyclical": 12.0776,
+        "consumer_defensive": 5.4105,
+        "utilities": 1.9858,
+        "energy": 0.9305,
+        "communication_services": 12.5093,
+        "real_estate": 1.7843,
+        "basic_materials": 3.8084
+      },
+      "equity_regions_total": {
+        "united_states": 1.0169,
+        "united_kingdom": 1.7843,
+        "middle_east": 0.3262,
+        "australasia": 0.9113,
+        "other": 41.4322,
+        "asia_emerging": 50.4496
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 95.93,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 1.0744,
+          "mid": 3.6262,
+          "large": 91.2294
+        },
+        "style_weights_total": {
+          "blend": 95.93
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Asia (ex-Japón)",
+    "region_primary": "Japón",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "sector:technology",
+      "theme:asia"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_inferred_weak",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9593,
+      "bond": 0.0012,
+      "cash": 0.0386,
+      "other": 0.0008
+    },
+    "equity_regions": {
+      "united_states": 0.004466,
+      "united_kingdom": 0.007836,
+      "middle_east": 0.143258,
+      "australasia": 0.400219,
+      "other": 0.181959,
+      "asia_emerging": 0.221561
+    },
+    "sectors": {
+      "technology": 0.11046,
+      "financial_services": 0.080182,
+      "industrials": 0.020019,
+      "healthcare": 0.2636,
+      "consumer_cyclical": 0.044846,
+      "consumer_defensive": 0.02009,
+      "utilities": 0.007374,
+      "energy": 0.345513,
+      "communication_services": 0.046449,
+      "real_estate": 0.006625,
+      "basic_materials": 0.014141
+    },
+    "equity_styles": {
+      "blend": 0.9593
+    },
+    "market_caps": {
+      "small": 0.010744,
+      "mid": 0.036262,
+      "large": 0.912294
+    },
+    "bond_types": {
+      "flexible": 0.0012
+    },
+    "credit": null,
+    "duration": {
+      "long": 0.0012
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=95.93",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.08,max_component=95.93",
+      "credit_missing",
+      "duration_inferred_weak"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "d26924096b5d4b57a5527aa0a86c8289",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_duration_inferred_weak",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9593,
+          "bond": 0.0012,
+          "cash": 0.0386,
+          "other": 0.0008,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.959299
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.959299
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9593
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9593
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0012
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0012
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T09:03:45.651Z"
+}

@@ -1,0 +1,113 @@
+{
+  "isin": "LU2278574988",
+  "fileName": "morningstarreport20260125091426.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:49:57.174Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 95.18,
+        "cash": 4.82,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 14.36,
+        "3_5": 38.77,
+        "5_7": 13.96,
+        "7_10": 15.88,
+        "over_10": 16.37
+      },
+      "coupon_allocation": {
+        "0": 0.55,
+        "0_4": 16.05,
+        "4_6": 51.15,
+        "over_6": 32.25
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Banco de Credito Social Cooperativo S.A.",
+        "weight": 6.9,
+        "sector": null
+      },
+      {
+        "name": "Atradius Credito Y Caucion Sa De Seguros",
+        "weight": 4.88,
+        "sector": null
+      },
+      {
+        "name": "ABANCA Corporacion Bancaria S.A.",
+        "weight": 3.73,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Bank Aktiengesellschaft",
+        "weight": 3.57,
+        "sector": null
+      },
+      {
+        "name": "Servicios Financieros Carrefour EFC SA",
+        "weight": 3.23,
+        "sector": null
+      },
+      {
+        "name": "Eroski Sociedad Cooperativa",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "Grenke Finance Plc",
+        "weight": 2.74,
+        "sector": null
+      },
+      {
+        "name": "Banque Internationale a Luxembourg S.A.",
+        "weight": 2.4,
+        "sector": null
+      },
+      {
+        "name": "Pershing Square Holdings, Ltd.",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A.",
+        "weight": 2.27,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 75,
+      "top10_weight": 35
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El objetivo de inversión de Buy & Hold Luxembourg – B&H Bonds (el \"Subfondo\") es lograr la revalorización del capital a largo plazo con un nivel más elevado de estabilidad del capital principal, invirtiendo en activos de renta fija emitidos principalmente en los Estados miembros de la Unión Europea o países candidatos a formar parte de la Unión Europea."
+  }
+}

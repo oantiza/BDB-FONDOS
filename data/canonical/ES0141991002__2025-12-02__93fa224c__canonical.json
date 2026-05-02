@@ -1,0 +1,352 @@
+{
+  "isin": "ES0141991002",
+  "name": "Gestión Talento FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202040341.pdf",
+  "stableBaseName": "ES0141991002__2025-12-02__93fa224c",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 69.06,
+        "bond": 3.16,
+        "cash": 1.03,
+        "other": 26.75
+      }
+    },
+    "sectors": {
+      "technology": 15.52,
+      "financial_services": 11.96,
+      "industrials": 20.04,
+      "healthcare": 7.75,
+      "consumer_cyclical": 16.12,
+      "consumer_defensive": 7.84,
+      "utilities": 1.54,
+      "energy": 5.51,
+      "communication_services": 8.71,
+      "real_estate": 0.89,
+      "basic_materials": 4.13
+    },
+    "regions": {
+      "macro": {
+        "americas": 35.42,
+        "europe_me_africa": 50.69,
+        "asia": 13.89
+      },
+      "detail": {
+        "united_states": 31.44,
+        "canada": 3.27,
+        "latin_america": 0.72,
+        "united_kingdom": 10.33,
+        "eurozone": 33.42,
+        "europe_ex_euro": 5.61,
+        "europe_emerging": 0.3,
+        "middle_east": 1.03,
+        "japan": 3.31,
+        "australasia": 0.06,
+        "other": 4.99,
+        "asia_emerging": 5.52
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 14.76,
+        "large": 16.32,
+        "mid": 33.33,
+        "small": 17.17,
+        "micro": 18.43
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Incometric Nartex Equity A Cap...",
+        "weight": 11.49,
+        "sector": null
+      },
+      {
+        "name": "Hamco Global Value Fund I FI",
+        "weight": 11.37,
+        "sector": null
+      },
+      {
+        "name": "La Muza Inversiones SICAV",
+        "weight": 10.91,
+        "sector": null
+      },
+      {
+        "name": "Tressis Cartera Eco30 I FI",
+        "weight": 10.57,
+        "sector": null
+      },
+      {
+        "name": "Incometric Equam Global Value A",
+        "weight": 9.07,
+        "sector": null
+      },
+      {
+        "name": "Estela Global Equities I FI",
+        "weight": 9.07,
+        "sector": null
+      },
+      {
+        "name": "Valentum E FI",
+        "weight": 8.74,
+        "sector": null
+      },
+      {
+        "name": "CIMA Global Value SICAV",
+        "weight": 7.97,
+        "sector": null
+      },
+      {
+        "name": "Kersio Lux - Kersio Equity A...",
+        "weight": 6.71,
+        "sector": null
+      },
+      {
+        "name": "Isatis Investment Classic Blue...",
+        "weight": 6.18,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 92.09
+    },
+    "costs": {
+      "management_fee": 1.35
+    },
+    "objective": "El fondo invertirá entre 70%-100% en otras IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la Gestora. Aplicará estrategias de \"inversión en valor\", seleccionando activos infravalorados por el mercado o IIC cuyo criterio de selección de compañías se base en la búsqueda de activos infravalorados por el mercado con alto potencial de revalorización. Se invierte indirectamente (no invierte directamente en renta variable), a través de IIC, entre 75%-100%..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": "industrials",
+    "top_sector_weight": 20.04,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 69.06,
+        "bond": 3.16,
+        "cash": 1.03,
+        "other": 26.75
+      },
+      "equity_sectors_total": {
+        "technology": 10.7181,
+        "financial_services": 8.2596,
+        "industrials": 13.8396,
+        "healthcare": 5.3521,
+        "consumer_cyclical": 11.1325,
+        "consumer_defensive": 5.4143,
+        "utilities": 1.0635,
+        "energy": 3.8052,
+        "communication_services": 6.0151,
+        "real_estate": 0.6146,
+        "basic_materials": 2.8522
+      },
+      "equity_regions_total": {
+        "united_states": 21.7125,
+        "canada": 2.2583,
+        "latin_america": 0.4972,
+        "united_kingdom": 7.1339,
+        "eurozone": 23.0799,
+        "europe_ex_euro": 3.8743,
+        "europe_emerging": 0.2072,
+        "middle_east": 0.7113,
+        "japan": 2.2859,
+        "australasia": 0.0414,
+        "other": 3.4461,
+        "asia_emerging": 3.8121
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 69.06,
+        "size_bucket": "small",
+        "style": null,
+        "size_weights_total": {
+          "small": 24.5829,
+          "mid": 23.0154,
+          "large": 21.4617
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "Global Small-Cap Equity",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.6906,
+      "bond": 0.0316,
+      "cash": 0.0103,
+      "other": 0.2675
+    },
+    "equity_regions": {
+      "united_states": 0.070294,
+      "canada": 0.007311,
+      "latin_america": 0.160968,
+      "united_kingdom": 0.023096,
+      "eurozone": 0.074721,
+      "europe_ex_euro": 0.012543,
+      "europe_emerging": 0.067081,
+      "middle_east": 0.230283,
+      "japan": 0.007401,
+      "australasia": 0.013403,
+      "other": 0.011157,
+      "asia_emerging": 0.012342
+    },
+    "sectors": {
+      "technology": 0.056976,
+      "financial_services": 0.043907,
+      "industrials": 0.07357,
+      "healthcare": 0.028451,
+      "consumer_cyclical": 0.059179,
+      "consumer_defensive": 0.028782,
+      "utilities": 0.005653,
+      "energy": 0.020228,
+      "communication_services": 0.031976,
+      "real_estate": 0.326715,
+      "basic_materials": 0.015162
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.245829,
+      "mid": 0.230154,
+      "large": 0.214617
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=69.06"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "f1a364ab69c3d0128d1400c5674dc32c",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.6906,
+          "bond": 0.0316,
+          "cash": 0.0103,
+          "other": 0.2675,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.6906
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.690599
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.6906
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:12:49.244Z"
+}

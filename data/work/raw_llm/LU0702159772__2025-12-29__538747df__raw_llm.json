@@ -1,0 +1,144 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:44:23.844Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0702159772",
+    "name": "Fidelity Funds - Asian Smaller Companies Fund A-Acc-EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-29",
+    "category_morningstar": "Asia ex-Japan Small/Mid-Cap Equity",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 97.74,
+      "bond": 0.42,
+      "cash": 1.21,
+      "other": 0.63
+    },
+    "regions_macro": {
+      "americas": 6.09,
+      "europe_me_africa": 0.9,
+      "asia": 93.01
+    },
+    "regions_detail": {
+      "América": 6.09,
+      "Estados Unidos": 4.35,
+      "Canadá": 0.68,
+      "Iberoamérica": 1.06,
+      "Europa/O. Medio/Africa": 0.9,
+      "Reino Unido": 0.53,
+      "Zona Euro": 0.13,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0.25,
+      "Asia": 93.01,
+      "Japón": 0,
+      "Australasia": 3.8,
+      "Asia - Desarrollada": 25.95,
+      "Asia - Emergente": 63.26
+    },
+    "sectors": {
+      "technology": 10.96,
+      "financial_services": 19.04,
+      "industrials": 10.55,
+      "healthcare": 5.07,
+      "consumer_cyclical": 20.36,
+      "consumer_defensive": 9.98,
+      "utilities": 1.48,
+      "energy": 3.35,
+      "communication_services": 1.44,
+      "real_estate": 9.21,
+      "basic_materials": 8.56
+    },
+    "equity_market_cap": {
+      "giant": 14.14,
+      "large": 23.16,
+      "mid": 33.84,
+      "small": 16.92,
+      "micro": 11.94
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+        "weight": 3.41,
+        "sector": "technology"
+      },
+      {
+        "name": "Axis Bank Ltd",
+        "weight": 3.05,
+        "sector": "financial_services"
+      },
+      {
+        "name": "The Federal Bank Ltd",
+        "weight": 2.91,
+        "sector": "financial_services"
+      },
+      {
+        "name": "PT Bank Negara Indonesia (Persero) Tbk",
+        "weight": 2.79,
+        "sector": "financial_services"
+      },
+      {
+        "name": "BOC Aviation Ltd Shs Unitary",
+        "weight": 2.63,
+        "sector": "industrials"
+      },
+      {
+        "name": "PT Bank Central Asia Tbk",
+        "weight": 2.08,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Samsonite Group SA",
+        "weight": 1.93,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "PT Indofood CBP Sukses Makmur Tbk",
+        "weight": 1.9,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "PT Ciputra Development Tbk",
+        "weight": 1.76,
+        "sector": "real_estate"
+      },
+      {
+        "name": "Fidelity ILF - USD A Acc",
+        "weight": 1.64,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 140,
+      "holdings_count_bond": 0,
+      "top10_weight": 24.1
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Tiene como objetivo proporcionar un crecimiento del capital a largo plazo con un nivel de ingresos que previsiblemente será bajo. Como mínimo un 70% se invierte en una cartera diversificada de pequeñas empresas cuya sede se encuentre en el Pacífico asiático (excepto Japón), o que lleven a cabo una parte fundamental de su actividad en dicha región. Por lo general, se considera que las pequeñas empresas son aquellas con una capitalización de mercado inferior a 2.500 millones de USD en cuanto a capitalización bursátil..."
+  }
+}

@@ -1,0 +1,154 @@
+{
+  "isin": "LU0248184466",
+  "fileName": "morningstarreport20251211062743.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:42.899Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Asia (ex-Japón)",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.14,
+        "bond": 0,
+        "cash": 0.86,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 31.29,
+      "financial_services": 20.85,
+      "industrials": 10.41,
+      "healthcare": 4.75,
+      "consumer_cyclical": 17.03,
+      "consumer_defensive": 0.71,
+      "utilities": 0.02,
+      "energy": 0.79,
+      "communication_services": 10.07,
+      "real_estate": 3.28,
+      "basic_materials": 0.8
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.01,
+        "europe_me_africa": 1.99,
+        "asia": 97
+      },
+      "detail": {
+        "other": 48.76,
+        "united_states": 1.01,
+        "united_kingdom": 1.99,
+        "asia": 97,
+        "asia_emerging": 51.25
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 68.14,
+        "large": 28.22,
+        "mid": 2.53,
+        "small": 1.11,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 9.61,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 8.52,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Samsung Electronics Co Ltd",
+        "weight": 4.96,
+        "sector": "technology"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 4.4,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.51,
+        "sector": "financial_services"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.45,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Schroder ISF Indian Opports I...",
+        "weight": 3.17,
+        "sector": null
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 2.99,
+        "sector": "financial_services"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 2.86,
+        "sector": "technology"
+      },
+      {
+        "name": "Delta Electronics Inc",
+        "weight": 2.72,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 66,
+      "holdings_count_bond": 0,
+      "top10_weight": 46.19
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Fondo es proporcionar revalorización del capital mediante la inversión en valores de renta variable de sociedades asiáticas (a excepción de Japón)."
+  }
+}

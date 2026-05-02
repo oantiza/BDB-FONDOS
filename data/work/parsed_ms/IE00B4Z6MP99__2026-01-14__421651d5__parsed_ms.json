@@ -1,0 +1,121 @@
+{
+  "isin": "IE00B4Z6MP99",
+  "fileName": "morningstarreport20260114091230.pdf",
+  "report_date": "2026-01-14",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:48:50.146Z",
+  "ms": {
+    "report_date": "2026-01-14",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 43.75,
+        "bond": 34.12,
+        "cash": 1.35,
+        "other": 20.78
+      }
+    },
+    "sectors": {
+      "technology": 15.48,
+      "financial_services": 18.35,
+      "industrials": 14.25,
+      "healthcare": 11.38,
+      "consumer_cyclical": 11.65,
+      "consumer_defensive": 4.93,
+      "utilities": 2.99,
+      "energy": 1.22,
+      "communication_services": 14.8,
+      "real_estate": 2.01,
+      "basic_materials": 2.94
+    },
+    "regions": {
+      "macro": {
+        "americas": 57.65,
+        "europe_me_africa": 29.88,
+        "asia": 12.47
+      },
+      "detail": {
+        "united_states": 56.4,
+        "latin_america": 1.25,
+        "united_kingdom": 14.2,
+        "eurozone": 13.83,
+        "europe_ex_euro": 1.83,
+        "europe_emerging": 0.02,
+        "japan": 0.02,
+        "other": 6.33,
+        "asia_emerging": 6.12
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "10 Year Treasury Note Future...",
+        "weight": 9.51,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 3.84,
+        "sector": null
+      },
+      {
+        "name": "iShares Physical Gold ETC",
+        "weight": 3.67,
+        "sector": null
+      },
+      {
+        "name": "BNY Adaptive Risk Overlay Fund...",
+        "weight": 3.48,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.34,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great...",
+        "weight": 3.28,
+        "sector": null
+      },
+      {
+        "name": "Invesco Physical Gold ETC",
+        "weight": 2.83,
+        "sector": null
+      },
+      {
+        "name": "Amundi Physical Gold ETC C",
+        "weight": 2.59,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 2.35,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 2.21,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 57,
+      "top10_weight": 37.11
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El objetivo del fondo consiste en lograr un retorno total de más de un punto de referencia de caja durante un horizonte de inversión de 3-5 años."
+  }
+}

@@ -1,0 +1,293 @@
+{
+  "isin": "LU1670724373",
+  "name": "M&G (Lux) Optimal Income Fund EUR A Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072124.pdf",
+  "stableBaseName": "LU1670724373__2025-12-29__9cce51e6",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0.07,
+        "bond": 92.53,
+        "cash": 6.98,
+        "other": 0.42
+      }
+    },
+    "sectors": {
+      "industrials": 70.84,
+      "energy": 0.03,
+      "communication_services": 29.13
+    },
+    "regions": {
+      "macro": {
+        "americas": 29.13,
+        "europe_me_africa": 70.87
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 29.13,
+        "europe_ex_euro": 70.84,
+        "europe_emerging": 0.03
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 4.01,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 3.44,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.18,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.1,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.05,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 2.9,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)...",
+        "weight": 2.83,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 2.81,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 2.05,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 5,
+      "holdings_count_bond": 323,
+      "top10_weight": 32.6
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El objetivo del fondo es proporcionar una combinación de crecimiento de capital e ingresos basada en la exposición a flujos de ingresos óptimos en los mercados de inversión."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:industrials",
+      "sector:communication_services",
+      "sector:industrials",
+      "theme:income"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 70.84,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 0.07,
+        "bond": 92.53,
+        "cash": 6.98,
+        "other": 0.42
+      },
+      "equity_sectors_total": {
+        "industrials": 0.0496,
+        "energy": 0,
+        "communication_services": 0.0204
+      },
+      "equity_regions_total": {
+        "other": 0.07,
+        "united_states": 0.0204,
+        "europe_ex_euro": 0.0496,
+        "europe_emerging": 0
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 0.07,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Defensivos EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:industrials",
+      "sector:communication_services",
+      "sector:industrials",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+      "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.0007,
+      "bond": 0.9253,
+      "cash": 0.0698,
+      "other": 0.0042
+    },
+    "equity_regions": {
+      "other": 0.00035,
+      "united_states": 0.000102,
+      "europe_ex_euro": 0.000248
+    },
+    "sectors": {
+      "industrials": 0.000496,
+      "communication_services": 0.000204
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.53",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.07,max_component=92.53"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "a3d01cbffca4500e9ec4e246476fc86c",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.0007,
+          "bond": 0.9253,
+          "cash": 0.0698,
+          "other": 0.0042,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0007
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0007
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:45:01.639Z"
+}

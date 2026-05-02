@@ -1,0 +1,335 @@
+{
+  "isin": "LU0072462186",
+  "name": "BlackRock Global Funds - European Value Fund A2",
+  "currency": "EUR",
+  "fileName": "morningstarreport20250530070434.pdf",
+  "stableBaseName": "LU0072462186__2025-05-30__9e0441e4",
+  "report_date": "2025-05-30",
+  "ms": {
+    "report_date": "2025-05-30",
+    "category_morningstar": "RV Europa Cap. Grande Value",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-04-30",
+      "asset_allocation": {
+        "equity": 98.51,
+        "bond": 0.07,
+        "cash": 1.43,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 1.24,
+      "financial_services": 30.85,
+      "industrials": 31.03,
+      "healthcare": 11.72,
+      "consumer_cyclical": 8.15,
+      "consumer_defensive": 4.36,
+      "utilities": 6.25,
+      "energy": 2.67,
+      "communication_services": 0.86,
+      "real_estate": 1.32,
+      "basic_materials": 1.55
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.55,
+        "europe_me_africa": 98.45
+      },
+      "detail": {
+        "united_states": 1.55,
+        "united_kingdom": 31.83,
+        "eurozone": 53.75,
+        "europe_ex_euro": 12.87
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 38.51,
+        "large": 37.03,
+        "mid": 20.08,
+        "small": 4.38,
+        "micro": 0
+      },
+      "style": {
+        "value": 100,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Siemens AG",
+        "weight": 3.58,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Compagnie de Saint-Gobain SA",
+        "weight": 2.96,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 2.87,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "HSBC Holdings PLC",
+        "weight": 2.84,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Lloyds Banking Group PLC",
+        "weight": 2.72,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "TotalEnergies SE",
+        "weight": 2.63,
+        "sector": "Energy"
+      },
+      {
+        "name": "UniCredit SpA",
+        "weight": 2.45,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Thales",
+        "weight": 2.44,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Unilever PLC",
+        "weight": 2.38,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Enel SpA",
+        "weight": 2.35,
+        "sector": "Utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 27.2
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo tiene por objetivo maximizar la rentabilidad de su inversión a través de una combinación de crecimiento del capital y rendimientos de los activos del Fondo. El Fondo invierte al menos el 70% de su activo total en valores de renta variable (como acciones) de empresas domiciliadas o que desarrollen una parte predominante de su actividad económica en Europa. El Fondo pone especial énfasis en los valores de renta variable de aquellas empresas que están infravaloradas, en cuyo caso, en opinión del asesor de..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 31.03,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.51,
+        "bond": 0.07,
+        "cash": 1.43,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 1.2215,
+        "financial_services": 30.3903,
+        "industrials": 30.5677,
+        "healthcare": 11.5454,
+        "consumer_cyclical": 8.0286,
+        "consumer_defensive": 4.295,
+        "utilities": 6.1569,
+        "energy": 2.6302,
+        "communication_services": 0.8472,
+        "real_estate": 1.3003,
+        "basic_materials": 1.5269
+      },
+      "equity_regions_total": {
+        "united_states": 1.5269,
+        "united_kingdom": 31.3557,
+        "eurozone": 52.9491,
+        "europe_ex_euro": 12.6782
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Value",
+        "weight_total": 98.51,
+        "size_bucket": "large",
+        "style": "value",
+        "size_weights_total": {
+          "small": 4.3147,
+          "mid": 19.7808,
+          "large": 74.4145
+        },
+        "style_weights_total": {
+          "value": 98.51
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Europa Cap. Grande Value",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Large-Value",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials",
+      "sector:industrials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9851,
+      "bond": 0.0007,
+      "cash": 0.0143,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.015269,
+      "united_kingdom": 0.313557,
+      "eurozone": 0.529492,
+      "europe_ex_euro": 0.126782
+    },
+    "sectors": {
+      "technology": 0.006598,
+      "financial_services": 0.164146,
+      "industrials": 0.165105,
+      "healthcare": 0.06236,
+      "consumer_cyclical": 0.043365,
+      "consumer_defensive": 0.023198,
+      "utilities": 0.033255,
+      "energy": 0.014206,
+      "communication_services": 0.457596,
+      "real_estate": 0.007023,
+      "basic_materials": 0.008247
+    },
+    "equity_styles": {
+      "value": 0.9851
+    },
+    "market_caps": {
+      "small": 0.043147,
+      "mid": 0.197808,
+      "large": 0.744145
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.51",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.07,max_component=98.51"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "1a9e5278a862eca67d312888cfca1eb8",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9851,
+          "bond": 0.0007,
+          "cash": 0.0143,
+          "other": 0,
+          "sum": 1.0001
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9851
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.985099
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9851
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9851
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:02:15.360Z"
+}

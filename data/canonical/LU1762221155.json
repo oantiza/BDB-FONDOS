@@ -1,0 +1,339 @@
+{
+  "isin": "LU1762221155",
+  "name": "Invesco Funds - Invesco Global Founders & Owners Fund E Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013951.pdf",
+  "stableBaseName": "LU1762221155__2025-12-02__fb7ebe27",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-08-31",
+      "asset_allocation": {
+        "equity": 89,
+        "bond": 0.08,
+        "cash": 2.78,
+        "other": 8.14
+      }
+    },
+    "sectors": {
+      "technology": 28.07,
+      "financial_services": 7.18,
+      "industrials": 26.64,
+      "healthcare": 15.53,
+      "consumer_cyclical": 9.61,
+      "consumer_defensive": 2.57,
+      "energy": 2.2,
+      "communication_services": 7.52,
+      "basic_materials": 0.68
+    },
+    "regions": {
+      "macro": {
+        "americas": 67.53,
+        "europe_me_africa": 24.3,
+        "asia": 8.18
+      },
+      "detail": {
+        "united_states": 57.05,
+        "canada": 10.48,
+        "united_kingdom": 4.75,
+        "eurozone": 10.6,
+        "europe_ex_euro": 8.95,
+        "other": 1.81,
+        "asia_emerging": 6.36
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 40.29,
+        "large": 22.74,
+        "mid": 32.77,
+        "small": 4.21,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "3i Group Ord",
+        "weight": 8.14,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 6.47,
+        "sector": "technology"
+      },
+      {
+        "name": "Viking Holdings Ltd",
+        "weight": 6.21,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Lifco AB Class B",
+        "weight": 6.01,
+        "sector": "industrials"
+      },
+      {
+        "name": "Recordati SpA Az nom Post...",
+        "weight": 4.81,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Constellation Software Inc",
+        "weight": 4.7,
+        "sector": "technology"
+      },
+      {
+        "name": "Canadian Pacific Kansas City Ltd",
+        "weight": 4.62,
+        "sector": "industrials"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 4.51,
+        "sector": "technology"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 4.21,
+        "sector": "communication_services"
+      },
+      {
+        "name": "QXO Inc",
+        "weight": 3.95,
+        "sector": "industrials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 33,
+      "holdings_count_bond": 0,
+      "top10_weight": 53.63
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "The objective of the Fund is to achieve long-term capital growth. The Fund intends to achieve its objective by investing primarily in a concentrated portfolio of global equities issued by companies whose management or board contains (i) company founders and/or (ii) individuals with material share ownership. Up to 10% of the NAV of the Fund may be exposed to China A shares listed on the Shanghai or Shenzhen Stock Exchanges, via Stock Connect. Up to 30% of the NAV of the Fund may be invested in aggregate in Money Market..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:industrials",
+      "sector:technology",
+      "theme:china"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 28.07,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 89,
+        "bond": 0.08,
+        "cash": 2.78,
+        "other": 8.14
+      },
+      "equity_sectors_total": {
+        "technology": 24.9823,
+        "financial_services": 6.3902,
+        "industrials": 23.7096,
+        "healthcare": 13.8217,
+        "consumer_cyclical": 8.5529,
+        "consumer_defensive": 2.2873,
+        "energy": 1.958,
+        "communication_services": 6.6928,
+        "basic_materials": 0.6052
+      },
+      "equity_regions_total": {
+        "united_states": 50.7745,
+        "canada": 9.3272,
+        "united_kingdom": 4.2275,
+        "eurozone": 9.434,
+        "europe_ex_euro": 7.9655,
+        "other": 1.6109,
+        "asia_emerging": 5.6604
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 89,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "small": 3.7465,
+          "mid": 29.1624,
+          "large": 56.0911
+        },
+        "style_weights_total": {
+          "growth": 89
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Global Cap. Grande Growth",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:industrials",
+      "sector:technology",
+      "theme:china"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.89,
+      "bond": 0.0008,
+      "cash": 0.0278,
+      "other": 0.0814
+    },
+    "equity_regions": {
+      "united_states": 0.507745,
+      "canada": 0.093272,
+      "united_kingdom": 0.042275,
+      "eurozone": 0.09434,
+      "europe_ex_euro": 0.079655,
+      "other": 0.016109,
+      "asia_emerging": 0.056604
+    },
+    "sectors": {
+      "technology": 0.149309,
+      "financial_services": 0.038191,
+      "industrials": 0.141702,
+      "healthcare": 0.082606,
+      "consumer_cyclical": 0.051117,
+      "consumer_defensive": 0.01367,
+      "energy": 0.011702,
+      "communication_services": 0.04,
+      "basic_materials": 0.361702
+    },
+    "equity_styles": {
+      "growth": 0.89
+    },
+    "market_caps": {
+      "small": 0.037465,
+      "mid": 0.291624,
+      "large": 0.560911
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=89",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.08,max_component=89"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "8bfbf782c798242b7b727e49a59ad1ca",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.89,
+          "bond": 0.0008,
+          "cash": 0.0278,
+          "other": 0.0814,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.89
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.889999
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.89
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.89
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:12:49.140Z"
+}

@@ -1,0 +1,313 @@
+{
+  "isin": "IE00B4ZJ4188",
+  "name": "Comgest Growth Europe Opportunities EUR Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260220050500.pdf",
+  "stableBaseName": "IE00B4ZJ4188__2026-02-20__6349c01d",
+  "report_date": "2026-02-20",
+  "ms": {
+    "report_date": "2026-02-20",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 96.05,
+        "bond": 0,
+        "cash": 0.54,
+        "other": 3.41
+      }
+    },
+    "sectors": {
+      "technology": 32.34,
+      "financial_services": 5.69,
+      "industrials": 18.51,
+      "healthcare": 26.87,
+      "consumer_cyclical": 2.81,
+      "consumer_defensive": 2.12,
+      "communication_services": 7.31,
+      "basic_materials": 4.37
+    },
+    "regions": {
+      "macro": {
+        "americas": 7.36,
+        "europe_me_africa": 92.64
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 23.93,
+        "large": 42.07,
+        "mid": 25.31,
+        "small": 8.68,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "London Stock Exchange Group PLC",
+        "weight": 5.46,
+        "sector": "financial_services"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 5.38,
+        "sector": "technology"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 5.26,
+        "sector": "technology"
+      },
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 5.16,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 4.95,
+        "sector": "industrials"
+      },
+      {
+        "name": "Lonza Group Ltd",
+        "weight": 4.85,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Kingspan Group PLC",
+        "weight": 4.83,
+        "sector": "industrials"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 4.81,
+        "sector": "technology"
+      },
+      {
+        "name": "Alcon Inc",
+        "weight": 4.8,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Adyen NV",
+        "weight": 4.76,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 30,
+      "holdings_count_bond": 0,
+      "top10_weight": 50.25
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The investment objective of the Fund is to create a professionally managed portfolio consisting primarily of what, in the opinion of the Investment Manager, are Opportunities which have their headquarters or carry out their predominant activities in Europe."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "EUROPE_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "sector:healthcare",
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 32.34,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 96.05,
+        "bond": 0,
+        "cash": 0.54,
+        "other": 3.41
+      },
+      "equity_sectors_total": {
+        "technology": 31.0626,
+        "financial_services": 5.4652,
+        "industrials": 17.7789,
+        "healthcare": 25.8086,
+        "consumer_cyclical": 2.699,
+        "consumer_defensive": 2.0363,
+        "communication_services": 7.0213,
+        "basic_materials": 4.1974
+      },
+      "equity_regions_total": {
+        "americas": 7.0693,
+        "europe_me_africa": 88.9807
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 96.05,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 8.338,
+          "mid": 24.3127,
+          "large": 63.3993
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "EUROPE_EQUITY",
+    "commercial_type": "RV Europa Cap. Mediana",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:healthcare",
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9605,
+      "bond": 0,
+      "cash": 0.0054,
+      "other": 0.0341
+    },
+    "equity_regions": {
+      "americas": 0.070693,
+      "europe_me_africa": 0.889807
+    },
+    "sectors": {
+      "technology": 0.310564,
+      "financial_services": 0.054641,
+      "industrials": 0.177753,
+      "healthcare": 0.258034,
+      "consumer_cyclical": 0.026985,
+      "consumer_defensive": 0.020359,
+      "communication_services": 0.070199,
+      "basic_materials": 0.041966
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.08338,
+      "mid": 0.243127,
+      "large": 0.633993
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=96.05",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.54,max_component=96.05"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "60dc39fe4f1fbd501cde02cb6c44e9d3",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9605,
+          "bond": 0,
+          "cash": 0.0054,
+          "other": 0.0341,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9605
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.960501
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9605
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:54:28.709Z"
+}

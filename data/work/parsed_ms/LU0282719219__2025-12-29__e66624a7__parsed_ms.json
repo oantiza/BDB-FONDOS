@@ -1,0 +1,124 @@
+{
+  "isin": "LU0282719219",
+  "fileName": "morningstarreport20251229072046.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:44:26.644Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Cap. Pequeña",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 97.84,
+        "bond": 0,
+        "cash": 2.16,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.24,
+      "financial_services": 24.6,
+      "industrials": 31.27,
+      "healthcare": 7.21,
+      "consumer_cyclical": 6.62,
+      "consumer_defensive": 3.06,
+      "utilities": 1.83,
+      "energy": 3.04,
+      "communication_services": 0.7,
+      "real_estate": 9.01,
+      "basic_materials": 7.43
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 34.55,
+        "eurozone": 50.31,
+        "europe_ex_euro": 14.45,
+        "europe_emerging": 0.7
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 66.08,
+        "small": 33.09,
+        "micro": 0.82
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Nexans",
+        "weight": 2.69,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Flatex AG",
+        "weight": 2.57,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "CTP NV Ordinary Shares",
+        "weight": 2.17,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "SPIE SA",
+        "weight": 2.17,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Elis SA",
+        "weight": 2.14,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Quilter PLC Ordinary Shares",
+        "weight": 2.02,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "DO & Co AG",
+        "weight": 2.01,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Safestore Holdings PLC...",
+        "weight": 2,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 1.91,
+        "sector": "Industrials"
+      },
+      {
+        "name": "LondonMetric Property PLC",
+        "weight": 1.88,
+        "sector": "Real Estate"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 89,
+      "holdings_count_bond": 0,
+      "top10_weight": 21.57
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El European Small Cap Equities Portfolio se invertirá principalmente en una cartera diversificada internacionalmente de valores emitidas por sociedades que tengan su domicilio social o el ejercicio de una parte preponderante de sus actividades en diversos países de toda Europa. Las Inversiones en general se harán en los principales mercados europeos, salvo que la cartera puede invertir hasta un 15% de sus activos en el momento de la compra en valores de empresas en los mercados emergentes en Europa. El Portafolio..."
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "isin": "ES0162295002",
+  "fileName": "morningstarreport20251204093136.pdf",
+  "report_date": "2025-12-04",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:38:56.875Z",
+  "ms": {
+    "report_date": "2025-12-04",
+    "category_morningstar": "Fixed Term Bond",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 98,
+        "cash": 0,
+        "other": 2
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 99.95,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0.05,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 63.41,
+        "4_6": 22.74,
+        "over_6": 13.86
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Unicaja Banco, S.A.U. 7.25%2027-11-15",
+        "weight": 4.21,
+        "sector": null
+      },
+      {
+        "name": "Banco Comercial Portugues, S.A....",
+        "weight": 3.51,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 2.2%2027-07-22",
+        "weight": 3.25,
+        "sector": null
+      },
+      {
+        "name": "MOL Hungarian Oil & Gas PLC 1.5%2027-10-08",
+        "weight": 3.15,
+        "sector": null
+      },
+      {
+        "name": "Ceska Sporitelna AS 5.94%2027-06-29",
+        "weight": 3.08,
+        "sector": null
+      },
+      {
+        "name": "Deutsche Lufthansa AG 2.88%2027-05-16",
+        "weight": 3.01,
+        "sector": null
+      },
+      {
+        "name": "Landsbankinn hf. 6.38%2027-03-12",
+        "weight": 2.95,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 5.85%2027-11-15",
+        "weight": 2.93,
+        "sector": null
+      },
+      {
+        "name": "ABANCA Corporacion Bancaria S.A....",
+        "weight": 2.91,
+        "sector": null
+      },
+      {
+        "name": "Hungary (Republic Of) 5%2027-02-22",
+        "weight": 2.88,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 51,
+      "top10_weight": 31.87
+    },
+    "costs": {
+      "management_fee": 0.52
+    },
+    "objective": null
+  }
+}

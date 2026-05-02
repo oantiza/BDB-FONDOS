@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:03:17.047Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0813337002",
+    "name": "DWS Invest Latin American Equities NC",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Latinoamérica",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 94.41,
+      "bond": 0,
+      "cash": 5.59,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 100,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {
+      "Estados Unidos": 1.44,
+      "Canadá": 0,
+      "Iberoamérica": 98.56,
+      "Reino Unido": 0,
+      "Zona Euro": 0,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 0,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 1.12,
+      "financial_services": 28.97,
+      "industrials": 12.56,
+      "healthcare": 3.04,
+      "consumer_cyclical": 3.19,
+      "consumer_defensive": 2.96,
+      "utilities": 12.86,
+      "energy": 7.99,
+      "communication_services": 1.51,
+      "real_estate": 8.12,
+      "basic_materials": 17.66
+    },
+    "equity_market_cap": {
+      "giant": 42.61,
+      "large": 39.41,
+      "mid": 17.36,
+      "small": 0.11,
+      "micro": 0.51
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Grupo Mexico SAB de CV Class B",
+        "weight": 4.64,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Centrais Eletricas Brasileiras...",
+        "weight": 3.79,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Itau Unibanco Holding SA...",
+        "weight": 3.3,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Bank Bradesco SA ADR",
+        "weight": 3.27,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 3.18,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Fibra Uno Administracion SA de...",
+        "weight": 2.96,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Nu Holdings Ltd Ordinary...",
+        "weight": 2.93,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Companhia De Saneamento Basico...",
+        "weight": 2.91,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Localiza Rent A Car SA",
+        "weight": 2.76,
+        "sector": "Industria"
+      },
+      {
+        "name": "Itau Unibanco Holding SA ADR",
+        "weight": 2.46,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 71,
+      "holdings_count_bond": 0,
+      "top10_weight": 32.21
+    },
+    "costs": {
+      "management_fee": 2.2
+    },
+    "objective": "The objective of the investment policy for the fund is to achieve an above-average return. At least 70% of the sub-fund's assets are invested in equities, stock certificates, participation and dividend right certificates, convertible bonds and equity warrants issued by companies registered in a Latin-American country (or having their principal business activity in a Latin-American country or which, as holding companies, hold primarily interest in companies registered in a Latin-American country such as e.g. Argentina,..."
+  }
+}

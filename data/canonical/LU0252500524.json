@@ -1,0 +1,266 @@
+{
+  "isin": "LU0252500524",
+  "name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20230704082429.pdf",
+  "stableBaseName": "LU0252500524__2023-07-04__5a3e6fcc",
+  "report_date": "2023-07-04",
+  "ms": {
+    "report_date": "2023-07-04",
+    "category_morningstar": "EUR Money Market - Short Term",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2023-05-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 0,
+        "cash": 100,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0.06,
+      "effective_maturity": null,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 88.64,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 11.36
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "LA BANQUE POSTALE SOCIETE ANONYM",
+        "weight": 8.01,
+        "sector": null
+      },
+      {
+        "name": "ERSTE GROUP BANK AG",
+        "weight": 7.71,
+        "sector": null
+      },
+      {
+        "name": "LANDESBANK BADEN-WURTTEMBERG",
+        "weight": 6.47,
+        "sector": null
+      },
+      {
+        "name": "BRED BANQUE POPULAIRE",
+        "weight": 6.47,
+        "sector": null
+      },
+      {
+        "name": "KBC BANK NV/LONDON",
+        "weight": 6.16,
+        "sector": null
+      },
+      {
+        "name": "LMA SA",
+        "weight": 6.16,
+        "sector": null
+      },
+      {
+        "name": "COOPERATIEVE RABOBANK U.A.",
+        "weight": 5.86,
+        "sector": null
+      },
+      {
+        "name": "Nestle Finance International Limited",
+        "weight": 3.08,
+        "sector": null
+      },
+      {
+        "name": "Bank of Montreal, London Branch",
+        "weight": 1.55,
+        "sector": null
+      },
+      {
+        "name": "Nordea Bank Abp London Branch",
+        "weight": 1.55,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 53.03
+    },
+    "costs": {
+      "management_fee": 0.4
+    },
+    "objective": "Proporcionar un nivel de rendimiento competitivo en la moneda de referencia y un alto grado de liquidez invirtiendo principalmente en bonos y otros valores de deuda a corto plazo denominados en euros."
+  },
+  "derived": {
+    "asset_class": "Monetario",
+    "asset_subtype": "UNKNOWN",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.8500000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "money_market",
+    "asset_subtype": "MONEY_MARKET",
+    "commercial_type": "EUR Money Market - Short Term",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "flexible",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.8500000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "money_market_subtype_defaulted",
+      "fi_type_inference_weak",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0,
+      "cash": 1,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.8500000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "3684dd2acd347bb35e90ed1ab56e02d3",
+    "warnings": [
+      "fi_type_inference_weak",
+      "missing_rating_stars",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0,
+          "cash": 1,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:01:44.823Z"
+}

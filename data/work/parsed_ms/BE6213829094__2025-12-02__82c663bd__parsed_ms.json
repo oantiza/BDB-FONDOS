@@ -1,0 +1,140 @@
+{
+  "isin": "BE6213829094",
+  "fileName": "morningstarreport20251202125641.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:30:55.247Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Inmobiliario - Indirecto Europa",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 94.46,
+        "bond": 0,
+        "cash": 0.23,
+        "other": 5.31
+      }
+    },
+    "sectors": {
+      "real_estate": 100
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 19.41,
+        "eurozone": 75.66,
+        "europe_ex_euro": 4.94
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 5.75,
+        "mid": 59.7,
+        "small": 30.52,
+        "micro": 4.03
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Unibail-Rodamco-Westfield Act....",
+        "weight": 7.77,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Vonovia SE",
+        "weight": 5.43,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Merlin Properties SOCIMI SA",
+        "weight": 4.12,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Warehouses De Pauw SA",
+        "weight": 4.03,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "TAG Immobilien AG",
+        "weight": 4.02,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "CTP NV Ordinary Shares",
+        "weight": 3.95,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Gecina Nom",
+        "weight": 3.48,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Retail Estates SA",
+        "weight": 3.44,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "British Land Co PLC",
+        "weight": 3.39,
+        "sector": "Inmobiliario"
+      },
+      {
+        "name": "Covivio SA",
+        "weight": 3.34,
+        "sector": "Inmobiliario"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 39,
+      "holdings_count_bond": 0,
+      "top10_weight": 42.97
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo del fondo consiste en ofrecerle, mediante una gestión activa de la cartera, una exposición en los títulos representativos del sector inmobiliario europeo que generan un rendimiento más alto que la media del mercado. El fondo invierte principalmente en títulos representativos del sector inmobiliario en sentido amplio (como los certificados inmobiliarios y los títulos de capital de sociedades de inversión inmobiliaria de capital fijo (SICAFI), de sociedades de inversión en títulos de deuda inmobiliaria (SIC)..."
+  }
+}

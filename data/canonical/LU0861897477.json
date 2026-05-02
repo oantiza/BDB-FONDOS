@@ -1,0 +1,315 @@
+{
+  "isin": "LU0861897477",
+  "name": "Abante Global Funds Spanish Opportunities Class B",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260217045802.pdf",
+  "stableBaseName": "LU0861897477__2026-02-17__0d50f14b",
+  "report_date": "2026-02-17",
+  "ms": {
+    "report_date": "2026-02-17",
+    "category_morningstar": "RV España",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.77,
+      "financial_services": 34.05,
+      "industrials": 12.41,
+      "consumer_cyclical": 13.89,
+      "utilities": 10.14,
+      "real_estate": 16.37,
+      "basic_materials": 7.36
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "other": 100,
+        "united_kingdom": 11.52,
+        "eurozone": 88.48
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 18.21,
+        "large": 6.89,
+        "mid": 41.58,
+        "small": 29.95,
+        "micro": 3.37
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Banco Bilbao Vizcaya",
+        "weight": 7.56,
+        "sector": "financial_services"
+      },
+      {
+        "name": "CaixaBank SA",
+        "weight": 6.36,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Solaria Energia y Medioambiente SA",
+        "weight": 6.34,
+        "sector": "utilities"
+      },
+      {
+        "name": "Indra Sistemas SA SHS Class -A-",
+        "weight": 5.77,
+        "sector": "technology"
+      },
+      {
+        "name": "Neinor Homes SA",
+        "weight": 5.33,
+        "sector": "real_estate"
+      },
+      {
+        "name": "Allfunds Group PLC",
+        "weight": 4.6,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Grenergy Renovables SA",
+        "weight": 4.52,
+        "sector": "industrials"
+      },
+      {
+        "name": "Unicaja Banco SA",
+        "weight": 4.31,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Banco Santander SA",
+        "weight": 4.29,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Bankinter SA",
+        "weight": 4.04,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 23,
+      "holdings_count_bond": 0,
+      "top10_weight": 53.12
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "Abante Global Funds - Spanish Opportunities es un fondo long-only que invertirá entre un 75% y un 100% en compañías principalmente domiciliadas en España y que cotizan en un mercado regulado. Se centrará en acciones de compañías infravaloradas por el mercado sin preferencia sectorial. El resto de los activos podrán ser renta fija (con preferencia del sector público y a corto plazo), efectivo, depósitos o instrumentos del mercado monetario."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 34.05,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 5.77,
+        "financial_services": 34.05,
+        "industrials": 12.41,
+        "consumer_cyclical": 13.89,
+        "utilities": 10.14,
+        "real_estate": 16.37,
+        "basic_materials": 7.36
+      },
+      "equity_regions_total": {
+        "other": 100,
+        "united_kingdom": 11.52,
+        "eurozone": 88.48
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 100,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 33.32,
+          "mid": 41.58,
+          "large": 25.1
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV España",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 1,
+      "bond": 0,
+      "cash": 0,
+      "other": 0
+    },
+    "equity_regions": {
+      "other": 0.5,
+      "united_kingdom": 0.0576,
+      "eurozone": 0.4424
+    },
+    "sectors": {
+      "technology": 0.057706,
+      "financial_services": 0.340534,
+      "industrials": 0.124112,
+      "consumer_cyclical": 0.138914,
+      "utilities": 0.10141,
+      "real_estate": 0.163716,
+      "basic_materials": 0.073607
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.3332,
+      "mid": 0.4158,
+      "large": 0.251
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "3145904541b119761fda0fc0335d2084",
+    "warnings": [
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 1,
+          "bond": 0,
+          "cash": 0,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.999999
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:52:52.598Z"
+}

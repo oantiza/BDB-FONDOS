@@ -1,0 +1,116 @@
+{
+  "isin": "LU1120766388",
+  "fileName": "morningstarreport20251211055341.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:41:42.462Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Sector Biotecnología",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 97.64,
+        "bond": 0,
+        "cash": 2.36,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "healthcare": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 85.82,
+        "europe_me_africa": 14.18
+      },
+      "detail": {
+        "united_states": 84.72,
+        "canada": 1.1,
+        "united_kingdom": 4.92,
+        "eurozone": 4.72,
+        "europe_ex_euro": 4.55
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 1.5,
+        "large": 15.86,
+        "mid": 35.82,
+        "small": 29.11,
+        "micro": 17.7
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Alnylam Pharmaceuticals Inc",
+        "weight": 5.34,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Vertex Pharmaceuticals Inc",
+        "weight": 4.41,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Insmed Inc",
+        "weight": 4.3,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Gilead Sciences Inc",
+        "weight": 4.09,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Amgen Inc",
+        "weight": 3.73,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Regeneron Pharmaceuticals Inc",
+        "weight": 3.58,
+        "sector": "healthcare"
+      },
+      {
+        "name": "United Therapeutics Corp",
+        "weight": 2.77,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Ionis Pharmaceuticals Inc",
+        "weight": 2.48,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Roivant Sciences Ltd Ordinary...",
+        "weight": 2.4,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Neurocrine Biosciences Inc",
+        "weight": 2.22,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 70,
+      "holdings_count_bond": 0,
+      "top10_weight": 35.31
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El compartimento invierte en empresas de biotecnología y actividades relacionadas (por ejemplo, diagnóstico molecular y equipamiento científico) de todo el mundo. No obstante, puesto que el sector biotecnológico estadounidense está a la vanguardia de la innovación, la mayor parte de los activos se invierten en Estados Unidos. El fondo no se gestiona tomando como referencia ningún índice específico."
+  }
+}

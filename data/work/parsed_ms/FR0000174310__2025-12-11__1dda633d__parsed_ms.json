@@ -1,0 +1,136 @@
+{
+  "isin": "FR0000174310",
+  "fileName": "morningstarreport20251211062426.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:39.894Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Zona Euro Cap. Pequeña",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 97.41,
+        "bond": 0,
+        "cash": 2.73,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 14.54,
+      "industrials": 59.07,
+      "healthcare": 3.59,
+      "consumer_cyclical": 14.89,
+      "consumer_defensive": 0.95,
+      "basic_materials": 6.96
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 16.97,
+        "small": 60.3,
+        "micro": 22.73
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "KSB SE & Co KGaA Participating...",
+        "weight": 5.04,
+        "sector": null
+      },
+      {
+        "name": "De'Longhi SpA",
+        "weight": 4.52,
+        "sector": null
+      },
+      {
+        "name": "Alzchem Group AG Akt. nach...",
+        "weight": 3.52,
+        "sector": null
+      },
+      {
+        "name": "Virbac SA",
+        "weight": 3.5,
+        "sector": null
+      },
+      {
+        "name": "Alten",
+        "weight": 3.41,
+        "sector": null
+      },
+      {
+        "name": "Vossloh AG",
+        "weight": 3.33,
+        "sector": null
+      },
+      {
+        "name": "WashTec AG",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "Sopra Steria Group SA",
+        "weight": 3.32,
+        "sector": null
+      },
+      {
+        "name": "FILA-Fabbrica Italiana Lapis...",
+        "weight": 3.18,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 42,
+      "holdings_count_bond": 0,
+      "top10_weight": 37.69
+    },
+    "costs": {
+      "management_fee": 1.83
+    },
+    "objective": "El objetivo de la Sicav pretende alcanzar, en un plazo de inversión mínimo recomendado de 5 años, una rentabilidad superior a la de las pequeñas y medianas capitalizaciones de la zona euro, representada por el índice HSBC Smaller Eurloland con dividendo neto reinvertido. Política de inversión: Invertir en las pequeñas y medianas empresas de la zona euro que consiguen la mayor rentabilidad económica a largo plazo, dando preferencia a los títulos cuya cotización en bolsa infravalora dicha..."
+  }
+}

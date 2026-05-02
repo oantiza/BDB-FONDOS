@@ -1,0 +1,132 @@
+{
+  "isin": "LU0210536198",
+  "fileName": "morningstarreport20260125091616.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:50:37.717Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "RV USA Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 98.72,
+        "bond": 0,
+        "cash": 1.28,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 48.9,
+      "financial_services": 8.75,
+      "industrials": 5.6,
+      "healthcare": 9.96,
+      "consumer_cyclical": 12.84,
+      "consumer_defensive": 2.27,
+      "utilities": 0.29,
+      "energy": 0.06,
+      "communication_services": 11.33
+    },
+    "regions": {
+      "macro": {
+        "americas": 97.4,
+        "asia": 2.6
+      },
+      "detail": {
+        "other": 99.03,
+        "united_states": 95.03,
+        "canada": 1.86,
+        "latin_america": 0.51,
+        "asia": 2.6,
+        "asia_emerging": 0.97
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 63.52,
+        "large": 25.9,
+        "mid": 10.27,
+        "small": 0.3,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 9.93,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 9.89,
+        "sector": "technology"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 7.94,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 6.08,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 6.04,
+        "sector": "technology"
+      },
+      {
+        "name": "Tesla Inc",
+        "weight": 4.08,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Mastercard Inc Class A",
+        "weight": 3.08,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 3.05,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 2.68,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 2.14,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 72,
+      "holdings_count_bond": 0,
+      "top10_weight": 54.91
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento del capital a largo plazo invirtiendo principalmente en una cartera de empresas estadounidenses orientadas al crecimiento."
+  }
+}

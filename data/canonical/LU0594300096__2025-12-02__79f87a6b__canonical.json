@@ -1,0 +1,334 @@
+{
+  "isin": "LU0594300096",
+  "name": "Fidelity Funds - China Consumer Fund A-Acc-EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202073021.pdf",
+  "stableBaseName": "LU0594300096__2025-12-02__79f87a6b",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV China",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 1.21,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 8.37,
+      "financial_services": 11.44,
+      "industrials": 3.49,
+      "healthcare": 4.2,
+      "consumer_cyclical": 45.07,
+      "consumer_defensive": 4.01,
+      "communication_services": 17.04,
+      "real_estate": 3.26,
+      "basic_materials": 3.12
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.4,
+        "europe_me_africa": 9.39,
+        "asia": 88.21
+      },
+      "detail": {
+        "united_states": 0.46,
+        "latin_america": 1.95,
+        "eurozone": 4.27,
+        "other": 5.12,
+        "developed_asia": 4.72,
+        "asia_emerging": 83.48
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 71.51,
+        "large": 26.41,
+        "mid": 2.08,
+        "small": 0,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 9.93,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Alibaba Group Holding Ltd...",
+        "weight": 9.72,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Naspers Ltd Class N",
+        "weight": 5.12,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Fidelity ILF - USD A Acc",
+        "weight": 5.09,
+        "sector": null
+      },
+      {
+        "name": "Trip.com Group Ltd",
+        "weight": 4.76,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "PDD Holdings Inc ADR",
+        "weight": 4.52,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "NetEase Inc Ordinary Shares",
+        "weight": 4.43,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 4.27,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Contemporary Amperex...",
+        "weight": 3.22,
+        "sector": "industrials"
+      },
+      {
+        "name": "Xiaomi Corp Class B",
+        "weight": 2.53,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 75,
+      "holdings_count_bond": 1,
+      "top10_weight": 53.6
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo tiene como objetivo lograr el crecimiento del capital a largo plazo invirtiendo principalmente en valores de renta variable de sociedades que tengan su domicilio social, o que ejerzan una parte preponderante de sus actividades, en China o Hong Kong. Estas empresas están implicadas en el desarrollo, la fabricación o venta de bienes o servicios a los consumidores en China."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical",
+      "theme:china"
+    ],
+    "top_sector": "consumer_cyclical",
+    "top_sector_weight": 45.07,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 1.21,
+        "cash": 0,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 8.37,
+        "financial_services": 11.44,
+        "industrials": 3.49,
+        "healthcare": 4.2,
+        "consumer_cyclical": 45.07,
+        "consumer_defensive": 4.01,
+        "communication_services": 17.04,
+        "real_estate": 3.26,
+        "basic_materials": 3.12
+      },
+      "equity_regions_total": {
+        "united_states": 0.46,
+        "latin_america": 1.95,
+        "eurozone": 4.27,
+        "other": 5.12,
+        "developed_asia": 4.72,
+        "asia_emerging": 83.48
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Growth",
+        "weight_total": 100,
+        "size_bucket": "large",
+        "style": "growth",
+        "size_weights_total": {
+          "mid": 2.08,
+          "large": 97.92
+        },
+        "style_weights_total": {
+          "growth": 100
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV China",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": "Large-Growth",
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector_concentrated:consumer_cyclical",
+      "sector:consumer_cyclical",
+      "theme:china"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.988045,
+      "bond": 0.011955,
+      "cash": 0,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.312286,
+      "latin_america": 0.013238,
+      "eurozone": 0.028988,
+      "other": 0.034759,
+      "developed_asia": 0.032043,
+      "asia_emerging": 0.566731
+    },
+    "sectors": {
+      "technology": 0.082699,
+      "financial_services": 0.113032,
+      "industrials": 0.034483,
+      "healthcare": 0.041498,
+      "consumer_cyclical": 0.445312,
+      "consumer_defensive": 0.039621,
+      "communication_services": 0.168363,
+      "real_estate": 0.03221,
+      "basic_materials": 0.030827
+    },
+    "equity_styles": {
+      "growth": 0.988045
+    },
+    "market_caps": {
+      "mid": 0.020551,
+      "large": 0.967494
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0121,sum_after=1"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "99307787d72042085cf3dbc3a2480da5",
+    "warnings": [
+      "unknown_region_key:africa_middle_east"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.988045,
+          "bond": 0.011955,
+          "cash": 0,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988045
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988045
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988045
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.988045
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:28:14.591Z"
+}

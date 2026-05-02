@@ -1,0 +1,119 @@
+{
+  "isin": "LU1111642820",
+  "fileName": "morningstarreport20251202013905.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:04:09.637Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 92.91,
+        "bond": 0,
+        "cash": 2.85,
+        "other": 4.24
+      }
+    },
+    "sectors": {
+      "technology": 9.73,
+      "financial_services": 25.62,
+      "industrials": 20.77,
+      "healthcare": 12.17,
+      "consumer_cyclical": 7.44,
+      "consumer_defensive": 5.02,
+      "utilities": 5.2,
+      "communication_services": 2.92,
+      "basic_materials": 11.13
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.12,
+        "europe_me_africa": 97.88
+      },
+      "detail": {
+        "united_states": 2.12,
+        "united_kingdom": 23.59,
+        "eurozone": 55.98,
+        "other": 18.31
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 46.03,
+        "large": 49.53,
+        "mid": 4.44,
+        "small": 0,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "AstraZeneca PLC",
+        "weight": 3.37,
+        "sector": "healthcare"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.06,
+        "sector": "technology"
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 2.98,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Schneider Electric SE",
+        "weight": 2.92,
+        "sector": "industrials"
+      },
+      {
+        "name": "Rolls-Royce Holdings PLC",
+        "weight": 2.71,
+        "sector": "industrials"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 2.45,
+        "sector": "utilities"
+      },
+      {
+        "name": "Nestle SA",
+        "weight": 2.38,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Iberdrola SA",
+        "weight": 2.38,
+        "sector": "utilities"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 2.34,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 2.29,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 51,
+      "holdings_count_bond": 0,
+      "top10_weight": 26.88
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El Subfondo trata de lograr rentabilidades ajustadas al riesgo a largo plazo superiores y crecimiento del capital mediante la inversión principalmente en acciones europeas y valores relacionados con la renta variable."
+  }
+}

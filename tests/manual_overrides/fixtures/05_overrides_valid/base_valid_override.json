@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0",
+  "override_id": "OVR-2026-9000",
+  "isin": "LU1234567890",
+  "status": "approved",
+  "author": "QA",
+  "approved_by": "QA",
+  "created_at": "2026-04-18T10:00:00Z",
+  "approved_at": "2026-04-18T10:05:00Z",
+  "reason": "Base valid override fixture",
+  "notes": "Fixture base",
+  "operations": [
+    {
+      "op": "set",
+      "path": "classification_v2.asset_subtype",
+      "value": "THEMATIC_EQUITY",
+      "reason": "Base operation"
+    }
+  ]
+}
+

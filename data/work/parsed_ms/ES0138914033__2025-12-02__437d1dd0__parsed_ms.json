@@ -1,0 +1,112 @@
+{
+  "isin": "ES0138914033",
+  "fileName": "morningstarreport20251202040403.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:13:18.814Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-08-31",
+      "asset_allocation": {
+        "equity": 24.54,
+        "bond": 68.98,
+        "cash": 0,
+        "other": 6.49
+      }
+    },
+    "sectors": {
+      "technology": 17.49,
+      "financial_services": 10.3,
+      "healthcare": 35.56,
+      "consumer_cyclical": 17.27,
+      "consumer_defensive": 15.05,
+      "communication_services": 4.34
+    },
+    "regions": {
+      "macro": {
+        "americas": 47.42,
+        "europe_me_africa": 32.36,
+        "asia": 20.22
+      },
+      "detail": {
+        "united_states": 47.42,
+        "eurozone": 14.93,
+        "europe_ex_euro": 17.43,
+        "other": 7.42,
+        "asia_emerging": 12.79
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 26.12,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 4.83,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 4.74,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 4.27,
+        "sector": null
+      },
+      {
+        "name": "Booking Holdings Inc...",
+        "weight": 4.12,
+        "sector": null
+      },
+      {
+        "name": "PVH Corp. 3.13%2027-12-15",
+        "weight": 3.93,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 0%2026-06-05",
+        "weight": 3.82,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 3.36,
+        "sector": null
+      },
+      {
+        "name": "Alibaba Group Holding Ltd ADR",
+        "weight": 3.14,
+        "sector": null
+      },
+      {
+        "name": "Corning Incorporated...",
+        "weight": 2.97,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 13,
+      "holdings_count_bond": 12,
+      "top10_weight": 61.31
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "La inversión en renta variable será inferior al 30% de la exposición total (aunque habitualmente estará por debajo del 25%), mayoritariamente en compañías de alta capitalización, de cualquier sector. El resto se invertirá en renta fija pública y/o privada (incluyendo hasta un 10% en depósitos), sin predeterminación en cuanto a la duración media de la cartera (podrá invertir en renta fija a cualquier plazo) y sin exigencia de calidad crediticia determinada, por lo que toda la cartera de renta fija puede ser de baja..."
+  }
+}

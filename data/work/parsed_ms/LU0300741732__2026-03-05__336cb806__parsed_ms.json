@@ -1,0 +1,130 @@
+{
+  "isin": "LU0300741732",
+  "fileName": "morningstarreport20260305083452.pdf",
+  "report_date": "2026-03-05",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:55:21.257Z",
+  "ms": {
+    "report_date": "2026-03-05",
+    "category_morningstar": "RV Sector Energía",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 96.41,
+        "bond": 0,
+        "cash": 1.95,
+        "other": 1.64
+      }
+    },
+    "sectors": {
+      "technology": 0.68,
+      "industrials": 2.74,
+      "consumer_cyclical": 1.53,
+      "consumer_defensive": 0.63,
+      "energy": 46.79,
+      "basic_materials": 47.62
+    },
+    "regions": {
+      "macro": {
+        "americas": 86.74,
+        "europe_me_africa": 8.26,
+        "asia": 5.01
+      },
+      "detail": {
+        "other": 95.45,
+        "united_states": 57.79,
+        "canada": 27.84,
+        "latin_america": 1.11,
+        "united_kingdom": 5.34,
+        "eurozone": 1.49,
+        "europe_ex_euro": 1.29,
+        "middle_east": 0.14,
+        "asia": 5.01,
+        "australasia": 4.56
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 17.41,
+        "large": 28.4,
+        "mid": 40.91,
+        "small": 7.06,
+        "micro": 6.22
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "Newmont Corp",
+        "weight": 4.42,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Exxon Mobil Corp",
+        "weight": 4.36,
+        "sector": "energy"
+      },
+      {
+        "name": "Barrick Mining Corp",
+        "weight": 3.58,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "ConocoPhillips",
+        "weight": 3.4,
+        "sector": "energy"
+      },
+      {
+        "name": "Chevron Corp",
+        "weight": 3.24,
+        "sector": "energy"
+      },
+      {
+        "name": "BHP Group Ltd ADR",
+        "weight": 2.8,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Coterra Energy Inc Ordinary...",
+        "weight": 2.52,
+        "sector": "energy"
+      },
+      {
+        "name": "Agnico Eagle Mines Ltd",
+        "weight": 2.51,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Freeport-McMoRan Inc",
+        "weight": 2.17,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Lundin Mining Corp",
+        "weight": 2.08,
+        "sector": "basic_materials"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 89,
+      "holdings_count_bond": 0,
+      "top10_weight": 31.08
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El Fondo invierte en renta variable y deuda (principalmente bonos convertibles) de todo el mundo. El equipo de gestión del Fondo pretende gestionar activamente la cartera mediante la inversión de al menos un 80% de sus activos netos en empresas relacionadas directa o indirectamente con el sector de los recursos naturales. Entre los sectores en los que se centra el fondo están los de: petróleo integrado, exploración y producción de gas y petróleo oro y otros metales preciosos, producción de mineral de hierro y acero,..."
+  }
+}

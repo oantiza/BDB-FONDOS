@@ -1,0 +1,156 @@
+{
+  "isin": "ES0116567035",
+  "fileName": "morningstarreport20251229072914.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:08.927Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-05-30",
+      "asset_allocation": {
+        "equity": 24.44,
+        "bond": 80.23,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 4.41,
+      "financial_services": 19.63,
+      "industrials": 14.15,
+      "healthcare": 2.72,
+      "consumer_cyclical": 9.62,
+      "consumer_defensive": 8.72,
+      "utilities": 7.26,
+      "energy": 6.06,
+      "communication_services": 9.86,
+      "real_estate": 6.89,
+      "basic_materials": 10.67
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.63,
+        "europe_me_africa": 92.99,
+        "asia": 4.38
+      },
+      "detail": {
+        "other": 97.96999999999998,
+        "united_states": 2.63,
+        "united_kingdom": 9.03,
+        "eurozone": 79.36,
+        "europe_ex_euro": 4.6,
+        "asia": 4.38,
+        "asia_emerging": 2.03
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Stoxx 50 Future June...",
+        "weight": 4.8,
+        "sector": null
+      },
+      {
+        "name": "Enel S.p.A. 0.06625%",
+        "weight": 1.96,
+        "sector": null
+      },
+      {
+        "name": "Autostrade per l'Italia S.p.A....",
+        "weight": 1.91,
+        "sector": null
+      },
+      {
+        "name": "UniCredit S.p.A. 0.065%",
+        "weight": 1.77,
+        "sector": null
+      },
+      {
+        "name": "Caixabank S.A. 0.0825%",
+        "weight": 1.76,
+        "sector": null
+      },
+      {
+        "name": "Caisse Nationale de...",
+        "weight": 1.75,
+        "sector": null
+      },
+      {
+        "name": "Scandinavian Tobacco Group A/s...",
+        "weight": 1.67,
+        "sector": null
+      },
+      {
+        "name": "British American Tobacco PLC...",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Unibail-Rodamco-Westfield SE...",
+        "weight": 1.63,
+        "sector": null
+      },
+      {
+        "name": "ABANCA Corporacion Bancaria...",
+        "weight": 1.62,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 38,
+      "holdings_count_bond": 75,
+      "top10_weight": 20.52
+    },
+    "costs": {
+      "management_fee": 0.65
+    },
+    "objective": "Se busca preservar el capital a medio/largo plazo invirtiendo en distintos activos: renta variable, renta fija y liquidez. La renta variable no superará el 40% de la exposición total, variando ampliamente según se aprecie el riesgo de mercado, invirtiendo en un número limitado de valores (30-40), predominando empresas europeas de capitalización media/alta y menormente, baja, en general con horizonte de inversión mayor a 3años La renta fija (pública/privada) podrá llegar al 100% de la exposición total, sin duración..."
+  }
+}

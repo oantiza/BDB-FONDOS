@@ -1,0 +1,113 @@
+{
+  "isin": "LU0564184074",
+  "fileName": "morningstarreport20251202050003.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:26:19.974Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 42.3,
+        "bond": 55.29,
+        "cash": 0.76,
+        "other": 1.65
+      }
+    },
+    "sectors": {
+      "technology": 33.59,
+      "financial_services": 14.3,
+      "industrials": 8.36,
+      "healthcare": 10.5,
+      "consumer_cyclical": 12.23,
+      "consumer_defensive": 3.22,
+      "utilities": 5.96,
+      "energy": 2.7,
+      "communication_services": 7.72,
+      "basic_materials": 1.41
+    },
+    "regions": {
+      "macro": {
+        "americas": 85.72,
+        "europe_me_africa": 14.28
+      },
+      "detail": {
+        "united_states": 85.72,
+        "eurozone": 11.86,
+        "europe_ex_euro": 2.41
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "France (Republic Of)...",
+        "weight": 4.88,
+        "sector": null
+      },
+      {
+        "name": "European Union 3.375% 2039-10-04",
+        "weight": 4.85,
+        "sector": null
+      },
+      {
+        "name": "European Union 3.75% 2045-10-12",
+        "weight": 3.67,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 3.17,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "JAB Holdings B.V....",
+        "weight": 2.57,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 2.56,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Electricite de France SA...",
+        "weight": 2.48,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 2.48,
+        "sector": null
+      },
+      {
+        "name": "Euuni 3.625 12/12/40...",
+        "weight": 2.47,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 2.46,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 37,
+      "holdings_count_bond": 56,
+      "top10_weight": 31.59
+    },
+    "costs": {
+      "management_fee": 1.9
+    },
+    "objective": "El Ethna-AKTIV, cuyo objetivo es asegurar el capital y conseguir valores a largo plazo, se dirige a inversores que estén interesados en mantener la estabilidad, el valor y la liquidez del capital del fondo y al mismo tiempo obtener un aumento razonable del valor. La Gestión de Cartera lo consigue gracias a un enfoque activo de la gestión que tiene en cuenta tanto la actual situación actual del mercado como su desarrollo en el futuro. En función de esto, la composición del Ethna-AKTIV se basa en una estrategia de..."
+  }
+}

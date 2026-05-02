@@ -1,0 +1,132 @@
+{
+  "isin": "LU1372006947",
+  "fileName": "morningstarreport20260111033600.pdf",
+  "report_date": "2026-01-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:47:50.837Z",
+  "ms": {
+    "report_date": "2026-01-11",
+    "category_morningstar": "Global Small-Cap Equity",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-06-29",
+      "asset_allocation": {
+        "equity": 96.93,
+        "bond": 1.21,
+        "cash": 1.85,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 2.61,
+      "financial_services": 0.95,
+      "industrials": 23.77,
+      "healthcare": 11.31,
+      "consumer_cyclical": 16.91,
+      "consumer_defensive": 2.87,
+      "energy": 26.43,
+      "communication_services": 1.1,
+      "real_estate": 1.43,
+      "basic_materials": 12.61
+    },
+    "regions": {
+      "macro": {
+        "americas": 14.04,
+        "europe_me_africa": 69.74,
+        "asia": 16.22
+      },
+      "detail": {
+        "other": 95.02,
+        "united_states": 9.45,
+        "canada": 1.91,
+        "latin_america": 2.69,
+        "united_kingdom": 8.3,
+        "eurozone": 42.05,
+        "europe_ex_euro": 12.24,
+        "middle_east": 7.15,
+        "asia": 16.22,
+        "japan": 1.82,
+        "asia_emerging": 3.16
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 3.84,
+        "large": 11.28,
+        "mid": 20.82,
+        "small": 48.38,
+        "micro": 15.68
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Atalaya Mining Copper SA",
+        "weight": 4.89,
+        "sector": null
+      },
+      {
+        "name": "Golar LNG Ltd",
+        "weight": 4.4,
+        "sector": null
+      },
+      {
+        "name": "Danieli & C. Officine...",
+        "weight": 3.72,
+        "sector": null
+      },
+      {
+        "name": "CK Hutchison Holdings Ltd",
+        "weight": 3.72,
+        "sector": null
+      },
+      {
+        "name": "Currys PLC",
+        "weight": 2.92,
+        "sector": null
+      },
+      {
+        "name": "BW Energy Ltd Ordinary Shares",
+        "weight": 2.57,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Industries...",
+        "weight": 2.52,
+        "sector": null
+      },
+      {
+        "name": "Tecnicas Reunidas SA",
+        "weight": 2.48,
+        "sector": null
+      },
+      {
+        "name": "BW Offshore Ltd",
+        "weight": 2.46,
+        "sector": null
+      },
+      {
+        "name": "Bayer AG",
+        "weight": 2.43,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 78,
+      "holdings_count_bond": 1,
+      "top10_weight": 32.12
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "The Sub-Fund seeks to provide principal preservation and long term capital appreciation by offering an exposure to Global Equities. There is however no guarantee that the Sub-Fund will achieve its investment objective. The Sub-Fund is actively managed. The benchmark index MSCI Europe Total Net Return is used for comparison purposes only. The Sub-Fund can deviate significantly from the benchmark index. The Sub-Fund normally invests in the common stocks of companies with, in the Investment Manager's opinion, a..."
+  }
+}

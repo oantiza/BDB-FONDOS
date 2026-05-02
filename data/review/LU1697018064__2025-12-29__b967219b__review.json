@@ -1,0 +1,389 @@
+{
+  "isin": "LU1697018064",
+  "name": "Sigma Investment House FCP - Best Morgan Stanley Class A EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072143.pdf",
+  "stableBaseName": "LU1697018064__2025-12-29__b967219b",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Flexibles EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 86.62,
+        "bond": 6.91,
+        "cash": 4.38,
+        "other": 2.09
+      }
+    },
+    "sectors": {
+      "technology": 27.87,
+      "financial_services": 19.58,
+      "industrials": 9.54,
+      "healthcare": 7.38,
+      "consumer_cyclical": 14.97,
+      "consumer_defensive": 4.77,
+      "utilities": 0.99,
+      "energy": 1.67,
+      "communication_services": 10.07,
+      "real_estate": 1.71,
+      "basic_materials": 1.46
+    },
+    "regions": {
+      "macro": {
+        "americas": 69.74,
+        "europe_me_africa": 15.9,
+        "asia": 14.36
+      },
+      "detail": {
+        "other": 89.23,
+        "united_states": 66.36,
+        "canada": 1.38,
+        "latin_america": 2,
+        "united_kingdom": 1.91,
+        "eurozone": 11.97,
+        "europe_ex_euro": 1.42,
+        "europe_emerging": 0.32,
+        "middle_east": 0.28,
+        "asia": 14.36,
+        "japan": 4.49,
+        "asia_emerging": 6.28
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Invesco S&P 500 ETF",
+        "weight": 19.61,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Global Opportunity Z",
+        "weight": 12.51,
+        "sector": null
+      },
+      {
+        "name": "UBS MSCI USA Value ETF USD dis",
+        "weight": 9.08,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Global Brands Z",
+        "weight": 9.08,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Global Bond ZH1 EUR",
+        "weight": 6,
+        "sector": null
+      },
+      {
+        "name": "MS INVF US Core Equity Z",
+        "weight": 5.97,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Global Quality Z",
+        "weight": 5.84,
+        "sector": null
+      },
+      {
+        "name": "MS INVF US Advantage Z",
+        "weight": 5,
+        "sector": null
+      },
+      {
+        "name": "MS INVF Sustainable Emerging...",
+        "weight": 3.96,
+        "sector": null
+      },
+      {
+        "name": "Amundi Euro Stoxx Banks ETF Acc",
+        "weight": 3.67,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 80.72
+    },
+    "costs": {
+      "management_fee": 0.2
+    },
+    "objective": "The investment objective of the Sub-Fund is to provide maximum long-term return through investing mainly in eligible investment funds managed by Morgan Stanley Investment Management with the following strategic asset allocation: a minimum of 85% in funds categorized as global equities."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "USA",
+    "subcategories": [
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 27.87,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 86.62,
+        "bond": 6.91,
+        "cash": 4.38,
+        "other": 2.09
+      },
+      "equity_sectors_total": {
+        "technology": 24.141,
+        "financial_services": 16.9602,
+        "industrials": 8.2635,
+        "healthcare": 6.3926,
+        "consumer_cyclical": 12.967,
+        "consumer_defensive": 4.1318,
+        "utilities": 0.8575,
+        "energy": 1.4466,
+        "communication_services": 8.7226,
+        "real_estate": 1.4812,
+        "basic_materials": 1.2647
+      },
+      "equity_regions_total": {
+        "other": 77.291,
+        "united_states": 57.481,
+        "canada": 1.1954,
+        "latin_america": 1.7324,
+        "united_kingdom": 1.6544,
+        "eurozone": 10.3684,
+        "europe_ex_euro": 1.23,
+        "europe_emerging": 0.2772,
+        "middle_east": 0.2425,
+        "asia": 12.4386,
+        "japan": 3.8892,
+        "asia_emerging": 5.4397
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 86.62,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Flexibles EUR",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.8662,
+      "bond": 0.0691,
+      "cash": 0.0438,
+      "other": 0.0209
+    },
+    "equity_regions": {
+      "other": 0.297964,
+      "united_states": 0.221594,
+      "canada": 0.004608,
+      "latin_america": 0.006679,
+      "united_kingdom": 0.006378,
+      "eurozone": 0.039971,
+      "europe_ex_euro": 0.004742,
+      "europe_emerging": 0.106863,
+      "middle_east": 0.093486,
+      "asia": 0.047952,
+      "japan": 0.014993,
+      "asia_emerging": 0.020971
+    },
+    "sectors": {
+      "technology": 0.121915,
+      "financial_services": 0.085651,
+      "industrials": 0.041732,
+      "healthcare": 0.032283,
+      "consumer_cyclical": 0.065485,
+      "consumer_defensive": 0.020866,
+      "utilities": 0.433046,
+      "energy": 0.007305,
+      "communication_services": 0.04405,
+      "real_estate": 0.00748,
+      "basic_materials": 0.006387
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "flexible": 0.0691
+    },
+    "credit": null,
+    "duration": {
+      "ultrashort": 0.0691
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=86.62",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "b2610ad68a8fb60b3e5d5c113e55fcd5",
+    "warnings": [
+      "unknown_region_key:América",
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "unknown_region_key:Asia - Desarrollada",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.8662,
+          "bond": 0.0691,
+          "cash": 0.0438,
+          "other": 0.0209,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.866201
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.8662
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0691
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0691
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing"
+  },
+  "generated_at": "2026-04-22T16:45:24.859Z"
+}

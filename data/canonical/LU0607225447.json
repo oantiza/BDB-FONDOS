@@ -1,0 +1,327 @@
+{
+  "isin": "LU0607225447",
+  "name": "CT (Lux) Global Convertible Bond Fund A Acc EUR Hdg",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260312093159.pdf",
+  "stableBaseName": "LU0607225447__2026-03-12__3ad5de24",
+  "report_date": "2026-03-12",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Convertibles Global - EUR Cubierto",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 0.59,
+        "bond": 7.68,
+        "cash": 0.67,
+        "other": 91.06
+      }
+    },
+    "sectors": {
+      "technology": 100
+    },
+    "regions": {
+      "macro": {
+        "americas": 100
+      },
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Iberdrola Finanzas S.A.U.",
+        "weight": 3.97,
+        "sector": null
+      },
+      {
+        "name": "Alibaba Group Holding Ltd.",
+        "weight": 3.89,
+        "sector": null
+      },
+      {
+        "name": "Citigroup Global Markets...",
+        "weight": 3.21,
+        "sector": null
+      },
+      {
+        "name": "Eni SpA",
+        "weight": 2.58,
+        "sector": null
+      },
+      {
+        "name": "JPMorgan Chase Financial Co...",
+        "weight": 2.49,
+        "sector": null
+      },
+      {
+        "name": "Snam S.p.A.",
+        "weight": 2.33,
+        "sector": null
+      },
+      {
+        "name": "Morgan Stanley Finance LLC.",
+        "weight": 2.03,
+        "sector": null
+      },
+      {
+        "name": "Morgan Stanley Finance LLC.",
+        "weight": 1.91,
+        "sector": null
+      },
+      {
+        "name": "Citigroup Global Markets...",
+        "weight": 1.84,
+        "sector": null
+      },
+      {
+        "name": "Vonovia SE",
+        "weight": 1.68,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 4,
+      "top10_weight": 25.93
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El objetivo de la cartera es lograr un alto rendimiento mediante la inversión en bonos convertibles. El F&C Global Convertible Bond se compondrá de obligaciones convertibles por los emisores privados en Europa, EE.UU., Japón y Asia. La cartera se compondrá principalmente de los valores con calificación \"investment grade\", aunque un pequeño porcentaje podría incluir los valores con puntuaciones inferiores a BBB-/Baa3. La cartera está denominada en euros."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CONVERTIBLE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:asia",
+      "theme:fixed_income"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 100,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 0.59,
+        "bond": 7.68,
+        "cash": 0.67,
+        "other": 91.06
+      },
+      "equity_sectors_total": {
+        "technology": 0.59
+      },
+      "equity_regions_total": {
+        "americas": 0.59
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 0.59,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CONVERTIBLE_BOND",
+    "commercial_type": "RF Convertibles Global - EUR Cubierto",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "convertible",
+    "credit_bucket": "high_yield",
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector_concentrated:technology",
+      "sector:technology",
+      "theme:asia",
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_inferred_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.0059,
+      "bond": 0.0768,
+      "cash": 0.0067,
+      "other": 0.9106
+    },
+    "equity_regions": {
+      "americas": 0.0059
+    },
+    "sectors": {
+      "technology": 0.0059
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "convertible": 0.0768
+    },
+    "credit": {
+      "high_yield": 0.0768
+    },
+    "duration": {
+      "ultrashort": 0.0768
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=91.06",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.59,max_component=91.06",
+      "credit_inferred_weak"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "5cafacf5cb114d434fd946e9af54b25f",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_credit_inferred_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [
+      "class_exposure_tension:fixed_income_asset_type_with_bond_0.0768"
+    ],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.0059,
+          "bond": 0.0768,
+          "cash": 0.0067,
+          "other": 0.9106,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0059
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0059
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0768
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0768
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.0768
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0768"
+  },
+  "generated_at": "2026-04-22T16:56:16.548Z"
+}

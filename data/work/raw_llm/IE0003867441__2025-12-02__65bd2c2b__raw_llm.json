@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:03:15.941Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "IE0003867441",
+    "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "Eurozone Mid-Cap Equity",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 98.53,
+      "bond": 0,
+      "cash": 1.47,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 2.02,
+      "europe_me_africa": 97.98,
+      "asia": 0
+    },
+    "regions_detail": {
+      "united_states": 2.02,
+      "canada": 0,
+      "latin_america": 0,
+      "united_kingdom": 0,
+      "eurozone": 96.27,
+      "europe_ex_euro": 1.71,
+      "europe_emerging": 0,
+      "africa_middle_east": 0,
+      "japan": 0,
+      "australasia": 0,
+      "asia_developed": 0,
+      "asia_emerging": 0
+    },
+    "sectors": {
+      "technology": 11.79,
+      "financial_services": 13.18,
+      "industrials": 21.99,
+      "healthcare": 10.15,
+      "consumer_cyclical": 9.65,
+      "consumer_defensive": 2.5,
+      "utilities": 4.95,
+      "energy": 2.57,
+      "communication_services": 9.41,
+      "real_estate": 7.5,
+      "basic_materials": 6.31
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 8.42,
+      "mid": 71.24,
+      "small": 18.02,
+      "micro": 2.32
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Mid-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Italgas SpA",
+        "weight": 3.23,
+        "sector": "Utilities"
+      },
+      {
+        "name": "BE Semiconductor Industries NV",
+        "weight": 2.08,
+        "sector": "Technology"
+      },
+      {
+        "name": "Eiffage SA Bearer and / or...",
+        "weight": 2,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Klepierre",
+        "weight": 1.99,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Telekom Austria AG",
+        "weight": 1.94,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Covivio SA",
+        "weight": 1.92,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Banca Monte dei Paschi di Siena",
+        "weight": 1.88,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Rexel SA",
+        "weight": 1.8,
+        "sector": "Technology"
+      },
+      {
+        "name": "Krones AG",
+        "weight": 1.69,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Ebro Foods SA",
+        "weight": 1.69,
+        "sector": "Consumer Defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 102,
+      "holdings_count_bond": 0,
+      "top10_weight": 20.22
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+  }
+}

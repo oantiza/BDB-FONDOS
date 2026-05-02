@@ -1,0 +1,143 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:56:33.311Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0086177085",
+    "name": "UBS (Lux) Bond Fund - Euro High Yield (EUR) P-acc",
+    "currency": "EUR",
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Bonos Alto Rendimiento EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ene. 2026",
+    "asset_allocation": {
+      "equity": 0.13,
+      "bond": 96.86,
+      "cash": 1.67,
+      "other": 1.34
+    },
+    "regions_macro": {
+      "americas": 0,
+      "europe_me_africa": 0,
+      "asia": 0
+    },
+    "regions_detail": {},
+    "sectors": {
+      "technology": 0,
+      "financial_services": 0,
+      "industrials": 0,
+      "healthcare": 0,
+      "consumer_cyclical": 0,
+      "consumer_defensive": 0,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 0,
+      "real_estate": 0,
+      "basic_materials": 0
+    },
+    "equity_market_cap": {
+      "giant": 0,
+      "large": 0,
+      "mid": 0,
+      "small": 0,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 4.43,
+        "bb": 0,
+        "b": 0,
+        "below_b": 93.51,
+        "not_rated": 2.06
+      },
+      "maturity_allocation": {
+        "1_3": 11.49,
+        "3_5": 42.16,
+        "5_7": 33.38,
+        "7_10": 5.27,
+        "over_10": 6.84
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 5.65,
+        "4_6": 44.07,
+        "over_6": 50.28
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Nidda Healthcare Holding GmbH...",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Grifols S.A. 7.5%2030-05-01",
+        "weight": 1.32,
+        "sector": null
+      },
+      {
+        "name": "LHMC Finco 2 S.a r.l. 9.375%2030-05-15",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "Pinnacle Bidco PLC 10%2028-10-11",
+        "weight": 1.26,
+        "sector": null
+      },
+      {
+        "name": "Altice France SAS 7.25%2029-11-01",
+        "weight": 1.23,
+        "sector": null
+      },
+      {
+        "name": "Ardonagh Finco Ltd. 6.875%2031-02-15",
+        "weight": 1.09,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Finance Netherlands...",
+        "weight": 1.03,
+        "sector": null
+      },
+      {
+        "name": "CPI Property Group S.A. 7.5%",
+        "weight": 1,
+        "sector": null
+      },
+      {
+        "name": "Czechoslovak Group A.S. 5.25%2031-01-10",
+        "weight": 0.95,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 288,
+      "top10_weight": 12.45
+    },
+    "costs": {
+      "management_fee": 1.26
+    },
+    "objective": "Invierte fundamentalmente en bonos corporativos de alta rentabilidad cuidadosamente seleccionados. En la selección de los emisores de estos bonos se presta una atención especial a la distribución de las diversas calificaciones crediticias. El objetivo de inversión consiste en obtener una rentabilidad más atractiva que aquella de bonos de alta calidad denominados en EUR."
+  }
+}

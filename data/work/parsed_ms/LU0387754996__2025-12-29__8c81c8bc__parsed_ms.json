@@ -1,0 +1,130 @@
+{
+  "isin": "LU0387754996",
+  "fileName": "morningstarreport20251229072131.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:45:13.865Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.5,
+        "bond": 0,
+        "cash": 1.5,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 37.16,
+      "financial_services": 12.6,
+      "industrials": 9.37,
+      "healthcare": 11.84,
+      "consumer_cyclical": 9.5,
+      "consumer_defensive": 1.72,
+      "energy": 1.62,
+      "communication_services": 11.5,
+      "real_estate": 1.58,
+      "basic_materials": 3.1
+    },
+    "regions": {
+      "macro": {
+        "americas": 76.21,
+        "europe_me_africa": 14.82,
+        "asia": 8.97
+      },
+      "detail": {
+        "other": 93.23,
+        "united_states": 75.3,
+        "latin_america": 0.91,
+        "united_kingdom": 6.64,
+        "eurozone": 7.41,
+        "middle_east": 0.77,
+        "asia": 8.97,
+        "japan": 4.98,
+        "asia_emerging": 1.8
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 62.46,
+        "large": 26.79,
+        "mid": 10.75,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 6.81,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.83,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 5.51,
+        "sector": null
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 4.86,
+        "sector": null
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4,
+        "sector": null
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 3.07,
+        "sector": null
+      },
+      {
+        "name": "JPMorgan Chase & Co",
+        "weight": 3.02,
+        "sector": null
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 2.62,
+        "sector": null
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 2.39,
+        "sector": null
+      },
+      {
+        "name": "Sony Group Corp",
+        "weight": 2.32,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 58,
+      "holdings_count_bond": 0,
+      "top10_weight": 40.43
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "El objetivo del fondo es proporcionar capital a largo plazo mediante la exposición de al menos dos tercios de sus activos totales en renta variable de empresas de todo el mundo, sobre todo en las economías maduras."
+  }
+}

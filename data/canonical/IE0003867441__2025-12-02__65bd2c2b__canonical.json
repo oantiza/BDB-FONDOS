@@ -1,0 +1,325 @@
+{
+  "isin": "IE0003867441",
+  "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202013802.pdf",
+  "stableBaseName": "IE0003867441__2025-12-02__65bd2c2b",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Eurozone Mid-Cap Equity",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.53,
+        "bond": 0,
+        "cash": 1.47,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 11.79,
+      "financial_services": 13.18,
+      "industrials": 21.99,
+      "healthcare": 10.15,
+      "consumer_cyclical": 9.65,
+      "consumer_defensive": 2.5,
+      "utilities": 4.95,
+      "energy": 2.57,
+      "communication_services": 9.41,
+      "real_estate": 7.5,
+      "basic_materials": 6.31
+    },
+    "regions": {
+      "macro": {
+        "americas": 2.02,
+        "europe_me_africa": 97.98
+      },
+      "detail": {
+        "united_states": 2.02,
+        "eurozone": 96.27,
+        "europe_ex_euro": 1.71
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 8.42,
+        "mid": 71.24,
+        "small": 18.02,
+        "micro": 2.32
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Italgas SpA",
+        "weight": 3.23,
+        "sector": "Utilities"
+      },
+      {
+        "name": "BE Semiconductor Industries NV",
+        "weight": 2.08,
+        "sector": "Technology"
+      },
+      {
+        "name": "Eiffage SA Bearer and / or...",
+        "weight": 2,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Klepierre",
+        "weight": 1.99,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Telekom Austria AG",
+        "weight": 1.94,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Covivio SA",
+        "weight": 1.92,
+        "sector": "Real Estate"
+      },
+      {
+        "name": "Banca Monte dei Paschi di Siena",
+        "weight": 1.88,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Rexel SA",
+        "weight": 1.8,
+        "sector": "Technology"
+      },
+      {
+        "name": "Krones AG",
+        "weight": 1.69,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Ebro Foods SA",
+        "weight": 1.69,
+        "sector": "Consumer Defensive"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 102,
+      "holdings_count_bond": 0,
+      "top10_weight": 20.22
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:small_cap"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 21.99,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.53,
+        "bond": 0,
+        "cash": 1.47,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 11.6167,
+        "financial_services": 12.9863,
+        "industrials": 21.6667,
+        "healthcare": 10.0008,
+        "consumer_cyclical": 9.5081,
+        "consumer_defensive": 2.4633,
+        "utilities": 4.8772,
+        "energy": 2.5322,
+        "communication_services": 9.2717,
+        "real_estate": 7.3898,
+        "basic_materials": 6.2172
+      },
+      "equity_regions_total": {
+        "united_states": 1.9903,
+        "eurozone": 94.8548,
+        "europe_ex_euro": 1.6849
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 98.53,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 20.041,
+          "mid": 70.1928,
+          "large": 8.2962
+        },
+        "style_weights_total": {
+          "blend": 98.53
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "Eurozone Mid-Cap Equity",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "theme:small_cap"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9853,
+      "bond": 0,
+      "cash": 0.0147,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.019903,
+      "eurozone": 0.948548,
+      "europe_ex_euro": 0.016849
+    },
+    "sectors": {
+      "technology": 0.116167,
+      "financial_services": 0.129863,
+      "industrials": 0.216667,
+      "healthcare": 0.100008,
+      "consumer_cyclical": 0.095081,
+      "consumer_defensive": 0.024633,
+      "utilities": 0.048772,
+      "energy": 0.025322,
+      "communication_services": 0.092717,
+      "real_estate": 0.073898,
+      "basic_materials": 0.062172
+    },
+    "equity_styles": {
+      "blend": 0.9853
+    },
+    "market_caps": {
+      "small": 0.20041,
+      "mid": 0.701928,
+      "large": 0.082962
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.53"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "158b31a8080f8cabdcbbfa97bdf8d8da",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9853,
+          "bond": 0,
+          "cash": 0.0147,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9853
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:03:15.941Z"
+}

@@ -1,0 +1,19 @@
+1. Fecha del snapshot: 2026-04-22
+2. Rama o estado actual: Principal / Producción (Estable con parche operativo reciente de routing V2)
+3. Módulos principales revisables:
+   - Backend Python (API, Services, Portfolio Engine)
+   - Frontend React/TS (Src, Hooks, RulesEngine)
+   - Ingesta Node.js (cargador_lotes_v_2.js)
+4. Archivos clave para revisar integración de V2:
+   - functions_python/api/endpoints_portfolio.py
+   - functions_python/services/portfolio/optimizer_core.py
+   - functions_python/services/portfolio/utils.py
+   - frontend/src/hooks/usePortfolioActions.ts
+   - frontend/src/utils/normalizer.ts
+   - frontend/src/utils/rulesEngine.ts
+5. Lista de exclusiones importantes:
+   - Excluidos todos los secretos (.env, serviceAccountKey.json).
+   - Excluidos node_modules, entornos virtuales (venv), cachés y builds (dist, build).
+   - Excluidos PDFs, CSVs pesados y backups de sesiones anteriores.
+6. Advertencias si hay código legacy o duplicidades aún vivas:
+   - Puede existir coexistencia temporal de taxonomía legacy con `classification_v2` en el frontend mientras se finaliza la migración.

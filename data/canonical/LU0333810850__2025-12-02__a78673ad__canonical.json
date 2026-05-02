@@ -1,0 +1,329 @@
+{
+  "isin": "LU0333810850",
+  "name": "Goldman Sachs India Equity Portfolio E Acc EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202125813.pdf",
+  "stableBaseName": "LU0333810850__2025-12-02__a78673ad",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Morningstar India Target Market Exposure NR USD",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 99.25,
+        "bond": 0,
+        "cash": 0.73,
+        "other": 0.02
+      }
+    },
+    "sectors": {
+      "technology": 11.32,
+      "financial_services": 28.97,
+      "industrials": 7.43,
+      "healthcare": 8.96,
+      "consumer_cyclical": 19.01,
+      "consumer_defensive": 5.95,
+      "utilities": 2.02,
+      "energy": 2.99,
+      "communication_services": 3.58,
+      "real_estate": 1.63,
+      "basic_materials": 8.13
+    },
+    "regions": {
+      "macro": {
+        "americas": 0.68,
+        "asia": 99.32
+      },
+      "detail": {
+        "other": 0.68,
+        "united_states": 0.68,
+        "asia": 99.32,
+        "asia_emerging": 99.32
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 35.51,
+        "large": 34.06,
+        "mid": 24.17,
+        "small": 5.45,
+        "micro": 0.8
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 5.6,
+        "sector": "financial_services"
+      },
+      {
+        "name": "HDFC Bank Ltd",
+        "weight": 3.72,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Infosys Ltd",
+        "weight": 3.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Reliance Industries Ltd",
+        "weight": 2.94,
+        "sector": "energy"
+      },
+      {
+        "name": "Mahindra & Mahindra Ltd",
+        "weight": 2.67,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Bajaj Finance Ltd",
+        "weight": 2.61,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Axis Bank Ltd",
+        "weight": 2.56,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Bharti Airtel Ltd",
+        "weight": 2.39,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Eternal Ltd",
+        "weight": 2.27,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Kotak Mahindra Bank Ltd",
+        "weight": 2.17,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 117,
+      "holdings_count_bond": 0,
+      "top10_weight": 30.27
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "Goldman Sachs India Equity Portfolio invertirá en valores de emisores de la India."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 28.97,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 99.25,
+        "bond": 0,
+        "cash": 0.73,
+        "other": 0.02
+      },
+      "equity_sectors_total": {
+        "technology": 11.2351,
+        "financial_services": 28.7527,
+        "industrials": 7.3743,
+        "healthcare": 8.8928,
+        "consumer_cyclical": 18.8674,
+        "consumer_defensive": 5.9054,
+        "utilities": 2.0049,
+        "energy": 2.9676,
+        "communication_services": 3.5532,
+        "real_estate": 1.6178,
+        "basic_materials": 8.069
+      },
+      "equity_regions_total": {
+        "other": 0.6749,
+        "united_states": 0.6749,
+        "asia": 98.5751,
+        "asia_emerging": 98.5751
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 99.25,
+        "size_bucket": "large",
+        "style": null,
+        "size_weights_total": {
+          "small": 6.2037,
+          "mid": 23.9911,
+          "large": 69.0551
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "Morningstar India Target Market Exposure NR USD",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "large",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9925,
+      "bond": 0,
+      "cash": 0.0073,
+      "other": 0.0002
+    },
+    "equity_regions": {
+      "other": 0.201679,
+      "united_states": 0.201679,
+      "asia": 0.294571,
+      "asia_emerging": 0.294571
+    },
+    "sectors": {
+      "technology": 0.112362,
+      "financial_services": 0.287555,
+      "industrials": 0.07375,
+      "healthcare": 0.088937,
+      "consumer_cyclical": 0.188693,
+      "consumer_defensive": 0.05906,
+      "utilities": 0.020051,
+      "energy": 0.029679,
+      "communication_services": 0.035536,
+      "real_estate": 0.01618,
+      "basic_materials": 0.080698
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.062037,
+      "mid": 0.239911,
+      "large": 0.690552
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.25",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.02,max_component=99.25"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "507375f68d75c41beab43cc70ad2e652",
+    "warnings": [
+      "unknown_region_key:América",
+      "regions_sum_overflow:200.00",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9925,
+          "bond": 0,
+          "cash": 0.0073,
+          "other": 0.0002,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9925
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.992501
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9925
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:38:30.184Z"
+}

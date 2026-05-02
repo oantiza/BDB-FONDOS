@@ -1,0 +1,158 @@
+{
+  "isin": "LU1299311164",
+  "fileName": "morningstarreport20251211062408.pdf",
+  "report_date": "2025-12-11",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:42:33.284Z",
+  "ms": {
+    "report_date": "2025-12-11",
+    "category_morningstar": "RV Global Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 98.22,
+        "bond": 0,
+        "cash": 1.78,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 42.89,
+      "financial_services": 12.55,
+      "industrials": 9.67,
+      "healthcare": 11.88,
+      "consumer_cyclical": 10.13,
+      "consumer_defensive": 0.75,
+      "energy": 1.81,
+      "communication_services": 8.99,
+      "basic_materials": 1.34
+    },
+    "regions": {
+      "macro": {
+        "americas": 60.76,
+        "europe_me_africa": 14.04,
+        "asia": 25.2
+      },
+      "detail": {
+        "other": 96.07,
+        "united_states": 57.9,
+        "canada": 0.49,
+        "latin_america": 2.37,
+        "united_kingdom": 0.59,
+        "eurozone": 8.73,
+        "europe_ex_euro": 4.41,
+        "europe_emerging": 0.31,
+        "asia": 25.2,
+        "japan": 0.69,
+        "asia_emerging": 3.24
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 54.03,
+        "large": 24.03,
+        "mid": 18.16,
+        "small": 3.78,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Taiwan Semiconductor Manufacturing Co Ltd",
+        "weight": 9.66,
+        "sector": "technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 6.52,
+        "sector": "communication_services"
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 6.47,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 4.43,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "SK Hynix Inc",
+        "weight": 4.37,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 3.41,
+        "sector": "technology"
+      },
+      {
+        "name": "S&P Global Inc",
+        "weight": 3.24,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Cencora Inc",
+        "weight": 2.58,
+        "sector": "healthcare"
+      },
+      {
+        "name": "McKesson Corp",
+        "weight": 2.24,
+        "sector": "healthcare"
+      },
+      {
+        "name": "MercadoLibre Inc",
+        "weight": 2.21,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 96,
+      "holdings_count_bond": 0,
+      "top10_weight": 45.12
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El objetivo del Subfondo consiste en registrar una rentabilidad superior a la de su indicador de referencia en un horizonte de inversión recomendado de cinco años. La búsqueda de rentabilidad implica una gestión activa, sobre todo en los mercados de renta variable, sobre la base del análisis fundamental de las empresas y de las previsiones del gestor de la cartera sobre la evolución de las condiciones económicas y de mercado. Asimismo, el Subfondo pretende invertir de forma sostenible con el fin de lograr un..."
+  }
+}

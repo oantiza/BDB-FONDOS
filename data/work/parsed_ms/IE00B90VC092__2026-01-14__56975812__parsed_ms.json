@@ -1,0 +1,132 @@
+{
+  "isin": "IE00B90VC092",
+  "fileName": "morningstarreport20260114091240.pdf",
+  "report_date": "2026-01-14",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:49:05.984Z",
+  "ms": {
+    "report_date": "2026-01-14",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 0.3,
+        "bond": 100,
+        "cash": 0,
+        "other": 0.63
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.04,
+      "effective_maturity": 2.76,
+      "avg_credit_quality": "A",
+      "credit_quality": {
+        "aaa": 42.73,
+        "aa": 31.7,
+        "a": 5.8,
+        "bbb": 19.19,
+        "bb": 0.58,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 13.59,
+        "3_5": 14.53,
+        "5_7": 8.56,
+        "7_10": 7.6,
+        "over_10": 24.92
+      },
+      "coupon_allocation": {
+        "0": 0.64,
+        "0_4": 64.76,
+        "4_6": 32.98,
+        "over_6": 1.62
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Schatz Future Dec 25",
+        "weight": 30.98,
+        "sector": null
+      },
+      {
+        "name": "PIMCO Euro Short Mat ETF EUR Acc",
+        "weight": 9.78,
+        "sector": null
+      },
+      {
+        "name": "5 Year Treasury Note Future Dec...",
+        "weight": 9.02,
+        "sector": null
+      },
+      {
+        "name": "Federal National Mortgage Association...",
+        "weight": 5.89,
+        "sector": null
+      },
+      {
+        "name": "Short-Term Euro BTP Future Dec...",
+        "weight": 5.87,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great Britain and...",
+        "weight": 4.9,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 3.394% 2031-10-15",
+        "weight": 4.31,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 3.2% 2035-10-31",
+        "weight": 3.97,
+        "sector": null
+      },
+      {
+        "name": "United Kingdom of Great Britain and...",
+        "weight": 3.1,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 2.67,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 322,
+      "top10_weight": 80.49
+    },
+    "costs": {
+      "management_fee": 0.82
+    },
+    "objective": "El fondo tiene como objetivo generar una rentabilidad total de manera prudente mediante la combinación de ingresos y crecimiento del capital. El fondo invierte principalmente en una gama de valores de renta fija (que son préstamos que pagan un tipo de interés fijo o variable) con «grado de inversión» emitidos por sociedades o gobiernos de todo el mundo, cuyo precio se fijará principalmente en euros. El fondo también puede mantener otras divisas, así como valores cuyos precios estén en otras divisas."
+  }
+}

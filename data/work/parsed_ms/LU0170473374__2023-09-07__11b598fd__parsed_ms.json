@@ -1,0 +1,122 @@
+{
+  "isin": "LU0170473374",
+  "fileName": "morningstarreport20230907083119.pdf",
+  "report_date": "2023-09-07",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:01:49.238Z",
+  "ms": {
+    "report_date": "2023-09-07",
+    "category_morningstar": "RF Diversificada EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2023-07-30",
+      "asset_allocation": {
+        "equity": 0.03,
+        "bond": 83.46,
+        "cash": 15.71,
+        "other": 0.8
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 6.27,
+      "effective_maturity": 8.86,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 29.86,
+        "aa": 8.06,
+        "a": 26.58,
+        "bbb": 24.84,
+        "bb": 2.17,
+        "b": 1.16,
+        "below_b": 0,
+        "not_rated": 7.33
+      },
+      "maturity_allocation": {
+        "1_3": 10.39,
+        "3_5": 11.44,
+        "5_7": 12.05,
+        "7_10": 31.35,
+        "over_10": 34.76
+      },
+      "coupon_allocation": {
+        "0": 19.26,
+        "0_4": 65.15,
+        "4_6": 13.3,
+        "over_6": 2.3
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of) 0% 2025-10-10",
+        "weight": 7.41,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 1.25% 2030-10-31",
+        "weight": 3.84,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of) 2.55% 2032-10-31",
+        "weight": 3.58,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 3.56,
+        "sector": null
+      },
+      {
+        "name": "Franklin Euro Green Bond ETF",
+        "weight": 3.28,
+        "sector": null
+      },
+      {
+        "name": "Nykredit Realkredit A/S 5% 2053-10-01",
+        "weight": 3.07,
+        "sector": null
+      },
+      {
+        "name": "European Union 0% 2035-07-04",
+        "weight": 2.74,
+        "sector": null
+      },
+      {
+        "name": "Nykredit Realkredit A/S 3.5% 2053-10-01",
+        "weight": 2.66,
+        "sector": null
+      },
+      {
+        "name": "European Union 0.4% 2037-02-04",
+        "weight": 2.36,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of) 0% 2030-08-15",
+        "weight": 2.35,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 92,
+      "top10_weight": 34.86
+    },
+    "costs": {
+      "management_fee": 0.4
+    },
+    "objective": "Maximizar, de acuerdo con una gestión prudente de las inversiones, la rentabilidad total de la inversión, entendida como una combinación de intereses, revalorización del capital y ganancias de divisas, invirtiendo en una cartera integrada por títulos de deuda, a tipo fijo y variable, así como por obligaciones emitidas por gobiernos, entidades relacionadas con estos gobiernos y compañías europeas."
+  }
+}

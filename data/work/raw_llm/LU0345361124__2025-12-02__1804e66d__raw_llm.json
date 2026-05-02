@@ -1,0 +1,141 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:28:42.620Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0345361124",
+    "name": "Fidelity Funds - Asia Pacific Opportunities Fund A-Acc-EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Asia Pacífico (ex-Japón)",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 96.73,
+      "bond": 0.61,
+      "cash": 2.66,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 11.5,
+      "europe_me_africa": 2.7,
+      "asia": 85.8
+    },
+    "regions_detail": {
+      "Estados Unidos": 4.54,
+      "Canadá": 6.96,
+      "Iberoamérica": 0,
+      "Reino Unido": 0,
+      "Zona Euro": 2.7,
+      "Europa - ex Euro": 0,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 6.88,
+      "Asia - Desarrollada": 28.97,
+      "Asia - Emergente": 49.95
+    },
+    "sectors": {
+      "technology": 10,
+      "financial_services": 14.79,
+      "industrials": 7.77,
+      "healthcare": 5.27,
+      "consumer_cyclical": 29.13,
+      "consumer_defensive": 4.76,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 12.1,
+      "real_estate": 4.66,
+      "basic_materials": 11.52
+    },
+    "equity_market_cap": {
+      "giant": 48.84,
+      "large": 40.31,
+      "mid": 10.85,
+      "small": 0,
+      "micro": 0
+    },
+    "equity_style": {
+      "value": null,
+      "blend": null,
+      "growth": null
+    },
+    "equity_style_box_cell": "Large-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 9.77,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Techtronic Industries Co Ltd",
+        "weight": 5.77,
+        "sector": "Industria"
+      },
+      {
+        "name": "HDFC Bank Ltd ADR",
+        "weight": 5.23,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 5.04,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Yum China Holdings Inc",
+        "weight": 4.3,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Wheaton Precious Metals Corp",
+        "weight": 4.15,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Sea Ltd ADR",
+        "weight": 3.88,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "PDD Holdings Inc ADR",
+        "weight": 3.75,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 3.58,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "ResMed Inc",
+        "weight": 3.55,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 36,
+      "holdings_count_bond": 0,
+      "top10_weight": 49.01
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "El fondo tiene por objetivo proporcionar crecimiento de capital a largo plazo de una cartera compuesta principalmente de valores de sociedades que tengan su sede o ejerzan una parte predominante de su actividad en los países de la región de Asia Pacífico (excepto Japón). El fondo invertirá en una mezcla de grandes, medianas y pequeñas empresas. El fondo también puede invertir en otros valores mobiliarios, instrumentos del mercado monetario, dinero en efectivo y depósitos. El fondo también puede invertir en OICVM y IIC."
+  }
+}

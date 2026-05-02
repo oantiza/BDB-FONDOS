@@ -1,0 +1,351 @@
+{
+  "isin": "LU2016064201",
+  "name": "Schroder International Selection Fund Global Alternative Energy A Accumulation EUR Hedged",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072334.pdf",
+  "stableBaseName": "LU2016064201__2025-12-29__2836feda",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 92.91,
+        "bond": 0,
+        "cash": 7.09,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 26.77,
+      "financial_services": 2.8,
+      "industrials": 37.72,
+      "consumer_cyclical": 3.66,
+      "utilities": 22.49,
+      "basic_materials": 6.56
+    },
+    "regions": {
+      "macro": {
+        "americas": 41.22,
+        "europe_me_africa": 47.69,
+        "asia": 11.09
+      },
+      "detail": {
+        "united_states": 34.55,
+        "canada": 5.09,
+        "latin_america": 1.57,
+        "united_kingdom": 2.67,
+        "eurozone": 37.36,
+        "europe_ex_euro": 7.66,
+        "japan": 2.23,
+        "other": 3.43,
+        "asia_emerging": 5.44
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 7.56,
+        "large": 17.86,
+        "mid": 42.38,
+        "small": 25.15,
+        "micro": 7.05
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Bills...",
+        "weight": 6.09,
+        "sector": null
+      },
+      {
+        "name": "First Solar Inc",
+        "weight": 5.59,
+        "sector": "technology"
+      },
+      {
+        "name": "Vestas Wind Systems AS",
+        "weight": 5.14,
+        "sector": "industrials"
+      },
+      {
+        "name": "EDP Renovaveis SA",
+        "weight": 3.64,
+        "sector": "utilities"
+      },
+      {
+        "name": "Nextpower Inc Class A",
+        "weight": 3.64,
+        "sector": "technology"
+      },
+      {
+        "name": "Itron Inc",
+        "weight": 2.78,
+        "sector": "technology"
+      },
+      {
+        "name": "ERG SpA",
+        "weight": 2.73,
+        "sector": "utilities"
+      },
+      {
+        "name": "HA Sustainable Infrastructure...",
+        "weight": 2.6,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Elia Group SA/NV",
+        "weight": 2.59,
+        "sector": "utilities"
+      },
+      {
+        "name": "Ormat Technologies Inc",
+        "weight": 2.39,
+        "sector": "utilities"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 52,
+      "holdings_count_bond": 0,
+      "top10_weight": 37.17
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "The Fund aims to provide capital growth by investing in equity and equity related securities of companies worldwide that the Investment Manager believes are associated with the global transition towards lower-carbon sources of energy and which the Investment Manager deems to be sustainable investments."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:industrials",
+      "sector:technology",
+      "theme:energy",
+      "theme:esg"
+    ],
+    "top_sector": "industrials",
+    "top_sector_weight": 37.72,
+    "is_sector_fund": true,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 92.91,
+        "bond": 0,
+        "cash": 7.09,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 24.872,
+        "financial_services": 2.6015,
+        "industrials": 35.0457,
+        "consumer_cyclical": 3.4005,
+        "utilities": 20.8955,
+        "basic_materials": 6.0949
+      },
+      "equity_regions_total": {
+        "united_states": 32.1004,
+        "canada": 4.7291,
+        "latin_america": 1.4587,
+        "united_kingdom": 2.4807,
+        "eurozone": 34.7112,
+        "europe_ex_euro": 7.1169,
+        "japan": 2.0719,
+        "other": 3.1868,
+        "asia_emerging": 5.0543
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 92.91,
+        "size_bucket": "mid",
+        "style": null,
+        "size_weights_total": {
+          "small": 29.917,
+          "mid": 39.3753,
+          "large": 23.6177
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "THEMATIC_EQUITY",
+    "commercial_type": "RV Sector Otros",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": "mid",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": "ultrashort",
+    "strategy_tags": [
+      "sector:industrials",
+      "sector:technology",
+      "theme:energy",
+      "theme:esg"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9291,
+      "bond": 0,
+      "cash": 0.0709,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.321004,
+      "canada": 0.047291,
+      "latin_america": 0.014587,
+      "united_kingdom": 0.024807,
+      "eurozone": 0.347112,
+      "europe_ex_euro": 0.071169,
+      "japan": 0.020719,
+      "other": 0.031868,
+      "asia_emerging": 0.050543
+    },
+    "sectors": {
+      "technology": 0.24872,
+      "financial_services": 0.026015,
+      "industrials": 0.350457,
+      "consumer_cyclical": 0.034005,
+      "utilities": 0.208955,
+      "basic_materials": 0.060949
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.29917,
+      "mid": 0.393753,
+      "large": 0.236177
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.91",
+      "credit_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "a6f8825298f0f6e69c7a0be16f6a1a1b",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "fi_missing_credit_data",
+      "fi_type_inference_weak"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9291,
+          "bond": 0,
+          "cash": 0.0709,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9291
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.929101
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9291
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:45:52.535Z"
+}

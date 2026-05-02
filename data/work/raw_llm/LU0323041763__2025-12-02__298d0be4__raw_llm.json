@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:03:54.532Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0323041763",
+    "name": "Digital Funds Stars Europe R",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Europa Cap. Mediana",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 99.31,
+      "bond": 0,
+      "cash": 0.09,
+      "other": 0.6
+    },
+    "regions_macro": {
+      "americas": 1.94,
+      "europe_me_africa": 97.56,
+      "asia": 0.49
+    },
+    "regions_detail": {
+      "Estados Unidos": 0.32,
+      "Canadá": 0,
+      "Iberoamérica": 1.63,
+      "Reino Unido": 17.14,
+      "Zona Euro": 60.41,
+      "Europa - ex Euro": 18.62,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 1.38,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 0.49,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 6.93,
+      "financial_services": 32.9,
+      "industrials": 26.36,
+      "healthcare": 7.85,
+      "consumer_cyclical": 6.51,
+      "consumer_defensive": 2.09,
+      "utilities": 4.37,
+      "energy": 2.45,
+      "communication_services": 2.79,
+      "real_estate": 1.36,
+      "basic_materials": 6.4
+    },
+    "equity_market_cap": {
+      "giant": 4.07,
+      "large": 27.4,
+      "mid": 45.88,
+      "small": 21.53,
+      "micro": 1.12
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Mid-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Euro Stx50 F 1225",
+        "weight": 2.4,
+        "sector": null
+      },
+      {
+        "name": "Banco BPM SpA",
+        "weight": 1.7,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "NatWest Group PLC",
+        "weight": 1.7,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Societe Generale SA",
+        "weight": 1.66,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "AUTO1 Group Bearer Shares",
+        "weight": 1.59,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Fresnillo PLC",
+        "weight": 1.58,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Unicaja Banco SA",
+        "weight": 1.55,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 1.52,
+        "sector": "Industria"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 1.44,
+        "sector": "Industria"
+      },
+      {
+        "name": "Orion Oyj Class B",
+        "weight": 1.4,
+        "sector": "Salud"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 158,
+      "holdings_count_bond": 0,
+      "top10_weight": 16.55
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo de DIGITAL FUNDS Stars Europe es superar al conjunto de los mercados europeos mediante la aplicación de un modelo por el que se identifican los títulos \"estrella\". El subfondo invertirá al menos un 80% en acciones de países miembros de la UE, Noruega y Suiza, seguidos por un mínimo de 3 intermediarios bursátiles y cuya capitalización sea superior a 100 millones de EUR."
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:55:13.017Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1694212348",
+    "name": "Nordea 1 - Low Duration European Covered Bond Fund BP EUR",
+    "currency": "EUR",
+    "report_date": "2026-03-05",
+    "category_morningstar": "EUR Corporate Bond - Short Term",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 ene. 2026",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 76.51,
+      "cash": 23.49,
+      "other": 0
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 0.78,
+      "effective_maturity": 4.72,
+      "avg_credit_quality": "AA",
+      "credit_quality": {
+        "aaa": 62.43,
+        "aa": 19.87,
+        "a": 6.88,
+        "bbb": 10.81,
+        "bb": 0,
+        "b": 0.26,
+        "below_b": 0,
+        "not_rated": 0.26
+      },
+      "maturity_allocation": {
+        "1_3": 29.36,
+        "3_5": 30.77,
+        "5_7": 11.78,
+        "7_10": 14.58,
+        "over_10": 10.01
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 93.01,
+        "4_6": 6.18,
+        "over_6": 0.81
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Long-Term Euro BTP Future Mar 262035-02-01",
+        "weight": 9.79,
+        "sector": null
+      },
+      {
+        "name": "Short-Term Euro BTP Future Mar...",
+        "weight": 2.02,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 4.3%2054-10-01",
+        "weight": 1.77,
+        "sector": null
+      },
+      {
+        "name": "Bpce Sfh 0.01%2031-03-18",
+        "weight": 1.63,
+        "sector": null
+      },
+      {
+        "name": "Nykredit Realkredit A/S 1%2030-07-01",
+        "weight": 1.43,
+        "sector": null
+      },
+      {
+        "name": "Euro Schatz Future Mar 262027-12-16",
+        "weight": 1.41,
+        "sector": null
+      },
+      {
+        "name": "United Overseas Bank Ltd. 2.718%2030-12-01",
+        "weight": 1.34,
+        "sector": null
+      },
+      {
+        "name": "Ultra US Treasury Bond Future Mar...",
+        "weight": 1.32,
+        "sector": null
+      },
+      {
+        "name": "Vseobecna Uverova Banka AS 3.5%2026-10-13",
+        "weight": 1.31,
+        "sector": null
+      },
+      {
+        "name": "Caisse Francaise de Financement Local...",
+        "weight": 1.26,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 284,
+      "top10_weight": 23.28
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "El fondo invierte principalmente en bonos garantizados europeos. En concreto, el fondo invierte al menos dos tercios de su patrimonio total en bonos garantizados emitidos por empresas o instituciones financieras que estén domiciliadas o realicen la mayor parte de su actividad en Europa. Asimismo, el fondo invierte al menos dos tercios de su patrimonio total en títulos de deuda con una calificación de hasta AAA/Aaa, aunque no inferior a A-/A3, o equivalente. La duración modificada del fondo oscila entre 0 y 2 años."
+  }
+}

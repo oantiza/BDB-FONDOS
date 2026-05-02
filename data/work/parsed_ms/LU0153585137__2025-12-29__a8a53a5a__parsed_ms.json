@@ -1,0 +1,126 @@
+{
+  "isin": "LU0153585137",
+  "fileName": "morningstarreport20251229072135.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:45:21.723Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Europa Cap. Grande Growth",
+    "rating_stars": 3,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 97.01,
+        "bond": 0,
+        "cash": 2.99,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 7.24,
+      "financial_services": 14.83,
+      "industrials": 23.62,
+      "healthcare": 9.2,
+      "consumer_cyclical": 18.92,
+      "consumer_defensive": 9.9,
+      "utilities": 7.47,
+      "communication_services": 3.52,
+      "real_estate": 2.5,
+      "basic_materials": 2.78
+    },
+    "regions": {
+      "macro": {
+        "americas": 8.11,
+        "europe_me_africa": 91.89
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 6.81,
+        "canada": 1.3,
+        "united_kingdom": 27.62,
+        "eurozone": 39.81,
+        "europe_ex_euro": 24.47
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 32.07,
+        "large": 35.15,
+        "mid": 32.77,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 99.99
+      },
+      "style_box_cell": "Large-Growth"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 4.94,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Diploma PLC",
+        "weight": 4.62,
+        "sector": "industrials"
+      },
+      {
+        "name": "Halma PLC",
+        "weight": 4.53,
+        "sector": "industrials"
+      },
+      {
+        "name": "Galderma Group AG Registered...",
+        "weight": 4.38,
+        "sector": "healthcare"
+      },
+      {
+        "name": "National Grid PLC",
+        "weight": 3.78,
+        "sector": "utilities"
+      },
+      {
+        "name": "Essilorluxottica",
+        "weight": 3.54,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Terna SpA",
+        "weight": 3.47,
+        "sector": "utilities"
+      },
+      {
+        "name": "Chocoladefabriken Lindt &...",
+        "weight": 3.3,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Ferrari NV",
+        "weight": 3.29,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "NatWest Group PLC",
+        "weight": 3.26,
+        "sector": "financial_services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 44,
+      "holdings_count_bond": 0,
+      "top10_weight": 39.11
+    },
+    "costs": {
+      "management_fee": 1.65
+    },
+    "objective": null
+  }
+}

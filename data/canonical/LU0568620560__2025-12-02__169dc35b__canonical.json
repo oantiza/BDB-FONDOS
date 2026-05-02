@@ -1,0 +1,251 @@
+{
+  "isin": "LU0568620560",
+  "name": "Amundi Funds - Cash EUR A2 EUR (C)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202043715.pdf",
+  "stableBaseName": "LU0568620560__2025-12-02__169dc35b",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mercado Monetario Estable EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 20.22,
+        "cash": 100,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Italy (Republic Of)...",
+        "weight": 4.1,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of)...",
+        "weight": 2.49,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 1.69,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of)...",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "European Financial Stability...",
+        "weight": 0.94,
+        "sector": null
+      },
+      {
+        "name": "European Investment Bank...",
+        "weight": 0.75,
+        "sector": null
+      },
+      {
+        "name": "Caisse d Amortissement De La...",
+        "weight": 0.69,
+        "sector": null
+      },
+      {
+        "name": "Comm Akti Zcp 10-09-262026-09-10",
+        "weight": 0.55,
+        "sector": null
+      },
+      {
+        "name": "Societe Generale S.A....",
+        "weight": 0.46,
+        "sector": null
+      },
+      {
+        "name": "At&T FRN 2.4%2027-09-16",
+        "weight": 0.4,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 117,
+      "top10_weight": 13.46
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "El objetivo del fondo es obtener una rentabilidad estable invirtiendo al menos el 67% del total de sus activos en instrumentos del mercado monetario denominados en euros, o en otras monedas cubiertas a través de un swap de divisas."
+  },
+  "derived": {
+    "asset_class": "Monetario",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Global",
+    "subcategories": [],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "money_market",
+    "asset_subtype": "MONEY_MARKET",
+    "commercial_type": "Mercado Monetario Estable EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style"
+    ],
+    "warnings": [
+      "subtype_incompatible_with_asset_type:money_market:GLOBAL_EQUITY",
+      "subtype_downgraded_to_safe_family:MONEY_MARKET",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.168192,
+      "cash": 0.831808,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.2022,sum_after=1",
+      "asset_allocation_sum_mismatch",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "3b1b1a8621617a7e1762cd3bc5182522",
+    "warnings": [
+      "regions_all_unrecognized",
+      "missing_rating_stars",
+      "asset_allocation_sum_mismatch:120.22",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.168192,
+          "cash": 0.831808,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:24:55.940Z"
+}

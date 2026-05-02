@@ -1,0 +1,122 @@
+{
+  "isin": "LU1882462655",
+  "fileName": "morningstarreport20260312093238.pdf",
+  "report_date": "2026-03-12",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:56:58.571Z",
+  "ms": {
+    "report_date": "2026-03-12",
+    "category_morningstar": "RF Global Emergente",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 0.07,
+        "bond": 89.01,
+        "cash": 8.23,
+        "other": 2.7
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 10.89,
+        "3_5": 38.16,
+        "5_7": 28.14,
+        "7_10": 16.88,
+        "over_10": 4.33
+      },
+      "coupon_allocation": {
+        "0": 0.22,
+        "0_4": 7.48,
+        "4_6": 23.72,
+        "over_6": 68.58
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Amundi Inv Funds EmMkts Sov Bd S $ ND",
+        "weight": 6.85,
+        "sector": null
+      },
+      {
+        "name": "Banque Ouest Africaine de Developpement...",
+        "weight": 2.49,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of) 3.75%2034-02-07",
+        "weight": 2.18,
+        "sector": null
+      },
+      {
+        "name": "Romania (Republic Of) 5.125%2031-09-24",
+        "weight": 2.16,
+        "sector": null
+      },
+      {
+        "name": "Gdz Elektrik Dagitim AS 9%2029-10-15",
+        "weight": 2.12,
+        "sector": null
+      },
+      {
+        "name": "CPI Property Group S.A. 6%2032-01-27",
+        "weight": 2.09,
+        "sector": null
+      },
+      {
+        "name": "Sasol Financing USA LLC 5.5%2031-03-18",
+        "weight": 1.66,
+        "sector": null
+      },
+      {
+        "name": "Zorlu Enerji Elektrik Ueretim AS...",
+        "weight": 1.53,
+        "sector": null
+      },
+      {
+        "name": "ASG Finance Designated Activity Company...",
+        "weight": 1.47,
+        "sector": null
+      },
+      {
+        "name": "Total Play Telecomunicaciones...",
+        "weight": 1.46,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 3,
+      "holdings_count_bond": 170,
+      "top10_weight": 24.02
+    },
+    "costs": {
+      "management_fee": 1.1
+    },
+    "objective": "The fund seeks to increase the value of your investment (through income and capital growth) over the recommended holding period, while achieving an ESG score greater than that of its investment universe. The sub-fund is actively managed. It mainly invests in emerging market corporate and government bonds and money market instruments. These investments are denominated in any OECD currency and may be below investment grade. Typically, the subfund's average interest rate duration is no more than 3 years."
+  }
+}

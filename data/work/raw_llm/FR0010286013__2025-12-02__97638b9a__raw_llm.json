@@ -1,0 +1,121 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:26:26.185Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "FR0010286013",
+    "name": "Sextant Grand Large A",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 sep. 2025",
+    "asset_allocation": {
+      "equity": 42.61,
+      "bond": 45.39,
+      "cash": 10.46,
+      "other": 1.53
+    },
+    "regions_macro": {
+      "americas": 27.45,
+      "europe_me_africa": 47.75,
+      "asia": 24.8
+    },
+    "regions_detail": {
+      "Estados Unidos": 25.75,
+      "Canadá": 1.7,
+      "Iberoamérica": 0,
+      "Reino Unido": 4.43,
+      "Zona Euro": 41.64,
+      "Europa - ex Euro": 1.61,
+      "Europa emergente": 0.03,
+      "Oriente Medio / África": 0.04,
+      "Japón": 12.92,
+      "Australasia": 0.17,
+      "Asia - Desarrollada": 4.61,
+      "Asia - Emergente": 7.1
+    },
+    "sectors": {
+      "technology": 33.04,
+      "financial_services": 19.1,
+      "industrials": 19.44,
+      "healthcare": 2.56,
+      "consumer_cyclical": 12.65,
+      "consumer_defensive": 3.02,
+      "utilities": 0,
+      "energy": 0.12,
+      "communication_services": 5.82,
+      "real_estate": 1.01,
+      "basic_materials": 3.23
+    },
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": "Mid-Blend",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 8.21,
+        "sector": null
+      },
+      {
+        "name": "Sextant Quality Focus Z",
+        "weight": 3.19,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 2.56,
+        "sector": "Technology"
+      },
+      {
+        "name": "Adobe Inc",
+        "weight": 2.47,
+        "sector": "Technology"
+      },
+      {
+        "name": "Amadeus IT Group SA",
+        "weight": 2.03,
+        "sector": "Technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 1.83,
+        "sector": "Technology"
+      },
+      {
+        "name": "Sextant Optimal Income Z",
+        "weight": 1.73,
+        "sector": null
+      },
+      {
+        "name": "PayPal Holdings Inc",
+        "weight": 1.6,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 60,
+      "holdings_count_bond": 236,
+      "top10_weight": 23.62
+    },
+    "costs": {
+      "management_fee": 1.7
+    },
+    "objective": null
+  }
+}

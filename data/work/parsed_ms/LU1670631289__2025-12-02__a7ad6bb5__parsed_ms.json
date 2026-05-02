@@ -1,0 +1,122 @@
+{
+  "isin": "LU1670631289",
+  "fileName": "morningstarreport20251202041029.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:14:08.360Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Global Emergente - Sesgo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 97.87,
+        "cash": 2.13,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 6.08,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 3.87,
+        "aa": 4.95,
+        "a": 12.62,
+        "bbb": 28.96,
+        "bb": 32.43,
+        "b": 9.5,
+        "below_b": 6.63,
+        "not_rated": 1.06
+      },
+      "maturity_allocation": {
+        "1_3": 8.78,
+        "3_5": 9.4,
+        "5_7": 13.25,
+        "7_10": 28,
+        "over_10": 38.45
+      },
+      "coupon_allocation": {
+        "0": 0.63,
+        "0_4": 19.27,
+        "4_6": 21.18,
+        "over_6": 58.92
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Mexico (United Mexican States)...",
+        "weight": 3.83,
+        "sector": null
+      },
+      {
+        "name": "Secretaria Do Tesouro Nacional...",
+        "weight": 3.36,
+        "sector": null
+      },
+      {
+        "name": "South Africa (Republic of) 8.75% 2044-01-31",
+        "weight": 3.01,
+        "sector": null
+      },
+      {
+        "name": "Poland (Republic of) 1.75% 2032-04-25",
+        "weight": 1.64,
+        "sector": null
+      },
+      {
+        "name": "Poland (Republic of) 6% 2033-10-25",
+        "weight": 1.58,
+        "sector": null
+      },
+      {
+        "name": "Uruguay (Republic Of) 3.875% 2040-07-02",
+        "weight": 1.5,
+        "sector": null
+      },
+      {
+        "name": "Northern Trust Global US Dollar D",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 1.39,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Notes...",
+        "weight": 1.38,
+        "sector": null
+      },
+      {
+        "name": "Indonesia (Republic of) 8.25% 2036-05-15",
+        "weight": 1.13,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 1,
+      "holdings_count_bond": 305,
+      "top10_weight": 20.25
+    },
+    "costs": {
+      "management_fee": 1.25
+    },
+    "objective": "The Fund aims to provide a higher total return (capital growth plus income) than that of the global emerging markets bond market over any three-year period, while applying ESG Criteria."
+  }
+}

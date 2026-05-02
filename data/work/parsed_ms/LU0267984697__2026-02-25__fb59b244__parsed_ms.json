@@ -1,0 +1,116 @@
+{
+  "isin": "LU0267984697",
+  "fileName": "morningstarreport20260225063436.pdf",
+  "report_date": "2026-02-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:55:01.860Z",
+  "ms": {
+    "report_date": "2026-02-25",
+    "category_morningstar": "RV India",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2026-01-31",
+      "asset_allocation": {
+        "equity": 98.41,
+        "bond": 0,
+        "cash": 1.55,
+        "other": 0.04
+      }
+    },
+    "sectors": {
+      "technology": 5.66,
+      "financial_services": 32.34,
+      "industrials": 14.58,
+      "healthcare": 5.26,
+      "consumer_cyclical": 27.57,
+      "consumer_defensive": 2.71,
+      "communication_services": 8.61,
+      "real_estate": 1.58,
+      "basic_materials": 1.68
+    },
+    "regions": {
+      "macro": {
+        "asia": 100
+      },
+      "detail": {
+        "asia": 100,
+        "asia_emerging": 100
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 47.02,
+        "large": 36.48,
+        "mid": 16.3,
+        "small": 0.2,
+        "micro": 0
+      },
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Bharti Airtel Ltd",
+        "weight": 8.47,
+        "sector": null
+      },
+      {
+        "name": "HDFC Bank Ltd ADR",
+        "weight": 4.96,
+        "sector": null
+      },
+      {
+        "name": "Mahindra & Mahindra Ltd",
+        "weight": 4.82,
+        "sector": null
+      },
+      {
+        "name": "ICICI Bank Ltd",
+        "weight": 4.34,
+        "sector": null
+      },
+      {
+        "name": "Cholamandalam Investment and...",
+        "weight": 4.28,
+        "sector": null
+      },
+      {
+        "name": "Larsen & Toubro Ltd",
+        "weight": 3.9,
+        "sector": null
+      },
+      {
+        "name": "Infosys Ltd",
+        "weight": 3.27,
+        "sector": null
+      },
+      {
+        "name": "Eternal Ltd",
+        "weight": 3.26,
+        "sector": null
+      },
+      {
+        "name": "Polycab India Ltd",
+        "weight": 3.01,
+        "sector": null
+      },
+      {
+        "name": "TVS Motor Co Ltd",
+        "weight": 2.85,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 56,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.15
+    },
+    "costs": {
+      "management_fee": 2.25
+    },
+    "objective": "El Fondo busca incrementar a largo plazo el capital invirtiendo principalmente en acciones o instrumentos similares de empresas indias. A los presentes efectos, por Empresas Indias se entenderá (i) empresas que tengan su domicilio social en India; (ii) empresas domiciliadas en otro país, pero que desarrollen una parte predominante de su actividad empresarial en India, o (iii) empresas que posean, como sociedades de cartera, fundamentalmente participaciones en empresas domiciliadas en India. Le rogamos consulte el..."
+  }
+}

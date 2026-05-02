@@ -1,0 +1,122 @@
+{
+  "isin": "LU1951921383",
+  "fileName": "morningstarreport20251202125629.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:30:54.496Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Flexible EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 87.39,
+        "cash": 12.3,
+        "other": 0.32
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 1.37,
+      "effective_maturity": 1.51,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0.21,
+        "aa": 0.02,
+        "a": 11.54,
+        "bbb": 29.6,
+        "bb": 49.32,
+        "b": 8.71,
+        "below_b": 0,
+        "not_rated": 0.59
+      },
+      "maturity_allocation": {
+        "1_3": 18.93,
+        "3_5": 3.12,
+        "5_7": 60.82,
+        "7_10": 1.46,
+        "over_10": 2.34
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 65.5,
+        "4_6": 24.16,
+        "over_6": 10.35
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "France (Republic Of) 0% 2025-11-26",
+        "weight": 2.02,
+        "sector": null
+      },
+      {
+        "name": "DS Smith PLC 0.875% 2026-09-12",
+        "weight": 1.83,
+        "sector": null
+      },
+      {
+        "name": "Fibercop S.p.A. 3.625% 2026-05-25",
+        "weight": 1.67,
+        "sector": null
+      },
+      {
+        "name": "Danone SA 1%",
+        "weight": 1.59,
+        "sector": null
+      },
+      {
+        "name": "Credit Agricole S.A. 2.625% 2027-03-17",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A. 3.928% 2026-09-15",
+        "weight": 1.57,
+        "sector": null
+      },
+      {
+        "name": "Teva Pharmaceutical Finance Netherlands...",
+        "weight": 1.54,
+        "sector": null
+      },
+      {
+        "name": "Stellantis N.V 3.875% 2026-01-05",
+        "weight": 1.48,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya Argentaria SA...",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "Saipem Finance International B.V...",
+        "weight": 1.33,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 219,
+      "top10_weight": 16.04
+    },
+    "costs": {
+      "management_fee": 0.29
+    },
+    "objective": "The fund seeks long term capital growth by investing in global bond markets."
+  }
+}

@@ -1,0 +1,212 @@
+
+
+Informe a 12 marzo 2026
+CT (Lux) Global Convertible Bond Fund A Acc EUR Hdg
+ 
+Morningstar Medalist Rating™Índice de la cat.Benchmark del fondoRating Morningstar™Categoría Morningstar™
+Refinitiv Global Hedged CB TR
+EUR
+Usado a lo largo del informe
+TReuters Global Focus
+Customised TR EUR
+QQQ
+RF Convertibles Global - EUR
+Cubierto
+ 
+Objetivo de inversión
+ 
+El objetivo de la cartera es lograr un alto rendimiento
+mediante la inversión en bonos convertibles. El F&C
+Global Convertible Bond se compondrá de obligaciones
+convertibles por los emisores privados en Europa,
+EE.UU., Japón y Asia. La cartera se compondrá
+principalmente de los valores con calificación
+"investment grade", aunque un pequeño porcentaje
+podría incluir los valores con puntuaciones inferiores a
+BBB-/Baa3. La cartera está denominada en euros.
+9.0K
+10.0
+11.0
+12.0
+13.0
+Crecimiento de 10000
+(EUR)
+Fondo
+Índice
+Categoría
+2021202220232024202502/26Rentabilidad
+1,99-15,973,578,4911,004,13Fondo
+-0,082,93-6,82-1,60-7,88-2,49+/- Índice
+2,101,16-1,863,78-0,030,39+/- Categoría
+&*)&**
+Cuartil
+Medidas de riesgo
+Alfa 3a-3,20
+Beta 3a0,78
+R²86,78
+Rátio de Inf.-1,92
+Tracking Error3,11
+Sharpe 3a0,73
+Volatilidad6,91
+Riesgo 3amed
+Riesgo 5amed
+Riesgo 10ainf med
+Los cálculos usan Refinitiv Global Hgd CB TR EUR (donde sea aplicable)
+Rentab. acum. %
+(11 mar. 2026)
+Rent. %+/-Ind+/-Cat
+3 meses
+6 meses
+1 año
+3 años anualiz.
+5 años anualiz.
+2,38
+5,81
+15,01
+8,02
+1,53
+-1,54
+-2,39
+-9,99
+-5,86
+-2,22
+0,50
+2,38
+3,66
+0,83
+1,09
+Rentab. trimestral %1er tr2º tr3er tr4º tr
+2025-0,443,785,861,49
+20242,88-0,162,113,44
+20232,900,56-3,213,40
+2022-6,14-11,37-2,773,88
+20211,351,54-1,450,56
+ 
+Cartera31 ene. 2026
+ 
+Distribución de activos% largo% corto%
+patrimonio
+Acciones0,590,000,59
+Obligaciones7,680,007,68
+Efectivo2,051,380,67
+Otro91,060,0091,06
+Style Box™ de Morningstar
+Estilo de accionesEstilo de renta fija
+ 
+Estilo
+Valor  Mixto Crecimiento
+Peq.
+Med.
+GrandeTamaño
+ 
+Duración
+Baja   Med.  Alta
+Bajo
+Med
+AltoCalidad crediticia
+AméricaEuropaAsia
+<2525-5050-75>75
+10 mayores posicionesSector% cart
+Iberdrola Finanzas S.A.U. 1.5%
+-
+3,97
+Alibaba Group Holding Ltd.
+-
+3,89
+Citigroup Global Markets...
+-
+3,21
+Eni SpA
+-
+2,58
+JPMorgan Chase Financial Co...
+-
+2,49
+ 
+ 
+Snam S.p.A. 1.75%
+-
+2,33
+Morgan Stanley Finance LLC.
+-
+2,03
+Morgan Stanley Finance LLC.
+-
+1,91
+Citigroup Global Markets...
+-
+1,84
+Vonovia SE
+-
+1,68
+ 
+ 
+Número total de acciones1
+Número total de bonos4
+% de activos en las 10 mayores posiciones25,93
+Distribución por sectores% RV
+h Cíclico
+0,00
+r Materiales Básicos-
+t Consumo Cíclico-
+y Servicios Financieros-
+u Inmobiliario-
+ 
+ 
+j Sensible al ciclo
+100,00
+i Servicios de Comunicación-
+o Energía-
+p Industria-
+a Tecnología100,00
+ 
+ 
+k Defensivo
+0,00
+s Consumo Defensivo-
+d Salud-
+f Servicios Públicos-
+Desglose por regiones% RV
+América100,00
+Estados Unidos100,00
+Canadá0,00
+Iberoamérica0,00
+Europa/O. Medio/Africa0,00
+Reino Unido0,00
+Zona Euro0,00
+Europa - ex Euro0,00
+Europa emergente0,00
+Oriente Medio / África0,00
+Asia0,00
+Japón0,00
+Australasia0,00
+Asia - Desarrollada0,00
+Asia - Emergente0,00
+ 
+Operaciones
+ 
+Gestora del fondoColumbia Threadneedle...
+Fecha Creación3 dic. 2012
+Nombre del gestorDavid King
+Fecha de incorporación18 dic. 2023
+VL (11 mar. 2026)EUR 15,48
+Patrimonio (Mill)EUR 17,32
+DomicilioLuxemburgo
+DivisaEUR
+UCITSSí
+Dis/AcuAcu
+ISINLU0607225447
+Inversión mínima2.500
+Inversión mínima adicional
+Comisión de gestión1,00%
+Comisión de salida0
+Comisión de distribución0,00%
+La información resumida de las características del fondo de Inversión mostrada en esta pantalla es meramente informativa y puede estar sujeta a modificaciones, por lo que la información válida es exclusivamente la recogida en el Folleto y demás documentación
+de naturaleza normativa.
+ 
+© 2026 Morningstar Network S.L. Todos los derechos reservados. La información, datos, análisis y opiniones contenidos en esta página:(1) incluyen información propiedad de Morningstar Network S.L. o terceras partes con
+licencia de Morningstar Network S.L.; (2) no pueden ser copiados o redistribuidos excepto con autorización específica; (3) no constituyen ninguna recomendación de inversión; (4) se ofrecen exclusivamente con propósito
+informativo; (5) no se garantiza que sean oportunos, correctos o completos y (6) pueden ser extraídos de datos de fondos publicados en distintas fechas. Morningstar Network S.L. no se hace responsable de ninguna operación
+de compraventa, perjuicio o pérdida derivado de la utilización de esta información o su uso. Por favor, compruebe toda la información antes de utilizarla y no tome ninguna decisión de inversión salvo bajo el consejo de un
+asesor financiero profesional. Rentabilidades pasadas no garantizan rentabilidades futuras. El valor y rendimiento de sus inversiones pueden tanto bajar como subir.
+?

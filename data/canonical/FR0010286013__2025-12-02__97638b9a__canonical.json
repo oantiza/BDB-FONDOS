@@ -1,0 +1,330 @@
+{
+  "isin": "FR0010286013",
+  "name": "Sextant Grand Large A",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202050111.pdf",
+  "stableBaseName": "FR0010286013__2025-12-02__97638b9a",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 42.61,
+        "bond": 45.39,
+        "cash": 10.46,
+        "other": 1.53
+      }
+    },
+    "sectors": {
+      "technology": 33.04,
+      "financial_services": 19.1,
+      "industrials": 19.44,
+      "healthcare": 2.56,
+      "consumer_cyclical": 12.65,
+      "consumer_defensive": 3.02,
+      "energy": 0.12,
+      "communication_services": 5.82,
+      "real_estate": 1.01,
+      "basic_materials": 3.23
+    },
+    "regions": {
+      "macro": {
+        "americas": 27.45,
+        "europe_me_africa": 47.75,
+        "asia": 24.8
+      },
+      "detail": {
+        "united_states": 25.75,
+        "canada": 1.7,
+        "united_kingdom": 4.43,
+        "eurozone": 41.64,
+        "europe_ex_euro": 1.61,
+        "europe_emerging": 0.03,
+        "middle_east": 0.04,
+        "japan": 12.92,
+        "australasia": 0.17,
+        "other": 4.61,
+        "asia_emerging": 7.1
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Germany (Federal Republic Of)...",
+        "weight": 8.21,
+        "sector": null
+      },
+      {
+        "name": "Sextant Quality Focus Z",
+        "weight": 3.19,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 2.56,
+        "sector": "Technology"
+      },
+      {
+        "name": "Adobe Inc",
+        "weight": 2.47,
+        "sector": "Technology"
+      },
+      {
+        "name": "Amadeus IT Group SA",
+        "weight": 2.03,
+        "sector": "Technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 1.83,
+        "sector": "Technology"
+      },
+      {
+        "name": "Sextant Optimal Income Z",
+        "weight": 1.73,
+        "sector": null
+      },
+      {
+        "name": "PayPal Holdings Inc",
+        "weight": 1.6,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 60,
+      "holdings_count_bond": 236,
+      "top10_weight": 23.62
+    },
+    "costs": {
+      "management_fee": 1.7
+    },
+    "objective": null
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "Global",
+    "subcategories": [
+      "sector:technology"
+    ],
+    "top_sector": "technology",
+    "top_sector_weight": 33.04,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 42.61,
+        "bond": 45.39,
+        "cash": 10.46,
+        "other": 1.53
+      },
+      "equity_sectors_total": {
+        "technology": 14.0783,
+        "financial_services": 8.1385,
+        "industrials": 8.2834,
+        "healthcare": 1.0908,
+        "consumer_cyclical": 5.3902,
+        "consumer_defensive": 1.2868,
+        "energy": 0.0511,
+        "communication_services": 2.4799,
+        "real_estate": 0.4304,
+        "basic_materials": 1.3763
+      },
+      "equity_regions_total": {
+        "united_states": 10.9721,
+        "canada": 0.7244,
+        "united_kingdom": 1.8876,
+        "eurozone": 17.7428,
+        "europe_ex_euro": 0.686,
+        "europe_emerging": 0.0128,
+        "middle_east": 0.017,
+        "japan": 5.5052,
+        "australasia": 0.0724,
+        "other": 1.9643,
+        "asia_emerging": 3.0253
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Mid-Blend",
+        "weight_total": 42.61,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "mid": 42.61
+        },
+        "style_weights_total": {
+          "blend": 42.61
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Moderados EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": "Mid-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:technology"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.4261,
+      "bond": 0.4539,
+      "cash": 0.1046,
+      "other": 0.0153
+    },
+    "equity_regions": {
+      "united_states": 0.024305,
+      "canada": 0.160465,
+      "united_kingdom": 0.004181,
+      "eurozone": 0.039303,
+      "europe_ex_euro": 0.151959,
+      "europe_emerging": 0.002835,
+      "middle_east": 0.003766,
+      "japan": 0.012195,
+      "australasia": 0.016038,
+      "other": 0.004351,
+      "asia_emerging": 0.006701
+    },
+    "sectors": {
+      "technology": 0.06645,
+      "financial_services": 0.038414,
+      "industrials": 0.039098,
+      "healthcare": 0.005149,
+      "consumer_cyclical": 0.025442,
+      "consumer_defensive": 0.006074,
+      "energy": 0.02412,
+      "communication_services": 0.011705,
+      "real_estate": 0.203152,
+      "basic_materials": 0.006496
+    },
+    "equity_styles": {
+      "blend": 0.4261
+    },
+    "market_caps": {
+      "mid": 0.4261
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=45.39"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "ce15514694810256370d67d3a374c903",
+    "warnings": [
+      "unknown_region_key:Asia - Desarrollada",
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.4261,
+          "bond": 0.4539,
+          "cash": 0.1046,
+          "other": 0.0153,
+          "sum": 0.9999
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.426099
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4261
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4261
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4261
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:26:26.188Z"
+}

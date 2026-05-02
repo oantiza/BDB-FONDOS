@@ -1,0 +1,272 @@
+{
+  "isin": "LU1706854152",
+  "name": "Amundi S.F. - Diversified Short-Term Bond Select A EUR ND",
+  "currency": "EUR",
+  "fileName": "morningstarreport20260128102434.pdf",
+  "stableBaseName": "LU1706854152__2026-01-28__218337f3",
+  "report_date": "2026-01-28",
+  "ms": {
+    "report_date": "2026-01-28",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 5,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 100,
+        "cash": 0,
+        "other": 0.41
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": {
+        "1_3": 7.28,
+        "3_5": 15.6,
+        "5_7": 10.49,
+        "7_10": 10.57,
+        "over_10": 11.39
+      },
+      "coupon_allocation": {
+        "0": 0.78,
+        "0_4": 29.23,
+        "4_6": 48.27,
+        "over_6": 21.71
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "2 Year Treasury Note Future Mar...",
+        "weight": 43.72,
+        "sector": null
+      },
+      {
+        "name": "Euro Bobl Future Dec 252025-12-10",
+        "weight": 7.91,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2026-02-25",
+        "weight": 5.28,
+        "sector": null
+      },
+      {
+        "name": "Euro Schatz Future Dec 252025-12-10",
+        "weight": 3.92,
+        "sector": null
+      },
+      {
+        "name": "Amundi Fds Euro Sub Bd Rspnb Z EUR C",
+        "weight": 2.99,
+        "sector": null
+      },
+      {
+        "name": "Amundi ABS Responsible MD",
+        "weight": 1.48,
+        "sector": null
+      },
+      {
+        "name": "Intesa Sanpaolo S.p.A. 5.148%2030-06-10",
+        "weight": 1.25,
+        "sector": null
+      },
+      {
+        "name": "La Banque Postale 5.625%2028-09-21",
+        "weight": 1.25,
+        "sector": null
+      },
+      {
+        "name": "Euro Bund Future Dec 252025-12-10",
+        "weight": 1.22,
+        "sector": null
+      },
+      {
+        "name": "Servicios Financieros Carrefour EFC SA...",
+        "weight": 1.07,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 163,
+      "top10_weight": 70.09
+    },
+    "costs": {
+      "management_fee": 0.6
+    },
+    "objective": "The Sub-Fund seeks to increase the value of your investment and provide income over the recommended holding period. The Sub-Fund invests mainly in a broad range of Investment Grade bonds issued by companies, local authorities, international public and supranational bodies, based in the Euro zone, as well as money market securities. The Sub-Fund will aim to reduce the interest rate risk of the portfolio by the use of floating rate bonds, bonds with short maturity and interest rate hedging techniques using financial..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:financials",
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9000000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "RF Diversificada Corto Plazo EUR",
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:financials",
+      "theme:fixed_income",
+      "theme:income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9000000000000001,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_inferred_weak",
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 1,
+      "cash": 0,
+      "other": 0.0041
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 1
+    },
+    "credit": {
+      "investment_grade": 1
+    },
+    "duration": {
+      "short": 1
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9000000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.41,max_component=100",
+      "credit_inferred_weak",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "a4dcdb6c63ad8cb7ef21fbcfd94677a7",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_credit_inferred_weak",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 1,
+          "cash": 0,
+          "other": 0.0041,
+          "sum": 1.0041
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T16:51:49.634Z"
+}

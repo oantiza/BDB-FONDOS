@@ -1,0 +1,318 @@
+{
+  "isin": "ES0165242001",
+  "name": "Myinvestor S&P500 Equiponderado FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20240623090100.pdf",
+  "stableBaseName": "ES0165242001__2024-06-23__5a9466a0",
+  "report_date": "2024-06-23",
+  "ms": {
+    "report_date": "2024-06-23",
+    "category_morningstar": "RV USA Cap. Grande Blend",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2024-05-30",
+      "asset_allocation": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 17.59,
+      "financial_services": 13.61,
+      "industrials": 13.89,
+      "healthcare": 12.83,
+      "consumer_cyclical": 11.41,
+      "consumer_defensive": 7.14,
+      "utilities": 5.11,
+      "energy": 3.63,
+      "communication_services": 4.68,
+      "real_estate": 5.71,
+      "basic_materials": 4.42
+    },
+    "regions": {
+      "macro": {
+        "americas": 98.95,
+        "europe_me_africa": 0.88,
+        "asia": 0.17
+      },
+      "detail": {
+        "united_states": 98.95,
+        "united_kingdom": 0.34,
+        "eurozone": 0.21,
+        "europe_ex_euro": 0.33,
+        "developed_asia": 0.17
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 11.47,
+        "large": 30.56,
+        "mid": 53.51,
+        "small": 4.46,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Amundi S&P 500 Eql Wt ESG Ldrs...",
+        "weight": 18.04,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers S&P 500 EW ESG ETF 1C",
+        "weight": 17.89,
+        "sector": null
+      },
+      {
+        "name": "Xtrackers S&P 500 EW ETF 1C",
+        "weight": 17.87,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500 Equal Weight...",
+        "weight": 17.13,
+        "sector": null
+      },
+      {
+        "name": "Invesco S&P 500® Equal Weight...",
+        "weight": 16.16,
+        "sector": null
+      },
+      {
+        "name": "Micro E-mini S&P 500 Index...",
+        "weight": 10.85,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)...",
+        "weight": 4.69,
+        "sector": null
+      },
+      {
+        "name": "E-mini S&P 500 Future June...",
+        "weight": 3.5,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 0,
+      "top10_weight": 100
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Se invierte un 0%-100% del patrimonio en IIC financieras (activo apto), armonizadas o no (máximo 30% en IIC no armonizadas), pertenecientes o no al grupo de la gestora. El objetivo es alcanzar una rentabilidad similar a la del índice S&P500 Equal Weight Index (TR) que mide la evolución de las empresas incluidas en el índice S&P 500 otorgando a cada una la ponderación fija del 0,20%. Para ello, entre el 75%-100% de la exposición total será renta variable de Estados Unidos de alta capitalización y de cualquier sector, a..."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "US_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [],
+    "top_sector": "technology",
+    "top_sector_weight": 17.59,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 100,
+        "bond": 0,
+        "cash": 0,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 17.59,
+        "financial_services": 13.61,
+        "industrials": 13.89,
+        "healthcare": 12.83,
+        "consumer_cyclical": 11.41,
+        "consumer_defensive": 7.14,
+        "utilities": 5.11,
+        "energy": 3.63,
+        "communication_services": 4.68,
+        "real_estate": 5.71,
+        "basic_materials": 4.42
+      },
+      "equity_regions_total": {
+        "united_states": 98.95,
+        "united_kingdom": 0.34,
+        "eurozone": 0.21,
+        "europe_ex_euro": 0.33,
+        "developed_asia": 0.17
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 100,
+        "size_bucket": "mid",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 4.46,
+          "mid": 53.51,
+          "large": 42.03
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "US_EQUITY",
+    "commercial_type": "RV USA Cap. Grande Blend",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "mid",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 1,
+      "bond": 0,
+      "cash": 0,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.485168,
+      "united_kingdom": 0.166708,
+      "eurozone": 0.102966,
+      "europe_ex_euro": 0.161804,
+      "developed_asia": 0.083354
+    },
+    "sectors": {
+      "technology": 0.175865,
+      "financial_services": 0.136073,
+      "industrials": 0.138872,
+      "healthcare": 0.128274,
+      "consumer_cyclical": 0.114077,
+      "consumer_defensive": 0.071386,
+      "utilities": 0.05109,
+      "energy": 0.036293,
+      "communication_services": 0.046791,
+      "real_estate": 0.057089,
+      "basic_materials": 0.044191
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.0446,
+      "mid": 0.5351,
+      "large": 0.4203
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "efea815ddeeec64b53fb19a6fc93e29b",
+    "warnings": [],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 1,
+          "bond": 0,
+          "cash": 0,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1.000001
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:01:47.084Z"
+}

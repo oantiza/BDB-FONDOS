@@ -1,0 +1,121 @@
+{
+  "isin": "LU2295319300",
+  "fileName": "morningstarreport20251229072417.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:46:39.195Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Cap. Grande Blend",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98,
+        "bond": 0.4,
+        "cash": 2.13,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 30,
+      "financial_services": 22.48,
+      "industrials": 9.14,
+      "healthcare": 13.94,
+      "consumer_cyclical": 6.3,
+      "consumer_defensive": 12.93,
+      "communication_services": 5.2
+    },
+    "regions": {
+      "macro": {
+        "americas": 79.94,
+        "europe_me_africa": 20.06
+      },
+      "detail": {
+        "other": 100,
+        "united_states": 79.94,
+        "united_kingdom": 8.81,
+        "eurozone": 11.25
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 30.52,
+        "large": 45.16,
+        "mid": 24.32,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Microsoft Corp",
+        "weight": 8.78,
+        "sector": "Technology"
+      },
+      {
+        "name": "SAP SE",
+        "weight": 7.42,
+        "sector": "Technology"
+      },
+      {
+        "name": "Alphabet Inc Class A",
+        "weight": 5.09,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 5.02,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Coca-Cola Co",
+        "weight": 4.26,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "RELX PLC",
+        "weight": 4.25,
+        "sector": "Industrials"
+      },
+      {
+        "name": "L'Oreal SA",
+        "weight": 3.6,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Procter & Gamble Co",
+        "weight": 3.48,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "Thermo Fisher Scientific Inc",
+        "weight": 3.44,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Arthur J. Gallagher & Co",
+        "weight": 3.42,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 32,
+      "holdings_count_bond": 0,
+      "top10_weight": 48.76
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo de inversión es la obtención de una tasa de rentabilidad a largo plazo atractiva, cifrada en Dólares estadounidenses, invirtiendo principalmente en valores de renta variable emitidos por empresas de países desarrollados."
+  }
+}

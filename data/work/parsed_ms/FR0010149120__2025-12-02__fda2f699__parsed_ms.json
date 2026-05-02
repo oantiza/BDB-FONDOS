@@ -1,0 +1,122 @@
+{
+  "isin": "FR0010149120",
+  "fileName": "morningstarreport20251202125655.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:36:29.781Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 72.17,
+        "cash": 27.21,
+        "other": 0.62
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.11,
+      "effective_maturity": 2.81,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 7.71,
+        "aa": 8.71,
+        "a": 29.19,
+        "bbb": 44.67,
+        "bb": 7.36,
+        "b": 1.14,
+        "below_b": 1.21,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 24.25,
+        "3_5": 29.02,
+        "5_7": 15.86,
+        "7_10": 6.43,
+        "over_10": 14.53
+      },
+      "coupon_allocation": {
+        "0": 1.93,
+        "0_4": 69.62,
+        "4_6": 19.07,
+        "over_6": 9.39
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Italy (Republic Of) 0%2026-01-30",
+        "weight": 1.88,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2025-12-10",
+        "weight": 1.52,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 0%2025-11-28",
+        "weight": 1.37,
+        "sector": null
+      },
+      {
+        "name": "Repsol International Finance B.V. 2.5%",
+        "weight": 0.81,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2026-04-09",
+        "weight": 0.73,
+        "sector": null
+      },
+      {
+        "name": "TotalEnergies SE 1.625%",
+        "weight": 0.67,
+        "sector": null
+      },
+      {
+        "name": "BP Capital Markets PLC 3.25%",
+        "weight": 0.65,
+        "sector": null
+      },
+      {
+        "name": "Pershing Square Holdings, Ltd....",
+        "weight": 0.64,
+        "sector": null
+      },
+      {
+        "name": "Jefferies GmbH 2.639%2027-07-15",
+        "weight": 0.64,
+        "sector": null
+      },
+      {
+        "name": "AMCO Asset Management Company S.p.A...",
+        "weight": 0.62,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 401,
+      "top10_weight": 9.52
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El objetivo del fondo consiste en obtener una rentabilidad superior a la de su indicador de referencia, en un horizonte de inversión recomendado de 2 años. El indicador de referencia es el índice ICE BofA 1-3 Year All Euro Government, con cupones reinvertidos (E1AS). Este índice replica la rentabilidad de la deuda soberana denominada en EUR emitida públicamente por los países miembros de la zona euro en el mercado de eurobonos o en el mercado interior del emisor, con un plazo residual hasta el vencimiento final..."
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "isin": "FR0011170182",
+  "fileName": "morningstarreport20260217045745.pdf",
+  "report_date": "2026-02-17",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:52:33.874Z",
+  "ms": {
+    "report_date": "2026-02-17",
+    "category_morningstar": "Materias Primas - Metales Preciosos",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 0,
+        "cash": 100,
+        "other": 0.02
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "France (Republic Of)",
+        "weight": 17.67,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)",
+        "weight": 16.9,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)",
+        "weight": 14.6,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)",
+        "weight": 12.41,
+        "sector": null
+      },
+      {
+        "name": "Ofi Invest ESG Liquidités C/D",
+        "weight": 11.63,
+        "sector": null
+      },
+      {
+        "name": "European Union",
+        "weight": 9.3,
+        "sector": null
+      },
+      {
+        "name": "Belgium (Kingdom Of)",
+        "weight": 9.28,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)",
+        "weight": 6.74,
+        "sector": null
+      },
+      {
+        "name": "European Union",
+        "weight": 4.83,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of)",
+        "weight": 2.75,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 17,
+      "top10_weight": 100
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": null
+  }
+}

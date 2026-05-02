@@ -1,0 +1,131 @@
+{
+  "isin": "LU0329203656",
+  "fileName": "morningstarreport20251229071748.pdf",
+  "report_date": "2025-12-29",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:43:57.470Z",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Sector Otros",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 99.11,
+        "bond": 0,
+        "cash": 0.89,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 27.23,
+      "financial_services": 19.74,
+      "industrials": 13.52,
+      "healthcare": 9.66,
+      "consumer_cyclical": 9.14,
+      "consumer_defensive": 2.75,
+      "utilities": 6.09,
+      "energy": 5.44,
+      "communication_services": 5.59,
+      "real_estate": 0.47,
+      "basic_materials": 0.37
+    },
+    "regions": {
+      "macro": {
+        "americas": 62.07,
+        "europe_me_africa": 20.17,
+        "asia": 17.76
+      },
+      "detail": {
+        "united_states": 60.52,
+        "canada": 0.85,
+        "latin_america": 0.7,
+        "united_kingdom": 6.01,
+        "eurozone": 11.63,
+        "europe_ex_euro": 2.54,
+        "japan": 5.21,
+        "other": 8.91,
+        "asia_emerging": 3.64
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 41.04,
+        "large": 47.34,
+        "mid": 11.62,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Microsoft Corp",
+        "weight": 7.18,
+        "sector": "technology"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 5.22,
+        "sector": "technology"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 3.14,
+        "sector": "technology"
+      },
+      {
+        "name": "Johnson & Johnson",
+        "weight": 2.6,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Fidelity National Information...",
+        "weight": 2.33,
+        "sector": "technology"
+      },
+      {
+        "name": "Tencent Holdings Ltd",
+        "weight": 2.31,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Bank of America Corp",
+        "weight": 2.12,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Analog Devices Inc",
+        "weight": 2.09,
+        "sector": "technology"
+      },
+      {
+        "name": "Morgan Stanley",
+        "weight": 2.03,
+        "sector": "financial_services"
+      },
+      {
+        "name": "McDonald's Corp",
+        "weight": 1.99,
+        "sector": "consumer_cyclical"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 74,
+      "holdings_count_bond": 0,
+      "top10_weight": 31
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Ofrecer crecimiento de capital a largo plazo mediante inversión principalmente en sociedades, a nivel global, que generen rendimientos altos y crecientes."
+  }
+}

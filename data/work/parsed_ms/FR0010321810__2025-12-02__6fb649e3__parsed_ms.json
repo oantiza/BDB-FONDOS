@@ -1,0 +1,125 @@
+{
+  "isin": "FR0010321810",
+  "fileName": "morningstarreport20251202123417.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:29:57.870Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Europe Mid-Cap Equity",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 96.71,
+        "bond": 0.01,
+        "cash": 3.3,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 8.52,
+      "financial_services": 20.94,
+      "industrials": 38.42,
+      "healthcare": 10.26,
+      "consumer_cyclical": 4.02,
+      "consumer_defensive": 1.82,
+      "utilities": 2.7,
+      "energy": 0.39,
+      "communication_services": 6.7,
+      "real_estate": 2.42,
+      "basic_materials": 3.8
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.53,
+        "europe_me_africa": 98.47,
+        "asia": 0.01
+      },
+      "detail": {
+        "united_states": 1.53,
+        "united_kingdom": 13.71,
+        "eurozone": 62.09,
+        "europe_ex_euro": 22.67,
+        "other": 0.01
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 1.59,
+        "large": 11.31,
+        "mid": 87.1,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Diploma PLC",
+        "weight": 4.23,
+        "sector": "industrials"
+      },
+      {
+        "name": "LBPAM 3 Mois I",
+        "weight": 3.8,
+        "sector": null
+      },
+      {
+        "name": "SPIE SA",
+        "weight": 3.77,
+        "sector": "industrials"
+      },
+      {
+        "name": "Beijer Ref AB Class B",
+        "weight": 3.69,
+        "sector": "industrials"
+      },
+      {
+        "name": "Scout24 SE",
+        "weight": 3.46,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Recordati SpA Az nom Post...",
+        "weight": 3.23,
+        "sector": "healthcare"
+      },
+      {
+        "name": "Alk-Abello AS Class B",
+        "weight": 3.21,
+        "sector": "healthcare"
+      },
+      {
+        "name": "BE Semiconductor Industries NV",
+        "weight": 3.17,
+        "sector": "technology"
+      },
+      {
+        "name": "Halma PLC",
+        "weight": 3.13,
+        "sector": "industrials"
+      },
+      {
+        "name": "ASM International NV",
+        "weight": 3.06,
+        "sector": "technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 34.75
+    },
+    "costs": null,
+    "objective": "ECHIQUIER AGENOR es un fondo dinámico que pretende obtener una rentabilidad a largo plazo a través de la exposición al mercado de renta variable europea"
+  }
+}

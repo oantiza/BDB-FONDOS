@@ -1,0 +1,363 @@
+{
+  "isin": "LU0248181363",
+  "name": "Schroder International Selection Fund Latin American A Accumulation EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202072945.pdf",
+  "stableBaseName": "LU0248181363__2025-12-02__76205039",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Latinoamérica",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 98.47,
+        "bond": 0,
+        "cash": 0,
+        "other": 4.27
+      }
+    },
+    "sectors": {
+      "financial_services": 37.77,
+      "industrials": 6.15,
+      "healthcare": 2.91,
+      "consumer_cyclical": 3.08,
+      "consumer_defensive": 7.28,
+      "utilities": 10.04,
+      "energy": 7.74,
+      "communication_services": 3.48,
+      "real_estate": 1.02,
+      "basic_materials": 20.53
+    },
+    "regions": {
+      "macro": {
+        "americas": 99.25,
+        "europe_me_africa": 0.75
+      },
+      "detail": {
+        "canada": 1.28,
+        "latin_america": 97.98,
+        "united_kingdom": 0.75
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 50.44,
+        "large": 34.14,
+        "mid": 12.34,
+        "small": 2.56,
+        "micro": 0.51
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": "Large-Blend"
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Nu Holdings Ltd Ordinary...",
+        "weight": 9.14,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Itau Unibanco Holding SA ADR",
+        "weight": 7.31,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Petroleo Brasileiro SA...",
+        "weight": 5.8,
+        "sector": "Energía"
+      },
+      {
+        "name": "Vale SA ADR",
+        "weight": 4.9,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Grupo Mexico SAB de CV Class B",
+        "weight": 4.89,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Grupo Financiero Banorte SAB...",
+        "weight": 4.43,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Banco BTG Pactual S.A. Units...",
+        "weight": 3.55,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "America Movil SAB de CV ADR -...",
+        "weight": 3.43,
+        "sector": "Servicios de Comunicación"
+      },
+      {
+        "name": "Companhia De Saneamento Basico...",
+        "weight": 3.35,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "B3 SA - Brasil Bolsa Balcao",
+        "weight": 3.27,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 40,
+      "holdings_count_bond": 0,
+      "top10_weight": 50.07
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "Proporcionar crecimiento de capital principalmente a través de la inversión en valores de renta variable emitidos por sociedades latinoamericanas."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "primary_region": "Emergentes",
+    "subcategories": [
+      "sector:financials"
+    ],
+    "top_sector": "financial_services",
+    "top_sector_weight": 37.77,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 98.47,
+        "bond": 0,
+        "cash": 0,
+        "other": 4.27
+      },
+      "equity_sectors_total": {
+        "financial_services": 37.1921,
+        "industrials": 6.0559,
+        "healthcare": 2.8655,
+        "consumer_cyclical": 3.0329,
+        "consumer_defensive": 7.1686,
+        "utilities": 9.8864,
+        "energy": 7.6216,
+        "communication_services": 3.4268,
+        "real_estate": 1.0044,
+        "basic_materials": 20.2159
+      },
+      "equity_regions_total": {
+        "canada": 1.2604,
+        "latin_america": 96.4809,
+        "united_kingdom": 0.7385
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Large-Blend",
+        "weight_total": 98.47,
+        "size_bucket": "large",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 3.0233,
+          "mid": 12.1524,
+          "large": 83.2943
+        },
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "commercial_type": "RV Latinoamérica",
+    "region_primary": "Emergentes",
+    "region_secondary": null,
+    "equity_style_box": "Large-Blend",
+    "market_cap_bias": "large",
+    "fixed_income_type": "flexible",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [
+      "sector:financials"
+    ],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing",
+      "fi_type_inference_weak"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.958439,
+      "bond": 0,
+      "cash": 0,
+      "other": 0.041561
+    },
+    "equity_regions": {
+      "canada": 0.00704,
+      "latin_america": 0.538903,
+      "united_kingdom": 0.412496
+    },
+    "sectors": {
+      "financial_services": 0.362002,
+      "industrials": 0.058944,
+      "healthcare": 0.027891,
+      "consumer_cyclical": 0.02952,
+      "consumer_defensive": 0.069774,
+      "utilities": 0.096227,
+      "energy": 0.074183,
+      "communication_services": 0.033354,
+      "real_estate": 0.009776,
+      "basic_materials": 0.196767
+    },
+    "equity_styles": null,
+    "market_caps": {
+      "small": 0.029427,
+      "mid": 0.118283,
+      "large": 0.810729
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.47",
+      "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0274,sum_after=1",
+      "credit_missing",
+      "duration_missing",
+      "asset_allocation_sum_mismatch"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "67f7a368655bcbbac7f366474792bce6",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data",
+      "fi_type_inference_weak",
+      "asset_allocation_sum_mismatch:102.74"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.958439,
+          "bond": 0,
+          "cash": 0,
+          "other": 0.041561,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.958439
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.958438
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.958439
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:28:01.527Z"
+}

@@ -1,0 +1,122 @@
+{
+  "isin": "LU1299306321",
+  "fileName": "morningstarreport20260323072313.pdf",
+  "report_date": "2026-03-23",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:57:07.641Z",
+  "ms": {
+    "report_date": "2026-03-23",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2026-02-27",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 75.86,
+        "cash": 23.94,
+        "other": 0.21
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 2.04,
+      "effective_maturity": 2.98,
+      "avg_credit_quality": "BBB",
+      "credit_quality": {
+        "aaa": 8.98,
+        "aa": 8.88,
+        "a": 31.22,
+        "bbb": 43.56,
+        "bb": 4.87,
+        "b": 1.98,
+        "below_b": 0.52,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 22.91,
+        "3_5": 26.51,
+        "5_7": 12.36,
+        "7_10": 9.85,
+        "over_10": 17.94
+      },
+      "coupon_allocation": {
+        "0": 2.22,
+        "0_4": 73.19,
+        "4_6": 16.73,
+        "over_6": 7.85
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Spain (Kingdom of) 3.15%2033-04-30",
+        "weight": 3.24,
+        "sector": null
+      },
+      {
+        "name": "Carmignac Sécurité Z2 EUR Acc",
+        "weight": 3.23,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 0%2026-07-31",
+        "weight": 1.75,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 0%2026-03-31",
+        "weight": 1.68,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2026-03-18",
+        "weight": 1.35,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2026-04-09",
+        "weight": 1.29,
+        "sector": null
+      },
+      {
+        "name": "European Union 0%2026-03-06",
+        "weight": 1.11,
+        "sector": null
+      },
+      {
+        "name": "Repsol International Finance B.V. 2.5%",
+        "weight": 0.79,
+        "sector": null
+      },
+      {
+        "name": "France (Republic Of) 0%2026-04-29",
+        "weight": 0.74,
+        "sector": null
+      },
+      {
+        "name": "TotalEnergies SE 1.62%",
+        "weight": 0.63,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 400,
+      "top10_weight": 15.81
+    },
+    "costs": {
+      "management_fee": 1
+    },
+    "objective": "El objetivo de inversión consiste en registrar una rentabilidad superior a la rentabilidad del indicador de referencia en un horizonte de inversión recomendado de dos años. Asimismo, el Subfondo pretende invertir de forma sostenible con el fin de lograr un crecimiento a largo plazo, y adopta un enfoque de inversión socialmente responsable. Toda la información sobre cómo se aplica el enfoque de inversión socialmente responsable se describe en el anexo de este Folleto, así como en las siguientes direcciones de internet:..."
+  }
+}

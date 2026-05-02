@@ -1,0 +1,272 @@
+{
+  "isin": "LU1529955046",
+  "name": "Eurizon Fund - Bond Aggregate RMB Class R EUR Acc",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202050328.pdf",
+  "stableBaseName": "LU1529955046__2025-12-02__4b24b103",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": null,
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-09-29",
+      "asset_allocation": {
+        "equity": 0.19,
+        "bond": 100,
+        "cash": 0,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 7.42,
+      "effective_maturity": null,
+      "avg_credit_quality": "BB",
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 76.25,
+        "bbb": 3.42,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 20.33
+      },
+      "maturity_allocation": {
+        "1_3": 1.07,
+        "3_5": 26.06,
+        "5_7": 44.53,
+        "7_10": 9.08,
+        "over_10": 18.69
+      },
+      "coupon_allocation": {
+        "0": 0.27,
+        "0_4": 91.72,
+        "4_6": 5.74,
+        "over_6": 2.27
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "China Development Bank 2031-03-01",
+        "weight": 10.04,
+        "sector": null
+      },
+      {
+        "name": "Central Huijin Investment Ltd. 2029-03-29",
+        "weight": 9.01,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of) 2032-05-15",
+        "weight": 7.74,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of) 2031-03-25",
+        "weight": 5.9,
+        "sector": null
+      },
+      {
+        "name": "Central Huijin Investment Ltd. 2029-07-30",
+        "weight": 5.57,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of) 2031-06-25",
+        "weight": 5.02,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of) 2054-07-25",
+        "weight": 4.86,
+        "sector": null
+      },
+      {
+        "name": "Meituan LLC 2030-10-28",
+        "weight": 4.53,
+        "sector": null
+      },
+      {
+        "name": "China (People's Republic Of) 2030-06-25",
+        "weight": 4,
+        "sector": null
+      },
+      {
+        "name": "China Development Bank 2032-01-17",
+        "weight": 3.89,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 34,
+      "top10_weight": 60.57
+    },
+    "costs": {
+      "management_fee": 1.3
+    },
+    "objective": "To increase the value of your investment over time and to outperform renminbi (RMB) bond markets (as measured by the benchmark). In actively managing the fund, the investment manager uses quantitative analysis to build a portfolio that has similar, though improved, characteristics to the benchmark, and uses discretionary views on macroeconomic factors such as interest rates, currency exchanges and credit spreads to seek additional performance (top-down discretionary macro approach). The fund's exposure to securities,..."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Global",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.7500000000000001,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": null,
+    "region_primary": "Global",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "long",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.7500000000000001,
+    "sources_used": [
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.0019,
+      "bond": 1,
+      "cash": 0,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 1
+    },
+    "credit": {
+      "investment_grade": 1
+    },
+    "duration": {
+      "long": 1
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.7500000000000001,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+      "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.19,max_component=100",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "f6db7b8c0c766e1b12e01f5ca235791f",
+    "warnings": [
+      "missing_category_morningstar",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.0019,
+          "bond": 1,
+          "cash": 0,
+          "other": 0,
+          "sum": 1.0019
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 1
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:26:39.119Z"
+}

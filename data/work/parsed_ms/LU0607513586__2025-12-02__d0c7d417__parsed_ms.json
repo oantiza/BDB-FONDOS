@@ -1,0 +1,128 @@
+{
+  "isin": "LU0607513586",
+  "fileName": "morningstarreport20251202013946.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:12:51.501Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV Global Alto Dividendo",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 93.98,
+        "bond": 0.01,
+        "cash": 0,
+        "other": 6.49
+      }
+    },
+    "sectors": {
+      "technology": 21.57,
+      "financial_services": 18.05,
+      "industrials": 27.04,
+      "healthcare": 6.21,
+      "consumer_cyclical": 10.42,
+      "consumer_defensive": 5.72,
+      "energy": 2.51,
+      "communication_services": 2.42,
+      "real_estate": 3.53,
+      "basic_materials": 2.54
+    },
+    "regions": {
+      "macro": {
+        "americas": 48.86,
+        "europe_me_africa": 41.75,
+        "asia": 9.4
+      },
+      "detail": {
+        "united_states": 43.27,
+        "canada": 5.58,
+        "united_kingdom": 17.18,
+        "eurozone": 17.19,
+        "europe_ex_euro": 7.37,
+        "japan": 1.66,
+        "other": 7.74
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 40.34,
+        "large": 32.16,
+        "mid": 20.61,
+        "small": 6.89,
+        "micro": 0
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Large-Value"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "3i Group Ord",
+        "weight": 6.49,
+        "sector": null
+      },
+      {
+        "name": "Canadian Pacific Kansas City Ltd",
+        "weight": 5.25,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 5.14,
+        "sector": "Technology"
+      },
+      {
+        "name": "Rolls-Royce Holdings PLC",
+        "weight": 4.88,
+        "sector": "Industrials"
+      },
+      {
+        "name": "AIA Group Ltd",
+        "weight": 4.42,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Texas Instruments Inc",
+        "weight": 4.31,
+        "sector": "Technology"
+      },
+      {
+        "name": "Coca-Cola Europacific Partners...",
+        "weight": 4,
+        "sector": "Consumer Defensive"
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 3.19,
+        "sector": "Technology"
+      },
+      {
+        "name": "Prosus NV Ordinary Shares -...",
+        "weight": 2.87,
+        "sector": "Consumer Cyclical"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 2.85,
+        "sector": "Technology"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 41,
+      "holdings_count_bond": 0,
+      "top10_weight": 43.38
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "El objetivo del Fondo es obtener ingresos y un incremento del capital a largo plazo. El Fondo invierte principalmente en acciones de sociedades de todo el mundo. El Fondo se gestiona activamente conforme a sus objetivos, y no está limitado por un valor de referencia."
+  }
+}

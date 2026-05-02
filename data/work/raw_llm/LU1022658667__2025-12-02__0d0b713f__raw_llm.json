@@ -1,0 +1,122 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:25:25.739Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1022658667",
+    "name": "Franklin Euro Short Duration Bond Fund A(acc)EUR",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RF Diversificada Corto Plazo EUR",
+    "rating_stars": 3,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 0,
+      "bond": 94.61,
+      "cash": 4.12,
+      "other": 1.27
+    },
+    "regions_macro": {},
+    "regions_detail": {},
+    "sectors": {},
+    "equity_market_cap": {},
+    "equity_style": {},
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": 1.6,
+      "effective_maturity": 2.26,
+      "avg_credit_quality": "A",
+      "credit_quality": {
+        "aaa": 32.73,
+        "aa": 17.9,
+        "a": 28.66,
+        "bbb": 19.35,
+        "bb": 1.05,
+        "b": 0.14,
+        "below_b": 0,
+        "not_rated": 0.16
+      },
+      "maturity_allocation": {
+        "1_3": 47.77,
+        "3_5": 32.83,
+        "5_7": 2.47,
+        "7_10": 0.94,
+        "over_10": 4
+      },
+      "coupon_allocation": {
+        "0": 6.35,
+        "0_4": 84.78,
+        "4_6": 6.74,
+        "over_6": 2.14
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "France (Republic Of)",
+        "weight": 5.45,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)",
+        "weight": 4.91,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)",
+        "weight": 4.83,
+        "sector": null
+      },
+      {
+        "name": "Finland (Republic Of)",
+        "weight": 3.06,
+        "sector": null
+      },
+      {
+        "name": "Kreditanstalt Fuer Wiederaufbau",
+        "weight": 3.05,
+        "sector": null
+      },
+      {
+        "name": "Spain (Kingdom of)",
+        "weight": 2.56,
+        "sector": null
+      },
+      {
+        "name": "Slovak (Republic of)",
+        "weight": 2.49,
+        "sector": null
+      },
+      {
+        "name": "Austria (Republic of)",
+        "weight": 2.35,
+        "sector": null
+      },
+      {
+        "name": "Germany (Federal Republic Of)",
+        "weight": 2.2,
+        "sector": null
+      },
+      {
+        "name": "Kreditanstalt Fuer Wiederaufbau",
+        "weight": 2.18,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 214,
+      "top10_weight": 33.07
+    },
+    "costs": {
+      "management_fee": 0.3
+    },
+    "objective": "Franklin Euro Short Duration Bond Fund pretende conservar el capital y la liquidez al tiempo que intenta maximizar la rentabilidad de sus inversiones en el medio y largo plazo. El Fondo invierte principalmente en: títulos de deuda a corto plazo de alta calidad denominados en euros y emitidos por sociedades ubicadas en Europa El Fondo puede invertir en menor medida en: títulos de deuda de menor calidad tales como valores non investment grade o valores en mora (limitado al 10% de los..."
+  }
+}

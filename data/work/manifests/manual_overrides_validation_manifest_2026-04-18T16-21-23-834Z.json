@@ -1,0 +1,40 @@
+{
+  "run_id": "manual_overrides_validation_2026-04-18T16-21-23-834Z",
+  "generated_at": "2026-04-18T16:21:23.834Z",
+  "schema_path": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\schemas\\manual_override.schema.json",
+  "options": {
+    "strict": false,
+    "fail_on_warning": true,
+    "quiet": true,
+    "canonical_dir": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\04_canonical",
+    "overrides_dir": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides",
+    "manifest_dir": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\07_manifests",
+    "logs_dir": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\08_logs"
+  },
+  "canonical_index": {
+    "files_scanned": 0,
+    "indexed_isins": 0
+  },
+  "run_issues": {
+    "errors": [],
+    "warnings": [
+      {
+        "level": "warning",
+        "code": "no_override_files",
+        "message": "No se encontraron .json en C:\\Users\\oanti\\Documents\\BDB-FONDOS\\BDB_PARSE_BACKUP\\05_overrides",
+        "strictAsError": false
+      }
+    ]
+  },
+  "summary": {
+    "total_files": 0,
+    "ok_files": 0,
+    "warning_files": 0,
+    "error_files": 0,
+    "total_errors": 0,
+    "total_warnings": 1,
+    "duration_ms": 1,
+    "exit_code": 2
+  },
+  "files": []
+}

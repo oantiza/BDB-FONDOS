@@ -1,0 +1,136 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-04-22T16:45:04.970Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU1670710075",
+    "name": "M&G (Lux) Global Dividend Fund EUR A Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-29",
+    "category_morningstar": "RV Global Alto Dividendo",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "30 nov. 2025",
+    "asset_allocation": {
+      "equity": 99.28,
+      "bond": 0.01,
+      "cash": 0.71,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 58.79,
+      "europe_me_africa": 28.29,
+      "asia": 12.93
+    },
+    "regions_detail": {
+      "Estados Unidos": 42.11,
+      "Canadá": 16.68,
+      "Iberoamérica": 0,
+      "Reino Unido": 13.62,
+      "Zona Euro": 7.7,
+      "Europa - ex Euro": 6.57,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0.39,
+      "Japón": 3.97,
+      "Australasia": 1.43,
+      "Asia - Desarrollada": 7.53,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 18.33,
+      "financial_services": 18.88,
+      "industrials": 6.31,
+      "healthcare": 13.96,
+      "consumer_cyclical": 13.12,
+      "consumer_defensive": 6.85,
+      "utilities": 1.95,
+      "energy": 9.79,
+      "communication_services": 3.84,
+      "real_estate": 0,
+      "basic_materials": 6.97
+    },
+    "equity_market_cap": {
+      "giant": 24.74,
+      "large": 43.86,
+      "mid": 16.76,
+      "small": 14.57,
+      "micro": 0.08
+    },
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "Amcor PLC Ordinary Shares",
+        "weight": 6.23,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Keyera Corp",
+        "weight": 5.23,
+        "sector": "Energía"
+      },
+      {
+        "name": "Methanex Corp",
+        "weight": 5.15,
+        "sector": "Materiales Básicos"
+      },
+      {
+        "name": "Gibson Energy Inc",
+        "weight": 4.49,
+        "sector": "Energía"
+      },
+      {
+        "name": "VF Corp",
+        "weight": 4.44,
+        "sector": "Consumo Cíclico"
+      },
+      {
+        "name": "Taiwan Semiconductor...",
+        "weight": 4.32,
+        "sector": "Tecnología"
+      },
+      {
+        "name": "Aberdeen Group PLC",
+        "weight": 4.22,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Takeda Pharmaceutical Co Ltd",
+        "weight": 3.94,
+        "sector": "Salud"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 3.81,
+        "sector": "Servicios de Comunicación"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 39,
+      "holdings_count_bond": 0,
+      "top10_weight": 48.31
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El fondo tiene dos objetivos: proporcionar una combinación de crecimiento de capital e ingresos que sea superior a la del mercado bursátil global (según el índice MSCI ACWI Net Return Index) durante cualquier periodo de cinco años, y aumentar el flujo de ingresos cada año en dólares estadounidenses, al tiempo que aplica los criterios ESG (medioambientales, sociales y de gobernanza). Al menos el 80 % del fondo se invierte en acciones de empresas de cualquier parte del mundo. El fondo suele poseer acciones de menos de..."
+  }
+}

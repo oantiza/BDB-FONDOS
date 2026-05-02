@@ -1,0 +1,273 @@
+{
+  "isin": "LU1694212348",
+  "name": "Nordea 1 - Low Duration European Covered Bond Fund BP EUR",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202044257.pdf",
+  "stableBaseName": "LU1694212348__2025-12-02__5856f591",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "EUR Corporate Bond - Short Term",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 0,
+        "bond": 77.58,
+        "cash": 22.42,
+        "other": 0
+      }
+    },
+    "sectors": null,
+    "regions": {
+      "macro": null,
+      "detail": null
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": 1.25,
+      "effective_maturity": 5.34,
+      "avg_credit_quality": "AA",
+      "credit_quality": {
+        "aaa": 60.73,
+        "aa": 22.18,
+        "a": 6.5,
+        "bbb": 9.9,
+        "bb": 0.62,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0.32
+      },
+      "maturity_allocation": {
+        "1_3": 39.63,
+        "3_5": 20.01,
+        "5_7": 14.7,
+        "7_10": 14.85,
+        "over_10": 8.36
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 93.15,
+        "4_6": 6.1,
+        "over_6": 0.75
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Long-Term Euro BTP Future Dec 25",
+        "weight": 12.41,
+        "sector": null
+      },
+      {
+        "name": "Future on 2 Year Treasury Note",
+        "weight": 2.99,
+        "sector": null
+      },
+      {
+        "name": "Short-Term Euro BTP Future Dec...",
+        "weight": 2.27,
+        "sector": null
+      },
+      {
+        "name": "Future on Ultra US Treasury Bond",
+        "weight": 2.24,
+        "sector": null
+      },
+      {
+        "name": "Future on 10 Year Government of Canada...",
+        "weight": 1.9,
+        "sector": null
+      },
+      {
+        "name": "Bpce Sfh 0.01%",
+        "weight": 1.84,
+        "sector": null
+      },
+      {
+        "name": "Nykredit Realkredit A/S 1%",
+        "weight": 1.62,
+        "sector": null
+      },
+      {
+        "name": "Vseobecna Uverova Banka AS 3.5%",
+        "weight": 1.49,
+        "sector": null
+      },
+      {
+        "name": "Caisse Francaise de Financement Local...",
+        "weight": 1.44,
+        "sector": null
+      },
+      {
+        "name": "United Overseas Bank Ltd. 0.1%",
+        "weight": 1.39,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 0,
+      "holdings_count_bond": 249,
+      "top10_weight": 29.59
+    },
+    "costs": {
+      "management_fee": 0.5
+    },
+    "objective": "El fondo invierte principalmente en bonos garantizados europeos. En concreto, el fondo invierte al menos dos tercios de su patrimonio total en bonos garantizados emitidos por empresas o instituciones financieras que estén domiciliadas o realicen la mayor parte de su actividad en Europa. Asimismo, el fondo invierte al menos dos tercios de su patrimonio total en títulos de deuda con una calificación de hasta AAA/Aaa, aunque no inferior a A-/A3, o equivalente. La duración modificada del fondo oscila entre 0 y 2 años."
+  },
+  "derived": {
+    "asset_class": "RF",
+    "asset_subtype": "CORPORATE_BOND",
+    "primary_region": "Europa",
+    "subcategories": [
+      "theme:fixed_income"
+    ],
+    "top_sector": null,
+    "top_sector_weight": null,
+    "is_sector_fund": false,
+    "is_thematic": true,
+    "is_index_like": false,
+    "confidence": 0.9300000000000002,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ]
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "commercial_type": "EUR Corporate Bond - Short Term",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "short",
+    "strategy_tags": [
+      "theme:fixed_income"
+    ],
+    "vehicle_complexity": "thematic",
+    "classification_confidence": 0.9300000000000002,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "region_incomplete"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0,
+      "bond": 0.7758,
+      "cash": 0.2242,
+      "other": 0
+    },
+    "equity_regions": null,
+    "sectors": null,
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.7758
+    },
+    "credit": {
+      "investment_grade": 0.7758
+    },
+    "duration": {
+      "short": 0.7758
+    },
+    "alternatives": null,
+    "exposure_confidence": 0.9300000000000002,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=77.58",
+      "region_incomplete"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "bbcfe0662ec1b6281122d19c861cdda9",
+    "warnings": [
+      "missing_rating_stars",
+      "missing_sectors",
+      "missing_regions"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0,
+          "bond": 0.7758,
+          "cash": 0.2242,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7758
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7758
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.7758
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:25:17.264Z"
+}

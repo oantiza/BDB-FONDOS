@@ -1,0 +1,113 @@
+{
+  "isin": "LU0243957742",
+  "fileName": "morningstarreport20251202050029.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:26:14.089Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Mixtos Defensivos EUR",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 20.46,
+        "bond": 74.82,
+        "cash": 3.93,
+        "other": 0.8
+      }
+    },
+    "sectors": {
+      "technology": 5.66,
+      "financial_services": 23.23,
+      "industrials": 16.68,
+      "healthcare": 10.96,
+      "consumer_cyclical": 5.25,
+      "consumer_defensive": 10.37,
+      "utilities": 9.04,
+      "energy": 4.66,
+      "communication_services": 5.07,
+      "real_estate": 2.2,
+      "basic_materials": 6.88
+    },
+    "regions": {
+      "macro": {
+        "europe_me_africa": 100
+      },
+      "detail": {
+        "united_kingdom": 10.25,
+        "eurozone": 77.75,
+        "europe_ex_euro": 12
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Invesco Euro Liquidity Port...",
+        "weight": 1.37,
+        "sector": null
+      },
+      {
+        "name": "E.ON SE",
+        "weight": 1.01,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Banco Santander, S.A. 7%",
+        "weight": 0.98,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 0.87,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Shell PLC",
+        "weight": 0.85,
+        "sector": "Energía"
+      },
+      {
+        "name": "Enel SpA",
+        "weight": 0.84,
+        "sector": "Servicios Públicos"
+      },
+      {
+        "name": "Sanofi SA",
+        "weight": 0.78,
+        "sector": "Salud"
+      },
+      {
+        "name": "AXA SA",
+        "weight": 0.76,
+        "sector": "Servicios Financieros"
+      },
+      {
+        "name": "Siemens AG",
+        "weight": 0.76,
+        "sector": "Industria"
+      },
+      {
+        "name": "Allianz SE",
+        "weight": 0.75,
+        "sector": "Servicios Financieros"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 47,
+      "holdings_count_bond": 414,
+      "top10_weight": 8.96
+    },
+    "costs": {
+      "management_fee": 1.75
+    },
+    "objective": "El fondo busca proporcionar a los Accionistas un crecimiento a largo plazo de la rentabilidad total superior al de las rentabilidades monetarias mediante una cartera diversificada, activamente gestionada, que invierte fundamentalmente en valores de renta variable, valores de renta fija y activos monetarios de Europa Continental. El fondo también podrá invertir en warrants y participaciones de OICVM y de otros OICs. Le rogamos consulte el folleto para ampliar esta información sobre los objetivos de inversión."
+  }
+}

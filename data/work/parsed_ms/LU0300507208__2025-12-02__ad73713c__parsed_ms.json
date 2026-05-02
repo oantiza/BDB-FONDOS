@@ -1,0 +1,122 @@
+{
+  "isin": "LU0300507208",
+  "fileName": "morningstarreport20251202013808.pdf",
+  "report_date": "2025-12-02",
+  "model": "gemini-2.5-pro",
+  "parsed_at": "2026-04-22T09:03:28.905Z",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "Eurozone Mid-Cap Equity",
+    "rating_stars": 4,
+    "medalist_rating": "Silver",
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 95.73,
+        "bond": 0,
+        "cash": 4.27,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 5.7,
+      "financial_services": 19.17,
+      "industrials": 30.09,
+      "healthcare": 7.31,
+      "consumer_cyclical": 8.93,
+      "consumer_defensive": 2.37,
+      "utilities": 2.27,
+      "energy": 5.37,
+      "communication_services": 4.64,
+      "real_estate": 4.57,
+      "basic_materials": 9.57
+    },
+    "regions": {
+      "macro": {
+        "americas": 1.91,
+        "europe_me_africa": 98.09
+      },
+      "detail": {
+        "united_states": 1.91,
+        "united_kingdom": 0.35,
+        "eurozone": 97.29,
+        "europe_ex_euro": 0.25,
+        "other": 0.2
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 17.51,
+        "mid": 71.99,
+        "small": 8.95,
+        "micro": 1.55
+      },
+      "style": null,
+      "style_box_cell": "Mid-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "MTU Aero Engines AG",
+        "weight": 2.19,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Leonardo SpA Az nom Post...",
+        "weight": 2.05,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Prysmian SpA",
+        "weight": 1.86,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Eurofins Scientific SE",
+        "weight": 1.82,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Commerzbank AG",
+        "weight": 1.79,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Publicis Groupe SA",
+        "weight": 1.47,
+        "sector": "Communication Services"
+      },
+      {
+        "name": "FinecoBank SpA",
+        "weight": 1.4,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Bilfinger SE",
+        "weight": 1.3,
+        "sector": "Industrials"
+      },
+      {
+        "name": "BPER Banca SpA",
+        "weight": 1.29,
+        "sector": "Financial Services"
+      },
+      {
+        "name": "Fresenius SE & Co KGaA",
+        "weight": 1.26,
+        "sector": "Healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 200,
+      "holdings_count_bond": 0,
+      "top10_weight": 16.42
+    },
+    "costs": {
+      "management_fee": 2.3
+    },
+    "objective": "El Small & Mid Cap Euro Equities Sub-fund invierte principalmente en títulos de renta pagado la totalidad de empresas que cotizan en las bolsas de valores de cualquier Estado miembro participante de la Unión Monetaria Europea (calificación como mercados regulados), centrada en valores con una pequeña y mediana capitalización."
+  }
+}

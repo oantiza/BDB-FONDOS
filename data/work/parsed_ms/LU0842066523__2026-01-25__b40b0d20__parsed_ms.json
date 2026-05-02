@@ -1,0 +1,120 @@
+{
+  "isin": "LU0842066523",
+  "fileName": "morningstarreport20260125091454.pdf",
+  "report_date": "2026-01-25",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-04-22T16:50:15.344Z",
+  "ms": {
+    "report_date": "2026-01-25",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 2,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-12-31",
+      "asset_allocation": {
+        "equity": 43.47,
+        "bond": 42.28,
+        "cash": 14.17,
+        "other": 0.07
+      }
+    },
+    "sectors": {
+      "technology": 27.03,
+      "financial_services": 8.82,
+      "industrials": 8.38,
+      "healthcare": 16.19,
+      "consumer_cyclical": 8.2,
+      "consumer_defensive": 9.72,
+      "utilities": 1.09,
+      "energy": 3.52,
+      "communication_services": 10.93,
+      "real_estate": 1.91,
+      "basic_materials": 4.2
+    },
+    "regions": {
+      "macro": {
+        "americas": 63.01,
+        "europe_me_africa": 36.26,
+        "asia": 0.73
+      },
+      "detail": {
+        "other": 99.27,
+        "united_states": 60.72,
+        "canada": 2.29,
+        "united_kingdom": 2,
+        "eurozone": 28.04,
+        "europe_ex_euro": 6.22,
+        "asia": 0.73,
+        "asia_emerging": 0.73
+      }
+    },
+    "equity_style": {
+      "market_cap": null,
+      "style": null,
+      "style_box_cell": null
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "United States Treasury Notes 4%",
+        "weight": 1.65,
+        "sector": null
+      },
+      {
+        "name": "Visa Inc 4.15%",
+        "weight": 1.59,
+        "sector": null
+      },
+      {
+        "name": "Alphabet Inc. 1.9%",
+        "weight": 1.59,
+        "sector": null
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 1.51,
+        "sector": null
+      },
+      {
+        "name": "Italy (Republic Of) 4%",
+        "weight": 1.48,
+        "sector": null
+      },
+      {
+        "name": "JPMorgan Chase & Co. 5.6%",
+        "weight": 1.42,
+        "sector": null
+      },
+      {
+        "name": "United States Treasury Bonds...",
+        "weight": 1.22,
+        "sector": null
+      },
+      {
+        "name": "Adyen NV",
+        "weight": 1.21,
+        "sector": null
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 1.2,
+        "sector": null
+      },
+      {
+        "name": "NVIDIA Corp",
+        "weight": 1.2,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 88,
+      "holdings_count_bond": 62,
+      "top10_weight": 14.06
+    },
+    "costs": {
+      "management_fee": 0.46
+    },
+    "objective": "El objetivo del subfondo es proporcionar un crecimiento a largo plazo del capital y los ingresos. El subfondo mantendrá entre un 30% y un 80% de sus activos en títulos de renta variable e invertirá entre un 30% y un 80% de sus activos en instrumentos de deuda. El subfondo también puede invertir en participaciones de OICVM y OIC. El subfondo también podrá utilizar todo tipo de instrumentos financieros derivados con fines de cobertura y para gestionar eficazmente su cartera (exposición máxima: 100%)."
+  }
+}

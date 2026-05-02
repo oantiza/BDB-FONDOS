@@ -1,0 +1,137 @@
+{
+  "status": "ok",
+  "model": "gemini-2.5-pro",
+  "generated_at": "2026-04-22T09:28:46.496Z",
+  "schema_validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": []
+  },
+  "raw_response": {
+    "isin": "LU0232524495",
+    "name": "AB - American Growth Portfolio A EUR Acc",
+    "currency": "EUR",
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV USA Cap. Grande Growth",
+    "rating_stars": 4,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio_as_of": "31 oct. 2025",
+    "asset_allocation": {
+      "equity": 99.15,
+      "bond": 0,
+      "cash": 0.85,
+      "other": 0
+    },
+    "regions_macro": {
+      "americas": 96.59,
+      "europe_me_africa": 1.34,
+      "asia": 2.07
+    },
+    "regions_detail": {
+      "Estados Unidos": 95.89,
+      "Canadá": 0.7,
+      "Iberoamérica": 0,
+      "Reino Unido": 0,
+      "Zona Euro": 0.65,
+      "Europa - ex Euro": 0.69,
+      "Europa emergente": 0,
+      "Oriente Medio / África": 0,
+      "Japón": 0,
+      "Australasia": 0,
+      "Asia - Desarrollada": 2.07,
+      "Asia - Emergente": 0
+    },
+    "sectors": {
+      "technology": 40.51,
+      "financial_services": 5.48,
+      "industrials": 4.04,
+      "healthcare": 12.29,
+      "consumer_cyclical": 14.11,
+      "consumer_defensive": 4.29,
+      "utilities": 0,
+      "energy": 0,
+      "communication_services": 18.2,
+      "real_estate": 0,
+      "basic_materials": 1.08
+    },
+    "equity_market_cap": {
+      "giant": 59.57,
+      "large": 23.58,
+      "mid": 14,
+      "small": 2.85,
+      "micro": 0
+    },
+    "equity_style": {},
+    "equity_style_box_cell": "Large-Growth",
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {},
+      "maturity_allocation": {},
+      "coupon_allocation": {}
+    },
+    "holdings_top10": [
+      {
+        "name": "NVIDIA Corp",
+        "weight": 10.67,
+        "sector": "technology"
+      },
+      {
+        "name": "Microsoft Corp",
+        "weight": 9.03,
+        "sector": "technology"
+      },
+      {
+        "name": "Amazon.com Inc",
+        "weight": 8.12,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Alphabet Inc Class C",
+        "weight": 7.26,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Broadcom Inc",
+        "weight": 5.49,
+        "sector": "technology"
+      },
+      {
+        "name": "Meta Platforms Inc Class A",
+        "weight": 4.94,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Netflix Inc",
+        "weight": 4.43,
+        "sector": "communication_services"
+      },
+      {
+        "name": "Visa Inc Class A",
+        "weight": 3.88,
+        "sector": "financial_services"
+      },
+      {
+        "name": "Apple Inc",
+        "weight": 3.68,
+        "sector": "technology"
+      },
+      {
+        "name": "Eli Lilly and Co",
+        "weight": 2.6,
+        "sector": "healthcare"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 61,
+      "holdings_count_bond": 0,
+      "top10_weight": 60.1
+    },
+    "costs": {
+      "management_fee": 1.5
+    },
+    "objective": "La cartera es una gran cartera de valores de renta variable de compañías estadounidenses cuyo objetivo es lograr revalorización del capital a largo plazo a través de inversiones en valores de emisores de Estados Unidos. La cartera invierte principalmente en un número limitado de valores de renta variable de compañías estadounidenses bien establecidas que el administrador del Fondo considere que son de alta calidad. El gestor de la cartera se concentra generalmente en estas empresas por sus puestos superiores en sus..."
+  }
+}

@@ -1,0 +1,343 @@
+{
+  "isin": "ES0175604034",
+  "name": "Gesconsult León Valores Mixto Flexible A FI",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251229072912.pdf",
+  "stableBaseName": "ES0175604034__2025-12-29__ed56859e",
+  "report_date": "2025-12-29",
+  "ms": {
+    "report_date": "2025-12-29",
+    "category_morningstar": "Mixtos Moderados EUR",
+    "rating_stars": 0,
+    "medalist_rating": null,
+    "sustainability_rating": 0,
+    "portfolio": {
+      "as_of": "2025-11-29",
+      "asset_allocation": {
+        "equity": 45.38,
+        "bond": 47.33,
+        "cash": 7.29,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 21.88,
+      "financial_services": 23.54,
+      "industrials": 16.81,
+      "healthcare": 5.16,
+      "consumer_cyclical": 12.73,
+      "consumer_defensive": 3.78,
+      "utilities": 5.83,
+      "energy": 0.47,
+      "communication_services": 0.45,
+      "real_estate": 2.9,
+      "basic_materials": 6.43
+    },
+    "regions": {
+      "macro": {
+        "americas": 1,
+        "europe_me_africa": 99
+      },
+      "detail": {
+        "united_states": 1,
+        "eurozone": 99
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0,
+        "mid": 0,
+        "small": 0,
+        "micro": 0
+      },
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
+    },
+    "fixed_income": {
+      "effective_duration": null,
+      "effective_maturity": null,
+      "avg_credit_quality": null,
+      "credit_quality": {
+        "aaa": 0,
+        "aa": 0,
+        "a": 0,
+        "bbb": 0,
+        "bb": 0,
+        "b": 0,
+        "below_b": 0,
+        "not_rated": 0
+      },
+      "maturity_allocation": {
+        "1_3": 0,
+        "3_5": 0,
+        "5_7": 0,
+        "7_10": 0,
+        "over_10": 0
+      },
+      "coupon_allocation": {
+        "0": 0,
+        "0_4": 0,
+        "4_6": 0,
+        "over_6": 0
+      }
+    },
+    "holdings_top10": [
+      {
+        "name": "Sacyr SA 5.8%2027-04-02",
+        "weight": 7.4,
+        "sector": null
+      },
+      {
+        "name": "Gesconsult Renta Variable...",
+        "weight": 5.35,
+        "sector": null
+      },
+      {
+        "name": "ABN AMRO Bank N.V....",
+        "weight": 4.85,
+        "sector": null
+      },
+      {
+        "name": "ASML Holding NV",
+        "weight": 4.85,
+        "sector": null
+      },
+      {
+        "name": "Unicaja Banco, S.A.U....",
+        "weight": 4.76,
+        "sector": null
+      },
+      {
+        "name": "Lvmh Moet Hennessy Louis...",
+        "weight": 4.17,
+        "sector": null
+      },
+      {
+        "name": "Acciona Financiacion Filiales...",
+        "weight": 3.55,
+        "sector": null
+      },
+      {
+        "name": "Banco Bilbao Vizcaya...",
+        "weight": 3,
+        "sector": null
+      },
+      {
+        "name": "Aedas Homes OPCO S L U...",
+        "weight": 2.39,
+        "sector": null
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 27,
+      "holdings_count_bond": 15,
+      "top10_weight": 48.95
+    },
+    "costs": {
+      "management_fee": 2
+    },
+    "objective": "Se invertirá, directa o indirectamente a través de iic (máximo 10%), entre un 30% - 75% de la exposición total en Renta Variable y el resto en activos de Renta Fija pública y/o privada (incluyendo depósitos e instrumentos del mercado monetario no cotizados, que sean líquidos). La suma de inversiones en renta variable de entidades radicadas fuera del área euro, más la exposición al riesgo divisa no superará el 30%. Los emisores y mercados serán de países ocde, fundamentalmente del área Euro."
+  },
+  "derived": {
+    "asset_class": "Mixto",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "primary_region": "Europa",
+    "subcategories": [],
+    "top_sector": "financial_services",
+    "top_sector_weight": 23.54,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 45.38,
+        "bond": 47.33,
+        "cash": 7.29,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 9.9291,
+        "financial_services": 10.6825,
+        "industrials": 7.6284,
+        "healthcare": 2.3416,
+        "consumer_cyclical": 5.7769,
+        "consumer_defensive": 1.7154,
+        "utilities": 2.6457,
+        "energy": 0.2133,
+        "communication_services": 0.2042,
+        "real_estate": 1.316,
+        "basic_materials": 2.9179
+      },
+      "equity_regions_total": {
+        "united_states": 0.4538,
+        "eurozone": 44.9262
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": null,
+        "weight_total": 45.38,
+        "size_bucket": null,
+        "style": null,
+        "size_weights_total": null,
+        "style_weights_total": null
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "allocation",
+    "asset_subtype": "FLEXIBLE_ALLOCATION",
+    "commercial_type": "Mixtos Moderados EUR",
+    "region_primary": "Europa",
+    "region_secondary": null,
+    "equity_style_box": null,
+    "market_cap_bias": null,
+    "fixed_income_type": "corporate",
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style",
+      "ms.fixed_income"
+    ],
+    "warnings": [
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.4538,
+      "bond": 0.4733,
+      "cash": 0.0729,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.22804,
+      "eurozone": 0.22576
+    },
+    "sectors": {
+      "technology": 0.051968,
+      "financial_services": 0.055911,
+      "industrials": 0.039927,
+      "healthcare": 0.012256,
+      "consumer_cyclical": 0.030236,
+      "consumer_defensive": 0.008978,
+      "utilities": 0.013847,
+      "energy": 0.11164,
+      "communication_services": 0.106877,
+      "real_estate": 0.006888,
+      "basic_materials": 0.015272
+    },
+    "equity_styles": null,
+    "market_caps": null,
+    "bond_types": {
+      "corporate": 0.4733
+    },
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=47.33",
+      "credit_missing",
+      "duration_missing"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+    "source_pdf_hash": "3eacd5f1079a32779e61293a4cb713a2",
+    "warnings": [
+      "fi_missing_credit_data",
+      "fi_missing_duration_data"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.4538,
+          "bond": 0.4733,
+          "cash": 0.0729,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4538
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4538
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.4733
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "review",
+    "reason": "credit_missing|duration_missing"
+  },
+  "generated_at": "2026-04-22T16:47:02.203Z"
+}

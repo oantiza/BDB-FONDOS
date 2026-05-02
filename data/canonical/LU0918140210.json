@@ -1,0 +1,330 @@
+{
+  "isin": "LU0918140210",
+  "name": "T. Rowe Price Funds SICAV - US Smaller Companies Equity Fund A (EUR)",
+  "currency": "EUR",
+  "fileName": "morningstarreport20251202073321.pdf",
+  "stableBaseName": "LU0918140210__2025-12-02__31736d03",
+  "report_date": "2025-12-02",
+  "ms": {
+    "report_date": "2025-12-02",
+    "category_morningstar": "RV USA Cap. Pequeña",
+    "rating_stars": null,
+    "medalist_rating": null,
+    "sustainability_rating": null,
+    "portfolio": {
+      "as_of": "2025-10-30",
+      "asset_allocation": {
+        "equity": 97.39,
+        "bond": 0,
+        "cash": 2.61,
+        "other": 0
+      }
+    },
+    "sectors": {
+      "technology": 15.37,
+      "financial_services": 14.01,
+      "industrials": 22.97,
+      "healthcare": 16.77,
+      "consumer_cyclical": 10.21,
+      "consumer_defensive": 3.39,
+      "utilities": 2.31,
+      "energy": 6.82,
+      "communication_services": 0.15,
+      "real_estate": 2.46,
+      "basic_materials": 5.56
+    },
+    "regions": {
+      "macro": {
+        "americas": 99.49,
+        "europe_me_africa": 0.51
+      },
+      "detail": {
+        "united_states": 95.4,
+        "canada": 4.09,
+        "europe_ex_euro": 0.2,
+        "middle_east": 0.32
+      }
+    },
+    "equity_style": {
+      "market_cap": {
+        "giant": 0,
+        "large": 0.56,
+        "mid": 28.85,
+        "small": 61.53,
+        "micro": 9.07
+      },
+      "style": {
+        "value": null,
+        "blend": null,
+        "growth": null
+      },
+      "style_box_cell": "Small-Blend"
+    },
+    "fixed_income": null,
+    "holdings_top10": [
+      {
+        "name": "Elanco Animal Health Inc",
+        "weight": 2.98,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "PTC Inc",
+        "weight": 2.17,
+        "sector": "Technology"
+      },
+      {
+        "name": "APi Group Corp",
+        "weight": 1.79,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Cytokinetics Inc",
+        "weight": 1.68,
+        "sector": "Healthcare"
+      },
+      {
+        "name": "Flowserve Corp",
+        "weight": 1.68,
+        "sector": "Industrials"
+      },
+      {
+        "name": "Teledyne Technologies Inc",
+        "weight": 1.52,
+        "sector": "Technology"
+      },
+      {
+        "name": "MACOM Technology Solutions...",
+        "weight": 1.44,
+        "sector": "Technology"
+      },
+      {
+        "name": "Weatherford International PLC...",
+        "weight": 1.34,
+        "sector": "Energy"
+      },
+      {
+        "name": "Parsons Corp",
+        "weight": 1.33,
+        "sector": "Technology"
+      },
+      {
+        "name": "Regions Financial Corp",
+        "weight": 1.32,
+        "sector": "Financial Services"
+      }
+    ],
+    "holdings_stats": {
+      "holdings_count_equity": 162,
+      "holdings_count_bond": 0,
+      "top10_weight": 17.25
+    },
+    "costs": {
+      "management_fee": 1.6
+    },
+    "objective": "El objetivo del Fondo es proporcionar una plusvalía de capital a largo plazo a través de la inversión principalmente en una cartera ampliamente diversificada de acciones y acciones preferntes transferibles relacionadas con valores de las pequeñas empresas de EE.UU., cuya capitalización bursátil está dentro o por debajo de la gama contemplada en el Índice Russell 2500. La selección de títulos reflejará una mezcla de crecimiento e inversión valor."
+  },
+  "derived": {
+    "asset_class": "RV",
+    "asset_subtype": "US_EQUITY",
+    "primary_region": "USA",
+    "subcategories": [],
+    "top_sector": "industrials",
+    "top_sector_weight": 22.97,
+    "is_sector_fund": false,
+    "is_thematic": false,
+    "is_index_like": false,
+    "confidence": 0.99,
+    "ruleset_version": "class_v1.4",
+    "reasons": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "tokens+sectors_25_40+sector_gate_45_60"
+    ],
+    "portfolio_exposure": {
+      "asset_allocation_total": {
+        "equity": 97.39,
+        "bond": 0,
+        "cash": 2.61,
+        "other": 0
+      },
+      "equity_sectors_total": {
+        "technology": 14.9688,
+        "financial_services": 13.6443,
+        "industrials": 22.3705,
+        "healthcare": 16.3323,
+        "consumer_cyclical": 9.9435,
+        "consumer_defensive": 3.3015,
+        "utilities": 2.2497,
+        "energy": 6.642,
+        "communication_services": 0.1461,
+        "real_estate": 2.3958,
+        "basic_materials": 5.4149
+      },
+      "equity_regions_total": {
+        "united_states": 92.9101,
+        "canada": 3.9833,
+        "europe_ex_euro": 0.1948,
+        "middle_east": 0.3116
+      }
+    },
+    "style_bias": {
+      "equity": {
+        "style_box_cell": "Small-Blend",
+        "weight_total": 97.39,
+        "size_bucket": "small",
+        "style": "blend",
+        "size_weights_total": {
+          "small": 68.7505,
+          "mid": 28.0942,
+          "large": 0.5453
+        },
+        "style_weights_total": {
+          "blend": 97.39
+        }
+      }
+    }
+  },
+  "classification_v2": {
+    "version": "v2",
+    "asset_type": "equity",
+    "asset_subtype": "US_EQUITY",
+    "commercial_type": "RV USA Cap. Pequeña",
+    "region_primary": "USA",
+    "region_secondary": null,
+    "equity_style_box": "Small-Blend",
+    "market_cap_bias": "small",
+    "fixed_income_type": null,
+    "credit_bucket": null,
+    "duration_bucket": null,
+    "strategy_tags": [],
+    "vehicle_complexity": "active",
+    "classification_confidence": 0.99,
+    "sources_used": [
+      "ms.category_morningstar",
+      "ms.sectors",
+      "ms.regions",
+      "ms.equity_style"
+    ],
+    "warnings": []
+  },
+  "portfolio_exposure_v2": {
+    "version": "v2",
+    "asset_mix": {
+      "equity": 0.9739,
+      "bond": 0,
+      "cash": 0.0261,
+      "other": 0
+    },
+    "equity_regions": {
+      "united_states": 0.61332,
+      "canada": 0.026295,
+      "europe_ex_euro": 0.128592,
+      "middle_east": 0.205694
+    },
+    "sectors": {
+      "technology": 0.130309,
+      "financial_services": 0.118779,
+      "industrials": 0.194744,
+      "healthcare": 0.142179,
+      "consumer_cyclical": 0.086562,
+      "consumer_defensive": 0.028741,
+      "utilities": 0.019585,
+      "energy": 0.057821,
+      "communication_services": 0.127186,
+      "real_estate": 0.020856,
+      "basic_materials": 0.047139
+    },
+    "equity_styles": {
+      "blend": 0.9739
+    },
+    "market_caps": {
+      "small": 0.44232,
+      "mid": 0.18075,
+      "large": 0.35083
+    },
+    "bond_types": null,
+    "credit": null,
+    "duration": null,
+    "alternatives": null,
+    "exposure_confidence": 0.99,
+    "warnings": [
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.39"
+    ]
+  },
+  "quality": {
+    "parsed_at": {},
+    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "source_pdf_hash": "7faf780eba4bb012d1c54de4409875b4",
+    "warnings": [
+      "missing_rating_stars"
+    ],
+    "ok": true
+  },
+  "validation": {
+    "ok": true,
+    "errors": [],
+    "warnings": [],
+    "diagnostics": {
+      "mixCheck": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "normalized": {
+          "equity": 0.9739,
+          "bond": 0,
+          "cash": 0.0261,
+          "other": 0,
+          "sum": 1
+        }
+      },
+      "eqRegions": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.973901
+      },
+      "sectors": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.973901
+      },
+      "eqStyles": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9739
+      },
+      "marketCaps": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": 0.9739
+      },
+      "bondTypes": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "credit": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      },
+      "duration": {
+        "ok": true,
+        "errors": [],
+        "warnings": [],
+        "sum": null
+      }
+    }
+  },
+  "routing": {
+    "status": "ok",
+    "reason": null
+  },
+  "generated_at": "2026-04-22T09:29:27.907Z"
+}
