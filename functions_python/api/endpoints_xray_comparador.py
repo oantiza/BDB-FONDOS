@@ -131,6 +131,91 @@ def get_bde_tbills_series():
     today = datetime.now().strftime("%Y-%m-%d")
     return _fetch_bde_tbills_cached(today)
 
+
+# =========================================================
+# DEPOSIT RATE CURVE (hardcoded, no external API)
+# =========================================================
+
+DEPOSIT_RATES_BY_YEAR = {
+    2005: 2.00, 2006: 2.25, 2007: 3.00, 2008: 3.50,
+    2009: 2.00, 2010: 1.50, 2011: 2.00, 2012: 1.75,
+    2013: 1.25, 2014: 0.75, 2015: 0.30, 2016: 0.10,
+    2017: 0.05, 2018: 0.05, 2019: 0.05, 2020: 0.05,
+    2021: 0.05, 2022: 0.75, 2023: 2.00, 2024: 2.50,
+    2025: 2.25, 2026: 2.00,
+}
+
+
+def _get_deposit_rate(year: int) -> float:
+    """Return deposit rate (as decimal, e.g. 0.02) for a given year."""
+    if year in DEPOSIT_RATES_BY_YEAR:
+        return DEPOSIT_RATES_BY_YEAR[year] / 100.0
+    # Fallback: closest available year
+    years = sorted(DEPOSIT_RATES_BY_YEAR.keys())
+    if year < years[0]:
+        return DEPOSIT_RATES_BY_YEAR[years[0]] / 100.0
+    return DEPOSIT_RATES_BY_YEAR[years[-1]] / 100.0
+
+
+def simulate_depositos(fund_dates, fund_flows, fecha_final, impuesto_bizkaia=0.20):
+    """
+    Simulate bank deposit alternative using the same external flows.
+    Same structure as Letras simulation: daily accrual ACT/360,
+    annual Bizkaia tax on accumulated profits at year-end.
+
+    Returns dict with:
+      - depositos_final_value: final nominal value after taxes
+      - beneficio_acumulado_total: total gross interest earned
+    """
+    saldo = 0.0
+    beneficio_acumulado_ano = 0.0
+    beneficio_total = 0.0
+
+    sim_dates = list(fund_dates) + [fecha_final]
+
+    for i in range(len(sim_dates) - 1):
+        fecha_actual = sim_dates[i]
+        fecha_siguiente = sim_dates[i + 1]
+        flujo_actual = fund_flows[i] if i < len(fund_flows) else 0.0
+
+        # Negate: suscripcion(-) becomes positive capital for deposit
+        aportacion = -flujo_actual
+        saldo += aportacion
+
+        current_date = fecha_actual
+        while current_date < fecha_siguiente:
+            next_year_boundary = pd.Timestamp(year=current_date.year + 1, month=1, day=1)
+            step_end = min(fecha_siguiente, next_year_boundary)
+            dias = (step_end - current_date).days
+
+            tasa = _get_deposit_rate(current_date.year)
+            interes = max(0, saldo) * (tasa * (dias / 360.0))
+
+            if interes > 0:
+                beneficio_acumulado_ano += interes
+                beneficio_total += interes
+
+            saldo += interes
+
+            # Year-end tax on deposit profits
+            if step_end == next_year_boundary:
+                impuesto = beneficio_acumulado_ano * impuesto_bizkaia
+                saldo -= impuesto
+                beneficio_acumulado_ano = 0.0
+
+            current_date = step_end
+
+    # Final partial-year tax
+    if beneficio_acumulado_ano > 0:
+        impuesto = beneficio_acumulado_ano * impuesto_bizkaia
+        saldo -= impuesto
+
+    return {
+        "depositos_final_value": saldo,
+        "beneficio_total": beneficio_total,
+    }
+
+
 # =========================================================
 
 @https_fn.on_request(
@@ -372,6 +457,16 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         except Exception:
             tir_nominal_letras_bruto = 0.0
 
+        # --- 3D. SIMULACIÓN DEPÓSITOS BANCARIOS ---
+        dep_result = simulate_depositos(fund_dates, fund_flows, pd.Timestamp.now(), impuesto_bizkaia)
+        depositos_final_value = dep_result["depositos_final_value"]
+
+        xirr_flows_depositos = fund_flows + [depositos_final_value]
+        try:
+            depositos_xirr_nominal = xirr(xirr_dates, xirr_flows_depositos) or 0.0
+        except Exception:
+            depositos_xirr_nominal = 0.0
+
         # --- 4. TIR REAL Y DEFLACTOR ---
         # Deflate each fund flow to today's euros using IPC index
         flujos_reales_cartera = []
@@ -449,6 +544,8 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
             "tir_real_letras": round(tir_real_letras * 100, 2),
             "impuesto_bizkaia": round(impuesto_bizkaia * 100, 2),
             "deflactor_total": round(deflactor_total, 4),
+            "depositos_final_value": round(depositos_final_value, 2),
+            "depositos_xirr_nominal": round(depositos_xirr_nominal * 100, 2),
             "chart_data": chart_data
         }
 
