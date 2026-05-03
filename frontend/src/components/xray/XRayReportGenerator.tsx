@@ -26,6 +26,8 @@ interface ReportData {
     depositos_xirr_nominal?: number;
     depositos_final_value?: number;
     portfolio_xirr_client?: number;
+    letras_rates_used?: { year: number; rate: number; source: string }[];
+    letras_source?: string;
 }
 
 function generateFinalCommentary(data: ReportData): string[] {
@@ -346,6 +348,44 @@ export default function XRayReportGenerator() {
                             <p key={idx}>{paragraph}</p>
                         ))}
                     </div>
+
+                    {reportData.letras_rates_used && reportData.letras_rates_used.length > 0 && (
+                    <>
+                    <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-4 mt-8 flex items-center">
+                        Anexo: Tipos de Letras del Tesoro Utilizados
+                    </h2>
+                    <p className="text-slate-600 text-xs mb-3 italic">
+                        La siguiente tabla muestra los tipos de interés anuales de las Letras del Tesoro a 12 meses aplicados en cada año del periodo de cálculo, junto con la fuente de datos utilizada.
+                    </p>
+                    <table className="w-full text-left mb-6 border-collapse text-xs border border-slate-200">
+                        <thead>
+                            <tr className="bg-[#001f5c] text-white">
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Año</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Tipo Anual (%)</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reportData.letras_rates_used.map((entry, idx) => {
+                                const sourceLabel = entry.source === 'BDE_API' 
+                                    ? 'Banco de España (API/Firestore)'
+                                    : entry.source === 'TESORO_OFFICIAL_FALLBACK'
+                                        ? 'Tesoro Público (datos oficiales)'
+                                        : entry.source;
+                                return (
+                                    <tr key={entry.year} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                                        <td className="p-2 border-b border-slate-200 font-medium">{entry.year}</td>
+                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${entry.rate < 0 ? 'text-red-600' : 'text-slate-800'}`}>
+                                            {new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.rate)}%
+                                        </td>
+                                        <td className="p-2 border-b border-slate-200 text-slate-500">{sourceLabel}</td>
+                                    </tr>
+                                );
+                            })}
+                        </tbody>
+                    </table>
+                    </>
+                    )}
 
                     <div className="text-xs text-slate-400 border-t border-slate-200 pt-4 text-justify mt-8">
                         Este informe se basa en los datos proporcionados y el histórico de movimientos bancarios suministrado. 

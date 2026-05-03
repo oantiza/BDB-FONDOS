@@ -46,6 +46,7 @@ EXPECTED_RESPONSE_KEYS = [
     "depositos_final_value",
     "depositos_xirr_nominal",
     "chart_data",
+    "letras_rates_used",
 ]
 
 

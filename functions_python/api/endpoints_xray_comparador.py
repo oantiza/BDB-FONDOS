@@ -642,7 +642,24 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         diferencia_anualizada = round((tir_nominal_cartera - tir_nominal_letras) * 100, 2)
         diferencia_euros = round(valor_final_cartera - valor_letras_nominal, 2)
 
-        # --- 5. CHART DATA ---
+        # --- 5. LETRAS RATES USED PER YEAR (for annexe) ---
+        start_year = effective_start.year
+        end_year = fecha_final.year
+        letras_rates_used = []
+        for yr in range(start_year, end_year + 1):
+            yr_ts = pd.Timestamp(year=yr, month=1, day=1)
+            tasa_yr = 2.5  # default fallback
+            if not tasa_letras_series.empty:
+                prev = tasa_letras_series[tasa_letras_series.index <= yr_ts]
+                if not prev.empty:
+                    tasa_yr = round(float(prev.iloc[-1]), 2)
+            letras_rates_used.append({
+                "year": yr,
+                "rate": tasa_yr,
+                "source": letras_metadata["letras_source"],
+            })
+
+        # --- 6. CHART DATA ---
         anios = sorted(set(list(hist_letras_nom.keys()) + list(hist_cartera_nom.keys())))
         chart_data = []
         for anio in anios:
@@ -688,7 +705,8 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
             "letras_warning": letras_warning,
             "depositos_final_value": round(depositos_final_value, 2),
             "depositos_xirr_nominal": round(depositos_xirr_nominal * 100, 2),
-            "chart_data": chart_data
+            "chart_data": chart_data,
+            "letras_rates_used": letras_rates_used,
         }
 
         return https_fn.Response(
