@@ -26,7 +26,7 @@ interface ReportData {
     depositos_xirr_nominal?: number;
     depositos_final_value?: number;
     portfolio_xirr_client?: number;
-    letras_rates_used?: { year: number; rate: number; source: string }[];
+    letras_rates_used?: { year: number; rate: number; source: string; inflation?: number; inflation_source?: string }[];
     letras_source?: string;
 }
 
@@ -352,17 +352,19 @@ export default function XRayReportGenerator() {
                     {reportData.letras_rates_used && reportData.letras_rates_used.length > 0 && (
                     <>
                     <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-4 mt-8 flex items-center">
-                        Anexo: Tipos de Letras del Tesoro Utilizados
+                        Anexo: Datos Macro Utilizados (Letras e Inflación)
                     </h2>
                     <p className="text-slate-600 text-xs mb-3 italic">
-                        La siguiente tabla muestra los tipos de interés anuales de las Letras del Tesoro a 12 meses aplicados en cada año del periodo de cálculo, junto con la fuente de datos utilizada.
+                        La siguiente tabla muestra los tipos de interés anuales de las Letras del Tesoro a 12 meses y la variación interanual (YoY) de la inflación aplicados en cada año del periodo de cálculo.
                     </p>
                     <table className="w-full text-left mb-6 border-collapse text-xs border border-slate-200">
                         <thead>
                             <tr className="bg-[#001f5c] text-white">
                                 <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Año</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Tipo Anual (%)</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Letras 12m (%)</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Letras</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Inflación YoY (%)</th>
+                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Inflación</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -375,10 +377,14 @@ export default function XRayReportGenerator() {
                                 return (
                                     <tr key={entry.year} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
                                         <td className="p-2 border-b border-slate-200 font-medium">{entry.year}</td>
-                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${entry.rate < 0 ? 'text-red-600' : 'text-slate-800'}`}>
+                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${entry.rate < 0 ? 'text-red-600' : 'text-[#2980b9]'}`}>
                                             {new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.rate)}%
                                         </td>
                                         <td className="p-2 border-b border-slate-200 text-slate-500">{sourceLabel}</td>
+                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${(entry.inflation ?? 0) < 0 ? 'text-[#27ae60]' : 'text-[#c0392b]'}`}>
+                                            {entry.inflation !== undefined ? `${new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.inflation)}%` : '-'}
+                                        </td>
+                                        <td className="p-2 border-b border-slate-200 text-slate-500">{entry.inflation_source || '-'}</td>
                                     </tr>
                                 );
                             })}

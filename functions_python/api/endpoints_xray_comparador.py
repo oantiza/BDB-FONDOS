@@ -642,7 +642,7 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         diferencia_anualizada = round((tir_nominal_cartera - tir_nominal_letras) * 100, 2)
         diferencia_euros = round(valor_final_cartera - valor_letras_nominal, 2)
 
-        # --- 5. LETRAS RATES USED PER YEAR (for annexe) ---
+        # --- 5. MACRO DATA USED PER YEAR (for annexe) ---
         start_year = effective_start.year
         end_year = fecha_final.year
         letras_rates_used = []
@@ -653,10 +653,20 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
                 prev = tasa_letras_series[tasa_letras_series.index <= yr_ts]
                 if not prev.empty:
                     tasa_yr = round(float(prev.iloc[-1]), 2)
+            
+            # Inflación YoY (Dic vs Dic anterior)
+            ipc_dic_prev = ipc_map.get((yr - 1, 12))
+            ipc_dic_curr = ipc_map.get((yr, 12), ipc_map.get((yr, 11), latest_ipc))
+            inflacion_yoy = 0.0
+            if ipc_dic_prev and ipc_dic_prev > 0 and ipc_dic_curr:
+                inflacion_yoy = round(((ipc_dic_curr / ipc_dic_prev) - 1) * 100, 2)
+
             letras_rates_used.append({
                 "year": yr,
                 "rate": tasa_yr,
                 "source": letras_metadata["letras_source"],
+                "inflation": inflacion_yoy,
+                "inflation_source": "INE (API/Firestore)" if ipc_map else "No disponible",
             })
 
         # --- 6. CHART DATA ---
