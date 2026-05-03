@@ -389,7 +389,7 @@ export default function XRayReportGenerator() {
                                 <tbody>
                                     {reportData.letras_rates_used.map((entry, idx) => {
                                         const sourceLabel = entry.source === 'BDE_API' 
-                                            ? 'Banco de España (API/Firestore)'
+                                            ? 'Banco de España'
                                             : entry.source === 'TESORO_OFFICIAL_FALLBACK'
                                                 ? 'Tesoro Público (datos oficiales)'
                                                 : entry.source;
@@ -409,11 +409,6 @@ export default function XRayReportGenerator() {
                                     })}
                                 </tbody>
                             </table>
-                            
-                            {/* Logo at bottom of Anexo */}
-                            <div className="absolute bottom-12 right-12 opacity-30 flex justify-end">
-                                <img src="/logo_bdb.png" alt="BDB Logo" className="h-8 grayscale" />
-                            </div>
                         </div>
                         </>
                     )}

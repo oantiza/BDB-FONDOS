@@ -666,7 +666,7 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
                 "rate": tasa_yr,
                 "source": letras_metadata["letras_source"],
                 "inflation": inflacion_yoy,
-                "inflation_source": "INE (API/Firestore)" if ipc_map else "No disponible",
+                "inflation_source": "INE" if ipc_map else "No disponible",
             })
 
         # --- 6. CHART DATA ---
