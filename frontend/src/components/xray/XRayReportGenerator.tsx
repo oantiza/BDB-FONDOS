@@ -56,6 +56,8 @@ export default function XRayReportGenerator() {
     const [file, setFile] = useState<File | null>(null);
     const [titular, setTitular] = useState('XXXX');
     const [valorFinal, setValorFinal] = useState('100000');
+    const [startPeriodMode, setStartPeriodMode] = useState<'inception' | 'specific_year'>('inception');
+    const [startYear, setStartYear] = useState<string>(new Date().getFullYear().toString());
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
     const [reportData, setReportData] = useState<ReportData | null>(null);
@@ -85,6 +87,10 @@ export default function XRayReportGenerator() {
         formData.append('file', file);
         formData.append('titular', titular);
         formData.append('valor_final_cartera', parseFloat(valorFinal).toString());
+
+        if (startPeriodMode === 'specific_year' && startYear) {
+            formData.append('fecha_inicio', `${startYear}-01-01`);
+        }
 
         try {
             const apiBase = import.meta.env.DEV
@@ -408,6 +414,53 @@ export default function XRayReportGenerator() {
                             className="w-full p-3 border border-slate-300 rounded focus:border-[#003399] outline-none text-lg transition-colors font-mono"
                         />
                     </div>
+                </div>
+
+                <div className="bg-slate-50 p-4 rounded-lg border border-slate-200 mt-2">
+                    <label className="block text-sm font-bold text-slate-700 uppercase tracking-wide mb-3">
+                        Periodo de Análisis
+                    </label>
+                    <div className="flex flex-col sm:flex-row gap-6">
+                        <label className="flex items-center cursor-pointer group">
+                            <input 
+                                type="radio" 
+                                name="periodMode" 
+                                value="inception"
+                                checked={startPeriodMode === 'inception'}
+                                onChange={() => setStartPeriodMode('inception')}
+                                className="w-4 h-4 text-[#003399] border-slate-300 focus:ring-[#003399]"
+                            />
+                            <span className="ml-2 text-sm font-medium text-slate-700 group-hover:text-slate-900">Desde el inicio (todo el histórico)</span>
+                        </label>
+                        <label className="flex items-center cursor-pointer group">
+                            <input 
+                                type="radio" 
+                                name="periodMode" 
+                                value="specific_year"
+                                checked={startPeriodMode === 'specific_year'}
+                                onChange={() => setStartPeriodMode('specific_year')}
+                                className="w-4 h-4 text-[#003399] border-slate-300 focus:ring-[#003399]"
+                            />
+                            <span className="ml-2 text-sm font-medium text-slate-700 group-hover:text-slate-900">Elegir año de inicio</span>
+                        </label>
+                    </div>
+
+                    {startPeriodMode === 'specific_year' && (
+                        <div className="mt-4 pt-4 border-t border-slate-200 animate-in fade-in duration-200">
+                            <label className="block text-xs font-semibold text-slate-600 mb-2">
+                                Selecciona el año de inicio (se tomará el 1 de enero como fecha de partida)
+                            </label>
+                            <select 
+                                value={startYear}
+                                onChange={(e) => setStartYear(e.target.value)}
+                                className="p-2.5 border border-slate-300 rounded focus:border-[#003399] outline-none text-sm bg-white min-w-[120px]"
+                            >
+                                {Array.from({ length: 30 }, (_, i) => new Date().getFullYear() - i).map(year => (
+                                    <option key={year} value={year}>{year}</option>
+                                ))}
+                            </select>
+                        </div>
+                    )}
                 </div>
 
                 <div className="flex justify-end mt-8">
