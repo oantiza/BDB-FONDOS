@@ -67,6 +67,7 @@ export default function XRayReportGenerator() {
 
     const reportRefPage1 = useRef<HTMLDivElement>(null);
     const reportRefPage2 = useRef<HTMLDivElement>(null);
+    const reportRefPage3 = useRef<HTMLDivElement>(null);
 
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
@@ -138,6 +139,15 @@ export default function XRayReportGenerator() {
             const imgData2 = canvas2.toDataURL('image/jpeg', 1.0);
             const pdfHeight2 = (canvas2.height * pdfWidth) / canvas2.width;
             pdf.addImage(imgData2, 'JPEG', 0, 0, pdfWidth, pdfHeight2);
+
+            // Page 3
+            if (reportRefPage3.current && reportData.letras_rates_used && reportData.letras_rates_used.length > 0) {
+                pdf.addPage();
+                const canvas3 = await html2canvas(reportRefPage3.current, { scale: 2, useCORS: true });
+                const imgData3 = canvas3.toDataURL('image/jpeg', 1.0);
+                const pdfHeight3 = (canvas3.height * pdfWidth) / canvas3.width;
+                pdf.addImage(imgData3, 'JPEG', 0, 0, pdfWidth, pdfHeight3);
+            }
             
             pdf.save(`Comparativa_${titular.replace(/\s+/g, '_')}.pdf`);
         } catch (err) {
@@ -349,56 +359,65 @@ export default function XRayReportGenerator() {
                         ))}
                     </div>
 
-                    {reportData.letras_rates_used && reportData.letras_rates_used.length > 0 && (
-                    <>
-                    <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-4 mt-8 flex items-center">
-                        Anexo: Datos Macro Utilizados (Letras e Inflación)
-                    </h2>
-                    <p className="text-slate-600 text-xs mb-3 italic">
-                        La siguiente tabla muestra los tipos de interés anuales de las Letras del Tesoro a 12 meses y la variación interanual (YoY) de la inflación aplicados en cada año del periodo de cálculo.
-                    </p>
-                    <table className="w-full text-left mb-6 border-collapse text-xs border border-slate-200">
-                        <thead>
-                            <tr className="bg-[#001f5c] text-white">
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Año</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Letras 12m (%)</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Letras</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Inflación YoY (%)</th>
-                                <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Inflación</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {reportData.letras_rates_used.map((entry, idx) => {
-                                const sourceLabel = entry.source === 'BDE_API' 
-                                    ? 'Banco de España (API/Firestore)'
-                                    : entry.source === 'TESORO_OFFICIAL_FALLBACK'
-                                        ? 'Tesoro Público (datos oficiales)'
-                                        : entry.source;
-                                return (
-                                    <tr key={entry.year} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
-                                        <td className="p-2 border-b border-slate-200 font-medium">{entry.year}</td>
-                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${entry.rate < 0 ? 'text-red-600' : 'text-[#2980b9]'}`}>
-                                            {new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.rate)}%
-                                        </td>
-                                        <td className="p-2 border-b border-slate-200 text-slate-500">{sourceLabel}</td>
-                                        <td className={`p-2 border-b border-slate-200 font-mono font-bold ${(entry.inflation ?? 0) < 0 ? 'text-[#27ae60]' : 'text-[#c0392b]'}`}>
-                                            {entry.inflation !== undefined ? `${new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.inflation)}%` : '-'}
-                                        </td>
-                                        <td className="p-2 border-b border-slate-200 text-slate-500">{entry.inflation_source || '-'}</td>
-                                    </tr>
-                                );
-                            })}
-                        </tbody>
-                    </table>
-                    </>
-                    )}
-
                     <div className="text-xs text-slate-400 border-t border-slate-200 pt-4 text-justify mt-8">
                         Este informe se basa en los datos proporcionados y el histórico de movimientos bancarios suministrado. 
                         Se ha utilizado la serie IPC General Nacional (INE) y el rendimiento en mercado secundario de las Letras del Tesoro a 1 año (Banco de España). 
                         Las rentabilidades pasadas no garantizan rendimientos futuros.
                     </div>
                     </div>
+
+                    {reportData.letras_rates_used && reportData.letras_rates_used.length > 0 && (
+                        <>
+                        <div className="w-[210mm] h-4 bg-slate-100 mx-auto border-y border-slate-200" />
+                        <div ref={reportRefPage3} className="w-[210mm] min-h-[297mm] bg-white text-slate-800 p-12 mx-auto relative">
+                            <h2 className="text-xl font-bold text-[#001f5c] border-l-[6px] border-[#001f5c] pl-4 py-2 bg-[#f4f6f9] mb-4 flex items-center">
+                                Anexo: Datos Macro Utilizados (Letras e Inflación)
+                            </h2>
+                            <p className="text-slate-600 text-xs mb-3 italic">
+                                La siguiente tabla muestra los tipos de interés anuales de las Letras del Tesoro a 12 meses y la variación interanual (YoY) de la inflación aplicados en cada año del periodo de cálculo.
+                            </p>
+                            <table className="w-full text-left mb-6 border-collapse text-xs border border-slate-200">
+                                <thead>
+                                    <tr className="bg-[#001f5c] text-white">
+                                        <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Año</th>
+                                        <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Letras 12m (%)</th>
+                                        <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Letras</th>
+                                        <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Inflación YoY (%)</th>
+                                        <th className="p-2 border-b border-slate-300 font-semibold uppercase tracking-wide">Fuente Inflación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {reportData.letras_rates_used.map((entry, idx) => {
+                                        const sourceLabel = entry.source === 'BDE_API' 
+                                            ? 'Banco de España (API/Firestore)'
+                                            : entry.source === 'TESORO_OFFICIAL_FALLBACK'
+                                                ? 'Tesoro Público (datos oficiales)'
+                                                : entry.source;
+                                        return (
+                                            <tr key={entry.year} className={idx % 2 === 0 ? 'bg-white' : 'bg-slate-50'}>
+                                                <td className="p-2 border-b border-slate-200 font-medium">{entry.year}</td>
+                                                <td className={`p-2 border-b border-slate-200 font-mono font-bold ${entry.rate < 0 ? 'text-red-600' : 'text-[#2980b9]'}`}>
+                                                    {new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.rate)}%
+                                                </td>
+                                                <td className="p-2 border-b border-slate-200 text-slate-500">{sourceLabel}</td>
+                                                <td className={`p-2 border-b border-slate-200 font-mono font-bold ${(entry.inflation ?? 0) < 0 ? 'text-[#27ae60]' : 'text-[#c0392b]'}`}>
+                                                    {entry.inflation !== undefined ? `${new Intl.NumberFormat('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 }).format(entry.inflation)}%` : '-'}
+                                                </td>
+                                                <td className="p-2 border-b border-slate-200 text-slate-500">{entry.inflation_source || '-'}</td>
+                                            </tr>
+                                        );
+                                    })}
+                                </tbody>
+                            </table>
+                            
+                            {/* Logo at bottom of Anexo */}
+                            <div className="absolute bottom-12 right-12 opacity-30 flex justify-end">
+                                <img src="/logo_bdb.png" alt="BDB Logo" className="h-8 grayscale" />
+                            </div>
+                        </div>
+                        </>
+                    )}
+
                 </div>
             </div>
         );
