@@ -751,7 +751,7 @@ def _run_solver(
             solver_path = "max_sharpe_default"
             raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
     except Exception as e1:
-        # No degradación silenciosa a max_sharpe si falla efficient_risk.
+        # Si efficient_risk falla, registrar diagnóstico pero permitir fallback.
         if objective == "efficient_risk":
             target_vol = _to_float(
                 risk_budget.get("target_vol"),
@@ -763,8 +763,7 @@ def _run_solver(
                 "target_vol": target_vol,
                 "reason": str(e1),
             }
-            logger.info(f"⚠️ Efficient Risk infeasible: {e1}")
-            return ef, None, "infeasible_efficient_risk", feasibility
+            logger.info(f"⚠️ Efficient Risk infeasible (target_vol={target_vol}): {e1}. Intentando fallbacks...")
 
         logger.info(f"⚠️ Optimization Failed: {e1}. Trying Relaxed Fallbacks...")
         try:
