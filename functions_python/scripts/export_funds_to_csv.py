@@ -20,32 +20,27 @@ def flatten_dict(d, parent_key='', sep='_'):
 
 def init_firebase():
     """
-    Initializes Firebase Admin SDK using the local service account key.
+    Initializes Firebase Admin SDK.
+    Priority: GOOGLE_APPLICATION_CREDENTIALS > local serviceAccountKey.json > default credentials.
     """
-    # Try different possible locations for the service account key
     base_dir = os.path.dirname(os.path.abspath(__file__))
     key_paths = [
         os.path.join(base_dir, "serviceAccountKey.json"),
         os.path.join(base_dir, "..", "serviceAccountKey.json"),
         os.path.join(base_dir, "..", "..", "serviceAccountKey.json"),
-        "C:/Users/oanti/Documents/BDB-FONDOS/functions_python/scripts/serviceAccountKey.json"
     ]
     
-    db = None
     if not firebase_admin._apps:
-        for kp in key_paths:
-            if os.path.exists(kp):
-                print(f"[INIT] Using key: {kp}")
-                cred = credentials.Certificate(kp)
-                firebase_admin.initialize_app(cred)
-                db = firestore.client()
-                break
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
         else:
-            print("[ERROR] No serviceAccountKey.json found!")
-            sys.exit(1)
-    else:
-        db = firestore.client()
-    return db
+            _found = next((p for p in key_paths if os.path.exists(p)), None)
+            if _found:
+                print(f"[INIT] Using key: {_found}")
+                firebase_admin.initialize_app(credentials.Certificate(_found))
+            else:
+                firebase_admin.initialize_app()
+    return firestore.client()
 
 def export_funds():
     print("[1/3] Initializing Firebase...")

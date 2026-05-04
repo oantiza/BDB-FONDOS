@@ -10,9 +10,13 @@ import warnings
 warnings.filterwarnings('ignore')
 
 cred_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'serviceAccountKey.json'))
-cred = credentials.Certificate(cred_path)
 if not firebase_admin._apps:
-    firebase_admin.initialize_app(cred)
+    if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        firebase_admin.initialize_app()
+    elif os.path.exists(cred_path):
+        firebase_admin.initialize_app(credentials.Certificate(cred_path))
+    else:
+        firebase_admin.initialize_app()
 db = firestore.client()
 
 def check_fund(doc):
