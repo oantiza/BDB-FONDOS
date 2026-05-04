@@ -641,6 +641,7 @@ def _check_feasibility_and_autoexpand(
                 return False, {
                     "api_version": "optimizer_v4",
                     "status": "auto_expand_failed",
+                    "message": "No se encontraron fondos válidos para expandir el universo. Pruebe con otros activos.",
                     "weights": {},
                 }, None, None, None, None, None, None, None, None, None, None, None, None
 
@@ -1026,6 +1027,7 @@ def run_optimization(
             return {
                 "api_version": "optimizer_v4",
                 "status": "infeasible_constraints",
+                "message": solver_feasibility.get("reason", "No se pudo construir una cartera óptima con las restricciones actuales."),
                 "solver_path": solver_path,
                 "feasibility": solver_feasibility,
                 "weights": {},

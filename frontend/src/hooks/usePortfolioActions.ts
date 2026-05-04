@@ -689,6 +689,13 @@ export function usePortfolioActions({
                 const result3 = unwrapResult<SmartPortfolioResponse>(response3.data);
                 processOptimizationResult(result3, optimizeFn, options);
             }
+        } else if (result.status === 'infeasible_constraints' || result.status === 'auto_expand_failed') {
+            const msg = result.message
+                || result.error
+                || result.warnings?.[0]
+                || result.feasibility?.reason
+                || "Las restricciones actuales no permiten encontrar una cartera óptima. Revise el perfil de riesgo, número de fondos o universo disponible.";
+            toast.error(`Error en la optimización: ${msg}`);
         } else {
             const msg = result.message || result.error || "Desconocido";
             const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
