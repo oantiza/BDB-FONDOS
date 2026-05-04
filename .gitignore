@@ -74,8 +74,17 @@ firebase-debug.log
 ############################################
 .env
 .env.*
+.env.local
+.env.development
+.env.production
 frontend/.env
+frontend/.env.local
+frontend/.env.development
+frontend/.env.production
 functions_python/.env
+functions_python/.env.local
+functions_python/.env.development
+functions_python/.env.production
 
 ############################################
 # CREDENCIALES
@@ -85,6 +94,10 @@ functions_python/.env
 *.crt
 
 serviceAccount*.json
+**/serviceAccount*.json
+**/*credentials*.json
+**/*credential*.json
+**/*secret*.json
 scripts/service-account.json
 scripts/bdb-fondos-sa.json
 
