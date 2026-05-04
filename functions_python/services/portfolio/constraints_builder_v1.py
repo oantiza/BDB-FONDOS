@@ -11,7 +11,10 @@ from models.constraints_v1 import (
     TacticalViewsV1,
     VolBand,
 )
+import logging
 from services.config import CUTOFF_DEFAULT, MAX_WEIGHT_DEFAULT, RISK_TARGETS
+
+_logger = logging.getLogger(__name__)
 
 
 _MODE_TO_OBJECTIVE = {
@@ -197,6 +200,17 @@ def build_constraints_v1(
     objective = str(overrides.get("objective") or _MODE_TO_OBJECTIVE.get(optimization_mode, "efficient_risk"))
     if objective not in {"efficient_risk", "max_sharpe", "min_vol", "target_return"}:
         objective = "efficient_risk"
+
+    # Perfiles agresivos (8-10): target_vol es inalcanzable con max_weight=20%
+    # y diversificación forzada. Usar max_sharpe maximiza retorno respetando
+    # las bandas de asset allocation del perfil sin exigir vol exacta.
+    profile_id_i = _as_int(profile_id)
+    if profile_id_i is not None and profile_id_i >= 8 and objective == "efficient_risk":
+        _logger.info(
+            f"⚠️ Perfil agresivo ({profile_id}): usando max_sharpe en vez de "
+            f"efficient_risk para evitar target_vol inalcanzable."
+        )
+        objective = "max_sharpe"
 
     risk_budget = _resolve_risk_budget(profile, overrides, profile_id, objective)
     bucket_bounds = _resolve_bucket_bounds(profile, overrides)

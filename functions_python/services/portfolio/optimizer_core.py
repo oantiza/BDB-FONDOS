@@ -1124,10 +1124,30 @@ def run_optimization(
             "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vÃ­a Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
 
+        # Status honesto: si el solver usó fallback, informar.
+        is_fallback = (solver_path or "").startswith("fallback_")
+        final_status = "fallback" if is_fallback else ("optimal" if raw_weights is not None else "fallback")
+
+        # Transparencia: target_vol vs achieved_vol
+        _target_vol = _to_float(risk_budget_v1.get("target_vol"), None)
+        _achieved_vol = port_vol
+        _vol_deviation = None
+        if _target_vol is not None and _target_vol > 0:
+            _vol_deviation = round(_achieved_vol - _target_vol, 6)
+
+        result_metrics = {
+            "return": port_ret, "volatility": port_vol, "sharpe": port_sharpe,
+            "rf_rate": rf_rate, "portfolio": portfolio_point,
+        }
+        if _target_vol is not None and _target_vol > 0:
+            result_metrics["target_vol"] = round(_target_vol, 6)
+            result_metrics["achieved_vol"] = round(_achieved_vol, 6)
+            result_metrics["vol_deviation"] = _vol_deviation
+
         return {
             "api_version": "optimizer_v4",
             "mode": "PROFILE_B_AGGRESSIVE" if apply_profile else "PROFILE_A",
-            "status": "optimal" if raw_weights is not None else "fallback",
+            "status": final_status,
             "solver_path": solver_path,
             "added_assets": added_assets,
             "used_assets": universe,
@@ -1143,10 +1163,7 @@ def run_optimization(
                 "Alternativos": al_total + ra_total, "Otros": ot_total,
             },
             "weights": weights_full,
-            "metrics": {
-                "return": port_ret, "volatility": port_vol, "sharpe": port_sharpe,
-                "rf_rate": rf_rate, "portfolio": portfolio_point,
-            },
+            "metrics": result_metrics,
             "frontier": frontier_points,
             "portfolio": portfolio_point,
             "effective_start_date": effective_start_date,
