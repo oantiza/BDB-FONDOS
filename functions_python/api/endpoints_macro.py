@@ -23,7 +23,9 @@ def get_economic_calendar(req: https_fn.CallableRequest) -> dict:
         }
         
     except Exception as e:
-        print(f"Error fetching economic calendar: {str(e)}")
+        import logging
+        logger = logging.getLogger(__name__)
+        logger.error(f"Error fetching economic calendar: {str(e)}")
         return {
             "success": False,
             "error": str(e)

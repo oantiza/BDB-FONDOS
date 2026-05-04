@@ -5,6 +5,7 @@ import {
     AreaChart, Area, BarChart, Bar, Cell, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer 
 } from 'recharts';
 import { Download, FileText, ChevronLeft } from 'lucide-react';
+import { auth } from '../../firebase';
 
 interface ReportData {
     titular: string;
@@ -99,8 +100,13 @@ export default function XRayReportGenerator() {
             const apiBase = import.meta.env.DEV
                 ? 'http://127.0.0.1:5001/bdb-fondos/europe-west1'
                 : 'https://europe-west1-bdb-fondos.cloudfunctions.net';
+            const token = auth.currentUser ? await auth.currentUser.getIdToken() : '';
+            
             const response = await fetch(`${apiBase}/compare_risk_free`, {
                 method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                },
                 body: formData,
             });
 

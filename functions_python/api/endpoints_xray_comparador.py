@@ -14,7 +14,8 @@ import re
 logger = logging.getLogger(__name__)
 
 cors_config = options.CorsOptions(
-    cors_origins="*", cors_methods=["GET", "POST", "OPTIONS"]
+    cors_origins=["http://localhost:5173", "http://localhost:3000", r"https://.*\.web\.app", r"https://.*\.firebaseapp\.com"], 
+    cors_methods=["GET", "POST", "OPTIONS"]
 )
 
 # =========================================================
@@ -100,7 +101,7 @@ def _fetch_bde_tbills_cached(date_key: str):
         "2012-01-01": 2.62, "2013-01-01": 1.25, "2014-01-01": 0.41, "2015-01-01": 0.05,
         "2016-01-01": -0.19, "2017-01-01": -0.35, "2018-01-01": -0.32, "2019-01-01": -0.39,
         "2020-01-01": -0.46, "2021-01-01": -0.50, "2022-01-01": 0.70, "2023-01-01": 3.38,
-        "2024-01-01": 3.41, "2025-01-01": 2.50,
+        "2024-01-01": 3.41, "2025-01-01": 2.50, "2026-01-01": 2.50,
     }
 
     dates = [pd.to_datetime(k) for k in _LETRAS_FALLBACK_RATES.keys()]
@@ -253,12 +254,16 @@ def _cash_flow_pairs(dates, flows):
 
 
 def compute_xirr(dates, flows):
-    """Safe wrapper around pyxirr.xirr. Returns 0.0 on failure."""
+    """Safe wrapper around pyxirr.xirr. Returns None on failure (not 0.0)."""
     try:
         result = xirr(dates, flows)
-        return result if result is not None else 0.0
-    except Exception:
-        return 0.0
+        if result is not None and not (isinstance(result, float) and (result != result)):  # NaN check
+            return result
+        logger.warning("XIRR returned None/NaN for %d flows", len(flows))
+        return None
+    except Exception as e:
+        logger.warning("XIRR computation failed for %d flows: %s", len(flows), e)
+        return None
 
 
 def simulate_letras(dates, flows, fecha_final, tasa_letras_series, impuesto_bizkaia=0.20):
@@ -334,7 +339,7 @@ def simulate_letras(dates, flows, fecha_final, tasa_letras_series, impuesto_bizk
 def get_official_letras_12m_series():
     """Get Letras series with metadata. Uses BdE data with Firestore enrichment."""
     series = get_bde_tbills_series()
-    source = "BDE_API"
+    source = "Tesoro Público (Datos Internos / Hardcoded)"
     last_update = datetime.now().strftime("%Y-%m-%d")
     warning = ""
 
@@ -348,13 +353,12 @@ def get_official_letras_12m_series():
                 fs_dates = [pd.to_datetime(k) for k in bde_data.keys()]
                 fs_rates = [float(v) for v in bde_data.values()]
                 series = pd.Series(fs_rates, index=fs_dates).sort_index()
-                source = "BDE_API"
+                source = "BDE_API (Firestore Cache)"
                 lu = d.get("last_updated")
                 if lu:
                     last_update = str(lu)[:10] if hasattr(lu, 'isoformat') else str(lu)[:10]
     except Exception as e:
         warning = f"Firestore enrichment failed: {e}"
-        source = "TESORO_OFFICIAL_FALLBACK"
 
     return {
         "series": series,
@@ -381,6 +385,24 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         return https_fn.Response(status=204)
     if req.method != "POST":
         return https_fn.Response("Method not allowed", status=405)
+
+    # --- 1. Autenticación JWT ---
+    auth_header = req.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return https_fn.Response(json.dumps({"error": "Unauthorized: Missing or invalid Bearer token"}), status=401, content_type="application/json")
+    
+    id_token = auth_header.split("Bearer ")[1]
+    try:
+        from firebase_admin import auth
+        decoded_token = auth.verify_id_token(id_token)
+    except Exception as e:
+        logger.warning(f"Unauthorized access attempt: {e}")
+        return https_fn.Response(json.dumps({"error": "Unauthorized: Token verification failed"}), status=401, content_type="application/json")
+
+    # --- 2. Límite de Tamaño (5MB) ---
+    content_length = req.headers.get("Content-Length")
+    if content_length and int(content_length) > 5 * 1024 * 1024:
+        return https_fn.Response(json.dumps({"error": "File too large (max 5MB)"}), status=413, content_type="application/json")
 
     try:
         if 'file' not in req.files:
@@ -558,14 +580,27 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         impuesto_bizkaia = 0.20
 
         # --- 2. XIRR NOMINAL CARTERA (fund flows) ---
+        xirr_warnings = []
         xirr_dates_fund = fund_dates + [fecha_final]
         xirr_flows_fund = fund_flows + [valor_final_cartera]
         tir_nominal_cartera = compute_xirr(xirr_dates_fund, xirr_flows_fund)
+        if tir_nominal_cartera is None:
+            return https_fn.Response(
+                json.dumps({"error": "Error matemático: No ha sido posible calcular la rentabilidad (TIR) de la cartera con los flujos proporcionados. Revisa el Excel."}),
+                status=400,
+                content_type="application/json"
+            )
 
         # --- 2B. PORTFOLIO XIRR CLIENT (external flows) ---
         xirr_dates_ext = ext_dates + [fecha_final]
         xirr_flows_ext = ext_flows + [valor_final_cartera]
         portfolio_xirr_client = compute_xirr(xirr_dates_ext, xirr_flows_ext)
+        if portfolio_xirr_client is None:
+            return https_fn.Response(
+                json.dumps({"error": "Error matemático: No ha sido posible calcular la rentabilidad del cliente (TIR) con los flujos externos."}),
+                status=400,
+                content_type="application/json"
+            )
 
         # --- 3. LETRAS SIMULATION (uses external flows) ---
         letras_result = simulate_letras(ext_dates, ext_flows, fecha_final, tasa_letras_series, impuesto_bizkaia)
@@ -577,16 +612,25 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         # --- 3B. TIR NOMINAL LETRAS ---
         xirr_flows_letras = ext_flows + [valor_letras_nominal]
         tir_nominal_letras = compute_xirr(xirr_dates_ext, xirr_flows_letras)
+        if tir_nominal_letras is None:
+            xirr_warnings.append("TIR nominal de Letras del Tesoro no pudo calcularse")
+            tir_nominal_letras = 0.0
 
         # --- 3C. TIR NOMINAL LETRAS BRUTA ---
         xirr_flows_letras_bruto = ext_flows + [valor_letras_bruto]
         tir_nominal_letras_bruto = compute_xirr(xirr_dates_ext, xirr_flows_letras_bruto)
+        if tir_nominal_letras_bruto is None:
+            xirr_warnings.append("TIR bruta de Letras del Tesoro no pudo calcularse")
+            tir_nominal_letras_bruto = 0.0
 
         # --- 3D. DEPÃ“SITOS (uses same external flows) ---
         dep_result = simulate_depositos(ext_dates, ext_flows, fecha_final, impuesto_bizkaia)
         depositos_final_value = dep_result["depositos_final_value"]
         xirr_flows_dep = ext_flows + [depositos_final_value]
         depositos_xirr_nominal = compute_xirr(xirr_dates_ext, xirr_flows_dep)
+        if depositos_xirr_nominal is None:
+            xirr_warnings.append("TIR de depósitos no pudo calcularse")
+            depositos_xirr_nominal = 0.0
 
         # --- 3E. SIMULATED PORTFOLIO (for chart) ---
         hist_cartera_nom = {}
@@ -627,7 +671,13 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
         flujos_reales_letras.append(valor_letras_nominal)
 
         tir_real_cartera = compute_xirr(xirr_dates_fund, flujos_reales_cartera)
+        if tir_real_cartera is None:
+            xirr_warnings.append("TIR real de la cartera no pudo calcularse")
+            tir_real_cartera = 0.0
         tir_real_letras = compute_xirr(xirr_dates_fund, flujos_reales_letras)
+        if tir_real_letras is None:
+            xirr_warnings.append("TIR real de Letras del Tesoro no pudo calcularse")
+            tir_real_letras = 0.0
 
         first_fund_date = effective_start
         base_ipc = ipc_map.get((first_fund_date.year, first_fund_date.month), latest_ipc) if ipc_map else 1.0
@@ -717,6 +767,7 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
             "depositos_xirr_nominal": round(depositos_xirr_nominal * 100, 2),
             "chart_data": chart_data,
             "letras_rates_used": letras_rates_used,
+            "xirr_warnings": xirr_warnings if xirr_warnings else None,
         }
 
         return https_fn.Response(

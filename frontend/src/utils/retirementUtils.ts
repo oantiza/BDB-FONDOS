@@ -66,19 +66,11 @@ export function getBonificacionTrabajo(_rendimientoNeto: number): number {
 
 export function getMinoracionCuota(baseLiquidable: number): number {
     const safeBase = Math.max(0, baseLiquidable || 0);
-    // Para Bizkaia (2024) la minoración GENERAL de la cuota se fija en 1.583 euros anuales 
-    // deflactados, para toda declaración de la Renta.
-    const minoracionGeneral = 1583;
-    let minoracionExtra = 0;
+    // Para Bizkaia (2026) la minoración GENERAL de la cuota se fija en 1.615 euros anuales 
+    // deflactados (1583 * 1.02), para toda declaración de la Renta.
+    const minoracionGeneral = 1615;
 
-    // Prórroga de la minoración extraordinaria en función de renta (NF 13/2013 actualizada)
-    if (safeBase <= 30000) {
-        minoracionExtra = 200; 
-    } else if (safeBase > 30000 && safeBase <= 35000) {
-        minoracionExtra = Math.max(0, 200 * (1 - (safeBase - 30000) / 5000));
-    }
-    
-    return minoracionGeneral + minoracionExtra;
+    return minoracionGeneral;
 }
 
 export function calculateBizkaiaTaxBaseGeneral(income: number): number {
@@ -88,15 +80,16 @@ export function calculateBizkaiaTaxBaseGeneral(income: number): number {
     const bonificacion = getBonificacionTrabajo(safeIncome);
     const baseLiquidable = Math.max(0, safeIncome - bonificacion);
 
+    // Escala oficial Bizkaia 2026 (NF Presupuestos 2026) — Base Liquidable General
     const brackets = [
         { limit: 0, rate: 0.23 },
-        { limit: 18442, rate: 0.28 },
-        { limit: 36883, rate: 0.35 },
-        { limit: 55325, rate: 0.40 },
-        { limit: 79000, rate: 0.45 },
-        { limit: 109405, rate: 0.46 },
-        { limit: 145819, rate: 0.47 },
-        { limit: 212558, rate: 0.49 },
+        { limit: 18080, rate: 0.28 },
+        { limit: 36160, rate: 0.35 },
+        { limit: 54240, rate: 0.40 },
+        { limit: 77450, rate: 0.45 },
+        { limit: 107260, rate: 0.46 },
+        { limit: 142960, rate: 0.47 },
+        { limit: 208390, rate: 0.49 },
     ];
 
     let tax = 0;
@@ -123,14 +116,17 @@ export function calculateBizkaiaTaxBaseAhorro(income: number): number {
     const safeIncome = Math.max(0, income || 0);
     if (safeIncome <= 0) return 0;
     
-    // Tramos del IRPF Base Liquidable de Ahorro para Bizkaia (2024)
-    // Extraídos de la Norma Foral del Impuesto (No confundir con Territorio Común)
+    // Escala oficial Bizkaia 2026 — Base Liquidable del Ahorro
     const brackets = [
-        { limit: 0, rate: 0.20 },      // Hasta 2.500: 20%
-        { limit: 2500, rate: 0.21 },   // 2.500 a 10.000: 21%
-        { limit: 10000, rate: 0.22 },  // 10.000 a 15.000: 22%
-        { limit: 15000, rate: 0.23 },  // 15.000 a 30.000: 23%
-        { limit: 30000, rate: 0.25 },  // Más de 30.000: 25%
+        { limit: 0, rate: 0.19 },
+        { limit: 7500, rate: 0.20 },
+        { limit: 15000, rate: 0.22 },
+        { limit: 30000, rate: 0.24 },
+        { limit: 50000, rate: 0.255 },
+        { limit: 90000, rate: 0.26 },
+        { limit: 120000, rate: 0.265 },
+        { limit: 240000, rate: 0.27 },
+        { limit: 300000, rate: 0.28 },
     ];
 
     let tax = 0;
@@ -294,14 +290,21 @@ export function calculateRentTaxes(params: RentTaxParams): RentTaxResult {
     const aportacionEPSV = Math.max(0, rentaAnualEPSV - (rentabilidadEpsvPre + rentabilidadEpsvPost));
 
     let parteExentaEPSV = 0;
-    // Aportaciones y rentabilidad pre-2027 SIEMPRE van a base general
-    let parteSujetaGeneralEPSV = aportacionEPSV + rentabilidadEpsvPre;
+    // Aportaciones SIEMPRE van a base general (rendimiento del trabajo)
+    let parteSujetaGeneralEPSV = aportacionEPSV;
     let parteSujetaAhorroEPSV = 0;
 
     if (params.isRentabilidadEPSVExenta) {
-        parteExentaEPSV = rentabilidadEpsvPost;
+        // NF 13/2013 actualizada 2026 (bizkaia.eus): Para rentas periódicas ≥15 años
+        // con cuantía constante, la rentabilidad TOTAL (pre y post 2026) está exenta.
+        // Nota: Existe un régimen transitorio (DA 22ª) que permite al contribuyente optar
+        // por el régimen fiscal vigente a 31/12/2025 para aportaciones pre-2026 si le es
+        // más favorable. Esta simulación aplica el nuevo régimen completo por defecto.
+        parteExentaEPSV = rentabilidadEpsvPre + rentabilidadEpsvPost;
     } else {
-        parteSujetaAhorroEPSV = rentabilidadEpsvPost; // Post-2027 sin exención va a ahorro
+        // Sin exención: rentabilidad pre-2026 va a base general, post-2026 va a ahorro
+        parteSujetaGeneralEPSV += rentabilidadEpsvPre;
+        parteSujetaAhorroEPSV = rentabilidadEpsvPost;
     }
 
     const plusvaliaSujetaAhorros = rentaAnualAhorros * ratioBeneficioAhorros;

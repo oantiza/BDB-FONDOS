@@ -32,11 +32,23 @@ def get_cors_headers():
 )
 def force_weekly_research(req: https_fn.Request) -> https_fn.Response:
     """Endpoint manual para forzar la generación del reporte en pruebas"""
-    # Note: on_request does not have request.auth automatically populated like on_call.
-    # Since this seems to be a manual testing endpoint, we'll leave it as is for now or
-    # require a secret key in the header if it were to be fully secured in a later phase.
+    # --- Autenticación y Autorización ---
+    auth_header = req.headers.get("Authorization")
+    if not auth_header or not auth_header.startswith("Bearer "):
+        return https_fn.Response(json.dumps({"error": "Unauthorized"}), status=401, content_type="application/json")
+    
+    id_token = auth_header.split("Bearer ")[1]
+    try:
+        from firebase_admin import auth
+        decoded_token = auth.verify_id_token(id_token)
+        if decoded_token.get("email") != "oantiza@gmail.com":
+            return https_fn.Response(json.dumps({"error": "Forbidden"}), status=403, content_type="application/json")
+    except Exception as e:
+        logger.warning(f"Unauthorized access attempt to admin endpoint: {e}")
+        return https_fn.Response(json.dumps({"error": "Unauthorized"}), status=401, content_type="application/json")
+
     logger.info("🔥 Forzando Deep Research Semanal Manualmente")
-    from ..services.research import generate_weekly_strategy_report
+    from services.research import generate_weekly_strategy_report
 
     db = firestore.client()
 
@@ -69,13 +81,13 @@ def force_weekly_research(req: https_fn.Request) -> https_fn.Response:
 )
 def generate_analysis_report(request: https_fn.CallableRequest):
     """Trigger manual para Deep Research Consolidado (Weekly Strategy Report)"""
-    if not request.auth:
+    if not request.auth or request.auth.token.get("email") != "oantiza@gmail.com":
         raise https_fn.HttpsError(
-            code=https_fn.FunctionsErrorCode.UNAUTHENTICATED,
-            message="Requiere autenticación",
+            code=https_fn.FunctionsErrorCode.PERMISSION_DENIED,
+            message="Requiere privilegios de administrador",
         )
 
-    from ..services.research import generate_weekly_strategy_report
+    from services.research import generate_weekly_strategy_report
 
     db = firestore.client()
     return generate_weekly_strategy_report(db)
