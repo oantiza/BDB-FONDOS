@@ -10,6 +10,11 @@ from services.config import RISK_BUCKETS_LABELS
 
 def get_firebase_app():
     if not firebase_admin._apps:
+        # 0. Priorizar variable de entorno GOOGLE_APPLICATION_CREDENTIALS
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            print("Usando GOOGLE_APPLICATION_CREDENTIALS del entorno.")
+            return firebase_admin.initialize_app()
+
         # 1. Intentar buscar un archivo de clave de servicio local explícito
         for p in [
             "serviceAccountKey.json",

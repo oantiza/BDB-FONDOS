@@ -21,8 +21,13 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(
 
 try:
     if not firebase_admin._apps:
-        cred = credentials.Certificate(KEY_PATH)
-        initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            initialize_app()
+        elif os.path.exists(KEY_PATH):
+            cred = credentials.Certificate(KEY_PATH)
+            initialize_app(cred)
+        else:
+            initialize_app()
 except:
     pass
 
