@@ -147,23 +147,27 @@ def init_firestore():
     if not firebase_admin._apps:
         from firebase_admin import credentials
 
-        key_paths = [
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "scripts", "serviceAccountKey.json"),
-            os.path.join(os.path.dirname(__file__), "..", "serviceAccountKey.json"),
-            "./serviceAccountKey.json",
-            "../serviceAccountKey.json",
-        ]
-
-        for kp in key_paths:
-            kp_abs = os.path.abspath(kp)
-            if os.path.exists(kp_abs):
-                cred = credentials.Certificate(kp_abs)
-                firebase_admin.initialize_app(cred)
-                print(f"[INIT] Firebase initialized with key: {kp_abs}")
-                break
-        else:
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
             firebase_admin.initialize_app()
-            print("[INIT] Firebase initialized with default credentials")
+            print("[INIT] Firebase initialized via GOOGLE_APPLICATION_CREDENTIALS")
+        else:
+            key_paths = [
+                os.path.join(os.path.dirname(__file__), "..", "..", "..", "scripts", "serviceAccountKey.json"),
+                os.path.join(os.path.dirname(__file__), "..", "serviceAccountKey.json"),
+                "./serviceAccountKey.json",
+                "../serviceAccountKey.json",
+            ]
+
+            for kp in key_paths:
+                kp_abs = os.path.abspath(kp)
+                if os.path.exists(kp_abs):
+                    cred = credentials.Certificate(kp_abs)
+                    firebase_admin.initialize_app(cred)
+                    print(f"[INIT] Firebase initialized with key: {kp_abs}")
+                    break
+            else:
+                firebase_admin.initialize_app()
+                print("[INIT] Firebase initialized with default credentials")
 
     return firestore.client()
 
