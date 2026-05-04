@@ -690,14 +690,16 @@ export function usePortfolioActions({
                 processOptimizationResult(result3, optimizeFn, options);
             }
         } else if (result.status === 'infeasible_constraints' || result.status === 'auto_expand_failed') {
-            const msg = result.message
-                || result.error
-                || result.warnings?.[0]
-                || result.feasibility?.reason
-                || "Las restricciones actuales no permiten encontrar una cartera óptima. Revise el perfil de riesgo, número de fondos o universo disponible.";
-            toast.error(`Error en la optimización: ${msg}`);
+            toast.error("No se ha podido encontrar una cartera óptima con las restricciones actuales. Pruebe a reducir el nivel de riesgo, aumentar el número de fondos o ampliar el universo disponible.");
         } else {
-            const msg = result.message || result.error || "Desconocido";
+            const rawMsg = result.message || result.error || "Desconocido";
+            const isSolverInfeasible = typeof rawMsg === 'string' && (
+                rawMsg.includes('Solver status: infeasible')
+                || rawMsg.includes('Please check your objectives/constraints')
+            );
+            const msg = isSolverInfeasible
+                ? "No se ha podido encontrar una cartera óptima con las restricciones actuales. Pruebe a reducir el nivel de riesgo, aumentar el número de fondos o ampliar el universo disponible."
+                : rawMsg;
             const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
             toast.error(`Error en la optimización: ${msg}${obsStr}`);
         }
