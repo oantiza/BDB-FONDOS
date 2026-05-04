@@ -10,20 +10,18 @@ const admin = require("firebase-admin");
 const fs = require("fs");
 const path = require("path");
 
-// Service account path
-const SA_PATH = path.join(__dirname, "serviceAccountKey.json");
-
-if (!fs.existsSync(SA_PATH)) {
-    console.error("❌ No se encontró serviceAccountKey.json en", SA_PATH);
-    process.exit(1);
-}
-
-const serviceAccount = require(SA_PATH);
-
+// Firebase Admin init
 if (!admin.apps.length) {
-    admin.initializeApp({
-        credential: admin.credential.cert(serviceAccount),
-    });
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    } else {
+        const saPath = path.join(__dirname, "serviceAccountKey.json");
+        if (fs.existsSync(saPath)) {
+            admin.initializeApp({ credential: admin.credential.cert(require(saPath)) });
+        } else {
+            admin.initializeApp();
+        }
+    }
 }
 
 const db = admin.firestore();

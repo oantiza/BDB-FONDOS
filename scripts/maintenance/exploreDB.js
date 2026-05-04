@@ -10,18 +10,29 @@
 
 const admin = require('firebase-admin');
 const path = require('path');
+const fs = require('fs');
 
-const serviceAccount = require(path.join(__dirname, '..', 'serviceAccountKey.json'));
-
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    projectId: 'bdb-fondos'
-});
+if (!admin.apps.length) {
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    } else {
+        const saPath = path.join(__dirname, '..', 'serviceAccountKey.json');
+        if (fs.existsSync(saPath)) {
+            const serviceAccount = require(saPath);
+            admin.initializeApp({
+                credential: admin.credential.cert(serviceAccount),
+                projectId: serviceAccount.project_id
+            });
+        } else {
+            admin.initializeApp();
+        }
+    }
+}
 
 const db = admin.firestore();
 
 async function exploreDB() {
-    console.log('Project:', serviceAccount.project_id, '\n');
+    console.log('Project: bdb-fondos\n');
 
     // List all root-level collections
     const rootCollections = await db.listCollections();

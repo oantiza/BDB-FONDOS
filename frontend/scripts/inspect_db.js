@@ -1,11 +1,21 @@
 /* eslint-disable no-undef */
 
 const admin = require("firebase-admin");
-const serviceAccount = require("c:/Users/oanti/Documents/BDB-FONDOS_LOCAL/BDB-FONDOS/functions_python/serviceAccountKey.json");
+const path = require("path");
+const fs = require("fs");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    } else {
+        const saPath = path.join(__dirname, "..", "..", "serviceAccountKey.json");
+        if (fs.existsSync(saPath)) {
+            admin.initializeApp({ credential: admin.credential.cert(require(saPath)) });
+        } else {
+            admin.initializeApp();
+        }
+    }
+}
 
 const db = admin.firestore();
 

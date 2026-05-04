@@ -1,11 +1,19 @@
 const admin = require('firebase-admin');
 const fs = require('fs');
+const path = require('path');
 
-const serviceAccount = require('../../serviceAccountKey.json');
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
-});
+if (!admin.apps.length) {
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    } else {
+        const saPath = path.join(__dirname, '..', '..', 'serviceAccountKey.json');
+        if (fs.existsSync(saPath)) {
+            admin.initializeApp({ credential: admin.credential.cert(require(saPath)) });
+        } else {
+            admin.initializeApp();
+        }
+    }
+}
 
 const db = admin.firestore();
 
