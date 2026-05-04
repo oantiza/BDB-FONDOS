@@ -11,9 +11,16 @@ from datetime import datetime, timedelta
 import os
 import time
 
-sa_path = os.path.join(os.path.dirname(__file__), '..', 'serviceAccountKey.json')
-cred = credentials.Certificate(sa_path)
-firebase_admin.initialize_app(cred)
+if not firebase_admin._apps:
+    if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        firebase_admin.initialize_app()
+    else:
+        sa_path = os.path.join(os.path.dirname(__file__), '..', 'serviceAccountKey.json')
+        if os.path.exists(sa_path):
+            cred = credentials.Certificate(sa_path)
+            firebase_admin.initialize_app(cred)
+        else:
+            firebase_admin.initialize_app()
 db = firestore.client()
 
 EODHD_API_KEY = "6943decfb2bb14.96572592"

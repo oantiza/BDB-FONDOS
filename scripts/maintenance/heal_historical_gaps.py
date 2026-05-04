@@ -17,11 +17,14 @@ from services.daily_service import extract_history
 
 def init_firestore():
     if not firebase_admin._apps:
-        cred_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'serviceAccountKey.json'))
-        if not os.path.exists(cred_path):
-            raise FileNotFoundError(f"No se encuentra {cred_path}")
-        cred = credentials.Certificate(cred_path)
-        firebase_admin.initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        else:
+            cred_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'serviceAccountKey.json'))
+            if not os.path.exists(cred_path):
+                raise FileNotFoundError(f"No se encuentra {cred_path}")
+            cred = credentials.Certificate(cred_path)
+            firebase_admin.initialize_app(cred)
     return firestore.client()
 
 def process_fund(db, isin):

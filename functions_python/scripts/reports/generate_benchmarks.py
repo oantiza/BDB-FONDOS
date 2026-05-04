@@ -35,16 +35,19 @@ def get_db():
     try:
         app = firebase_admin.get_app()
     except ValueError:
-        cred_path = os.path.join(
-            os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-            "serviceAccountKey.json",
-        )
-        if os.path.exists(cred_path):
-            cred = credentials.Certificate(cred_path)
-            firebase_admin.initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
         else:
-            print(f"Error: {cred_path} not found")
-            return None
+            cred_path = os.path.join(
+                os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
+                "serviceAccountKey.json",
+            )
+            if os.path.exists(cred_path):
+                cred = credentials.Certificate(cred_path)
+                firebase_admin.initialize_app(cred)
+            else:
+                print(f"Error: {cred_path} not found")
+                return None
     return firestore.client()
 
 

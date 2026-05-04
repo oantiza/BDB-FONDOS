@@ -16,10 +16,13 @@ if FUNCTIONS_PYTHON_DIR not in sys.path:
 
 def get_db():
     if not firebase_admin._apps:
-        if not os.path.exists(KEY_PATH):
-            raise FileNotFoundError(f"Key not found: {KEY_PATH}")
-        cred = credentials.Certificate(KEY_PATH)
-        firebase_admin.initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        elif os.path.exists(KEY_PATH):
+            cred = credentials.Certificate(KEY_PATH)
+            firebase_admin.initialize_app(cred)
+        else:
+            firebase_admin.initialize_app()
     return firestore.client()
 
 # =========================================================

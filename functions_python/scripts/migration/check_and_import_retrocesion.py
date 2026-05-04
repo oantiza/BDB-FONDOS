@@ -28,22 +28,27 @@ import csv
 import firebase_admin
 from firebase_admin import credentials, firestore
 
-# âââââââââââââââ CONFIG âââââââââââââââ
+# â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” CONFIG â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_ROOT = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
 KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 CSV_PATH = os.path.join(PROJECT_ROOT, "fondos_con_retrocesion.csv")
 COLLECTION = "funds_v3"
 
-# âââââââââââââââ INIT FIREBASE âââââââââââââââ
+# â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” INIT FIREBASE â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 if not firebase_admin._apps:
-    cred = credentials.Certificate(KEY_PATH)
-    firebase_admin.initialize_app(cred)
+    if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+        firebase_admin.initialize_app()
+    elif os.path.exists(KEY_PATH):
+        cred = credentials.Certificate(KEY_PATH)
+        firebase_admin.initialize_app(cred)
+    else:
+        firebase_admin.initialize_app()
 
 db = firestore.client()
 
 
-# âââââââââââââââ PARSE CSV âââââââââââââââ
+# â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€” PARSE CSV â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”â€”
 def parse_retrocesion(val: str) -> float:
     """Convierte '1,50%' o '0.50%' a float decimal (0.015 -> 1.5%)"""
     val = val.strip().replace("%", "").replace(",", ".").strip()
