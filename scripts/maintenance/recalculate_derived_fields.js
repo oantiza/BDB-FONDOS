@@ -48,20 +48,24 @@ const DRY_RUN = hasFlag("--dry-run");
 // -----------------------------
 // Firebase Admin init
 // -----------------------------
-const SERVICE_ACCOUNT_FILE = path.join(__dirname, "serviceAccountKey.json");
-
-if (!fs.existsSync(SERVICE_ACCOUNT_FILE)) {
-  console.error(`❌ Falta ${SERVICE_ACCOUNT_FILE}`);
-  process.exit(1);
-}
-
 if (!admin.apps.length) {
-  const serviceAccount = require(SERVICE_ACCOUNT_FILE);
-  admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    projectId: serviceAccount.project_id,
-  });
-  console.log(`🔑 Firebase Admin OK: ${serviceAccount.project_id}`);
+  if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+    admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    console.log(`🔑 Firebase Admin OK via GOOGLE_APPLICATION_CREDENTIALS`);
+  } else {
+    const SERVICE_ACCOUNT_FILE = path.join(__dirname, "serviceAccountKey.json");
+    if (fs.existsSync(SERVICE_ACCOUNT_FILE)) {
+      const serviceAccount = require(SERVICE_ACCOUNT_FILE);
+      admin.initializeApp({
+        credential: admin.credential.cert(serviceAccount),
+        projectId: serviceAccount.project_id,
+      });
+      console.log(`🔑 Firebase Admin OK: ${serviceAccount.project_id}`);
+    } else {
+      admin.initializeApp();
+      console.log(`🔑 Firebase Admin OK via default credentials`);
+    }
+  }
 }
 
 const db = admin.firestore();

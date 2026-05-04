@@ -7,8 +7,13 @@ import os
 def sync_to_firestore(input_csv, dry_run=True):
     # 1. Inicializar Firestore
     if not firebase_admin._apps:
-        cred = credentials.Certificate("serviceAccountKey.json")
-        firebase_admin.initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        elif os.path.exists("serviceAccountKey.json"):
+            cred = credentials.Certificate("serviceAccountKey.json")
+            firebase_admin.initialize_app(cred)
+        else:
+            firebase_admin.initialize_app()
     db = firestore.client()
 
     # 2. Leer el CSV clasificado

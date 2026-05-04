@@ -8,20 +8,22 @@ const path = require("path");
 const fs = require("fs");
 
 // Config
-const SERVICE_ACCOUNT_FILE = "C:\\Users\\oanti\\OneDrive\\Documentos\\CARGADOR DE PDFS\\ROBOT_CARGA\\serviceAccountKey.json";
 const COLLECTION_NAME = "funds_v3";
 const DRY_RUN = !process.argv.includes("--apply");
 const LIMIT = process.argv.includes("--limit") ? parseInt(process.argv[process.argv.indexOf("--limit") + 1]) : null;
 
-if (!fs.existsSync(SERVICE_ACCOUNT_FILE)) {
-    console.error(`❌ Falta ${SERVICE_ACCOUNT_FILE}`);
-    process.exit(1);
+if (!admin.apps.length) {
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
+    } else {
+        const SA_PATH = path.join(__dirname, "serviceAccountKey.json");
+        if (fs.existsSync(SA_PATH)) {
+            admin.initializeApp({ credential: admin.credential.cert(require(SA_PATH)) });
+        } else {
+            admin.initializeApp();
+        }
+    }
 }
-
-const serviceAccount = require(SERVICE_ACCOUNT_FILE);
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-});
 
 const db = admin.firestore();
 

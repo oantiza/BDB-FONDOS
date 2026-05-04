@@ -11,15 +11,17 @@ import warnings
 warnings.filterwarnings('ignore')
 
 # Initialize Firebase
-cred_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'serviceAccountKey.json'))
 try:
-    if os.path.exists(cred_path):
-        cred = credentials.Certificate(cred_path)
-    else:
-        # Fallback to default if running in cloud / different env
-        cred = credentials.ApplicationDefault()
     if not firebase_admin._apps:
-        firebase_admin.initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        else:
+            cred_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..', 'serviceAccountKey.json'))
+            if os.path.exists(cred_path):
+                cred = credentials.Certificate(cred_path)
+                firebase_admin.initialize_app(cred)
+            else:
+                firebase_admin.initialize_app()
 except Exception as e:
     print(f"Failed to initialize firebase: {e}")
     sys.exit(1)

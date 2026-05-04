@@ -24,23 +24,19 @@ const fs = require("fs");
  */
 
 // Init Firebase
-const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../serviceAccountKey.json");
-let serviceAccount = null;
-if (fs.existsSync(SERVICE_ACCOUNT_FILE)) {
-    serviceAccount = require(SERVICE_ACCOUNT_FILE);
-}
-
 if (!admin.apps.length) {
-    if (serviceAccount) {
-        admin.initializeApp({
-            credential: admin.credential.cert(serviceAccount),
-        });
+    if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+        admin.initializeApp({ credential: admin.credential.applicationDefault() });
     } else {
-        console.warn("⚠️ serviceAccountKey.json not found, trying Application Default Credentials...");
-        admin.initializeApp({
-            credential: admin.credential.applicationDefault(),
-            projectId: "bdb-fondos" // Hardcoded fallback for ADC
-        });
+        const SERVICE_ACCOUNT_FILE = path.join(__dirname, "../serviceAccountKey.json");
+        if (fs.existsSync(SERVICE_ACCOUNT_FILE)) {
+            admin.initializeApp({
+                credential: admin.credential.cert(require(SERVICE_ACCOUNT_FILE)),
+            });
+        } else {
+            console.warn("serviceAccountKey.json not found, trying default credentials...");
+            admin.initializeApp();
+        }
     }
 }
 const db = admin.firestore();
