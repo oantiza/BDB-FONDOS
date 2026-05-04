@@ -13,7 +13,7 @@
   "name": "bdb-fondos",
   "version": "1.0.0",
   "description": "BDB-FONDOS is a specialized platform for financial portfolio analysis, optimization, and reporting. It leverages Firebase for data and computation, with a React frontend and Python-based cloud functions for quantitative analysis.",
-  "main": "audit_derived_unknowns.js",
+  "main": "scripts/maintenance/audit_derived_unknowns.js",
   "directories": {
     "doc": "docs"
   },

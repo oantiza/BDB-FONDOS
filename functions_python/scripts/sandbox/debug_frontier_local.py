@@ -5,7 +5,7 @@ import sys
 sys.path.append("functions_python")
 
 from services.data_fetcher import DataFetcher
-from services.optimizer import generate_efficient_frontier
+from services.portfolio.frontier_engine import generate_efficient_frontier
 
 
 def debug_frontier():

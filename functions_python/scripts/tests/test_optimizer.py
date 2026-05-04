@@ -29,7 +29,7 @@ try:
 except:
     pass
 
-from services.optimizer import run_optimization
+from services.portfolio.optimizer_core import run_optimization
 
 db = firestore.client()
 

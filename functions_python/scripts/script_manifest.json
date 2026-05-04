@@ -248,14 +248,6 @@
     "description": "No description"
   },
   {
-    "name": "debug_test.py",
-    "path": "functions_python/scripts/sandbox/debug_test.py",
-    "category": "sandbox",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
     "name": "inspect_fund_debug.py",
     "path": "functions_python/scripts/sandbox/inspect_fund_debug.py",
     "category": "sandbox",
@@ -272,89 +264,9 @@
     "description": "No description"
   },
   {
-    "name": "temp_fetch_hcz61.py",
-    "path": "functions_python/scripts/sandbox/temp_fetch_hcz61.py",
-    "category": "sandbox",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "temp_func.py",
-    "path": "functions_python/scripts/sandbox/temp_func.py",
-    "category": "sandbox",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "test_optimizer_crash.py",
-    "path": "functions_python/scripts/sandbox/test_optimizer_crash.py",
-    "category": "sandbox",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
     "name": "test_real_frontier.py",
     "path": "functions_python/scripts/sandbox/test_real_frontier.py",
     "category": "sandbox",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "populate_taxonomy_v2_FINAL_STABLE.py",
-    "path": "functions_python/scripts/archive/populate_taxonomy_v2_FINAL_STABLE.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "populate_taxonomy_v2_STABLE_31conflicts.py",
-    "path": "functions_python/scripts/archive/populate_taxonomy_v2_STABLE_31conflicts.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "populate_taxonomy_v2_STABLE_71conflicts.py",
-    "path": "functions_python/scripts/archive/populate_taxonomy_v2_STABLE_71conflicts.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "populate_taxonomy_v2_backup.py",
-    "path": "functions_python/scripts/archive/populate_taxonomy_v2_backup.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "sample_taxonomy_review_50_FINAL_STABLE.py",
-    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_FINAL_STABLE.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "sample_taxonomy_review_50_STABLE_31conflicts.py",
-    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_STABLE_31conflicts.py",
-    "category": "archive",
-    "status": "ACTIVE",
-    "mutates_data": false,
-    "description": "No description"
-  },
-  {
-    "name": "sample_taxonomy_review_50_STABLE_71conflicts.py",
-    "path": "functions_python/scripts/archive/sample_taxonomy_review_50_STABLE_71conflicts.py",
-    "category": "archive",
     "status": "ACTIVE",
     "mutates_data": false,
     "description": "No description"
