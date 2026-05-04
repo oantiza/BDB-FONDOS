@@ -10,7 +10,9 @@ EODHD_API_KEY = "6943decfb2bb14.96572592"
 
 def initialize_firebase():
     if not firebase_admin._apps:
-        if os.path.exists("./serviceAccountKey.json"):
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        elif os.path.exists("./serviceAccountKey.json"):
             cred = credentials.Certificate("./serviceAccountKey.json")
             firebase_admin.initialize_app(cred)
         elif os.path.exists("../serviceAccountKey.json"):

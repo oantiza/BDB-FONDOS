@@ -17,16 +17,15 @@ def initialize():
     try:
         app = firebase_admin.get_app()
     except ValueError:
-        # Check for service account in typical location
-        if os.path.exists("./serviceAccountKey.json"):
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        elif os.path.exists("./serviceAccountKey.json"):
             cred = credentials.Certificate("./serviceAccountKey.json")
             firebase_admin.initialize_app(cred)
-        # Check one level up (common in this repo structure)
         elif os.path.exists("../serviceAccountKey.json"):
             cred = credentials.Certificate("../serviceAccountKey.json")
             firebase_admin.initialize_app(cred)
         else:
-            print("No serviceAccountKey.json found. Trying default credentials...")
             firebase_admin.initialize_app()
     return firestore.client()
 

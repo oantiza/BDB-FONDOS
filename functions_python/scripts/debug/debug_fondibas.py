@@ -18,7 +18,9 @@ def check_fund():
     try:
         app = firebase_admin.get_app()
     except ValueError:
-        if os.path.exists("./serviceAccountKey.json"):
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            firebase_admin.initialize_app()
+        elif os.path.exists("./serviceAccountKey.json"):
             cred = credentials.Certificate("./serviceAccountKey.json")
             firebase_admin.initialize_app(cred)
         else:

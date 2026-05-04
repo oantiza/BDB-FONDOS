@@ -1,9 +1,9 @@
-"""
+﻿"""
 BDB-FONDOS SCRIPT
 
 STATUS: ACTIVE
 CATEGORY: audit
-PURPOSE: Analiza anomalías históricas en los datos de fondos.
+PURPOSE: Analiza anomalÃ­as histÃ³ricas en los datos de fondos.
 SAFE_MODE: READ_ONLY
 RUN: python -m scripts.audit.analyze_history_anomalies
 """
@@ -16,7 +16,7 @@ from firebase_admin import credentials, firestore, initialize_app
 # Add parent dir to path to import config if needed
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
 
-# --- AUTENTICACIÃN LOCAL ---
+# --- AUTENTICACIÃƒÂ“N LOCAL ---
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 FUNCTIONS_PYTHON_DIR = os.path.abspath(os.path.join(SCRIPT_DIR, "..", ".."))
 PROJECT_ROOT = os.path.abspath(os.path.join(FUNCTIONS_PYTHON_DIR, ".."))
@@ -24,11 +24,15 @@ KEY_PATH = os.path.join(PROJECT_ROOT, "serviceAccountKey.json")
 
 try:
     if not firebase_admin._apps:
-        cred = credentials.Certificate(KEY_PATH)
-        initialize_app(cred)
+        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"):
+            initialize_app()
+        elif os.path.exists(KEY_PATH):
+            cred = credentials.Certificate(KEY_PATH)
+            initialize_app(cred)
+        else:
+            initialize_app()
 except Exception as e:
-    print(f"â ï¸ Error cargando serviceAccountKey.json: {e}")
-    print("Intentando inicializaciÃ³n por defecto...")
+    print(f"Error initializing Firebase: {e}")
     try:
         initialize_app()
     except:
@@ -39,7 +43,7 @@ db = firestore.client()
 
 def analyze_anomalies(threshold=0.20):
     print(
-        f"ð Analyzing history for anomalies (threshold > {threshold * 100}% daily change)..."
+        f"Ã°ÂŸÂ”Â Analyzing history for anomalies (threshold > {threshold * 100}% daily change)..."
     )
 
     docs = db.collection("historico_vl_v2").stream()
@@ -102,7 +106,7 @@ def analyze_anomalies(threshold=0.20):
             )
 
             print(
-                f"â ï¸ {doc.id} - Anomaly! Max jump: {max_jump * 100:.2f}%, Max drop: {min_jump * 100:.2f}%. Jumps: {len(anomalies)}"
+                f"Ã¢ÂšÂ Ã¯Â¸Â {doc.id} - Anomaly! Max jump: {max_jump * 100:.2f}%, Max drop: {min_jump * 100:.2f}%. Jumps: {len(anomalies)}"
             )
 
     print("\n--- SUMMARY ---")
