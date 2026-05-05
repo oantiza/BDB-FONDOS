@@ -35,6 +35,7 @@ from services.quant_core import (
 )
 
 from services.portfolio.suitability_engine import is_fund_eligible_for_profile
+from services.portfolio.feasibility_precheck import run_feasibility_precheck
 
 FALLBACK_CANDIDATES_DEFAULT = [
     "LU0340557775",  # Morgan Stanley Global Opportunity (Activo)
@@ -972,6 +973,44 @@ def run_optimization(
         objective = constraints_v1.get("objective") or constraints.get("objective") or (
             "efficient_risk" if apply_profile else "max_sharpe"
         )
+
+        # FASE 5.5b: Feasibility Pre-Check (Phase 1 — deterministic BLOCK detection)
+        _precheck_bounds = {}
+        if bucket_bounds_v1 and isinstance(bucket_bounds_v1, dict):
+            _precheck_bounds = bucket_bounds_v1
+        elif apply_profile and risk_level_i in current_risk_buckets:
+            _precheck_bounds = current_risk_buckets[risk_level_i]
+
+        _precheck_exposure = {
+            "equity": eq_vec, "bond": bd_vec, "cash": cs_vec,
+            "alternative": al_vec, "real_asset": ra_vec, "other": ot_vec,
+        }
+
+        precheck_result = run_feasibility_precheck(
+            universe=universe,
+            max_weight=max_weight,
+            active_bounds=_precheck_bounds,
+            exposure_vectors=_precheck_exposure,
+            fixed_weights=fixed_weights or {},
+            lock_mode=lock_mode,
+            _read_bound_fn=_read_bound,
+        )
+
+        if not precheck_result["is_feasible"]:
+            first_block = precheck_result["blocks"][0]
+            return {
+                "api_version": "optimizer_v4",
+                "status": "infeasible",
+                "message": first_block["message"],
+                "feasibility_precheck": precheck_result,
+                "weights": {},
+                "metrics": {},
+                "frontier_points": frontier_points,
+                "explainability": {
+                    "precheck_blocked": True,
+                    "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
+                },
+            }
 
         # Main Base Solver Instantiation
         ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
