@@ -39,6 +39,7 @@ const FundDetailModal = lazyWithRetry(() => import('../components/FundDetailModa
 const FundSwapModal = lazyWithRetry(() => import('../components/FundSwapModal').then(m => ({ default: m.FundSwapModal })))
 const PortfolioAnalysisModal = lazyWithRetry(() => import('../components/modals/PortfolioAnalysisModal'))
 const OptimizationStrategyModal = lazyWithRetry(() => import('../components/modals/OptimizationStrategyModal'))
+const ConfirmModal = lazyWithRetry(() => import('../components/modals/ConfirmModal'))
 interface DashboardPageProps {
     onLogout: () => void;
     onOpenMiBoutique: () => void;
@@ -114,7 +115,8 @@ export default function DashboardPage({
         handleProceedStrategy,
         analysisResult, // NEW
         interactivePoint, // NEW
-        explainabilityData
+        explainabilityData,
+        confirmDialog
     } = usePortfolioActions({
         portfolio, setPortfolio,
         assets, riskLevel,
@@ -470,6 +472,17 @@ export default function DashboardPage({
                     />
                 )}
                 <FundSwapModal isOpen={swapper.isOpen} originalFund={swapper.fund} alternatives={swapper.alternatives} onSelect={performSwap} onClose={() => setSwapper(prev => ({ ...prev, isOpen: false, fund: null }))} onRefresh={handleOpenSwap} />
+                {confirmDialog && (
+                    <ConfirmModal
+                        isOpen={confirmDialog.isOpen}
+                        title={confirmDialog.title}
+                        message={confirmDialog.message}
+                        confirmLabel={confirmDialog.confirmLabel}
+                        cancelLabel={confirmDialog.cancelLabel}
+                        onConfirm={confirmDialog.onConfirm}
+                        onCancel={confirmDialog.onCancel}
+                    />
+                )}
             </Suspense>
         </div >
     )

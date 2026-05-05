@@ -4,6 +4,26 @@ import ModalHeader from '../common/ModalHeader'
 import { calcSimpleStats, calcPortfolioCorrelation } from '../../utils/analytics'
 import { getDashboardAnalytics } from '../../engine/portfolioAnalyticsEngine'
 
+const translateObjective = (obj: string) => {
+    const map: Record<string, string> = {
+        'efficient_risk': 'Riesgo eficiente',
+        'max_sharpe': 'Máximo Ratio Sharpe',
+        'min_volatility': 'Mínima volatilidad',
+        'min_vol': 'Mínima volatilidad'
+    };
+    return map[obj] || obj;
+};
+
+const translateConstraint = (c: string) => {
+    let translated = c;
+    translated = translated.replace(/bucket_bounds_v1 applied on portfolio_exposure_v2/g, 'Restricciones de perfil aplicadas sobre exposición económica real');
+    translated = translated.replace(/canonical, profile buckets skipped/g, 'Se ha evitado duplicar restricciones de perfil');
+    translated = translated.replace(/profile buckets skipped/g, 'Se ha evitado duplicar restricciones de perfil');
+    translated = translated.replace(/Risk Profile \(\d+\) caps applied on aggregated exposure/g, 'Límites del perfil aplicados sobre exposición agregada');
+    translated = translated.replace(/legacy profile buckets applied/g, 'Restricciones genéricas de perfil aplicadas');
+    return translated;
+};
+
 interface OptimizationReviewModalProps {
     currentPortfolio: any[];
     proposedPortfolio: any[];
@@ -210,16 +230,16 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                         {explainabilityData && (
                             <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-4 mb-4 text-left">
                                 <h4 className="text-xs font-bold text-blue-900 uppercase tracking-wider mb-2 flex items-center gap-1">
-                                    <span>🤖</span> Desición del Optimizador
+                                    <span>🤖</span> Decisión del Optimizador
                                 </h4>
                                 <div className="text-sm text-blue-800 space-y-1">
-                                    <p><span className="font-semibold">Objetivo Principal:</span> {explainabilityData.primary_objective === 'max_sharpe' ? 'Máximo Ratio Sharpe' : explainabilityData.primary_objective}</p>
+                                    <p><span className="font-semibold">Objetivo Principal:</span> {translateObjective(explainabilityData.primary_objective)}</p>
                                     {explainabilityData.binding_constraints && explainabilityData.binding_constraints.length > 0 && (
                                         <div>
                                             <span className="font-semibold block mt-2 mb-1">Restricciones Activas:</span>
                                             <ul className="list-disc pl-5 space-y-0.5 mt-1 text-xs">
                                                 {explainabilityData.binding_constraints.map((c: string, idx: number) => (
-                                                    <li key={idx}>{c}</li>
+                                                    <li key={idx}>{translateConstraint(c)}</li>
                                                 ))}
                                             </ul>
                                         </div>

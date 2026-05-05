@@ -225,6 +225,16 @@ export function usePortfolioActions({
     const [isOptimizing, setIsOptimizing] = useState(false);
     const [explainabilityData, setExplainabilityData] = useState<any>(null);
 
+    const [confirmDialog, setConfirmDialog] = useState<{
+        isOpen: boolean;
+        title: string;
+        message: string;
+        confirmLabel?: string;
+        cancelLabel?: string;
+        onConfirm: () => void;
+        onCancel: () => void;
+    } | null>(null);
+
     // ... (existing state) ...
 
     // ... (rest of the hook) ...
@@ -618,9 +628,9 @@ export function usePortfolioActions({
             const enhancedExplainability = {
                 ...(result.explainability || { primary_objective: '', solver_fallback_used: false, binding_constraints: [] }),
                 status: result.status,
-                target_vol: result.target_vol,
-                achieved_vol: result.achieved_vol,
-                vol_deviation: result.vol_deviation,
+                target_vol: result.metrics?.target_vol ?? result.target_vol,
+                achieved_vol: result.metrics?.achieved_vol ?? result.achieved_vol,
+                vol_deviation: result.metrics?.vol_deviation ?? result.vol_deviation,
                 fallback_reason: result.fallback_reason,
                 solver_path: result.solver_path
             };
@@ -637,78 +647,106 @@ export function usePortfolioActions({
         } else if (result.status === 'infeasible') {
             const msg = result.message || "Faltan datos para equilibrar la cartera matemáticamente.\n\n¿Quieres que el sistema añada automáticamente fondos globales válidos para intentar cuadrar el modelo?";
 
-            if (window.confirm(msg)) {
-                toast.info("🔄 Añadiendo fondos sugeridos y reintentando...");
-                // Re-try manually injecting the recovery_candidates
-                const expandedAssets = [...portfolio.map(p => p.isin)];
-                if (result.recovery_candidates) {
-                    result.recovery_candidates.forEach((c: string) => {
-                        if (!expandedAssets.includes(c)) expandedAssets.push(c);
-                    });
+            setConfirmDialog({
+                isOpen: true,
+                title: "Universo insuficiente para optimizar",
+                message: msg,
+                confirmLabel: "Añadir fondos y reintentar",
+                cancelLabel: "Cancelar",
+                onConfirm: async () => {
+                    setConfirmDialog(null);
+                    toast.info("🔄 Añadiendo fondos sugeridos y reintentando...");
+                    // Re-try manually injecting the recovery_candidates
+                    const expandedAssets = [...portfolio.map(p => p.isin)];
+                    if (result.recovery_candidates) {
+                        result.recovery_candidates.forEach((c: string) => {
+                            if (!expandedAssets.includes(c)) expandedAssets.push(c);
+                        });
+                    }
+
+                    const retryPayload: any = {
+                        assets: expandedAssets,
+                        risk_level: riskLevel,
+                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
+                    };
+                    if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                    if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+
+                    const response2 = await optimizeFn(retryPayload);
+                    const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
+                    processOptimizationResult(result2, optimizeFn, options);
+                },
+                onCancel: () => {
+                    setConfirmDialog(null);
+                    toast.info("Optimización cancelada.");
                 }
-
-                const retryPayload: any = {
-                    assets: expandedAssets,
-                    risk_level: riskLevel,
-                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
-                };
-                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
-                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
-
-                const response2 = await optimizeFn(retryPayload);
-                const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
-                processOptimizationResult(result2, optimizeFn, options);
-            } else {
-                toast.info("Optimización cancelada.");
-            }
+            });
 
         } else if (result.status === 'infeasible_equity_floor') {
             const feasible = result.feasibility?.achievable || 0;
             const requested = result.feasibility?.requested || 0;
             const msg = `⚠️ La cartera seleccionada no puede alcanzar el ${Math.round(requested * 100)}% de RV requerido (Máx posible: ${Math.round(feasible * 100)}%).\n\n¿Quieres que el sistema añada automáticamente fondos de Renta Variable para cumplir el objetivo?`;
 
-            if (window.confirm(msg)) {
-                toast.info("🔄 Auto-completando cartera con fondos de RV...");
-                // Note: The python backend might still expect `auto_expand_universe` for this specific fallback
-                // but ideally this should also be migrated to explicit lists in the future.
-                const retryPayload: any = {
-                    assets: portfolio.map(p => p.isin),
-                    risk_level: riskLevel,
-                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
-                    auto_expand_universe: true
-                };
-                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
-                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+            setConfirmDialog({
+                isOpen: true,
+                title: "Universo insuficiente para optimizar",
+                message: msg,
+                confirmLabel: "Auto-completar RV y reintentar",
+                cancelLabel: "Cancelar",
+                onConfirm: async () => {
+                    setConfirmDialog(null);
+                    toast.info("🔄 Auto-completando cartera con fondos de RV...");
+                    const retryPayload: any = {
+                        assets: portfolio.map(p => p.isin),
+                        risk_level: riskLevel,
+                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
+                        auto_expand_universe: true
+                    };
+                    if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                    if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
 
-                const response2 = await optimizeFn(retryPayload);
-                const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
-                processOptimizationResult(result2, optimizeFn, options);
-            } else {
-                toast.info("Optimización cancelada por falta de RV.");
-            }
+                    const response2 = await optimizeFn(retryPayload);
+                    const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
+                    processOptimizationResult(result2, optimizeFn, options);
+                },
+                onCancel: () => {
+                    setConfirmDialog(null);
+                    toast.info("Optimización cancelada por falta de RV.");
+                }
+            });
 
         } else if (result.status === 'fallback_no_history') {
             const suggestion = result.suggestion || "Prueba a cambiar los fondos.";
             const warnings = result.warnings?.join('\n') || "Insuficientes datos.";
 
-            // Show modal or detailed error
             const msg = `❌ Error de Datos Históricos\n\n${warnings}\n\nSugerencia: ${suggestion}\n\n¿Quieres intentar completar la cartera con fondos seguros?`;
 
-            if (window.confirm(msg)) {
-                toast.info("🔄 Reintentando con fondos base...");
-                const retryPayload: any = {
-                    assets: portfolio.map(p => p.isin),
-                    risk_level: riskLevel,
-                    locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
-                    auto_expand_universe: true
-                };
-                if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
-                if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
+            setConfirmDialog({
+                isOpen: true,
+                title: "Histórico insuficiente",
+                message: msg,
+                confirmLabel: "Reintentar con fondos base",
+                cancelLabel: "Cancelar",
+                onConfirm: async () => {
+                    setConfirmDialog(null);
+                    toast.info("🔄 Reintentando con fondos base...");
+                    const retryPayload: any = {
+                        assets: portfolio.map(p => p.isin),
+                        risk_level: riskLevel,
+                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
+                        auto_expand_universe: true
+                    };
+                    if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
+                    if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
 
-                const response3 = await optimizeFn(retryPayload);
-                const result3 = unwrapResult<SmartPortfolioResponse>(response3.data);
-                processOptimizationResult(result3, optimizeFn, options);
-            }
+                    const response3 = await optimizeFn(retryPayload);
+                    const result3 = unwrapResult<SmartPortfolioResponse>(response3.data);
+                    processOptimizationResult(result3, optimizeFn, options);
+                },
+                onCancel: () => {
+                    setConfirmDialog(null);
+                }
+            });
         } else if (result.status === 'infeasible_constraints' || result.status === 'auto_expand_failed') {
             toast.error("No se ha podido encontrar una cartera óptima con las restricciones actuales. Pruebe a reducir el nivel de riesgo, aumentar el número de fondos o ampliar el universo disponible.");
         } else {
@@ -823,23 +861,31 @@ export function usePortfolioActions({
     const handleImportCSV = async (text: string) => {
         const result = parsePortfolioCSV(text);
         if (result.error) { toast.error(result.error); return; }
-        if (result.portfolio && window.confirm(`Se han detectado ${result.portfolio.length} fondos. ¿Reemplazar cartera actual?`)) {
-            const enriched: PortfolioItem[] = result.portfolio.map(p => {
-                const known = assets.find(a => a.isin === p.isin);
-                // Merge strategies:
-                // 1. Base on CSV data (p) for value/weight
-                // 2. Overwrite with DB data (known) for Name/Type/Risk
-                // 3. Ensure critical CSV metrics (Value/Weight) are kept (in case 'known' has stale defaults)
-                if (known) {
-                    return { ...p, ...known, value: p.value, weight: p.weight };
-                } else {
-                    return { ...p, std_type: (p as any).std_type || 'Unknown' } as PortfolioItem;
-                }
-            });
-            setPortfolio(enriched);
-            setTotalCapital(result.totalValue);
-            toast.success("Cartera importada correctamente");
-        }
+        
+        setConfirmDialog({
+            isOpen: true,
+            title: "Importar Cartera",
+            message: `Se han detectado ${result.portfolio?.length || 0} fondos. ¿Reemplazar cartera actual?`,
+            confirmLabel: "Reemplazar",
+            cancelLabel: "Cancelar",
+            onConfirm: () => {
+                setConfirmDialog(null);
+                const enriched: PortfolioItem[] = (result.portfolio || []).map(p => {
+                    const known = assets.find(a => a.isin === p.isin);
+                    if (known) {
+                        return { ...p, ...known, value: p.value, weight: p.weight };
+                    } else {
+                        return { ...p, std_type: (p as any).std_type || 'Unknown' } as PortfolioItem;
+                    }
+                });
+                setPortfolio(enriched);
+                setTotalCapital(result.totalValue || 0);
+                toast.success("Cartera importada correctamente");
+            },
+            onCancel: () => {
+                setConfirmDialog(null);
+            }
+        });
     };
 
     return {
@@ -871,6 +917,8 @@ export function usePortfolioActions({
         explainabilityData, // Export for OptimizationReviewModal
         // Interactive Frontier State
         interactiveMathData,
-        interactivePoint
+        interactivePoint,
+        confirmDialog,
+        setConfirmDialog
     };
 }
