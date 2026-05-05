@@ -505,6 +505,7 @@ def _apply_standard_constraints(
                 ef_inst.add_constraint(lambda w, i=idx: w[i] >= 0.01)
 
     # Canonical constraints_v1 bucket bounds (applied sobre exposure_v2 agregado).
+    _v1_has_active_bounds = False
     if isinstance(bucket_bounds_v1, dict):
         vector_map = {
             "equity": eq_v,
@@ -518,8 +519,10 @@ def _apply_standard_constraints(
             b_min, b_max = _read_bound(bucket_bounds_v1.get(bucket_key))
             if b_min is not None and b_min > 1e-6:
                 ef_inst.add_constraint(lambda w, v=vec, m=b_min: w @ v >= m)
+                _v1_has_active_bounds = True
             if b_max is not None and b_max < 1.0 - 1e-6:
                 ef_inst.add_constraint(lambda w, v=vec, m=b_max: w @ v <= m)
+                _v1_has_active_bounds = True
 
     if constraints and asset_metadata:
         try:
@@ -557,7 +560,7 @@ def _apply_standard_constraints(
         except Exception as e_grp:
             logger.info(f"âš ï¸ Generic Group Constraint Warning: {e_grp}")
 
-    if apply_profile and risk_level_i in current_risk_buckets:
+    if apply_profile and risk_level_i in current_risk_buckets and not _v1_has_active_bounds:
         bucket_cfg = current_risk_buckets[risk_level_i]
         profile_vectors = _build_profile_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
         for bucket_name, vec in profile_vectors.items():
@@ -566,6 +569,8 @@ def _apply_standard_constraints(
                 ef_inst.add_constraint(lambda w, v=vec, m=min_val: w @ v >= m)
             if max_val is not None:
                 ef_inst.add_constraint(lambda w, v=vec, m=max_val: w @ v <= m)
+    elif apply_profile and _v1_has_active_bounds:
+        logger.info("ℹ️ [Optimizer] Profile bucket constraints SKIPPED: bucket_bounds_v1 already active")
 
 def _check_feasibility_and_autoexpand(
     db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
@@ -1090,8 +1095,11 @@ def run_optimization(
         if (constraints and (float(constraints.get("europe", 0.0) or 0.0) > 0 or float(constraints.get("americas", 1.0) or 1.0) < 1.0)):
             binding_constraints.append("Geographic limits applied on V2-first region exposure")
         if apply_profile and risk_level_i <= 3: binding_constraints.append("Emerging markets capped at 5%")
-        if any(isinstance(v, dict) and (v.get("min") is not None or v.get("max") is not None) for v in (bucket_bounds_v1 or {}).values()):
-            binding_constraints.append("constraints_v1 bucket_bounds applied on portfolio_exposure_v2")
+        _v1_bounds_active = any(isinstance(v, dict) and (v.get("min") is not None or v.get("max") is not None) for v in (bucket_bounds_v1 or {}).values())
+        if _v1_bounds_active:
+            binding_constraints.append("constraints_v1 bucket_bounds applied on portfolio_exposure_v2 (canonical, profile buckets skipped)")
+        elif apply_profile:
+            binding_constraints.append("current_risk_buckets applied as legacy fallback (no bucket_bounds_v1)")
 
         profile_limits = current_risk_buckets.get(risk_level_i, {}) if apply_profile else {}
 
@@ -1108,6 +1116,7 @@ def run_optimization(
             "binding_constraints": binding_constraints,
             "constraints_v1_enabled": bool(constraints_v1),
             "constraints_v1_profile_id": constraints_v1.get("profile_id"),
+            "bucket_constraints_source": "bucket_bounds_v1" if _v1_bounds_active else "current_risk_buckets_legacy",
             "constraint_hierarchy": "portfolio_exposure_v2 > classification_v2 > seed/config > legacy",
             "data_readiness": {
                 "universe_size": len(universe),
