@@ -307,7 +307,18 @@ export interface SmartPortfolioResponse {
         primary_objective: string;
         solver_fallback_used: boolean;
         binding_constraints: string[];
+        status?: string;
+        target_vol?: number;
+        achieved_vol?: number;
+        vol_deviation?: number;
+        fallback_reason?: string;
+        solver_path?: string;
     };
+    target_vol?: number;
+    achieved_vol?: number;
+    vol_deviation?: number;
+    fallback_reason?: string;
+    solver_path?: string;
 }
 
 export interface AllocationItem {

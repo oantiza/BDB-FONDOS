@@ -110,12 +110,14 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
         )
     }
 
+    const isFallback = explainabilityData?.status === 'fallback' || explainabilityData?.solver_fallback_used;
+
     return (
         <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-4xl overflow-hidden transform transition-all flex flex-col max-h-[90vh] border border-slate-100">
 
                 <ModalHeader
-                    title="Resultado Optimización"
+                    title={isFallback ? "Propuesta de Cartera Alternativa" : "Resultado Optimización"}
                     subtitle="Impacto de Cartera"
                     icon="" // Removed icon for cleaner look
                     onClose={onClose}
@@ -128,6 +130,43 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                 />
 
                 <div className="p-8 overflow-y-auto custom-scrollbar bg-white flex flex-col items-center">
+                    {/* Fallback Warning Box */}
+                    {isFallback && (
+                        <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 w-full text-left">
+                            <h4 className="text-sm font-bold text-amber-900 flex items-center gap-2 mb-2">
+                                <span>⚠️</span> Propuesta de Mejor Esfuerzo
+                            </h4>
+                            <p className="text-sm text-amber-800 leading-relaxed">
+                                Dadas las restricciones seleccionadas y el universo disponible, no ha sido posible alcanzar exactamente el nivel de riesgo objetivo. Se muestra la mejor alternativa factible.
+                            </p>
+                            {explainabilityData?.fallback_reason && (
+                                <p className="mt-2 text-xs text-amber-700 italic">
+                                    Motivo: {explainabilityData.fallback_reason}
+                                </p>
+                            )}
+                            
+                            {/* Comparativa Target vs Achieved Volatility */}
+                            {explainabilityData?.target_vol !== undefined && explainabilityData?.achieved_vol !== undefined && (
+                                <div className="mt-4 flex gap-6 border-t border-amber-200/50 pt-3">
+                                    <div>
+                                        <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Volatilidad Objetivo</div>
+                                        <div className="text-lg font-black text-amber-900">{(explainabilityData.target_vol * 100).toFixed(2)}%</div>
+                                    </div>
+                                    <div>
+                                        <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Volatilidad Lograda</div>
+                                        <div className="text-lg font-black text-amber-900">{(explainabilityData.achieved_vol * 100).toFixed(2)}%</div>
+                                    </div>
+                                    {explainabilityData.vol_deviation !== undefined && (
+                                        <div>
+                                            <div className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Desviación</div>
+                                            <div className="text-lg font-bold text-rose-600">{(explainabilityData.vol_deviation * 100).toFixed(2)}%</div>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+                        </div>
+                    )}
+
                     {/* Stats Grid - Centered Flex for 5 items */}
                     <div className="flex flex-wrap justify-center gap-0 mb-12 divide-x divide-slate-100 w-full"> {/* Moved dividers to parent class */}
                         <StatCard
@@ -175,9 +214,6 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                                 </h4>
                                 <div className="text-sm text-blue-800 space-y-1">
                                     <p><span className="font-semibold">Objetivo Principal:</span> {explainabilityData.primary_objective === 'max_sharpe' ? 'Máximo Ratio Sharpe' : explainabilityData.primary_objective}</p>
-                                    {explainabilityData.solver_fallback_used && (
-                                        <p className="text-amber-700 font-medium">⚠️ Se ha activado un solver de respaldo debido a restricciones estrictas.</p>
-                                    )}
                                     {explainabilityData.binding_constraints && explainabilityData.binding_constraints.length > 0 && (
                                         <div>
                                             <span className="font-semibold block mt-2 mb-1">Restricciones Activas:</span>

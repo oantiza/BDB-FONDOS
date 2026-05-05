@@ -615,17 +615,25 @@ export function usePortfolioActions({
                 portfolio, result.weights || {}, result.used_assets, assets, options?.strict
             );
 
-            if (!hasChanges) {
+            const enhancedExplainability = {
+                ...(result.explainability || { primary_objective: '', solver_fallback_used: false, binding_constraints: [] }),
+                status: result.status,
+                target_vol: result.target_vol,
+                achieved_vol: result.achieved_vol,
+                vol_deviation: result.vol_deviation,
+                fallback_reason: result.fallback_reason,
+                solver_path: result.solver_path
+            };
+
+            if (result.status === 'fallback') {
+                toast.warning("⚠️ Propuesta alternativa generada: no se pudo alcanzar exactamente el objetivo con las restricciones actuales.", { duration: 6000 });
+            } else if (!hasChanges) {
                 toast.success("✅ La cartera ya está optimizada.");
-                setExplainabilityData(result.explainability || null);
-                setProposedPortfolio(optimized);
-                toggleModal('tactical', true);
-            } else {
-                setExplainabilityData(result.explainability || null);
-                setProposedPortfolio(optimized);
-                // IF we want to show optimization difference -> Review Modal
-                toggleModal('review', true);
             }
+
+            setExplainabilityData(enhancedExplainability);
+            setProposedPortfolio(optimized);
+            toggleModal(hasChanges ? 'review' : 'tactical', true);
         } else if (result.status === 'infeasible') {
             const msg = result.message || "Faltan datos para equilibrar la cartera matemáticamente.\n\n¿Quieres que el sistema añada automáticamente fondos globales válidos para intentar cuadrar el modelo?";
 
