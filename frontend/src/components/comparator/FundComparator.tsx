@@ -4,7 +4,7 @@ import { db } from '../../firebase';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { Search, X, TrendingUp, Activity, AlertTriangle, Star } from 'lucide-react';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../../utils/normalizer';
-import { translateAssetClass, translateRegion } from '../../utils/fundTaxonomy';
+import { translateAssetClass, translateRegion, getCanonicalAssetClass } from '../../utils/fundTaxonomy';
 import { translateAssetSubtype } from '../../utils/taxonomyTranslators';
 
 export default function FundComparator() {
@@ -43,7 +43,7 @@ export default function FundComparator() {
                         id: norm.id || raw.id,
                         isin: norm.isin || raw.id,
                         name: norm.name || norm.fondo || raw.id,
-                        category: raw.classification_v2?.asset_type || 'UNKNOWN',
+                        category: getCanonicalAssetClass(raw),
                         subcategory: raw.classification_v2?.asset_subtype || 'General',
                         region: raw.classification_v2?.region_primary || 'GLOBAL',
                         retro: norm.std_extra?.retrocession ?? norm.manual?.costs?.retrocession ?? norm.costs?.retrocession ?? null,

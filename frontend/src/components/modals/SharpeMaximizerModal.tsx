@@ -160,9 +160,6 @@ export default function SharpeMaximizerModal({
                                 Esta herramienta buscará en la base de datos completa los fondos que, al añadirse a tu cartera (con un peso del 5%),
                                 maximicen tu <strong>Ratio de Sharpe</strong> (rentabilidad ajustada al riesgo).
                             </p>
-                            <div className="bg-yellow-50 p-2 rounded text-xs text-yellow-800 border border-yellow-200">
-                                <strong>Nota Debug:</strong> Si la búsqueda por Sharpe falla, se mostrarán fondos aleatorios (orden nombre) para verificar datos.
-                            </div>
 
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
@@ -175,7 +172,7 @@ export default function SharpeMaximizerModal({
                                             <option value="EQUITY">Renta Variable (General)</option>
                                             <option value="FIXED_INCOME">Renta Fija (General)</option>
                                             <option value="MONEY_MARKET">Monetario</option>
-                                            <option value="MIXED_ALLOCATION">Mixto</option>
+                                            <option value="MIXED">Mixto</option>
                                             <option value="ALTERNATIVE">Alternativos</option>
                                         </optgroup>
                                     </select>
@@ -214,7 +211,7 @@ export default function SharpeMaximizerModal({
                                 <span className="text-xl">📊</span>
                                 <div>
                                     <div className="text-xs font-bold text-emerald-800 uppercase tracking-wider">Sharpe Actual</div>
-                                    <div className="text-2xl font-bold text-emerald-600">{currentSharpe.toFixed(2)}</div>
+                                    <div className="text-2xl font-bold text-emerald-600">{currentSharpe ? currentSharpe.toFixed(2) : 'N/D'}</div>
                                 </div>
                             </div>
 

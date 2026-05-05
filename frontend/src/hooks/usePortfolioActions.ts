@@ -334,7 +334,7 @@ export function usePortfolioActions({
         if (p_level <= 3) {
             validTypes = new Set(['RF', 'FIXED_INCOME', 'FIXED INCOME', 'Monetario', 'MONETARY', 'Mixto', 'MIXED']);
         } else if (p_level >= 8) {
-            validTypes = new Set(['RV', 'EQUITY']);
+            validTypes = new Set(['RV', 'EQUITY', 'MIXED']);
         }
 
         // Pick best Sharpe from universe that aren't in portfolio and match risk constraints loosely
@@ -344,6 +344,18 @@ export function usePortfolioActions({
 
             const type = a.classification_v2?.asset_type || 'Unknown';
             if (!validTypes.has(type)) return false;
+
+            // For aggressive profiles (>=8): Only allow MIXED funds with high equity exposure
+            if (p_level >= 8 && (type === 'MIXED' || type === 'ALLOCATION')) {
+                const expV2 = (a as any).portfolio_exposure_v2;
+                const eqRaw = Number(expV2?.economic_exposure?.equity ?? expV2?.asset_mix?.equity ?? 0);
+                // Normalize: if stored as decimal (0.85), convert to pct
+                const eqPct = eqRaw <= 1.5 ? eqRaw * 100 : eqRaw;
+                const subtype = a.classification_v2?.asset_subtype || '';
+                if (subtype !== 'AGGRESSIVE_ALLOCATION' && eqPct < 75) {
+                    return false; // Exclude non-aggressive mixed from P8+
+                }
+            }
 
             // Restrict Emerging Markets for low risk profiles (<= 3)
             if (p_level <= 3) {

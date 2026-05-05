@@ -198,7 +198,7 @@ export default function Sidebar({ assets = [], onAddAsset, onViewDetail }: Sideb
              else if (category === 'RF - Corporativa') categoryMatch = v2.asset_type === 'FIXED_INCOME' && v2.asset_subtype === 'CORPORATE_BOND';
              else if (category === 'RF - High Yield') categoryMatch = v2.asset_type === 'FIXED_INCOME' && v2.asset_subtype === 'HIGH_YIELD_BOND';
              else if (category === 'Monetario') categoryMatch = v2.asset_type === 'MONEY_MARKET';
-             else if (category === 'Mixto') categoryMatch = v2.asset_type === 'ALLOCATION';
+             else if (category === 'Mixto') categoryMatch = v2.asset_type === 'MIXED' || v2.asset_type === 'ALLOCATION';
              else if (category === 'Alternativos') categoryMatch = v2.asset_type === 'ALTERNATIVE';
           } else {
              // Legacy fallback

@@ -89,7 +89,7 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                 <option value="EQUITY">Renta Variable (General)</option>
                                 <option value="FIXED_INCOME">Renta Fija (General)</option>
                                 <option value="MONEY_MARKET">Monetario</option>
-                                <option value="MIXED_ALLOCATION">Mixto</option>
+                                <option value="MIXED">Mixto</option>
                                 <option value="ALTERNATIVE">Alternativos</option>
                             </optgroup>
                         </select>

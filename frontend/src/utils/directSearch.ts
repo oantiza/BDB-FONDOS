@@ -1,18 +1,22 @@
 import { query, collection, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
+import { getCanonicalRegion } from './fundTaxonomy';
 
 function normalizeAssetTypeToken(value: string | null | undefined): string {
     return String(value || '').trim().replace(/\s+/g, '_').replace(/-/g, '_').toUpperCase();
 }
 
-function getAssetTypeQueryValues(value: string | null | undefined): string[] {
+export function getAssetTypeQueryValues(value: string | null | undefined): string[] {
     const token = normalizeAssetTypeToken(value);
     if (!token) return [];
 
     const queryValues = new Set<string>();
     if (token === 'EQUITY') queryValues.add('equity');
     if (token === 'FIXED_INCOME') queryValues.add('fixed_income');
-    if (token === 'MIXED' || token === 'ALLOCATION') queryValues.add('allocation');
+    if (token === 'MIXED' || token === 'ALLOCATION' || token === 'MIXED_ALLOCATION') {
+        queryValues.add('allocation');
+        queryValues.add('MIXED');
+    }
     if (token === 'MONETARY' || token === 'MONEY_MARKET') queryValues.add('money_market');
     if (token === 'ALTERNATIVE') queryValues.add('alternative');
     if (token === 'REAL_ESTATE' || token === 'REAL_ASSET') queryValues.add('real_asset');
@@ -75,8 +79,9 @@ export async function findDirectAlternativesV3(
             );
 
             if (!skipRegionCheck && targetRegion) {
-                const candRegion = data.classification_v2?.region_primary;
-                if (!candRegion || candRegion !== targetRegion) return;
+                const candRegion = getCanonicalRegion(data);
+                const normalizedTargetRegion = getCanonicalRegion({ classification_v2: { region_primary: targetRegion } });
+                if (!candRegion || candRegion !== normalizedTargetRegion) return;
             }
 
             const candClass = normalizeAssetTypeToken(data.classification_v2?.asset_type);

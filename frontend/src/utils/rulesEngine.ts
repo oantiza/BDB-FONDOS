@@ -301,14 +301,25 @@ function getAssetClass(f: Fund): AssetClass {
   const classV2 = normalizeClassificationV2ForUI(f.classification_v2);
   const expV2 = normalizePortfolioExposureV2ForUI(f.portfolio_exposure_v2);
 
+  // For MIXED funds: prefer economic exposure for risk bucket assignment (look-through).
+  // This ensures a "Mixto" with 85% equity is treated as RV for portfolio construction,
+  // while preserving asset_type=MIXED for commercial/reporting purposes.
+  if (classV2?.asset_type === 'MIXED' || classV2?.asset_type === 'ALLOCATION') {
+    const bucketFromExposure = getAssetClassFromEconomicExposure(expV2);
+    if (bucketFromExposure) {
+      return bucketFromExposure;
+    }
+    // No usable exposure → warn and fall through to "Mixto" bucket
+    console.warn(
+      `[RulesEngine] Fondo Mixto ${f.isin || 'Desconocido'} sin portfolio_exposure_v2 usable. ` +
+      `Se asigna a bucket 'Mixto' por defecto. Considerar añadir datos de exposición.`
+    );
+    return 'Mixto';
+  }
+
   const bucketFromType = mapCanonicalAssetTypeToBucket(classV2?.asset_type || null);
   if (bucketFromType) {
     return bucketFromType;
-  }
-
-  const bucketFromExposure = getAssetClassFromEconomicExposure(expV2);
-  if (bucketFromExposure) {
-    return bucketFromExposure;
   }
 
   const subtype = String(classV2?.asset_subtype || "");
