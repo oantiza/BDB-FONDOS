@@ -13,6 +13,7 @@ interface ToastContextValue {
     success: (message: string, duration?: number) => void;
     error: (message: string, duration?: number) => void;
     info: (message: string, duration?: number) => void;
+    warning: (message: string, duration?: number) => void;
 }
 
 const ToastContext = createContext<ToastContextValue | undefined>(undefined);
@@ -32,9 +33,10 @@ export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) =
     const success = useCallback((msg: string, dur?: number) => addToast(msg, 'success', dur), [addToast]);
     const error = useCallback((msg: string, dur?: number) => addToast(msg, 'error', dur), [addToast]);
     const info = useCallback((msg: string, dur?: number) => addToast(msg, 'info', dur), [addToast]);
+    const warning = useCallback((msg: string, dur?: number) => addToast(msg, 'warning', dur), [addToast]);
 
     return (
-        <ToastContext.Provider value={{ addToast, success, error, info }}>
+        <ToastContext.Provider value={{ addToast, success, error, info, warning }}>
             {children}
             {/* Toast Container - Fixed Position */}
             <div className="fixed top-4 right-4 z-50 flex flex-col gap-2 pointer-events-none">

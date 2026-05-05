@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { X, CheckCircle, AlertTriangle, Info } from 'lucide-react';
 import { motion } from 'framer-motion';
 
-export type ToastType = 'success' | 'error' | 'info';
+export type ToastType = 'success' | 'error' | 'info' | 'warning';
 
 interface ToastProps {
     id: string;
@@ -15,13 +15,15 @@ interface ToastProps {
 const ICONS = {
     success: <CheckCircle className="w-5 h-5 text-green-500" />,
     error: <X className="w-5 h-5 text-red-500" />, // Using X for error icon usually, or AlertCircle
-    info: <Info className="w-5 h-5 text-blue-500" />
+    info: <Info className="w-5 h-5 text-blue-500" />,
+    warning: <AlertTriangle className="w-5 h-5 text-orange-500" />
 };
 
 const STYLES = {
     success: 'border-green-100 bg-green-50 text-green-800',
     error: 'border-red-100 bg-red-50 text-red-800',
-    info: 'border-blue-100 bg-blue-50 text-blue-800'
+    info: 'border-blue-100 bg-blue-50 text-blue-800',
+    warning: 'border-orange-100 bg-orange-50 text-orange-800'
 };
 
 export default function Toast({ id, message, type, duration = 3000, onClose }: ToastProps) {
