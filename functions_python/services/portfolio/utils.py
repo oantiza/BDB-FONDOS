@@ -15,13 +15,13 @@ def _normalize_token(value):
 def _to_float(x, default=0.0):
     try:
         if x is None:
-            return float(default)
+            return float(default) if default is not None else None
         if isinstance(x, str):
             s = x.strip().replace("%", "").replace(",", ".")
             return float(s)
         return float(x)
     except Exception:
-        return float(default)
+        return float(default) if default is not None else None
 
 
 def _normalize(weights: dict) -> dict:
