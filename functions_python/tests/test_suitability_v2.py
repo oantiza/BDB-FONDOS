@@ -411,7 +411,7 @@ class TestEdgeCases:
         eligible, reason = is_fund_eligible_for_profile(fund, 10)
         assert eligible is False
         assert "Strict V2" in reason
-        """V2 classification but no exposure — should still work"""
+        """V2 classification without exposure is blocked for conservative profiles"""
         fund = {
             "classification_v2": {
                 "asset_type": "MONETARY",
@@ -419,8 +419,9 @@ class TestEdgeCases:
                 "risk_bucket": "LOW",
             }
         }
-        eligible, _ = is_fund_eligible_for_profile(fund, 1)
-        assert eligible is True
+        eligible, reason = is_fund_eligible_for_profile(fund, 1)
+        assert eligible is False
+        assert "Missing portfolio_exposure_v2" in reason
 
     def test_mixed_v2_unknown_subtype(self):
         """Mixed fund with UNKNOWN subtype — still evaluable"""

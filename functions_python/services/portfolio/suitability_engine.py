@@ -1,6 +1,9 @@
 from typing import Dict, Any, Tuple
+import logging
 
 from services.portfolio.utils import extract_v2_identity, get_v2_asset_mix
+
+logger = logging.getLogger(__name__)
 
 
 def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) -> Tuple[bool, str]:
@@ -18,6 +21,7 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
 
     identity = extract_v2_identity(asset_meta)
     exposure = get_v2_asset_mix(asset_meta, as_percent=True)
+    has_v2_exposure = bool(exposure)
 
     asset_type = identity.get("asset_type")
     asset_subtype = identity.get("asset_subtype")
@@ -26,6 +30,12 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
     sector_focus = str(class_v2.get("sector_focus") or "").upper()
     is_suitable_low_risk = class_v2.get("is_suitable_low_risk")
     real_eq = float(exposure.get("equity", 0.0) or 0.0)
+
+    if not has_v2_exposure:
+        message = "Missing portfolio_exposure_v2/economic exposure: requires review, not treated as 0% equity."
+        if risk_profile <= 4:
+            return False, message
+        logger.warning("[Suitability] %s", message)
 
     # 1. Very Conservative Profiles (1-2)
     if risk_profile <= 2:

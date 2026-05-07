@@ -82,7 +82,7 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
         asset_metadata=metadata,
     )
 
-    assert res_agg["status"] in ["optimal", "fallback"]
+    assert res_agg["status"] in ["optimal_compliant", "optimal_with_warnings", "fallback_compliant"]
     assert abs(sum(res_agg["weights"].values()) - 1.0) < 1e-4
     
     # Run level 1 (Conservative)
@@ -94,7 +94,7 @@ def test_optimizer_valid_frontier(mock_data_fetcher_class, dummy_db, dummy_price
         asset_metadata=metadata,
     )
 
-    assert res_cons["status"] in ["optimal", "fallback"]
+    assert res_cons["status"] in ["optimal_compliant", "optimal_with_warnings", "fallback_compliant"]
     assert abs(sum(res_cons["weights"].values()) - 1.0) < 1e-4
 
 @patch("services.portfolio.optimizer_core.DataFetcher")
@@ -119,6 +119,6 @@ def test_optimizer_fallback_path(mock_data_fetcher_class, dummy_db, dummy_price_
     )
 
     # Degenerate data: solver may fallback gracefully
-    assert res["status"] in ["optimal", "fallback"]
+    assert res["status"] in ["optimal_compliant", "optimal_with_warnings", "fallback_compliant"]
     assert "weights" in res
     assert abs(sum(res["weights"].values()) - 1.0) < 1e-4

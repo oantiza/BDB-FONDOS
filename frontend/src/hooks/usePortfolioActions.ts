@@ -15,6 +15,18 @@ import { MacroReport } from '../types/MacroReport';
 // Unwrap callable/onRequest payloads (supports {result:{...}} or direct objects)
 const unwrapResult = <T,>(x: any): T => (x && typeof x === 'object' && 'result' in x ? (x as any).result : x) as T;
 
+const APPLICABLE_OPTIMIZER_STATUSES = new Set([
+    'optimal_compliant',
+    'optimal_with_warnings',
+    'fallback_compliant'
+]);
+
+export function isOptimizerResultApplicable(result: Pick<SmartPortfolioResponse, 'status' | 'applicable' | 'usable'>): boolean {
+    if (result.status === 'fallback_non_compliant') return false;
+    if (result.usable === false || result.applicable === false) return false;
+    return APPLICABLE_OPTIMIZER_STATUSES.has(String(result.status || ''));
+}
+
 export type SnapshotOptions = {
     save_snapshot?: boolean;
     snapshot_label?: string;
@@ -620,7 +632,20 @@ export function usePortfolioActions({
 
     // Helper to avoid duplication
     const processOptimizationResult = async (result: SmartPortfolioResponse, optimizeFn: any, options?: { strict?: boolean; snapshotOpts?: SnapshotOptions }) => {
-        if (result.status === 'optimal' || result.status === 'fallback') {
+        if (!isOptimizerResultApplicable(result) && (result.status === 'fallback_non_compliant' || result.usable === false || result.applicable === false)) {
+            const enhancedExplainability = {
+                ...(result.explainability || { primary_objective: '', solver_fallback_used: false, binding_constraints: [] }),
+                status: result.status,
+                fallback_reason: result.fallback_reason,
+                solver_path: result.solver_path,
+                constraint_violations: result.constraint_violations || result.violations || []
+            };
+            setExplainabilityData(enhancedExplainability);
+            toast.error(result.message || "La propuesta no cumple las restricciones finales y no puede aplicarse.");
+            return;
+        }
+
+        if (isOptimizerResultApplicable(result)) {
             const { optimized, hasChanges } = mapOptimizationResultWeights(
                 portfolio, result.weights || {}, result.used_assets, assets, options?.strict
             );
@@ -635,7 +660,7 @@ export function usePortfolioActions({
                 solver_path: result.solver_path
             };
 
-            if (result.status === 'fallback') {
+            if (result.status === 'fallback_compliant') {
                 toast.warning("⚠️ Propuesta alternativa generada: no se pudo alcanzar exactamente el objetivo con las restricciones actuales.", { duration: 6000 });
             } else if (!hasChanges) {
                 toast.success("✅ La cartera ya está optimizada.");

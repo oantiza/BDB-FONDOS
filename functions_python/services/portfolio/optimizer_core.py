@@ -155,6 +155,131 @@ def _read_bound(raw):
         )
     return None, None
 
+
+def _as_weight_array(weights, universe):
+    return np.array([float((weights or {}).get(t, 0.0)) for t in universe], dtype=float)
+
+
+def _active_bucket_vectors_for_bounds(active_bounds, eq_v, bd_v, cs_v, al_v, ra_v, ot_v):
+    return {
+        "equity": eq_v,
+        "bond": bd_v,
+        "cash": cs_v,
+        "alternative": al_v,
+        "real_asset": ra_v,
+        "other": ot_v,
+        "RV": eq_v,
+        "RF": bd_v,
+        "Monetario": cs_v,
+        "Alternativos": al_v + ra_v,
+        "Otros": ot_v,
+    }
+
+
+def _validate_optimizer_result(
+    weights,
+    universe,
+    apply_profile,
+    risk_level_i,
+    current_risk_buckets,
+    bucket_bounds_v1,
+    eq_v,
+    bd_v,
+    cs_v,
+    al_v,
+    ra_v,
+    ot_v,
+    tolerance=1e-6,
+):
+    violations = []
+    warnings = []
+    weights = weights or {}
+    universe = list(universe or [])
+
+    missing_weight_isins = [t for t in universe if t not in weights]
+    if missing_weight_isins:
+        violations.append({
+            "code": "MISSING_USED_ASSET_WEIGHT",
+            "severity": "HIGH",
+            "isins": missing_weight_isins,
+        })
+
+    values = []
+    for isin, value in weights.items():
+        try:
+            fval = float(value)
+        except Exception:
+            violations.append({
+                "code": "NON_NUMERIC_WEIGHT",
+                "severity": "HIGH",
+                "isin": isin,
+                "value": str(value),
+            })
+            continue
+        if not np.isfinite(fval):
+            violations.append({
+                "code": "NON_FINITE_WEIGHT",
+                "severity": "HIGH",
+                "isin": isin,
+                "value": str(value),
+            })
+        if fval < -tolerance:
+            violations.append({
+                "code": "NEGATIVE_WEIGHT",
+                "severity": "HIGH",
+                "isin": isin,
+                "weight": round(fval, 10),
+            })
+        values.append(max(0.0, fval))
+
+    total_weight = float(sum(values))
+    if abs(total_weight - 1.0) > 1e-4:
+        violations.append({
+            "code": "WEIGHT_SUM_NOT_ONE",
+            "severity": "HIGH",
+            "sum": round(total_weight, 10),
+        })
+
+    active_bounds = {}
+    if bucket_bounds_v1:
+        active_bounds = bucket_bounds_v1
+    elif apply_profile and risk_level_i in (current_risk_buckets or {}):
+        active_bounds = current_risk_buckets.get(risk_level_i, {}) or {}
+
+    if active_bounds and universe:
+        w_arr = _as_weight_array(weights, universe)
+        bucket_vectors = _active_bucket_vectors_for_bounds(
+            active_bounds, eq_v, bd_v, cs_v, al_v, ra_v, ot_v
+        )
+        for bucket_key, raw_bound in active_bounds.items():
+            vec = bucket_vectors.get(bucket_key)
+            if vec is None:
+                continue
+            min_v, max_v = _read_bound(raw_bound)
+            exposure = float(w_arr @ vec)
+            if min_v is not None and exposure < min_v - 1e-4:
+                violations.append({
+                    "code": "BUCKET_MIN_VIOLATION",
+                    "severity": "HIGH",
+                    "bucket": bucket_key,
+                    "actual": round(exposure, 6),
+                    "min": round(min_v, 6),
+                })
+            if max_v is not None and exposure > max_v + 1e-4:
+                violations.append({
+                    "code": "BUCKET_MAX_VIOLATION",
+                    "severity": "HIGH",
+                    "bucket": bucket_key,
+                    "actual": round(exposure, 6),
+                    "max": round(max_v, 6),
+                })
+
+    return {
+        "compliant": len(violations) == 0,
+        "violations": violations,
+        "warnings": warnings,
+    }
+
 # =========================================================================
 # INTERNAL PIPELINE HELPERS
 # =========================================================================
@@ -820,7 +945,15 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
     weights = {}
     if raw_weights is not None:
         cleaned = ef.clean_weights(cutoff=cutoff)
-        weights = _normalize({t: float(cleaned.get(t, 0.0)) for t in universe})
+        cleaned_weights = {}
+        for t in universe:
+            value = float(cleaned.get(t, 0.0))
+            if not np.isfinite(value):
+                raise ValueError(f"NON_FINITE_WEIGHT:{t}")
+            if value < -1e-8:
+                raise ValueError(f"NEGATIVE_WEIGHT:{t}:{value}")
+            cleaned_weights[t] = max(0.0, value)
+        weights = _normalize(cleaned_weights)
     else:
         logger.info("âš ï¸ Applying Graceful Degradation (Filtered Equal-Weight)")
         allowed_universe = []
@@ -1110,6 +1243,9 @@ def run_optimization(
                 requested.append(a)
                 seen.add(a)
         weights_full = {a: float(weights.get(a, 0.0)) if a in universe else 0.0 for a in requested}
+        for t in universe:
+            if t not in weights_full:
+                weights_full[t] = float(weights.get(t, 0.0))
 
         v2_exposure_assets = sum(
             1
@@ -1172,9 +1308,36 @@ def run_optimization(
             "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vÃ­a Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
 
+        final_validation = _validate_optimizer_result(
+            weights,
+            universe,
+            apply_profile,
+            risk_level_i,
+            current_risk_buckets,
+            bucket_bounds_v1,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ra_vec,
+            ot_vec,
+        )
+
         # Status honesto: si el solver usó fallback, informar.
         is_fallback = (solver_path or "").startswith("fallback_")
-        final_status = "fallback" if is_fallback else ("optimal" if raw_weights is not None else "fallback")
+        is_compliant = bool(final_validation.get("compliant"))
+        if is_fallback:
+            final_status = "fallback_compliant" if is_compliant else "fallback_non_compliant"
+        elif is_compliant:
+            final_status = "optimal_compliant"
+        else:
+            final_status = "fallback_non_compliant"
+        applicable = final_status in {"optimal_compliant", "optimal_with_warnings", "fallback_compliant"}
+        final_warnings = list(final_validation.get("warnings") or [])
+        if is_fallback and is_compliant:
+            final_warnings.append("solver_fallback_used")
+        if not is_compliant:
+            final_warnings.append("optimizer_result_non_compliant")
 
         # Transparencia: target_vol vs achieved_vol
         _target_vol = _to_float(risk_budget_v1.get("target_vol"), None)
@@ -1197,9 +1360,13 @@ def run_optimization(
             "mode": "PROFILE_B_AGGRESSIVE" if apply_profile else "PROFILE_A",
             "status": final_status,
             "solver_path": solver_path,
+            "applicable": applicable,
+            "usable": applicable,
             "added_assets": added_assets,
             "used_assets": universe,
             "missing_assets": missing_assets,
+            "constraint_violations": final_validation.get("violations", []),
+            "violations": final_validation.get("violations", []),
             "portfolio_allocation": {
                 "equity": eq_total,
                 "bond": bd_total,
@@ -1217,7 +1384,7 @@ def run_optimization(
             "effective_start_date": effective_start_date,
             "observations": observations,
             "explainability": explainability,
-            "warnings": [],
+            "warnings": final_warnings,
         }
 
     except Exception as e:

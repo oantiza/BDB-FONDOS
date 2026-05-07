@@ -287,6 +287,8 @@ export interface SmartPortfolioResponse {
     warnings: string[];
     debug: any;
     status?: string;
+    applicable?: boolean;
+    usable?: boolean;
     message?: string;
     recovery_candidates?: string[];
     weights?: Record<string, number>;
@@ -319,6 +321,8 @@ export interface SmartPortfolioResponse {
     vol_deviation?: number;
     fallback_reason?: string;
     solver_path?: string;
+    constraint_violations?: any[];
+    violations?: any[];
 }
 
 export interface AllocationItem {

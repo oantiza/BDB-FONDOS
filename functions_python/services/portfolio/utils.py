@@ -25,10 +25,20 @@ def _to_float(x, default=0.0):
 
 
 def _normalize(weights: dict) -> dict:
-    s = sum(max(0.0, float(v)) for v in weights.values())
+    cleaned = {}
+    for k, v in (weights or {}).items():
+        try:
+            value = float(v)
+        except Exception:
+            value = 0.0
+        if not np.isfinite(value) or value < 0.0:
+            value = 0.0
+        cleaned[k] = value
+
+    s = sum(cleaned.values())
     if s <= 0:
-        return weights
-    return {k: float(v) / s for k, v in weights.items()}
+        return cleaned
+    return {k: v / s for k, v in cleaned.items()}
 
 
 def _cap(weights: dict, max_w: float) -> dict:
