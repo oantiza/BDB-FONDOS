@@ -1,8 +1,8 @@
 import requests
-from firebase_functions import https_fn
+from firebase_functions import https_fn, options
 import json
 
-@https_fn.on_call()
+@https_fn.on_call(memory=options.MemoryOption.MB_512)
 def get_economic_calendar(req: https_fn.CallableRequest) -> dict:
     """
     Proxy function to fetch the economic calendar from Forex Factory
