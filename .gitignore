@@ -10,6 +10,7 @@ Thumbs.db
 # PYTHON
 ############################################
 __pycache__/
+*.pyc
 *.py[cod]
 *$py.class
 
@@ -22,6 +23,7 @@ env/
 # NODE / JAVASCRIPT
 ############################################
 node_modules/
+frontend/node_modules/
 .npm/
 .eslintcache
 package-lock.json
