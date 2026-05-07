@@ -7,9 +7,16 @@ PURPOSE: Verifica conectividad y respuesta de modelos Gemini.
 SAFE_MODE: LOCAL_ONLY
 RUN: python -m scripts.tests.test_gemini_models
 """
-import os`r`nimport sys`r`n`r`nfrom google import genai
+import os
+import sys
 
-# API key intentionally read from the environment; never hardcode secrets here.`r`nMI_CLAVE = os.environ.get("GEMINI_API_KEY")`r`nif not MI_CLAVE:`r`n    print("GEMINI_API_KEY no configurada; se omite el test local de Gemini.")`r`n    sys.exit(0)
+from google import genai
+
+# API key intentionally read from the environment; never hardcode secrets here.
+MI_CLAVE = os.environ.get("GEMINI_API_KEY")
+if not MI_CLAVE:
+    print("GEMINI_API_KEY no configurada; se omite el test local de Gemini.")
+    sys.exit(0)
 
 print("🔍 Iniciando test con la nueva API de Gemini...")
 
