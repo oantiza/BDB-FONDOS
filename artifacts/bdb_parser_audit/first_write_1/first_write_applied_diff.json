@@ -1,0 +1,375 @@
+{
+  "timestamp": "2026-05-08T04:39:38.158Z",
+  "write_executed": true,
+  "written_isins": [
+    "IE0003867441",
+    "ES0165142003"
+  ],
+  "applied_diff": [
+    {
+      "isin": "IE0003867441",
+      "policy_status": "ACCEPT",
+      "changed_fields": [
+        {
+          "path": "classification_v2.equity_style_box",
+          "applied_value_kind": "literal",
+          "current_value": "Mid-Blend",
+          "proposed_value": null
+        },
+        {
+          "path": "derived.style_bias.equity.style",
+          "applied_value_kind": "literal",
+          "current_value": "blend",
+          "proposed_value": null
+        },
+        {
+          "path": "derived.style_bias.equity.style_box_cell",
+          "applied_value_kind": "literal",
+          "current_value": "Mid-Blend",
+          "proposed_value": null
+        },
+        {
+          "path": "derived.style_bias.equity.style_weights_total",
+          "applied_value_kind": "literal",
+          "current_value": {
+            "blend": 98.53
+          },
+          "proposed_value": null
+        },
+        {
+          "path": "ms.equity_style.style.blend",
+          "applied_value_kind": "literal",
+          "current_value": null,
+          "proposed_value": 0
+        },
+        {
+          "path": "ms.equity_style.style.growth",
+          "applied_value_kind": "literal",
+          "current_value": null,
+          "proposed_value": 0
+        },
+        {
+          "path": "ms.equity_style.style.value",
+          "applied_value_kind": "literal",
+          "current_value": null,
+          "proposed_value": 0
+        },
+        {
+          "path": "ms.equity_style.style_box_cell",
+          "applied_value_kind": "literal",
+          "current_value": "Mid-Blend",
+          "proposed_value": null
+        },
+        {
+          "path": "ms.holdings_top10",
+          "applied_value_kind": "literal",
+          "current_value": [
+            {
+              "name": "Italgas SpA",
+              "weight": 3.23,
+              "sector": "Utilities"
+            },
+            {
+              "name": "BE Semiconductor Industries NV",
+              "weight": 2.08,
+              "sector": "Technology"
+            },
+            {
+              "name": "Eiffage SA Bearer and / or...",
+              "weight": 2,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Klepierre",
+              "weight": 1.99,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Telekom Austria AG",
+              "weight": 1.94,
+              "sector": "Communication Services"
+            },
+            {
+              "name": "Covivio SA",
+              "weight": 1.92,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Banca Monte dei Paschi di Siena",
+              "weight": 1.88,
+              "sector": "Financial Services"
+            },
+            {
+              "name": "Rexel SA",
+              "weight": 1.8,
+              "sector": "Technology"
+            },
+            {
+              "name": "Krones AG",
+              "weight": 1.69,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Ebro Foods SA",
+              "weight": 1.69,
+              "sector": "Consumer Defensive"
+            }
+          ],
+          "proposed_value": [
+            {
+              "name": "Italgas SpA",
+              "weight": 3.23,
+              "sector": null
+            },
+            {
+              "name": "BE Semiconductor Industries NV",
+              "weight": 2.08,
+              "sector": null
+            },
+            {
+              "name": "Eiffage SA Bearer and / or...",
+              "weight": 2,
+              "sector": null
+            },
+            {
+              "name": "Klepierre",
+              "weight": 1.99,
+              "sector": null
+            },
+            {
+              "name": "Telekom Austria AG",
+              "weight": 1.94,
+              "sector": null
+            },
+            {
+              "name": "Covivio SA",
+              "weight": 1.92,
+              "sector": null
+            },
+            {
+              "name": "Banca Monte dei Paschi di Siena",
+              "weight": 1.88,
+              "sector": null
+            },
+            {
+              "name": "Rexel SA",
+              "weight": 1.8,
+              "sector": null
+            },
+            {
+              "name": "Krones AG",
+              "weight": 1.69,
+              "sector": null
+            },
+            {
+              "name": "Ebro Foods SA",
+              "weight": 1.69,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.objective",
+          "applied_value_kind": "literal",
+          "current_value": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro.",
+          "proposed_value": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo el 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_styles",
+          "applied_value_kind": "literal",
+          "current_value": {
+            "blend": 0.9853
+          },
+          "proposed_value": null
+        },
+        {
+          "path": "quality.parsed_at",
+          "applied_value_kind": "server_timestamp",
+          "current_value": {
+            "_seconds": 1776848803,
+            "_nanoseconds": 333000000
+          },
+          "proposed_value": {}
+        },
+        {
+          "path": "quality.parser_version",
+          "applied_value_kind": "literal",
+          "current_value": "ms_pdf_v5_gemini-2.5-pro",
+          "proposed_value": "ms_pdf_v5_gemini-2.5-flash"
+        },
+        {
+          "path": "updatedAt",
+          "applied_value_kind": "server_timestamp",
+          "current_value": {
+            "_seconds": 1776848803,
+            "_nanoseconds": 333000000
+          },
+          "proposed_value": {}
+        }
+      ]
+    },
+    {
+      "isin": "ES0165142003",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "changed_fields": [
+        {
+          "path": "ms.holdings_top10",
+          "applied_value_kind": "literal",
+          "current_value": [
+            {
+              "name": "Spain (Kingdom of) 0% 2026-05-08",
+              "weight": 2.2,
+              "sector": null
+            },
+            {
+              "name": "In Letras Del Tes 0% 09/10/2026 2026-10-09",
+              "weight": 2.18,
+              "sector": null
+            },
+            {
+              "name": "Bayer AG 2027-08-14",
+              "weight": 2.12,
+              "sector": null
+            },
+            {
+              "name": "The Toronto-Dominion Bank 2027-09-10",
+              "weight": 1.68,
+              "sector": null
+            },
+            {
+              "name": "Vonovia SE 2027-04-14",
+              "weight": 1.37,
+              "sector": null
+            },
+            {
+              "name": "At&T FRN 2027-09-16",
+              "weight": 1.3,
+              "sector": null
+            },
+            {
+              "name": "Banco Bilbao Vizcaya Argentaria SA...",
+              "weight": 1.28,
+              "sector": null
+            },
+            {
+              "name": "Morgan Stanley 2028-04-05",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Mercedes-Benz International Finance B.V....",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Exor Nv 1.75% 2028-01-18",
+              "weight": 1.04,
+              "sector": null
+            }
+          ],
+          "proposed_value": [
+            {
+              "name": "Spain (Kingdom of) 0%2026-05-08",
+              "weight": 2.2,
+              "sector": null
+            },
+            {
+              "name": "In Letras Del Tes 0% 09/10/2026",
+              "weight": 2.18,
+              "sector": null
+            },
+            {
+              "name": "Bayer AG",
+              "weight": 2.12,
+              "sector": null
+            },
+            {
+              "name": "The Toronto-Dominion Bank",
+              "weight": 1.68,
+              "sector": null
+            },
+            {
+              "name": "Vonovia SE",
+              "weight": 1.37,
+              "sector": null
+            },
+            {
+              "name": "At&T FRN",
+              "weight": 1.3,
+              "sector": null
+            },
+            {
+              "name": "Banco Bilbao Vizcaya Argentaria SA...",
+              "weight": 1.28,
+              "sector": null
+            },
+            {
+              "name": "Morgan Stanley",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Mercedes-Benz International Finance B.V....",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Exor Nv 1.75%2028-01-18",
+              "weight": 1.04,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.rating_stars",
+          "applied_value_kind": "literal",
+          "current_value": null,
+          "proposed_value": 0
+        },
+        {
+          "path": "ms.sustainability_rating",
+          "applied_value_kind": "literal",
+          "current_value": null,
+          "proposed_value": 0
+        },
+        {
+          "path": "quality.parsed_at",
+          "applied_value_kind": "server_timestamp",
+          "current_value": {
+            "_seconds": 1776849932,
+            "_nanoseconds": 640000000
+          },
+          "proposed_value": {}
+        },
+        {
+          "path": "quality.parser_version",
+          "applied_value_kind": "literal",
+          "current_value": "ms_pdf_v5_gemini-2.5-pro",
+          "proposed_value": "ms_pdf_v5_gemini-2.5-flash"
+        },
+        {
+          "path": "quality.warnings",
+          "applied_value_kind": "literal",
+          "current_value": [
+            "missing_rating_stars",
+            "missing_sectors",
+            "missing_regions"
+          ],
+          "proposed_value": [
+            "missing_sectors",
+            "missing_regions"
+          ]
+        },
+        {
+          "path": "updatedAt",
+          "applied_value_kind": "server_timestamp",
+          "current_value": {
+            "_seconds": 1776849932,
+            "_nanoseconds": 640000000
+          },
+          "proposed_value": {}
+        }
+      ]
+    }
+  ]
+}

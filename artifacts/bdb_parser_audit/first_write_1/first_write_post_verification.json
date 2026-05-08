@@ -1,0 +1,166 @@
+{
+  "timestamp": "2026-05-08T04:39:38.158Z",
+  "write_executed": true,
+  "ok": true,
+  "results": [
+    {
+      "isin": "IE0003867441",
+      "ok": true,
+      "failures": [],
+      "changed_field_checks": [
+        {
+          "path": "classification_v2.equity_style_box",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "derived.style_bias.equity.style",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "derived.style_bias.equity.style_box_cell",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "derived.style_bias.equity.style_weights_total",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.equity_style.style.blend",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.equity_style.style.growth",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.equity_style.style.value",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.equity_style.style_box_cell",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.holdings_top10",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.objective",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_styles",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "quality.parsed_at",
+          "ok": true,
+          "mode": "server_timestamp"
+        },
+        {
+          "path": "quality.parser_version",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "updatedAt",
+          "ok": true,
+          "mode": "server_timestamp"
+        }
+      ],
+      "preserved_field_checks": [
+        {
+          "path": "manual",
+          "ok": true
+        },
+        {
+          "path": "manual.costs",
+          "ok": true
+        },
+        {
+          "path": "manual.costs.retrocession",
+          "ok": true
+        },
+        {
+          "path": "portfolio_exposure_v2.economic_exposure",
+          "ok": true
+        }
+      ],
+      "asset_mix_sum": 1,
+      "asset_mix_sum_valid": true
+    },
+    {
+      "isin": "ES0165142003",
+      "ok": true,
+      "failures": [],
+      "changed_field_checks": [
+        {
+          "path": "ms.holdings_top10",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.rating_stars",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "ms.sustainability_rating",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "quality.parsed_at",
+          "ok": true,
+          "mode": "server_timestamp"
+        },
+        {
+          "path": "quality.parser_version",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "quality.warnings",
+          "ok": true,
+          "mode": "literal"
+        },
+        {
+          "path": "updatedAt",
+          "ok": true,
+          "mode": "server_timestamp"
+        }
+      ],
+      "preserved_field_checks": [
+        {
+          "path": "manual",
+          "ok": true
+        },
+        {
+          "path": "manual.costs",
+          "ok": true
+        },
+        {
+          "path": "manual.costs.retrocession",
+          "ok": true
+        },
+        {
+          "path": "portfolio_exposure_v2.economic_exposure",
+          "ok": true
+        }
+      ],
+      "asset_mix_sum": 1,
+      "asset_mix_sum_valid": true
+    }
+  ]
+}
