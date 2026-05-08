@@ -53,6 +53,10 @@ const _assetTypeClassifier = require("./classify/asset_type_classifier");
 const _subtypeClassifier = require("./classify/subtype_classifier");
 const _classificationBuilder = require("./classify/classification_builder");
 const _portfolioExposureBuilder = require("./exposure/portfolio_exposure_builder");
+const _parseArgs = require("./cli/parse_args");
+const _pathResolver = require("./io/path_resolver");
+const _fileMover = require("./io/file_mover");
+const _parserDryRunArtifact = require("./artifacts/parser_dry_run_artifact");
 
 // REFACTOR-1: Function aliases from extracted modules (hoisted here for TDZ safety)
 const cleanString = _numberUtils.cleanString;
@@ -93,94 +97,14 @@ const PARSER_ROOT = path.join(REPO_ROOT, "MORNINGSTAR_PDF_PARSER");
 // ============================
 // Args
 // ============================
-function getArgValueFromArgv(argv, flag) {
-  const i = argv.indexOf(flag);
-  if (i === -1) return null;
-  return argv[i + 1] || null;
-}
-
-function getArgValue(flag) {
-  return getArgValueFromArgv(process.argv.slice(2), flag);
-}
-
-function hasArg(argv, flag) {
-  return argv.includes(flag);
-}
-
-function printHelp() {
-  console.log(`
-Morningstar parser hardening CLI
-
-Usage:
-  node MORNINGSTAR_PDF_PARSER/src/cargador_lotes_v_2.js [options]
-
-Safety:
-  --dry-run is the default. Firestore writes require BOTH --write and --confirm-write.
-
-Options:
-  --dry-run                   Run without Firestore writes (default)
-  --write                     Request Firestore writes
-  --confirm-write             Required together with --write
-  --output-dir <dir>          Dry-run artifact directory (default MORNINGSTAR_PDF_PARSER/SALIDA)
-  --limit <n>                 Limit number of PDFs
-  --only-isin <ISIN>          Process only PDFs whose filename contains this ISIN
-  --config-dir <dir>          Primary directory for CSV/config files
-  --no-move-files             Do not move PDFs after processing
-  --dir <dir>                 Input PDF directory
-  --processed <dir>           Canonical output directory
-  --error <dir>               Error output directory
-  --processed-pdfs <dir>      OK PDF destination
-  --review-pdfs <dir>         Review PDF destination
-  --error-pdfs <dir>          Error PDF destination
-  --backup-root <dir>         Parser backup/output root
-  --write-review              In write mode, also write REVIEW payloads
-  --model <name>              Gemini model (default gemini-2.5-flash)
-`);
-}
-
-function buildRuntimeOptions(argv = process.argv.slice(2)) {
-  const wantsWrite = hasArg(argv, "--write");
-  const confirmWrite = hasArg(argv, "--confirm-write");
-  const dryRunFlag = hasArg(argv, "--dry-run");
-
-  if (wantsWrite && dryRunFlag) {
-    throw new Error("Use either --dry-run or --write, not both.");
-  }
-  if (wantsWrite && !confirmWrite) {
-    throw new Error("WRITE_BLOCKED: --write requires --confirm-write.");
-  }
-
-  return {
-    dryRun: !wantsWrite,
-    writeEnabled: wantsWrite && confirmWrite,
-    wouldWrite: wantsWrite && confirmWrite,
-    confirmWrite,
-    writeReview: hasArg(argv, "--write-review"),
-    moveFiles: !hasArg(argv, "--no-move-files"),
-    inputDirExplicit: hasArg(argv, "--dir"),
-    outputDir: path.resolve(
-      getArgValueFromArgv(argv, "--output-dir") ||
-        path.join(PARSER_ROOT, "SALIDA")
-    ),
-    onlyIsin: (getArgValueFromArgv(argv, "--only-isin") || "").trim().toUpperCase() || null,
-    configDir: getArgValueFromArgv(argv, "--config-dir")
-      ? path.resolve(getArgValueFromArgv(argv, "--config-dir"))
-      : null,
-  };
-}
-
-function validateWriteGates(options) {
-  if (options.writeEnabled && !options.confirmWrite) {
-    throw new Error("WRITE_BLOCKED: --write requires --confirm-write.");
-  }
-  return true;
-}
-
-function resolvePreferredOrLegacy(preferredPath, legacyPath) {
-  if (fs.existsSync(preferredPath)) return preferredPath;
-  if (legacyPath && fs.existsSync(legacyPath)) return legacyPath;
-  return preferredPath;
-}
+const getArgValueFromArgv = _parseArgs.getArgValueFromArgv;
+const getArgValue = _parseArgs.getArgValue;
+const hasArg = _parseArgs.hasArg;
+const printHelp = _parseArgs.printHelp;
+const buildRuntimeOptions = (argv = process.argv.slice(2)) =>
+  _parseArgs.buildRuntimeOptions(argv, { parserRoot: PARSER_ROOT });
+const validateWriteGates = _parseArgs.validateWriteGates;
+const resolvePreferredOrLegacy = _pathResolver.resolvePreferredOrLegacy;
 
 let RUNTIME_OPTIONS;
 try {
@@ -255,22 +179,11 @@ const PIPELINE_STATUS = {
 };
 
 function resolveBackupDir(newRelativePath, legacyRelativePath) {
-  if (backupRootArg) {
-    const base = path.resolve(backupRootArg);
-    return path.resolve(
-      resolvePreferredOrLegacy(
-        path.join(base, newRelativePath),
-        legacyRelativePath ? path.join(base, legacyRelativePath) : null
-      )
-    );
-  }
-
-  return path.resolve(
-    resolvePreferredOrLegacy(
-      path.join(PARSER_ARTIFACT_ROOT, newRelativePath),
-      legacyRelativePath ? path.join(LEGACY_BACKUP_ROOT, legacyRelativePath) : null
-    )
-  );
+  return _pathResolver.resolveBackupDir(newRelativePath, legacyRelativePath, {
+    backupRootArg,
+    parserArtifactRoot: PARSER_ARTIFACT_ROOT,
+    legacyBackupRoot: LEGACY_BACKUP_ROOT,
+  });
 }
 
 const BACKUP_ROOT = path.resolve(backupRootArg || DATA_ROOT);
@@ -356,27 +269,17 @@ function loadCsv(filePath) {
 }
 
 function getConfigSearchDirs(options = RUNTIME_OPTIONS) {
-  if (Array.isArray(options.searchDirs) && options.searchDirs.length) {
-    return [options.configDir, ...options.searchDirs].filter(Boolean);
-  }
-  return [
-    options.configDir,
-    path.join(PARSER_ROOT, "config"),
-    path.join(REPO_ROOT, "data", "work"),
-    path.join(REPO_ROOT, "functions_python", "scripts"),
-    path.join(REPO_ROOT, "scripts", "maintenance"),
-    path.join(REPO_ROOT, "scripts", "MORNINGSTAR_PDF_PARSER", "config"),
-  ].filter(Boolean);
+  return _pathResolver.getConfigSearchDirs(options, {
+    repoRoot: REPO_ROOT,
+    parserRoot: PARSER_ROOT,
+  });
 }
 
 function resolveConfigPath(fileName, options = RUNTIME_OPTIONS) {
-  const candidates = getConfigSearchDirs(options).map((dir) => path.resolve(dir, fileName));
-  const found = candidates.find((candidate) => fs.existsSync(candidate));
-  if (found) return found;
-
-  throw new Error(
-    `Missing required config CSV ${fileName}. Searched: ${candidates.join("; ")}`
-  );
+  return _pathResolver.resolveConfigPath(fileName, options, {
+    repoRoot: REPO_ROOT,
+    parserRoot: PARSER_ROOT,
+  });
 }
 
 const configPathsResolved = {};
@@ -416,231 +319,36 @@ const tokenMatchers = tokenToTag.map((t) => ({
 // ============================
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-function ensureDir(dirPath) {
-  if (!fs.existsSync(dirPath)) fs.mkdirSync(dirPath, { recursive: true });
-}
+const ensureDir = _fileMover.ensureDir;
+const uniqueDestPath = _fileMover.uniqueDestPath;
+const moveFileSafe = _fileMover.moveFileSafe;
+const moveFileSafeIfNeeded = _fileMover.moveFileSafeIfNeeded;
+const timestampForFileName = _fileMover.timestampForFileName;
+const sanitizePdfFileNamePart = _fileMover.sanitizePdfFileNamePart;
+const isPathInside = _fileMover.isPathInside;
+const uniquePdfPathForIsin = _fileMover.uniquePdfPathForIsin;
+const uniqueErrorPdfPath = _fileMover.uniqueErrorPdfPath;
+const safeMoveToExactPath = _fileMover.safeMoveToExactPath;
 
-function uniqueDestPath(destDir, filename) {
-  const ext = path.extname(filename);
-  const base = path.basename(filename, ext);
-  let candidate = path.join(destDir, filename);
-
-  if (!fs.existsSync(candidate)) return candidate;
-
-  const stamp = new Date().toISOString().replace(/[:.]/g, "-");
-  let i = 1;
-  while (true) {
-    const alt = path.join(destDir, `${base}__${stamp}__${i}${ext}`);
-    if (!fs.existsSync(alt)) return alt;
-    i++;
-  }
-}
-
-function moveFileSafe(srcPath, destDir, filename) {
-  ensureDir(destDir);
-  const destPath = uniqueDestPath(destDir, filename);
-  try {
-    fs.renameSync(srcPath, destPath);
-    return destPath;
-  } catch (e) {
-    try {
-      fs.copyFileSync(srcPath, destPath);
-      fs.unlinkSync(srcPath);
-      return destPath;
-    } catch (e2) {
-      console.error(`Ã¢Å¡Â Ã¯Â¸Â Error moviendo fichero: ${e2.message}`);
-      return null;
-    }
-  }
-}
-
-function moveFileSafeIfNeeded(srcPath, destDir, filename) {
-  if (!fs.existsSync(srcPath)) return null;
-  if (path.resolve(path.dirname(srcPath)) === path.resolve(destDir)) {
-    return srcPath;
-  }
-  return moveFileSafe(srcPath, destDir, filename);
-}
-
-function timestampForFileName(date = new Date()) {
-  const pad = (value) => String(value).padStart(2, "0");
-  return [
-    date.getFullYear(),
-    pad(date.getMonth() + 1),
-    pad(date.getDate()),
-    "_",
-    pad(date.getHours()),
-    pad(date.getMinutes()),
-    pad(date.getSeconds()),
-  ].join("");
-}
-
-function sanitizePdfFileNamePart(value) {
-  return String(value || "")
-    .trim()
-    .replace(/\.pdf$/i, "")
-    .replace(/[^A-Za-z0-9._-]+/g, "_")
-    .replace(/^_+|_+$/g, "")
-    .slice(0, 120);
-}
-
-function isPathInside(childPath, parentPath) {
-  const child = path.resolve(childPath);
-  const parent = path.resolve(parentPath);
-  const relative = path.relative(parent, child);
-  return Boolean(relative) && !relative.startsWith("..") && !path.isAbsolute(relative);
-}
-
-function uniquePdfPathForIsin(destDir, isin, reportDate = null, now = new Date()) {
-  const cleanIsin = sanitizePdfFileNamePart(isin || "UNKNOWN_ISIN") || "UNKNOWN_ISIN";
-  const primary = path.join(destDir, `${cleanIsin}.pdf`);
-  if (!fs.existsSync(primary)) return primary;
-
-  const suffix = reportDate
-    ? sanitizePdfFileNamePart(reportDate)
-    : `processed_${timestampForFileName(now)}`;
-  let candidate = path.join(destDir, `${cleanIsin}__${suffix}.pdf`);
-  if (!fs.existsSync(candidate)) return candidate;
-
-  let index = 1;
-  while (true) {
-    const alt = path.join(destDir, `${cleanIsin}__${suffix}__${index}.pdf`);
-    if (!fs.existsSync(alt)) return alt;
-    index += 1;
-  }
-}
-
-function uniqueErrorPdfPath(destDir, originalFileName) {
-  const baseName = sanitizePdfFileNamePart(originalFileName) || "archivo";
-  let candidate = path.join(destDir, `UNKNOWN_ISIN__${baseName}.pdf`);
-  if (!fs.existsSync(candidate)) return candidate;
-
-  const stamp = timestampForFileName();
-  let index = 1;
-  while (true) {
-    const alt = path.join(destDir, `UNKNOWN_ISIN__${baseName}__${stamp}__${index}.pdf`);
-    if (!fs.existsSync(alt)) return alt;
-    index += 1;
-  }
-}
-
-function safeMoveToExactPath(srcPath, destPath) {
-  ensureDir(path.dirname(destPath));
-  if (!fs.existsSync(srcPath)) return null;
-  if (fs.existsSync(destPath)) return null;
-  try {
-    fs.renameSync(srcPath, destPath);
-    return destPath;
-  } catch (e) {
-    try {
-      fs.copyFileSync(srcPath, destPath);
-      fs.unlinkSync(srcPath);
-      return destPath;
-    } catch (e2) {
-      console.error(`Error moviendo PDF procesado: ${e2.message}`);
-      return null;
-    }
-  }
-}
-
-function buildFileMovePlan({
-  fileName,
-  sourcePath,
-  routingStatus,
-  detectedIsin,
-  reportDate,
-  processedDir = PROCESSED_PDF_DIR,
-  errorDir = ERROR_PDF_DIR,
-}) {
-  const okOrReview =
-    routingStatus === PIPELINE_STATUS.OK || routingStatus === PIPELINE_STATUS.REVIEW;
-  if (okOrReview && detectedIsin) {
-    const destinationPath = uniquePdfPathForIsin(processedDir, detectedIsin, reportDate);
-    return {
-      destination_dir: processedDir,
-      destination_path: destinationPath,
-      renamed_to: path.basename(destinationPath),
-      file_move_reason: `${routingStatus}_with_isin`,
-    };
-  }
-
-  const destinationPath = uniqueErrorPdfPath(errorDir, fileName || path.basename(sourcePath));
-  return {
-    destination_dir: errorDir,
-    destination_path: destinationPath,
-    renamed_to: path.basename(destinationPath),
-    file_move_reason: detectedIsin ? `${routingStatus || "error"}_blocked` : "missing_isin_or_error",
-  };
-}
-
-function moveProcessedPdfAfterRouting({
-  fileName,
-  originalPdfPath,
-  routingStatus,
-  detectedIsin,
-  reportDate,
-  moveFiles = true,
-  inputDir = INPUT_DIR,
-  inputDirExplicit = RUNTIME_OPTIONS.inputDirExplicit,
-  processedDir = PROCESSED_PDF_DIR,
-  errorDir = ERROR_PDF_DIR,
-}) {
-  const originalPath = path.resolve(originalPdfPath || path.join(inputDir, fileName));
-  const safeInputDir = path.resolve(inputDir);
-  const defaultInputDir = path.resolve(PREFERRED_INPUT_DIR);
-  const base = {
-    original_pdf_path: originalPath,
-    final_pdf_path: originalPath,
-    file_move_status: "NOT_MOVED",
-    file_move_reason: "not_attempted",
-    renamed_to: path.basename(originalPath),
-    detected_isin: detectedIsin || null,
-  };
-
-  if (!moveFiles) {
-    return { ...base, file_move_status: "SKIPPED", file_move_reason: "no_move_files_flag" };
-  }
-  if (!fs.existsSync(originalPath)) {
-    return { ...base, file_move_status: "SKIPPED", file_move_reason: "source_pdf_missing" };
-  }
-  if (!isPathInside(originalPath, safeInputDir) && path.dirname(originalPath) !== safeInputDir) {
-    return { ...base, file_move_status: "SKIPPED", file_move_reason: "source_outside_input_dir" };
-  }
-  if (!inputDirExplicit && path.resolve(safeInputDir) !== defaultInputDir) {
-    return {
-      ...base,
-      file_move_status: "SKIPPED",
-      file_move_reason: "implicit_input_not_parser_entrada",
-    };
-  }
-
-  const plan = buildFileMovePlan({
-    fileName,
-    sourcePath: originalPath,
-    routingStatus,
-    detectedIsin,
-    reportDate,
-    processedDir,
-    errorDir,
+function buildFileMovePlan(args = {}) {
+  return _fileMover.buildFileMovePlan({
+    processedDir: PROCESSED_PDF_DIR,
+    errorDir: ERROR_PDF_DIR,
+    pipelineStatus: PIPELINE_STATUS,
+    ...args,
   });
-  const movedPath = safeMoveToExactPath(originalPath, plan.destination_path);
-  if (!movedPath) {
-    return {
-      ...base,
-      file_move_status: "FAILED",
-      file_move_reason: "move_failed",
-      final_pdf_path: plan.destination_path,
-      renamed_to: plan.renamed_to,
-    };
-  }
+}
 
-  return {
-    ...base,
-    final_pdf_path: movedPath,
-    file_move_status: "MOVED",
-    file_move_reason: plan.file_move_reason,
-    renamed_to: plan.renamed_to,
-  };
+function moveProcessedPdfAfterRouting(args = {}) {
+  return _fileMover.moveProcessedPdfAfterRouting({
+    inputDir: INPUT_DIR,
+    inputDirExplicit: RUNTIME_OPTIONS.inputDirExplicit,
+    processedDir: PROCESSED_PDF_DIR,
+    errorDir: ERROR_PDF_DIR,
+    preferredInputDir: PREFERRED_INPUT_DIR,
+    pipelineStatus: PIPELINE_STATUS,
+    ...args,
+  });
 }
 
 function writeJsonPretty(filePath, obj) {
@@ -1476,128 +1184,51 @@ const reviewEntries = [];
 const parserDryRunProposals = [];
 const fileMoveEntries = [];
 
-function serializeForArtifact(value) {
-  if (value === null || value === undefined) return value;
-  if (Array.isArray(value)) return value.map(serializeForArtifact);
-  if (value instanceof Date) return value.toISOString();
-  if (typeof value === "object") {
-    if (value.constructor && value.constructor.name && value.constructor.name.includes("FieldValue")) {
-      return "[FIRESTORE_FIELD_VALUE]";
-    }
-    const out = {};
-    for (const [k, v] of Object.entries(value)) {
-      out[k] = serializeForArtifact(v);
-    }
-    return out;
-  }
-  return value;
-}
+const serializeForArtifact = _parserDryRunArtifact.serializeForArtifact;
+const hasManualField = _parserDryRunArtifact.hasManualField;
+const assertNoManualFields = _parserDryRunArtifact.assertNoManualFields;
 
-function hasManualField(payload, prefix = "") {
-  if (!payload || typeof payload !== "object") return false;
-  for (const [key, value] of Object.entries(payload)) {
-    const fullKey = prefix ? `${prefix}.${key}` : key;
-    if (key === "manual" || fullKey === "manual" || fullKey.startsWith("manual.")) {
-      return true;
-    }
-    if (hasManualField(value, fullKey)) return true;
-  }
-  return false;
-}
-
-function assertNoManualFields(payload) {
-  if (hasManualField(payload)) {
-    throw new Error("MANUAL_FIELD_GUARD: parser payload must not include manual.* fields");
-  }
-  return true;
-}
-
-function recordDryRunProposal({ isin, fileName, doc, routing }) {
-  assertNoManualFields(doc);
-  parserDryRunProposals.push({
-    isin,
-    fileName,
-    routing_status: routing?.status || null,
-    routing_reason: routing?.reason || null,
-    fields_to_update: Object.keys(doc),
-    fields_preserved: ["manual", "manual.costs", "manual.costs.retrocession"],
-    payload: serializeForArtifact(doc),
-  });
+function recordDryRunProposal(args) {
+  return _parserDryRunArtifact.recordDryRunProposal(args, parserDryRunProposals);
 }
 
 function recordFileMove(entry) {
-  fileMoveEntries.push(entry);
-  return entry;
+  return _parserDryRunArtifact.recordFileMove(entry, fileMoveEntries);
 }
 
 function findLatestManifestEntryForFile(fileName) {
-  for (let index = manifestEntries.length - 1; index >= 0; index -= 1) {
-    if (manifestEntries[index].fileName === fileName) return manifestEntries[index];
-  }
-  return null;
+  return _parserDryRunArtifact.findLatestManifestEntryForFile(fileName, manifestEntries);
 }
 
 function buildParserDryRunArtifact({ files, ok, review, fail }) {
-  const proposedPayloadByIsin = {};
-  const fieldsToUpdate = new Set();
-  const isins = [];
-
-  for (const proposal of parserDryRunProposals) {
-    if (proposal.isin) {
-      proposedPayloadByIsin[proposal.isin] = proposal.payload;
-      isins.push(proposal.isin);
-    }
-    for (const field of proposal.fields_to_update || []) {
-      fieldsToUpdate.add(field);
-    }
-  }
-
-  return {
-    timestamp: new Date().toISOString(),
-    dry_run: true,
-    would_write: false,
-    input_files: files || [],
-    input_file_results: fileMoveEntries,
-    file_movements: fileMoveEntries,
-    isins_processed: [...new Set(isins)],
-    proposed_payload_by_isin: proposedPayloadByIsin,
-    fields_to_update: [...fieldsToUpdate].sort(),
-    fields_preserved: ["manual", "manual.costs", "manual.costs.retrocession"],
-    warnings: [
-      ...reviewEntries.map((entry) => ({
-        isin: entry.isin,
-        fileName: entry.fileName,
-        reason: entry.reason,
-      })),
-      ...errorEntries.map((entry) => ({
-        isin: entry.isin || null,
-        fileName: entry.fileName,
-        reason: entry.reason || entry.message,
-      })),
-      ...fileMoveEntries
-        .filter((entry) => entry.file_move_status === "FAILED")
-        .map((entry) => ({
-          isin: entry.detected_isin || null,
-          fileName: path.basename(entry.original_pdf_path || ""),
-          reason: `file_move_failed:${entry.file_move_reason}`,
-        })),
-    ],
-    config_paths_resolved: configPathsResolved,
-    summary: {
-      ok_count: ok || 0,
-      review_count: review || 0,
-      error_count: fail || 0,
-      proposal_count: parserDryRunProposals.length,
-    },
-  };
+  return _parserDryRunArtifact.buildParserDryRunArtifact({
+    files,
+    ok,
+    review,
+    fail,
+    parserDryRunProposals,
+    fileMoveEntries,
+    reviewEntries,
+    errorEntries,
+    configPathsResolved,
+  });
 }
 
 function writeParserDryRunArtifact({ files, ok, review, fail }, outputDir = RUNTIME_OPTIONS.outputDir) {
-  ensureDir(outputDir);
-  const artifact = buildParserDryRunArtifact({ files, ok, review, fail });
-  const artifactPath = path.join(outputDir, "parser_dry_run_latest.json");
-  writeJsonPretty(artifactPath, artifact);
-  return { artifact, artifactPath };
+  return _parserDryRunArtifact.writeParserDryRunArtifact({
+    files,
+    ok,
+    review,
+    fail,
+    outputDir,
+    parserDryRunProposals,
+    fileMoveEntries,
+    reviewEntries,
+    errorEntries,
+    configPathsResolved,
+    ensureDir,
+    writeJsonPretty,
+  });
 }
 
 function isValidPdfText(text) {
