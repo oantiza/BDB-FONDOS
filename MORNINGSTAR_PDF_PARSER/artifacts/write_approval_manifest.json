@@ -1,0 +1,185 @@
+{
+  "generated_at": "2026-05-08T04:31:59.282Z",
+  "dry_run": true,
+  "write_executed": false,
+  "approval_required": true,
+  "approved_isins": [],
+  "max_write_candidates": 5,
+  "candidates": [],
+  "excluded_review": [],
+  "blocked": [
+    {
+      "isin": "LU0599946893",
+      "policy_status": "BLOCKED",
+      "reason": "policy_blocked",
+      "warnings": [
+        "error_llm_json: Gemini no devolviÃƒÂ³ un JSON objeto parseable"
+      ]
+    }
+  ],
+  "skipped": [
+    {
+      "isin": "ES0112231016",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "ES0112602000",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "ES0116419005",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "ES0124880032",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "ES0137381036",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "ES0165142003",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "ES0175316019",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "ES0175414012",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "ES0175437005",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "FR0000989626",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "FR0000989915",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "FR0010149120",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "IE0003867441",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT"
+    },
+    {
+      "isin": "IE00B4Z6MP99",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0011889846",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0090845842",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0171306680",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0208853944",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0252500524",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0264738294",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    },
+    {
+      "isin": "LU0273690064",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0496368142",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0568620560",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU0910636892",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU1670724373",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS"
+    },
+    {
+      "isin": "LU1697016878",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW"
+    }
+  ],
+  "approval_rejections": []
+}

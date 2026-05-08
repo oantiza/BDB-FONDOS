@@ -1,0 +1,232 @@
+{
+  "generated_at": "2026-05-07T20:22:14.535Z",
+  "dry_run": true,
+  "write_executed": false,
+  "snapshots_required_before_write": true,
+  "entries": [
+    {
+      "isin": "ES0112231016",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "ES0112602000",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "ES0116419005",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "ES0124880032",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "ES0137381036",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "ES0165142003",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "ES0175316019",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "ES0175414012",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "ES0175437005",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "FR0000989626",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "FR0000989915",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "FR0010149120",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "IE0003867441",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "IE00B4Z6MP99",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0011889846",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0090845842",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0171306680",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0208853944",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0252500524",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0264738294",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    },
+    {
+      "isin": "LU0273690064",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0496368142",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0568620560",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU0599946893",
+      "decision": "BLOCKED_NEVER_WRITE",
+      "policy_status": "BLOCKED",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "policy_blocked"
+    },
+    {
+      "isin": "LU0910636892",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU1670724373",
+      "decision": "SKIP_MISSING_SNAPSHOT",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "current_firestore_snapshot_required_before_write"
+    },
+    {
+      "isin": "LU1697016878",
+      "decision": "REVIEW_REQUIRES_EXPLICIT_APPROVAL",
+      "policy_status": "REVIEW",
+      "snapshot_available": false,
+      "snapshot_file": null,
+      "reason": "review_requires_approve_isin"
+    }
+  ]
+}

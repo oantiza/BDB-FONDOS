@@ -1,0 +1,510 @@
+{
+  "generated_at": "2026-05-08T04:31:59.282Z",
+  "dry_run": true,
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "ES0112231016",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "regions_sum_overflow:200.01",
+        "fi_missing_credit_data",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=74.53"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0112602000",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:middle_east_africa",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=85.33",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.84,max_component=85.33"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0116419005",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "fi_missing_credit_data",
+        "missing_rating_stars",
+        "missing_sectors",
+        "missing_regions",
+        "credit_missing",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=73.91"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0124880032",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "fi_missing_credit_data",
+        "missing_sectors",
+        "missing_regions",
+        "credit_missing",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+        "asset_mix_guardrail:asset_mix_rebased_to_sum_1:sum_before=1.0108,sum_after=1"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0137381036",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "regions_sum_overflow:200.00",
+        "fi_missing_credit_data",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.31"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0165142003",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "missing_sectors",
+        "missing_regions",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=88.79"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0175316019",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "regions_sum_overflow:200.00",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=51.79"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0175414012",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "unknown_region_key:middle_east_africa",
+        "fi_missing_credit_data",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=68.34"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "ES0175437005",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "fi_missing_credit_data",
+        "missing_rating_stars",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=74.54"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "FR0000989626",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "regions_all_unrecognized",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "missing_sectors",
+        "missing_regions",
+        "subtype_incompatible_with_asset_type:money_market:THEMATIC_EQUITY",
+        "subtype_downgraded_to_safe_family:MONEY_MARKET",
+        "credit_missing",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=84.83"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "FR0000989915",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "missing_rating_stars",
+        "subtype_incompatible_with_asset_type:real_asset:EUROZONE_EQUITY",
+        "subtype_downgraded_to_safe_family:UNKNOWN",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.94",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.49,max_component=97.94"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "FR0010149120",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "missing_sectors",
+        "missing_regions",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=72.17",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.62,max_component=72.17"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "IE0003867441",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT",
+      "warnings": [
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.53"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "IE00B4Z6MP99",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "unknown_region_key:Asia - Desarrollada",
+        "regions_sum_overflow:200.00",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "subtype_incompatible_with_asset_type:allocation:GLOBAL_EQUITY",
+        "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=43.75"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "regions_sum_overflow:200.01",
+        "fi_missing_credit_data",
+        "fi_missing_duration_data",
+        "fi_type_inference_weak",
+        "credit_missing",
+        "duration_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.5",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.5,max_component=99.5"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0011889846",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "regions_sum_overflow:200.00",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.16"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0090845842",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "unknown_region_key:Asia - Desarrollada",
+        "regions_sum_overflow:199.99",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.5",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.02,max_component=97.5"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0171306680",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:americas_united_states",
+        "unknown_region_key:americas_canada",
+        "unknown_region_key:europe_united_kingdom",
+        "unknown_region_key:middle_east_africa",
+        "unknown_region_key:asia_australasia",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.93",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.03,max_component=92.93"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0208853944",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.4",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.11,max_component=97.4"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0252500524",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "fi_type_inference_weak",
+        "missing_sectors",
+        "missing_regions",
+        "money_market_subtype_defaulted",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0264738294",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "unknown_region_key:Asia - Desarrollada",
+        "regions_sum_overflow:200.02",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "missing_rating_stars",
+        "subtype_incompatible_with_asset_type:real_asset:GLOBAL_EQUITY",
+        "subtype_downgraded_to_safe_family:UNKNOWN",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.4"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0273690064",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "unknown_region_key:Asia - Desarrollada",
+        "regions_sum_overflow:200.00",
+        "fi_missing_credit_data",
+        "fi_missing_duration_data",
+        "credit_missing",
+        "duration_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.84"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0496368142",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "unknown_region_key:middle_east_africa",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.7",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.06,max_component=98.7"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0568620560",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "missing_sectors",
+        "missing_regions",
+        "subtype_incompatible_with_asset_type:money_market:GLOBAL_EQUITY",
+        "subtype_downgraded_to_safe_family:MONEY_MARKET",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0599946893",
+      "decision": "BLOCKED_NEVER_WRITE",
+      "reason": "policy_blocked",
+      "policy_status": "BLOCKED",
+      "warnings": [
+        "error_llm_json: Gemini no devolviÃƒÂ³ un JSON objeto parseable"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU0910636892",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "missing_sectors",
+        "missing_regions",
+        "region_incomplete",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU1670724373",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "warnings": [
+        "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+        "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.53",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.07,max_component=92.53"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    },
+    {
+      "isin": "LU1697016878",
+      "decision": "SKIP_DIFF_EMPTY",
+      "reason": "missing_proposed_payload",
+      "policy_status": "REVIEW",
+      "warnings": [
+        "unknown_region_key:AmÃ©rica",
+        "unknown_region_key:Europa/O. Medio/Africa",
+        "unknown_region_key:Asia - Desarrollada",
+        "regions_sum_overflow:200.02",
+        "fi_missing_credit_data",
+        "fi_type_inference_weak",
+        "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+        "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION",
+        "credit_missing",
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=76.32",
+        "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.45,max_component=76.32"
+      ],
+      "snapshot_available": false,
+      "payload_available": false,
+      "proposed_payload": null,
+      "diff": null
+    }
+  ]
+}
