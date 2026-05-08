@@ -49,6 +49,10 @@ const _textNormalizer = require("./normalize/text_normalizer");
 const _regionNormalizer = require("./normalize/region_normalizer");
 const _assetMixNormalizer = require("./normalize/asset_mix_normalizer");
 const _sectorNormalizer = require("./normalize/sector_normalizer");
+const _assetTypeClassifier = require("./classify/asset_type_classifier");
+const _subtypeClassifier = require("./classify/subtype_classifier");
+const _classificationBuilder = require("./classify/classification_builder");
+const _portfolioExposureBuilder = require("./exposure/portfolio_exposure_builder");
 
 // REFACTOR-1: Function aliases from extracted modules (hoisted here for TDZ safety)
 const cleanString = _numberUtils.cleanString;
@@ -73,7 +77,14 @@ const validateAssetMix = _assetMixNormalizer.validateAssetMix;
 const validateChildMapAgainstParent = _assetMixNormalizer.validateChildMapAgainstParent;
 const validateCanonicalMath = _assetMixNormalizer.validateCanonicalMath;
 const sanitizeAssetMixForExposureBuilder = _assetMixNormalizer.sanitizeAssetMixForExposureBuilder;
-const normalizeExposureMapToParent01 = _assetMixNormalizer.normalizeExposureMapToParent01;
+const deriveAssetClassFromCategory = _assetTypeClassifier.deriveAssetClassFromCategory;
+const deriveAssetSubtype = _subtypeClassifier.deriveAssetSubtype;
+const deriveFlags = _subtypeClassifier.deriveFlags;
+const normalizeSubtypeByAssetType = _subtypeClassifier.normalizeSubtypeByAssetType;
+const topSector = _subtypeClassifier.topSector;
+const assetTypeFromDerivedAssetClass = _classificationBuilder.assetTypeFromDerivedAssetClass;
+const buildClassificationV2 = _classificationBuilder.buildClassificationV2;
+const buildPortfolioExposureV2 = _portfolioExposureBuilder.buildPortfolioExposureV2;
 
 const IS_MAIN = require.main === module;
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -1237,448 +1248,15 @@ function deleteUndefinedDeep(obj) {
 }
 
 // ============================
-// ============================
-// ============================
-
-// ============================
 // Derived classification helpers
 // ============================
-function deriveAssetClassFromCategory(catUpper, nameUpper = "", sectors = null) {
-  const c = `${catUpper || ""} ${nameUpper || ""}`;
-
-  if (
-    c.includes("MONETARIO") ||
-    c.includes("MONEY MARKET") ||
-    c.includes("LIQUIDEZ") ||
-    c.includes("LIQUIDITY") ||
-    c.includes("TREASURY") ||
-    c.includes("TRÃƒâ€°SORERIE") ||
-    c.includes("TRESORERIE") ||
-    c.includes("VNAV") ||
-    c.includes("LVNAV")
-  ) return "Monetario";
-
-  if (
-    c.includes("CONVERTIBLE") ||
-    c.startsWith("RF") ||
-    c.includes("RENTA FIJA") ||
-    c.includes("BOND") ||
-    c.includes("CREDIT") ||
-    c.includes("FIXED INCOME") ||
-    c.includes("DEUDA")
-  ) return "RF";
-
-  if (
-    c.includes("RETORNO ABSOLUTO") ||
-    c.includes("ABSOLUTE RETURN") ||
-    c.includes("MARKET NEUTRAL") ||
-    c.includes("LONG/SHORT") ||
-    c.includes("LONG SHORT") ||
-    c.includes("MULTISTRATEGY") ||
-    c.includes("MULTI-STRATEGY") ||
-    c.includes("SYSTEMATIC FUTURES") ||
-    c.includes("MANAGED FUTURES") ||
-    c.includes("GLOBAL MACRO")
-  ) return "Alternativos";
-
-  if (
-    c.includes("INMOBILIAR") ||
-    c.includes("REAL ESTATE") ||
-    c.includes("REIT") ||
-    c.includes("PROPERTY") ||
-    c.includes("IMMOBILIER")
-  ) return "Inmobiliario";
-
-  const hardCommodities = [
-    "COMMODIT",
-    "MATERIAS PRIMAS",
-    "PRECIOUS METALS",
-    "WORLD GOLD",
-    "GLOBAL GOLD",
-    "GOLD FUND",
-    "GOLD & SILVER",
-    "GOLD AND PRECIOUS METALS",
-    "METALS & MINING",
-    "METALS AND MINING",
-    "WORLD MINING",
-    "MINING FUND",
-    "PRECIOUS METALS FUND",
-  ];
-
-  if (hardCommodities.some((x) => c.includes(x))) return "Commodities";
-
-  if (
-    c.includes("ALLOCATION") ||
-    c.includes("MIXTO") ||
-    c.includes("BALANCED") ||
-    c.includes("MULTI ASSET") ||
-    c.includes("MULTIASSET")
-  ) return "Mixto";
-
-  if (
-    c.startsWith("RV") ||
-    c.includes("RENTA VARIABLE") ||
-    c.includes("EQUITY") ||
-    c.includes("ACCIONES")
-  ) return "RV";
-
-  if (sectors && typeof sectors === "object") {
-    const hasRealEquitySector = Object.keys(sectors).some((k) =>
-      [
-        "technology",
-        "financial_services",
-        "financials",
-        "industrials",
-        "healthcare",
-        "utilities",
-        "energy",
-        "communication_services",
-        "consumer_cyclical",
-        "consumer_defensive",
-        "real_estate",
-        "basic_materials",
-      ].includes(k)
-    );
-    if (hasRealEquitySector) return "RV";
-  }
-
-  return "Otros";
-}
-
-
 function deriveSubcategories(msSectors, name, category, objective = "") {
-  const tags = new Set();
-
-  if (msSectors && typeof msSectors === "object") {
-    for (const [key, rawV] of Object.entries(msSectors)) {
-      const w = parseNum(rawV);
-      if (w === null) continue;
-      const baseTag = sectorKeyToTag.get(key);
-      if (!baseTag) continue;
-
-      if (w >= 25) tags.add(baseTag);
-      if (w >= 40) {
-        const sector = baseTag.split(":")[1];
-        tags.add(`sector_concentrated:${sector}`);
-      }
-    }
-  }
-
-  const text = normalizeTextForTokens(`${name || ""} ${category || ""} ${objective || ""}`);
-  for (const t of tokenMatchers) {
-    if (t.regex.test(text)) tags.add(t.tag);
-  }
-
-  const arr = Array.from(tags);
-  arr.sort((a, b) => {
-    const rank = (x) =>
-      x.startsWith("sector_concentrated:")
-        ? 0
-        : x.startsWith("sector:")
-          ? 1
-          : x.startsWith("theme:")
-            ? 2
-            : 9;
-    const ra = rank(a);
-    const rb = rank(b);
-    if (ra !== rb) return ra - rb;
-    return a.localeCompare(b);
+  return _subtypeClassifier.deriveSubcategories(msSectors, name, category, objective, {
+    sectorKeyToTag,
+    tokenMatchers,
+    parseNum,
+    normalizeTextForTokens,
   });
-
-  return arr;
-}
-
-const SECTOR_SUBTYPE_FROM_SECTOR_TAG = {
-  technology: "SECTOR_EQUITY_TECH",
-  healthcare: "SECTOR_EQUITY_HEALTHCARE",
-  financials: "SECTOR_EQUITY_FINANCIALS",
-  industrials: "SECTOR_EQUITY_INDUSTRIALS",
-  consumer_cyclical: "SECTOR_EQUITY_CONSUMER_CYCLICAL",
-  consumer_defensive: "SECTOR_EQUITY_CONSUMER_DEFENSIVE",
-  real_estate: "SECTOR_EQUITY_REAL_ESTATE",
-  utilities: "SECTOR_EQUITY_UTILITIES",
-  energy: "SECTOR_EQUITY_ENERGY",
-  communication_services: "SECTOR_EQUITY_COMMUNICATION",
-  materials: "SECTOR_EQUITY_BASIC_MATERIALS",
-};
-
-const STRICT_SECTOR_FUND_MIN_WEIGHT = 60;
-const TEXT_BACKED_SECTOR_FUND_MIN_WEIGHT = 45;
-
-
-function deriveSectorEquitySubtypeFromTags(tags = []) {
-  if (!Array.isArray(tags) || !tags.length) return null;
-  for (const tag of tags) {
-    if (!tag.startsWith("sector_concentrated:") && !tag.startsWith("sector:")) continue;
-    const [, sectorTag] = tag.split(":");
-    if (sectorTag && SECTOR_SUBTYPE_FROM_SECTOR_TAG[sectorTag]) {
-      return SECTOR_SUBTYPE_FROM_SECTOR_TAG[sectorTag];
-    }
-  }
-  return null;
-}
-
-function topSector(msSectors) {
-  if (!msSectors || typeof msSectors !== "object") {
-    return { top_sector: null, top_sector_weight: null };
-  }
-  let bestK = null;
-  let bestV = -1;
-  for (const [k, v] of Object.entries(msSectors)) {
-    const n = parseNum(v);
-    if (n === null) continue;
-    if (n > bestV) {
-      bestV = n;
-      bestK = k;
-    }
-  }
-  return { top_sector: bestK, top_sector_weight: bestV >= 0 ? bestV : null };
-}
-
-function deriveAssetSubtype(catUpper, subcats = [], nameUpper = "", topSectorWeight = null, derivedAssetClass = null) {
-  const c = `${catUpper || ""} ${nameUpper || ""}`;
-  const tags = Array.isArray(subcats) ? subcats : [];
-
-  if (c.includes("CONVERTIBLE")) return "CONVERTIBLE_BOND";
-  if (c.includes("HIGH YIELD") || c.includes("ALTO RENDIMIENTO")) return "HIGH_YIELD_BOND";
-  if (c.includes("INFLATION") || c.includes("LINKED")) return "INFLATION_LINKED_BOND";
-
-  if (c.includes("EMERGING") && (c.includes("BOND") || c.includes("DEBT") || c.includes("FIXED INCOME") || c.includes("RF"))) {
-    return "EMERGING_MARKETS_BOND";
-  }
-
-  if (c.includes("GOVERNMENT") || c.includes("TREASURY") || c.includes("SOVEREIGN") || c.includes("PUBLICA")) {
-    return "GOVERNMENT_BOND";
-  }
-
-  if (
-    (catUpper || "").startsWith("RF") ||
-    c.includes(" BOND") ||
-    c.includes("BOND ") ||
-    c.includes("CREDIT") ||
-    c.includes("FIXED INCOME") ||
-    c.includes("RENTA FIJA")
-  ) {
-    return "CORPORATE_BOND";
-  }
-
-  const flags = deriveFlags(catUpper, subcats, nameUpper, topSectorWeight, derivedAssetClass);
-  if (flags.is_thematic === true) {
-    return "THEMATIC_EQUITY";
-  }
-
-  const sectorSubtype = deriveSectorEquitySubtypeFromTags(tags);
-  if (sectorSubtype && flags.is_sector_fund && (derivedAssetClass === null || derivedAssetClass === "RV")) {
-    return sectorSubtype;
-  }
-
-  if (c.includes("MSCI")) {
-    if (c.includes("WORLD")) return "GLOBAL_EQUITY";
-    if (c.includes("EMERGING")) return "EMERGING_MARKETS_EQUITY";
-    if (c.includes("EUROPE")) return "EUROPE_EQUITY";
-    if (c.includes("USA") || c.includes("US")) return "US_EQUITY";
-  }
-
-  if (
-    c.includes("ISHARES") ||
-    c.includes("VANGUARD") ||
-    c.includes("AMUNDI") ||
-    c.includes("XTRACKERS") ||
-    c.includes("SPDR") ||
-    c.includes("LYXOR") ||
-    c.includes("UBS ETF") ||
-    c.includes("INDEX FUND")
-  ) {
-    if (c.includes("EMERGING")) return "EMERGING_MARKETS_EQUITY";
-    if (c.includes("EUROPE")) return "EUROPE_EQUITY";
-    if (c.includes("USA") || c.includes("US")) return "US_EQUITY";
-    return "GLOBAL_EQUITY";
-  }
-
-  if (c.includes("WORLD") || c.includes("GLOBAL") || c.includes("ACWI") || c.includes("ALL WORLD") || c.includes("INTERNATIONAL")) {
-    return "GLOBAL_EQUITY";
-  }
-
-  if (c.includes("USA") || c.includes("UNITED STATES") || c.includes("U.S.")) return "US_EQUITY";
-  if (c.includes("EUROZONE") || c.includes("EUROLAND")) return "EUROZONE_EQUITY";
-  if (c.includes("EUROPE") || c.includes("EUROPA")) return "EUROPE_EQUITY";
-  if (hasLatinAmericaIdentity(c)) {
-    return "EMERGING_MARKETS_EQUITY";
-  }
-  if (c.includes("JAPAN") || c.includes("JAPON") || c.includes("JAPÃƒâ€œN")) return "JAPAN_EQUITY";
-  if (c.includes("ASIA PACIFIC") || c.includes("ASIA EX")) return "ASIA_PACIFIC_EQUITY";
-  if (c.includes("EMERGING") || c.includes("EMERGENTE")) return "EMERGING_MARKETS_EQUITY";
-
-  if (
-    c.includes("SMALL CAP") ||
-    c.includes("MID CAP") ||
-    c.includes("SMID") ||
-    c.includes("SMALLER COMPANIES")
-  ) {
-    return "GLOBAL_SMALL_CAP_EQUITY";
-  }
-
-  if (c.includes("DIVIDEND") || c.includes("INCOME")) return "GLOBAL_INCOME_EQUITY";
-
-  if (c.includes("EQUITY") || c.includes("RENTA VARIABLE") || c.startsWith("RV") || c.includes("ACCIONES")) {
-    return "GLOBAL_EQUITY";
-  }
-
-  if (
-    c.includes("ALLOCATION") ||
-    c.includes("MIXTO") ||
-    c.includes("BALANCED") ||
-    c.includes("MULTI ASSET") ||
-    c.includes("MULTIASSET")
-  ) {
-    return "FLEXIBLE_ALLOCATION";
-  }
-
-  return "UNKNOWN";
-}
-
-function deriveFlags(catUpper, subcats = [], nameUpper = "", topSectorWeight = null, derivedAssetClass = null) {
-  const c = `${catUpper || ""} ${nameUpper || ""}`;
-  const tags = Array.isArray(subcats) ? subcats : [];
-  const themeTags = tags.filter((x) => x.startsWith("theme:"));
-  const hasSectorTag = tags.some((x) => x.startsWith("sector:"));
-  const hasConcentratedSectorTag = tags.some((x) => x.startsWith("sector_concentrated:"));
-  const topSector = parseNum(topSectorWeight);
-  const isHighlyConcentratedSector =
-    Number.isFinite(topSector) && topSector >= STRICT_SECTOR_FUND_MIN_WEIGHT;
-  const hasTextBackedSectorConcentration =
-    Number.isFinite(topSector) && topSector >= TEXT_BACKED_SECTOR_FUND_MIN_WEIGHT;
-  const hasExplicitSectorText =
-    c.includes("SECTOR") ||
-    c.includes("SECTORIAL") ||
-    c.includes("INDUSTRY");
-  const hasInfrastructureIdentity =
-    c.includes("INFRASTRUCTURE") ||
-    c.includes("INFRAESTRUCTURA");
-
-  const isIndexLike =
-    c.includes("INDEX") ||
-    c.includes("MSCI") ||
-    c.includes("ISHARES") ||
-    c.includes("ETF") ||
-    c.includes("VANGUARD INDEX");
-
-  const isAllocationLikeByText =
-    c.includes("ALLOCATION") ||
-    c.includes("MIXTO") ||
-    c.includes("BALANCED") ||
-    c.includes("MULTI ASSET") ||
-    c.includes("MULTIASSET");
-
-  const isAllocationLike = derivedAssetClass === "Mixto" || isAllocationLikeByText;
-  const sectorEligibleAssetClass =
-    derivedAssetClass === null || derivedAssetClass === "RV";
-  const hasTextBackedSectorEvidence =
-    (hasExplicitSectorText || hasInfrastructureIdentity) &&
-    (
-      hasConcentratedSectorTag ||
-      hasSectorTag ||
-      !Number.isFinite(topSector) ||
-      hasTextBackedSectorConcentration
-    );
-
-  const isSectorFund =
-    sectorEligibleAssetClass &&
-    !isAllocationLike &&
-    (
-      isHighlyConcentratedSector ||
-      hasTextBackedSectorEvidence
-    );
-
-  const broadSectorLikeThemes = new Set([
-    "theme:technology",
-    "theme:healthcare",
-    "theme:financials",
-    "theme:energy",
-    "theme:real_estate",
-    "theme:materials",
-  ]);
-  const hasDistinctThemeTag = themeTags.some((t) => !broadSectorLikeThemes.has(t));
-
-  const hasHardThematicKeyword =
-    c.includes("THEMATIC") ||
-    c.includes("CLIMATE") ||
-    c.includes("ENVIRONMENT") ||
-    c.includes("ECOLOG") ||
-    c.includes("MEDIO AMBIENTE") ||
-    c.includes("AMBIENTAL") ||
-    c.includes("TRANSICION ENERGETICA") ||
-    c.includes("ENERGY TRANSITION") ||
-    c.includes("CLEAN ENERGY") ||
-    c.includes("WATER") ||
-    c.includes("ROBOTICS") ||
-    c.includes("BIG DATA");
-
-  const isThematic =
-    hasHardThematicKeyword ||
-    hasDistinctThemeTag ||
-    (themeTags.length > 0 && !isSectorFund);
-
-  return {
-    is_index_like: Boolean(isIndexLike),
-    is_sector_fund: Boolean(isSectorFund),
-    is_thematic: Boolean(isThematic),
-  };
-}
-
-function normalizeSubtypeByAssetType(assetType, assetSubtype, fixedIncomeType = null) {
-  const subtype = cleanString(assetSubtype) || "UNKNOWN";
-  const isEquitySubtype =
-    subtype === "THEMATIC_EQUITY" ||
-    subtype.startsWith("SECTOR_EQUITY_") ||
-    subtype.endsWith("_EQUITY");
-  const isBondSubtype = subtype.endsWith("_BOND");
-
-  if (assetType === "equity") {
-    return { subtype, incompatible: false };
-  }
-
-  if (assetType === "fixed_income") {
-    if (isBondSubtype) return { subtype, incompatible: false };
-    const safeSubtypeByType = {
-      convertible: "CONVERTIBLE_BOND",
-      inflation_linked: "INFLATION_LINKED_BOND",
-      high_yield: "HIGH_YIELD_BOND",
-      government: "GOVERNMENT_BOND",
-      emerging_debt: "EMERGING_MARKETS_BOND",
-      corporate: "CORPORATE_BOND",
-      flexible: "CORPORATE_BOND",
-    };
-    return {
-      subtype: safeSubtypeByType[fixedIncomeType] || "CORPORATE_BOND",
-      incompatible: true,
-    };
-  }
-
-  if (assetType === "allocation") {
-    if (subtype === "FLEXIBLE_ALLOCATION" || subtype === "UNKNOWN") return { subtype, incompatible: false };
-    if (isEquitySubtype || isBondSubtype) return { subtype: "FLEXIBLE_ALLOCATION", incompatible: true };
-    return { subtype: "FLEXIBLE_ALLOCATION", incompatible: true };
-  }
-
-  if (assetType === "money_market") {
-    if (subtype === "MONEY_MARKET") return { subtype, incompatible: false };
-    if (subtype === "UNKNOWN") return { subtype: "MONEY_MARKET", incompatible: false, defaulted: true };
-    if (isEquitySubtype || isBondSubtype || subtype === "FLEXIBLE_ALLOCATION") {
-      return { subtype: "MONEY_MARKET", incompatible: true };
-    }
-    return { subtype: "MONEY_MARKET", incompatible: true };
-  }
-
-  if (assetType === "alternative" || assetType === "real_asset" || assetType === "other") {
-    if (subtype === "UNKNOWN") return { subtype, incompatible: false };
-    if (isEquitySubtype || isBondSubtype || subtype === "FLEXIBLE_ALLOCATION") {
-      return { subtype: "UNKNOWN", incompatible: true };
-    }
-    return { subtype: "UNKNOWN", incompatible: true };
-  }
-
-  return { subtype, incompatible: false };
 }
 
 function stripCodeFences(rawText) {
@@ -2658,114 +2236,35 @@ async function processPdfFile(fileName, writer, runtimeOptions = RUNTIME_OPTIONS
     }
   }
 
-  const classification_v2 = {
-    version: "v2",
-    asset_type:
-      derived_asset_class === "RV"
-        ? "equity"
-        : derived_asset_class === "RF"
-          ? "fixed_income"
-          : derived_asset_class === "Mixto"
-            ? "allocation"
-            : derived_asset_class === "Monetario"
-              ? "money_market"
-              : derived_asset_class === "Alternativos"
-                ? "alternative"
-                : derived_asset_class === "Inmobiliario"
-                  ? "real_asset"
-                  : derived_asset_class === "Commodities"
-                    ? "alternative"
-                    : "other",
-    asset_subtype: assetSubtype || "UNKNOWN",
-    commercial_type: ms.category_morningstar || null,
-    region_primary: derived_primary_region || "Global",
-    region_secondary: null,
-    equity_style_box: styleBoxCell || null,
-    market_cap_bias: size_bucket || null,
-    fixed_income_type: fixedIncomeType,
-    credit_bucket: creditBucket,
-    duration_bucket: durationBucket,
-    strategy_tags: subcats || [],
-    vehicle_complexity: flags.is_index_like
-      ? "plain_vanilla"
-      : flags.is_thematic
-        ? "thematic"
-        : flags.is_sector_fund
-          ? "sector"
-          : "active",
-    classification_confidence: confidence,
-    sources_used: [
-      ms.category_morningstar ? "ms.category_morningstar" : null,
-      ms.sectors ? "ms.sectors" : null,
-      ms.regions?.detail || ms.regions?.macro ? "ms.regions" : null,
-      ms.equity_style?.style_box_cell || ms.equity_style?.market_cap || ms.equity_style?.style ? "ms.equity_style" : null,
-      ms.fixed_income ? "ms.fixed_income" : null,
-    ].filter(Boolean),
-    warnings: [],
-  };
+  const classification_v2 = buildClassificationV2({
+    derivedAssetClass: derived_asset_class,
+    assetSubtype,
+    ms,
+    derivedPrimaryRegion: derived_primary_region,
+    styleBoxCell,
+    sizeBucket: size_bucket,
+    fixedIncomeType,
+    creditBucket,
+    durationBucket,
+    subcats,
+    flags,
+    confidence,
+  });
 
-  const subtypeNormalization = normalizeSubtypeByAssetType(
-    classification_v2.asset_type,
-    classification_v2.asset_subtype,
-    fixedIncomeType
-  );
-  if (subtypeNormalization.incompatible) {
-    classification_v2.warnings.push(
-      `subtype_incompatible_with_asset_type:${classification_v2.asset_type}:${classification_v2.asset_subtype}`
-    );
-    classification_v2.asset_subtype = subtypeNormalization.subtype;
-    classification_v2.warnings.push(
-      `subtype_downgraded_to_safe_family:${classification_v2.asset_subtype}`
-    );
-  } else if (subtypeNormalization.defaulted) {
-    classification_v2.asset_subtype = subtypeNormalization.subtype;
-    classification_v2.warnings.push("money_market_subtype_defaulted");
-  }
-
-  let portfolio_exposure_v2 = null;
   const sanitizedMix = sanitizeAssetMixForExposureBuilder(ms.portfolio?.asset_allocation || null);
 
-  if (sanitizedMix) {
-    const equityMix01 = sanitizedMix.asset_mix.equity;
-    const bondMix01 = sanitizedMix.asset_mix.bond;
-    const otherMix01 = sanitizedMix.asset_mix.other;
-
-    const equityRegionsV2 = normalizeExposureMapToParent01(equity_regions_total, equityMix01);
-    const sectorsV2 = normalizeExposureMapToParent01(equity_sectors_total, equityMix01);
-    const equityStylesV2 = normalizeExposureMapToParent01(style_weights_total, equityMix01);
-    const marketCapsV2 = normalizeExposureMapToParent01(size_weights_total, equityMix01);
-    const bondTypesV2 = fixedIncomeType && bondMix01 > 0 ? { [fixedIncomeType]: +bondMix01.toFixed(6) } : null;
-    const creditV2 = creditBucket && bondMix01 > 0 ? { [creditBucket]: +bondMix01.toFixed(6) } : null;
-    const durationV2 = durationBucket && bondMix01 > 0 ? { [durationBucket]: +bondMix01.toFixed(6) } : null;
-
-    portfolio_exposure_v2 = {
-      version: "v2",
-      asset_mix: sanitizedMix.asset_mix,
-      equity_regions: equityRegionsV2,
-      sectors: sectorsV2,
-      equity_styles: equityStylesV2,
-      market_caps: marketCapsV2,
-      bond_types: bondTypesV2,
-      credit: creditV2,
-      duration: durationV2,
-      alternatives:
-        classification_v2.asset_type === "alternative" && otherMix01 > 0
-          ? { alternative: +otherMix01.toFixed(6) }
-          : null,
-      exposure_confidence: confidence,
-      warnings: [],
-    };
-
-    for (const w of sanitizedMix.warnings || []) {
-      const details = Object.entries(w)
-        .filter(([k]) => k !== "code")
-        .map(([k, v]) => `${k}=${v}`)
-        .join(",");
-      portfolio_exposure_v2.warnings.push(
-        details ? `asset_mix_guardrail:${w.code}:${details}` : `asset_mix_guardrail:${w.code}`
-      );
-    }
-  }
+  const portfolio_exposure_v2 = buildPortfolioExposureV2({
+    sanitizedMix,
+    equityRegionsTotal: equity_regions_total,
+    equitySectorsTotal: equity_sectors_total,
+    styleWeightsTotal: style_weights_total,
+    sizeWeightsTotal: size_weights_total,
+    fixedIncomeType,
+    creditBucket,
+    durationBucket,
+    classificationV2: classification_v2,
+    confidence,
+  });
 
   const quality = {
     parsed_at: admin.firestore.FieldValue.serverTimestamp(),
@@ -3189,6 +2688,9 @@ module.exports = {
   deriveSubcategories,
   deriveFlags,
   normalizeSubtypeByAssetType,
+  assetTypeFromDerivedAssetClass,
+  buildClassificationV2,
+  buildPortfolioExposureV2,
   normalizeRegions,
   normalizeSectors,
   normalizeFixedIncome,
