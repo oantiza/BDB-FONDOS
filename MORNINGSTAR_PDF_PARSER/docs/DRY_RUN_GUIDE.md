@@ -14,4 +14,15 @@ El dry-run debe mostrar:
 - `dry_run=true`
 - `would_write=false`
 
+Al finalizar:
+
+- PDFs OK/REVIEW pasan a `MORNINGSTAR_PDF_PARSER/ARCHIVOS_PROCESADOS/` y se renombran por ISIN.
+- PDFs con error o sin ISIN pasan a `MORNINGSTAR_PDF_PARSER/ARCHIVOS_CON_ERROR/`.
+
+Para no mover PDFs:
+
+```bash
+node MORNINGSTAR_PDF_PARSER/bin/parse_dry_run.js --no-move-files
+```
+
 Si `ENTRADA` esta vacia, no se llama Gemini.

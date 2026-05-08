@@ -7,8 +7,9 @@ Flujo:
 1. Copiar PDFs Morningstar a `MORNINGSTAR_PDF_PARSER/ENTRADA/`.
 2. Ejecutar dry-run.
 3. Revisar resultados en `MORNINGSTAR_PDF_PARSER/SALIDA/`.
-4. Preparar write gate/diff si procede.
-5. No escribir en Firestore sin aprobacion explicita, snapshot y rollback manifest.
+4. Revisar PDFs movidos a `MORNINGSTAR_PDF_PARSER/ARCHIVOS_PROCESADOS/` o `MORNINGSTAR_PDF_PARSER/ARCHIVOS_CON_ERROR/`.
+5. Preparar write gate/diff si procede.
+6. No escribir en Firestore sin aprobacion explicita, snapshot y rollback manifest.
 
 ## Que Hace
 
@@ -53,8 +54,16 @@ node MORNINGSTAR_PDF_PARSER/bin/prepare_write_gate_dry_run.js --output-dir MORNI
 
 - `ENTRADA/`: carpeta visible para dejar PDFs Morningstar.
 - `SALIDA/`: carpeta visible para revisar artifacts/resultados del dry-run.
+- `ARCHIVOS_PROCESADOS/`: PDFs OK o REVIEW, renombrados por ISIN.
+- `ARCHIVOS_CON_ERROR/`: PDFs con error, bloqueados o sin ISIN.
 
 No usar `input/` ni `output/` como carpetas visibles de operacion manual.
+
+Por defecto, el dry-run operativo mueve los PDFs fuera de `ENTRADA` al finalizar. Para desactivar ese comportamiento:
+
+```bash
+node MORNINGSTAR_PDF_PARSER/bin/parse_dry_run.js --no-move-files
+```
 
 ## Escalas y Pipelines Relacionados
 

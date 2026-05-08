@@ -13,6 +13,7 @@
  *   --output-dir <dir>          artifacts dry-run (default MORNINGSTAR_PDF_PARSER/SALIDA)
  *   --only-isin <ISIN>          procesa solo PDFs cuyo nombre contenga el ISIN
  *   --config-dir <dir>          carpeta primaria para CSV/config
+ *   --no-move-files             no mueve PDFs desde ENTRADA al finalizar
  *   --limit <n>                 (default sin lÃ­mite)
  *   --batch <id>                (opcional)
  *   --concurrency <n>           (default 10)
@@ -79,6 +80,7 @@ Options:
   --limit <n>                 Limit number of PDFs
   --only-isin <ISIN>          Process only PDFs whose filename contains this ISIN
   --config-dir <dir>          Primary directory for CSV/config files
+  --no-move-files             Do not move PDFs after processing
   --dir <dir>                 Input PDF directory
   --processed <dir>           Canonical output directory
   --error <dir>               Error output directory
@@ -109,6 +111,8 @@ function buildRuntimeOptions(argv = process.argv.slice(2)) {
     wouldWrite: wantsWrite && confirmWrite,
     confirmWrite,
     writeReview: hasArg(argv, "--write-review"),
+    moveFiles: !hasArg(argv, "--no-move-files"),
+    inputDirExplicit: hasArg(argv, "--dir"),
     outputDir: path.resolve(
       getArgValueFromArgv(argv, "--output-dir") ||
         path.join(PARSER_ROOT, "SALIDA")
@@ -155,6 +159,8 @@ const DATA_ROOT = path.join(REPO_ROOT, "data");
 const LEGACY_BACKUP_ROOT = path.join(__dirname, "BDB_PARSE_BACKUP");
 const PARSER_ARTIFACT_ROOT = path.join(PARSER_ROOT, "artifacts");
 const PREFERRED_INPUT_DIR = path.join(PARSER_ROOT, "ENTRADA");
+const DEFAULT_ARCHIVOS_PROCESADOS_DIR = path.join(PARSER_ROOT, "ARCHIVOS_PROCESADOS");
+const DEFAULT_ARCHIVOS_CON_ERROR_DIR = path.join(PARSER_ROOT, "ARCHIVOS_CON_ERROR");
 const PREFERRED_PROCESSED_PDF_ROOT = path.join(PARSER_ARTIFACT_ROOT, "processed_pdfs");
 const processedArg = getArgValue("--processed");
 const errorArg = getArgValue("--error");
@@ -178,16 +184,16 @@ const ERROR_DIR = path.resolve(
 );
 const PROCESSED_PDF_ROOT = path.resolve(PREFERRED_PROCESSED_PDF_ROOT);
 const PROCESSED_PDF_DIR = path.resolve(
-  getArgValue("--processed-pdfs") || path.join(PROCESSED_PDF_ROOT, "ok")
+  getArgValue("--processed-pdfs") || DEFAULT_ARCHIVOS_PROCESADOS_DIR
 );
 const REVIEW_PDF_DIR = path.resolve(
-  getArgValue("--review-pdfs") || path.join(PROCESSED_PDF_ROOT, "review")
+  getArgValue("--review-pdfs") || DEFAULT_ARCHIVOS_PROCESADOS_DIR
 );
 const ERROR_PDF_DIR = path.resolve(
-  getArgValue("--error-pdfs") || path.join(PROCESSED_PDF_ROOT, "error")
+  getArgValue("--error-pdfs") || DEFAULT_ARCHIVOS_CON_ERROR_DIR
 );
 
-[INPUT_DIR, PROCESSED_DIR, ERROR_DIR, PROCESSED_PDF_ROOT, PROCESSED_PDF_DIR, REVIEW_PDF_DIR, ERROR_PDF_DIR].forEach((dir) => {
+[INPUT_DIR, PROCESSED_DIR, ERROR_DIR, PROCESSED_PDF_DIR, REVIEW_PDF_DIR, ERROR_PDF_DIR].forEach((dir) => {
   if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
 });
 
@@ -409,6 +415,187 @@ function moveFileSafeIfNeeded(srcPath, destDir, filename) {
     return srcPath;
   }
   return moveFileSafe(srcPath, destDir, filename);
+}
+
+function timestampForFileName(date = new Date()) {
+  const pad = (value) => String(value).padStart(2, "0");
+  return [
+    date.getFullYear(),
+    pad(date.getMonth() + 1),
+    pad(date.getDate()),
+    "_",
+    pad(date.getHours()),
+    pad(date.getMinutes()),
+    pad(date.getSeconds()),
+  ].join("");
+}
+
+function sanitizePdfFileNamePart(value) {
+  return String(value || "")
+    .trim()
+    .replace(/\.pdf$/i, "")
+    .replace(/[^A-Za-z0-9._-]+/g, "_")
+    .replace(/^_+|_+$/g, "")
+    .slice(0, 120);
+}
+
+function isPathInside(childPath, parentPath) {
+  const child = path.resolve(childPath);
+  const parent = path.resolve(parentPath);
+  const relative = path.relative(parent, child);
+  return Boolean(relative) && !relative.startsWith("..") && !path.isAbsolute(relative);
+}
+
+function uniquePdfPathForIsin(destDir, isin, reportDate = null, now = new Date()) {
+  const cleanIsin = sanitizePdfFileNamePart(isin || "UNKNOWN_ISIN") || "UNKNOWN_ISIN";
+  const primary = path.join(destDir, `${cleanIsin}.pdf`);
+  if (!fs.existsSync(primary)) return primary;
+
+  const suffix = reportDate
+    ? sanitizePdfFileNamePart(reportDate)
+    : `processed_${timestampForFileName(now)}`;
+  let candidate = path.join(destDir, `${cleanIsin}__${suffix}.pdf`);
+  if (!fs.existsSync(candidate)) return candidate;
+
+  let index = 1;
+  while (true) {
+    const alt = path.join(destDir, `${cleanIsin}__${suffix}__${index}.pdf`);
+    if (!fs.existsSync(alt)) return alt;
+    index += 1;
+  }
+}
+
+function uniqueErrorPdfPath(destDir, originalFileName) {
+  const baseName = sanitizePdfFileNamePart(originalFileName) || "archivo";
+  let candidate = path.join(destDir, `UNKNOWN_ISIN__${baseName}.pdf`);
+  if (!fs.existsSync(candidate)) return candidate;
+
+  const stamp = timestampForFileName();
+  let index = 1;
+  while (true) {
+    const alt = path.join(destDir, `UNKNOWN_ISIN__${baseName}__${stamp}__${index}.pdf`);
+    if (!fs.existsSync(alt)) return alt;
+    index += 1;
+  }
+}
+
+function safeMoveToExactPath(srcPath, destPath) {
+  ensureDir(path.dirname(destPath));
+  if (!fs.existsSync(srcPath)) return null;
+  if (fs.existsSync(destPath)) return null;
+  try {
+    fs.renameSync(srcPath, destPath);
+    return destPath;
+  } catch (e) {
+    try {
+      fs.copyFileSync(srcPath, destPath);
+      fs.unlinkSync(srcPath);
+      return destPath;
+    } catch (e2) {
+      console.error(`Error moviendo PDF procesado: ${e2.message}`);
+      return null;
+    }
+  }
+}
+
+function buildFileMovePlan({
+  fileName,
+  sourcePath,
+  routingStatus,
+  detectedIsin,
+  reportDate,
+  processedDir = PROCESSED_PDF_DIR,
+  errorDir = ERROR_PDF_DIR,
+}) {
+  const okOrReview =
+    routingStatus === PIPELINE_STATUS.OK || routingStatus === PIPELINE_STATUS.REVIEW;
+  if (okOrReview && detectedIsin) {
+    const destinationPath = uniquePdfPathForIsin(processedDir, detectedIsin, reportDate);
+    return {
+      destination_dir: processedDir,
+      destination_path: destinationPath,
+      renamed_to: path.basename(destinationPath),
+      file_move_reason: `${routingStatus}_with_isin`,
+    };
+  }
+
+  const destinationPath = uniqueErrorPdfPath(errorDir, fileName || path.basename(sourcePath));
+  return {
+    destination_dir: errorDir,
+    destination_path: destinationPath,
+    renamed_to: path.basename(destinationPath),
+    file_move_reason: detectedIsin ? `${routingStatus || "error"}_blocked` : "missing_isin_or_error",
+  };
+}
+
+function moveProcessedPdfAfterRouting({
+  fileName,
+  originalPdfPath,
+  routingStatus,
+  detectedIsin,
+  reportDate,
+  moveFiles = true,
+  inputDir = INPUT_DIR,
+  inputDirExplicit = RUNTIME_OPTIONS.inputDirExplicit,
+  processedDir = PROCESSED_PDF_DIR,
+  errorDir = ERROR_PDF_DIR,
+}) {
+  const originalPath = path.resolve(originalPdfPath || path.join(inputDir, fileName));
+  const safeInputDir = path.resolve(inputDir);
+  const defaultInputDir = path.resolve(PREFERRED_INPUT_DIR);
+  const base = {
+    original_pdf_path: originalPath,
+    final_pdf_path: originalPath,
+    file_move_status: "NOT_MOVED",
+    file_move_reason: "not_attempted",
+    renamed_to: path.basename(originalPath),
+    detected_isin: detectedIsin || null,
+  };
+
+  if (!moveFiles) {
+    return { ...base, file_move_status: "SKIPPED", file_move_reason: "no_move_files_flag" };
+  }
+  if (!fs.existsSync(originalPath)) {
+    return { ...base, file_move_status: "SKIPPED", file_move_reason: "source_pdf_missing" };
+  }
+  if (!isPathInside(originalPath, safeInputDir) && path.dirname(originalPath) !== safeInputDir) {
+    return { ...base, file_move_status: "SKIPPED", file_move_reason: "source_outside_input_dir" };
+  }
+  if (!inputDirExplicit && path.resolve(safeInputDir) !== defaultInputDir) {
+    return {
+      ...base,
+      file_move_status: "SKIPPED",
+      file_move_reason: "implicit_input_not_parser_entrada",
+    };
+  }
+
+  const plan = buildFileMovePlan({
+    fileName,
+    sourcePath: originalPath,
+    routingStatus,
+    detectedIsin,
+    reportDate,
+    processedDir,
+    errorDir,
+  });
+  const movedPath = safeMoveToExactPath(originalPath, plan.destination_path);
+  if (!movedPath) {
+    return {
+      ...base,
+      file_move_status: "FAILED",
+      file_move_reason: "move_failed",
+      final_pdf_path: plan.destination_path,
+      renamed_to: plan.renamed_to,
+    };
+  }
+
+  return {
+    ...base,
+    final_pdf_path: movedPath,
+    file_move_status: "MOVED",
+    file_move_reason: plan.file_move_reason,
+    renamed_to: plan.renamed_to,
+  };
 }
 
 function writeJsonPretty(filePath, obj) {
@@ -2237,6 +2424,7 @@ const manifestEntries = [];
 const errorEntries = [];
 const reviewEntries = [];
 const parserDryRunProposals = [];
+const fileMoveEntries = [];
 
 function serializeForArtifact(value) {
   if (value === null || value === undefined) return value;
@@ -2287,6 +2475,18 @@ function recordDryRunProposal({ isin, fileName, doc, routing }) {
   });
 }
 
+function recordFileMove(entry) {
+  fileMoveEntries.push(entry);
+  return entry;
+}
+
+function findLatestManifestEntryForFile(fileName) {
+  for (let index = manifestEntries.length - 1; index >= 0; index -= 1) {
+    if (manifestEntries[index].fileName === fileName) return manifestEntries[index];
+  }
+  return null;
+}
+
 function buildParserDryRunArtifact({ files, ok, review, fail }) {
   const proposedPayloadByIsin = {};
   const fieldsToUpdate = new Set();
@@ -2307,6 +2507,8 @@ function buildParserDryRunArtifact({ files, ok, review, fail }) {
     dry_run: true,
     would_write: false,
     input_files: files || [],
+    input_file_results: fileMoveEntries,
+    file_movements: fileMoveEntries,
     isins_processed: [...new Set(isins)],
     proposed_payload_by_isin: proposedPayloadByIsin,
     fields_to_update: [...fieldsToUpdate].sort(),
@@ -2322,6 +2524,13 @@ function buildParserDryRunArtifact({ files, ok, review, fail }) {
         fileName: entry.fileName,
         reason: entry.reason || entry.message,
       })),
+      ...fileMoveEntries
+        .filter((entry) => entry.file_move_status === "FAILED")
+        .map((entry) => ({
+          isin: entry.detected_isin || null,
+          fileName: path.basename(entry.original_pdf_path || ""),
+          reason: `file_move_failed:${entry.file_move_reason}`,
+        })),
     ],
     config_paths_resolved: configPathsResolved,
     summary: {
@@ -3259,6 +3468,7 @@ async function processPdfFile(fileName, writer, runtimeOptions = RUNTIME_OPTIONS
       fileName,
       routingStatus: routing.status,
       routingReason: routing.reason,
+      reportDate: reportDateIso,
       processedPdfFileName: `${stableBaseName}.pdf`,
     };
   }
@@ -3307,6 +3517,7 @@ async function processPdfFile(fileName, writer, runtimeOptions = RUNTIME_OPTIONS
     fileName,
     routingStatus: routing.status,
     routingReason: routing.reason,
+    reportDate: reportDateIso,
     processedPdfFileName: `${stableBaseName}.pdf`,
   };
 }
@@ -3366,20 +3577,73 @@ async function main() {
         if (r.routingStatus === PIPELINE_STATUS.REVIEW) {
           review++;
           console.log(`ðŸŸ¡ ${r.fileName} -> ${r.isin} [REVIEW]`);
-          if (!RUNTIME_OPTIONS.dryRun) moveFileSafeIfNeeded(path.join(INPUT_DIR, f), REVIEW_PDF_DIR, r.processedPdfFileName || f);
+          recordFileMove(
+            moveProcessedPdfAfterRouting({
+              fileName: f,
+              originalPdfPath: path.join(INPUT_DIR, f),
+              routingStatus: r.routingStatus,
+              detectedIsin: r.isin,
+              reportDate: r.reportDate,
+              moveFiles: RUNTIME_OPTIONS.moveFiles,
+              inputDir: INPUT_DIR,
+              inputDirExplicit: RUNTIME_OPTIONS.inputDirExplicit,
+              processedDir: REVIEW_PDF_DIR,
+              errorDir: ERROR_PDF_DIR,
+            })
+          );
         } else if (r.routingStatus === PIPELINE_STATUS.OK) {
           ok++;
           console.log(`âœ… ${r.fileName} -> ${r.isin}`);
-          if (!RUNTIME_OPTIONS.dryRun) moveFileSafeIfNeeded(path.join(INPUT_DIR, f), PROCESSED_PDF_DIR, r.processedPdfFileName || f);
+          recordFileMove(
+            moveProcessedPdfAfterRouting({
+              fileName: f,
+              originalPdfPath: path.join(INPUT_DIR, f),
+              routingStatus: r.routingStatus,
+              detectedIsin: r.isin,
+              reportDate: r.reportDate,
+              moveFiles: RUNTIME_OPTIONS.moveFiles,
+              inputDir: INPUT_DIR,
+              inputDirExplicit: RUNTIME_OPTIONS.inputDirExplicit,
+              processedDir: PROCESSED_PDF_DIR,
+              errorDir: ERROR_PDF_DIR,
+            })
+          );
         } else {
           fail++;
           console.error(`âŒ ${r.fileName} -> ${r.isin} [${r.routingStatus}] ${r.routingReason || ""}`.trim());
-          if (!RUNTIME_OPTIONS.dryRun) moveFileSafeIfNeeded(path.join(INPUT_DIR, f), ERROR_PDF_DIR, r.processedPdfFileName || f);
+          recordFileMove(
+            moveProcessedPdfAfterRouting({
+              fileName: f,
+              originalPdfPath: path.join(INPUT_DIR, f),
+              routingStatus: r.routingStatus,
+              detectedIsin: r.isin,
+              reportDate: r.reportDate,
+              moveFiles: RUNTIME_OPTIONS.moveFiles,
+              inputDir: INPUT_DIR,
+              inputDirExplicit: RUNTIME_OPTIONS.inputDirExplicit,
+              processedDir: PROCESSED_PDF_DIR,
+              errorDir: ERROR_PDF_DIR,
+            })
+          );
         }
       } catch (e) {
         fail++;
         console.error(`âŒ ${f}: ${e.message}`);
-        if (!RUNTIME_OPTIONS.dryRun) moveFileSafeIfNeeded(path.join(INPUT_DIR, f), ERROR_PDF_DIR, f);
+        const manifestEntry = findLatestManifestEntryForFile(f);
+        recordFileMove(
+          moveProcessedPdfAfterRouting({
+            fileName: f,
+            originalPdfPath: path.join(INPUT_DIR, f),
+            routingStatus: manifestEntry?.status || PIPELINE_STATUS.ERROR_PROCESSING,
+            detectedIsin: manifestEntry?.isin || null,
+            reportDate: manifestEntry?.report_date || null,
+            moveFiles: RUNTIME_OPTIONS.moveFiles,
+            inputDir: INPUT_DIR,
+            inputDirExplicit: RUNTIME_OPTIONS.inputDirExplicit,
+            processedDir: PROCESSED_PDF_DIR,
+            errorDir: ERROR_PDF_DIR,
+          })
+        );
       }
     })
   );
@@ -3438,6 +3702,11 @@ module.exports = {
   buildParserDryRunArtifact,
   writeParserDryRunArtifact,
   recordDryRunProposal,
+  recordFileMove,
+  buildFileMovePlan,
+  moveProcessedPdfAfterRouting,
+  uniquePdfPathForIsin,
+  uniqueErrorPdfPath,
   configPathsResolved,
   RUNTIME_OPTIONS,
 };

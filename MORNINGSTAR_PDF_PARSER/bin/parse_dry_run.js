@@ -11,6 +11,8 @@ const parserPath = path.join(parserRoot, "src", "cargador_lotes_v_2.js");
 const defaultInputDir = path.join(parserRoot, "ENTRADA");
 const defaultOutputDir = path.join(parserRoot, "SALIDA");
 const defaultArtifactsDir = path.join(parserRoot, "artifacts");
+const defaultProcessedPdfDir = path.join(parserRoot, "ARCHIVOS_PROCESADOS");
+const defaultErrorPdfDir = path.join(parserRoot, "ARCHIVOS_CON_ERROR");
 
 function hasFlag(argv, flag) {
   return argv.includes(flag);
@@ -55,13 +57,13 @@ function normalizeArgs(argv) {
     args.push("--error", path.join(defaultArtifactsDir, "error"));
   }
   if (!hasFlag(args, "--processed-pdfs")) {
-    args.push("--processed-pdfs", path.join(defaultArtifactsDir, "processed_pdfs", "ok"));
+    args.push("--processed-pdfs", defaultProcessedPdfDir);
   }
   if (!hasFlag(args, "--review-pdfs")) {
-    args.push("--review-pdfs", path.join(defaultArtifactsDir, "processed_pdfs", "review"));
+    args.push("--review-pdfs", defaultProcessedPdfDir);
   }
   if (!hasFlag(args, "--error-pdfs")) {
-    args.push("--error-pdfs", path.join(defaultArtifactsDir, "processed_pdfs", "error"));
+    args.push("--error-pdfs", defaultErrorPdfDir);
   }
 
   return args;
@@ -75,6 +77,8 @@ function main() {
   console.error("[MORNINGSTAR_PDF_PARSER] Dry-run root CLI");
   console.error(`[MORNINGSTAR_PDF_PARSER] ENTRADA=${inputDir}`);
   console.error(`[MORNINGSTAR_PDF_PARSER] SALIDA=${outputDir}`);
+  console.error(`[MORNINGSTAR_PDF_PARSER] ARCHIVOS_PROCESADOS=${defaultProcessedPdfDir}`);
+  console.error(`[MORNINGSTAR_PDF_PARSER] ARCHIVOS_CON_ERROR=${defaultErrorPdfDir}`);
 
   if (!fs.existsSync(inputDir)) {
     fs.mkdirSync(inputDir, { recursive: true });
