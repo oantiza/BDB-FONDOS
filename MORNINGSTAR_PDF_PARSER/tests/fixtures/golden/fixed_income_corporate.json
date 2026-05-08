@@ -1,0 +1,50 @@
+{
+  "_description": "Golden fixture: EUR corporate bond fund with fixed income data",
+  "_source": "Synthetic fixture based on ES0165142003 first-write canonical output patterns",
+  "_purpose": "Freeze fixed_income classification/exposure outputs for regression detection",
+
+  "input": {
+    "isin": "ES0165142003",
+    "name": "BBVA Renta Fija Largo Plazo FI",
+    "category_morningstar": "RF Deuda Corporativa EUR",
+    "asset_allocation": { "equity": 0.0, "bond": 92.5, "cash": 7.5, "other": 0.0 },
+    "regions_detail": {
+      "eurozone": 68.0,
+      "europe_ex_euro": 12.0,
+      "united_kingdom": 8.0,
+      "united_states": 7.0,
+      "other": 5.0
+    },
+    "sectors": null,
+    "equity_style_box_cell": null,
+    "equity_market_cap": null,
+    "equity_style": null,
+    "fixed_income": {
+      "effective_duration": 4.8,
+      "effective_maturity": 6.2,
+      "avg_credit_quality": "BBB",
+      "credit_quality": { "aaa": 5, "aa": 10, "a": 25, "bbb": 40, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3 },
+      "maturity_allocation": { "1_3": 15, "3_5": 25, "5_7": 30, "7_10": 20, "over_10": 10 },
+      "coupon_allocation": null
+    },
+    "objective": "El fondo invierte en renta fija corporativa denominada en euros con grado de inversión."
+  },
+
+  "expected": {
+    "derived_asset_class": "RF",
+    "asset_type": "fixed_income",
+    "asset_subtype": "CORPORATE_BOND",
+    "region_primary": "Europa",
+    "asset_mix": { "equity": 0, "bond": 0.925, "cash": 0.075, "other": 0 },
+    "asset_mix_sum_valid": true,
+    "manual_fields_absent": true,
+    "retrocession_absent": true,
+    "economic_exposure_absent": true,
+    "classification_v2_version": "v2",
+    "portfolio_exposure_v2_version": "v2",
+    "fixed_income_type": "corporate",
+    "credit_bucket": "investment_grade",
+    "duration_bucket": "intermediate",
+    "quality_ok": true
+  }
+}

@@ -2,9 +2,9 @@
  * Reparse Morningstar PDFs -> Firestore funds_v3 (Gemini 2.5 Flash por defecto)
  * - Escribe SOLO fuente (ms.*) + quality.* + identity
  * - Calcula derived.* (asset_class, asset_subtype, primary_region, subcategories por sectores+tokens)
- * - AÃ±ade classification_v2 + portfolio_exposure_v2 (modelo canÃ³nico V2)
+ * - AÃƒÂ±ade classification_v2 + portfolio_exposure_v2 (modelo canÃƒÂ³nico V2)
  * - NO pisa manual.* (TER/retro etc.)
- * - AÃ±ade backup completo local + validaciÃ³n de schema + validaciÃ³n matemÃ¡tica
+ * - AÃƒÂ±ade backup completo local + validaciÃƒÂ³n de schema + validaciÃƒÂ³n matemÃƒÂ¡tica
  *
  * Args:
  *   --dir <carpeta PDFs>        (default MORNINGSTAR_PDF_PARSER/ENTRADA)
@@ -14,7 +14,7 @@
  *   --only-isin <ISIN>          procesa solo PDFs cuyo nombre contenga el ISIN
  *   --config-dir <dir>          carpeta primaria para CSV/config
  *   --no-move-files             no mueve PDFs desde ENTRADA al finalizar
- *   --limit <n>                 (default sin lÃ­mite)
+ *   --limit <n>                 (default sin lÃƒÂ­mite)
  *   --batch <id>                (opcional)
  *   --concurrency <n>           (default 10)
  *   --model <gemini-model>      (default gemini-2.5-flash)
@@ -24,7 +24,7 @@
  *   --review-pdfs <dir>         (default ./data/processed_pdfs/review)
  *   --error-pdfs <dir>          (default ./data/processed_pdfs/error)
  *   --backup-root <dir>         (default ./data)
- *   --write-review              (opcional) tambiÃ©n escribe en Firestore fondos en review
+ *   --write-review              (opcional) tambiÃƒÂ©n escribe en Firestore fondos en review
  *
  * Reqs:
  *   npm i firebase-admin pdf-parse @google/generative-ai p-limit csv-parse dotenv
@@ -40,6 +40,40 @@ const pLimitModule = require("p-limit");
 const pLimit = pLimitModule.default || pLimitModule;
 const { parse: csvParse } = require("csv-parse/sync");
 const { GoogleGenerativeAI } = require("@google/generative-ai");
+
+// ============================
+// REFACTOR-1: Extracted pure modules
+// ============================
+const _numberUtils = require("./utils/number_utils");
+const _textNormalizer = require("./normalize/text_normalizer");
+const _regionNormalizer = require("./normalize/region_normalizer");
+const _assetMixNormalizer = require("./normalize/asset_mix_normalizer");
+const _sectorNormalizer = require("./normalize/sector_normalizer");
+
+// REFACTOR-1: Function aliases from extracted modules (hoisted here for TDZ safety)
+const cleanString = _numberUtils.cleanString;
+const isPlainObject = _numberUtils.isPlainObject;
+const parseNum = _numberUtils.parseNum;
+const clampPct = _numberUtils.clampPct;
+const clamp01 = _numberUtils.clamp01;
+const approxEqual = _numberUtils.approxEqual;
+const normalizeTextForTokens = _textNormalizer.normalizeTextForTokens;
+const REGION_MAPPINGS = _regionNormalizer.REGION_MAPPINGS;
+const REGION_LOOKUP = _regionNormalizer.REGION_LOOKUP;
+const IGNORE_KEYS = _regionNormalizer.IGNORE_KEYS;
+const BENIGN_UNKNOWN_REGION_KEYS = _regionNormalizer.BENIGN_UNKNOWN_REGION_KEYS;
+const cleanRegionKey = _regionNormalizer.cleanRegionKey;
+const normalizeRegions = _regionNormalizer.normalizeRegions;
+const hasExcludedJapanRegionText = _regionNormalizer.hasExcludedJapanRegionText;
+const hasJapanRegionText = _regionNormalizer.hasJapanRegionText;
+const hasLatinAmericaIdentity = _regionNormalizer.hasLatinAmericaIdentity;
+const derivePrimaryRegion = _regionNormalizer.derivePrimaryRegion;
+const normalizeSectors = _sectorNormalizer.normalizeSectors;
+const validateAssetMix = _assetMixNormalizer.validateAssetMix;
+const validateChildMapAgainstParent = _assetMixNormalizer.validateChildMapAgainstParent;
+const validateCanonicalMath = _assetMixNormalizer.validateCanonicalMath;
+const sanitizeAssetMixForExposureBuilder = _assetMixNormalizer.sanitizeAssetMixForExposureBuilder;
+const normalizeExposureMapToParent01 = _assetMixNormalizer.normalizeExposureMapToParent01;
 
 const IS_MAIN = require.main === module;
 const REPO_ROOT = path.resolve(__dirname, "..", "..");
@@ -403,7 +437,7 @@ function moveFileSafe(srcPath, destDir, filename) {
       fs.unlinkSync(srcPath);
       return destPath;
     } catch (e2) {
-      console.error(`âš ï¸ Error moviendo fichero: ${e2.message}`);
+      console.error(`Ã¢Å¡Â Ã¯Â¸Â Error moviendo fichero: ${e2.message}`);
       return null;
     }
   }
@@ -614,50 +648,15 @@ function shortHash(buffer, len = 8) {
   return sha1Hex(buffer).slice(0, len);
 }
 
-function cleanString(s) {
-  if (s === null || s === undefined) return null;
-  const t = String(s).trim().replace(/\s+/g, " ");
-  return t.length ? t : null;
-}
 
 function buildStableBaseName({ isin, reportDate, pdfBuffer, originalFileName }) {
   const hash8 = shortHash(pdfBuffer, 8);
   const safeIsin = cleanString(isin) || path.basename(originalFileName, path.extname(originalFileName));
   const safeDate = reportDate || "unknown_date";
-  return `${safeIsin}__${safeDate}__${hash8}`;
+  return 
+`${safeIsin}__${safeDate}__${hash8}`;
 }
 
-function isPlainObject(x) {
-  return x && typeof x === "object" && !Array.isArray(x);
-}
-
-function parseNum(x) {
-  if (x === null || x === undefined || x === "") return null;
-  if (typeof x === "number") return Number.isFinite(x) ? x : null;
-  const s = String(x).replace("%", "").replace(",", ".").trim();
-  const n = parseFloat(s);
-  return Number.isFinite(n) ? n : null;
-}
-
-function clampPct(n) {
-  const v = parseNum(n);
-  if (v === null) return null;
-  if (v < 0) return 0;
-  if (v > 100) return 100;
-  return v;
-}
-
-function clamp01(n) {
-  const v = parseNum(n);
-  if (v === null) return null;
-  if (v < 0) return 0;
-  if (v > 1) return 1;
-  return v;
-}
-
-function approxEqual(a, b, tol = 0.01) {
-  return Math.abs(a - b) <= tol;
-}
 
 function validateRawLlMSchema(msRaw) {
   const errors = [];
@@ -748,142 +747,6 @@ function validateRawLlMSchema(msRaw) {
   return { ok: errors.length === 0, errors, warnings };
 }
 
-function validateAssetMix(assetMix) {
-  const errors = [];
-  const warnings = [];
-
-  if (!isPlainObject(assetMix)) {
-    return { ok: false, errors: ["asset_mix_missing_or_invalid"], warnings };
-  }
-
-  const equity = clamp01(assetMix.equity ?? 0);
-  const bond = clamp01(assetMix.bond ?? 0);
-  const cash = clamp01(assetMix.cash ?? 0);
-  const other = clamp01(assetMix.other ?? 0);
-
-  const values = { equity, bond, cash, other };
-
-  for (const [k, v] of Object.entries(values)) {
-    if (v === null) errors.push(`asset_mix_invalid_value:${k}`);
-  }
-
-  if (errors.length) return { ok: false, errors, warnings };
-
-  const sum = equity + bond + cash + other;
-
-  if (sum <= 0.000001) errors.push("asset_mix_sum_zero");
-  if (!approxEqual(sum, 1.0, 0.01)) errors.push(`asset_mix_sum_not_1:${sum.toFixed(6)}`);
-
-  return {
-    ok: errors.length === 0,
-    errors,
-    warnings,
-    normalized: {
-      equity: +equity.toFixed(6),
-      bond: +bond.toFixed(6),
-      cash: +cash.toFixed(6),
-      other: +other.toFixed(6),
-      sum: +sum.toFixed(6),
-    },
-  };
-}
-
-function validateChildMapAgainstParent(mapObj, parentWeight, label, tolerance = 0.03) {
-  const errors = [];
-  const warnings = [];
-
-  if (mapObj == null) return { ok: true, errors, warnings, sum: null };
-  if (!isPlainObject(mapObj)) {
-    errors.push(`${label}_not_object`);
-    return { ok: false, errors, warnings, sum: null };
-  }
-
-  let sum = 0;
-  for (const [k, v] of Object.entries(mapObj)) {
-    const n0 = parseNum(v);
-    if (!Number.isFinite(n0)) {
-      errors.push(`${label}_invalid_value:${k}`);
-      continue;
-    }
-    if (n0 < 0) {
-      errors.push(`${label}_negative_value:${k}`);
-      continue;
-    }
-    const n = n0 > 1 ? n0 / 100 : n0;
-    sum += n;
-  }
-
-  if (parentWeight != null && parentWeight > 0) {
-    if (sum > parentWeight + tolerance) {
-      errors.push(`${label}_sum_gt_parent:${sum.toFixed(6)}>${parentWeight.toFixed(6)}`);
-    } else if (sum < parentWeight - tolerance) {
-      warnings.push(`${label}_sum_lt_parent:${sum.toFixed(6)}<${parentWeight.toFixed(6)}`);
-    }
-  }
-
-  return { ok: errors.length === 0, errors, warnings, sum: +sum.toFixed(6) };
-}
-
-function validateCanonicalMath({ classification_v2, portfolio_exposure_v2 }) {
-  const errors = [];
-  const warnings = [];
-
-  if (!portfolio_exposure_v2 || !isPlainObject(portfolio_exposure_v2)) {
-    return { ok: false, errors: ["portfolio_exposure_v2_missing"], warnings };
-  }
-
-  const mixCheck = validateAssetMix(portfolio_exposure_v2.asset_mix);
-  errors.push(...mixCheck.errors);
-  warnings.push(...mixCheck.warnings);
-
-  if (!mixCheck.ok) {
-    return { ok: false, errors, warnings, diagnostics: { mixCheck } };
-  }
-
-  const eq = mixCheck.normalized.equity;
-  const bond = mixCheck.normalized.bond;
-
-  const eqRegions = validateChildMapAgainstParent(portfolio_exposure_v2.equity_regions, eq, "equity_regions");
-  const sectors = validateChildMapAgainstParent(portfolio_exposure_v2.sectors, eq, "sectors");
-  const eqStyles = validateChildMapAgainstParent(portfolio_exposure_v2.equity_styles, eq, "equity_styles");
-  const marketCaps = validateChildMapAgainstParent(portfolio_exposure_v2.market_caps, eq, "market_caps");
-  const bondTypes = validateChildMapAgainstParent(portfolio_exposure_v2.bond_types, bond, "bond_types");
-  const credit = validateChildMapAgainstParent(portfolio_exposure_v2.credit, bond, "credit");
-  const duration = validateChildMapAgainstParent(portfolio_exposure_v2.duration, bond, "duration");
-
-  [eqRegions, sectors, eqStyles, marketCaps, bondTypes, credit, duration].forEach((r) => {
-    errors.push(...r.errors);
-    warnings.push(...r.warnings);
-  });
-
-  if (classification_v2?.asset_type === "equity" && eq < 0.5) {
-    warnings.push(`class_exposure_tension:equity_asset_type_with_equity_${eq.toFixed(4)}`);
-  }
-
-  if (classification_v2?.asset_type === "fixed_income" && bond < 0.2) {
-    warnings.push(`class_exposure_tension:fixed_income_asset_type_with_bond_${bond.toFixed(4)}`);
-  }
-
-  if (classification_v2?.asset_type === "money_market" && mixCheck.normalized.cash + mixCheck.normalized.bond < 0.75) {
-    warnings.push("class_exposure_tension:money_market_without_cash_bond_majority");
-  }
-
-  return {
-    ok: errors.length === 0,
-    errors,
-    warnings,
-    diagnostics: {
-      mixCheck,
-      eqRegions,
-      sectors,
-      eqStyles,
-      marketCaps,
-      bondTypes,
-      credit,
-      duration,
-    },
-  };
-}
 
 const FIXED_INCOME_REGION_OPTIONAL_SUBTYPES = new Set([
   "CORPORATE_BOND",
@@ -1196,117 +1059,6 @@ function sizeWeightsTotalFromMarketCap(marketCapObj, equityTotalPct) {
   return scalePctMap(bucketMap, eq);
 }
 
-function sanitizeAssetMixForExposureBuilder(allocationObj) {
-  if (!allocationObj || typeof allocationObj !== "object") return null;
-
-  const warnings = [];
-  const keys = ["equity", "bond", "cash", "other"];
-  const raw = {};
-
-  for (const k of keys) {
-    const parsed = parseNum(allocationObj[k]);
-    if (!Number.isFinite(parsed)) {
-      raw[k] = 0;
-      warnings.push({ code: "missing_or_invalid_component", component: k });
-      continue;
-    }
-    if (parsed < 0) {
-      raw[k] = 0;
-      warnings.push({ code: "negative_component_clamped_to_zero", component: k, value: +parsed.toFixed(6) });
-      continue;
-    }
-    if (parsed > 100) {
-      raw[k] = 100;
-      warnings.push({ code: "component_gt_100_clamped", component: k, value: +parsed.toFixed(6) });
-      continue;
-    }
-    raw[k] = +parsed.toFixed(6);
-  }
-
-  const values = Object.values(raw);
-  const maxV = values.reduce((m, v) => Math.max(m, v), 0);
-  const minPositive = values.filter((v) => v > 0).reduce((m, v) => Math.min(m, v), Infinity);
-
-  const looksLikePercentScale = maxV > 1.000001;
-  const mixedScaleSignal = looksLikePercentScale && Number.isFinite(minPositive) && minPositive > 0 && minPositive < 1;
-
-  const decimals = {};
-  for (const k of keys) {
-    decimals[k] = looksLikePercentScale ? raw[k] / 100.0 : raw[k];
-  }
-
-  const sumBeforeRebase = keys.reduce((acc, k) => acc + decimals[k], 0);
-  if (sumBeforeRebase <= 0.000001) return null;
-
-  if (looksLikePercentScale) {
-    warnings.push({ code: "detected_scale_0_100_divided_by_100", max_component: +maxV.toFixed(6) });
-  }
-
-  if (mixedScaleSignal) {
-    warnings.push({
-      code: "mixed_scale_signal_detected",
-      min_positive_component: +minPositive.toFixed(6),
-      max_component: +maxV.toFixed(6),
-    });
-  }
-
-  const needRebase = !approxEqual(sumBeforeRebase, 1.0, 0.01);
-  const denom = needRebase ? sumBeforeRebase : 1.0;
-
-  const asset_mix = {
-    equity: +(decimals.equity / denom).toFixed(6),
-    bond: +(decimals.bond / denom).toFixed(6),
-    cash: +(decimals.cash / denom).toFixed(6),
-    other: +(decimals.other / denom).toFixed(6),
-  };
-  const sumAfterRebase = +(asset_mix.equity + asset_mix.bond + asset_mix.cash + asset_mix.other).toFixed(6);
-
-  if (needRebase) {
-    warnings.push({
-      code: "asset_mix_rebased_to_sum_1",
-      sum_before: +sumBeforeRebase.toFixed(6),
-      sum_after: sumAfterRebase,
-    });
-  }
-
-  return {
-    asset_mix,
-    warnings,
-    diagnostics: {
-      source_scale: looksLikePercentScale ? "0_100" : "0_1",
-      sum_before: +sumBeforeRebase.toFixed(6),
-      sum_after: sumAfterRebase,
-    },
-  };
-}
-
-function normalizeExposureMapToParent01(mapObj, parentWeight01) {
-  const parent = clamp01(parentWeight01);
-  if (parent === null || parent <= 0) return null;
-  if (!mapObj || typeof mapObj !== "object") return null;
-
-  const clean = {};
-  let sum = 0;
-
-  for (const [k, rawV] of Object.entries(mapObj)) {
-    const n0 = parseNum(rawV);
-    if (!Number.isFinite(n0) || n0 <= 0) continue;
-    const n = n0 > 1 ? n0 / 100 : n0;
-    if (n <= 0) continue;
-    clean[k] = n;
-    sum += n;
-  }
-
-  if (sum <= 0.000001) return null;
-
-  const out = {};
-  for (const [k, n] of Object.entries(clean)) {
-    const w = (n / sum) * parent;
-    if (w > 0) out[k] = +w.toFixed(6);
-  }
-
-  return Object.keys(out).length ? out : null;
-}
 
 function parseStyleBoxCell(cell) {
   const s = cleanString(cell);
@@ -1402,10 +1154,6 @@ function argmaxKey(obj) {
   return bestK;
 }
 
-function normalizeTextForTokens(s) {
-  if (!s) return "";
-  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toUpperCase();
-}
 
 function buscarISINRegex(txt) {
   let m = txt.match(/[A-Z]{2}[A-Z0-9]{9}[0-9]/);
@@ -1459,7 +1207,7 @@ function parseSpanishDateToISO(value) {
     noviembre: 11, diciembre: 12,
   };
 
-  m1 = s.match(/^(\d{1,2})\s+de\s+([a-zÃ¡Ã©Ã­Ã³Ãº]+)\s+de\s+(\d{4})$/i);
+  m1 = s.match(/^(\d{1,2})\s+de\s+([a-zÃƒÂ¡ÃƒÂ©ÃƒÂ­ÃƒÂ³ÃƒÂº]+)\s+de\s+(\d{4})$/i);
   if (m1) {
     const day = parseInt(m1[1], 10);
     const mon = monthsLong[m1[2]];
@@ -1489,174 +1237,8 @@ function deleteUndefinedDeep(obj) {
 }
 
 // ============================
-// Regional normalization
 // ============================
-const REGION_MAPPINGS = {
-  united_states: ["usa", "u.s.", "u.s.a", "eeuu", "estados_unidos", "united_states"],
-  canada: ["canada", "canadÃ¡"],
-  latin_america: ["latin_america", "latinoamerica", "latinoamÃ©rica", "america_latina", "amÃ©rica_latina", "iberoamerica", "iberoamÃ©rica"],
-  eurozone: ["eurozone", "euro_zone", "zona_euro", "zona_del_euro", "emu"],
-  europe_ex_euro: [
-    "europe_ex_euro",
-    "europe_ex-euro",
-    "europa_ex_euro",
-    "europe_excluding_eurozone",
-    "europe_ex_eurozone",
-    "europa_sin_euro",
-    "europa_ex_zona_euro",
-    "europa - ex euro",
-  ],
-  europe: ["europe", "europa"],
-  united_kingdom: ["uk", "u.k.", "united_kingdom", "reino_unido", "great_britain", "gran_bretaÃ±a", "gran_bretana"],
-  europe_emerging: ["emerging_europe", "europa_emergente"],
-  japan: ["japan", "japÃ³n", "japon"],
-  developed_asia: ["developed_asia", "asia_desarrollada", "asia_developed"],
-  china: ["china"],
-  asia_emerging: ["asia_emerging", "emerging_asia", "asia_emergente", "asia - emergente"],
-  middle_east: ["middle_east", "oriente_medio", "oriente_medio_africa", "oriente_medio_/_africa"],
-  africa: ["africa", "Ã¡frica"],
-  australasia: ["australasia", "australia", "new_zealand", "nueva_zelanda"],
-  americas: ["americas", "amÃ©ricas"],
-  europe_me_africa: [
-    "europe_me_africa",
-    "emea",
-    "europa_o_medio_africa",
-    "europa_oriente_medio_africa",
-    "europe_middle_east_africa",
-    "europao._medioafrica",
-    "europao_medioafrica",
-    "europa/o_medio/africa",
-    "europa/o.medio/africa",
-  ],
-  asia: ["asia"],
-};
-
-const IGNORE_KEYS = [
-  "total",
-  "equity_region_total",
-  "fixed_income_region_total",
-  "world_regions_total",
-  "bond_region_total",
-  "cash_region_total",
-  "not_classified",
-];
-
-const BENIGN_UNKNOWN_REGION_KEYS = new Set([
-  "region",
-  "regions",
-  "world",
-  "global",
-  "n_a",
-  "na",
-]);
-
-const REGION_LOOKUP = {};
-for (const [canonical, aliases] of Object.entries(REGION_MAPPINGS)) {
-  aliases.forEach((alias) => {
-    REGION_LOOKUP[cleanRegionKey(alias)] = canonical;
-  });
-}
-
-function cleanRegionKey(k) {
-  if (!k) return "";
-  return String(k)
-    .trim()
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .replace(/[\/]/g, "_")
-    .replace(/[\s-]/g, "_")
-    .replace(/[^a-z0-9_.]/g, "");
-}
-
-function normalizeRegions(rawObj, warnings = []) {
-  if (Array.isArray(rawObj)) return null;
-  if (!rawObj || typeof rawObj !== "object") return null;
-
-  const canonicalObj = {};
-  const rawKeys = Object.keys(rawObj);
-
-  const hasSpecificEurope = rawKeys.some((k) => {
-    const cleanK = cleanRegionKey(k);
-    const can = REGION_LOOKUP[cleanK];
-    return can === "eurozone" || can === "europe_ex_euro";
-  });
-
-  for (const [rawK, rawV] of Object.entries(rawObj)) {
-    const val = clampPct(rawV);
-    if (val === null || val === 0) continue;
-
-    const cleanK = cleanRegionKey(rawK);
-
-    if (IGNORE_KEYS.includes(cleanK) || cleanK.includes("_total")) continue;
-    if (hasSpecificEurope && (cleanK === "europe" || cleanK === "europa")) continue;
-
-    let canonical = REGION_LOOKUP[cleanK];
-
-    if (canonical) {
-      canonicalObj[canonical] = (canonicalObj[canonical] || 0) + val;
-    } else {
-      if (cleanK === "other" || cleanK === "others" || cleanK === "otros") {
-        continue;
-      } else {
-        canonicalObj.other = (canonicalObj.other || 0) + val;
-        if (
-          warnings &&
-          !BENIGN_UNKNOWN_REGION_KEYS.has(cleanK) &&
-          !cleanK.endsWith("_region") &&
-          !cleanK.includes("region_") &&
-          !warnings.includes(`unknown_region_key:${rawK}`)
-        ) {
-          warnings.push(`unknown_region_key:${rawK}`);
-        }
-      }
-    }
-  }
-
-  let currentSum = 0;
-  for (const k in canonicalObj) currentSum += canonicalObj[k];
-
-  if (currentSum > 0.0) {
-    const remainder = 100.0 - currentSum;
-    if (remainder > 0.25) {
-      canonicalObj.other = (canonicalObj.other || 0) + remainder;
-      canonicalObj.other = +canonicalObj.other.toFixed(4);
-    }
-
-    if (currentSum > 101.0 && warnings) {
-      warnings.push(`regions_sum_overflow:${currentSum.toFixed(2)}`);
-    }
-  } else {
-    if (warnings && Object.keys(rawObj).length > 0) {
-      warnings.push("regions_all_unrecognized");
-    }
-  }
-
-  for (const k in canonicalObj) {
-    if (canonicalObj[k] > 100) canonicalObj[k] = 100;
-  }
-
-  return Object.keys(canonicalObj).length > 0 ? canonicalObj : null;
-}
-
-function normalizeSectors(rawObj, warnings = []) {
-  if (!rawObj || typeof rawObj !== "object") return null;
-
-  const cleanObj = {};
-  for (const [rawK, rawV] of Object.entries(rawObj)) {
-    const val = clampPct(rawV);
-    if (val !== null && val > 0) {
-      const cleanK = cleanRegionKey(rawK);
-      cleanObj[cleanK] = val;
-    } else if (rawV !== null && rawV !== 0 && rawV !== "") {
-      if (warnings && !warnings.includes(`invalid_sector_value:${rawK}`)) {
-        warnings.push(`invalid_sector_value:${rawK}`);
-      }
-    }
-  }
-
-  return Object.keys(cleanObj).length > 0 ? cleanObj : null;
-}
+// ============================
 
 // ============================
 // Derived classification helpers
@@ -1670,7 +1252,7 @@ function deriveAssetClassFromCategory(catUpper, nameUpper = "", sectors = null) 
     c.includes("LIQUIDEZ") ||
     c.includes("LIQUIDITY") ||
     c.includes("TREASURY") ||
-    c.includes("TRÃ‰SORERIE") ||
+    c.includes("TRÃƒâ€°SORERIE") ||
     c.includes("TRESORERIE") ||
     c.includes("VNAV") ||
     c.includes("LVNAV")
@@ -1763,105 +1345,6 @@ function deriveAssetClassFromCategory(catUpper, nameUpper = "", sectors = null) 
   return "Otros";
 }
 
-function hasExcludedJapanRegionText(textUpper) {
-  const c = textUpper || "";
-  return (
-    /\bEX\s*[-_/]?\s*JAP(?:AN|ON)\b/.test(c) ||
-    /\bEXCLUDING\s+JAP(?:AN|ON)\b/.test(c) ||
-    /\bSIN\s+JAPON\b/.test(c)
-  );
-}
-
-function hasJapanRegionText(textUpper) {
-  const c = textUpper || "";
-  return /\bJAP(?:AN|ON)\b/.test(c);
-}
-
-function derivePrimaryRegion(msRegions, catUpper, nameUpper = "") {
-  const c = `${catUpper || ""} ${nameUpper || ""}`;
-  const excludesJapan = hasExcludedJapanRegionText(c);
-
-  if (excludesJapan && c.includes("ASIA")) return "Asia";
-
-  if (
-    c.includes("EUROPE") ||
-    c.includes("EUROPA") ||
-    c.includes("EUROZONE") ||
-    c.includes("EMU") ||
-    c.includes("EUROLAND")
-  ) return "Europa";
-
-  if (
-    c.includes("USA") ||
-    c.includes("UNITED STATES") ||
-    c.includes("US ") ||
-    c.includes(" U.S.") ||
-    c.includes("NORTH AMERICA")
-  ) return "USA";
-
-  if (hasJapanRegionText(c) && !excludesJapan) return "JapÃ³n";
-  if (hasLatinAmericaIdentity(c)) return "Emergentes";
-  if (c.includes("EMERGING") || c.includes("EMERGENTE")) return "Emergentes";
-  if (c.includes("ASIA")) return "Asia";
-  if (c.includes("GLOBAL") || c.includes("WORLD") || c.includes("INTERNATIONAL")) return "Global";
-
-  let us = 0;
-  let europe = 0;
-  let asia = 0;
-  let emerging = 0;
-  let japan = 0;
-
-  if (msRegions && typeof msRegions === "object") {
-    const detail = msRegions.detail || null;
-    const macro = msRegions.macro || null;
-
-    if (detail && typeof detail === "object") {
-      us = (parseNum(detail.united_states) || 0) + (parseNum(detail.canada) || 0);
-      europe =
-        (parseNum(detail.eurozone) || 0) +
-        (parseNum(detail.united_kingdom) || 0) +
-        (parseNum(detail.europe_ex_euro) || 0) +
-        (parseNum(detail.europe) || 0);
-
-      emerging =
-        (parseNum(detail.latin_america) || 0) +
-        (parseNum(detail.asia_emerging) || 0) +
-        (parseNum(detail.europe_emerging) || 0) +
-        (parseNum(detail.africa) || 0) +
-        (parseNum(detail.middle_east) || 0) +
-        (parseNum(detail.emerging) || 0);
-
-      japan = parseNum(detail.japan) || 0;
-
-      asia =
-        (parseNum(detail.developed_asia) || 0) +
-        (parseNum(detail.australasia) || 0) +
-        (parseNum(detail.china) || 0);
-    }
-
-    if (macro && typeof macro === "object") {
-      if (us === 0) us = parseNum(macro.americas) || 0;
-      if (asia === 0) asia = parseNum(macro.asia) || 0;
-      if (europe === 0) europe = parseNum(macro.europe_me_africa) || 0;
-    }
-  }
-
-  const buckets = [
-    { name: "USA", value: us },
-    { name: "Europa", value: europe },
-    { name: "Asia", value: asia },
-    { name: "Emergentes", value: emerging },
-    { name: "JapÃ³n", value: japan },
-  ].sort((a, b) => b.value - a.value);
-
-  const first = buckets[0];
-  const second = buckets[1];
-
-  if (!first || first.value <= 0) return "Global";
-  if (first.value >= 30 && second && second.value >= 25) return "Global";
-  if (first.value >= 35) return first.name;
-  return "Global";
-}
 
 function deriveSubcategories(msSectors, name, category, objective = "") {
   const tags = new Set();
@@ -1922,17 +1405,6 @@ const SECTOR_SUBTYPE_FROM_SECTOR_TAG = {
 const STRICT_SECTOR_FUND_MIN_WEIGHT = 60;
 const TEXT_BACKED_SECTOR_FUND_MIN_WEIGHT = 45;
 
-function hasLatinAmericaIdentity(text = "") {
-  const c = String(text || "");
-  return (
-    c.includes("BRAZIL") ||
-    c.includes("BRASIL") ||
-    c.includes("LATIN AMERICA") ||
-    c.includes("LATAM") ||
-    c.includes("LATINOAMERICA") ||
-    c.includes("IBEROAMERICA")
-  );
-}
 
 function deriveSectorEquitySubtypeFromTags(tags = []) {
   if (!Array.isArray(tags) || !tags.length) return null;
@@ -2033,7 +1505,7 @@ function deriveAssetSubtype(catUpper, subcats = [], nameUpper = "", topSectorWei
   if (hasLatinAmericaIdentity(c)) {
     return "EMERGING_MARKETS_EQUITY";
   }
-  if (c.includes("JAPAN") || c.includes("JAPON") || c.includes("JAPÃ“N")) return "JAPAN_EQUITY";
+  if (c.includes("JAPAN") || c.includes("JAPON") || c.includes("JAPÃƒâ€œN")) return "JAPAN_EQUITY";
   if (c.includes("ASIA PACIFIC") || c.includes("ASIA EX")) return "ASIA_PACIFIC_EQUITY";
   if (c.includes("EMERGING") || c.includes("EMERGENTE")) return "EMERGING_MARKETS_EQUITY";
 
@@ -2257,8 +1729,8 @@ function repairJsonCandidate(rawText) {
     .replace(/^\uFEFF/, "")
     .replace(/\u0000/g, "")
     .replace(/^\s*json\s*[:=-]?\s*/i, "")
-    .replace(/[â€œâ€]/g, "\"")
-    .replace(/[â€˜â€™]/g, "'")
+    .replace(/[Ã¢â‚¬Å“Ã¢â‚¬Â]/g, "\"")
+    .replace(/[Ã¢â‚¬ËœÃ¢â‚¬â„¢]/g, "'")
     .replace(/\bNaN\b/g, "null")
     .replace(/\bundefined\b/g, "null")
     .replace(/,\s*([}\]])/g, "$1")
@@ -2325,7 +1797,7 @@ function parseGeminiJsonResponse(rawText) {
     } catch (_) {}
   }
 
-  throw new Error("Gemini no devolviÃ³ un JSON objeto parseable");
+  throw new Error("Gemini no devolviÃƒÂ³ un JSON objeto parseable");
 }
 
 // ============================
@@ -2336,8 +1808,8 @@ async function extraerMSConGemini(textoPDF) {
   const textoSeguro = (textoPDF || "").slice(0, 240000);
 
   const prompt = `
-Devuelve SOLO JSON vÃ¡lido (sin markdown, sin comentarios).
-El PDF es un informe Morningstar de 1 pÃ¡gina (ES). Extrae SOLO estos campos si existen:
+Devuelve SOLO JSON vÃƒÂ¡lido (sin markdown, sin comentarios).
+El PDF es un informe Morningstar de 1 pÃƒÂ¡gina (ES). Extrae SOLO estos campos si existen:
 
 {
   "isin": "LU0000000000",
@@ -2370,18 +1842,18 @@ El PDF es un informe Morningstar de 1 pÃ¡gina (ES). Extrae SOLO estos campos s
   "objective": null
 }
 
-- rating_stars es el "Rating Morningstarâ„¢" (estrellas 1..5).
-- category_morningstar debe ser el texto de categorÃ­a Morningstar mÃ¡s exacto posible (sin traducir ni inventar).
-- Todos los porcentajes deben ser numÃ©ricos en escala 0..100 (sin sÃ­mbolo %).
+- rating_stars es el "Rating MorningstarÃ¢â€žÂ¢" (estrellas 1..5).
+- category_morningstar debe ser el texto de categorÃƒÂ­a Morningstar mÃƒÂ¡s exacto posible (sin traducir ni inventar).
+- Todos los porcentajes deben ser numÃƒÂ©ricos en escala 0..100 (sin sÃƒÂ­mbolo %).
 - No inventes valores: si falta un dato, usa null.
-- Evita campos agregados inventados: no aÃ±adas "total" en sectors o regions.
+- Evita campos agregados inventados: no aÃƒÂ±adas "total" en sectors o regions.
 - En fixed_income prioriza: effective_duration, avg_credit_quality, credit_quality, maturity_allocation.
-- Devuelve un Ãºnico objeto JSON en la raÃ­z (no array y sin wrappers tipo data/result/output).
-- Incluye SIEMPRE en la raÃ­z: category_morningstar, asset_allocation, regions_detail, sectors, equity_style y fixed_income.
-- Si no puedes completar un bloque, usa {} para objetos de distribuciÃ³n y null para escalares; no inventes sumas.
-- NO extraigas: TER, retrocesiones, comisiÃ³n de entrada o salida.
-- NO extraigas: fecha creaciÃ³n, gestor, fecha incorporaciÃ³n, VL/fecha VL, domicilio, UCITS.
-- Si algo no estÃ¡, pon null.
+- Devuelve un ÃƒÂºnico objeto JSON en la raÃƒÂ­z (no array y sin wrappers tipo data/result/output).
+- Incluye SIEMPRE en la raÃƒÂ­z: category_morningstar, asset_allocation, regions_detail, sectors, equity_style y fixed_income.
+- Si no puedes completar un bloque, usa {} para objetos de distribuciÃƒÂ³n y null para escalares; no inventes sumas.
+- NO extraigas: TER, retrocesiones, comisiÃƒÂ³n de entrada o salida.
+- NO extraigas: fecha creaciÃƒÂ³n, gestor, fecha incorporaciÃƒÂ³n, VL/fecha VL, domicilio, UCITS.
+- Si algo no estÃƒÂ¡, pon null.
 
 TEXTO:
 """${textoSeguro}"""
@@ -2414,7 +1886,7 @@ TEXTO:
     }
   }
 
-  throw new Error("Gemini no devolviÃ³ JSON vÃ¡lido.");
+  throw new Error("Gemini no devolviÃƒÂ³ JSON vÃƒÂ¡lido.");
 }
 
 // ============================
@@ -3533,7 +3005,7 @@ async function main() {
   );
 
   if (!fs.existsSync(INPUT_DIR)) {
-    console.error(`âŒ No existe carpeta: ${INPUT_DIR}`);
+    console.error(`Ã¢ÂÅ’ No existe carpeta: ${INPUT_DIR}`);
     process.exit(1);
   }
 
@@ -3544,7 +3016,7 @@ async function main() {
   if (LIMIT && Number.isFinite(LIMIT)) files = files.slice(0, LIMIT);
 
   if (!files.length) {
-    console.log("â„¹ï¸ No hay PDFs para procesar.");
+    console.log("Ã¢â€žÂ¹Ã¯Â¸Â No hay PDFs para procesar.");
     if (RUNTIME_OPTIONS.dryRun) {
       const { artifactPath } = writeParserDryRunArtifact({ files, ok: 0, review: 0, fail: 0 });
       console.log(`Dry-run artifact: ${artifactPath}`);
@@ -3552,15 +3024,15 @@ async function main() {
     return 0;
   }
 
-  console.log(`ðŸ“¦ PDFs: ${files.length} | concurrency=${CONCURRENCY}${BATCH_ID ? ` | batch=${BATCH_ID}` : ""}`);
-  console.log(`ðŸ¤– Gemini model: ${MODEL_NAME}`);
+  console.log(`Ã°Å¸â€œÂ¦ PDFs: ${files.length} | concurrency=${CONCURRENCY}${BATCH_ID ? ` | batch=${BATCH_ID}` : ""}`);
+  console.log(`Ã°Å¸Â¤â€“ Gemini model: ${MODEL_NAME}`);
 
   let writer = null;
   if (RUNTIME_OPTIONS.writeEnabled) {
     writer = getFirestoreDb().bulkWriter();
   writer.onWriteError((err) => {
     if (err.failedAttempts < 3) return true;
-    console.error("âŒ BulkWriter error:", err);
+    console.error("Ã¢ÂÅ’ BulkWriter error:", err);
     return false;
   });
   }
@@ -3576,7 +3048,7 @@ async function main() {
         const r = await processPdfFile(f, writer, RUNTIME_OPTIONS);
         if (r.routingStatus === PIPELINE_STATUS.REVIEW) {
           review++;
-          console.log(`ðŸŸ¡ ${r.fileName} -> ${r.isin} [REVIEW]`);
+          console.log(`Ã°Å¸Å¸Â¡ ${r.fileName} -> ${r.isin} [REVIEW]`);
           recordFileMove(
             moveProcessedPdfAfterRouting({
               fileName: f,
@@ -3593,7 +3065,7 @@ async function main() {
           );
         } else if (r.routingStatus === PIPELINE_STATUS.OK) {
           ok++;
-          console.log(`âœ… ${r.fileName} -> ${r.isin}`);
+          console.log(`Ã¢Å“â€¦ ${r.fileName} -> ${r.isin}`);
           recordFileMove(
             moveProcessedPdfAfterRouting({
               fileName: f,
@@ -3610,7 +3082,7 @@ async function main() {
           );
         } else {
           fail++;
-          console.error(`âŒ ${r.fileName} -> ${r.isin} [${r.routingStatus}] ${r.routingReason || ""}`.trim());
+          console.error(`Ã¢ÂÅ’ ${r.fileName} -> ${r.isin} [${r.routingStatus}] ${r.routingReason || ""}`.trim());
           recordFileMove(
             moveProcessedPdfAfterRouting({
               fileName: f,
@@ -3628,7 +3100,7 @@ async function main() {
         }
       } catch (e) {
         fail++;
-        console.error(`âŒ ${f}: ${e.message}`);
+        console.error(`Ã¢ÂÅ’ ${f}: ${e.message}`);
         const manifestEntry = findLatestManifestEntryForFile(f);
         recordFileMove(
           moveProcessedPdfAfterRouting({
@@ -3679,7 +3151,7 @@ async function main() {
     "utf-8"
   );
 
-  console.log(`\nâœ… FIN | OK=${ok} | REVIEW=${review} | ERROR=${fail}`);
+  console.log(`\nÃ¢Å“â€¦ FIN | OK=${ok} | REVIEW=${review} | ERROR=${fail}`);
   if (RUNTIME_OPTIONS.dryRun) {
     const { artifactPath } = writeParserDryRunArtifact({ files, ok, review, fail });
     console.log(`Dry-run artifact: ${artifactPath}`);
@@ -3709,6 +3181,29 @@ module.exports = {
   uniqueErrorPdfPath,
   configPathsResolved,
   RUNTIME_OPTIONS,
+
+  // --- Temporary exports for REFACTOR-0 golden tests (pure functions) ---
+  // Will be removed once modules are extracted in REFACTOR-1.
+  deriveAssetClassFromCategory,
+  deriveAssetSubtype,
+  deriveSubcategories,
+  deriveFlags,
+  normalizeSubtypeByAssetType,
+  normalizeRegions,
+  normalizeSectors,
+  normalizeFixedIncome,
+  sanitizeAssetMixForExposureBuilder,
+  validateAssetMix,
+  validateCanonicalMath,
+  decidePipelineStatus,
+  validateRawLlMSchema,
+  parseGeminiJsonResponse,
+  parseStyleBoxCell,
+  cleanString,
+  parseNum,
+  clampPct,
+  clamp01,
+  approxEqual,
 };
 
 if (IS_MAIN) {

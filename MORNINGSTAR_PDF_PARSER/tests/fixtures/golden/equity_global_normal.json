@@ -1,0 +1,62 @@
+{
+  "_description": "Golden fixture: Global equity fund (category contains Mixto keyword → classified as Mixto)",
+  "_source": "Synthetic fixture based on IE0003867441 patterns, verified against actual parser logic",
+  "_purpose": "Freeze classification/exposure outputs for regression detection during REFACTOR-1",
+
+  "input": {
+    "isin": "IE0003867441",
+    "name": "Vanguard Global Stock Index Fund",
+    "category_morningstar": "RV Global Cap. Grande Mixto",
+    "asset_allocation": { "equity": 98.5, "bond": 0.0, "cash": 1.5, "other": 0.0 },
+    "regions_detail": {
+      "united_states": 62.5,
+      "eurozone": 8.2,
+      "united_kingdom": 3.8,
+      "japan": 6.1,
+      "developed_asia": 2.4,
+      "canada": 3.1,
+      "australasia": 2.0,
+      "asia_emerging": 1.8,
+      "europe_ex_euro": 4.5,
+      "latin_america": 1.2,
+      "middle_east": 0.6,
+      "africa": 0.3
+    },
+    "sectors": {
+      "technology": 23.5,
+      "financial_services": 15.8,
+      "healthcare": 11.2,
+      "industrials": 10.5,
+      "consumer_cyclical": 10.1,
+      "communication_services": 7.8,
+      "consumer_defensive": 6.3,
+      "energy": 4.5,
+      "basic_materials": 3.8,
+      "real_estate": 2.5,
+      "utilities": 2.8
+    },
+    "equity_style_box_cell": "Large-Blend",
+    "equity_market_cap": { "giant": 52, "large": 30, "mid": 14, "small": 3, "micro": 1 },
+    "equity_style": { "value": 30, "blend": 40, "growth": 30 },
+    "fixed_income": null,
+    "objective": "The fund seeks to track the performance of the MSCI World Index."
+  },
+
+  "expected": {
+    "derived_asset_class": "Mixto",
+    "asset_type": "allocation",
+    "asset_subtype": "GLOBAL_EQUITY",
+    "asset_subtype_after_normalization": "FLEXIBLE_ALLOCATION",
+    "subtype_incompatible": true,
+    "region_primary": "Global",
+    "asset_mix": { "equity": 0.985, "bond": 0, "cash": 0.015, "other": 0 },
+    "asset_mix_sum_valid": true,
+    "manual_fields_absent": true,
+    "retrocession_absent": true,
+    "economic_exposure_absent": true,
+    "classification_v2_version": "v2",
+    "portfolio_exposure_v2_version": "v2",
+    "market_cap_bias": "large",
+    "quality_ok": true
+  }
+}

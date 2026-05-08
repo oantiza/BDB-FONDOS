@@ -1,0 +1,47 @@
+{
+  "_description": "Golden fixture: Money market fund (short-term, subtype derived via normalization)",
+  "_source": "Synthetic fixture verified against actual parser logic",
+  "_purpose": "Freeze money_market classification for regression detection",
+
+  "input": {
+    "isin": "LU0208853944",
+    "name": "Amundi Cash EUR Fund",
+    "category_morningstar": "Monetario EUR",
+    "asset_allocation": { "equity": 0.0, "bond": 15.0, "cash": 85.0, "other": 0.0 },
+    "regions_detail": {
+      "eurozone": 90.0,
+      "other": 10.0
+    },
+    "sectors": null,
+    "equity_style_box_cell": null,
+    "equity_market_cap": null,
+    "equity_style": null,
+    "fixed_income": {
+      "effective_duration": 0.3,
+      "effective_maturity": 0.5,
+      "avg_credit_quality": "A",
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
+    "objective": "Inversión en instrumentos monetarios y deuda a corto plazo."
+  },
+
+  "expected": {
+    "derived_asset_class": "Monetario",
+    "asset_type": "money_market",
+    "asset_subtype_raw": "GLOBAL_EQUITY",
+    "asset_subtype_after_normalization": "MONEY_MARKET",
+    "subtype_incompatible": true,
+    "region_primary": "Europa",
+    "asset_mix": { "equity": 0, "bond": 0.15, "cash": 0.85, "other": 0 },
+    "asset_mix_sum_valid": true,
+    "manual_fields_absent": true,
+    "retrocession_absent": true,
+    "economic_exposure_absent": true,
+    "classification_v2_version": "v2",
+    "portfolio_exposure_v2_version": "v2",
+    "duration_bucket": "ultrashort",
+    "quality_ok": true
+  }
+}
