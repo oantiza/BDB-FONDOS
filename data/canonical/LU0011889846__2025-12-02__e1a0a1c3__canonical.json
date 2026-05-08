@@ -2,7 +2,7 @@
   "isin": "LU0011889846",
   "name": "Janus Henderson Horizon Euroland Fund A2 EUR",
   "currency": "EUR",
-  "fileName": "morningstarreport20251202070421.pdf",
+  "fileName": "LU0011889846__2025-12-02__e1a0a1c3.pdf",
   "stableBaseName": "LU0011889846__2025-12-02__e1a0a1c3",
   "report_date": "2025-12-02",
   "ms": {
@@ -56,59 +56,59 @@
         "blend": 0,
         "growth": 0
       },
-      "style_box_cell": "Large-Blend"
+      "style_box_cell": null
     },
     "fixed_income": null,
     "holdings_top10": [
       {
         "name": "ASML Holding NV",
         "weight": 6.23,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Banco Santander SA",
         "weight": 4.76,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "UniCredit SpA",
         "weight": 4.67,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Allianz SE",
         "weight": 4.16,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "ASM International NV",
         "weight": 3.9,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Poste Italiane SpA",
         "weight": 3.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Siemens AG",
         "weight": 3.43,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "RELX PLC",
         "weight": 3.12,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Prysmian SpA",
         "weight": 3.1,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Iberdrola SA",
         "weight": 2.98,
-        "sector": "Utilities"
+        "sector": null
       }
     ],
     "holdings_stats": {
@@ -168,10 +168,10 @@
     },
     "style_bias": {
       "equity": {
-        "style_box_cell": "Large-Blend",
+        "style_box_cell": null,
         "weight_total": 98.16,
         "size_bucket": "large",
-        "style": "blend",
+        "style": null,
         "size_weights_total": {
           "small": 3.0037,
           "mid": 18.9841,
@@ -188,7 +188,7 @@
     "commercial_type": "RV Zona Euro Cap. Grande",
     "region_primary": "Europa",
     "region_secondary": null,
-    "equity_style_box": "Large-Blend",
+    "equity_style_box": null,
     "market_cap_bias": "large",
     "fixed_income_type": null,
     "credit_bucket": null,
@@ -248,7 +248,7 @@
   },
   "quality": {
     "parsed_at": {},
-    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
     "source_pdf_hash": "89da83948197b806c600ce948c8128b4",
     "warnings": [],
     "ok": true
@@ -318,5 +318,5 @@
     "status": "ok",
     "reason": null
   },
-  "generated_at": "2026-04-22T09:27:11.203Z"
+  "generated_at": "2026-05-07T14:59:20.962Z"
 }

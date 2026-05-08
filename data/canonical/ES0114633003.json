@@ -2,133 +2,125 @@
   "isin": "ES0114633003",
   "name": "Panda Agriculture & Water Fund FI",
   "currency": "EUR",
-  "fileName": "morningstarreport20260312091747.pdf",
-  "stableBaseName": "ES0114633003__2026-03-11__d7862ab1",
-  "report_date": "2026-03-11",
+  "fileName": "ES0114633003__2025-12-02__cfec3185.pdf",
+  "stableBaseName": "ES0114633003__unknown_date__cfec3185",
+  "report_date": null,
   "ms": {
-    "report_date": "2026-03-11",
+    "report_date": null,
     "category_morningstar": "Sector Equity Agriculture",
     "rating_stars": 5,
     "medalist_rating": null,
-    "sustainability_rating": 0,
+    "sustainability_rating": null,
     "portfolio": {
-      "as_of": "2026-01-31",
+      "as_of": "2025-07-30",
       "asset_allocation": {
-        "equity": 91.95,
+        "equity": 91.57,
         "bond": 0,
-        "cash": 8.05,
+        "cash": 8.43,
         "other": 0
       }
     },
     "sectors": {
-      "financial_services": 0.37,
-      "industrials": 24.74,
-      "healthcare": 7.91,
-      "consumer_cyclical": 3.12,
-      "consumer_defensive": 45.65,
-      "basic_materials": 18.21
+      "financial_services": 0.48,
+      "industrials": 23.57,
+      "healthcare": 8.41,
+      "consumer_cyclical": 3.75,
+      "consumer_defensive": 48.51,
+      "real_estate": 0.2,
+      "basic_materials": 15.09
     },
     "regions": {
       "macro": {
-        "americas": 16.29,
-        "europe_me_africa": 44.12,
-        "asia": 39.59
+        "americas": 21.04,
+        "europe_me_africa": 34.8,
+        "asia": 44.17
       },
       "detail": {
-        "other": 60.41,
-        "united_states": 5.37,
-        "canada": 0.37,
-        "latin_america": 10.56,
-        "united_kingdom": 9.34,
-        "eurozone": 18.52,
-        "europe_ex_euro": 14.42,
-        "europe_emerging": 0.44,
-        "middle_east": 1.39,
-        "asia": 39.59,
-        "japan": 35.58,
-        "australasia": 2.08,
-        "asia_emerging": 1.93
+        "united_states": 7.21,
+        "canada": 0.48,
+        "latin_america": 13.35,
+        "united_kingdom": 8.4,
+        "eurozone": 14.97,
+        "europe_ex_euro": 9.12,
+        "europe_emerging": 0.33,
+        "middle_east": 1.98,
+        "japan": 36.92,
+        "australasia": 5.77,
+        "other": 1.48
       }
     },
     "equity_style": {
       "market_cap": {
         "giant": 0,
-        "large": 4.66,
-        "mid": 27.77,
-        "small": 40.81,
-        "micro": 26.76
+        "large": 9.27,
+        "mid": 27.21,
+        "small": 41.99,
+        "micro": 21.53
       },
       "style": {
         "value": 0,
-        "blend": 0,
+        "blend": 100,
         "growth": 0
       },
-      "style_box_cell": null
+      "style_box_cell": "Small-Blend"
     },
-    "fixed_income": {
-      "effective_duration": 0,
-      "effective_maturity": 0,
-      "avg_credit_quality": null,
-      "credit_quality": null,
-      "maturity_allocation": null,
-      "coupon_allocation": null
-    },
+    "fixed_income": null,
     "holdings_top10": [
       {
-        "name": "K+S AG",
-        "weight": 3.9,
-        "sector": "basic_materials"
-      },
-      {
-        "name": "KENKO Mayonnaise Co Ltd",
-        "weight": 3.69,
+        "name": "BRF SA ADR",
+        "weight": 3.63,
         "sector": "consumer_defensive"
       },
       {
-        "name": "BioGaia AB Class B",
-        "weight": 3.67,
-        "sector": "healthcare"
-      },
-      {
         "name": "EBARA JITSUGYO Co Ltd",
-        "weight": 3.22,
+        "weight": 3.28,
         "sector": "industrials"
       },
       {
-        "name": "AEP Plantations PLC",
+        "name": "KENKO Mayonnaise Co Ltd",
         "weight": 3.19,
         "sector": "consumer_defensive"
       },
       {
-        "name": "Interpump Group SpA",
-        "weight": 3,
-        "sector": "industrials"
-      },
-      {
-        "name": "Genus PLC",
-        "weight": 2.86,
+        "name": "BioGaia AB Class B",
+        "weight": 3.11,
         "sector": "healthcare"
       },
       {
-        "name": "T Hasegawa Co Ltd",
-        "weight": 2.77,
-        "sector": "basic_materials"
-      },
-      {
-        "name": "Marfrig Global Foods SA ADR",
-        "weight": 2.75,
+        "name": "M P Evans Group PLC",
+        "weight": 3.08,
         "sector": "consumer_defensive"
       },
       {
-        "name": "Maruzen Co Ltd",
-        "weight": 2.6,
+        "name": "Interpump Group SpA",
+        "weight": 3.01,
         "sector": "industrials"
+      },
+      {
+        "name": "T Hasegawa Co Ltd",
+        "weight": 2.8,
+        "sector": "basic_materials"
+      },
+      {
+        "name": "Sumitomo Forestry Co Ltd",
+        "weight": 2.71,
+        "sector": "consumer_cyclical"
+      },
+      {
+        "name": "Adecoagro SA",
+        "weight": 2.67,
+        "sector": "consumer_defensive"
+      },
+      {
+        "name": "Genus PLC",
+        "weight": 2.63,
+        "sector": "healthcare"
       }
     ],
     "holdings_stats": {
-      "holdings_count_equity": 70,
+      "holdings_count_equity": 69,
       "holdings_count_bond": 0,
-      "top10_weight": 31.64
+      "top10_weight": 30.12
     },
     "costs": {
       "management_fee": 1.8
@@ -145,7 +137,7 @@
       "theme:water"
     ],
     "top_sector": "consumer_defensive",
-    "top_sector_weight": 45.65,
+    "top_sector_weight": 48.51,
     "is_sector_fund": true,
     "is_thematic": true,
     "is_index_like": false,
@@ -159,47 +151,48 @@
     ],
     "portfolio_exposure": {
       "asset_allocation_total": {
-        "equity": 91.95,
+        "equity": 91.57,
         "bond": 0,
-        "cash": 8.05,
+        "cash": 8.43,
         "other": 0
       },
       "equity_sectors_total": {
-        "financial_services": 0.3402,
-        "industrials": 22.7484,
-        "healthcare": 7.2732,
-        "consumer_cyclical": 2.8688,
-        "consumer_defensive": 41.9752,
-        "basic_materials": 16.7441
+        "financial_services": 0.4395,
+        "industrials": 21.583,
+        "healthcare": 7.701,
+        "consumer_cyclical": 3.4339,
+        "consumer_defensive": 44.4206,
+        "real_estate": 0.1831,
+        "basic_materials": 13.8179
       },
       "equity_regions_total": {
-        "other": 55.547,
-        "united_states": 4.9377,
-        "canada": 0.3402,
-        "latin_america": 9.7099,
-        "united_kingdom": 8.5881,
-        "eurozone": 17.0291,
-        "europe_ex_euro": 13.2592,
-        "europe_emerging": 0.4046,
-        "middle_east": 1.2781,
-        "asia": 36.403,
-        "japan": 32.7158,
-        "australasia": 1.9126,
-        "asia_emerging": 1.7746
+        "united_states": 6.6022,
+        "canada": 0.4395,
+        "latin_america": 12.2246,
+        "united_kingdom": 7.6919,
+        "eurozone": 13.708,
+        "europe_ex_euro": 8.3512,
+        "europe_emerging": 0.3022,
+        "middle_east": 1.8131,
+        "japan": 33.8076,
+        "australasia": 5.2836,
+        "other": 1.3552
       }
     },
     "style_bias": {
       "equity": {
-        "style_box_cell": null,
-        "weight_total": 91.95,
+        "style_box_cell": "Small-Blend",
+        "weight_total": 91.57,
         "size_bucket": "small",
-        "style": null,
+        "style": "blend",
         "size_weights_total": {
-          "small": 62.1306,
-          "mid": 25.5345,
-          "large": 4.2849
+          "small": 58.1653,
+          "mid": 24.9162,
+          "large": 8.4885
         },
-        "style_weights_total": null
+        "style_weights_total": {
+          "blend": 91.57
+        }
       }
     }
   },
@@ -210,11 +203,11 @@
     "commercial_type": "Sector Equity Agriculture",
     "region_primary": "Global",
     "region_secondary": null,
-    "equity_style_box": null,
+    "equity_style_box": "Small-Blend",
     "market_cap_bias": "small",
-    "fixed_income_type": "flexible",
+    "fixed_income_type": null,
     "credit_bucket": null,
-    "duration_bucket": "ultrashort",
+    "duration_bucket": null,
     "strategy_tags": [
       "sector_concentrated:consumer_defensive",
       "sector:consumer_defensive",
@@ -226,50 +219,47 @@
       "ms.category_morningstar",
       "ms.sectors",
       "ms.regions",
-      "ms.equity_style",
-      "ms.fixed_income"
+      "ms.equity_style"
     ],
-    "warnings": [
-      "credit_missing",
-      "fi_type_inference_weak"
-    ]
+    "warnings": []
   },
   "portfolio_exposure_v2": {
     "version": "v2",
     "asset_mix": {
-      "equity": 0.9195,
+      "equity": 0.9157,
       "bond": 0,
-      "cash": 0.0805,
+      "cash": 0.0843,
       "other": 0
     },
     "equity_regions": {
-      "other": 0.198247,
-      "united_states": 0.017623,
-      "canada": 0.121417,
-      "latin_america": 0.034655,
-      "united_kingdom": 0.030651,
-      "eurozone": 0.060777,
-      "europe_ex_euro": 0.047322,
-      "europe_emerging": 0.144402,
-      "middle_east": 0.004562,
-      "asia": 0.129922,
-      "japan": 0.116763,
-      "australasia": 0.006826,
-      "asia_emerging": 0.006334
+      "united_states": 0.036639,
+      "canada": 0.243898,
+      "latin_america": 0.06784,
+      "united_kingdom": 0.042686,
+      "eurozone": 0.076072,
+      "europe_ex_euro": 0.046345,
+      "europe_emerging": 0.167704,
+      "middle_east": 0.010062,
+      "japan": 0.187614,
+      "australasia": 0.029321,
+      "other": 0.007521
     },
     "sectors": {
-      "financial_services": 0.248997,
-      "industrials": 0.166498,
-      "healthcare": 0.053233,
-      "consumer_cyclical": 0.020997,
-      "consumer_defensive": 0.307222,
-      "basic_materials": 0.122552
+      "financial_services": 0.262668,
+      "industrials": 0.128991,
+      "healthcare": 0.046025,
+      "consumer_cyclical": 0.020523,
+      "consumer_defensive": 0.26548,
+      "real_estate": 0.10943,
+      "basic_materials": 0.082583
     },
-    "equity_styles": null,
+    "equity_styles": {
+      "blend": 0.9157
+    },
     "market_caps": {
-      "small": 0.621306,
-      "mid": 0.255345,
-      "large": 0.042849
+      "small": 0.581653,
+      "mid": 0.249162,
+      "large": 0.084885
     },
     "bond_types": null,
     "credit": null,
@@ -277,20 +267,15 @@
     "alternatives": null,
     "exposure_confidence": 0.99,
     "warnings": [
-      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=91.95",
-      "credit_missing"
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=91.57"
     ]
   },
   "quality": {
     "parsed_at": {},
     "parser_version": "ms_pdf_v5_gemini-2.5-flash",
-    "source_pdf_hash": "fb9a35bf71fa36707cce88070fb1f127",
+    "source_pdf_hash": "21ad06e7f333c9d21de8f93f6c600164",
     "warnings": [
-      "unknown_region_key:América",
-      "unknown_region_key:Europa/O. Medio/Africa",
-      "regions_sum_overflow:200.00",
-      "fi_missing_credit_data",
-      "fi_type_inference_weak"
+      "unknown_region_key:Asia - Desarrollada"
     ],
     "ok": true
   },
@@ -304,9 +289,9 @@
         "errors": [],
         "warnings": [],
         "normalized": {
-          "equity": 0.9195,
+          "equity": 0.9157,
           "bond": 0,
-          "cash": 0.0805,
+          "cash": 0.0843,
           "other": 0,
           "sum": 1
         }
@@ -315,25 +300,25 @@
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": 0.919501
+        "sum": 0.915702
       },
       "sectors": {
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": 0.919499
+        "sum": 0.9157
       },
       "eqStyles": {
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": null
+        "sum": 0.9157
       },
       "marketCaps": {
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": 0.9195
+        "sum": 0.9157
       },
       "bondTypes": {
         "ok": true,
@@ -359,5 +344,5 @@
     "status": "ok",
     "reason": null
   },
-  "generated_at": "2026-04-22T16:55:33.613Z"
+  "generated_at": "2026-05-07T14:58:55.278Z"
 }

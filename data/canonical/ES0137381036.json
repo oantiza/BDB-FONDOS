@@ -2,11 +2,11 @@
   "isin": "ES0137381036",
   "name": "Gesconsult Renta Variable Iberia A FI",
   "currency": "EUR",
-  "fileName": "morningstarreport20251202042641.pdf",
-  "stableBaseName": "ES0137381036__2025-12-02__c04c65b5",
-  "report_date": "2025-12-02",
+  "fileName": "ES0137381036__2025-12-02__c04c65b5.pdf",
+  "stableBaseName": "ES0137381036__unknown_date__c04c65b5",
+  "report_date": null,
   "ms": {
-    "report_date": "2025-12-02",
+    "report_date": null,
     "category_morningstar": "RV España",
     "rating_stars": 2,
     "medalist_rating": null,
@@ -37,6 +37,7 @@
         "europe_me_africa": 100
       },
       "detail": {
+        "other": 100,
         "united_kingdom": 3.62,
         "eurozone": 96.38
       }
@@ -49,10 +50,21 @@
         "small": 12.3,
         "micro": 9.32
       },
-      "style": null,
-      "style_box_cell": "Large-Blend"
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
     },
-    "fixed_income": null,
+    "fixed_income": {
+      "effective_duration": 0,
+      "effective_maturity": 0,
+      "avg_credit_quality": null,
+      "credit_quality": null,
+      "maturity_allocation": null,
+      "coupon_allocation": null
+    },
     "holdings_top10": [
       {
         "name": "Iberdrola SA",
@@ -153,24 +165,23 @@
         "basic_materials": 5.4586
       },
       "equity_regions_total": {
+        "other": 93.31,
         "united_kingdom": 3.3778,
         "eurozone": 89.9322
       }
     },
     "style_bias": {
       "equity": {
-        "style_box_cell": "Large-Blend",
+        "style_box_cell": null,
         "weight_total": 93.31,
         "size_bucket": "large",
-        "style": "blend",
+        "style": null,
         "size_weights_total": {
           "small": 20.1736,
           "mid": 26.2108,
           "large": 46.9256
         },
-        "style_weights_total": {
-          "blend": 93.31
-        }
+        "style_weights_total": null
       }
     }
   },
@@ -181,11 +192,11 @@
     "commercial_type": "RV España",
     "region_primary": "Europa",
     "region_secondary": null,
-    "equity_style_box": "Large-Blend",
+    "equity_style_box": null,
     "market_cap_bias": "large",
-    "fixed_income_type": null,
+    "fixed_income_type": "corporate",
     "credit_bucket": null,
-    "duration_bucket": null,
+    "duration_bucket": "ultrashort",
     "strategy_tags": [],
     "vehicle_complexity": "active",
     "classification_confidence": 0.99,
@@ -193,9 +204,12 @@
       "ms.category_morningstar",
       "ms.sectors",
       "ms.regions",
-      "ms.equity_style"
+      "ms.equity_style",
+      "ms.fixed_income"
     ],
-    "warnings": []
+    "warnings": [
+      "credit_missing"
+    ]
   },
   "portfolio_exposure_v2": {
     "version": "v2",
@@ -206,8 +220,9 @@
       "other": 0
     },
     "equity_regions": {
-      "united_kingdom": 0.033778,
-      "eurozone": 0.899322
+      "other": 0.46655,
+      "united_kingdom": 0.016889,
+      "eurozone": 0.449661
     },
     "sectors": {
       "technology": 0.053098,
@@ -221,28 +236,35 @@
       "real_estate": 0.059724,
       "basic_materials": 0.054591
     },
-    "equity_styles": {
-      "blend": 0.9331
-    },
+    "equity_styles": null,
     "market_caps": {
       "small": 0.201736,
       "mid": 0.262108,
       "large": 0.469256
     },
-    "bond_types": null,
+    "bond_types": {
+      "corporate": 0.0549
+    },
     "credit": null,
-    "duration": null,
+    "duration": {
+      "ultrashort": 0.0549
+    },
     "alternatives": null,
     "exposure_confidence": 0.99,
     "warnings": [
-      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.31"
+      "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=93.31",
+      "credit_missing"
     ]
   },
   "quality": {
     "parsed_at": {},
-    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
     "source_pdf_hash": "732ab64e8a387cd2501dde96be216552",
-    "warnings": [],
+    "warnings": [
+      "unknown_region_key:Europa/O. Medio/Africa",
+      "regions_sum_overflow:200.00",
+      "fi_missing_credit_data"
+    ],
     "ok": true
   },
   "validation": {
@@ -278,7 +300,7 @@
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": 0.9331
+        "sum": null
       },
       "marketCaps": {
         "ok": true,
@@ -290,7 +312,7 @@
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": null
+        "sum": 0.0549
       },
       "credit": {
         "ok": true,
@@ -302,7 +324,7 @@
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": null
+        "sum": 0.0549
       }
     }
   },
@@ -310,5 +332,5 @@
     "status": "ok",
     "reason": null
   },
-  "generated_at": "2026-04-22T09:24:28.056Z"
+  "generated_at": "2026-05-07T14:58:55.328Z"
 }

@@ -2,7 +2,7 @@
   "isin": "LU0073229253",
   "name": "Morgan Stanley Investment Funds - Asia Equity Fund A",
   "currency": "USD",
-  "fileName": "morningstarreport20251229072015.pdf",
+  "fileName": "LU0073229253__2025-12-29__73608fc3.pdf",
   "stableBaseName": "LU0073229253__2025-12-29__73608fc3",
   "report_date": "2025-12-29",
   "ms": {
@@ -152,7 +152,7 @@
   "derived": {
     "asset_class": "RV",
     "asset_subtype": "THEMATIC_EQUITY",
-    "primary_region": "Japón",
+    "primary_region": "JapÃ³n",
     "subcategories": [
       "sector:financials",
       "sector:technology",
@@ -217,7 +217,7 @@
     "asset_type": "equity",
     "asset_subtype": "THEMATIC_EQUITY",
     "commercial_type": "RV Asia (ex-Japón)",
-    "region_primary": "Japón",
+    "region_primary": "JapÃ³n",
     "region_secondary": null,
     "equity_style_box": null,
     "market_cap_bias": "large",
@@ -368,5 +368,5 @@
     "status": "ok",
     "reason": null
   },
-  "generated_at": "2026-04-22T16:44:21.662Z"
+  "generated_at": "2026-05-07T14:59:52.230Z"
 }

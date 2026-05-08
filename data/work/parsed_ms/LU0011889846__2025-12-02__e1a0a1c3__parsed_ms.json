@@ -1,9 +1,9 @@
 {
   "isin": "LU0011889846",
-  "fileName": "morningstarreport20251202070421.pdf",
+  "fileName": "LU0011889846__2025-12-02__e1a0a1c3.pdf",
   "report_date": "2025-12-02",
-  "model": "gemini-2.5-pro",
-  "parsed_at": "2026-04-22T09:27:11.203Z",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-05-07T14:59:20.961Z",
   "ms": {
     "report_date": "2025-12-02",
     "category_morningstar": "RV Zona Euro Cap. Grande",
@@ -55,59 +55,59 @@
         "blend": 0,
         "growth": 0
       },
-      "style_box_cell": "Large-Blend"
+      "style_box_cell": null
     },
     "fixed_income": null,
     "holdings_top10": [
       {
         "name": "ASML Holding NV",
         "weight": 6.23,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Banco Santander SA",
         "weight": 4.76,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "UniCredit SpA",
         "weight": 4.67,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Allianz SE",
         "weight": 4.16,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "ASM International NV",
         "weight": 3.9,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Poste Italiane SpA",
         "weight": 3.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Siemens AG",
         "weight": 3.43,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "RELX PLC",
         "weight": 3.12,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Prysmian SpA",
         "weight": 3.1,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Iberdrola SA",
         "weight": 2.98,
-        "sector": "Utilities"
+        "sector": null
       }
     ],
     "holdings_stats": {

@@ -1,0 +1,25 @@
+{
+  "timestamp": "2026-05-08T04:31:43.599Z",
+  "dry_run": true,
+  "would_write": false,
+  "input_files": [],
+  "isins_processed": [],
+  "proposed_payload_by_isin": {},
+  "fields_to_update": [],
+  "fields_preserved": [
+    "manual",
+    "manual.costs",
+    "manual.costs.retrocession"
+  ],
+  "warnings": [],
+  "config_paths_resolved": {
+    "subcategory_sectors_mapping": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\subcategory_sectors_mapping.csv",
+    "subcategory_tokens_mapping": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\data\\work\\subcategory_tokens_mapping.csv"
+  },
+  "summary": {
+    "ok_count": 0,
+    "review_count": 0,
+    "error_count": 0,
+    "proposal_count": 0
+  }
+}

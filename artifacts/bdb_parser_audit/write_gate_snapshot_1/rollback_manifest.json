@@ -1,0 +1,2527 @@
+{
+  "generated_at": "2026-05-08T03:54:33.520Z",
+  "dry_run": true,
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "ES0165142003",
+      "snapshot_available": true,
+      "current_firestore_doc_snapshot": {
+        "name": "Mutuafondo Corto Plazo D FI",
+        "currency": "EUR",
+        "isin": "ES0165142003",
+        "last_sync": {
+          "_seconds": 1769254890,
+          "_nanoseconds": 60000000
+        },
+        "has_history": true,
+        "metadata": {
+          "history_source": "historico_vl_v2"
+        },
+        "manual": {
+          "costs": {
+            "ter": 0.53,
+            "ter_source": "csv",
+            "ter_updated_at": {
+              "_seconds": 1768633794,
+              "_nanoseconds": 221000000
+            },
+            "retrocession": 0
+          }
+        },
+        "derived_category": "RF Corporativa",
+        "std_perf": {
+          "rf_source": 0.01933,
+          "window_points": 1095,
+          "last_calculated_at": {
+            "_seconds": 1769788991,
+            "_nanoseconds": 145000000
+          },
+          "cvar95": -0.0006,
+          "var95": -0.0003,
+          "max_drawdown": -0.0406,
+          "volatility": 0.0043,
+          "cagr3y": 0.0088,
+          "return": 0.0088,
+          "sharpe": 2.0737,
+          "last_updated": {
+            "_seconds": 1773982842,
+            "_nanoseconds": 172444000
+          }
+        },
+        "data_quality": {
+          "std_perf_ok": true,
+          "history_ok": true,
+          "last_checked_at": "2026-03-19T05:00:41.552604",
+          "has_gaps": true
+        },
+        "ms": {
+          "category_morningstar": "RF Ultra Corto Plazo EUR",
+          "medalist_rating": null,
+          "rating_source": "MorningstarIWT_ExcelExport (1).csv",
+          "rating_updatedAt": {
+            "_seconds": 1768551639,
+            "_nanoseconds": 143000000
+          },
+          "costs": {
+            "management_fee": 0.5
+          },
+          "holdings_stats": {
+            "holdings_count_equity": 0,
+            "holdings_count_bond": 192,
+            "top10_weight": 15.61
+          },
+          "portfolio": {
+            "asset_allocation": {
+              "other": 0,
+              "equity": 0,
+              "bond": 88.79,
+              "cash": 11.21
+            },
+            "as_of": "2025-10-30"
+          },
+          "objective": "La gestión del Fondo sigue criterios financieros y extra-financieros de inversión socialmente responsable, también llamados criterios ASG (Ambientales, Sociales y de Gobierno Corporativo). El fondo tiene el 100% de la exposición total en renta fija (máximo 10% IIC) pública y privada, (sin distribución predeterminada), incluyendo depósitos en entidades de crédito e instrumentos del mercado monetario cotizados o no, que sean líquidos, principalmente en euros, hasta un máximo del 15% en deuda subordinada (con derecho de...",
+          "report_date": "2025-12-02",
+          "sectors": null,
+          "regions": {
+            "macro": null,
+            "detail": null
+          },
+          "fixed_income": {
+            "avg_credit_quality": "BB",
+            "credit_quality": {
+              "bb": 0,
+              "b": 0,
+              "below_b": 0,
+              "aa": 8.84,
+              "aaa": 1.84,
+              "a": 46.12,
+              "bbb": 28.77,
+              "not_rated": 14.43
+            },
+            "maturity_allocation": {
+              "1_3": 67.43,
+              "3_5": 10.3,
+              "5_7": 1.11,
+              "7_10": 1.16,
+              "over_10": 3.38
+            },
+            "coupon_allocation": {
+              "0": 6.31,
+              "over_6": 0.43,
+              "0_4": 78.67,
+              "4_6": 14.59
+            },
+            "effective_maturity": null,
+            "effective_duration": null
+          },
+          "rating_stars": null,
+          "equity_style": {
+            "market_cap": null,
+            "style_box_cell": null,
+            "style": null
+          },
+          "sustainability_rating": null,
+          "holdings_top10": [
+            {
+              "name": "Spain (Kingdom of) 0% 2026-05-08",
+              "weight": 2.2,
+              "sector": null
+            },
+            {
+              "name": "In Letras Del Tes 0% 09/10/2026 2026-10-09",
+              "weight": 2.18,
+              "sector": null
+            },
+            {
+              "name": "Bayer AG 2027-08-14",
+              "weight": 2.12,
+              "sector": null
+            },
+            {
+              "name": "The Toronto-Dominion Bank 2027-09-10",
+              "weight": 1.68,
+              "sector": null
+            },
+            {
+              "name": "Vonovia SE 2027-04-14",
+              "weight": 1.37,
+              "sector": null
+            },
+            {
+              "name": "At&T FRN 2027-09-16",
+              "weight": 1.3,
+              "sector": null
+            },
+            {
+              "name": "Banco Bilbao Vizcaya Argentaria SA...",
+              "weight": 1.28,
+              "sector": null
+            },
+            {
+              "name": "Morgan Stanley 2028-04-05",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Mercedes-Benz International Finance B.V....",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Exor Nv 1.75% 2028-01-18",
+              "weight": 1.04,
+              "sector": null
+            }
+          ]
+        },
+        "portfolio_exposure_v2": {
+          "concentration_metrics": {
+            "hhi_index": null,
+            "top_10_holdings_weight": 0
+          },
+          "fi_credit": {},
+          "fi_types": {},
+          "computed_at": "2026-03-23T07:43:08.918378+00:00",
+          "risk_flags": [],
+          "fi_duration": {},
+          "economic_exposure": {
+            "bond": 100,
+            "other": 0,
+            "cash": 0,
+            "equity": 0
+          },
+          "duration": {
+            "short": 0.8879
+          },
+          "exposure_confidence": 0.9000000000000001,
+          "sectors": null,
+          "equity_regions": null,
+          "equity_styles": null,
+          "warnings": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=88.79",
+            "region_incomplete"
+          ],
+          "asset_mix": {
+            "other": 0,
+            "bond": 0.8879,
+            "cash": 0.1121,
+            "equity": 0
+          },
+          "alternatives": null,
+          "bond_types": {
+            "corporate": 0.8879
+          },
+          "credit": {
+            "investment_grade": 0.8879
+          },
+          "version": "v2",
+          "market_caps": null
+        },
+        "classification_v2": {
+          "is_suitable_low_risk": true,
+          "sector_concentration": "LOW",
+          "liquidity_profile": "DAILY",
+          "computed_at": "2026-03-23T07:43:08.918378+00:00",
+          "risk_bucket": "LOW",
+          "fi_credit_bucket": "HIGH_QUALITY",
+          "complexity_flag": "STANDARD",
+          "fi_type": "UNKNOWN",
+          "is_sector_fund": false,
+          "alternative_bucket": "UNKNOWN",
+          "fi_duration_bucket": "SHORT",
+          "convertibles_profile": "UNKNOWN",
+          "asset_subtype": "CORPORATE_BOND",
+          "raw_name": "Mutuafondo Corto Plazo D FI",
+          "is_thematic": false,
+          "sector_focus": "UNKNOWN",
+          "is_index_like": false,
+          "source_priority_used": [
+            "ms.category_morningstar",
+            "legacy_category"
+          ],
+          "geographic_scope": "",
+          "strategy_type": "ACTIVE",
+          "suitability_version": "v1",
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "commercial_type": "RF Ultra Corto Plazo EUR",
+          "credit_bucket": "investment_grade",
+          "duration_bucket": "short",
+          "market_cap_bias": null,
+          "warnings": [
+            "region_incomplete"
+          ],
+          "strategy_tags": [],
+          "classification_confidence": 0.9000000000000001,
+          "version": "v2",
+          "vehicle_complexity": "active",
+          "asset_type": "fixed_income",
+          "region_secondary": null,
+          "equity_style_box": null,
+          "fixed_income_type": "corporate",
+          "sources_used": [
+            "ms.category_morningstar",
+            "ms.equity_style",
+            "ms.fixed_income"
+          ],
+          "region_primary": "Global"
+        },
+        "derived": {
+          "rf_duration_source": "effective_duration",
+          "rf_duration_years": 0.99,
+          "source": {
+            "method": "category",
+            "inputs": {
+              "name": "Mutuafondo Corto Plazo D FI",
+              "category": "RF Ultra Corto Plazo EUR"
+            },
+            "rationale": "category=>RF (RF Ultra Corto Plazo EUR)",
+            "computed_at": "2026-02-24T22:25:53.651Z"
+          },
+          "is_sector_fund": false,
+          "asset_class_detail": null,
+          "rf_duration_last_updated": {
+            "_seconds": 1769845276,
+            "_nanoseconds": 479000000
+          },
+          "top_sector": null,
+          "is_thematic": false,
+          "top_sector_weight": null,
+          "asset_class": "RF",
+          "is_index_like": false,
+          "category": "RF Corporativa",
+          "portfolio_exposure": {
+            "asset_allocation_total": {
+              "cash": 11.21,
+              "equity": 0,
+              "bond": 88.79,
+              "other": 0
+            },
+            "equity_regions_total": null,
+            "equity_sectors_total": null
+          },
+          "confidence": 0.9000000000000001,
+          "rf_duration_bucket": "corto",
+          "primary_region": "Global",
+          "asset_subtype": "CORPORATE_BOND",
+          "reasons": [
+            "ms.category_morningstar",
+            "tokens+sectors_25_40+sector_gate_45_60"
+          ],
+          "ruleset_version": "class_v1.4",
+          "subcategories": []
+        },
+        "quality": {
+          "ok": true,
+          "repair_version": "mark_v1.0_stars_not_extractable",
+          "last_repaired_at": {
+            "_seconds": 1768514577,
+            "_nanoseconds": 476000000
+          },
+          "sectors_normalized_at": {
+            "_seconds": 1769327106,
+            "_nanoseconds": 164000000
+          },
+          "source_pdf_hash": "f214d9b177b03b1fa0e437c6a45484e6",
+          "derived_refreshed_at": {
+            "_seconds": 1770500562,
+            "_nanoseconds": 890000000
+          },
+          "regions_migrated_at": {
+            "_seconds": 1770502140,
+            "_nanoseconds": 750000000
+          },
+          "warnings": [
+            "missing_rating_stars",
+            "missing_sectors",
+            "missing_regions"
+          ],
+          "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+          "parsed_at": {
+            "_seconds": 1776849932,
+            "_nanoseconds": 640000000
+          }
+        },
+        "updatedAt": {
+          "_seconds": 1776849932,
+          "_nanoseconds": 640000000
+        }
+      },
+      "fields_that_would_be_restored": [
+        {
+          "path": "ms.holdings_top10",
+          "restore_value": [
+            {
+              "name": "Spain (Kingdom of) 0% 2026-05-08",
+              "weight": 2.2,
+              "sector": null
+            },
+            {
+              "name": "In Letras Del Tes 0% 09/10/2026 2026-10-09",
+              "weight": 2.18,
+              "sector": null
+            },
+            {
+              "name": "Bayer AG 2027-08-14",
+              "weight": 2.12,
+              "sector": null
+            },
+            {
+              "name": "The Toronto-Dominion Bank 2027-09-10",
+              "weight": 1.68,
+              "sector": null
+            },
+            {
+              "name": "Vonovia SE 2027-04-14",
+              "weight": 1.37,
+              "sector": null
+            },
+            {
+              "name": "At&T FRN 2027-09-16",
+              "weight": 1.3,
+              "sector": null
+            },
+            {
+              "name": "Banco Bilbao Vizcaya Argentaria SA...",
+              "weight": 1.28,
+              "sector": null
+            },
+            {
+              "name": "Morgan Stanley 2028-04-05",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Mercedes-Benz International Finance B.V....",
+              "weight": 1.22,
+              "sector": null
+            },
+            {
+              "name": "Exor Nv 1.75% 2028-01-18",
+              "weight": 1.04,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.rating_stars",
+          "restore_value": null
+        },
+        {
+          "path": "ms.sustainability_rating",
+          "restore_value": null
+        },
+        {
+          "path": "quality.parsed_at",
+          "restore_value": {
+            "_seconds": 1776849932,
+            "_nanoseconds": 640000000
+          }
+        },
+        {
+          "path": "quality.parser_version",
+          "restore_value": "ms_pdf_v5_gemini-2.5-pro"
+        },
+        {
+          "path": "quality.warnings",
+          "restore_value": [
+            "missing_rating_stars",
+            "missing_sectors",
+            "missing_regions"
+          ]
+        },
+        {
+          "path": "updatedAt",
+          "restore_value": {
+            "_seconds": 1776849932,
+            "_nanoseconds": 640000000
+          }
+        }
+      ],
+      "decision": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "IE0003867441",
+      "snapshot_available": true,
+      "current_firestore_doc_snapshot": {
+        "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+        "currency": "EUR",
+        "isin": "IE0003867441",
+        "last_sync": {
+          "_seconds": 1769254890,
+          "_nanoseconds": 60000000
+        },
+        "has_history": true,
+        "metadata": {
+          "history_source": "historico_vl_v2"
+        },
+        "manual": {
+          "costs": {
+            "ter": 2.11,
+            "ter_source": "csv",
+            "ter_updated_at": {
+              "_seconds": 1768635339,
+              "_nanoseconds": 954000000
+            },
+            "retrocession": 0
+          }
+        },
+        "derived_category": "RV Eurozona",
+        "std_perf": {
+          "rf_source": 0.01933,
+          "window_points": 749,
+          "last_calculated_at": {
+            "_seconds": 1769788991,
+            "_nanoseconds": 145000000
+          },
+          "max_drawdown": -0.401,
+          "cvar95": -0.0278,
+          "var95": -0.0171,
+          "volatility": 0.1791,
+          "cagr3y": 0.0847,
+          "return": 0.0847,
+          "sharpe": 0.4728,
+          "last_updated": {
+            "_seconds": 1773982849,
+            "_nanoseconds": 911459000
+          }
+        },
+        "data_quality": {
+          "std_perf_ok": true,
+          "history_ok": true,
+          "has_outliers": true,
+          "has_gaps": false,
+          "last_checked_at": "2026-03-20T12:57:44.680836"
+        },
+        "ms": {
+          "sectors": {
+            "consumer_cyclical": 9.65,
+            "basic_materials": 6.31,
+            "consumer_defensive": 2.5,
+            "communication_services": 9.41,
+            "financial_services": 13.18,
+            "technology": 11.79,
+            "utilities": 4.95,
+            "industrials": 21.99,
+            "energy": 2.57,
+            "healthcare": 10.15,
+            "real_estate": 7.5
+          },
+          "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro.",
+          "holdings_stats": {
+            "holdings_count_equity": 102,
+            "holdings_count_bond": 0,
+            "top10_weight": 20.22
+          },
+          "category_morningstar": "Eurozone Mid-Cap Equity",
+          "medalist_rating": null,
+          "rating_stars": 4,
+          "report_date": "2025-12-02",
+          "costs": {
+            "management_fee": 2
+          },
+          "regions": {
+            "macro": {
+              "europe_me_africa": 97.98,
+              "americas": 2.02
+            },
+            "detail": {
+              "europe_ex_euro": 1.71,
+              "united_states": 2.02,
+              "eurozone": 96.27,
+              "other": 3.73,
+              "europe_me_africa": 97.98
+            }
+          },
+          "portfolio": {
+            "asset_allocation": {
+              "other": 0,
+              "bond": 0,
+              "cash": 1.47,
+              "equity": 98.53
+            },
+            "as_of": "2025-10-30"
+          },
+          "holdings_top10": [
+            {
+              "name": "Italgas SpA",
+              "weight": 3.23,
+              "sector": "Utilities"
+            },
+            {
+              "name": "BE Semiconductor Industries NV",
+              "weight": 2.08,
+              "sector": "Technology"
+            },
+            {
+              "name": "Eiffage SA Bearer and / or...",
+              "weight": 2,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Klepierre",
+              "weight": 1.99,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Telekom Austria AG",
+              "weight": 1.94,
+              "sector": "Communication Services"
+            },
+            {
+              "name": "Covivio SA",
+              "weight": 1.92,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Banca Monte dei Paschi di Siena",
+              "weight": 1.88,
+              "sector": "Financial Services"
+            },
+            {
+              "name": "Rexel SA",
+              "weight": 1.8,
+              "sector": "Technology"
+            },
+            {
+              "name": "Krones AG",
+              "weight": 1.69,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Ebro Foods SA",
+              "weight": 1.69,
+              "sector": "Consumer Defensive"
+            }
+          ],
+          "fixed_income": null,
+          "sustainability_rating": null,
+          "equity_style": {
+            "market_cap": {
+              "small": 18.02,
+              "large": 8.42,
+              "micro": 2.32,
+              "giant": 0,
+              "mid": 71.24
+            },
+            "style": null,
+            "style_box_cell": "Mid-Blend"
+          }
+        },
+        "portfolio_exposure_v2": {
+          "concentration_metrics": {
+            "hhi_index": null,
+            "top_10_holdings_weight": 0
+          },
+          "fi_credit": {},
+          "fi_types": {},
+          "computed_at": "2026-03-23T07:43:09.018464+00:00",
+          "risk_flags": [],
+          "fi_duration": {},
+          "economic_exposure": {
+            "bond": 0,
+            "other": 0,
+            "cash": 0,
+            "equity": 100
+          },
+          "duration": null,
+          "exposure_confidence": 0.99,
+          "sectors": {
+            "financials": 13.18,
+            "consumer_cyclical": 0.095081,
+            "basic_materials": 0.062172,
+            "consumer_defensive": 0.024633,
+            "communication_services": 0.092717,
+            "financial_services": 0.129863,
+            "technology": 0.116167,
+            "utilities": 0.048772,
+            "industrials": 0.216667,
+            "energy": 0.025322,
+            "healthcare": 0.100008,
+            "real_estate": 0.073898
+          },
+          "equity_regions": {
+            "japan": 0,
+            "emerging": 0,
+            "europe": 97.98,
+            "asia_dev": 0,
+            "us": 2.02,
+            "united_states": 0.019903,
+            "europe_ex_euro": 0.016849,
+            "eurozone": 0.948548
+          },
+          "warnings": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=98.53"
+          ],
+          "asset_mix": {
+            "other": 0,
+            "bond": 0,
+            "cash": 0.0147,
+            "equity": 0.9853
+          },
+          "alternatives": null,
+          "bond_types": null,
+          "credit": null,
+          "version": "v2",
+          "market_caps": {
+            "small": 0.20041,
+            "large": 0.082962,
+            "mid": 0.701928
+          },
+          "equity_styles": {
+            "blend": 0.9853
+          }
+        },
+        "classification_v2": {
+          "is_suitable_low_risk": false,
+          "sector_concentration": "LOW",
+          "liquidity_profile": "DAILY",
+          "computed_at": "2026-03-23T07:43:09.018464+00:00",
+          "risk_bucket": "HIGH",
+          "fi_credit_bucket": "UNKNOWN",
+          "complexity_flag": "STANDARD",
+          "fi_type": "UNKNOWN",
+          "is_sector_fund": false,
+          "alternative_bucket": "UNKNOWN",
+          "fi_duration_bucket": "UNKNOWN",
+          "convertibles_profile": "UNKNOWN",
+          "raw_name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+          "is_thematic": false,
+          "sector_focus": "UNKNOWN",
+          "is_index_like": false,
+          "source_priority_used": [
+            "ms.category_morningstar",
+            "legacy_category"
+          ],
+          "geographic_scope": "",
+          "warnings": [],
+          "strategy_type": "ACTIVE",
+          "suitability_version": "v1",
+          "compatible_profiles": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "asset_subtype": "THEMATIC_EQUITY",
+          "commercial_type": "Eurozone Mid-Cap Equity",
+          "credit_bucket": null,
+          "duration_bucket": null,
+          "market_cap_bias": "mid",
+          "strategy_tags": [
+            "theme:small_cap"
+          ],
+          "classification_confidence": 0.99,
+          "version": "v2",
+          "vehicle_complexity": "thematic",
+          "asset_type": "equity",
+          "region_secondary": null,
+          "fixed_income_type": null,
+          "sources_used": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "ms.equity_style"
+          ],
+          "region_primary": "Europa",
+          "equity_style_box": "Mid-Blend"
+        },
+        "derived": {
+          "source": {
+            "method": "category",
+            "inputs": {
+              "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+              "category": "Eurozone Mid-Cap Equity"
+            },
+            "rationale": "category no match=>Otros (Eurozone Mid-Cap Equity)",
+            "computed_at": "2026-02-24T22:25:53.651Z"
+          },
+          "is_sector_fund": false,
+          "asset_class_detail": null,
+          "top_sector": "industrials",
+          "top_sector_weight": 21.99,
+          "asset_class": "RV",
+          "is_index_like": false,
+          "category": "RV Eurozona",
+          "portfolio_exposure": {
+            "asset_allocation_total": {
+              "cash": 1.47,
+              "equity": 98.53,
+              "bond": 0,
+              "other": 0
+            },
+            "equity_regions_total": {
+              "europe_me_africa": 96.5397,
+              "united_states": 1.9903,
+              "europe_ex_euro": 1.6849,
+              "eurozone": 94.8548,
+              "other": 3.6752
+            },
+            "equity_sectors_total": {
+              "healthcare": 10.0008,
+              "industrials": 21.6667,
+              "consumer_cyclical": 9.5081,
+              "technology": 11.6167,
+              "communication_services": 9.2717,
+              "energy": 2.5322,
+              "real_estate": 7.3898,
+              "basic_materials": 6.2172,
+              "utilities": 4.8772,
+              "financial_services": 12.9863,
+              "consumer_defensive": 2.4633
+            }
+          },
+          "confidence": 0.99,
+          "primary_region": "Europa",
+          "asset_subtype": "THEMATIC_EQUITY",
+          "is_thematic": true,
+          "subcategories": [
+            "theme:small_cap"
+          ],
+          "reasons": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "tokens+sectors_25_40+sector_gate_45_60"
+          ],
+          "ruleset_version": "class_v1.4",
+          "style_bias": {
+            "equity": {
+              "size_weights_total": {
+                "large": 8.2962,
+                "small": 20.041,
+                "mid": 70.1928
+              },
+              "weight_total": 98.53,
+              "size_bucket": "mid",
+              "style_box_cell": "Mid-Blend",
+              "style_weights_total": {
+                "blend": 98.53
+              },
+              "style": "blend"
+            }
+          }
+        },
+        "quality": {
+          "ok": true,
+          "source_pdf_hash": "158b31a8080f8cabdcbbfa97bdf8d8da",
+          "regions_migrated_at": {
+            "_seconds": 1770502140,
+            "_nanoseconds": 771000000
+          },
+          "derived_refreshed_at": {
+            "_seconds": 1770502155,
+            "_nanoseconds": 465000000
+          },
+          "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+          "warnings": [],
+          "parsed_at": {
+            "_seconds": 1776848803,
+            "_nanoseconds": 333000000
+          }
+        },
+        "updatedAt": {
+          "_seconds": 1776848803,
+          "_nanoseconds": 333000000
+        }
+      },
+      "fields_that_would_be_restored": [
+        {
+          "path": "classification_v2.equity_style_box",
+          "restore_value": "Mid-Blend"
+        },
+        {
+          "path": "derived.style_bias.equity.style",
+          "restore_value": "blend"
+        },
+        {
+          "path": "derived.style_bias.equity.style_box_cell",
+          "restore_value": "Mid-Blend"
+        },
+        {
+          "path": "derived.style_bias.equity.style_weights_total",
+          "restore_value": {
+            "blend": 98.53
+          }
+        },
+        {
+          "path": "ms.equity_style.style.blend",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style.growth",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style.value",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style_box_cell",
+          "restore_value": "Mid-Blend"
+        },
+        {
+          "path": "ms.holdings_top10",
+          "restore_value": [
+            {
+              "name": "Italgas SpA",
+              "weight": 3.23,
+              "sector": "Utilities"
+            },
+            {
+              "name": "BE Semiconductor Industries NV",
+              "weight": 2.08,
+              "sector": "Technology"
+            },
+            {
+              "name": "Eiffage SA Bearer and / or...",
+              "weight": 2,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Klepierre",
+              "weight": 1.99,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Telekom Austria AG",
+              "weight": 1.94,
+              "sector": "Communication Services"
+            },
+            {
+              "name": "Covivio SA",
+              "weight": 1.92,
+              "sector": "Real Estate"
+            },
+            {
+              "name": "Banca Monte dei Paschi di Siena",
+              "weight": 1.88,
+              "sector": "Financial Services"
+            },
+            {
+              "name": "Rexel SA",
+              "weight": 1.8,
+              "sector": "Technology"
+            },
+            {
+              "name": "Krones AG",
+              "weight": 1.69,
+              "sector": "Industrials"
+            },
+            {
+              "name": "Ebro Foods SA",
+              "weight": 1.69,
+              "sector": "Consumer Defensive"
+            }
+          ]
+        },
+        {
+          "path": "ms.objective",
+          "restore_value": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_styles",
+          "restore_value": {
+            "blend": 0.9853
+          }
+        },
+        {
+          "path": "quality.parsed_at",
+          "restore_value": {
+            "_seconds": 1776848803,
+            "_nanoseconds": 333000000
+          }
+        },
+        {
+          "path": "quality.parser_version",
+          "restore_value": "ms_pdf_v5_gemini-2.5-pro"
+        },
+        {
+          "path": "updatedAt",
+          "restore_value": {
+            "_seconds": 1776848803,
+            "_nanoseconds": 333000000
+          }
+        }
+      ],
+      "decision": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0208853944",
+      "snapshot_available": true,
+      "current_firestore_doc_snapshot": {
+        "name": "JPMorgan Funds - Global Natural Resources Fund D (acc) - EUR",
+        "currency": "EUR",
+        "isin": "LU0208853944",
+        "last_sync": {
+          "_seconds": 1769254890,
+          "_nanoseconds": 60000000
+        },
+        "has_history": true,
+        "metadata": {
+          "history_source": "historico_vl_v2"
+        },
+        "manual": {
+          "costs": {
+            "ter": 2.75,
+            "ter_source": "csv",
+            "ter_updated_at": {
+              "_seconds": 1768633796,
+              "_nanoseconds": 498000000
+            },
+            "retrocession": 0
+          }
+        },
+        "derived_category": "RV Global",
+        "std_perf": {
+          "rf_source": 0.01933,
+          "window_points": 742,
+          "last_calculated_at": {
+            "_seconds": 1769788991,
+            "_nanoseconds": 145000000
+          },
+          "max_drawdown": -0.5,
+          "var95": -0.0233,
+          "cvar95": -0.035,
+          "cagr3y": 0.086,
+          "volatility": 0.2364,
+          "return": 0.086,
+          "sharpe": 0.3638,
+          "last_updated": {
+            "_seconds": 1773982870,
+            "_nanoseconds": 295967000
+          }
+        },
+        "data_quality": {
+          "std_perf_ok": true,
+          "history_ok": true,
+          "has_outliers": true,
+          "has_gaps": false,
+          "last_checked_at": "2026-03-20T12:59:37.795196"
+        },
+        "ms": {
+          "objective": "Proporcionar crecimiento del capital a largo plazo mediante la inversión principalmente en empresas de recursos naturales a nivel mundial.",
+          "holdings_stats": {
+            "holdings_count_equity": 68,
+            "holdings_count_bond": 0,
+            "top10_weight": 34.86
+          },
+          "category_morningstar": "RV Sector Recursos Naturales",
+          "medalist_rating": null,
+          "rating_stars": 4,
+          "report_date": "2025-12-11",
+          "portfolio": {
+            "asset_allocation": {
+              "other": 0,
+              "bond": 0.11,
+              "cash": 2.49,
+              "equity": 97.4
+            },
+            "as_of": "2025-10-30"
+          },
+          "costs": {
+            "management_fee": 1.5
+          },
+          "sectors": {
+            "basic_materials": 54.4,
+            "technology": 0.4,
+            "energy": 45.2
+          },
+          "equity_style": {
+            "style_box_cell": null,
+            "market_cap": {
+              "small": 3,
+              "large": 34.52,
+              "micro": 0.47,
+              "giant": 31.17,
+              "mid": 30.84
+            },
+            "style": {
+              "blend": 0,
+              "growth": 0,
+              "value": 0
+            }
+          },
+          "regions": {
+            "macro": {
+              "asia": 13.58,
+              "europe_me_africa": 21.58,
+              "americas": 64.84
+            },
+            "detail": {
+              "canada": 23.92,
+              "japan": 1.54,
+              "australasia": 5.53,
+              "latin_america": 5.01,
+              "united_states": 35.91,
+              "eurozone": 5.93,
+              "united_kingdom": 9.34,
+              "europe_ex_euro": 1.62,
+              "asia_emerging": 6.51,
+              "other": 86.42,
+              "middle_east": 4.69,
+              "asia": 13.58
+            }
+          },
+          "holdings_top10": [
+            {
+              "name": "Exxon Mobil Corp",
+              "weight": 4.45,
+              "sector": null
+            },
+            {
+              "name": "Newmont Corp",
+              "weight": 4.24,
+              "sector": null
+            },
+            {
+              "name": "Shell PLC",
+              "weight": 4.03,
+              "sector": null
+            },
+            {
+              "name": "Agnico Eagle Mines Ltd",
+              "weight": 4,
+              "sector": null
+            },
+            {
+              "name": "Valero Energy Corp",
+              "weight": 3.38,
+              "sector": null
+            },
+            {
+              "name": "Kinross Gold Corp",
+              "weight": 3.29,
+              "sector": null
+            },
+            {
+              "name": "Southern Copper Corp",
+              "weight": 3.09,
+              "sector": null
+            },
+            {
+              "name": "Zijin Mining Group Co Ltd...",
+              "weight": 2.83,
+              "sector": null
+            },
+            {
+              "name": "Williams Companies Inc",
+              "weight": 2.78,
+              "sector": null
+            },
+            {
+              "name": "Grupo Mexico SAB de CV Class B",
+              "weight": 2.78,
+              "sector": null
+            }
+          ],
+          "fixed_income": {
+            "credit_quality": {
+              "aa": 0,
+              "aaa": 0,
+              "bb": 0,
+              "a": 0,
+              "b": 0,
+              "bbb": 0,
+              "not_rated": 0,
+              "below_b": 0
+            },
+            "maturity_allocation": {
+              "1_3": 0,
+              "3_5": 0,
+              "5_7": 0,
+              "7_10": 0,
+              "over_10": 0
+            },
+            "coupon_allocation": {
+              "0": 0,
+              "over_6": 0,
+              "0_4": 0,
+              "4_6": 0
+            },
+            "avg_credit_quality": null,
+            "effective_maturity": 0,
+            "effective_duration": 0
+          },
+          "sustainability_rating": 0
+        },
+        "portfolio_exposure_v2": {
+          "concentration_metrics": {
+            "hhi_index": null,
+            "top_10_holdings_weight": 0
+          },
+          "fi_credit": {},
+          "fi_types": {},
+          "computed_at": "2026-03-23T07:43:09.255775+00:00",
+          "risk_flags": [],
+          "fi_duration": {},
+          "economic_exposure": {
+            "bond": 0,
+            "other": 100,
+            "cash": 0,
+            "equity": 0
+          },
+          "duration": {
+            "ultrashort": 0.0011
+          },
+          "exposure_confidence": 0.99,
+          "sectors": {
+            "financials": 0,
+            "healthcare": 0,
+            "basic_materials": 0.379553,
+            "technology": 0.279083,
+            "energy": 0.315364
+          },
+          "equity_styles": null,
+          "equity_regions": {
+            "emerging": 5.01,
+            "europe": 21.58,
+            "asia_dev": 12.04,
+            "us": 59.83,
+            "united_states": 0.174881,
+            "europe_ex_euro": 0.00789,
+            "asia_emerging": 0.031703,
+            "other": 0.420865,
+            "middle_east": 0.02284,
+            "canada": 0.11649,
+            "eurozone": 0.028879,
+            "japan": 0.0075,
+            "asia": 0.066134,
+            "australasia": 0.026931,
+            "latin_america": 0.024398,
+            "united_kingdom": 0.045486
+          },
+          "warnings": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.4",
+            "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.11,max_component=97.4",
+            "credit_missing"
+          ],
+          "asset_mix": {
+            "other": 0,
+            "bond": 0.0011,
+            "cash": 0.0249,
+            "equity": 0.974
+          },
+          "alternatives": null,
+          "credit": null,
+          "bond_types": {
+            "flexible": 0.0011
+          },
+          "version": "v2",
+          "market_caps": {
+            "small": 0.033798,
+            "large": 0.63982,
+            "mid": 0.300382
+          }
+        },
+        "classification_v2": {
+          "is_suitable_low_risk": false,
+          "sector_concentration": "LOW",
+          "liquidity_profile": "DAILY",
+          "computed_at": "2026-03-23T07:43:09.255775+00:00",
+          "risk_bucket": "HIGH",
+          "fi_credit_bucket": "UNKNOWN",
+          "complexity_flag": "STANDARD",
+          "fi_type": "UNKNOWN",
+          "is_sector_fund": false,
+          "alternative_bucket": "UNKNOWN",
+          "fi_duration_bucket": "UNKNOWN",
+          "convertibles_profile": "UNKNOWN",
+          "raw_name": "JPMorgan Funds - Global Natural Resources Fund D (acc) - EUR",
+          "is_thematic": false,
+          "sector_focus": "UNKNOWN",
+          "is_index_like": false,
+          "source_priority_used": [
+            "ms.category_morningstar",
+            "legacy_category"
+          ],
+          "geographic_scope": "",
+          "strategy_type": "ACTIVE",
+          "suitability_version": "v1",
+          "compatible_profiles": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "asset_subtype": "SECTOR_EQUITY_ENERGY",
+          "commercial_type": "RV Sector Recursos Naturales",
+          "credit_bucket": null,
+          "duration_bucket": "ultrashort",
+          "market_cap_bias": "large",
+          "warnings": [
+            "credit_missing",
+            "fi_type_inference_weak"
+          ],
+          "strategy_tags": [
+            "sector_concentrated:energy",
+            "sector_concentrated:materials",
+            "sector:energy",
+            "sector:materials"
+          ],
+          "classification_confidence": 0.99,
+          "version": "v2",
+          "vehicle_complexity": "sector",
+          "asset_type": "equity",
+          "region_secondary": null,
+          "equity_style_box": null,
+          "fixed_income_type": "flexible",
+          "sources_used": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "ms.equity_style",
+            "ms.fixed_income"
+          ],
+          "region_primary": "Global"
+        },
+        "derived": {
+          "source": {
+            "method": "category",
+            "inputs": {
+              "name": "JPMorgan Funds - Global Natural Resources Fund D (acc) - EUR",
+              "category": "RV Sector Recursos Naturales"
+            },
+            "rationale": "category=>RV (RV Sector Recursos Naturales)",
+            "computed_at": "2026-02-24T22:25:53.651Z"
+          },
+          "is_sector_fund": true,
+          "asset_class_detail": null,
+          "top_sector": "basic_materials",
+          "is_thematic": false,
+          "top_sector_weight": 54.4,
+          "asset_class": "RV",
+          "is_index_like": false,
+          "category": "No Clasificado",
+          "confidence": 0.99,
+          "style_bias": {
+            "equity": {
+              "size_weights_total": {
+                "large": 63.9821,
+                "small": 3.3798,
+                "mid": 30.0382
+              },
+              "weight_total": 97.4,
+              "style_box_cell": null,
+              "size_bucket": "large",
+              "style_weights_total": null,
+              "style": null
+            }
+          },
+          "primary_region": "Global",
+          "asset_subtype": "SECTOR_EQUITY_ENERGY",
+          "reasons": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "tokens+sectors_25_40+sector_gate_45_60"
+          ],
+          "ruleset_version": "class_v1.4",
+          "portfolio_exposure": {
+            "asset_allocation_total": {
+              "cash": 2.49,
+              "equity": 97.4,
+              "bond": 0.11,
+              "other": 0
+            },
+            "equity_sectors_total": {
+              "basic_materials": 52.9856,
+              "technology": 0.3896,
+              "energy": 44.0248
+            },
+            "equity_regions_total": {
+              "japan": 1.5,
+              "united_states": 34.9763,
+              "australasia": 5.3862,
+              "canada": 23.2981,
+              "united_kingdom": 9.0972,
+              "latin_america": 4.8797,
+              "eurozone": 5.7758,
+              "europe_ex_euro": 1.5779,
+              "asia_emerging": 6.3407,
+              "other": 84.1731,
+              "middle_east": 4.5681,
+              "asia": 13.2269
+            }
+          },
+          "subcategories": [
+            "sector_concentrated:energy",
+            "sector_concentrated:materials",
+            "sector:energy",
+            "sector:materials"
+          ]
+        },
+        "quality": {
+          "source_pdf_hash": "eafc60006a35acc458b4160f6ea21ca3",
+          "ok": true,
+          "sectors_normalized_at": {
+            "_seconds": 1769327106,
+            "_nanoseconds": 163000000
+          },
+          "regions_migrated_at": {
+            "_seconds": 1770502140,
+            "_nanoseconds": 770000000
+          },
+          "derived_refreshed_at": {
+            "_seconds": 1770502155,
+            "_nanoseconds": 465000000
+          },
+          "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+          "parsed_at": {
+            "_seconds": 1776876108,
+            "_nanoseconds": 376000000
+          },
+          "warnings": [
+            "unknown_region_key:América",
+            "unknown_region_key:Europa/O. Medio/Africa",
+            "regions_sum_overflow:200.00",
+            "fi_missing_credit_data",
+            "fi_type_inference_weak"
+          ]
+        },
+        "updatedAt": {
+          "_seconds": 1776876108,
+          "_nanoseconds": 376000000
+        }
+      },
+      "fields_that_would_be_restored": [
+        {
+          "path": "classification_v2.duration_bucket",
+          "restore_value": "ultrashort"
+        },
+        {
+          "path": "classification_v2.fixed_income_type",
+          "restore_value": "flexible"
+        },
+        {
+          "path": "classification_v2.sources_used",
+          "restore_value": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "ms.equity_style",
+            "ms.fixed_income"
+          ]
+        },
+        {
+          "path": "classification_v2.warnings",
+          "restore_value": [
+            "credit_missing",
+            "fi_type_inference_weak"
+          ]
+        },
+        {
+          "path": "ms.fixed_income",
+          "restore_value": {
+            "credit_quality": {
+              "aa": 0,
+              "aaa": 0,
+              "bb": 0,
+              "a": 0,
+              "b": 0,
+              "bbb": 0,
+              "not_rated": 0,
+              "below_b": 0
+            },
+            "maturity_allocation": {
+              "1_3": 0,
+              "3_5": 0,
+              "5_7": 0,
+              "7_10": 0,
+              "over_10": 0
+            },
+            "coupon_allocation": {
+              "0": 0,
+              "over_6": 0,
+              "0_4": 0,
+              "4_6": 0
+            },
+            "avg_credit_quality": null,
+            "effective_maturity": 0,
+            "effective_duration": 0
+          }
+        },
+        {
+          "path": "ms.holdings_top10",
+          "restore_value": [
+            {
+              "name": "Exxon Mobil Corp",
+              "weight": 4.45,
+              "sector": null
+            },
+            {
+              "name": "Newmont Corp",
+              "weight": 4.24,
+              "sector": null
+            },
+            {
+              "name": "Shell PLC",
+              "weight": 4.03,
+              "sector": null
+            },
+            {
+              "name": "Agnico Eagle Mines Ltd",
+              "weight": 4,
+              "sector": null
+            },
+            {
+              "name": "Valero Energy Corp",
+              "weight": 3.38,
+              "sector": null
+            },
+            {
+              "name": "Kinross Gold Corp",
+              "weight": 3.29,
+              "sector": null
+            },
+            {
+              "name": "Southern Copper Corp",
+              "weight": 3.09,
+              "sector": null
+            },
+            {
+              "name": "Zijin Mining Group Co Ltd...",
+              "weight": 2.83,
+              "sector": null
+            },
+            {
+              "name": "Williams Companies Inc",
+              "weight": 2.78,
+              "sector": null
+            },
+            {
+              "name": "Grupo Mexico SAB de CV Class B",
+              "weight": 2.78,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.sustainability_rating",
+          "restore_value": 0
+        },
+        {
+          "path": "portfolio_exposure_v2.bond_types",
+          "restore_value": {
+            "flexible": 0.0011
+          }
+        },
+        {
+          "path": "portfolio_exposure_v2.duration",
+          "restore_value": {
+            "ultrashort": 0.0011
+          }
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.asia_emerging",
+          "restore_value": 0.031703
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.australasia",
+          "restore_value": 0.026931
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.canada",
+          "restore_value": 0.11649
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.europe_ex_euro",
+          "restore_value": 0.00789
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.eurozone",
+          "restore_value": 0.028879
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.japan",
+          "restore_value": 0.0075
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.latin_america",
+          "restore_value": 0.024398
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.middle_east",
+          "restore_value": 0.02284
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.united_kingdom",
+          "restore_value": 0.045486
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.united_states",
+          "restore_value": 0.174881
+        },
+        {
+          "path": "portfolio_exposure_v2.warnings",
+          "restore_value": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=97.4",
+            "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.11,max_component=97.4",
+            "credit_missing"
+          ]
+        },
+        {
+          "path": "quality.parsed_at",
+          "restore_value": {
+            "_seconds": 1776876108,
+            "_nanoseconds": 376000000
+          }
+        },
+        {
+          "path": "quality.warnings",
+          "restore_value": [
+            "unknown_region_key:América",
+            "unknown_region_key:Europa/O. Medio/Africa",
+            "regions_sum_overflow:200.00",
+            "fi_missing_credit_data",
+            "fi_type_inference_weak"
+          ]
+        },
+        {
+          "path": "updatedAt",
+          "restore_value": {
+            "_seconds": 1776876108,
+            "_nanoseconds": 376000000
+          }
+        }
+      ],
+      "decision": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0252500524",
+      "snapshot_available": true,
+      "current_firestore_doc_snapshot": {
+        "name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR",
+        "currency": "EUR",
+        "isin": "LU0252500524",
+        "last_sync": {
+          "_seconds": 1769254890,
+          "_nanoseconds": 60000000
+        },
+        "has_history": true,
+        "manual": {
+          "costs": {
+            "ter": 0.64,
+            "ter_source": "csv",
+            "ter_updated_at": {
+              "_seconds": 1768633796,
+              "_nanoseconds": 498000000
+            },
+            "retrocession": 0.32
+          }
+        },
+        "metadata": {
+          "history_source": "historico_vl_v2"
+        },
+        "derived_category": "Monetario EUR",
+        "std_perf": {
+          "rf_source": 0.01933,
+          "window_points": 761,
+          "last_calculated_at": {
+            "_seconds": 1769788991,
+            "_nanoseconds": 145000000
+          },
+          "cvar95": -0.0001,
+          "var95": -0.0001,
+          "max_drawdown": -0.0368,
+          "volatility": 0.0011,
+          "cagr3y": 0.0038,
+          "return": 0.0038,
+          "sharpe": 3.3953,
+          "last_updated": {
+            "_seconds": 1773982875,
+            "_nanoseconds": 55857000
+          }
+        },
+        "data_quality": {
+          "std_perf_ok": true,
+          "history_ok": true,
+          "has_gaps": false,
+          "last_checked_at": "2026-03-20T13:00:02.973900"
+        },
+        "ms": {
+          "objective": "Proporcionar un nivel de rendimiento competitivo en la moneda de referencia y un alto grado de liquidez invirtiendo principalmente en bonos y otros valores de deuda a corto plazo denominados en euros.",
+          "holdings_stats": {
+            "holdings_count_equity": 0,
+            "holdings_count_bond": 0,
+            "top10_weight": 53.03
+          },
+          "portfolio": {
+            "asset_allocation": {
+              "other": 0,
+              "bond": 0,
+              "cash": 100,
+              "equity": 0
+            },
+            "as_of": "2023-05-30"
+          },
+          "category_morningstar": "EUR Money Market - Short Term",
+          "medalist_rating": null,
+          "costs": {
+            "management_fee": 0.4
+          },
+          "sectors": null,
+          "regions": {
+            "macro": null,
+            "detail": null
+          },
+          "equity_style": {
+            "style_box_cell": null,
+            "market_cap": null,
+            "style": null
+          },
+          "report_date": "2023-07-04",
+          "holdings_top10": [
+            {
+              "name": "LA BANQUE POSTALE SOCIETE ANONYM",
+              "weight": 8.01,
+              "sector": null
+            },
+            {
+              "name": "ERSTE GROUP BANK AG",
+              "weight": 7.71,
+              "sector": null
+            },
+            {
+              "name": "LANDESBANK BADEN-WURTTEMBERG",
+              "weight": 6.47,
+              "sector": null
+            },
+            {
+              "name": "BRED BANQUE POPULAIRE",
+              "weight": 6.47,
+              "sector": null
+            },
+            {
+              "name": "KBC BANK NV/LONDON",
+              "weight": 6.16,
+              "sector": null
+            },
+            {
+              "name": "LMA SA",
+              "weight": 6.16,
+              "sector": null
+            },
+            {
+              "name": "COOPERATIEVE RABOBANK U.A.",
+              "weight": 5.86,
+              "sector": null
+            },
+            {
+              "name": "Nestle Finance International Limited",
+              "weight": 3.08,
+              "sector": null
+            },
+            {
+              "name": "Bank of Montreal, London Branch",
+              "weight": 1.55,
+              "sector": null
+            },
+            {
+              "name": "Nordea Bank Abp London Branch",
+              "weight": 1.55,
+              "sector": null
+            }
+          ],
+          "fixed_income": {
+            "credit_quality": {
+              "aa": 0,
+              "aaa": 88.64,
+              "bb": 0,
+              "a": 0,
+              "b": 0,
+              "bbb": 0,
+              "not_rated": 11.36,
+              "below_b": 0
+            },
+            "effective_duration": 0.06,
+            "maturity_allocation": {
+              "1_3": 0,
+              "3_5": 0,
+              "5_7": 0,
+              "7_10": 0,
+              "over_10": 0
+            },
+            "coupon_allocation": {
+              "0": 0,
+              "over_6": 0,
+              "0_4": 0,
+              "4_6": 0
+            },
+            "avg_credit_quality": "BBB",
+            "effective_maturity": null
+          },
+          "rating_stars": null,
+          "sustainability_rating": null
+        },
+        "portfolio_exposure_v2": {
+          "concentration_metrics": {
+            "hhi_index": null,
+            "top_10_holdings_weight": 0
+          },
+          "fi_credit": {},
+          "fi_types": {},
+          "computed_at": "2026-03-23T07:43:09.307896+00:00",
+          "risk_flags": [],
+          "fi_duration": {},
+          "economic_exposure": {
+            "bond": 0,
+            "other": 0,
+            "cash": 100,
+            "equity": 0
+          },
+          "duration": null,
+          "exposure_confidence": 0.8500000000000001,
+          "sectors": null,
+          "equity_regions": null,
+          "equity_styles": null,
+          "warnings": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=100",
+            "region_incomplete"
+          ],
+          "asset_mix": {
+            "other": 0,
+            "bond": 0,
+            "cash": 1,
+            "equity": 0
+          },
+          "alternatives": null,
+          "bond_types": null,
+          "credit": null,
+          "version": "v2",
+          "market_caps": null
+        },
+        "classification_v2": {
+          "is_suitable_low_risk": true,
+          "sector_concentration": "LOW",
+          "liquidity_profile": "DAILY",
+          "computed_at": "2026-03-23T07:43:09.307896+00:00",
+          "risk_bucket": "LOW",
+          "fi_credit_bucket": "UNKNOWN",
+          "complexity_flag": "STANDARD",
+          "fi_type": "UNKNOWN",
+          "is_sector_fund": false,
+          "alternative_bucket": "UNKNOWN",
+          "fi_duration_bucket": "UNKNOWN",
+          "convertibles_profile": "UNKNOWN",
+          "raw_name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR",
+          "is_thematic": false,
+          "sector_focus": "UNKNOWN",
+          "is_index_like": false,
+          "source_priority_used": [
+            "ms.category_morningstar",
+            "legacy_category"
+          ],
+          "geographic_scope": "",
+          "strategy_type": "ACTIVE",
+          "suitability_version": "v1",
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "asset_subtype": "MONEY_MARKET",
+          "commercial_type": "EUR Money Market - Short Term",
+          "credit_bucket": "investment_grade",
+          "duration_bucket": "ultrashort",
+          "market_cap_bias": null,
+          "warnings": [
+            "money_market_subtype_defaulted",
+            "fi_type_inference_weak",
+            "region_incomplete"
+          ],
+          "strategy_tags": [],
+          "classification_confidence": 0.8500000000000001,
+          "version": "v2",
+          "vehicle_complexity": "active",
+          "asset_type": "money_market",
+          "region_secondary": null,
+          "equity_style_box": null,
+          "fixed_income_type": "flexible",
+          "sources_used": [
+            "ms.category_morningstar",
+            "ms.equity_style",
+            "ms.fixed_income"
+          ],
+          "region_primary": "Global"
+        },
+        "derived": {
+          "source": {
+            "method": "category",
+            "inputs": {
+              "name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR",
+              "category": "EUR Money Market - Short Term"
+            },
+            "rationale": "category=>Monetario (EUR Money Market - Short Term)",
+            "computed_at": "2026-02-24T22:25:53.651Z"
+          },
+          "is_sector_fund": false,
+          "asset_class_detail": null,
+          "top_sector": null,
+          "is_thematic": false,
+          "top_sector_weight": null,
+          "asset_class": "Monetario",
+          "is_index_like": false,
+          "category": "No Clasificado",
+          "portfolio_exposure": {
+            "asset_allocation_total": {
+              "cash": 100,
+              "equity": 0,
+              "bond": 0,
+              "other": 0
+            },
+            "equity_regions_total": null,
+            "equity_sectors_total": null
+          },
+          "primary_region": "Global",
+          "asset_subtype": "UNKNOWN",
+          "reasons": [
+            "ms.category_morningstar",
+            "tokens+sectors_25_40+sector_gate_45_60"
+          ],
+          "ruleset_version": "class_v1.4",
+          "confidence": 0.8500000000000001,
+          "subcategories": []
+        },
+        "quality": {
+          "source_pdf_hash": "3684dd2acd347bb35e90ed1ab56e02d3",
+          "ok": true,
+          "repair_version": "mark_v1.0_stars_not_extractable",
+          "last_repaired_at": {
+            "_seconds": 1768514577,
+            "_nanoseconds": 395000000
+          },
+          "sectors_normalized_at": {
+            "_seconds": 1769327106,
+            "_nanoseconds": 168000000
+          },
+          "derived_refreshed_at": {
+            "_seconds": 1770500562,
+            "_nanoseconds": 890000000
+          },
+          "regions_migrated_at": {
+            "_seconds": 1770502140,
+            "_nanoseconds": 770000000
+          },
+          "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+          "parsed_at": {
+            "_seconds": 1776848565,
+            "_nanoseconds": 849000000
+          },
+          "warnings": [
+            "fi_type_inference_weak",
+            "missing_rating_stars",
+            "missing_sectors",
+            "missing_regions"
+          ]
+        },
+        "updatedAt": {
+          "_seconds": 1776848565,
+          "_nanoseconds": 849000000
+        }
+      },
+      "fields_that_would_be_restored": [
+        {
+          "path": "ms.fixed_income.effective_maturity",
+          "restore_value": null
+        },
+        {
+          "path": "ms.holdings_top10",
+          "restore_value": [
+            {
+              "name": "LA BANQUE POSTALE SOCIETE ANONYM",
+              "weight": 8.01,
+              "sector": null
+            },
+            {
+              "name": "ERSTE GROUP BANK AG",
+              "weight": 7.71,
+              "sector": null
+            },
+            {
+              "name": "LANDESBANK BADEN-WURTTEMBERG",
+              "weight": 6.47,
+              "sector": null
+            },
+            {
+              "name": "BRED BANQUE POPULAIRE",
+              "weight": 6.47,
+              "sector": null
+            },
+            {
+              "name": "KBC BANK NV/LONDON",
+              "weight": 6.16,
+              "sector": null
+            },
+            {
+              "name": "LMA SA",
+              "weight": 6.16,
+              "sector": null
+            },
+            {
+              "name": "COOPERATIEVE RABOBANK U.A.",
+              "weight": 5.86,
+              "sector": null
+            },
+            {
+              "name": "Nestle Finance International Limited",
+              "weight": 3.08,
+              "sector": null
+            },
+            {
+              "name": "Bank of Montreal, London Branch",
+              "weight": 1.55,
+              "sector": null
+            },
+            {
+              "name": "Nordea Bank Abp London Branch",
+              "weight": 1.55,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.rating_stars",
+          "restore_value": null
+        },
+        {
+          "path": "ms.sustainability_rating",
+          "restore_value": null
+        },
+        {
+          "path": "quality.parsed_at",
+          "restore_value": {
+            "_seconds": 1776848565,
+            "_nanoseconds": 849000000
+          }
+        },
+        {
+          "path": "quality.parser_version",
+          "restore_value": "ms_pdf_v5_gemini-2.5-pro"
+        },
+        {
+          "path": "quality.warnings",
+          "restore_value": [
+            "fi_type_inference_weak",
+            "missing_rating_stars",
+            "missing_sectors",
+            "missing_regions"
+          ]
+        },
+        {
+          "path": "updatedAt",
+          "restore_value": {
+            "_seconds": 1776848565,
+            "_nanoseconds": 849000000
+          }
+        }
+      ],
+      "decision": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU1670724373",
+      "snapshot_available": true,
+      "current_firestore_doc_snapshot": {
+        "name": "M&G (Lux) Optimal Income Fund EUR A Acc",
+        "currency": "EUR",
+        "isin": "LU1670724373",
+        "last_sync": {
+          "_seconds": 1769254893,
+          "_nanoseconds": 95000000
+        },
+        "has_history": true,
+        "manual": {
+          "costs": {
+            "ter": 1.34,
+            "ter_source": "csv",
+            "ter_updated_at": {
+              "_seconds": 1768635344,
+              "_nanoseconds": 488000000
+            },
+            "retrocession": 0.6
+          }
+        },
+        "metadata": {
+          "history_source": "historico_vl_v2"
+        },
+        "derived_category": "Mixto Conservador",
+        "std_perf": {
+          "rf_source": 0.01933,
+          "window_points": 742,
+          "last_calculated_at": {
+            "_seconds": 1769789000,
+            "_nanoseconds": 636000000
+          },
+          "max_drawdown": -0.1896,
+          "var95": -0.0049,
+          "volatility": 0.0491,
+          "cvar95": -0.0076,
+          "cagr3y": 0.0136,
+          "return": 0.0136,
+          "sharpe": 0.2775,
+          "last_updated": {
+            "_seconds": 1773982907,
+            "_nanoseconds": 848503000
+          }
+        },
+        "data_quality": {
+          "std_perf_ok": true,
+          "history_ok": true,
+          "has_gaps": false,
+          "last_checked_at": "2026-03-20T13:02:58.188019"
+        },
+        "ms": {
+          "objective": "El objetivo del fondo es proporcionar una combinación de crecimiento de capital e ingresos basada en la exposición a flujos de ingresos óptimos en los mercados de inversión.",
+          "holdings_stats": {
+            "holdings_count_equity": 5,
+            "holdings_count_bond": 323,
+            "top10_weight": 32.6
+          },
+          "portfolio": {
+            "asset_allocation": {
+              "other": 0.42,
+              "bond": 92.53,
+              "cash": 6.98,
+              "equity": 0.07
+            },
+            "as_of": "2025-11-29"
+          },
+          "category_morningstar": "Mixtos Defensivos EUR",
+          "medalist_rating": null,
+          "report_date": "2025-12-29",
+          "rating_source": "MorningstarIWT_ExcelExport (1).csv",
+          "rating_stars": 3,
+          "rating_updatedAt": {
+            "_seconds": 1768551639,
+            "_nanoseconds": 694000000
+          },
+          "costs": {
+            "management_fee": 1.25
+          },
+          "sectors": {
+            "communication_services": 29.13,
+            "industrials": 70.84,
+            "energy": 0.03
+          },
+          "sustainability_rating": null,
+          "regions": {
+            "macro": {
+              "europe_me_africa": 70.87,
+              "americas": 29.13
+            },
+            "detail": {
+              "united_states": 29.13,
+              "europe_emerging": 0.03,
+              "europe_ex_euro": 70.84,
+              "other": 100
+            }
+          },
+          "holdings_top10": [
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 4.01,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 3.44,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.18,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.1,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.05,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 2.9,
+              "sector": null
+            },
+            {
+              "name": "France (Republic Of)...",
+              "weight": 2.83,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 2.81,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 2.05,
+              "sector": null
+            }
+          ],
+          "fixed_income": null,
+          "equity_style": {
+            "style_box_cell": null,
+            "market_cap": null,
+            "style": null
+          }
+        },
+        "portfolio_exposure_v2": {
+          "concentration_metrics": {
+            "hhi_index": null,
+            "top_10_holdings_weight": 0
+          },
+          "fi_credit": {},
+          "fi_types": {},
+          "computed_at": "2026-03-23T07:43:11.636795+00:00",
+          "risk_flags": [],
+          "fi_duration": {},
+          "economic_exposure": {
+            "bond": 80,
+            "other": 0,
+            "cash": 0,
+            "equity": 20
+          },
+          "duration": null,
+          "exposure_confidence": 0.99,
+          "sectors": {
+            "financials": 0,
+            "technology": 0,
+            "healthcare": 0,
+            "communication_services": 0.000204,
+            "industrials": 0.000496
+          },
+          "equity_styles": null,
+          "equity_regions": {
+            "japan": 0,
+            "emerging": 0,
+            "europe": 70.87,
+            "asia_dev": 0,
+            "us": 29.13,
+            "united_states": 0.000102,
+            "europe_ex_euro": 0.000248,
+            "other": 0.00035
+          },
+          "warnings": [
+            "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=92.53",
+            "asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.07,max_component=92.53"
+          ],
+          "asset_mix": {
+            "other": 0.0042,
+            "bond": 0.9253,
+            "cash": 0.0698,
+            "equity": 0.0007
+          },
+          "alternatives": null,
+          "bond_types": null,
+          "credit": null,
+          "version": "v2",
+          "market_caps": null
+        },
+        "classification_v2": {
+          "is_suitable_low_risk": true,
+          "sector_concentration": "LOW",
+          "liquidity_profile": "DAILY",
+          "computed_at": "2026-03-23T07:43:11.636795+00:00",
+          "risk_bucket": "LOW",
+          "fi_credit_bucket": "UNKNOWN",
+          "complexity_flag": "STANDARD",
+          "fi_type": "UNKNOWN",
+          "is_sector_fund": false,
+          "alternative_bucket": "UNKNOWN",
+          "fi_duration_bucket": "UNKNOWN",
+          "convertibles_profile": "UNKNOWN",
+          "raw_name": "M&G (Lux) Optimal Income Fund EUR A Acc",
+          "is_thematic": false,
+          "sector_focus": "UNKNOWN",
+          "is_index_like": false,
+          "source_priority_used": [
+            "ms.category_morningstar",
+            "legacy_category"
+          ],
+          "geographic_scope": "",
+          "strategy_type": "ACTIVE",
+          "suitability_version": "v1",
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "asset_subtype": "FLEXIBLE_ALLOCATION",
+          "commercial_type": "Mixtos Defensivos EUR",
+          "credit_bucket": null,
+          "duration_bucket": null,
+          "market_cap_bias": null,
+          "warnings": [
+            "subtype_incompatible_with_asset_type:allocation:THEMATIC_EQUITY",
+            "subtype_downgraded_to_safe_family:FLEXIBLE_ALLOCATION"
+          ],
+          "strategy_tags": [
+            "sector_concentrated:industrials",
+            "sector:communication_services",
+            "sector:industrials",
+            "theme:income"
+          ],
+          "classification_confidence": 0.99,
+          "version": "v2",
+          "vehicle_complexity": "thematic",
+          "asset_type": "allocation",
+          "region_secondary": null,
+          "equity_style_box": null,
+          "fixed_income_type": null,
+          "sources_used": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "ms.equity_style"
+          ],
+          "region_primary": "Global"
+        },
+        "derived": {
+          "source": {
+            "method": "category",
+            "inputs": {
+              "name": "M&G (Lux) Optimal Income Fund EUR A Acc",
+              "category": "Mixtos Defensivos EUR"
+            },
+            "rationale": "category=>Mixto (Mixtos Defensivos EUR)",
+            "computed_at": "2026-02-24T22:25:53.651Z"
+          },
+          "asset_class_detail": null,
+          "top_sector": "industrials",
+          "top_sector_weight": 70.84,
+          "asset_class": "Mixto",
+          "is_index_like": false,
+          "category": "Mixto Conservador",
+          "confidence": 0.99,
+          "style_bias": {
+            "equity": {
+              "size_weights_total": null,
+              "weight_total": 0.07,
+              "style_box_cell": null,
+              "size_bucket": null,
+              "style_weights_total": null,
+              "style": null
+            }
+          },
+          "primary_region": "Global",
+          "asset_subtype": "THEMATIC_EQUITY",
+          "reasons": [
+            "ms.category_morningstar",
+            "ms.sectors",
+            "ms.regions",
+            "tokens+sectors_25_40+sector_gate_45_60"
+          ],
+          "ruleset_version": "class_v1.4",
+          "is_sector_fund": false,
+          "is_thematic": true,
+          "portfolio_exposure": {
+            "asset_allocation_total": {
+              "cash": 6.98,
+              "equity": 0.07,
+              "bond": 92.53,
+              "other": 0.42
+            },
+            "equity_sectors_total": {
+              "industrials": 0.0496,
+              "communication_services": 0.0204,
+              "energy": 0
+            },
+            "equity_regions_total": {
+              "united_states": 0.0204,
+              "europe_emerging": 0,
+              "europe_ex_euro": 0.0496,
+              "other": 0.07
+            }
+          },
+          "subcategories": [
+            "sector_concentrated:industrials",
+            "sector:communication_services",
+            "sector:industrials",
+            "theme:income"
+          ]
+        },
+        "quality": {
+          "source_pdf_hash": "a3d01cbffca4500e9ec4e246476fc86c",
+          "ok": true,
+          "repair_version": "mark_v1.0_stars_not_extractable",
+          "last_repaired_at": {
+            "_seconds": 1768514577,
+            "_nanoseconds": 467000000
+          },
+          "sectors_normalized_at": {
+            "_seconds": 1769327106,
+            "_nanoseconds": 166000000
+          },
+          "regions_migrated_at": {
+            "_seconds": 1770502140,
+            "_nanoseconds": 771000000
+          },
+          "derived_refreshed_at": {
+            "_seconds": 1770502155,
+            "_nanoseconds": 465000000
+          },
+          "parser_version": "ms_pdf_v5_gemini-2.5-flash",
+          "parsed_at": {
+            "_seconds": 1776876326,
+            "_nanoseconds": 891000000
+          },
+          "warnings": [
+            "unknown_region_key:América",
+            "unknown_region_key:Europa/O. Medio/Africa",
+            "regions_sum_overflow:200.00"
+          ]
+        },
+        "updatedAt": {
+          "_seconds": 1776876326,
+          "_nanoseconds": 891000000
+        }
+      },
+      "fields_that_would_be_restored": [
+        {
+          "path": "derived.portfolio_exposure.equity_regions_total.americas",
+          "restore_value": null
+        },
+        {
+          "path": "derived.portfolio_exposure.equity_regions_total.europe_me_africa",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style.blend",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style.growth",
+          "restore_value": null
+        },
+        {
+          "path": "ms.equity_style.style.value",
+          "restore_value": null
+        },
+        {
+          "path": "ms.holdings_top10",
+          "restore_value": [
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 4.01,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 3.44,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.18,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.1,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 3.05,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Notes...",
+              "weight": 2.9,
+              "sector": null
+            },
+            {
+              "name": "France (Republic Of)...",
+              "weight": 2.83,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 2.81,
+              "sector": null
+            },
+            {
+              "name": "United States Treasury Bonds...",
+              "weight": 2.05,
+              "sector": null
+            }
+          ]
+        },
+        {
+          "path": "ms.regions.detail",
+          "restore_value": {
+            "united_states": 29.13,
+            "europe_emerging": 0.03,
+            "europe_ex_euro": 70.84,
+            "other": 100
+          }
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.americas",
+          "restore_value": null
+        },
+        {
+          "path": "portfolio_exposure_v2.equity_regions.europe_me_africa",
+          "restore_value": null
+        },
+        {
+          "path": "quality.parsed_at",
+          "restore_value": {
+            "_seconds": 1776876326,
+            "_nanoseconds": 891000000
+          }
+        },
+        {
+          "path": "quality.warnings",
+          "restore_value": [
+            "unknown_region_key:América",
+            "unknown_region_key:Europa/O. Medio/Africa",
+            "regions_sum_overflow:200.00"
+          ]
+        },
+        {
+          "path": "updatedAt",
+          "restore_value": {
+            "_seconds": 1776876326,
+            "_nanoseconds": 891000000
+          }
+        }
+      ],
+      "decision": "WRITE_CANDIDATE"
+    }
+  ]
+}

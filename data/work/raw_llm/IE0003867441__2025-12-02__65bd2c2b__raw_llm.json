@@ -1,7 +1,7 @@
 {
   "status": "ok",
-  "model": "gemini-2.5-pro",
-  "generated_at": "2026-04-22T09:03:15.941Z",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-05-07T14:59:24.609Z",
   "schema_validation": {
     "ok": true,
     "errors": [],
@@ -35,12 +35,12 @@
       "united_kingdom": 0,
       "eurozone": 96.27,
       "europe_ex_euro": 1.71,
-      "europe_emerging": 0,
-      "africa_middle_east": 0,
+      "emerging_europe": 0,
+      "middle_east_africa": 0,
       "japan": 0,
       "australasia": 0,
-      "asia_developed": 0,
-      "asia_emerging": 0
+      "developed_asia": 0,
+      "emerging_asia": 0
     },
     "sectors": {
       "technology": 11.79,
@@ -62,8 +62,12 @@
       "small": 18.02,
       "micro": 2.32
     },
-    "equity_style": {},
-    "equity_style_box_cell": "Mid-Blend",
+    "equity_style": {
+      "value": 0,
+      "blend": 0,
+      "growth": 0
+    },
+    "equity_style_box_cell": null,
     "fixed_income": {
       "effective_duration": null,
       "effective_maturity": null,
@@ -76,52 +80,52 @@
       {
         "name": "Italgas SpA",
         "weight": 3.23,
-        "sector": "Utilities"
+        "sector": null
       },
       {
         "name": "BE Semiconductor Industries NV",
         "weight": 2.08,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Eiffage SA Bearer and / or...",
         "weight": 2,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Klepierre",
         "weight": 1.99,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Telekom Austria AG",
         "weight": 1.94,
-        "sector": "Communication Services"
+        "sector": null
       },
       {
         "name": "Covivio SA",
         "weight": 1.92,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Banca Monte dei Paschi di Siena",
         "weight": 1.88,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Rexel SA",
         "weight": 1.8,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Krones AG",
         "weight": 1.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Ebro Foods SA",
         "weight": 1.69,
-        "sector": "Consumer Defensive"
+        "sector": null
       }
     ],
     "holdings_stats": {
@@ -132,6 +136,6 @@
     "costs": {
       "management_fee": 2
     },
-    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo el 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
   }
 }

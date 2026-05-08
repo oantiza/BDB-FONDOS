@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-05-08T03:54:33.520Z",
+  "dry_run": true,
+  "write_executed": false,
+  "snapshots_required_before_write": true,
+  "entries": [
+    {
+      "isin": "ES0165142003",
+      "decision": "WRITE_CANDIDATE",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": true,
+      "document_exists": true,
+      "source": "funds_v3 read-only",
+      "snapshot_file": "snapshots/ES0165142003.json",
+      "reason": "policy_allows_candidate_with_non_empty_diff"
+    },
+    {
+      "isin": "IE0003867441",
+      "decision": "WRITE_CANDIDATE",
+      "policy_status": "ACCEPT",
+      "snapshot_available": true,
+      "document_exists": true,
+      "source": "funds_v3 read-only",
+      "snapshot_file": "snapshots/IE0003867441.json",
+      "reason": "policy_allows_candidate_with_non_empty_diff"
+    },
+    {
+      "isin": "LU0208853944",
+      "decision": "WRITE_CANDIDATE",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": true,
+      "document_exists": true,
+      "source": "funds_v3 read-only",
+      "snapshot_file": "snapshots/LU0208853944.json",
+      "reason": "policy_allows_candidate_with_non_empty_diff"
+    },
+    {
+      "isin": "LU0252500524",
+      "decision": "WRITE_CANDIDATE",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": true,
+      "document_exists": true,
+      "source": "funds_v3 read-only",
+      "snapshot_file": "snapshots/LU0252500524.json",
+      "reason": "policy_allows_candidate_with_non_empty_diff"
+    },
+    {
+      "isin": "LU1670724373",
+      "decision": "WRITE_CANDIDATE",
+      "policy_status": "ACCEPT_WITH_WARNINGS",
+      "snapshot_available": true,
+      "document_exists": true,
+      "source": "funds_v3 read-only",
+      "snapshot_file": "snapshots/LU1670724373.json",
+      "reason": "policy_allows_candidate_with_non_empty_diff"
+    }
+  ]
+}

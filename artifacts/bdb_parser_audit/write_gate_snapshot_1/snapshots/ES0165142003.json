@@ -1,0 +1,465 @@
+{
+  "generated_at": "2026-05-08T03:54:33.520Z",
+  "isin": "ES0165142003",
+  "document_exists": true,
+  "document_id": "ES0165142003",
+  "current_firestore_doc": {
+    "name": "Mutuafondo Corto Plazo D FI",
+    "currency": "EUR",
+    "isin": "ES0165142003",
+    "last_sync": {
+      "_seconds": 1769254890,
+      "_nanoseconds": 60000000
+    },
+    "has_history": true,
+    "metadata": {
+      "history_source": "historico_vl_v2"
+    },
+    "manual": {
+      "costs": {
+        "ter": 0.53,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633794,
+          "_nanoseconds": 221000000
+        },
+        "retrocession": 0
+      }
+    },
+    "derived_category": "RF Corporativa",
+    "std_perf": {
+      "rf_source": 0.01933,
+      "window_points": 1095,
+      "last_calculated_at": {
+        "_seconds": 1769788991,
+        "_nanoseconds": 145000000
+      },
+      "cvar95": -0.0006,
+      "var95": -0.0003,
+      "max_drawdown": -0.0406,
+      "volatility": 0.0043,
+      "cagr3y": 0.0088,
+      "return": 0.0088,
+      "sharpe": 2.0737,
+      "last_updated": {
+        "_seconds": 1773982842,
+        "_nanoseconds": 172444000
+      }
+    },
+    "data_quality": {
+      "std_perf_ok": true,
+      "history_ok": true,
+      "last_checked_at": "2026-03-19T05:00:41.552604",
+      "has_gaps": true
+    },
+    "ms": {
+      "category_morningstar": "RF Ultra Corto Plazo EUR",
+      "medalist_rating": null,
+      "rating_source": "MorningstarIWT_ExcelExport (1).csv",
+      "rating_updatedAt": {
+        "_seconds": 1768551639,
+        "_nanoseconds": 143000000
+      },
+      "costs": {
+        "management_fee": 0.5
+      },
+      "holdings_stats": {
+        "holdings_count_equity": 0,
+        "holdings_count_bond": 192,
+        "top10_weight": 15.61
+      },
+      "portfolio": {
+        "asset_allocation": {
+          "other": 0,
+          "equity": 0,
+          "bond": 88.79,
+          "cash": 11.21
+        },
+        "as_of": "2025-10-30"
+      },
+      "objective": "La gestión del Fondo sigue criterios financieros y extra-financieros de inversión socialmente responsable, también llamados criterios ASG (Ambientales, Sociales y de Gobierno Corporativo). El fondo tiene el 100% de la exposición total en renta fija (máximo 10% IIC) pública y privada, (sin distribución predeterminada), incluyendo depósitos en entidades de crédito e instrumentos del mercado monetario cotizados o no, que sean líquidos, principalmente en euros, hasta un máximo del 15% en deuda subordinada (con derecho de...",
+      "report_date": "2025-12-02",
+      "sectors": null,
+      "regions": {
+        "macro": null,
+        "detail": null
+      },
+      "fixed_income": {
+        "avg_credit_quality": "BB",
+        "credit_quality": {
+          "bb": 0,
+          "b": 0,
+          "below_b": 0,
+          "aa": 8.84,
+          "aaa": 1.84,
+          "a": 46.12,
+          "bbb": 28.77,
+          "not_rated": 14.43
+        },
+        "maturity_allocation": {
+          "1_3": 67.43,
+          "3_5": 10.3,
+          "5_7": 1.11,
+          "7_10": 1.16,
+          "over_10": 3.38
+        },
+        "coupon_allocation": {
+          "0": 6.31,
+          "over_6": 0.43,
+          "0_4": 78.67,
+          "4_6": 14.59
+        },
+        "effective_maturity": null,
+        "effective_duration": null
+      },
+      "rating_stars": null,
+      "equity_style": {
+        "market_cap": null,
+        "style_box_cell": null,
+        "style": null
+      },
+      "sustainability_rating": null,
+      "holdings_top10": [
+        {
+          "name": "Spain (Kingdom of) 0% 2026-05-08",
+          "weight": 2.2,
+          "sector": null
+        },
+        {
+          "name": "In Letras Del Tes 0% 09/10/2026 2026-10-09",
+          "weight": 2.18,
+          "sector": null
+        },
+        {
+          "name": "Bayer AG 2027-08-14",
+          "weight": 2.12,
+          "sector": null
+        },
+        {
+          "name": "The Toronto-Dominion Bank 2027-09-10",
+          "weight": 1.68,
+          "sector": null
+        },
+        {
+          "name": "Vonovia SE 2027-04-14",
+          "weight": 1.37,
+          "sector": null
+        },
+        {
+          "name": "At&T FRN 2027-09-16",
+          "weight": 1.3,
+          "sector": null
+        },
+        {
+          "name": "Banco Bilbao Vizcaya Argentaria SA...",
+          "weight": 1.28,
+          "sector": null
+        },
+        {
+          "name": "Morgan Stanley 2028-04-05",
+          "weight": 1.22,
+          "sector": null
+        },
+        {
+          "name": "Mercedes-Benz International Finance B.V....",
+          "weight": 1.22,
+          "sector": null
+        },
+        {
+          "name": "Exor Nv 1.75% 2028-01-18",
+          "weight": 1.04,
+          "sector": null
+        }
+      ]
+    },
+    "portfolio_exposure_v2": {
+      "concentration_metrics": {
+        "hhi_index": null,
+        "top_10_holdings_weight": 0
+      },
+      "fi_credit": {},
+      "fi_types": {},
+      "computed_at": "2026-03-23T07:43:08.918378+00:00",
+      "risk_flags": [],
+      "fi_duration": {},
+      "economic_exposure": {
+        "bond": 100,
+        "other": 0,
+        "cash": 0,
+        "equity": 0
+      },
+      "duration": {
+        "short": 0.8879
+      },
+      "exposure_confidence": 0.9000000000000001,
+      "sectors": null,
+      "equity_regions": null,
+      "equity_styles": null,
+      "warnings": [
+        "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=88.79",
+        "region_incomplete"
+      ],
+      "asset_mix": {
+        "other": 0,
+        "bond": 0.8879,
+        "cash": 0.1121,
+        "equity": 0
+      },
+      "alternatives": null,
+      "bond_types": {
+        "corporate": 0.8879
+      },
+      "credit": {
+        "investment_grade": 0.8879
+      },
+      "version": "v2",
+      "market_caps": null
+    },
+    "classification_v2": {
+      "is_suitable_low_risk": true,
+      "sector_concentration": "LOW",
+      "liquidity_profile": "DAILY",
+      "computed_at": "2026-03-23T07:43:08.918378+00:00",
+      "risk_bucket": "LOW",
+      "fi_credit_bucket": "HIGH_QUALITY",
+      "complexity_flag": "STANDARD",
+      "fi_type": "UNKNOWN",
+      "is_sector_fund": false,
+      "alternative_bucket": "UNKNOWN",
+      "fi_duration_bucket": "SHORT",
+      "convertibles_profile": "UNKNOWN",
+      "asset_subtype": "CORPORATE_BOND",
+      "raw_name": "Mutuafondo Corto Plazo D FI",
+      "is_thematic": false,
+      "sector_focus": "UNKNOWN",
+      "is_index_like": false,
+      "source_priority_used": [
+        "ms.category_morningstar",
+        "legacy_category"
+      ],
+      "geographic_scope": "",
+      "strategy_type": "ACTIVE",
+      "suitability_version": "v1",
+      "compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "commercial_type": "RF Ultra Corto Plazo EUR",
+      "credit_bucket": "investment_grade",
+      "duration_bucket": "short",
+      "market_cap_bias": null,
+      "warnings": [
+        "region_incomplete"
+      ],
+      "strategy_tags": [],
+      "classification_confidence": 0.9000000000000001,
+      "version": "v2",
+      "vehicle_complexity": "active",
+      "asset_type": "fixed_income",
+      "region_secondary": null,
+      "equity_style_box": null,
+      "fixed_income_type": "corporate",
+      "sources_used": [
+        "ms.category_morningstar",
+        "ms.equity_style",
+        "ms.fixed_income"
+      ],
+      "region_primary": "Global"
+    },
+    "derived": {
+      "rf_duration_source": "effective_duration",
+      "rf_duration_years": 0.99,
+      "source": {
+        "method": "category",
+        "inputs": {
+          "name": "Mutuafondo Corto Plazo D FI",
+          "category": "RF Ultra Corto Plazo EUR"
+        },
+        "rationale": "category=>RF (RF Ultra Corto Plazo EUR)",
+        "computed_at": "2026-02-24T22:25:53.651Z"
+      },
+      "is_sector_fund": false,
+      "asset_class_detail": null,
+      "rf_duration_last_updated": {
+        "_seconds": 1769845276,
+        "_nanoseconds": 479000000
+      },
+      "top_sector": null,
+      "is_thematic": false,
+      "top_sector_weight": null,
+      "asset_class": "RF",
+      "is_index_like": false,
+      "category": "RF Corporativa",
+      "portfolio_exposure": {
+        "asset_allocation_total": {
+          "cash": 11.21,
+          "equity": 0,
+          "bond": 88.79,
+          "other": 0
+        },
+        "equity_regions_total": null,
+        "equity_sectors_total": null
+      },
+      "confidence": 0.9000000000000001,
+      "rf_duration_bucket": "corto",
+      "primary_region": "Global",
+      "asset_subtype": "CORPORATE_BOND",
+      "reasons": [
+        "ms.category_morningstar",
+        "tokens+sectors_25_40+sector_gate_45_60"
+      ],
+      "ruleset_version": "class_v1.4",
+      "subcategories": []
+    },
+    "quality": {
+      "ok": true,
+      "repair_version": "mark_v1.0_stars_not_extractable",
+      "last_repaired_at": {
+        "_seconds": 1768514577,
+        "_nanoseconds": 476000000
+      },
+      "sectors_normalized_at": {
+        "_seconds": 1769327106,
+        "_nanoseconds": 164000000
+      },
+      "source_pdf_hash": "f214d9b177b03b1fa0e437c6a45484e6",
+      "derived_refreshed_at": {
+        "_seconds": 1770500562,
+        "_nanoseconds": 890000000
+      },
+      "regions_migrated_at": {
+        "_seconds": 1770502140,
+        "_nanoseconds": 750000000
+      },
+      "warnings": [
+        "missing_rating_stars",
+        "missing_sectors",
+        "missing_regions"
+      ],
+      "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+      "parsed_at": {
+        "_seconds": 1776849932,
+        "_nanoseconds": 640000000
+      }
+    },
+    "updatedAt": {
+      "_seconds": 1776849932,
+      "_nanoseconds": 640000000
+    }
+  },
+  "timestamp": "2026-05-08T03:54:32.668Z",
+  "source": "funds_v3 read-only",
+  "lookup_strategy": "document_id",
+  "dry_run": true,
+  "write_executed": false,
+  "policy_status": "ACCEPT_WITH_WARNINGS",
+  "decision": "WRITE_CANDIDATE",
+  "fields_that_would_change": [
+    "ms.holdings_top10",
+    "ms.rating_stars",
+    "ms.sustainability_rating",
+    "quality.parsed_at",
+    "quality.parser_version",
+    "quality.warnings",
+    "updatedAt"
+  ],
+  "rollback_fields": [
+    {
+      "path": "ms.holdings_top10",
+      "restore_value": [
+        {
+          "name": "Spain (Kingdom of) 0% 2026-05-08",
+          "weight": 2.2,
+          "sector": null
+        },
+        {
+          "name": "In Letras Del Tes 0% 09/10/2026 2026-10-09",
+          "weight": 2.18,
+          "sector": null
+        },
+        {
+          "name": "Bayer AG 2027-08-14",
+          "weight": 2.12,
+          "sector": null
+        },
+        {
+          "name": "The Toronto-Dominion Bank 2027-09-10",
+          "weight": 1.68,
+          "sector": null
+        },
+        {
+          "name": "Vonovia SE 2027-04-14",
+          "weight": 1.37,
+          "sector": null
+        },
+        {
+          "name": "At&T FRN 2027-09-16",
+          "weight": 1.3,
+          "sector": null
+        },
+        {
+          "name": "Banco Bilbao Vizcaya Argentaria SA...",
+          "weight": 1.28,
+          "sector": null
+        },
+        {
+          "name": "Morgan Stanley 2028-04-05",
+          "weight": 1.22,
+          "sector": null
+        },
+        {
+          "name": "Mercedes-Benz International Finance B.V....",
+          "weight": 1.22,
+          "sector": null
+        },
+        {
+          "name": "Exor Nv 1.75% 2028-01-18",
+          "weight": 1.04,
+          "sector": null
+        }
+      ]
+    },
+    {
+      "path": "ms.rating_stars",
+      "restore_value": null
+    },
+    {
+      "path": "ms.sustainability_rating",
+      "restore_value": null
+    },
+    {
+      "path": "quality.parsed_at",
+      "restore_value": {
+        "_seconds": 1776849932,
+        "_nanoseconds": 640000000
+      }
+    },
+    {
+      "path": "quality.parser_version",
+      "restore_value": "ms_pdf_v5_gemini-2.5-pro"
+    },
+    {
+      "path": "quality.warnings",
+      "restore_value": [
+        "missing_rating_stars",
+        "missing_sectors",
+        "missing_regions"
+      ]
+    },
+    {
+      "path": "updatedAt",
+      "restore_value": {
+        "_seconds": 1776849932,
+        "_nanoseconds": 640000000
+      }
+    }
+  ]
+}

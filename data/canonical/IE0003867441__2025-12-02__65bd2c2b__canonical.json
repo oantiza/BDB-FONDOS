@@ -2,7 +2,7 @@
   "isin": "IE0003867441",
   "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
   "currency": "EUR",
-  "fileName": "morningstarreport20251202013802.pdf",
+  "fileName": "IE0003867441__2025-12-02__65bd2c2b.pdf",
   "stableBaseName": "IE0003867441__2025-12-02__65bd2c2b",
   "report_date": "2025-12-02",
   "ms": {
@@ -52,60 +52,64 @@
         "small": 18.02,
         "micro": 2.32
       },
-      "style": null,
-      "style_box_cell": "Mid-Blend"
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
     },
     "fixed_income": null,
     "holdings_top10": [
       {
         "name": "Italgas SpA",
         "weight": 3.23,
-        "sector": "Utilities"
+        "sector": null
       },
       {
         "name": "BE Semiconductor Industries NV",
         "weight": 2.08,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Eiffage SA Bearer and / or...",
         "weight": 2,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Klepierre",
         "weight": 1.99,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Telekom Austria AG",
         "weight": 1.94,
-        "sector": "Communication Services"
+        "sector": null
       },
       {
         "name": "Covivio SA",
         "weight": 1.92,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Banca Monte dei Paschi di Siena",
         "weight": 1.88,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Rexel SA",
         "weight": 1.8,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Krones AG",
         "weight": 1.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Ebro Foods SA",
         "weight": 1.69,
-        "sector": "Consumer Defensive"
+        "sector": null
       }
     ],
     "holdings_stats": {
@@ -116,7 +120,7 @@
     "costs": {
       "management_fee": 2
     },
-    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo el 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
   },
   "derived": {
     "asset_class": "RV",
@@ -166,18 +170,16 @@
     },
     "style_bias": {
       "equity": {
-        "style_box_cell": "Mid-Blend",
+        "style_box_cell": null,
         "weight_total": 98.53,
         "size_bucket": "mid",
-        "style": "blend",
+        "style": null,
         "size_weights_total": {
           "small": 20.041,
           "mid": 70.1928,
           "large": 8.2962
         },
-        "style_weights_total": {
-          "blend": 98.53
-        }
+        "style_weights_total": null
       }
     }
   },
@@ -188,7 +190,7 @@
     "commercial_type": "Eurozone Mid-Cap Equity",
     "region_primary": "Europa",
     "region_secondary": null,
-    "equity_style_box": "Mid-Blend",
+    "equity_style_box": null,
     "market_cap_bias": "mid",
     "fixed_income_type": null,
     "credit_bucket": null,
@@ -232,9 +234,7 @@
       "real_estate": 0.073898,
       "basic_materials": 0.062172
     },
-    "equity_styles": {
-      "blend": 0.9853
-    },
+    "equity_styles": null,
     "market_caps": {
       "small": 0.20041,
       "mid": 0.701928,
@@ -251,7 +251,7 @@
   },
   "quality": {
     "parsed_at": {},
-    "parser_version": "ms_pdf_v5_gemini-2.5-pro",
+    "parser_version": "ms_pdf_v5_gemini-2.5-flash",
     "source_pdf_hash": "158b31a8080f8cabdcbbfa97bdf8d8da",
     "warnings": [],
     "ok": true
@@ -289,7 +289,7 @@
         "ok": true,
         "errors": [],
         "warnings": [],
-        "sum": 0.9853
+        "sum": null
       },
       "marketCaps": {
         "ok": true,
@@ -321,5 +321,5 @@
     "status": "ok",
     "reason": null
   },
-  "generated_at": "2026-04-22T09:03:15.941Z"
+  "generated_at": "2026-05-07T14:59:24.612Z"
 }

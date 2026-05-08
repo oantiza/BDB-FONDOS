@@ -1,7 +1,7 @@
 {
   "status": "ok",
-  "model": "gemini-2.5-pro",
-  "generated_at": "2026-04-22T09:27:11.202Z",
+  "model": "gemini-2.5-flash",
+  "generated_at": "2026-05-07T14:59:20.959Z",
   "schema_validation": {
     "ok": true,
     "errors": [],
@@ -67,7 +67,7 @@
       "blend": 0,
       "growth": 0
     },
-    "equity_style_box_cell": "Large-Blend",
+    "equity_style_box_cell": null,
     "fixed_income": {
       "effective_duration": null,
       "effective_maturity": null,
@@ -80,52 +80,52 @@
       {
         "name": "ASML Holding NV",
         "weight": 6.23,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Banco Santander SA",
         "weight": 4.76,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "UniCredit SpA",
         "weight": 4.67,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Allianz SE",
         "weight": 4.16,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "ASM International NV",
         "weight": 3.9,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Poste Italiane SpA",
         "weight": 3.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Siemens AG",
         "weight": 3.43,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "RELX PLC",
         "weight": 3.12,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Prysmian SpA",
         "weight": 3.1,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Iberdrola SA",
         "weight": 2.98,
-        "sector": "Utilities"
+        "sector": null
       }
     ],
     "holdings_stats": {

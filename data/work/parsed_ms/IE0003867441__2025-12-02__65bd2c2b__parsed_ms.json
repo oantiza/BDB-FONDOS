@@ -1,9 +1,9 @@
 {
   "isin": "IE0003867441",
-  "fileName": "morningstarreport20251202013802.pdf",
+  "fileName": "IE0003867441__2025-12-02__65bd2c2b.pdf",
   "report_date": "2025-12-02",
-  "model": "gemini-2.5-pro",
-  "parsed_at": "2026-04-22T09:03:15.941Z",
+  "model": "gemini-2.5-flash",
+  "parsed_at": "2026-05-07T14:59:24.611Z",
   "ms": {
     "report_date": "2025-12-02",
     "category_morningstar": "Eurozone Mid-Cap Equity",
@@ -51,60 +51,64 @@
         "small": 18.02,
         "micro": 2.32
       },
-      "style": null,
-      "style_box_cell": "Mid-Blend"
+      "style": {
+        "value": 0,
+        "blend": 0,
+        "growth": 0
+      },
+      "style_box_cell": null
     },
     "fixed_income": null,
     "holdings_top10": [
       {
         "name": "Italgas SpA",
         "weight": 3.23,
-        "sector": "Utilities"
+        "sector": null
       },
       {
         "name": "BE Semiconductor Industries NV",
         "weight": 2.08,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Eiffage SA Bearer and / or...",
         "weight": 2,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Klepierre",
         "weight": 1.99,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Telekom Austria AG",
         "weight": 1.94,
-        "sector": "Communication Services"
+        "sector": null
       },
       {
         "name": "Covivio SA",
         "weight": 1.92,
-        "sector": "Real Estate"
+        "sector": null
       },
       {
         "name": "Banca Monte dei Paschi di Siena",
         "weight": 1.88,
-        "sector": "Financial Services"
+        "sector": null
       },
       {
         "name": "Rexel SA",
         "weight": 1.8,
-        "sector": "Technology"
+        "sector": null
       },
       {
         "name": "Krones AG",
         "weight": 1.69,
-        "sector": "Industrials"
+        "sector": null
       },
       {
         "name": "Ebro Foods SA",
         "weight": 1.69,
-        "sector": "Consumer Defensive"
+        "sector": null
       }
     ],
     "holdings_stats": {
@@ -115,6 +119,6 @@
     "costs": {
       "management_fee": 2
     },
-    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo un 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
+    "objective": "El objetivo del fondo es de proporcionar crecimiento del capital a largo plazo invirtiendo principalmente (como mínimo el 90% de sus activos) en una cartera de acciones y otros valores de renta variable de empreseas de pequeña capitalización situadas en países cuya mondea sea el euro."
   }
 }
