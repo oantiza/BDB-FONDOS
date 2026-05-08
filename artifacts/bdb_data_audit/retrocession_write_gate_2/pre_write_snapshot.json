@@ -1,0 +1,537 @@
+{
+  "timestamp": "2026-05-08T22:12:52.883Z",
+  "approved": [
+    {
+      "isin": "BE0946564383",
+      "name": "DPAM B - Equities NewGems Sustainable B Cap",
+      "manual_costs": {
+        "ter": 1.76,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768635339,
+          "_nanoseconds": 954000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.79,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0137381036",
+      "name": "Gesconsult Renta Variable Iberia A FI",
+      "manual_costs": {
+        "ter": 2.58,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633792,
+          "_nanoseconds": 389000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.35,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0138922036",
+      "name": "Gesconsult Corto Plazo A FI",
+      "manual_costs": {
+        "ter": 0.74,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633792,
+          "_nanoseconds": 389000000
+        },
+        "retrocession": 0.46
+      },
+      "current_retrocession": 0.46,
+      "new_retrocession": 0.71,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0140643034",
+      "name": "GVC Gaesco Europa FI",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.35,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0168797092",
+      "name": "Gestión Boutique II JPB Growth FI",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.47,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0173323009",
+      "name": "Renta 4 Wertefinder FI",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.53,
+      "write_executed": false
+    },
+    {
+      "isin": "ES0175604034",
+      "name": "Gesconsult León Valores Mixto Flexible A FI",
+      "manual_costs": {
+        "ter": 2.18,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768635339,
+          "_nanoseconds": 954000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.82,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0010286013",
+      "name": "Sextant Grand Large A",
+      "manual_costs": {
+        "ter": 1.7,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633794,
+          "_nanoseconds": 747000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.75,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0010288308",
+      "name": "Groupama Avenir Euro NC",
+      "manual_costs": {
+        "ter": 1.94,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633794,
+          "_nanoseconds": 221000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.68,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0010312660",
+      "name": "Carmignac Investissement E EUR Acc",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.35,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0010321810",
+      "name": "Echiquier Agenor SRI Mid Cap Europe A",
+      "manual_costs": {
+        "ter": 2.61,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633793,
+          "_nanoseconds": 621000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.95,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0011261197",
+      "name": "R-co Valor F EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.99,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0013460920",
+      "name": "EdR SICAV - Short Duration Credit A EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.34,
+      "write_executed": false
+    },
+    {
+      "isin": "FR0013460961",
+      "name": "EdR SICAV - Short Duration Credit B EUR",
+      "manual_costs": {
+        "retrocession": 0.01
+      },
+      "current_retrocession": 0.01,
+      "new_retrocession": 0,
+      "write_executed": false
+    },
+    {
+      "isin": "FR001400JGB5",
+      "name": "EdR SICAV Millesima Select 2028 A Eur",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.51,
+      "write_executed": false
+    },
+    {
+      "isin": "IE00B4ZJ4188",
+      "name": "Comgest Growth Europe Opportunities EUR Acc",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.49,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0113257694",
+      "name": "Schroder International Selection Fund EURO Corporate Bond A Accumulation EUR",
+      "manual_costs": {
+        "ter": 1.04,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633795,
+          "_nanoseconds": 918000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.45,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0114722738",
+      "name": "Fidelity Funds - Global Financial Services Fund E-Acc-EUR",
+      "manual_costs": {
+        "ter": 2.64,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633795,
+          "_nanoseconds": 365000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.38,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0117843481",
+      "name": "JPMorgan Funds - Taiwan Fund A (dist) - USD",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.44,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0119620416",
+      "name": "Morgan Stanley Investment Funds - Global Brands Fund A",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.79,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0119750205",
+      "name": "Invesco Funds - Invesco Sustainable Pan European Systematic Equity Fund A Acc",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.52,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0125951151",
+      "name": "MFS Meridian Funds - European Value Fund A1 EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.89,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0133717503",
+      "name": "Schroder International Selection Fund EURO Corporate Bond A1 Accumulation EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.45,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0170473374",
+      "name": "Franklin European Total Return Fund A(acc)EUR",
+      "manual_costs": {
+        "ter": 0.96,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633795,
+          "_nanoseconds": 365000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.41,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0181496216",
+      "name": "Schroder International Selection Fund Emerging Asia A1 Accumulation USD",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.72,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0224105477",
+      "name": "BlackRock Global Funds - Continental European Flexible Fund Class A2",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.84,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0231205856",
+      "name": "Franklin India Fund N(acc)EUR",
+      "manual_costs": {
+        "retrocession": 0.0158
+      },
+      "current_retrocession": 0.0158,
+      "new_retrocession": 1.58,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0256839860",
+      "name": "Allianz Global Investors Fund - Allianz Europe Equity Growth CT EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.44,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0267984697",
+      "name": "Invesco Funds - Invesco India Equity Fund E Accumulation EUR",
+      "manual_costs": {
+        "retrocession": 0.0155
+      },
+      "current_retrocession": 0.0155,
+      "new_retrocession": 1.55,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0302445910",
+      "name": "Schroder International Selection Fund Global Climate Change Equity A Accumulation",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.72,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0365089902",
+      "name": "Jupiter India Select Class L USD A Inc",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.86,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0599946893",
+      "name": "DWS Concept Kaldemorgen EUR LC",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.66,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0607983896",
+      "name": "Nordea 1 - Alpha 15 MA Fund BP EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.71,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0637335638",
+      "name": "Nordea 1 - Indian Equity Fund BP EUR",
+      "manual_costs": {
+        "retrocession": 0.0069
+      },
+      "current_retrocession": 0.0069,
+      "new_retrocession": 0.69,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0690375182",
+      "name": "Fundsmith Equity Fund T EUR Acc",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.1,
+      "write_executed": false
+    },
+    {
+      "isin": "LU0772958525",
+      "name": "Nordea 1 - North American Sustainable Stars Equity Fund BP USD",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.48,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1103303167",
+      "name": "Edmond de Rothschild Fund - US Value A EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.84,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1244893696",
+      "name": "Edmond de Rothschild Fund - Big Data A-EUR accumulating",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.2,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1278917452",
+      "name": "DWS Invest CROCI Sectors Plus LC",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.6,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1279334483",
+      "name": "Pictet - Robotics R EUR",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 1.47,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1378878430",
+      "name": "Morgan Stanley Investment Funds - Asia Opportunity Fund A",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.79,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1481583711",
+      "name": "Flossbach von Storch - Bond Opportunities RT",
+      "manual_costs": {
+        "ter": 1.02,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768633800,
+          "_nanoseconds": 764000000
+        },
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.41,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1902444584",
+      "name": "CPR Invest - Climate Bonds Euro - A EUR - Acc",
+      "manual_costs": {
+        "ter": 0.83,
+        "ter_source": "csv",
+        "ter_updated_at": {
+          "_seconds": 1768635344,
+          "_nanoseconds": 488000000
+        },
+        "retrocession": 0.1
+      },
+      "current_retrocession": 0.1,
+      "new_retrocession": 0,
+      "write_executed": false
+    },
+    {
+      "isin": "LU1983299162",
+      "name": "Schroder International Selection Fund Global Alternative Energy A Accumulation",
+      "manual_costs": {
+        "retrocession": 0
+      },
+      "current_retrocession": 0,
+      "new_retrocession": 0.72,
+      "write_executed": false
+    }
+  ],
+  "excluded_keep_db": [
+    {
+      "isin": "IE00BYR8H148",
+      "exists": true,
+      "current_retrocession": 0.5,
+      "action": "KEEP_DB_VALUE_NO_WRITE"
+    },
+    {
+      "isin": "LU0235308482",
+      "exists": true,
+      "current_retrocession": 0.5,
+      "action": "KEEP_DB_VALUE_NO_WRITE"
+    },
+    {
+      "isin": "LU1762221155",
+      "exists": true,
+      "current_retrocession": 1.38,
+      "action": "KEEP_DB_VALUE_NO_WRITE"
+    }
+  ]
+}

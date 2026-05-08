@@ -1,0 +1,331 @@
+{
+  "generated_at": "2026-05-08T22:12:55.422Z",
+  "purpose": "Restore manual.costs.retrocession to pre-write values if needed",
+  "excluded_keep_db_value": [
+    {
+      "isin": "IE00BYR8H148",
+      "current_retrocession": 0.5,
+      "action": "NOT_WRITTEN_NO_ROLLBACK_NEEDED"
+    },
+    {
+      "isin": "LU0235308482",
+      "current_retrocession": 0.5,
+      "action": "NOT_WRITTEN_NO_ROLLBACK_NEEDED"
+    },
+    {
+      "isin": "LU1762221155",
+      "current_retrocession": 1.38,
+      "action": "NOT_WRITTEN_NO_ROLLBACK_NEEDED"
+    }
+  ],
+  "rollback_entries": [
+    {
+      "isin": "BE0946564383",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.79,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0137381036",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.35,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0138922036",
+      "previous_retrocession": 0.46,
+      "written_retrocession": 0.71,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0140643034",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.35,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0168797092",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.47,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0173323009",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.53,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "ES0175604034",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.82,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0010286013",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.75,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0010288308",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.68,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0010312660",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.35,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0010321810",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.95,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0011261197",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.99,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0013460920",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.34,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR0013460961",
+      "previous_retrocession": 0.01,
+      "written_retrocession": 0,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "FR001400JGB5",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.51,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "IE00B4ZJ4188",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.49,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0113257694",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.45,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0114722738",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.38,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0117843481",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.44,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0119620416",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.79,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0119750205",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.52,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0125951151",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.89,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0133717503",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.45,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0170473374",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.41,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0181496216",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.72,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0224105477",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.84,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0231205856",
+      "previous_retrocession": 0.0158,
+      "written_retrocession": 1.58,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0256839860",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.44,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0267984697",
+      "previous_retrocession": 0.0155,
+      "written_retrocession": 1.55,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0302445910",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.72,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0365089902",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.86,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0599946893",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.66,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0607983896",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.71,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0637335638",
+      "previous_retrocession": 0.0069,
+      "written_retrocession": 0.69,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0690375182",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.1,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU0772958525",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.48,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1103303167",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.84,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1244893696",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.2,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1278917452",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.6,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1279334483",
+      "previous_retrocession": 0,
+      "written_retrocession": 1.47,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1378878430",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.79,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1481583711",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.41,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1902444584",
+      "previous_retrocession": 0.1,
+      "written_retrocession": 0,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    },
+    {
+      "isin": "LU1983299162",
+      "previous_retrocession": 0,
+      "written_retrocession": 0.72,
+      "rollback_action": "update manual.costs.retrocession to previous_retrocession",
+      "write_executed": true
+    }
+  ]
+}
