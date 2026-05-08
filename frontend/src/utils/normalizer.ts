@@ -9,6 +9,15 @@ function toNumber(x: any): number | null {
   return Number.isFinite(n) ? n : null
 }
 
+export const translateTechnicalWarning = (w: string) => {
+    const map: Record<string, string> = {
+        'mixed_legacy_50_50_fallback': 'Se han detectado fondos mixtos sin desglose actualizado de renta variable. Se asume conservadoramente un 50% de exposición.',
+        'requires_exposure_review': 'Se recomienda revisar la exposición de los fondos mixtos para mayor precisión.',
+        'mixed_missing_asset_mix': 'Faltan datos de exposición en fondos mixtos; usando modelo 50/50 de fallback.'
+    };
+    return map[w] || w;
+};
+
 // Helper para normalizar porcentaje: formateo estricto
 // Si > 1.5 => asumimos que es base 100 (ej: 8.5 -> 0.085)
 // Si <= 1.5 => asumimos que es decimal (ej: 0.085 -> 0.085)

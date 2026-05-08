@@ -24,6 +24,8 @@ const translateConstraint = (c: string) => {
     return translated;
 };
 
+import { translateTechnicalWarning } from '../../utils/normalizer'
+
 interface OptimizationReviewModalProps {
     currentPortfolio: any[];
     proposedPortfolio: any[];
@@ -182,6 +184,20 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                                             <div className="text-lg font-bold text-rose-600">{(explainabilityData.vol_deviation * 100).toFixed(2)}%</div>
                                         </div>
                                     )}
+                                </div>
+                            )}
+
+                            {/* Additional Technical Warnings */}
+                            {explainabilityData?.warnings && explainabilityData.warnings.length > 0 && (
+                                <div className="mt-4 border-t border-amber-200/50 pt-3">
+                                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-amber-800 mb-2">Consideraciones adicionales</h5>
+                                    <ul className="list-disc pl-5 space-y-1">
+                                        {explainabilityData.warnings.map((w: string, idx: number) => (
+                                            <li key={idx} className="text-xs text-amber-700">
+                                                {translateTechnicalWarning(w)}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 </div>
                             )}
                         </div>

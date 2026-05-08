@@ -21,6 +21,7 @@ import {
   getCanonicalRiskBucket,
   getCanonicalFlags,
   hasLegacyTaxonomyOnly,
+  translateTechnicalWarning,
 } from '../utils/normalizer';
 
 // ─── 10 MANDATORY FUND MOCKS ────────────────────────────────────────────
@@ -254,17 +255,17 @@ describe('getCanonicalType', () => {
 
 describe('getCanonicalSubtype', () => {
   it('returns V2 asset_subtype when present', () => {
-    expect(getCanonicalSubtype(MOCK_BIOTECH)).toBe('SECTOR_EQUITY_HEALTHCARE');
-    expect(getCanonicalSubtype(MOCK_GLOBAL_EQUITY_CORE)).toBe('GLOBAL_EQUITY');
-    expect(getCanonicalSubtype(MOCK_HIGH_YIELD)).toBe('HIGH_YIELD_BOND');
-    expect(getCanonicalSubtype(MOCK_ALLOCATION_AGGRESSIVE)).toBe('AGGRESSIVE_ALLOCATION');
-    expect(getCanonicalSubtype(MOCK_ALLOCATION_CONSERVATIVE)).toBe('CONSERVATIVE_ALLOCATION');
-    expect(getCanonicalSubtype(MOCK_CONVERTIBLE)).toBe('CONVERTIBLE_BOND');
-    expect(getCanonicalSubtype(MOCK_SMALLCAP_EM)).toBe('EMERGING_MARKETS_EQUITY');
+    expect(getCanonicalSubtype(MOCK_BIOTECH)).toBe('Salud');
+    expect(getCanonicalSubtype(MOCK_GLOBAL_EQUITY_CORE)).toBe('Renta Variable Global');
+    expect(getCanonicalSubtype(MOCK_HIGH_YIELD)).toBe('High Yield');
+    expect(getCanonicalSubtype(MOCK_ALLOCATION_AGGRESSIVE)).toBe('Mixto Agresivo');
+    expect(getCanonicalSubtype(MOCK_ALLOCATION_CONSERVATIVE)).toBe('Mixto Defensivo');
+    expect(getCanonicalSubtype(MOCK_CONVERTIBLE)).toBe('Bonos Convertibles');
+    expect(getCanonicalSubtype(MOCK_SMALLCAP_EM)).toBe('Renta Variable Emergente');
   });
 
   it('falls back to legacy morningstar category when no V2', () => {
-    expect(getCanonicalSubtype(MOCK_AMBIGUOUS)).toBe('EUR Flexible Allocation');
+    expect(getCanonicalSubtype(MOCK_AMBIGUOUS)).toBe('Eur Flexible Allocation');
   });
 
   it('returns Desconocido for empty fund', () => {
@@ -398,5 +399,17 @@ describe('V2 classification coherence', () => {
   it('ambiguous fund must flag as legacy only', () => {
     expect(hasLegacyTaxonomyOnly(MOCK_AMBIGUOUS)).toBe(true);
     expect(getCanonicalRiskBucket(MOCK_AMBIGUOUS)).toBeNull();
+  });
+});
+
+describe('translateTechnicalWarning', () => {
+  it('translates known warning codes', () => {
+    expect(translateTechnicalWarning('mixed_legacy_50_50_fallback')).toContain('Se asume conservadoramente un 50%');
+    expect(translateTechnicalWarning('requires_exposure_review')).toContain('revisar la exposición');
+    expect(translateTechnicalWarning('mixed_missing_asset_mix')).toContain('50/50 de fallback');
+  });
+
+  it('returns original string if not mapped', () => {
+    expect(translateTechnicalWarning('unknown_warning_code_123')).toBe('unknown_warning_code_123');
   });
 });

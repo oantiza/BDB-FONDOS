@@ -657,7 +657,8 @@ export function usePortfolioActions({
                 achieved_vol: result.metrics?.achieved_vol ?? result.achieved_vol,
                 vol_deviation: result.metrics?.vol_deviation ?? result.vol_deviation,
                 fallback_reason: result.fallback_reason,
-                solver_path: result.solver_path
+                solver_path: result.solver_path,
+                warnings: result.warnings || []
             };
 
             if (result.status === 'fallback_compliant') {

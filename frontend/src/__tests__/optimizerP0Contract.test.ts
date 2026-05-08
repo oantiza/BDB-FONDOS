@@ -48,4 +48,12 @@ describe('OPT1-T006 frontend optimizer fallback gating contract', () => {
     expect(gateWindow).not.toMatch(/setProposedPortfolio|toggleModal\([^)]*review/);
     expect(source).toMatch(/fallback_compliant/);
   });
+
+  test('runtime hook extracts UX explainability metrics (target_vol, achieved_vol, warnings)', () => {
+    const source = usePortfolioActionsSource();
+    expect(source).toMatch(/target_vol: result\.metrics\?\.target_vol \?\? result\.target_vol/);
+    expect(source).toMatch(/achieved_vol: result\.metrics\?\.achieved_vol \?\? result\.achieved_vol/);
+    expect(source).toMatch(/vol_deviation: result\.metrics\?\.vol_deviation \?\? result\.vol_deviation/);
+    expect(source).toMatch(/warnings: result\.warnings \|\| \[\]/);
+  });
 });
