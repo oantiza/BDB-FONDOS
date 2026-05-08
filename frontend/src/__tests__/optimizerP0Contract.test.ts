@@ -27,6 +27,16 @@ function usePortfolioActionsSource(): string {
   return readFileSync(resolve(here, '../hooks/usePortfolioActions.ts'), 'utf8');
 }
 
+function typesSource(): string {
+  const here = dirname(fileURLToPath(import.meta.url));
+  return readFileSync(resolve(here, '../types/index.ts'), 'utf8');
+}
+
+function optimizationAssetInterfaceSource(): string {
+  const match = typesSource().match(/export interface OptimizationAsset\s*{([\s\S]*?)\n}/);
+  return match?.[1] ?? '';
+}
+
 describe('OPT1-T006 frontend optimizer fallback gating contract', () => {
   test('target status table only allows compliant optimizer results to open apply flow', () => {
     expect(targetCanOpenApplyFlow('optimal_compliant')).toBe(true);
@@ -55,5 +65,55 @@ describe('OPT1-T006 frontend optimizer fallback gating contract', () => {
     expect(source).toMatch(/achieved_vol: result\.metrics\?\.achieved_vol \?\? result\.achieved_vol/);
     expect(source).toMatch(/vol_deviation: result\.metrics\?\.vol_deviation \?\? result\.vol_deviation/);
     expect(source).toMatch(/warnings: result\.warnings \|\| \[\]/);
+  });
+});
+
+describe('canonical optimizer constraints payload contract', () => {
+  test('payload preserves profile_id and risk_level compatibility during cleanup period', () => {
+    const source = usePortfolioActionsSource();
+
+    expect(source).toMatch(/risk_level: riskLevel/);
+    expect(source).toMatch(/profile_id: String\(riskLevel\)/);
+  });
+
+  test('payload keeps optimization_mode deterministic across root and legacy constraints', () => {
+    const source = usePortfolioActionsSource();
+
+    expect(source).toMatch(/optimization_mode: 'rebalance_to_profile'/);
+    expect(source).toMatch(/constraints:\s*{[\s\S]*optimization_mode: 'rebalance_to_profile'/);
+  });
+
+  test('payload keeps locked_positions canonical while preserving legacy fixed_weights compatibility', () => {
+    const source = usePortfolioActionsSource();
+
+    expect(source).toMatch(/locked_positions:\s*{[\s\S]*mode: isAddCapital \? 'keep_money' : 'keep_weight'/);
+    expect(source).toMatch(/locked_positions:\s*{[\s\S]*positions: fixedWeights/);
+    expect(source).toMatch(/constraints:\s*{[\s\S]*lock_mode: isAddCapital \? 'keep_money' : 'keep_weight'/);
+    expect(source).toMatch(/constraints:\s*{[\s\S]*fixed_weights: fixedWeights/);
+  });
+
+  test('response mapping preserves status, solver path, volatility diagnostics and warnings', () => {
+    const source = usePortfolioActionsSource();
+    const types = typesSource();
+
+    expect(source).toMatch(/status: result\.status/);
+    expect(source).toMatch(/solver_path: result\.solver_path/);
+    expect(source).toMatch(/target_vol: result\.metrics\?\.target_vol \?\? result\.target_vol/);
+    expect(source).toMatch(/achieved_vol: result\.metrics\?\.achieved_vol \?\? result\.achieved_vol/);
+    expect(source).toMatch(/vol_deviation: result\.metrics\?\.vol_deviation \?\? result\.vol_deviation/);
+    expect(source).toMatch(/warnings: result\.warnings \|\| \[\]/);
+    expect(types).toMatch(/target_vol\?: number/);
+    expect(types).toMatch(/achieved_vol\?: number/);
+    expect(types).toMatch(/vol_deviation\?: number/);
+    expect(types).toMatch(/solver_path\?: string/);
+  });
+
+  test('frontend optimization metadata remains minimal and does not merge classification with exposure', () => {
+    const optimizationAsset = optimizationAssetInterfaceSource();
+
+    expect(optimizationAsset).toMatch(/asset_class\?: string/);
+    expect(optimizationAsset).toMatch(/name: string/);
+    expect(optimizationAsset).not.toMatch(/classification_v2/);
+    expect(optimizationAsset).not.toMatch(/portfolio_exposure_v2/);
   });
 });
