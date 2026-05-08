@@ -1,0 +1,103 @@
+{
+  "audit_id": "BDB-SEM-4",
+  "generated_at_utc": "2026-05-07T05:03:43.6070094Z",
+  "artifact_type": "IDEMPOTENCY_GUARD_DESIGN",
+  "mode": "NO_WRITE_DESIGN_ONLY",
+  "target_path": "funds_v3/{isin}.portfolio_exposure_v2.asset_mix",
+  "proposed_function_contract": {
+    "name": "normalize_asset_mix_scale",
+    "input": "asset_mix object",
+    "output_fields": [
+      "normalized_asset_mix",
+      "detected_scale",
+      "confidence",
+      "requires_review",
+      "already_canonical"
+    ],
+    "normalized_asset_mix_scale": "0-100 percentage points",
+    "side_effects": "none",
+    "write_allowed": false
+  },
+  "scale_detection_rules": [
+    {
+      "detected_scale": "SCALE_0_1",
+      "condition": "all canonical numeric components are finite, >=0, <=1.5 and raw_sum is between 0.95 and 1.05",
+      "confidence": "HIGH",
+      "already_canonical": false,
+      "action": "return each component multiplied by 100, require proposed_sum 95..105"
+    },
+    {
+      "detected_scale": "SCALE_0_100",
+      "condition": "all canonical numeric components are finite, >=0, <=100 and raw_sum is between 95 and 105",
+      "confidence": "HIGH",
+      "already_canonical": true,
+      "action": "return components unchanged except canonical rounding/key normalization"
+    },
+    {
+      "detected_scale": "AMBIGUOUS_SCALE",
+      "condition": "raw_sum is >1.05 and <95 or values do not clearly satisfy 0-1 or 0-100 bands",
+      "confidence": "LOW",
+      "already_canonical": false,
+      "action": "requires_review=true; no write"
+    },
+    {
+      "detected_scale": "MALFORMED_VECTOR",
+      "condition": "missing object, non-numeric component, negative component, component >100, sum <=0, raw_sum >105, or conflicting aliases such as both bond and fixed_income with different values",
+      "confidence": "BLOCKED",
+      "already_canonical": false,
+      "action": "requires_review=true; no write"
+    }
+  ],
+  "idempotency_strategy": {
+    "principle": "A future correction may only transform SCALE_0_1 to SCALE_0_100 once. SCALE_0_100 is a terminal no-op state.",
+    "pre_read": "Read the current funds_v3 document immediately before any planned mutation; do not trust stale CSV/artifact rows as write preconditions.",
+    "canonical_key_guard": "Resolve fixed_income to bond only as a read alias. Abort if both bond and fixed_income exist with materially different values.",
+    "source_guard": "Only target portfolio_exposure_v2.asset_mix. Do not patch derived, metrics, v2_exposure, economic_exposure, or legacy aliases in the same operation.",
+    "decimal_guard": "Proceed only when raw_sum is 0.95..1.05 and every component is within 0..1.5.",
+    "percent_guard": "Abort as already_canonical when raw_sum is 95..105.",
+    "proposed_sum_guard": "After multiply_by_100, proposed_sum must be 95..105.",
+    "absurd_sum_guard": "Abort when raw_sum <=0, raw_sum >105, or raw_sum is between 1.05 and 95.",
+    "mixed_scale_guard": "Abort when the raw vector cannot be classified by total-sum bands before per-component runtime conversion.",
+    "approval_guard": "Real writes require a separate human approval block; this design artifact does not authorize mutation.",
+    "transaction_guard": "Future script should use a transaction/read-check-write pattern and record the before hash or exact before asset_mix to prevent stale reruns.",
+    "dry_run_audit_guard": "Every candidate must have before, after, detected_scale, raw_sum, proposed_sum, confidence, requires_review, already_canonical, and write_allowed=false in dry-run output."
+  },
+  "double_scale_risk_mitigations": [
+    "Treat SCALE_0_100 as terminal and no-op.",
+    "Never multiply when raw_sum is already 95..105.",
+    "Never multiply from an artifact row without re-reading the current Firestore document.",
+    "Never normalize via per-component >1.5 conversion for write decisions; classify by raw total first.",
+    "Require proposed_sum 95..105 after multiplication.",
+    "Abort on any REVIEW/BLOCKED candidate.",
+    "Optionally stamp future canonicalization metadata in the same approved transaction so repeated attempts are auditable."
+  ],
+  "pseudocode": [
+    "function normalize_asset_mix_scale(asset_mix):",
+    "  if asset_mix is not object: return MALFORMED_VECTOR(requires_review=true)",
+    "  values = read canonical keys equity,bond,cash,other plus approved extension keys if schema allows them",
+    "  if conflicting aliases exist: return MALFORMED_VECTOR(requires_review=true)",
+    "  if any value is non-numeric, negative, or >100: return MALFORMED_VECTOR(requires_review=true)",
+    "  raw_sum = sum(values)",
+    "  if raw_sum <= 0 or raw_sum > 105: return MALFORMED_VECTOR(requires_review=true)",
+    "  if 95 <= raw_sum <= 105: return {normalized_asset_mix: values, detected_scale:SCALE_0_100, confidence:HIGH, requires_review:false, already_canonical:true}",
+    "  if 0.95 <= raw_sum <= 1.05 and max(values) <= 1.5: proposed = values * 100",
+    "  if proposed_sum between 95 and 105: return {normalized_asset_mix: proposed, detected_scale:SCALE_0_1, confidence:HIGH, requires_review:false, already_canonical:false}",
+    "  return {normalized_asset_mix:null, detected_scale:AMBIGUOUS_SCALE, confidence:LOW, requires_review:true, already_canonical:false}"
+  ],
+  "sem2_candidate_expected_classification": {
+    "total_candidates": 450,
+    "expected_detected_scale": "SCALE_0_1",
+    "expected_confidence": "HIGH",
+    "expected_requires_review": false,
+    "expected_already_canonical": false,
+    "expected_write_allowed_in_dry_run": false
+  },
+  "validation": {
+    "no_firestore_write": true,
+    "no_rollback": true,
+    "no_deploy": true,
+    "no_core": true,
+    "no_runtime_mutation": true,
+    "coherent_with_sem2_sem3": true
+  }
+}

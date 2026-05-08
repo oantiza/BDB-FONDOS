@@ -1,0 +1,356 @@
+{
+  "audit_id": "BDB-SEM-0",
+  "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+  "operational_project_path": "C:\\Users\\oanti\\Documents\\BDB-FONDOS",
+  "target_collection": "funds_v3",
+  "expected_docs": 670,
+  "expected_docs_match": true,
+  "context": {
+    "csv0_dry_run_closed": true,
+    "csv1_conflicts_freeze_closed": true,
+    "no_inserts_from_csv": true,
+    "no_update_missing_only_from_csv": true,
+    "funds_v3_structurally_complete_from_csv_audit": true
+  },
+  "forbidden_contexts": {
+    "bdb_fondos_core_excluded": true,
+    "funds_core_v1_excluded": true,
+    "core_artifacts_used": false,
+    "pdf_parser_used": false,
+    "batch_update_used": false
+  },
+  "write_safety": {
+    "firestore_write_executed": false,
+    "rollback_executed": false,
+    "deploy_executed": false,
+    "firebase_cli_deploy_executed": false,
+    "firestore_operation_used": "collection.stream only",
+    "local_files_created": true
+  },
+  "total_docs_audited": 670,
+  "severity_counts": {
+    "HIGH": 459,
+    "MEDIUM": 686,
+    "LOW": 1385
+  },
+  "unique_isins_by_severity": {
+    "HIGH": 450,
+    "MEDIUM": 497,
+    "LOW": 670
+  },
+  "total_issue_flags": 2530,
+  "docs_with_any_flag": 670,
+  "docs_with_no_flags": 0,
+  "asset_type_counts": {
+    "ALTERNATIVE": 17,
+    "EQUITY": 356,
+    "FIXED_INCOME": 192,
+    "MIXED": 95,
+    "MONEY_MARKET": 10
+  },
+  "asset_subtype_top_50": {
+    "THEMATIC_EQUITY": 128,
+    "CORPORATE_BOND": 125,
+    "GLOBAL_EQUITY": 112,
+    "FLEXIBLE_ALLOCATION": 54,
+    "EUROPE_EQUITY": 39,
+    "EMERGING_MARKETS_BOND": 26,
+    "HIGH_YIELD_BOND": 25,
+    "UNKNOWN": 23,
+    "MODERATE_ALLOCATION": 19,
+    "SECTOR_EQUITY_TECH": 15,
+    "AGGRESSIVE_ALLOCATION": 12,
+    "SECTOR_EQUITY_HEALTHCARE": 11,
+    "CONSERVATIVE_ALLOCATION": 10,
+    "US_EQUITY": 10,
+    "EMERGING_MARKETS_EQUITY": 8,
+    "CONVERTIBLE_BOND": 6,
+    "INFLATION_LINKED_BOND": 6,
+    "MONEY_MARKET": 5,
+    "SECTOR_EQUITY_FINANCIALS": 5,
+    "EUROZONE_EQUITY": 5,
+    "GLOBAL_INCOME_EQUITY": 4,
+    "SECTOR_EQUITY_CONSUMER_CYCLICAL": 4,
+    "GOVERNMENT_BOND": 3,
+    "JAPAN_EQUITY": 3,
+    "GLOBAL_SMALL_CAP_EQUITY": 3,
+    "SECTOR_EQUITY_ENERGY": 3,
+    "ASIA_PACIFIC_EQUITY": 3,
+    "SECTOR_EQUITY_INDUSTRIALS": 2,
+    "SECTOR_EQUITY_BASIC_MATERIALS": 1
+  },
+  "exposure_source_counts": {
+    "asset_mix": 450,
+    "economic_exposure": 220
+  },
+  "asset_sum_stats": {
+    "count": 670,
+    "min": 99.99,
+    "p50": 100.0,
+    "max": 100.93
+  },
+  "region_sum_stats": {
+    "count": 562,
+    "min": 0.0,
+    "p50": 100.0,
+    "max": 195.2401
+  },
+  "sector_sum_stats": {
+    "count": 462,
+    "min": 0.0,
+    "p50": 20.3759,
+    "max": 100.9973
+  },
+  "flag_counts_by_type": {
+    "PREVIOUS_RELEVANT_QUALITY_WARNINGS": 612,
+    "PORTFOLIO_EXPOSURE_WARNINGS_PRESENT": 454,
+    "ASSET_MIX_SCALE_0_1_SUSPECTED": 450,
+    "CLASSIFICATION_WARNINGS_PRESENT": 318,
+    "DERIVED_REGION_TOTAL_SUSPICIOUS": 272,
+    "ASSET_MIX_MISSING_USING_ECONOMIC_EXPOSURE": 220,
+    "EQUITY_REGIONS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL": 139,
+    "DERIVED_CONTRADICTS_CLASSIFICATION_V2": 19,
+    "CLASSIFICATION_PRIMARY_SOURCE_FALLBACK_OR_LEGACY": 9,
+    "MORNINGSTAR_CATEGORY_MISSING": 9,
+    "CLASSIFICATION_EXPOSURE_STRONG_CONFLICT": 7,
+    "DERIVED_SECTOR_TOTAL_SUSPICIOUS": 7,
+    "MIXED_WITHOUT_USABLE_LOOKTHROUGH": 4,
+    "EQUITY_WITH_MODERATE_LOW_EQUITY_EXPOSURE": 3,
+    "ALTERNATIVE_DOMINATED_BY_RF_CASH": 2,
+    "ALTERNATIVE_WITH_HIGH_RF_CASH": 1,
+    "EQUITY_REGIONS_SUM_GT_105": 1,
+    "EQUITY_SECTORS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL": 1,
+    "MS_REPORT_DATE_MISSING": 1,
+    "PARSER_VERSION_MISSING": 1
+  },
+  "top_20_issues": [
+    {
+      "isin": "BE0946564383",
+      "name": "DPAM B - Equities NewGems Sustainable B Cap",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.002, \"equity\": 0.998, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "BE0947853660",
+      "name": "DPAM B - Equities US Dividend Sustainable B EUR Cap",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0141, \"equity\": 0.9859, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "DE0008490962",
+      "name": "DWS Deutschland LC",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0363, \"equity\": 0.9637, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0112231016",
+      "name": "Avantage Fund B FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0261, \"equity\": 0.7453, \"fixed_income\": 0.2286, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0112602000",
+      "name": "Azvalor Managers FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=0.9999; raw_components={\"cash\": 0.1382, \"equity\": 0.8533, \"fixed_income\": 0.0, \"other\": 0.0084}; normalized_sum=99.99",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0114633003",
+      "name": "Panda Agriculture & Water Fund FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0805, \"equity\": 0.9195, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0116419005",
+      "name": "Cartera Renta Fija Horizonte 2026 FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.2407, \"equity\": 0.0, \"fixed_income\": 0.7391, \"other\": 0.0202}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0124880032",
+      "name": "UBS Renta Fija 0-5 B FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0, \"equity\": 0.0, \"fixed_income\": 0.989315, \"other\": 0.010685}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0125240038",
+      "name": "Trea Renta Fija Ahorro S FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0839, \"equity\": 0.0, \"fixed_income\": 0.9103, \"other\": 0.0058}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0125323008",
+      "name": "Gestión Value A FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0582, \"equity\": 0.5765, \"fixed_income\": 0.0, \"other\": 0.3653}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0137381036",
+      "name": "Gesconsult Renta Variable Iberia A FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.012, \"equity\": 0.9331, \"fixed_income\": 0.0549, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0138217031",
+      "name": "Gesconsult Renta Fija Flexible A FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=0.9999; raw_components={\"cash\": 0.0593, \"equity\": 0.095, \"fixed_income\": 0.8456, \"other\": 0.0}; normalized_sum=99.99",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0138911039",
+      "name": "Gesconsult Renta Variable Eurozona FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0117, \"equity\": 0.9703, \"fixed_income\": 0.018, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0138914033",
+      "name": "Merch-Fontemar FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1.0001; raw_components={\"cash\": 0.0, \"equity\": 0.2454, \"fixed_income\": 0.6898, \"other\": 0.0649}; normalized_sum=100.01",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0138922002",
+      "name": "Gesconsult Horizonte 2025 FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.1092, \"equity\": 0.0, \"fixed_income\": 0.8908, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0138936036",
+      "name": "Fondibas FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0427, \"equity\": 0.1889, \"fixed_income\": 0.7684, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0140643034",
+      "name": "GVC Gaesco Europa FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0069, \"equity\": 0.9931, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0140986011",
+      "name": "Gesconsult Oportunidad Renta Fija A FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0386, \"equity\": 0.0, \"fixed_income\": 0.8335, \"other\": 0.1279}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0141113037",
+      "name": "GVC Gaesco Japón A FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0359, \"equity\": 0.9641, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    },
+    {
+      "isin": "ES0141116030",
+      "name": "Hamco Global Value Fund R FI",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.0246, \"equity\": 0.8417, \"fixed_income\": 0.1232, \"other\": 0.0105}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package."
+    }
+  ],
+  "artifacts": {
+    "summary_json": "artifacts\\bdb_semantic_audit\\bdb_semantic_audit_summary.json",
+    "detail_csv": "artifacts\\bdb_semantic_audit\\bdb_semantic_audit_detail.csv",
+    "high_priority_csv": "artifacts\\bdb_semantic_audit\\bdb_semantic_audit_high_priority.csv",
+    "flags_by_type_json": "artifacts\\bdb_semantic_audit\\bdb_semantic_audit_flags_by_type.json",
+    "markdown_doc": "docs\\BDB_SEMANTIC_AUDIT_FUNDS_V3.md"
+  },
+  "recommendation": "Next block should be BDB-SEM-1: review-only triage of HIGH issues first, then MEDIUM reporting/taxonomy issues. No correction package should be prepared until exact ISIN/field actions are approved."
+}

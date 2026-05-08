@@ -1,0 +1,768 @@
+{
+  "PREVIOUS_RELEVANT_QUALITY_WARNINGS": {
+    "count": 612,
+    "severity_counts": {
+      "LOW": 612
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "BE0943877671",
+      "BE0946564383",
+      "BE0947853660",
+      "BE6213829094",
+      "DE0005318406",
+      "DE000A0X7541",
+      "DE000DWS17J0",
+      "ES0110407006",
+      "ES0111166031",
+      "ES0112231016"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0943877671",
+      "isin": "BE0943877671",
+      "name": "DPAM B - Bonds Eur Government B Cap",
+      "severity": "LOW",
+      "flag_type": "PREVIOUS_RELEVANT_QUALITY_WARNINGS",
+      "category": "parser_audit/ms",
+      "description": "Previous quality warnings are present.",
+      "evidence": "quality.warnings=[\"regions_all_unrecognized\", \"fi_missing_credit_data\", \"missing_sectors\", \"missing_regions\"]",
+      "financial_impact": "Prior extraction warnings should be considered during semantic triage.",
+      "recommendation": "Use as evidence only; no mutation in this audit block.",
+      "classification_asset_type": "FIXED_INCOME",
+      "classification_asset_subtype": "GOVERNMENT_BOND",
+      "derived_asset_class": "RF",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 100.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "PORTFOLIO_EXPOSURE_WARNINGS_PRESENT": {
+    "count": 454,
+    "severity_counts": {
+      "LOW": 454
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "BE0946564383",
+      "BE0947853660",
+      "DE0008490962",
+      "ES0112231016",
+      "ES0112602000",
+      "ES0114633003",
+      "ES0116419005",
+      "ES0124880032",
+      "ES0125240038",
+      "ES0125323008"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0946564383",
+      "isin": "BE0946564383",
+      "name": "DPAM B - Equities NewGems Sustainable B Cap",
+      "severity": "LOW",
+      "flag_type": "PORTFOLIO_EXPOSURE_WARNINGS_PRESENT",
+      "category": "parser_audit/ms",
+      "description": "portfolio_exposure_v2 contains warnings or risk flags.",
+      "evidence": "warnings=[\"asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=99.8\", \"asset_mix_guardrail:mixed_scale_signal_detected:min_positive_component=0.2,max_component=99.8\", \"credit_missing\", \"duration_missing\"]; risk_flags=[]",
+      "financial_impact": "Exposure warnings may explain or confirm semantic anomalies.",
+      "recommendation": "Use as evidence only; no mutation in this audit block.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "THEMATIC_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 99.8,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.2,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "ASSET_MIX_SCALE_0_1_SUSPECTED": {
+    "count": 450,
+    "severity_counts": {
+      "HIGH": 450
+    },
+    "category": "portfolio_exposure_v2.asset_mix",
+    "example_isins": [
+      "BE0946564383",
+      "BE0947853660",
+      "DE0008490962",
+      "ES0112231016",
+      "ES0112602000",
+      "ES0114633003",
+      "ES0116419005",
+      "ES0124880032",
+      "ES0125240038",
+      "ES0125323008"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0946564383",
+      "isin": "BE0946564383",
+      "name": "DPAM B - Equities NewGems Sustainable B Cap",
+      "severity": "HIGH",
+      "flag_type": "ASSET_MIX_SCALE_0_1_SUSPECTED",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "Asset mix appears stored in 0-1 scale while downstream/reporting may expect 0-100 percentages.",
+      "evidence": "raw_sum=1; raw_components={\"cash\": 0.002, \"equity\": 0.998, \"fixed_income\": 0.0, \"other\": 0.0}; normalized_sum=100",
+      "financial_impact": "A 100x scale misunderstanding can materially distort optimizer exposure limits or reports.",
+      "recommendation": "Confirm canonical consumer scale before any normalization package.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "THEMATIC_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 99.8,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.2,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "CLASSIFICATION_WARNINGS_PRESENT": {
+    "count": 318,
+    "severity_counts": {
+      "LOW": 318
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "BE0943877671",
+      "BE0946564383",
+      "DE000DWS17J0",
+      "ES0111166031",
+      "ES0112602000",
+      "ES0114633003",
+      "ES0116419005",
+      "ES0124880032",
+      "ES0125240038",
+      "ES0126542036"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0943877671",
+      "isin": "BE0943877671",
+      "name": "DPAM B - Bonds Eur Government B Cap",
+      "severity": "LOW",
+      "flag_type": "CLASSIFICATION_WARNINGS_PRESENT",
+      "category": "parser_audit/ms",
+      "description": "classification_v2 contains warnings.",
+      "evidence": "classification_v2.warnings=[\"FI_UNKNOWN_DURATION_BUCKET\"]",
+      "financial_impact": "Classification confidence may vary by ISIN and affect filters.",
+      "recommendation": "Review warnings alongside exposure contradictions.",
+      "classification_asset_type": "FIXED_INCOME",
+      "classification_asset_subtype": "GOVERNMENT_BOND",
+      "derived_asset_class": "RF",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 100.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "DERIVED_REGION_TOTAL_SUSPICIOUS": {
+    "count": 272,
+    "severity_counts": {
+      "MEDIUM": 272
+    },
+    "category": "regions/sectors",
+    "example_isins": [
+      "BE0946564383",
+      "BE6213829094",
+      "ES0110407006",
+      "ES0112231016",
+      "ES0112602000",
+      "ES0114633003",
+      "ES0137381036",
+      "ES0138930005",
+      "ES0140643034",
+      "ES0141113037"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0946564383",
+      "isin": "BE0946564383",
+      "name": "DPAM B - Equities NewGems Sustainable B Cap",
+      "severity": "MEDIUM",
+      "flag_type": "DERIVED_REGION_TOTAL_SUSPICIOUS",
+      "category": "regions/sectors",
+      "description": "derived.portfolio_exposure.equity_regions_total has suspicious fund/sleeve-level semantics.",
+      "evidence": "derived_region_sum=209.5002; equity=99.8",
+      "financial_impact": "Derived regional reporting may treat equity-sleeve data as fund-level data.",
+      "recommendation": "Use as triage signal; do not overwrite derived fields in this block.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "THEMATIC_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 99.8,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.2,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "ASSET_MIX_MISSING_USING_ECONOMIC_EXPOSURE": {
+    "count": 220,
+    "severity_counts": {
+      "MEDIUM": 220
+    },
+    "category": "portfolio_exposure_v2.asset_mix",
+    "example_isins": [
+      "BE0943877671",
+      "BE6213829094",
+      "DE0005318406",
+      "DE000A0X7541",
+      "DE000DWS17J0",
+      "ES0110407006",
+      "ES0111166031",
+      "ES0114904008",
+      "ES0116567035",
+      "ES0116848005"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0943877671",
+      "isin": "BE0943877671",
+      "name": "DPAM B - Bonds Eur Government B Cap",
+      "severity": "MEDIUM",
+      "flag_type": "ASSET_MIX_MISSING_USING_ECONOMIC_EXPOSURE",
+      "category": "portfolio_exposure_v2.asset_mix",
+      "description": "portfolio_exposure_v2.asset_mix is absent; audit used economic_exposure as fallback.",
+      "evidence": "economic_exposure={\"bond\": 100.0, \"cash\": 0.0, \"equity\": 0.0, \"other\": 0.0}; effective_sum=100",
+      "financial_impact": "Consumers that expect asset_mix may fall back inconsistently or skip allocation checks.",
+      "recommendation": "Review whether these documents should be migrated to asset_mix in an approved correction block.",
+      "classification_asset_type": "FIXED_INCOME",
+      "classification_asset_subtype": "GOVERNMENT_BOND",
+      "derived_asset_class": "RF",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 100.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "EQUITY_REGIONS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL": {
+    "count": 139,
+    "severity_counts": {
+      "MEDIUM": 139
+    },
+    "category": "regions/sectors",
+    "example_isins": [
+      "BE6213829094",
+      "DE0005318406",
+      "DE000A0X7541",
+      "DE000DWS17J0",
+      "ES0110407006",
+      "ES0112231016",
+      "ES0112602000",
+      "ES0114904008",
+      "ES0116567035",
+      "ES0116848005"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE6213829094",
+      "isin": "BE6213829094",
+      "name": "DPAM B - Real Estate Europe Dividend Sustainable B Cap",
+      "severity": "MEDIUM",
+      "flag_type": "EQUITY_REGIONS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL",
+      "category": "regions/sectors",
+      "description": "Equity regions sum to approximately 100% while fund equity exposure is below 95%.",
+      "evidence": "equity_regions_sum=100; equity=0",
+      "financial_impact": "Regional percentages may be equity-sleeve percentages, not whole-fund percentages.",
+      "recommendation": "Label semantics clearly or convert only after approval.",
+      "classification_asset_type": "REAL_ESTATE",
+      "classification_asset_subtype": "UNKNOWN",
+      "derived_asset_class": "Inmobiliario",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 100.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "DERIVED_CONTRADICTS_CLASSIFICATION_V2": {
+    "count": 19,
+    "severity_counts": {
+      "MEDIUM": 19
+    },
+    "category": "legacy/fallback",
+    "example_isins": [
+      "BE6213829094",
+      "ES0133593030",
+      "ES0175316019",
+      "ES0175414012",
+      "ES0175437005",
+      "FR0000989915",
+      "FR0010794792",
+      "IE00BLP5S460",
+      "LU0251119078",
+      "LU0251131362"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE6213829094",
+      "isin": "BE6213829094",
+      "name": "DPAM B - Real Estate Europe Dividend Sustainable B Cap",
+      "severity": "MEDIUM",
+      "flag_type": "DERIVED_CONTRADICTS_CLASSIFICATION_V2",
+      "category": "legacy/fallback",
+      "description": "derived.asset_class contradicts classification_v2.asset_type.",
+      "evidence": "derived.asset_class=Inmobiliario; classification_v2.asset_type=REAL_ESTATE; normalized=INMOBILIARIO!=ALTERNATIVE",
+      "financial_impact": "Reporting may disagree depending on whether consumers read derived or classification_v2.",
+      "recommendation": "Prefer classification_v2 as canonical after manual triage, then plan a correction block.",
+      "classification_asset_type": "REAL_ESTATE",
+      "classification_asset_subtype": "UNKNOWN",
+      "derived_asset_class": "Inmobiliario",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 100.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "CLASSIFICATION_PRIMARY_SOURCE_FALLBACK_OR_LEGACY": {
+    "count": 9,
+    "severity_counts": {
+      "MEDIUM": 9
+    },
+    "category": "legacy/fallback",
+    "example_isins": [
+      "BE0947853660",
+      "ES0133593030",
+      "IE00B8J38129",
+      "LU0165520114",
+      "LU0236738190",
+      "LU0425308169",
+      "LU1353951376",
+      "LU1529955046",
+      "LU1883334275"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0947853660",
+      "isin": "BE0947853660",
+      "name": "DPAM B - Equities US Dividend Sustainable B EUR Cap",
+      "severity": "MEDIUM",
+      "flag_type": "CLASSIFICATION_PRIMARY_SOURCE_FALLBACK_OR_LEGACY",
+      "category": "legacy/fallback",
+      "description": "classification_v2 appears to use a fallback/legacy/name source as the primary source.",
+      "evidence": "source_priority_used=[\"name\", \"legacy_category\"]; sources_used=[\"ms.sectors\", \"ms.regions\", \"ms.equity_style\"]; primary=name",
+      "financial_impact": "Taxonomy may be less reliable for filters and portfolio construction.",
+      "recommendation": "Review these ISINs after HIGH exposure issues are triaged.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "THEMATIC_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 98.59,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 1.41,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "MORNINGSTAR_CATEGORY_MISSING": {
+    "count": 9,
+    "severity_counts": {
+      "MEDIUM": 9
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "BE0947853660",
+      "ES0133593030",
+      "ES0140986011",
+      "ES0168797092",
+      "IE00B8J38129",
+      "LU0165520114",
+      "LU0425308169",
+      "LU1353951376",
+      "LU1529955046"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "BE0947853660",
+      "isin": "BE0947853660",
+      "name": "DPAM B - Equities US Dividend Sustainable B EUR Cap",
+      "severity": "MEDIUM",
+      "flag_type": "MORNINGSTAR_CATEGORY_MISSING",
+      "category": "parser_audit/ms",
+      "description": "Morningstar category is absent.",
+      "evidence": "ms.category_morningstar=None",
+      "financial_impact": "Classification and filters may rely on weaker fallback sources.",
+      "recommendation": "Review category source before changing classification_v2.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "THEMATIC_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 98.59,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 1.41,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "CLASSIFICATION_EXPOSURE_STRONG_CONFLICT": {
+    "count": 7,
+    "severity_counts": {
+      "HIGH": 7
+    },
+    "category": "classification_v2 vs portfolio_exposure_v2",
+    "example_isins": [
+      "ES0175316019",
+      "ES0175414012",
+      "ES0175437005",
+      "FR0000989915",
+      "FR0010230490",
+      "LU0264738294",
+      "LU0336084032"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0175316019",
+      "isin": "ES0175316019",
+      "name": "Dunas Valor Flexible R FI",
+      "severity": "HIGH",
+      "flag_type": "CLASSIFICATION_EXPOSURE_STRONG_CONFLICT",
+      "category": "classification_v2 vs portfolio_exposure_v2",
+      "description": "Classification asset type and exposure-derived bucket disagree.",
+      "evidence": "classification=ALTERNATIVE; exposure_bucket=MIXED; equity=28.39; fixed_income=51.79; cash=16.16; other=3.66",
+      "financial_impact": "Cross-sleeve mismatch can affect optimizer constraints, profile compatibility, and reporting.",
+      "recommendation": "Review exact ISIN before mutating classification_v2 or portfolio_exposure_v2.",
+      "classification_asset_type": "alternative",
+      "classification_asset_subtype": "UNKNOWN",
+      "derived_asset_class": "Alternativos",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 28.39,
+      "effective_fixed_income_pct": 51.79,
+      "effective_cash_pct": 16.16,
+      "effective_other_pct": 3.66,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "DERIVED_SECTOR_TOTAL_SUSPICIOUS": {
+    "count": 7,
+    "severity_counts": {
+      "MEDIUM": 7
+    },
+    "category": "regions/sectors",
+    "example_isins": [
+      "ES0162305033",
+      "LU0251119078",
+      "LU0352312853",
+      "LU0815263628",
+      "LU1304666057",
+      "LU1899019175",
+      "LU2295320068"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0162305033",
+      "isin": "ES0162305033",
+      "name": "Merch-Oportunidades FI",
+      "severity": "MEDIUM",
+      "flag_type": "DERIVED_SECTOR_TOTAL_SUSPICIOUS",
+      "category": "regions/sectors",
+      "description": "derived.portfolio_exposure.equity_sectors_total has suspicious fund/sleeve-level semantics.",
+      "evidence": "derived_sector_sum=99.99; equity=50",
+      "financial_impact": "Derived sector reporting may treat equity-sleeve data as fund-level data.",
+      "recommendation": "Use as triage signal; do not overwrite derived fields in this block.",
+      "classification_asset_type": "MIXED",
+      "classification_asset_subtype": "FLEXIBLE_ALLOCATION",
+      "derived_asset_class": "Mixto",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 50.0,
+      "effective_fixed_income_pct": 50.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "MIXED_WITHOUT_USABLE_LOOKTHROUGH": {
+    "count": 4,
+    "severity_counts": {
+      "MEDIUM": 4
+    },
+    "category": "classification_v2 vs portfolio_exposure_v2",
+    "example_isins": [
+      "ES0162211033",
+      "FR0011253624",
+      "FR0011261197",
+      "LU0583242994"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0162211033",
+      "isin": "ES0162211033",
+      "name": "Merch-Eurounión FI",
+      "severity": "MEDIUM",
+      "flag_type": "MIXED_WITHOUT_USABLE_LOOKTHROUGH",
+      "category": "classification_v2 vs portfolio_exposure_v2",
+      "description": "Mixed/allocation fund lacks usable top-level look-through exposure.",
+      "evidence": "effective_sum=100; exposure_source=asset_mix; bucket=UNKNOWN",
+      "financial_impact": "Mixed fund reporting and optimizer allocation cannot rely on equity/fixed income split.",
+      "recommendation": "Recover look-through from canonical source before optimization use.",
+      "classification_asset_type": "allocation",
+      "classification_asset_subtype": "FLEXIBLE_ALLOCATION",
+      "derived_asset_class": "Mixto",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 73.76,
+      "effective_fixed_income_pct": 19.7,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 6.54,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "EQUITY_WITH_MODERATE_LOW_EQUITY_EXPOSURE": {
+    "count": 3,
+    "severity_counts": {
+      "MEDIUM": 3
+    },
+    "category": "classification_v2 vs portfolio_exposure_v2",
+    "example_isins": [
+      "ES0125323008",
+      "ES0141991002",
+      "ES0168797092"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0125323008",
+      "isin": "ES0125323008",
+      "name": "Gestión Value A FI",
+      "severity": "MEDIUM",
+      "flag_type": "EQUITY_WITH_MODERATE_LOW_EQUITY_EXPOSURE",
+      "category": "classification_v2 vs portfolio_exposure_v2",
+      "description": "Equity fund has only moderate effective equity exposure.",
+      "evidence": "equity=57.65; fixed_income=0; cash=5.82; other=36.53",
+      "financial_impact": "Reporting and filters may overstate pure equity exposure.",
+      "recommendation": "Review whether the fund is mixed/flexible or exposure is stale.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "GLOBAL_EQUITY",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 57.65,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 5.82,
+      "effective_other_pct": 36.53,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "ALTERNATIVE_DOMINATED_BY_RF_CASH": {
+    "count": 2,
+    "severity_counts": {
+      "HIGH": 2
+    },
+    "category": "classification_v2 vs portfolio_exposure_v2",
+    "example_isins": [
+      "ES0175414012",
+      "ES0175437005"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0175414012",
+      "isin": "ES0175414012",
+      "name": "Dunas Valor Equilibrado R FI",
+      "severity": "HIGH",
+      "flag_type": "ALTERNATIVE_DOMINATED_BY_RF_CASH",
+      "category": "classification_v2 vs portfolio_exposure_v2",
+      "description": "Alternative fund is dominated by fixed income plus cash exposure.",
+      "evidence": "fixed_income+cash=88.5; equity=9.15; other=2.35",
+      "financial_impact": "Strong taxonomy/exposure contradiction can route the fund into the wrong optimizer sleeve.",
+      "recommendation": "Triage whether classification_v2.asset_type or exposure source is wrong.",
+      "classification_asset_type": "alternative",
+      "classification_asset_subtype": "UNKNOWN",
+      "derived_asset_class": "Alternativos",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 9.15,
+      "effective_fixed_income_pct": 68.34,
+      "effective_cash_pct": 20.16,
+      "effective_other_pct": 2.35,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "ALTERNATIVE_WITH_HIGH_RF_CASH": {
+    "count": 1,
+    "severity_counts": {
+      "MEDIUM": 1
+    },
+    "category": "classification_v2 vs portfolio_exposure_v2",
+    "example_isins": [
+      "ES0175316019"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0175316019",
+      "isin": "ES0175316019",
+      "name": "Dunas Valor Flexible R FI",
+      "severity": "MEDIUM",
+      "flag_type": "ALTERNATIVE_WITH_HIGH_RF_CASH",
+      "category": "classification_v2 vs portfolio_exposure_v2",
+      "description": "Alternative fund has high fixed income plus cash exposure.",
+      "evidence": "fixed_income+cash=67.95; equity=28.39; other=3.66",
+      "financial_impact": "Reporting and filters may overstate alternative allocation.",
+      "recommendation": "Review taxonomy and exposure look-through before any correction.",
+      "classification_asset_type": "alternative",
+      "classification_asset_subtype": "UNKNOWN",
+      "derived_asset_class": "Alternativos",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 28.39,
+      "effective_fixed_income_pct": 51.79,
+      "effective_cash_pct": 16.16,
+      "effective_other_pct": 3.66,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "EQUITY_REGIONS_SUM_GT_105": {
+    "count": 1,
+    "severity_counts": {
+      "MEDIUM": 1
+    },
+    "category": "regions/sectors",
+    "example_isins": [
+      "LU0348926287"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "LU0348926287",
+      "isin": "LU0348926287",
+      "name": "Nordea 1 - Global Climate and Environment Fund BP EUR",
+      "severity": "MEDIUM",
+      "flag_type": "EQUITY_REGIONS_SUM_GT_105",
+      "category": "regions/sectors",
+      "description": "portfolio_exposure_v2.equity_regions sums above 105%.",
+      "evidence": "equity_regions_sum=195.2401; equity=97.72",
+      "financial_impact": "Regional reporting may double-count regions or mix sleeve/fund-level percentages.",
+      "recommendation": "Review regional map normalization and duplicate aliases.",
+      "classification_asset_type": "equity",
+      "classification_asset_subtype": "SECTOR_EQUITY_TECH",
+      "derived_asset_class": "RV",
+      "exposure_source": "asset_mix",
+      "effective_equity_pct": 97.72,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 2.28,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "EQUITY_SECTORS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL": {
+    "count": 1,
+    "severity_counts": {
+      "MEDIUM": 1
+    },
+    "category": "regions/sectors",
+    "example_isins": [
+      "LU0607225447"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "LU0607225447",
+      "isin": "LU0607225447",
+      "name": "CT (Lux) Global Convertible Bond Fund A Acc EUR Hdg",
+      "severity": "MEDIUM",
+      "flag_type": "EQUITY_SECTORS_LOOK_LIKE_RV_SLEEVE_NOT_FUND_LEVEL",
+      "category": "regions/sectors",
+      "description": "Sectors sum to approximately 100% while fund equity exposure is below 95%.",
+      "evidence": "sectors_sum=100; equity=0",
+      "financial_impact": "Sector percentages may be equity-sleeve percentages, not whole-fund percentages.",
+      "recommendation": "Label semantics clearly or convert only after approval.",
+      "classification_asset_type": "FIXED_INCOME",
+      "classification_asset_subtype": "CONVERTIBLE_BOND",
+      "derived_asset_class": "RF",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 0.0,
+      "effective_fixed_income_pct": 100.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "MS_REPORT_DATE_MISSING": {
+    "count": 1,
+    "severity_counts": {
+      "LOW": 1
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "ES0133593030"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0133593030",
+      "isin": "ES0133593030",
+      "name": "EUROBOLSA SELECCION SICAV, SA",
+      "severity": "LOW",
+      "flag_type": "MS_REPORT_DATE_MISSING",
+      "category": "parser_audit/ms",
+      "description": "Morningstar report date is absent.",
+      "evidence": "ms.report_date=None",
+      "financial_impact": "Freshness and provenance checks are less precise.",
+      "recommendation": "Backfill only when source PDF/report provenance is confirmed.",
+      "classification_asset_type": "EQUITY",
+      "classification_asset_subtype": "EUROPE_EQUITY",
+      "derived_asset_class": "Otros",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 100.0,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  },
+  "PARSER_VERSION_MISSING": {
+    "count": 1,
+    "severity_counts": {
+      "MEDIUM": 1
+    },
+    "category": "parser_audit/ms",
+    "example_isins": [
+      "ES0133593030"
+    ],
+    "example_issue": {
+      "audit_id": "BDB-SEM-0",
+      "generated_at_utc": "2026-05-07T04:20:21.037545+00:00",
+      "doc_id": "ES0133593030",
+      "isin": "ES0133593030",
+      "name": "EUROBOLSA SELECCION SICAV, SA",
+      "severity": "MEDIUM",
+      "flag_type": "PARSER_VERSION_MISSING",
+      "category": "parser_audit/ms",
+      "description": "Parser version is absent from parser/quality metadata.",
+      "evidence": "quality.parser_version=None; parser_audit=null",
+      "financial_impact": "Auditability of extracted financial fields is reduced.",
+      "recommendation": "Backfill provenance only in a separate metadata correction block if source is known.",
+      "classification_asset_type": "EQUITY",
+      "classification_asset_subtype": "EUROPE_EQUITY",
+      "derived_asset_class": "Otros",
+      "exposure_source": "economic_exposure",
+      "effective_equity_pct": 100.0,
+      "effective_fixed_income_pct": 0.0,
+      "effective_cash_pct": 0.0,
+      "effective_other_pct": 0.0,
+      "effective_sum_pct": 100.0
+    }
+  }
+}

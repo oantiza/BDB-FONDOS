@@ -1,0 +1,51 @@
+{
+  "audit_id": "BDB-SEM-3",
+  "generated_at_utc": "2026-05-07T04:48:49.7974905Z",
+  "operational_project_path": "C:\\Users\\oanti\\Documents\\BDB-FONDOS",
+  "target_collection": "funds_v3",
+  "decision": "NO_WRITE_DECISION_FREEZE",
+  "input_artifacts": {
+    "sem2_summary_json": "artifacts\\bdb_semantic_audit\\bdb_sem_2_asset_mix_fix_plan_summary.json",
+    "sem2_detail_csv": "artifacts\\bdb_semantic_audit\\bdb_sem_2_asset_mix_fix_plan_detail.csv",
+    "sem2_patch_preview_json": "artifacts\\bdb_semantic_audit\\bdb_sem_2_asset_mix_patch_preview.json",
+    "sem2_optimizer_scale_contract_review_json": "artifacts\\bdb_semantic_audit\\bdb_sem_2_optimizer_scale_contract_review.json"
+  },
+  "total_candidates": 450,
+  "proposed_rule": "MULTIPLY_BY_100",
+  "optimizer_impact": "NEUTRAL",
+  "write_recommended_now": false,
+  "reason": "optimizer_accepts_both_scales_and_normalizes",
+  "operational_risk": "repeated_write_double_scaling",
+  "future_action": "canonicalize_only_with_idempotent_guard",
+  "requires_idempotency_guard_before_write": true,
+  "decision_basis": {
+    "asset_mix_scale_current": "0-1",
+    "deterministic_patch_available": true,
+    "sem2_total_fix_candidates": 450,
+    "sem2_write_allowed_false_for_all": true,
+    "sem2_validation_ok_for_all": true,
+    "sem2_current_sum_all_0_95_1_05": true,
+    "sem2_proposed_sum_all_95_105": true,
+    "optimizer_runtime_internal_scale": "0-1 decimal fractions",
+    "optimizer_storage_input_tolerance": "accepts both 0-1 and 0-100 for exposure components",
+    "optimizer_converts_to_0_1_internally": true,
+    "optimizer_runtime_double_scale_risk": "NO",
+    "operational_rerun_risk": "YES if a future write script blindly multiplies already-corrected 0-100 values"
+  },
+  "validation": {
+    "sem2_artifacts_read": true,
+    "total_candidates_confirmed_450": true,
+    "optimizer_impact_confirmed_neutral": true,
+    "write_allowed_false_confirmed": true,
+    "firestore_write_executed": false,
+    "rollback_executed": false,
+    "deploy_executed": false,
+    "firebase_cli_deploy_executed": false,
+    "core_used": false,
+    "funds_core_v1_used": false,
+    "parser_pdf_used": false,
+    "batch_update_used": false,
+    "documents_modified": 0
+  },
+  "next_recommended_block": "BDB-SEM-4 should be contract hardening only: define canonical storage scale and idempotent write preconditions before any approved mutation."
+}

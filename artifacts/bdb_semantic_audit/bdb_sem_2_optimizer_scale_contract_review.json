@@ -1,0 +1,91 @@
+{
+  "audit_id": "BDB-SEM-2",
+  "generated_at_utc": "2026-05-07T04:41:43.686095+00:00",
+  "review_scope": "real optimizer/runtime code in BDB-FONDOS, plus payload/UI normalizers that feed or mirror it",
+  "optimizer_scale_contract": {
+    "runtime_internal_scale": "0-1 decimal fractions",
+    "runtime_storage_input_tolerance": "accepts both 0-1 and 0-100 for exposure components",
+    "optimizer_expects_storage_0_100": false,
+    "optimizer_converts_to_0_1_internally": true,
+    "asset_mix_precedence": "portfolio_exposure_v2.asset_mix is read before economic_exposure when present",
+    "normalization_behavior": "component values with absolute value > 1.5 are divided by 100, then the vector is normalized to sum 1.0",
+    "runtime_effect_of_single_0_1_to_0_100_storage_patch": "neutral for optimizer vectors; both 0.998 and 99.8 become 0.998 before final normalization",
+    "raw_reporting_contract": "frontend/UI normalizers expose V2 exposure as 0-100 percentages"
+  },
+  "fields_used_by_optimizer": {
+    "primary": [
+      "portfolio_exposure_v2.asset_mix.equity",
+      "portfolio_exposure_v2.asset_mix.bond",
+      "portfolio_exposure_v2.asset_mix.cash",
+      "portfolio_exposure_v2.asset_mix.other"
+    ],
+    "aliases_or_fallbacks": [
+      "portfolio_exposure_v2.economic_exposure.equity",
+      "portfolio_exposure_v2.economic_exposure.bond",
+      "portfolio_exposure_v2.economic_exposure.fixed_income",
+      "portfolio_exposure_v2.economic_exposure.cash",
+      "portfolio_exposure_v2.economic_exposure.other",
+      "portfolio_exposure_v2.asset_mix.alternative / alternatives",
+      "portfolio_exposure_v2.asset_mix.real_asset / real_estate",
+      "v2_exposure",
+      "metrics.equity/bond/cash/alternative/real_asset/other",
+      "classification_v2.asset_type for fallback base mix",
+      "legacy asset_class/label only if V2 exposure is unavailable"
+    ],
+    "derived_usage": "not used for top-level asset_mix when portfolio_exposure_v2 has usable V2 exposure; used for group maps/legacy fallback in utilities",
+    "classification_v2_usage": "used for identity, fallback bucket labels, and suitability/profile routing"
+  },
+  "double_scale_risk": {
+    "optimizer_runtime_double_scale_risk": "NO",
+    "reason": "current runtime converts values >1.5 from percent to decimal, so a single 0-1 to 0-100 patch does not double optimizer exposure",
+    "operational_rerun_risk": "YES if a future write script blindly multiplies already-corrected 0-100 values",
+    "required_write_guard": "before any real write, assert current_sum between 0.95 and 1.05 and proposed_sum between 95 and 105 for every ISIN"
+  },
+  "non_runtime_scale_conflicts": [
+    {
+      "file": "scripts/maintenance/cargador_lotes_v_2.js",
+      "lines": "420-446",
+      "finding": "parser canonical validation expects asset_mix values clamped to 0-1 and sum near 1",
+      "impact": "future parser/update flows may still encode 0-1 storage semantics unless updated or explicitly scoped away"
+    },
+    {
+      "file": "scripts/apply_manual_overrides.js",
+      "lines": "234-255",
+      "finding": "manual override validation for top-level exposure values expects 0-1 when used on a direct exposure object",
+      "impact": "not the optimizer runtime, but relevant before designing a write tool or override-based correction"
+    }
+  ],
+  "evidence": [
+    {
+      "file": "functions_python/services/portfolio/utils.py",
+      "lines": "134-138",
+      "observation": "_as_fraction divides values with abs(value) > 1.5 by 100 and clamps to 0..1"
+    },
+    {
+      "file": "functions_python/services/portfolio/utils.py",
+      "lines": "245-283",
+      "observation": "get_v2_asset_mix reads asset_mix first, falls back to economic_exposure/v2_exposure, then returns decimal or percent based on as_percent"
+    },
+    {
+      "file": "functions_python/services/portfolio/optimizer_core.py",
+      "lines": "67-103",
+      "observation": "optimizer exposure vectors come from get_effective_asset_mix and are decimal fractions"
+    },
+    {
+      "file": "functions_python/api/endpoints_portfolio.py",
+      "lines": "75-115",
+      "observation": "backend fetches funds_v3 metadata, computes get_v2_asset_mix(as_percent=True) for v2_exposure, and passes raw portfolio_exposure_v2 to optimizer metadata"
+    },
+    {
+      "file": "frontend/src/utils/normalizer.ts",
+      "lines": "203-209, 280-303",
+      "observation": "UI normalizeExposurePct converts <=1.5 to percent by multiplying by 100 and leaves 0-100 values unchanged"
+    },
+    {
+      "file": "frontend/src/hooks/usePortfolioActions.ts",
+      "lines": "29-143",
+      "observation": "frontend optimization payload sends minimal asset metadata; backend funds_v3 metadata remains authoritative for V2 exposure"
+    }
+  ],
+  "conclusion": "The deterministic storage patch can be planned, but the current optimizer does not require it for correct internal exposure math. The write decision should be based on canonical storage/reporting contract alignment and must include idempotency guards."
+}
