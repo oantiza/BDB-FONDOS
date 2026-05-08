@@ -341,6 +341,12 @@ def get_effective_asset_mix(meta, as_percent=False):
         elif label_override in {"Alternativos", "Retorno Absoluto"}:
             base = {"equity": 0.0, "bond": 0.0, "cash": 0.0, "alternative": 1.0, "real_asset": 0.0, "other": 0.0}
         elif label_override == "Mixto":
+            isin = (meta or {}).get("isin") or (meta or {}).get("id") or "UNKNOWN"
+            logger.warning(
+                "[Utils] mixed_missing_asset_mix: isin=%s; "
+                "mixed_legacy_50_50_fallback active; requires_exposure_review.",
+                isin,
+            )
             base = {"equity": 0.5, "bond": 0.5, "cash": 0.0, "alternative": 0.0, "real_asset": 0.0, "other": 0.0}
         else:
             base = {}

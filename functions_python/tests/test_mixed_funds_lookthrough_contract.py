@@ -9,6 +9,7 @@ These tests document the current canonical policy:
 
 import os
 import sys
+import logging
 
 import pytest
 
@@ -78,14 +79,16 @@ def test_mixed_fund_does_not_fall_to_otros_when_asset_mix_exists():
     assert profile_exposure["Otros"] == pytest.approx(0.0)
 
 
-def test_mixed_without_asset_mix_uses_documented_legacy_50_50_fallback():
+def test_mixed_without_asset_mix_uses_documented_legacy_50_50_fallback_with_warning(caplog):
     fund = {
+        "isin": "MIXNOEXP",
         "label": "Mixto",
         "asset_class": "Mixto",
     }
 
-    mix = get_effective_asset_mix(fund)
-    profile_exposure = get_profile_bucket_exposure(fund)
+    with caplog.at_level(logging.WARNING, logger="services.portfolio.utils"):
+        mix = get_effective_asset_mix(fund)
+        profile_exposure = get_profile_bucket_exposure(fund)
 
     assert mix == {
         "equity": 0.5,
@@ -98,3 +101,7 @@ def test_mixed_without_asset_mix_uses_documented_legacy_50_50_fallback():
     assert profile_exposure["RV"] == pytest.approx(0.5)
     assert profile_exposure["RF"] == pytest.approx(0.5)
     assert "Mixto" not in profile_exposure
+    assert "mixed_missing_asset_mix" in caplog.text
+    assert "mixed_legacy_50_50_fallback" in caplog.text
+    assert "requires_exposure_review" in caplog.text
+    assert "MIXNOEXP" in caplog.text
