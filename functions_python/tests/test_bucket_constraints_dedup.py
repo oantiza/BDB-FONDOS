@@ -15,8 +15,18 @@ import numpy as np
 import pytest
 from unittest.mock import MagicMock, patch, call
 import logging
+import os
+import sys
 
-from services.portfolio.optimizer_core import _apply_standard_constraints
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
+
+from services.config import RISK_BUCKETS_LABELS
+from services.portfolio.optimizer_core import (
+    _apply_standard_constraints,
+    _build_profile_bucket_vectors,
+    _reconcile_bucket_vs_profile,
+    _validate_optimizer_result,
+)
 
 
 def _make_ef_mock(n_assets=3):
@@ -367,3 +377,103 @@ class TestBucketConstraintsDedup:
 
         # 1 locked asset constraint + 2 v1 constraints (equity min, equity max) = 3
         assert ef.add_constraint.call_count == 3
+
+    def test_mixto_bucket_bounds_are_ignored_as_solver_vector(self):
+        """Profile-only Mixto bounds must not create a hard solver vector."""
+        ef = _make_ef_mock()
+        eq_v, bd_v, cs_v, al_v, ra_v, ot_v = _make_vectors()
+
+        current_risk_buckets = {
+            5: {
+                "RV": {"min": 0.1, "max": 0.9},
+                "RF": {"min": 0.1, "max": 0.9},
+                "Monetario": {"min": 0.0, "max": 0.9},
+                "Alternativos": {"min": 0.0, "max": 0.9},
+                "Otros": {"min": 0.0, "max": 0.9},
+                "Mixto": {"min": 0.2, "max": 0.5},
+            }
+        }
+
+        _apply_standard_constraints(
+            ef_inst=ef,
+            constraints={},
+            lock_mode="free",
+            apply_profile=True,
+            risk_level_i=5,
+            locked_assets=[],
+            fixed_weights={},
+            asset_metadata={},
+            current_risk_buckets=current_risk_buckets,
+            eq_v=eq_v, bd_v=bd_v, cs_v=cs_v,
+            al_v=al_v, ra_v=ra_v, ot_v=ot_v,
+            bucket_bounds_v1={},
+        )
+
+        # Five real exposure buckets x min/max = 10. The commercial Mixto
+        # bucket is intentionally not a solver dimension, so it adds zero.
+        assert ef.add_constraint.call_count == 10
+
+    def test_mixto_not_injected_even_when_profile_defines_bounds(self):
+        """The profile vector map is exposure-only and excludes commercial Mixto."""
+        eq_v, bd_v, cs_v, al_v, ra_v, ot_v = _make_vectors()
+
+        profile_vectors = _build_profile_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
+
+        assert set(profile_vectors) == {"RV", "RF", "Monetario", "Alternativos", "Otros"}
+        assert "Mixto" not in profile_vectors
+
+    def test_reconcile_skips_mixto_without_affecting_real_buckets(self):
+        """Reconciliation adjusts overlapping real buckets and leaves Mixto decorative."""
+        current_risk_buckets = {
+            5: {
+                "RV": {"min": 0.4, "max": 0.6},
+                "RF": {"min": 0.2, "max": 0.4},
+                "Mixto": {"min": 0.2, "max": 0.5},
+            }
+        }
+        bucket_bounds_v1 = {
+            "equity": {"min": 0.75, "max": 0.9},
+            "mixed": {"min": 0.9, "max": 1.0},
+            "Mixto": {"min": 0.9, "max": 1.0},
+        }
+
+        reconciled = _reconcile_bucket_vs_profile(bucket_bounds_v1, current_risk_buckets, 5)
+
+        assert reconciled[5]["RV"]["max"] == pytest.approx(0.75)
+        assert reconciled[5]["RF"] == current_risk_buckets[5]["RF"]
+        assert reconciled[5]["Mixto"] == current_risk_buckets[5]["Mixto"]
+
+    def test_profile_3_5_not_infeasible_due_to_mixto_minimums(self):
+        """Active solver minima for profiles 3-5 exclude Mixto by contract."""
+        solver_bucket_names = {"RV", "RF", "Monetario", "Alternativos", "Otros"}
+
+        for profile in (3, 4, 5):
+            profile_cfg = RISK_BUCKETS_LABELS[profile]
+            solver_min_sum = sum(profile_cfg[name][0] for name in solver_bucket_names)
+            displayed_min_sum = sum(bounds[0] for bounds in profile_cfg.values())
+
+            assert solver_min_sum <= 1.0
+            assert displayed_min_sum >= solver_min_sum
+            assert "Mixto" in profile_cfg
+
+    def test_validator_skips_mixto_profile_bound_gracefully(self):
+        """Post-solver validation must not report false Mixto violations."""
+        eq_v, bd_v, cs_v, al_v, ra_v, ot_v = _make_vectors()
+
+        result = _validate_optimizer_result(
+            weights={"Fund0": 0.5, "Fund1": 0.5, "Fund2": 0.0},
+            universe=["Fund0", "Fund1", "Fund2"],
+            apply_profile=True,
+            risk_level_i=5,
+            current_risk_buckets={5: {"Mixto": {"min": 0.8, "max": 1.0}}},
+            bucket_bounds_v1={},
+            eq_v=eq_v,
+            bd_v=bd_v,
+            cs_v=cs_v,
+            al_v=al_v,
+            ra_v=ra_v,
+            ot_v=ot_v,
+        )
+
+        assert result["compliant"] is True
+        assert result["violations"] == []
