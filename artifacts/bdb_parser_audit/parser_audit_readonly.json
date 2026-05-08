@@ -1,0 +1,355 @@
+{
+  "audit_id": "BDB-PARSER-AUDIT-0",
+  "audit_date": "2026-05-07",
+  "project": "BDB-FONDOS",
+  "mode": "READ-ONLY",
+  "core_touched": false,
+  "firestore_writes": 0,
+  "gemini_calls": 0,
+
+  "scripts_found": [
+    {
+      "id": "S1",
+      "file": "scripts/maintenance/cargador_lotes_v_2.js",
+      "lines": 3151,
+      "role": "PRIMARY_PARSER",
+      "description": "Main PDF→Gemini→JSON→Firestore pipeline. Generates ms.*, derived.*, classification_v2, portfolio_exposure_v2.asset_mix (0-1 scale). Uses Gemini 2.5 Flash.",
+      "gemini_model": "gemini-2.5-flash (configurable via --model)",
+      "writes_to": "funds_v3",
+      "write_method": "bulkWriter.set(ref, doc, { merge: true })",
+      "write_gate": "Pipeline routing: only OK status writes. REVIEW writes require --write-review flag.",
+      "fields_written": ["isin", "name", "currency", "ms", "derived", "classification_v2", "portfolio_exposure_v2", "quality", "updatedAt"],
+      "fields_deleted": ["asset_class", "std_type", "std_region", "primary_region", "category_morningstar", "sectors"],
+      "manual_protection": "PRESERVES manual.costs.retrocession. Only initializes to 0 on new docs or when missing.",
+      "credential_type": "serviceAccountKey.json (REQUIRED - fails without it)",
+      "dry_run": "NO --dry-run flag. Always writes if routing=OK.",
+      "backup": "YES - saves raw_text, raw_llm, parsed_ms, canonical JSON locally before writing",
+      "snapshot": "YES - reads existing doc before write to preserve retrocession",
+      "rollback": "NO - no programmatic rollback",
+      "risk_level": "WRITE_WITH_ROUTING_GATE"
+    },
+    {
+      "id": "S2",
+      "file": "scripts/maintenance/cargador_lotes.js",
+      "lines": 1387,
+      "role": "LEGACY_PARSER_V1",
+      "description": "Original parser. Predecessor of cargador_lotes_v_2.js. Similar pipeline but lacks V2 classification, math validation, fixed-income hardening, and many of the V2 normalizations.",
+      "writes_to": "funds_v3",
+      "write_method": "bulkWriter (same pattern as V2)",
+      "manual_protection": "Similar pattern - does NOT overwrite manual",
+      "credential_type": "serviceAccountKey.json",
+      "dry_run": "NO",
+      "risk_level": "WRITE_RISKY (superseded, should not be used)"
+    },
+    {
+      "id": "S3",
+      "file": "scripts/maintenance/populate_taxonomy_v2.py",
+      "lines": 2071,
+      "role": "TAXONOMY_CLASSIFIER",
+      "description": "Python script that reads existing ms.* data from Firestore and generates classification_v2 + portfolio_exposure_v2 with economic_exposure (0-100 scale). Does NOT call Gemini. Does NOT parse PDFs.",
+      "writes_to": "funds_v3",
+      "write_method": "batch.update(doc.reference, {classification_v2, portfolio_exposure_v2})",
+      "write_gate": "--execute flag required. Default mode is --dry-run (read-only preview).",
+      "fields_written": ["classification_v2", "portfolio_exposure_v2"],
+      "manual_protection": "PRESERVES all fields - uses update(), not set()",
+      "credential_type": "ADC or serviceAccountKey.json (auto-detect)",
+      "dry_run": "YES - default mode is dry-run, --execute required for writes",
+      "backup": "Saves batch report JSON to reports/ directory",
+      "risk_level": "WRITE_WITH_CONFIRMATION"
+    },
+    {
+      "id": "S4",
+      "file": "scripts/maintenance/recalculate_derived_fields.js",
+      "lines": 1003,
+      "role": "DERIVED_RECALCULATOR",
+      "description": "Recalculates only derived.* fields from existing ms.* data. Does NOT touch manual, ms, or classification_v2.",
+      "writes_to": "funds_v3",
+      "write_method": "bulkWriter.update()",
+      "write_gate": "--dry-run flag supported. Without it, WRITES.",
+      "fields_written": ["derived"],
+      "manual_protection": "PRESERVES - only touches derived.*",
+      "credential_type": "ADC or serviceAccountKey.json (auto-detect)",
+      "dry_run": "YES - --dry-run flag supported",
+      "risk_level": "WRITE_WITH_CONFIRMATION"
+    },
+    {
+      "id": "S5",
+      "file": "scripts/maintenance/update_ms_stars_funds_v3.js",
+      "lines": 243,
+      "role": "STARS_UPDATER",
+      "description": "Updates only ms.rating_stars from CSV export. DRY-RUN by default.",
+      "writes_to": "funds_v3",
+      "write_method": "bulkWriter.update(ref, {ms.rating_stars, ms.rating_source, ms.rating_updatedAt})",
+      "write_gate": "--apply flag required. DRY-RUN is default.",
+      "fields_written": ["ms.rating_stars", "ms.rating_source", "ms.rating_updatedAt"],
+      "manual_protection": "PRESERVES - only touches ms.rating_stars",
+      "credential_type": "ADC (applicationDefault)",
+      "dry_run": "YES - default mode is DRY-RUN",
+      "risk_level": "WRITE_WITH_CONFIRMATION"
+    },
+    {
+      "id": "S6",
+      "file": "scripts/backfill_asset_class_fill_only_v1.js",
+      "role": "LEGACY_BACKFILL",
+      "description": "Legacy backfill for asset_class field. Superseded by V2 taxonomy.",
+      "risk_level": "WRITE_RISKY (legacy, should not be used)"
+    },
+    {
+      "id": "S7",
+      "file": "scripts/backfill_asset_class_aggressive_v1.js",
+      "role": "LEGACY_BACKFILL_AGGRESSIVE",
+      "description": "Aggressive version of asset_class backfill. Superseded.",
+      "risk_level": "WRITE_RISKY (legacy, should not be used)"
+    }
+  ],
+
+  "scale_analysis": {
+    "asset_mix_scale": "0-1 (fraccional)",
+    "asset_mix_source": "cargador_lotes_v_2.js → sanitizeAssetMixForExposureBuilder()",
+    "asset_mix_normalization": "Detects 0-100 via max_component > 1.0, divides by 100, rebases to sum=1.0",
+    "economic_exposure_scale": "0-100 (porcentual)",
+    "economic_exposure_source": "populate_taxonomy_v2.py → _normalize_pct_block()",
+    "economic_exposure_normalization": "Detects 0-1 via total <= 1.05, multiplies by 100, rebases to sum=100",
+    "runtime_normalization": "utils.py → _as_fraction(): auto-converts >1.5 to fraction (÷100)",
+    "risk_of_double_conversion": "LOW - each source handles its own scale detection independently",
+    "risk_of_ambiguous_zone": "MEDIUM - values between 1.0-1.5 would NOT be divided by 100 by _as_fraction()",
+    "explanation_for_220_funds_without_asset_mix": "These 220 funds were processed ONLY by populate_taxonomy_v2.py (which generates economic_exposure at 0-100) and were NOT subsequently parsed by cargador_lotes_v_2.js (which generates asset_mix at 0-1). The parser only runs when PDFs are available."
+  },
+
+  "semantic_mapping_analysis": {
+    "gold_mining_natural_resources": {
+      "parser_behavior": "cargador_lotes_v_2.js correctly classifies as 'Commodities' via hardCommodities list. Maps to classification_v2.asset_type='alternative'. Gemini reports asset_allocation with equity=0, other=100.",
+      "populate_taxonomy_v2_behavior": "Also classifies as COMMODITIES via text matching. Sets economic_exposure.other=100, equity=0.",
+      "root_cause_of_equity_0": "Morningstar PDFs for gold/mining funds report asset_allocation.equity=0, asset_allocation.other=100 because the fund holds commodity-linked instruments, not direct equities. The parser faithfully reproduces Morningstar's categorization.",
+      "optimizer_impact": "These 16 funds contribute 0 equity weight. If bucket bounds require minimum equity, these funds cannot fill that slot despite investing in mining company stocks.",
+      "recommendation": "MANUAL OVERRIDE needed per-fund if the intent is to treat them as equity exposure."
+    },
+    "classification_v2_mapping": {
+      "RV": "equity",
+      "RF": "fixed_income",
+      "Mixto": "allocation",
+      "Monetario": "money_market",
+      "Alternativos": "alternative",
+      "Inmobiliario": "real_asset",
+      "Commodities": "alternative",
+      "Otros": "other"
+    }
+  },
+
+  "retrocession_analysis": {
+    "parser_touches_retrocession": false,
+    "parser_behavior": "cargador_lotes_v_2.js ONLY initializes manual.costs.retrocession=0 for NEW documents or when the field is completely missing. It NEVER overwrites existing retrocession values.",
+    "gemini_prompt_excludes_retrocession": true,
+    "gemini_prompt_exact_line": "- NO extraigas: TER, retrocesiones, comisión de entrada o salida.",
+    "populate_taxonomy_v2_touches_retrocession": false,
+    "recalculate_derived_touches_retrocession": false,
+    "update_ms_stars_touches_retrocession": false,
+    "canon": "manual.costs.retrocession = porcentaje directo (1.41 = 1.41%)"
+  },
+
+  "traceability_analysis": {
+    "parser_version": "YES - ms_pdf_v5_{model_name}",
+    "source_pdf_hash": "YES - SHA1 and MD5",
+    "pdf_filename": "YES - stored in manifest and canonical JSON",
+    "extraction_timestamp": "YES - generated_at, quality.parsed_at",
+    "gemini_model": "YES - stored in parser_version string and canonical payload",
+    "confidence": "YES - classification_confidence field in classification_v2",
+    "warnings": "YES - comprehensive warning system in quality, classification_v2, portfolio_exposure_v2",
+    "raw_evidence": "YES - raw_text, raw_llm, parsed_ms saved to local work directories",
+    "batch_manifest": "YES - batch_manifest.json with all entries",
+    "missing": ["operator/user identity not logged", "no dry_run manifest (no dry-run mode in V2 parser)"]
+  },
+
+  "cost_efficiency": {
+    "model": "gemini-2.5-flash (default, configurable)",
+    "parses_entire_pdf": true,
+    "partial_field_parsing": false,
+    "batch_support": "YES - p-limit concurrency with configurable concurrency",
+    "retry_support": "YES - up to 6 retries with exponential backoff",
+    "reparsing_avoidance": "PARTIAL - PDFs are moved to processed/review/error dirs after processing, but no ISIN-level dedup check",
+    "csv_cost_reduction": "N/A - CSV is used only for subcategory mapping, not for reducing Gemini calls"
+  },
+
+  "data_audit_correlation": {
+    "220_funds_without_asset_mix": {
+      "cause": "Processed by populate_taxonomy_v2.py only (generates economic_exposure 0-100). Never passed through cargador_lotes_v_2.js (generates asset_mix 0-1).",
+      "severity": "MEDIUM - runtime fallback handles this via get_v2_asset_mix()"
+    },
+    "16_equity_with_0_percent_equity": {
+      "cause": "Morningstar PDF reports equity=0, other=100 for gold/mining funds. Parser faithfully reproduces this.",
+      "severity": "HIGH - semantic gap affects optimizer bucket bounds"
+    },
+    "11_derived_stale": {
+      "cause": "derived.asset_class uses Spanish labels (Inmobiliario, Monetario, Otros) while classification_v2 uses V2 enum (REAL_ESTATE, MONETARY, EQUITY). Different systems, not synced.",
+      "severity": "LOW - optimizer uses classification_v2, not derived"
+    },
+    "retrocessions_out_of_range": {
+      "cause": "NOT caused by parser. Parser never writes retrocessions. These values were loaded by separate manual/batch import processes.",
+      "severity": "MEDIUM - addressed by BDB-RETRO-IMPORT-0"
+    }
+  },
+
+  "risks": [
+    {
+      "id": "R1",
+      "severity": "HIGH",
+      "category": "CREDENTIAL_SECURITY",
+      "detail": "cargador_lotes_v_2.js and cargador_lotes.js REQUIRE serviceAccountKey.json. This file was removed during OPT-5/OPT-7 security cleanup. The parser cannot run without it.",
+      "recommendation": "Migrate to ADC-only authentication like populate_taxonomy_v2.py and recalculate_derived_fields.js already do."
+    },
+    {
+      "id": "R2",
+      "severity": "HIGH",
+      "category": "NO_DRY_RUN",
+      "detail": "cargador_lotes_v_2.js has NO --dry-run flag. When run, it ALWAYS writes to Firestore for OK-routed funds. The only gate is the routing status.",
+      "recommendation": "Add --dry-run flag that skips Firestore writes but still produces canonical JSONs."
+    },
+    {
+      "id": "R3",
+      "severity": "HIGH",
+      "category": "SEMANTIC_GAP_GOLD_MINING",
+      "detail": "16 gold/mining/natural resources funds get equity=0% because Morningstar classifies the underlying as commodity, not equity. This distorts optimizer bucket bounds.",
+      "recommendation": "Add post-parser override rules for known commodity-equity patterns, or create manual classification overrides."
+    },
+    {
+      "id": "R4",
+      "severity": "MEDIUM",
+      "category": "DUAL_SCALE_DESIGN",
+      "detail": "cargador_lotes_v_2.js generates asset_mix at 0-1. populate_taxonomy_v2.py generates economic_exposure at 0-100. Both are valid but create confusion in audits.",
+      "recommendation": "Document this as intentional design. Consider future unification to single scale."
+    },
+    {
+      "id": "R5",
+      "severity": "MEDIUM",
+      "category": "LEGACY_SCRIPTS_STILL_PRESENT",
+      "detail": "cargador_lotes.js (V1) and backfill scripts are superseded but still present. Running them accidentally would cause data regression.",
+      "recommendation": "Archive or delete legacy scripts, or add deprecation guards."
+    },
+    {
+      "id": "R6",
+      "severity": "MEDIUM",
+      "category": "NO_OPERATOR_IDENTITY",
+      "detail": "Parser does not log who initiated the run. No operator/user field in manifests.",
+      "recommendation": "Add --operator flag to record who ran the batch."
+    },
+    {
+      "id": "R7",
+      "severity": "LOW",
+      "category": "DERIVED_STALE_RISK",
+      "detail": "If recalculate_derived_fields.js is run after cargador_lotes_v_2.js, it may overwrite derived.* with slightly different logic (less comprehensive token matching).",
+      "recommendation": "Standardize derived computation to single source."
+    },
+    {
+      "id": "R8",
+      "severity": "HIGH",
+      "category": "CONCERN_CONTAMINATION",
+      "detail": "Parser (production core infrastructure, 106KB) is mixed with 52 heterogeneous maintenance scripts in scripts/maintenance/. No structural distinction between core pipeline and one-shot utilities.",
+      "recommendation": "Relocate to dedicated scripts/morningstar_parser/ directory."
+    },
+    {
+      "id": "R9",
+      "severity": "HIGH",
+      "category": "MONOLITH_UNTESTABLE",
+      "detail": "3151 lines, 66 functions, 0 module.exports. Impossible to unit test sanitizeAssetMixForExposureBuilder() or deriveAssetClass() without executing the entire file (requires Gemini key + serviceAccountKey).",
+      "recommendation": "Extract pure functions to lib/*.js modules with module.exports."
+    },
+    {
+      "id": "R10",
+      "severity": "MEDIUM",
+      "category": "LOGIC_DUPLICATION",
+      "detail": "recalculate_derived_fields.js and refresh_derived_data.js reimplement parser functions via copy-paste with subtle divergences.",
+      "recommendation": "Refactor to import from shared morningstar_parser/lib/ modules."
+    },
+    {
+      "id": "R11",
+      "severity": "MEDIUM",
+      "category": "ORPHANED_CSV_DEPENDENCIES",
+      "detail": "Parser expects subcategory_sectors_mapping.csv and subcategory_tokens_mapping.csv in __dirname (scripts/maintenance/) but they only exist in data/work/ and functions_python/scripts/. Parser would fail on startup.",
+      "recommendation": "Move CSVs to morningstar_parser/config/ or update path references."
+    },
+    {
+      "id": "R12",
+      "severity": "LOW",
+      "category": "COUPLED_DEPENDENCIES",
+      "detail": "scripts/package.json mixes parser deps (pdf-parse, @google/generative-ai, csv-parse) with unrelated deps (xlsx, minimist).",
+      "recommendation": "Create dedicated package.json for morningstar_parser/."
+    },
+    {
+      "id": "R13",
+      "severity": "MEDIUM",
+      "category": "ZERO_DISCOVERABILITY",
+      "detail": "New developer cannot distinguish production pipeline from one-shot diagnostic script by looking at the directory. Parser has no README.",
+      "recommendation": "Dedicated directory with README.md."
+    }
+  ],
+
+  "organizational_analysis": {
+    "current_location": "scripts/maintenance/cargador_lotes_v_2.js",
+    "current_directory_stats": {
+      "total_files": 53,
+      "subdirectories": 0,
+      "parser_size_bytes": 106763,
+      "parser_lines": 3151,
+      "parser_functions": 66
+    },
+    "monolith_decomposition": {
+      "config_init": { "lines": 200, "range": "1-200", "concern": "CLI args, paths, Gemini init, Firebase init, CSV loading" },
+      "helpers": { "lines": 110, "range": "200-330", "concern": "File I/O, hashing, string cleaning, date parsing" },
+      "schema_validation": { "lines": 250, "range": "330-580", "concern": "validateRawLlMSchema, validateAssetMix, validateCanonicalMath" },
+      "pipeline_routing": { "lines": 90, "range": "580-670", "concern": "decidePipelineStatus, coherence checks" },
+      "normalization": { "lines": 700, "range": "670-1330", "concern": "Asset allocation, regions, sectors, fixed income, market cap, style box" },
+      "classification": { "lines": 530, "range": "1330-1860", "concern": "deriveAssetClass, derivePrimaryRegion, deriveSubcategories, deriveAssetSubtype, deriveFlags" },
+      "gemini_extraction": { "lines": 180, "range": "1860-2070", "concern": "Prompt template, extraerMSConGemini, JSON response parsing" },
+      "pdf_processing": { "lines": 950, "range": "2070-3060", "concern": "processPdfFile orchestrator, builds canonical payload, writes Firestore" },
+      "main_batch": { "lines": 90, "range": "3060-3150", "concern": "Async main, concurrency, bulkWriter, manifest" }
+    },
+    "dependencies": {
+      "npm_packages": ["firebase-admin", "pdf-parse", "@google/generative-ai", "p-limit", "csv-parse", "dotenv"],
+      "stdlib": ["crypto", "fs", "path"],
+      "data_files": [
+        { "expected_path": "scripts/maintenance/serviceAccountKey.json", "actual": "DELETED (OPT-7)", "works": false },
+        { "expected_path": "scripts/maintenance/subcategory_sectors_mapping.csv", "actual": "data/work/ and functions_python/scripts/", "works": false },
+        { "expected_path": "scripts/maintenance/subcategory_tokens_mapping.csv", "actual": "data/work/ and functions_python/scripts/", "works": false }
+      ],
+      "data_directories": [
+        "data/input_pdfs/", "data/work/raw_text/", "data/work/raw_llm/", "data/work/parsed_ms/",
+        "data/canonical/", "data/review/", "data/error/",
+        "data/processed_pdfs/ok/", "data/processed_pdfs/review/", "data/processed_pdfs/error/",
+        "data/work/manifests/", "data/work/logs/"
+      ]
+    },
+    "cross_references": {
+      "require_imports": 0,
+      "copy_paste_reuse": ["refresh_derived_data.js (L44)", "recalculate_derived_fields.js (reimplements classifiers)"],
+      "documentation_references": "15+ docs in docs/ reference scripts/maintenance/cargador_lotes_v_2.js",
+      "ci_cd": "NONE - manual execution only",
+      "package_json_entry_point": "maintenance/update_retrocessions_funds_v3.js (NOT the parser)"
+    },
+    "tests": {
+      "unit_tests": false,
+      "integration_tests": false,
+      "inline_validation": true,
+      "downstream_tests": ["test_optimizer_core.py", "test_suitability_v2.py"]
+    },
+    "proposed_structure": {
+      "target_directory": "scripts/morningstar_parser/",
+      "modules": [
+        { "name": "lib/gemini_extractor.js", "lines": 180, "concern": "Prompt + API call + JSON parsing" },
+        { "name": "lib/schema_validator.js", "lines": 250, "concern": "Schema + math validation" },
+        { "name": "lib/normalizers.js", "lines": 700, "concern": "Regions, sectors, fixed income normalization" },
+        { "name": "lib/classifiers.js", "lines": 530, "concern": "Asset class, region, subtype derivation" },
+        { "name": "lib/exposure_builder.js", "lines": 150, "concern": "Asset mix sanitization, exposure building" },
+        { "name": "lib/pipeline_router.js", "lines": 90, "concern": "Pipeline status routing" },
+        { "name": "lib/helpers.js", "lines": 200, "concern": "Shared utilities" },
+        { "name": "writer_firestore.js", "lines": 200, "concern": "Firestore write with --dry-run" },
+        { "name": "cargador_lotes_v_2.js", "lines": 400, "concern": "Orchestrator" }
+      ],
+      "config_files": ["config/subcategory_sectors_mapping.csv", "config/subcategory_tokens_mapping.csv"],
+      "tests": ["__tests__/classifiers.test.js", "__tests__/normalizers.test.js", "__tests__/schema_validator.test.js", "__tests__/exposure_builder.test.js"],
+      "prerequisite": "ADC migration (R1-HIGH) must happen before or simultaneously"
+    }
+  },
+
+  "verdict": "PARSER_OK_WITH_WARNINGS"
+}
+

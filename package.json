@@ -3,7 +3,6 @@
     "@google/generative-ai": "^0.24.1",
     "csv-parse": "^6.2.1",
     "dotenv": "^17.4.2",
-    "firebase-admin": "^13.8.0",
     "html2canvas": "^1.4.1",
     "jspdf": "^4.2.0",
     "minimist": "^1.2.8",
@@ -35,5 +34,8 @@
   "bugs": {
     "url": "https://github.com/oantiza/BDB-FONDOS/issues"
   },
-  "homepage": "https://github.com/oantiza/BDB-FONDOS#readme"
+  "homepage": "https://github.com/oantiza/BDB-FONDOS#readme",
+  "devDependencies": {
+    "firebase-admin": "^13.8.0"
+  }
 }
