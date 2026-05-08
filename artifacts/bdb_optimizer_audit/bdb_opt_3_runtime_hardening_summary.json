@@ -1,0 +1,52 @@
+{
+  "audit_id": "BDB-OPT-3",
+  "generated_at_utc": "2026-05-07T05:46:17Z",
+  "artifact_type": "P0_RUNTIME_HARDENING_SUMMARY",
+  "mode": "RUNTIME_PATCH_NO_FIRESTORE_NO_DEPLOY",
+  "objective": "Implement only the P0 runtime/frontend fixes required to convert OPT-2 expected-failing contract tests into normal passing tests.",
+  "p0_expected_failing_tests_before": 5,
+  "p0_expected_failing_tests_after": 0,
+  "p0_fixes_applied": 5,
+  "runtime_files_modified": [
+    "functions_python/services/portfolio/optimizer_core.py",
+    "functions_python/services/portfolio/suitability_engine.py",
+    "functions_python/services/portfolio/utils.py",
+    "frontend/src/hooks/usePortfolioActions.ts",
+    "frontend/src/types/index.ts"
+  ],
+  "test_files_modified": [
+    "functions_python/tests/test_optimizer_p0_contracts.py",
+    "functions_python/tests/test_optimizer_core.py",
+    "functions_python/tests/test_suitability_v2.py",
+    "frontend/src/__tests__/optimizerP0Contract.test.ts"
+  ],
+  "artifact_files_created": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_3_runtime_hardening_summary.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_3_p0_fixes_applied.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_3_test_results.json"
+  ],
+  "doc_files_created": [
+    "docs/BDB_OPT_3_P0_RUNTIME_HARDENING_PATCH.md"
+  ],
+  "new_backend_statuses": [
+    "optimal_compliant",
+    "fallback_compliant",
+    "fallback_non_compliant"
+  ],
+  "frontend_applicable_statuses": [
+    "optimal_compliant",
+    "optimal_with_warnings",
+    "fallback_compliant"
+  ],
+  "validations": {
+    "no_firestore_write_executed": true,
+    "no_rollback": true,
+    "no_deploy": true,
+    "no_firebase_cli_deploy": true,
+    "no_core": true,
+    "no_funds_core_v1": true,
+    "no_parser_pdf": true,
+    "no_large_refactor": true
+  },
+  "next_recommended_block": "BDB-OPT-4 — P0 regression audit and production readiness review before any deploy."
+}

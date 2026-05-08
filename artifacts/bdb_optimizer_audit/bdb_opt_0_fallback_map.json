@@ -1,0 +1,126 @@
+{
+  "audit_id": "BDB-OPT-0",
+  "generated_at_utc": "2026-05-07T05:12:29.5457345Z",
+  "artifact_type": "FALLBACK_MAP",
+  "mode": "READ_ONLY",
+  "fallbacks": [
+    {
+      "area": "metadata_build",
+      "primary_source": "funds_v3 Firestore documents fetched by endpoints_portfolio._build_asset_metadata",
+      "fallback_chain": [
+        "frontend asset_metadata fills asset_class when backend metadata has no asset_class",
+        "frontend label fills label/asset_class for legacy compatibility",
+        "frontend classification_v2 fills only if backend classification_v2 missing",
+        "frontend portfolio_exposure_v2 fills only if backend exposure missing"
+      ],
+      "evidence": "functions_python/api/endpoints_portfolio.py:65-141",
+      "surfaced_to_result": "partly via taxonomy_telemetry",
+      "risk": "LOW"
+    },
+    {
+      "area": "asset_mix_reader",
+      "primary_source": "portfolio_exposure_v2.asset_mix",
+      "fallback_chain": [
+        "v2_exposure/economic_exposure",
+        "metrics exposure fields",
+        "classification_v2.asset_type base mix",
+        "legacy label/asset_class base mix"
+      ],
+      "evidence": "functions_python/services/portfolio/utils.py:245-342",
+      "surfaced_to_result": "legacy label warning is logged, but classification/metrics fallback source is not returned in result",
+      "risk": "MEDIUM"
+    },
+    {
+      "area": "group_exposure_reader",
+      "primary_source": "portfolio_exposure_v2 group maps",
+      "fallback_chain": [
+        "classification_v2 identity single-bucket maps",
+        "derived.portfolio_exposure maps",
+        "ms maps",
+        "top-level legacy maps"
+      ],
+      "evidence": "functions_python/services/portfolio/utils.py:369-473",
+      "surfaced_to_result": "not surfaced; constraints may use fallback vectors without source detail",
+      "risk": "MEDIUM"
+    },
+    {
+      "area": "suitability",
+      "primary_source": "classification_v2 plus get_v2_asset_mix(as_percent=True)",
+      "fallback_chain": [
+        "missing classification_v2 blocks",
+        "locked assets bypass suitability filter",
+        "missing exposure becomes real_eq=0 unless classification flags block"
+      ],
+      "evidence": "functions_python/services/portfolio/suitability_engine.py:6-62 and optimizer_core.py:197-220",
+      "surfaced_to_result": "exclusions logged; per-asset reasons not returned as result warnings",
+      "risk": "HIGH"
+    },
+    {
+      "area": "solver",
+      "primary_source": "requested objective: efficient_risk/max_sharpe/min_vol/target_return/min_deviation",
+      "fallback_chain": [
+        "relaxed Sharpe with weight_bounds=(0,max_weight)",
+        "min volatility with same standard constraints",
+        "filtered equal-weight/score fallback when raw_weights is None"
+      ],
+      "evidence": "functions_python/services/portfolio/optimizer_core.py:690-808 and 811-886",
+      "surfaced_to_result": "status can be fallback and explainability.solver_path is returned; result warnings remain []",
+      "risk": "HIGH"
+    },
+    {
+      "area": "history_data",
+      "primary_source": "global price cache / Firestore historico_vl_v2",
+      "fallback_chain": [
+        "Cloud Storage global_prices.json",
+        "Firestore historico_vl_v2",
+        "auto_expand_universe candidates if insufficient history and enabled"
+      ],
+      "evidence": "functions_python/services/data_fetcher.py:24-195 and optimizer_core.py:223-341",
+      "surfaced_to_result": "missing_assets/effective_start_date/observations returned; data source not fully stamped",
+      "risk": "MEDIUM"
+    },
+    {
+      "area": "risk_free_rate",
+      "primary_source": "system_settings/risk_free_rate cache",
+      "fallback_chain": [
+        "in-memory cache",
+        "ECB ESTR API",
+        "static fallback 0.03"
+      ],
+      "evidence": "functions_python/services/data_fetcher.py:247-345",
+      "surfaced_to_result": "rf_rate returned, but source/timestamp not returned",
+      "risk": "LOW"
+    },
+    {
+      "area": "frontend_result_handling",
+      "primary_source": "backend result.weights",
+      "fallback_chain": [
+        "status fallback accepted with warning toast",
+        "infeasible can retry with recovery_candidates",
+        "infeasible_equity_floor can retry with auto_expand_universe",
+        "fallback_no_history can retry with auto_expand_universe"
+      ],
+      "evidence": "frontend/src/hooks/usePortfolioActions.ts:599-764",
+      "surfaced_to_result": "UI shows toasts/dialogs, but mapped proposed portfolio may be rounded/filtered",
+      "risk": "MEDIUM"
+    },
+    {
+      "area": "recommendations",
+      "primary_source": "strict category+region match",
+      "fallback_chain": [
+        "asset class+region",
+        "asset class only",
+        "universal fallback",
+        "commercial/retrocession sorting for second option"
+      ],
+      "evidence": "frontend/src/utils/fundSwapper.ts:155-248 and directSearch.ts:134-162",
+      "surfaced_to_result": "reasons exist but fallback tier/commercial factor is not fully explicit",
+      "risk": "MEDIUM"
+    }
+  ],
+  "validation": {
+    "no_firestore_write": true,
+    "no_runtime_mutation": true,
+    "no_core": true
+  }
+}

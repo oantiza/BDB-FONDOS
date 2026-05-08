@@ -1,0 +1,102 @@
+{
+  "audit_id": "BDB-OPT-0",
+  "generated_at_utc": "2026-05-07T05:12:29.5457345Z",
+  "mode": "READ_ONLY_OPTIMIZER_AUDIT",
+  "project_path": "C:/Users/oanti/Documents/BDB-FONDOS",
+  "target_collection": "funds_v3",
+  "context": {
+    "sem_blocks_completed": [
+      "BDB-SEM-0",
+      "BDB-SEM-1",
+      "BDB-SEM-2",
+      "BDB-SEM-3",
+      "BDB-SEM-4"
+    ],
+    "asset_mix_runtime_compatibility": "confirmed",
+    "mass_write_recommended_now": false,
+    "primary_next_risk_surface": "optimizer fallbacks, constraints, output traceability"
+  },
+  "audited_surfaces": [
+    "functions_python/services/portfolio/optimizer_core.py",
+    "functions_python/services/portfolio/utils.py",
+    "functions_python/services/portfolio/constraints_builder_v1.py",
+    "functions_python/services/portfolio/feasibility_precheck.py",
+    "functions_python/services/portfolio/suitability_engine.py",
+    "functions_python/services/quant_core.py",
+    "functions_python/services/data_fetcher.py",
+    "functions_python/api/endpoints_portfolio.py",
+    "frontend/src/hooks/usePortfolioActions.ts",
+    "frontend/src/hooks/usePortfolioStats.ts",
+    "frontend/src/utils/rulesEngine.ts",
+    "frontend/src/utils/fundSwapper.ts",
+    "frontend/src/utils/directSearch.ts",
+    "frontend/src/utils/normalizer.ts",
+    "frontend/src/utils/portfolioAnalyticsEngine.ts"
+  ],
+  "finding_counts": {
+    "total": 14,
+    "HIGH": 5,
+    "MEDIUM": 7,
+    "LOW": 2
+  },
+  "top_risks": [
+    {
+      "id": "OPT0-HIGH-001",
+      "title": "Solver fallback can return an applicable portfolio while dropping higher-level constraints",
+      "area": "fallback_postprocess"
+    },
+    {
+      "id": "OPT0-HIGH-002",
+      "title": "Volatility band/risk budget contract is built but not enforced as a hard constraint",
+      "area": "constraint_engine"
+    },
+    {
+      "id": "OPT0-HIGH-003",
+      "title": "Feasibility precheck misses max-attainable bucket floors under max_weight and fixed positions",
+      "area": "constraint_engine"
+    },
+    {
+      "id": "OPT0-HIGH-004",
+      "title": "Missing V2 exposure can be treated as zero equity during suitability checks",
+      "area": "suitability"
+    },
+    {
+      "id": "OPT0-HIGH-005",
+      "title": "Weight normalization can preserve negative outputs if upstream weights contain negatives",
+      "area": "weights_normalization"
+    }
+  ],
+  "fallback_map_artifact": "artifacts/bdb_optimizer_audit/bdb_opt_0_fallback_map.json",
+  "constraint_engine_artifact": "artifacts/bdb_optimizer_audit/bdb_opt_0_constraint_engine_review.json",
+  "runtime_safety_artifact": "artifacts/bdb_optimizer_audit/bdb_opt_0_runtime_safety_review.json",
+  "test_validation": {
+    "command": "functions_python/venv/Scripts/python.exe -m pytest tests/test_optimizer_core.py tests/test_feasibility_precheck.py tests/test_suitability_v2.py tests/test_quant_core.py -q -p no:cacheprovider",
+    "working_directory": "C:/Users/oanti/Documents/BDB-FONDOS/functions_python",
+    "result": "PASS",
+    "passed": 72,
+    "failed": 0,
+    "notes": "PYTHONDONTWRITEBYTECODE=1 was set; tests use synthetic/mocked data and did not call the real optimizer endpoint."
+  },
+  "validation": {
+    "firestore_write_executed": false,
+    "rollback_executed": false,
+    "deploy_executed": false,
+    "firebase_cli_deploy_executed": false,
+    "core_path_touched": false,
+    "funds_core_v1_used": false,
+    "parser_pdf_used": false,
+    "runtime_code_modified": false,
+    "functional_changes_made": false,
+    "local_artifacts_created_only": true
+  },
+  "artifacts_created": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_summary.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_findings.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_high_risk_findings.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_fallback_map.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_constraint_engine_review.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_runtime_safety_review.json",
+    "docs/BDB_OPT_0_OPTIMIZER_FINAL_AUDIT.md"
+  ],
+  "next_recommended_block": "BDB-OPT-1 no-write hardening plan: add tests and design patches for fallback warning propagation, weight invariant guards, strict feasibility gaps, and tactical explainability before any runtime mutation."
+}

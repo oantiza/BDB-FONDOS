@@ -1,0 +1,166 @@
+{
+  "audit_id": "BDB-OPT-1",
+  "generated_at_utc": "2026-05-07T05:19:31.0011643Z",
+  "mode": "NO_WRITE_NO_RUNTIME_CHANGE_HARDENING_PLAN",
+  "project_path": "C:/Users/oanti/Documents/BDB-FONDOS",
+  "input_artifacts": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_summary.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_findings.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_high_risk_findings.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_constraint_engine_review.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_0_runtime_safety_review.json"
+  ],
+  "source_findings": {
+    "total": 14,
+    "HIGH": 5,
+    "MEDIUM": 7,
+    "LOW": 2
+  },
+  "p0_fix_count": 4,
+  "p1_fix_count": 3,
+  "p2_fix_count": 3,
+  "p0_fixes": [
+    "P0-01 final_validator_post_solver_and_post_fallback",
+    "P0-02 finite_non_negative_weight_normalization_guard",
+    "P0-03 suitability_missing_exposure_guard",
+    "P0-04 frontend_fallback_non_compliant_gating"
+  ],
+  "mandatory_final_invariants": [
+    {
+      "id": "INV-WEIGHTS-SUM-BACKEND",
+      "contract": "backend result.weights are decimals and must sum to 1.0 +/- 1e-6 for every compliant result"
+    },
+    {
+      "id": "INV-WEIGHTS-SUM-FRONTEND",
+      "contract": "frontend displayed/applied weights are percentages and must sum to 100.0 +/- display tolerance"
+    },
+    {
+      "id": "INV-WEIGHTS-NONNEGATIVE",
+      "contract": "no returned or displayed weight may be negative"
+    },
+    {
+      "id": "INV-WEIGHTS-FINITE",
+      "contract": "no returned metric, weight, exposure, or constraint total may be NaN or Infinity"
+    },
+    {
+      "id": "INV-WEIGHTS-COMPLETE",
+      "contract": "every used_asset must have an explicit numeric weight; every positive weight must belong to used_assets or be marked missing/zeroed"
+    },
+    {
+      "id": "INV-CONSTRAINTS-POSTCHECK",
+      "contract": "bucket, group, geo, lock, max_weight, min_weight, vol_band, and suitability constraints are recalculated after solver and fallback"
+    },
+    {
+      "id": "INV-FALLBACK-COMPLIANCE",
+      "contract": "fallback_non_compliant must not be treated as an applicable portfolio"
+    },
+    {
+      "id": "INV-MISSING-EXPOSURE",
+      "contract": "missing exposure is REVIEW/BLOCKED for restrictive profiles and is never interpreted as 0 percent equity without an explicit warning"
+    }
+  ],
+  "final_status_contract": [
+    {
+      "status": "optimal_compliant",
+      "applicable": true,
+      "meaning": "Solver succeeded and all post-solver invariants/constraints pass."
+    },
+    {
+      "status": "optimal_with_warnings",
+      "applicable": true,
+      "meaning": "Solver succeeded and hard invariants pass, but non-critical warnings or fallback source diagnostics exist."
+    },
+    {
+      "status": "fallback_compliant",
+      "applicable": true,
+      "meaning": "Fallback path used, all hard invariants and required constraints pass, and fallback reason is explicit."
+    },
+    {
+      "status": "fallback_non_compliant",
+      "applicable": false,
+      "meaning": "Fallback path used but at least one hard invariant or required constraint failed postcheck."
+    },
+    {
+      "status": "infeasible_constraints",
+      "applicable": false,
+      "meaning": "Precheck or postcheck proves the requested constraints are mathematically impossible."
+    },
+    {
+      "status": "infeasible_data",
+      "applicable": false,
+      "meaning": "History, exposure, mu, covariance, or finite-data requirements are insufficient."
+    },
+    {
+      "status": "error",
+      "applicable": false,
+      "meaning": "Unexpected exception or invalid input contract."
+    }
+  ],
+  "high_findings_coverage": {
+    "OPT0-HIGH-001": {
+      "patch_phase": "P0",
+      "tests_mapped": [
+        "OPT1-T001",
+        "OPT1-T002",
+        "OPT1-T006"
+      ]
+    },
+    "OPT0-HIGH-002": {
+      "patch_phase": "P1",
+      "tests_mapped": [
+        "OPT1-T007"
+      ]
+    },
+    "OPT0-HIGH-003": {
+      "patch_phase": "P1",
+      "tests_mapped": [
+        "OPT1-T005"
+      ]
+    },
+    "OPT0-HIGH-004": {
+      "patch_phase": "P0",
+      "tests_mapped": [
+        "OPT1-T003"
+      ]
+    },
+    "OPT0-HIGH-005": {
+      "patch_phase": "P0",
+      "tests_mapped": [
+        "OPT1-T004",
+        "OPT1-T009"
+      ]
+    }
+  },
+  "rollout_order": [
+    "P0-01",
+    "P0-02",
+    "P0-03",
+    "P0-04",
+    "P1-01",
+    "P1-02",
+    "P1-03",
+    "P2-01",
+    "P2-02",
+    "P2-03"
+  ],
+  "validation": {
+    "runtime_modified": false,
+    "firestore_write_executed": false,
+    "rollback_executed": false,
+    "deploy_executed": false,
+    "firebase_cli_deploy_executed": false,
+    "core_path_touched": false,
+    "funds_core_v1_used": false,
+    "parser_pdf_used": false,
+    "all_high_findings_mapped_to_tests": true,
+    "all_high_findings_mapped_to_patch_phase": true
+  },
+  "artifacts_created": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_hardening_plan_summary.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_risk_matrix.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_test_plan.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_patch_plan.json",
+    "docs/BDB_OPT_1_OPTIMIZER_HARDENING_PLAN.md"
+  ],
+  "next_recommended_block": "BDB-OPT-2 should implement tests only for P0 invariants, still no runtime production behavior change until tests define the safety contract."
+}

@@ -1,0 +1,97 @@
+{
+  "audit_id": "BDB-OPT-2",
+  "generated_at_utc": "2026-05-07T07:36:34Z",
+  "artifact_type": "P0_TESTS_ONLY_CONTRACT_SUMMARY",
+  "mode": "NO_WRITE_NO_RUNTIME_CHANGE",
+  "source_artifacts": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_test_plan.csv",
+    "artifacts/bdb_optimizer_audit/bdb_opt_1_patch_plan.json"
+  ],
+  "runtime_productive_files_modified": [],
+  "test_files_added": [
+    "functions_python/tests/test_optimizer_p0_contracts.py",
+    "frontend/src/__tests__/optimizerP0Contract.test.ts"
+  ],
+  "doc_files_added": [
+    "docs/BDB_OPT_2_P0_TESTS_ONLY_CONTRACT.md"
+  ],
+  "artifact_files_added": [
+    "artifacts/bdb_optimizer_audit/bdb_opt_2_tests_only_summary.json",
+    "artifacts/bdb_optimizer_audit/bdb_opt_2_contract_tests_matrix.csv"
+  ],
+  "p0_contracts_covered": [
+    {
+      "test_id": "OPT1-T001",
+      "area": "fallback_non_compliant",
+      "scope": "backend",
+      "current_status": "expected_failing_pytest_xfail_strict",
+      "opt3_required": true
+    },
+    {
+      "test_id": "OPT1-T003",
+      "area": "missing_exposure_guard",
+      "scope": "backend",
+      "current_status": "expected_failing_pytest_xfail_strict",
+      "opt3_required": true
+    },
+    {
+      "test_id": "OPT1-T004",
+      "area": "negative_weights_guard",
+      "scope": "backend",
+      "current_status": "expected_failing_pytest_xfail_strict",
+      "opt3_required": true
+    },
+    {
+      "test_id": "OPT1-T009",
+      "area": "used_assets_weights_completeness",
+      "scope": "backend",
+      "current_status": "expected_failing_pytest_xfail_strict",
+      "opt3_required": true
+    },
+    {
+      "test_id": "OPT1-T006A",
+      "area": "frontend_status_table",
+      "scope": "frontend",
+      "current_status": "passing_contract_table",
+      "opt3_required": false
+    },
+    {
+      "test_id": "OPT1-T006B",
+      "area": "frontend_fallback_non_compliant_gating",
+      "scope": "frontend",
+      "current_status": "expected_failing_vitest_test_fails",
+      "opt3_required": true
+    }
+  ],
+  "test_execution": {
+    "backend": {
+      "command": "cd functions_python; $env:PYTHONDONTWRITEBYTECODE='1'; .\\venv\\Scripts\\python.exe -m pytest tests\\test_optimizer_p0_contracts.py tests\\test_optimizer_core.py tests\\test_suitability_v2.py -q -p no:cacheprovider",
+      "result": "49 passed, 4 xfailed",
+      "exit_code": 0
+    },
+    "frontend": {
+      "command": "cd frontend; npm test -- --run src/__tests__/optimizerP0Contract.test.ts",
+      "result": "1 file passed, 2 tests passed; includes 1 Vitest test.fails expected-failing contract",
+      "exit_code": 0
+    }
+  },
+  "counts": {
+    "backend_contract_tests_added": 4,
+    "frontend_contract_tests_added": 2,
+    "expected_failing_contract_tests": 5,
+    "passing_contract_tests": 1,
+    "total_p0_contract_tests_added": 6
+  },
+  "validations": {
+    "no_firestore_write": true,
+    "no_rollback": true,
+    "no_deploy": true,
+    "no_firebase_cli_deploy": true,
+    "no_core": true,
+    "no_funds_core_v1": true,
+    "no_parser_pdf": true,
+    "no_runtime_productive_change": true,
+    "tests_only_change": true
+  },
+  "next_recommended_block": "BDB-OPT-3 — P0 RUNTIME HARDENING PATCH behind the contracts created in OPT-2."
+}

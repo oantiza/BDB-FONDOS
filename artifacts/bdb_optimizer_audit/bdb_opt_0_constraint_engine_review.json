@@ -1,0 +1,102 @@
+{
+  "audit_id": "BDB-OPT-0",
+  "generated_at_utc": "2026-05-07T05:12:29.5457345Z",
+  "artifact_type": "CONSTRAINT_ENGINE_REVIEW",
+  "mode": "READ_ONLY",
+  "contract_summary": {
+    "constraint_sources": [
+      "Firestore system_settings/risk_profiles",
+      "frontend constraints",
+      "constraints_v1 builder",
+      "optimizer_core legacy compatibility dict"
+    ],
+    "bucket_vector_source": "portfolio_exposure_v2 via get_effective_asset_mix, then fallbacks",
+    "scale": "all solver constraints consume decimal 0-1 exposure vectors",
+    "hard_constraints": [
+      "locked weights / min_keep",
+      "bucket_bounds_v1 min/max when active",
+      "geo constraints for europe/americas/emerging",
+      "group_limits",
+      "current_risk_buckets when bucket_bounds_v1 absent"
+    ],
+    "soft_or_reporting_only": [
+      "vol_band",
+      "target_vol achieved/target deviation reporting",
+      "tactical explainability text",
+      "strict_feasibility flag"
+    ]
+  },
+  "strengths": [
+    {
+      "item": "Pre-solver deterministic blocks exist",
+      "evidence": "functions_python/services/portfolio/feasibility_precheck.py:39-267",
+      "notes": "Blocks empty universe, too-small universe, fixed weights >100, bucket minima >100, bucket maxima below 100, and non-representable zero-exposure buckets."
+    },
+    {
+      "item": "constraints_v1 bucket_bounds supersede legacy profile buckets",
+      "evidence": "functions_python/services/portfolio/optimizer_core.py:508-574 and 1137-1141",
+      "notes": "Avoids double-applying bucket_bounds_v1 and current_risk_buckets."
+    },
+    {
+      "item": "Aggressive profiles avoid known efficient_risk target-vol infeasibility",
+      "evidence": "functions_python/services/portfolio/constraints_builder_v1.py:204-213",
+      "notes": "Profiles 8-10 switch efficient_risk to max_sharpe to avoid unreachable target volatility."
+    }
+  ],
+  "issues": [
+    {
+      "id": "CE-001",
+      "severity": "HIGH",
+      "title": "vol_band not enforced",
+      "evidence": "constraints_builder_v1.py:158-175; optimizer_core.py:1179-1193",
+      "impact": "Risk profile volatility caps can be perceived as constraints while only reported as achieved/target deviation.",
+      "recommendation": "Enforce vol_band or rename as report-only target."
+    },
+    {
+      "id": "CE-002",
+      "severity": "HIGH",
+      "title": "max attainable bucket exposure is not prechecked",
+      "evidence": "feasibility_precheck.py:146-175",
+      "impact": "Minimum bucket requirements can be impossible under max_weight even when at least one asset has exposure.",
+      "recommendation": "Compute maximum attainable exposure using per-asset exposures, max_weight, min_weight, locks, and remaining budget."
+    },
+    {
+      "id": "CE-003",
+      "severity": "HIGH",
+      "title": "fallback postprocess can lose constraints",
+      "evidence": "optimizer_core.py:811-886",
+      "impact": "Solver failure can produce filtered fallback portfolio that keeps only coarse bucket/lock logic.",
+      "recommendation": "Return lost_constraints and require explicit fallback acceptance under strict mode."
+    },
+    {
+      "id": "CE-004",
+      "severity": "MEDIUM",
+      "title": "geo/group constraint exceptions are logged and skipped",
+      "evidence": "optimizer_core.py:528-562",
+      "impact": "A failed group vector build can remove requested constraints without a result warning.",
+      "recommendation": "Surface skipped constraints in result warnings and fail under strict_feasibility."
+    },
+    {
+      "id": "CE-005",
+      "severity": "MEDIUM",
+      "title": "strict_feasibility flag is built but not used to alter fallback behavior",
+      "evidence": "constraints_builder_v1.py:233-236; optimizer_core.py:915-919 extracts flags but does not branch on strict_feasibility",
+      "impact": "A caller may believe strict mode blocks degraded portfolios, but fallback behavior remains active.",
+      "recommendation": "Implement strict_feasibility semantics or remove the flag from contract."
+    },
+    {
+      "id": "CE-006",
+      "severity": "MEDIUM",
+      "title": "locked assets bypass suitability",
+      "evidence": "optimizer_core.py:197-220",
+      "impact": "User-forced positions can keep unsuitable funds in low-risk portfolios; intentional but should be explicit.",
+      "recommendation": "Return locked_suitability_overrides with reason and exposure contribution."
+    }
+  ],
+  "validation": {
+    "read_only": true,
+    "runtime_code_modified": false,
+    "no_firestore_write": true,
+    "tests_relevant_passed": "72 passed"
+  }
+}
