@@ -1,0 +1,76 @@
+{
+  "freeze_id": "BDB-CSV-1",
+  "generated_at_utc": "2026-05-06T20:09:03.383489+00:00",
+  "operational_project_path": "C:\\Users\\oanti\\Documents\\BDB-FONDOS",
+  "target_collection": "funds_v3",
+  "forbidden_contexts": {
+    "bdb_fondos_core_excluded": true,
+    "funds_core_v1_excluded": true,
+    "core_artifacts_used": false,
+    "pdf_parser_used": false
+  },
+  "write_safety": {
+    "firestore_write_executed": false,
+    "rollback_executed": false,
+    "deploy_executed": false,
+    "firebase_cli_deploy_executed": false,
+    "firebase_read_executed_in_this_block": false,
+    "local_files_created": true
+  },
+  "source_hashes": {
+    "context_diagnosis": {
+      "path": "artifacts/bdb_csv_recenter/bdb_csv_context_diagnosis.json",
+      "sha256": "1e29209115809be7e26bda3b0a438f064127da62de9fe76ac70602c4572e8074",
+      "bytes": 26032
+    },
+    "funds_v3_audit_summary": {
+      "path": "artifacts/bdb_csv_recenter/bdb_csv_funds_v3_audit_summary.json",
+      "sha256": "98d00e2717ee75e562bf8eebb8c3ad7e6c55f212b4ab7edfea40dcf4c4ad9f88",
+      "bytes": 26115
+    },
+    "update_candidates_preview": {
+      "path": "artifacts/bdb_csv_recenter/bdb_csv_update_candidates_preview.csv",
+      "sha256": "58cf50b13c8b63d1e21f17ca0bd62129a2c6feca8e7b5967a4df4358ae30c060",
+      "bytes": 2204203
+    },
+    "update_plan_dry_run": {
+      "path": "artifacts/bdb_csv_recenter/bdb_csv_update_plan_dry_run.json",
+      "sha256": "c310f5707f43a7c4172456c0ec0d48f4388a1ee69f1cd789fa892c063a875adb",
+      "bytes": 2207307
+    },
+    "selected_csv_source": {
+      "path": "data/work/fondos_absolutamente_todos_los_campos.csv",
+      "sha256": "2bc14f521412c29270ce439b51c8581b99a39e89c3fd0534e9998f37666673a7",
+      "bytes": 2306564
+    }
+  },
+  "source_plan_counts": {
+    "REVIEW_CONFLICT": 427,
+    "SKIP_ALREADY_COMPLETE": 243,
+    "INSERT_NEW": 0,
+    "UPDATE_MISSING_ONLY": 0,
+    "BLOCKED": 0
+  },
+  "funds_v3_total_docs_from_bdb_csv_0": 670,
+  "conflicts_freeze_counts": {
+    "total_frozen_conflicts": 427,
+    "by_category": {
+      "TIMESTAMP_METADATA_ONLY": 426,
+      "SUBSTANTIVE_PROTECTED_FIELD": 1
+    },
+    "by_field": {
+      "derived.last_classified": 3,
+      "manual.costs.retrocession": 1,
+      "quality.last_repaired_at": 136,
+      "quality.sectors_normalized_at": 383
+    },
+    "substantive_review_count": 1,
+    "timestamp_metadata_only_count": 426
+  },
+  "gate": {
+    "automatic_update_allowed_from_conflicts": false,
+    "conflicts_may_be_written": false,
+    "only_possible_next_write_class": "None from conflict freeze. Conflicts are excluded from automatic writes.",
+    "required_next_action": "Human review of substantive conflict if any future correction is desired."
+  }
+}
