@@ -4,6 +4,7 @@ import MetricCard from './common/MetricCard';
 import { DataQualityBadge, gradeFundQuality } from './dashboard/DataQualityBadge';
 import { REGION_DISPLAY_LABELS, asDecimalPct, getCanonicalType, getCanonicalSubtype, getCanonicalRegion, getCanonicalFlags, hasLegacyTaxonomyOnly } from '../utils/normalizer';
 import { auth } from '../firebase';
+import { isAdminEmail } from '../hooks/useAdminAuth';
 
 // Lazy load to save bundle size
 const HistoricalChartModal = React.lazy(() => import('./modals/HistoricalChartModal'));
@@ -18,7 +19,7 @@ export default function FundDetailModal({ fund, onClose }: FundDetailModalProps)
   const [showHistoryChart, setShowHistoryChart] = React.useState(false);
   const [showUpdateModal, setShowUpdateModal] = React.useState(false);
 
-  const isAdmin = auth.currentUser?.email === 'oantiza@gmail.com';
+  const isAdmin = isAdminEmail(auth.currentUser?.email);
 
   if (!fund) return null;
 
