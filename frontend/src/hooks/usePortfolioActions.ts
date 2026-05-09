@@ -575,6 +575,7 @@ export function usePortfolioActions({
     // --- Eliminated fuzzy logic (mapCategoryToTag) to respect DB truth (Point 1 Architecture) ---
 
     const optimizationArgsRef = useRef<any>(null);
+    const lastPayloadRef = useRef<any>(null);
 
     const handleOptimize = async (uiViews?: Record<string, string> | any, snapshotOpts?: SnapshotOptions) => {
         if (portfolio.length === 0) {
@@ -616,6 +617,7 @@ export function usePortfolioActions({
             const { payload, finalSnapshotOpts } = buildOptimizationPayload(
                 portfolio, assets, vipFunds, totalCapital, riskLevel, strategyPayload, uiViews, snapshotOpts
             );
+            lastPayloadRef.current = payload;
 
             const response = await optimizeFn(payload);
             const result = unwrapResult<SmartPortfolioResponse>(response.data);
@@ -690,9 +692,12 @@ export function usePortfolioActions({
                         });
                     }
 
+                    // Contractual retry payload: preserve all contract fields from the
+                    // primary optimization path, override only assets (expanded).
+                    // Resolves known_contract_gap from BDB-OPT-PAYLOAD-CONTRACT-TESTS-0.
                     const retryPayload: any = {
+                        ...(lastPayloadRef.current || {}),
                         assets: expandedAssets,
-                        risk_level: riskLevel,
                         locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
                     };
                     if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
@@ -722,9 +727,10 @@ export function usePortfolioActions({
                 onConfirm: async () => {
                     setConfirmDialog(null);
                     toast.info("🔄 Auto-completando cartera con fondos de RV...");
+                    // Contractual retry payload: preserve contract fields, add auto_expand.
                     const retryPayload: any = {
+                        ...(lastPayloadRef.current || {}),
                         assets: portfolio.map(p => p.isin),
-                        risk_level: riskLevel,
                         locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
                         auto_expand_universe: true
                     };
@@ -756,9 +762,10 @@ export function usePortfolioActions({
                 onConfirm: async () => {
                     setConfirmDialog(null);
                     toast.info("🔄 Reintentando con fondos base...");
+                    // Contractual retry payload: preserve contract fields, add auto_expand.
                     const retryPayload: any = {
+                        ...(lastPayloadRef.current || {}),
                         assets: portfolio.map(p => p.isin),
-                        risk_level: riskLevel,
                         locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
                         auto_expand_universe: true
                     };

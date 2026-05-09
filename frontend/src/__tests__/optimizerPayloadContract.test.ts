@@ -90,62 +90,72 @@ describe('optimizer payload shape — main optimization path', () => {
   });
 });
 
-// ─── 2. RETRY PATH — known_contract_gap ──────────────────────────────────
+// ─── 2. RETRY PATH — contractual hardening (resolved gap) ────────────────
 
-describe('optimizer retry path — known_contract_gap: minimal payload lacks constraints', () => {
+describe('optimizer retry path — contractual hardening (resolved known_contract_gap)', () => {
   const source = usePortfolioActionsSource();
 
   test('retry path exists for infeasible status', () => {
-    // The retry block constructs retryPayload as a minimal object
     expect(source).toMatch(/retryPayload/);
     expect(source).toMatch(/const retryPayload:\s*any\s*=/);
   });
 
-  test('[known_contract_gap] retry payload includes assets (expanded with recovery_candidates)', () => {
-    expect(source).toMatch(/retryPayload[\s\S]*assets:\s*expandedAssets/);
-  });
-
-  test('[known_contract_gap] retry payload includes risk_level', () => {
-    expect(source).toMatch(/retryPayload[\s\S]*risk_level:\s*riskLevel/);
-  });
-
-  test('[known_contract_gap] retry payload includes locked_assets (manualSwap only)', () => {
-    expect(source).toMatch(/retryPayload[\s\S]*locked_assets:\s*portfolio\.filter/);
-  });
-
-  test('[known_contract_gap] retry path does NOT include locked_positions', () => {
-    // Find the retry payload blocks and verify locked_positions is absent
-    const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
-    expect(retryBlocks.length).toBeGreaterThan(0);
-
-    // At least the first retry (infeasible status, line ~693) lacks locked_positions
-    const firstRetry = retryBlocks[0];
-    expect(firstRetry).not.toMatch(/locked_positions/);
-  });
-
-  test('[known_contract_gap] retry path does NOT include constraints block', () => {
+  test('[resolved] retry payload spreads lastPayloadRef.current for contract preservation', () => {
+    // All retry blocks should spread the stored contractual payload
     const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
     expect(retryBlocks.length).toBeGreaterThan(0);
 
     const firstRetry = retryBlocks[0];
-    // constraints as a nested object (not auto_expand_universe)
-    expect(firstRetry).not.toMatch(/\bconstraints\b\s*:/);
+    expect(firstRetry).toMatch(/\.\.\..*lastPayloadRef\.current/);
   });
 
-  test('[known_contract_gap] retry path does NOT include optimization_mode', () => {
+  test('[resolved] all retry blocks spread lastPayloadRef.current', () => {
+    const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
+    expect(retryBlocks.length).toBeGreaterThanOrEqual(3);
+
+    for (const block of retryBlocks) {
+      expect(block).toMatch(/lastPayloadRef\.current/);
+    }
+  });
+
+  test('[resolved] lastPayloadRef is stored during primary optimization', () => {
+    // proceedWithOptimization stores payload in lastPayloadRef
+    expect(source).toMatch(/lastPayloadRef\.current\s*=\s*payload/);
+  });
+
+  test('[resolved] retry payload overrides assets (expanded or original)', () => {
     const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
     expect(retryBlocks.length).toBeGreaterThan(0);
 
-    const firstRetry = retryBlocks[0];
-    expect(firstRetry).not.toMatch(/optimization_mode/);
+    // All retry blocks override assets
+    for (const block of retryBlocks) {
+      expect(block).toMatch(/assets:/);
+    }
   });
 
-  test('[known_contract_gap] retry path does NOT include profile_id', () => {
+  test('[resolved] retry payload overrides locked_assets', () => {
     const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
     expect(retryBlocks.length).toBeGreaterThan(0);
 
-    const firstRetry = retryBlocks[0];
-    expect(firstRetry).not.toMatch(/profile_id/);
+    for (const block of retryBlocks) {
+      expect(block).toMatch(/locked_assets:/);
+    }
+  });
+
+  test('[resolved] contract fields preserved via spread: risk_level, profile_id, optimization_mode, constraints, locked_positions', () => {
+    // lastPayloadRef.current contains the full contractual payload from buildOptimizationPayload.
+    // Verify that buildOptimizationPayload (the source of lastPayloadRef) contains these fields.
+    expect(source).toMatch(/lastPayloadRef\.current\s*=\s*payload/);
+    // And that buildOptimizationPayload produces them (already validated by Section 1 tests).
+    expect(source).toMatch(/risk_level: riskLevel/);
+    expect(source).toMatch(/profile_id: String\(riskLevel\)/);
+    expect(source).toMatch(/optimization_mode: 'rebalance_to_profile'/);
+    expect(source).toMatch(/constraints:\s*{[\s\S]*apply_profile: true/);
+    expect(source).toMatch(/locked_positions:\s*{[\s\S]*mode:/);
+  });
+
+  test('[traceability] retry path comments reference BDB-OPT-PAYLOAD-CONTRACT-TESTS-0 gap resolution', () => {
+    expect(source).toMatch(/known_contract_gap|Resolves known_contract_gap|BDB-OPT-PAYLOAD-CONTRACT-TESTS-0/);
   });
 });
 

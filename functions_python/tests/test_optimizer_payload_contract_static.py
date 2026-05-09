@@ -321,8 +321,8 @@ class TestContractDocCoverage:
 
 
 class TestRetryPathDocumentation:
-    """Verify the retry path in usePortfolioActions.ts is documented
-    as a known contract gap."""
+    """Verify the retry path in usePortfolioActions.ts preserves the
+    contractual payload (resolved known_contract_gap)."""
 
     @pytest.fixture(autouse=True)
     def _load(self):
@@ -336,19 +336,21 @@ class TestRetryPathDocumentation:
         # retryPayload includes assets
         assert re.search(r"retryPayload.*assets", self.source, re.DOTALL)
 
-    def test_retry_path_has_risk_level(self):
-        assert re.search(r"retryPayload.*risk_level", self.source, re.DOTALL)
-
-    def test_retry_path_missing_fields_documented_in_contract(self):
-        """Contract doc should mention the retry path sends minimal payload."""
+    def test_retry_path_preserves_contract_via_lastPayloadRef(self):
+        """[resolved] retry payload now spreads lastPayloadRef.current
+        which contains risk_level, profile_id, optimization_mode,
+        constraints, locked_positions from the primary path."""
+        assert "lastPayloadRef.current" in self.source
         assert re.search(
-            r"retry.*mínimo|retry.*minimal",
-            self.doc,
-            re.IGNORECASE | re.DOTALL,
+            r"retryPayload.*lastPayloadRef\.current",
+            self.source,
+            re.DOTALL,
         )
+
+    def test_retry_path_gap_documented_in_contract(self):
+        """Contract doc should mention the retry path risk (historical)."""
         assert re.search(
-            r"locked_positions.*constraints.*optimization_mode.*profile_id"
-            r"|sin.*locked_positions",
+            r"retry.*payload|Retry payload",
             self.doc,
             re.IGNORECASE | re.DOTALL,
         )
