@@ -5,6 +5,7 @@ import RetrocessionPanel from './RetrocessionPanel';
 import ArtifactsPanel from './ArtifactsPanel';
 import ReviewQueuePanel from './ReviewQueuePanel';
 import OptimizerConstraintsPanel from './OptimizerConstraintsPanel';
+import ParserPanel from './ParserPanel';
 
 export interface AdminModule {
   id: string;
@@ -16,7 +17,7 @@ export interface AdminModule {
 export const ADMIN_MODULES: ReadonlyArray<AdminModule> = [
   { id: 'dashboard',    label: 'Dashboard',               icon: '📊', implemented: true  },
   { id: 'retrocessions',label: 'Retrocesiones',           icon: '💰', implemented: true  },
-  { id: 'parser',       label: 'Parser',                  icon: '📄', implemented: false },
+  { id: 'parser',       label: 'Parser',                  icon: '📄', implemented: true  },
   { id: 'review',       label: 'Review Queue',            icon: '📋', implemented: true  },
   { id: 'funds',        label: 'Funds v3 Audit',          icon: '🔍', implemented: true  },
   { id: 'optimizer',    label: 'Optimizer / Constraints', icon: '⚙️', implemented: true  },
@@ -108,6 +109,8 @@ export default function AdminLayout() {
           <ReviewQueuePanel />
         ) : currentModule.id === 'optimizer' ? (
           <OptimizerConstraintsPanel />
+        ) : currentModule.id === 'parser' ? (
+          <ParserPanel />
         ) : (
           <ModulePlaceholder module={currentModule} />
         )}

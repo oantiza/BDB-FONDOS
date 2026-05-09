@@ -28,9 +28,9 @@ describe('Admin Console Shell — module definitions', () => {
     expect(ids).toContain('settings');
   });
 
-  it('dashboard, funds, retrocessions, logs, review, and optimizer are implemented', () => {
+  it('dashboard, funds, retrocessions, logs, review, optimizer, and parser are implemented', () => {
     const implemented = ADMIN_MODULES.filter((m) => m.implemented);
-    expect(implemented.length).toBe(6);
+    expect(implemented.length).toBe(7);
     const ids = implemented.map((m) => m.id);
     expect(ids).toContain('dashboard');
     expect(ids).toContain('funds');
@@ -38,6 +38,7 @@ describe('Admin Console Shell — module definitions', () => {
     expect(ids).toContain('logs');
     expect(ids).toContain('review');
     expect(ids).toContain('optimizer');
+    expect(ids).toContain('parser');
   });
 
   it('all modules have non-empty label and icon', () => {
