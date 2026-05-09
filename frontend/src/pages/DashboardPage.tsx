@@ -47,6 +47,7 @@ interface DashboardPageProps {
     onOpenPositions: () => void;
     onOpenRetirement: () => void;
     onOpenComparator: () => void;
+    onOpenAdmin?: () => void;
 
     // Portfolio State Props
     isAuthenticated: boolean;
@@ -74,6 +75,7 @@ export default function DashboardPage({
     onOpenPositions,
     onOpenRetirement,
     onOpenComparator,
+    onOpenAdmin,
 
     isAuthenticated,
     assets,
@@ -226,6 +228,7 @@ export default function DashboardPage({
                 onOpenPositions={onOpenPositions}
                 onOpenRetirement={onOpenRetirement}
                 onOpenComparator={onOpenComparator}
+                onOpenAdmin={onOpenAdmin}
                 isOptimizing={isOptimizing}
             />
 

@@ -12,6 +12,7 @@ import ComparatorPage from './pages/ComparatorPage'
 import XRayAnalyticsPage from './pages/XRayAnalyticsPage'
 import RetirementCalculatorPage from './pages/RetirementCalculatorPage'
 import PrintMacroStrategyReport from './pages/PrintMacroStrategyReport'
+import AdminPage from './pages/AdminPage'
 
 import { PositionsAnalyzer } from './components/positions/PositionsAnalyzer'
 
@@ -20,10 +21,11 @@ import { usePortfolio } from './hooks/usePortfolio'
 import { db } from './firebase'
 import { doc, getDoc } from 'firebase/firestore'
 import { syncRiskProfilesFromDB } from './utils/rulesEngine'
+import { isAdminEmail } from './hooks/useAdminAuth'
 
 function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
-  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT' | 'COMPARATOR' | 'ANALYTICS'>('DASHBOARD')
+  const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT' | 'COMPARATOR' | 'ANALYTICS' | 'ADMIN'>('DASHBOARD')
   const [configError, setConfigError] = useState<string | null>(null)
   const [isSyncingRiskProfiles, setIsSyncingRiskProfiles] = useState(true)
 
@@ -100,6 +102,10 @@ function App() {
       )
     }
 
+    if (activeView === 'ADMIN') {
+      return <AdminPage key="admin" onBack={() => setActiveView('DASHBOARD')} />
+    }
+
     if (activeView === 'MIBOUTIQUE') {
       return <MiBoutiquePage key="boutique" onBack={() => setActiveView('DASHBOARD')} />
     }
@@ -164,6 +170,7 @@ function App() {
         onOpenPositions={() => setActiveView('POSITIONS')}
         onOpenRetirement={() => setActiveView('RETIREMENT')}
         onOpenComparator={() => setActiveView('COMPARATOR')}
+        onOpenAdmin={isAdminEmail(auth.currentUser?.email) ? () => setActiveView('ADMIN') : undefined}
         {...portfolioState}
       />
     )

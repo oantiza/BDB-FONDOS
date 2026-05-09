@@ -10,6 +10,7 @@ interface HeaderProps {
     onOpenPositions?: () => void
     onOpenRetirement?: () => void
     onOpenComparator?: () => void
+    onOpenAdmin?: () => void
     onBack?: () => void
     isOptimizing?: boolean
     headerActions?: React.ReactNode
@@ -22,6 +23,7 @@ export default function Header({
     onOpenPositions, 
     onOpenRetirement, 
     onOpenComparator, 
+    onOpenAdmin,
     onBack,
     isOptimizing,
     headerActions
@@ -88,6 +90,14 @@ export default function Header({
                             className="text-[11px] uppercase tracking-widest font-bold text-slate-300 hover:text-white transition-colors"
                         >
                             Jubilación
+                        </button>
+                    )}
+                    {onOpenAdmin && (
+                        <button
+                            onClick={onOpenAdmin}
+                            className="text-[11px] uppercase tracking-widest font-bold text-amber-300 hover:text-amber-200 transition-colors"
+                        >
+                            ⚡ Admin
                         </button>
                     )}
                 </div>
