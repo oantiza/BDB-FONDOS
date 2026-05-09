@@ -28,14 +28,15 @@ describe('Admin Console Shell — module definitions', () => {
     expect(ids).toContain('settings');
   });
 
-  it('dashboard, funds, retrocessions, and logs are implemented', () => {
+  it('dashboard, funds, retrocessions, logs, and review are implemented', () => {
     const implemented = ADMIN_MODULES.filter((m) => m.implemented);
-    expect(implemented.length).toBe(4);
+    expect(implemented.length).toBe(5);
     const ids = implemented.map((m) => m.id);
     expect(ids).toContain('dashboard');
     expect(ids).toContain('funds');
     expect(ids).toContain('retrocessions');
     expect(ids).toContain('logs');
+    expect(ids).toContain('review');
   });
 
   it('all modules have non-empty label and icon', () => {
