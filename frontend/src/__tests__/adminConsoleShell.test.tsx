@@ -28,10 +28,12 @@ describe('Admin Console Shell — module definitions', () => {
     expect(ids).toContain('settings');
   });
 
-  it('only dashboard is implemented in shell phase', () => {
+  it('dashboard and funds are implemented', () => {
     const implemented = ADMIN_MODULES.filter((m) => m.implemented);
-    expect(implemented.length).toBe(1);
-    expect(implemented[0].id).toBe('dashboard');
+    expect(implemented.length).toBe(2);
+    const ids = implemented.map((m) => m.id);
+    expect(ids).toContain('dashboard');
+    expect(ids).toContain('funds');
   });
 
   it('all modules have non-empty label and icon', () => {
