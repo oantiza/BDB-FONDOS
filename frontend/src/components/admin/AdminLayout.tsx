@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AdminDashboard from './AdminDashboard';
 import FundAuditor from './FundAuditor';
 import RetrocessionPanel from './RetrocessionPanel';
+import ArtifactsPanel from './ArtifactsPanel';
 
 export interface AdminModule {
   id: string;
@@ -17,7 +18,7 @@ export const ADMIN_MODULES: ReadonlyArray<AdminModule> = [
   { id: 'review',       label: 'Review Queue',            icon: '📋', implemented: false },
   { id: 'funds',        label: 'Funds v3 Audit',          icon: '🔍', implemented: true  },
   { id: 'optimizer',    label: 'Optimizer / Constraints', icon: '⚙️', implemented: false },
-  { id: 'logs',         label: 'Logs / Artifacts',        icon: '📁', implemented: false },
+  { id: 'logs',         label: 'Logs / Artifacts',        icon: '📁', implemented: true  },
   { id: 'settings',     label: 'Settings',                icon: '🛠️', implemented: false },
 ];
 
@@ -99,6 +100,8 @@ export default function AdminLayout() {
           <FundAuditor />
         ) : currentModule.id === 'retrocessions' ? (
           <RetrocessionPanel />
+        ) : currentModule.id === 'logs' ? (
+          <ArtifactsPanel />
         ) : (
           <ModulePlaceholder module={currentModule} />
         )}
