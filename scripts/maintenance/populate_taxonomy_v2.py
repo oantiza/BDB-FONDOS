@@ -1602,6 +1602,11 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
 
     exp = PortfolioExposureV2(computed_at=datetime.now(timezone.utc).isoformat())
 
+    # --- Exposure source precedence ---
+    # 1. metrics (top-level legacy field)
+    # 2. ms.portfolio.asset_allocation (Morningstar real data)
+    # 3. Fallback by classification subtype
+
     eq = _safe_float(metrics.get("equity", 0.0))
     bd = _safe_float(metrics.get("bond", 0.0))
     ca = _safe_float(metrics.get("cash", 0.0))
@@ -1609,24 +1614,42 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
     total = eq + bd + ca + oth
 
     exposure_inferred = False
+    exposure_source = "metrics" if total >= 1.0 else None
 
     if total < 1.0:
-        exposure_inferred = True
-        if klass.asset_type == AssetClassV2.EQUITY:
-            eq = 100.0
-        elif klass.asset_type == AssetClassV2.FIXED_INCOME:
-            bd = 100.0
-        elif klass.asset_type == AssetClassV2.MONETARY:
-            ca = 100.0
-        elif klass.asset_type == AssetClassV2.MIXED:
-            if klass.asset_subtype == AssetSubtypeV2.CONSERVATIVE_ALLOCATION:
-                eq, bd = 20.0, 80.0
-            elif klass.asset_subtype == AssetSubtypeV2.AGGRESSIVE_ALLOCATION:
-                eq, bd = 80.0, 20.0
-            else:
-                eq, bd = 50.0, 50.0
-        elif klass.asset_type in [AssetClassV2.REAL_ESTATE, AssetClassV2.COMMODITIES, AssetClassV2.ALTERNATIVE]:
-            oth = 100.0
+        # Try ms.portfolio.asset_allocation before falling back to classification
+        ms_portfolio = _safe_dict(ms.get("portfolio"))
+        ms_alloc = _safe_dict(ms_portfolio.get("asset_allocation"))
+        ms_eq = _safe_float(ms_alloc.get("equity", 0.0))
+        ms_bd = _safe_float(ms_alloc.get("bond", 0.0))
+        ms_ca = _safe_float(ms_alloc.get("cash", 0.0))
+        ms_ot = _safe_float(ms_alloc.get("other", 0.0))
+        ms_total = ms_eq + ms_bd + ms_ca + ms_ot
+
+        if ms_total >= 10.0:
+            # Use Morningstar real portfolio data (scale 0-100)
+            eq, bd, ca, oth = ms_eq, ms_bd, ms_ca, ms_ot
+            total = ms_total
+            exposure_source = "ms_portfolio_asset_allocation"
+        else:
+            # Last resort: fallback by classification subtype
+            exposure_inferred = True
+            exposure_source = "fallback"
+            if klass.asset_type == AssetClassV2.EQUITY:
+                eq = 100.0
+            elif klass.asset_type == AssetClassV2.FIXED_INCOME:
+                bd = 100.0
+            elif klass.asset_type == AssetClassV2.MONETARY:
+                ca = 100.0
+            elif klass.asset_type == AssetClassV2.MIXED:
+                if klass.asset_subtype == AssetSubtypeV2.CONSERVATIVE_ALLOCATION:
+                    eq, bd = 20.0, 80.0
+                elif klass.asset_subtype == AssetSubtypeV2.AGGRESSIVE_ALLOCATION:
+                    eq, bd = 80.0, 20.0
+                else:
+                    eq, bd = 50.0, 50.0
+            elif klass.asset_type in [AssetClassV2.REAL_ESTATE, AssetClassV2.COMMODITIES, AssetClassV2.ALTERNATIVE]:
+                oth = 100.0
 
     eq, bd, ca, oth = _normalize_pct_block(eq, bd, ca, oth)
 
@@ -1639,6 +1662,8 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
 
     if exposure_inferred:
         _append_unique(exp.warnings, "EXPOSURE_INFERRED_FROM_CLASSIFICATION")
+    if exposure_source == "ms_portfolio_asset_allocation":
+        _append_unique(exp.warnings, "EXPOSURE_SOURCE_MS_PORTFOLIO")
 
     macro = _safe_dict(ms_regions.get("macro"))
     detail = _safe_dict(ms_regions.get("detail"))
@@ -1746,7 +1771,14 @@ def buildPortfolioExposureV2(isin: str, data: dict, klass: ClassificationV2) -> 
     if exp.economic_exposure.equity > 0 and _safe_dict(exp.equity_regions).get("emerging", 0) > 20:
         _append_unique(exp.risk_flags, "HIGH_EMERGING_RISK")
 
-    exp.exposure_confidence = _clamp01(0.55 if exposure_inferred else (0.90 if total > 0 else 0.45))
+    if exposure_source == "ms_portfolio_asset_allocation":
+        exp.exposure_confidence = _clamp01(0.85)
+    elif exposure_inferred:
+        exp.exposure_confidence = _clamp01(0.55)
+    elif total > 0:
+        exp.exposure_confidence = _clamp01(0.90)
+    else:
+        exp.exposure_confidence = _clamp01(0.45)
     exp.warnings = _dedupe_list(exp.warnings)
     exp.risk_flags = _dedupe_list(exp.risk_flags)
     klass.warnings = _dedupe_list(klass.warnings)
