@@ -209,6 +209,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
         let totalEquity = 0;
         let totalBond = 0;
         let totalCash = 0;
+        let totalAlternative = 0;
         let totalOther = 0;
 
         let validMetricsWeight = 0;
@@ -220,7 +221,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             if (isNaN(w) || w <= 0) return;
             totalWeight += w;
 
-            let e = 0, b = 0, c = 0, o = 0;
+            let e = 0, b = 0, c = 0, alt = 0, o = 0;
             let success = false;
             let isFallback = false;
 
@@ -230,13 +231,16 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                 const eeEq = Number(ee.equity) || 0;
                 const eeBo = Number(ee.bond) || 0;
                 const eeCa = Number(ee.cash) || 0;
+                const eeAlt = Number((ee as any).alternative) || 0;
+                const eeRa = Number((ee as any).real_asset) || 0;
                 const eeOt = Number(ee.other) || 0;
-                const sum = eeEq + eeBo + eeCa + eeOt;
+                const sum = eeEq + eeBo + eeCa + eeAlt + eeRa + eeOt;
                 if (sum > 0) {
                     const factor = 100 / sum;
                     e = eeEq * factor;
                     b = eeBo * factor;
                     c = eeCa * factor;
+                    alt = (eeAlt + eeRa) * factor;
                     o = eeOt * factor;
                     success = true;
                 }
@@ -247,8 +251,10 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                 const meEq = Number(p.metrics.equity) || 0;
                 const meBo = Number(p.metrics.bond) || 0;
                 const meCa = Number(p.metrics.cash) || 0;
+                const meAlt = Number(p.metrics.alternative) || 0;
+                const meRa = Number(p.metrics.real_asset) || 0;
                 const meOt = Number(p.metrics.other) || 0;
-                const sum = meEq + meBo + meCa + meOt;
+                const sum = meEq + meBo + meCa + meAlt + meRa + meOt;
 
                 // Allow tolerance 95-105 for normalizing
                 if (sum >= 95 && sum <= 105) {
@@ -256,6 +262,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                     e = (meEq * factor);
                     b = (meBo * factor);
                     c = (meCa * factor);
+                    alt = (meAlt + meRa) * factor;
                     o = (meOt * factor);
                     success = true;
                 }
@@ -291,7 +298,7 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
                     }
                     success = true;
                 } else if (combined.includes('absolute return') || combined.includes('retorno absoluto') || combined.includes('alternative') || combined.includes('real_estate') || combined.includes('commodities')) {
-                    o = 100;
+                    alt = 100;
                     success = true;
                 } else {
                     // Default to Other if completely unknown
@@ -314,18 +321,20 @@ export function usePortfolioStats({ portfolio, metrics }: UsePortfolioStatsProps
             // Accumulate Weighted Contribution
             totalEquity += w * (e / 100);
             totalBond += w * (b / 100);
-            totalCash += w * (c / 100); 
+            totalCash += w * (c / 100);
+            totalAlternative += w * (alt / 100);
             totalOther += w * (o / 100);
         });
 
         // Normalize final result to ensure exactly 100% (floating point errors)
-        const finalSum = totalEquity + totalBond + totalCash + totalOther;
+        const finalSum = totalEquity + totalBond + totalCash + totalAlternative + totalOther;
         const norm = finalSum > 0 ? (100 / finalSum) : 0;
 
         return {
             equity: totalEquity * norm,
             bond: totalBond * norm,
             cash: totalCash * norm,
+            alternative: totalAlternative * norm,
             other: totalOther * norm,
             coverage: totalWeight > 0 ? (validMetricsWeight / totalWeight) * 100 : 0,
             fallbackCoverage: totalWeight > 0 ? (fallbackMetricsWeight / totalWeight) * 100 : 0

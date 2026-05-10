@@ -16,6 +16,7 @@ interface XRayPdfSectionsProps {
         equity: number;
         bond: number;
         cash: number;
+        alternative: number;
         other: number;
         coverage: number;
     };
@@ -266,6 +267,7 @@ export default function XRayPdfSections({
                                             { name: 'Renta Variable', value: globalAllocation.equity },
                                             { name: 'Renta Fija', value: globalAllocation.bond },
                                             { name: 'Efectivo', value: globalAllocation.cash },
+                                            { name: 'Alternativos', value: globalAllocation.alternative },
                                             { name: 'Otras Categorías', value: globalAllocation.other }
                                         ]).filter(x => x.value > 0.01)
                                 } />
@@ -274,7 +276,7 @@ export default function XRayPdfSections({
                             {/* NEW: Asset Class Summary for PDF */}
                             <div className="w-full max-w-[360px] mt-8 border-t border-[#eeeeee] pt-4">
                                 <h4 className="text-center text-[9px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
-                                <div className="grid grid-cols-3 gap-2">
+                                <div className={`grid gap-2 ${globalAllocation.alternative > 0.1 ? 'grid-cols-4' : 'grid-cols-3'}`}>
                                     <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
                                         <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Var.</span>
                                         <span className="text-lg font-medium text-[#003399]">{globalAllocation.equity.toFixed(1)}%</span>
@@ -283,6 +285,12 @@ export default function XRayPdfSections({
                                         <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Fija</span>
                                         <span className="text-lg font-medium text-[#003399]">{globalAllocation.bond.toFixed(1)}%</span>
                                     </div>
+                                    {globalAllocation.alternative > 0.1 && (
+                                        <div className="flex flex-col items-center p-2 rounded bg-purple-50/50 border border-purple-100">
+                                            <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Alternat.</span>
+                                            <span className="text-lg font-medium text-[#6B21A8]">{globalAllocation.alternative.toFixed(1)}%</span>
+                                        </div>
+                                    )}
                                     <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
                                         <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
                                         <span className="text-lg font-medium text-[#0B2545]">{(globalAllocation.cash + globalAllocation.other).toFixed(1)}%</span>

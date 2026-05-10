@@ -7,6 +7,7 @@ interface AssetAllocationSectionProps {
         equity: number;
         bond: number;
         cash: number;
+        alternative: number;
         other: number;
         coverage: number;
     };
@@ -27,8 +28,11 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
             { name: 'Renta Variable', value: globalAllocation.equity },
             { name: 'Renta Fija', value: globalAllocation.bond },
             { name: 'Efectivo', value: globalAllocation.cash },
+            { name: 'Alternativos', value: globalAllocation.alternative },
             { name: 'Otros', value: globalAllocation.other }
         ].filter(x => x.value > 0.01);
+
+    const hasAlternatives = globalAllocation.alternative > 0.1;
 
     return (
         <div className="pt-20 border-t border-[#eeeeee] flex items-start justify-between">
@@ -44,10 +48,10 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
                         <GlobalAllocationChart data={globalData.map(d => d.name === 'Otros' ? { ...d, name: 'Otras Categorías' } : d)} />
                     </div>
 
-                    {/* NEW: Asset Class Summary (3 Categories) */}
+                    {/* Asset Class Summary */}
                     <div className="w-full max-w-[500px] mt-2 mb-8 border-t border-slate-100 pt-6">
                         <h4 className="text-center text-[10px] font-bold text-[#0B2545] uppercase tracking-[0.2em] mb-4">Resumen de Activos</h4>
-                        <div className="grid grid-cols-3 gap-2">
+                        <div className={`grid gap-2 ${hasAlternatives ? 'grid-cols-4' : 'grid-cols-3'}`}>
                             {/* 1. Renta Variable */}
                             <div className="flex flex-col items-center p-2 rounded bg-blue-50/50 border border-blue-100">
                                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Renta Var.</span>
@@ -64,7 +68,17 @@ export default function AssetAllocationSection({ globalAllocation, categoryAlloc
                                 </span>
                             </div>
 
-                            {/* 3. Otros y Liquidez */}
+                            {/* 3. Alternativos (conditionally shown) */}
+                            {hasAlternatives && (
+                                <div className="flex flex-col items-center p-2 rounded bg-purple-50/50 border border-purple-100">
+                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Alternat.</span>
+                                    <span className="text-lg font-medium text-[#6B21A8]">
+                                        {globalAllocation.alternative.toFixed(1)}%
+                                    </span>
+                                </div>
+                            )}
+
+                            {/* 4. Otros y Liquidez */}
                             <div className="flex flex-col items-center p-2 rounded bg-amber-50/30 border border-amber-100">
                                 <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1">Otros y Liquidez</span>
                                 <span className="text-lg font-medium text-[#0B2545]">
