@@ -1,0 +1,495 @@
+{
+  "generated_at_utc": "2026-05-10T16:24:05.011062+00:00",
+  "snapshots": {
+    "LU0565136552": {
+      "name": "First Eagle Amundi International Fund Class FE-C Shares",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 80.0,
+          "bond": 20.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.425845+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 13.41,
+          "healthcare": 12.93,
+          "financials": 12.41
+        },
+        "equity_regions": {
+          "us": 54.4,
+          "europe": 23.1,
+          "asia_dev": 10.94,
+          "emerging": 3.97,
+          "japan": 7.58
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "AGGRESSIVE_ALLOCATION"
+    },
+    "LU0093503737": {
+      "name": "BlackRock Global Funds - ESG Multi-Asset Fund E2",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.131898+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 40.21,
+          "healthcare": 9.3,
+          "financials": 15.6
+        },
+        "equity_regions": {
+          "us": 75.13,
+          "europe": 16.87,
+          "asia_dev": 3.23,
+          "emerging": 0.55,
+          "japan": 4.22
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU1304666057": {
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 CT EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 80.0,
+          "bond": 20.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.579923+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 22.64,
+          "healthcare": 11.41,
+          "financials": 18.16
+        },
+        "equity_regions": {
+          "us": 49.37,
+          "europe": 37.42,
+          "asia_dev": 5.7,
+          "emerging": 0.73,
+          "japan": 6.78
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "AGGRESSIVE_ALLOCATION"
+    },
+    "LU1740985814": {
+      "name": "DWS Strategic Allocation Dynamic LD",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 80.0,
+          "bond": 20.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.658752+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 25.42,
+          "healthcare": 10.6,
+          "financials": 17.93
+        },
+        "equity_regions": {
+          "us": 50.69,
+          "europe": 28.55,
+          "asia_dev": 11.03,
+          "emerging": 1.09,
+          "japan": 8.65
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "AGGRESSIVE_ALLOCATION"
+    },
+    "FR0010041822": {
+      "name": "Edmond de Rothschild Patrimoine A",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.970864+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 1.86,
+          "healthcare": 9.12,
+          "financials": 23.56
+        },
+        "equity_regions": {
+          "us": 0.0,
+          "europe": 100.0,
+          "asia_dev": 0.0,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    },
+    "LU0352312184": {
+      "name": "Allianz Strategy 50 CT EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.394909+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 27.68,
+          "healthcare": 8.33,
+          "financials": 17.34
+        },
+        "equity_regions": {
+          "us": 67.82,
+          "europe": 32.0,
+          "asia_dev": 0.16,
+          "emerging": 0.02,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU1276000236": {
+      "name": "Edmond de Rothschild Fund - Income Europe R EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.566128+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 1.83,
+          "healthcare": 9.39,
+          "financials": 22.98
+        },
+        "equity_regions": {
+          "us": 0.0,
+          "europe": 100.0,
+          "asia_dev": 0.0,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    },
+    "LU1298174530": {
+      "name": "CT (Lux) - Global Multi Asset Income Class AE (EUR Accumulation Shares)",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.572165+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 25.83,
+          "healthcare": 12.54,
+          "financials": 14.7
+        },
+        "equity_regions": {
+          "us": 38.72,
+          "europe": 39.1,
+          "asia_dev": 18.81,
+          "emerging": 1.1,
+          "japan": 2.28
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "ES0162949012": {
+      "name": "Abante Índice Selección A FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.916360+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 22.67,
+          "healthcare": 11.67,
+          "financials": 12.55
+        },
+        "equity_regions": {
+          "us": 62.79,
+          "europe": 26.18,
+          "asia_dev": 3.19,
+          "emerging": 2.82,
+          "japan": 5.02
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "ES0116567035": {
+      "name": "Cartesio X FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.832976+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 4.41,
+          "healthcare": 2.72,
+          "financials": 19.63
+        },
+        "equity_regions": {
+          "us": 2.63,
+          "europe": 92.99,
+          "asia_dev": 4.38,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    }
+  }
+}

@@ -1,0 +1,438 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-2",
+  "generated_at_utc": "2026-05-10T16:24:05.011062+00:00",
+  "mode": "dry-run",
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "LU0565136552",
+      "name": "First Eagle Amundi International Fund Class FE-C Shares",
+      "old_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 80.5,
+        "bond": 1.5,
+        "cash": 8.0,
+        "other": 10.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0093503737",
+      "name": "BlackRock Global Funds - ESG Multi-Asset Fund E2",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 51.2,
+        "bond": 37.0,
+        "cash": 0.0,
+        "other": 11.8
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1304666057",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 CT EUR",
+      "old_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 81.2,
+        "bond": 17.6,
+        "cash": 0.0,
+        "other": 1.2
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1740985814",
+      "name": "DWS Strategic Allocation Dynamic LD",
+      "old_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 78.7,
+        "bond": 18.1,
+        "cash": 0.9,
+        "other": 2.3
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "FR0010041822",
+      "name": "Edmond de Rothschild Patrimoine A",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 17.7,
+        "bond": 68.6,
+        "cash": 8.7,
+        "other": 5.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0352312184",
+      "name": "Allianz Strategy 50 CT EUR",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 47.7,
+        "bond": 52.3,
+        "cash": 0.0,
+        "other": 0.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1276000236",
+      "name": "Edmond de Rothschild Fund - Income Europe R EUR",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 17.5,
+        "bond": 69.3,
+        "cash": 8.1,
+        "other": 5.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1298174530",
+      "name": "CT (Lux) - Global Multi Asset Income Class AE (EUR Accumulation Shares)",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 52.5,
+        "bond": 42.0,
+        "cash": 5.4,
+        "other": 0.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0162949012",
+      "name": "Abante Índice Selección A FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 47.3,
+        "bond": 44.2,
+        "cash": 2.7,
+        "other": 5.8
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0116567035",
+      "name": "Cartesio X FI",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 23.3,
+        "bond": 76.7,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    }
+  ]
+}

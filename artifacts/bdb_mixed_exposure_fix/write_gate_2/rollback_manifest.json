@@ -1,0 +1,147 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-2",
+  "generated_at_utc": "2026-05-10T16:24:05.011062+00:00",
+  "purpose": "Restore portfolio_exposure_v2 fields to pre-update values",
+  "rollback_entries": [
+    {
+      "isin": "LU0565136552",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 80.0,
+          "bond": 20.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0093503737",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1304666057",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 80.0,
+          "bond": 20.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1740985814",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 80.0,
+          "bond": 20.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "FR0010041822",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0352312184",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1276000236",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1298174530",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0162949012",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0116567035",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    }
+  ]
+}

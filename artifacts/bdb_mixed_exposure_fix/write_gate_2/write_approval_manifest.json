@@ -1,0 +1,37 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-2",
+  "generated_at_utc": "2026-05-10T16:24:05.011062+00:00",
+  "authorized": true,
+  "can_write": true,
+  "requires_human_approval": true,
+  "selected_count": 10,
+  "selected_isins": [
+    "LU0565136552",
+    "LU0093503737",
+    "LU1304666057",
+    "LU1740985814",
+    "FR0010041822",
+    "LU0352312184",
+    "LU1276000236",
+    "LU1298174530",
+    "ES0162949012",
+    "ES0116567035"
+  ],
+  "target_collection": "funds_v3",
+  "target_field": "portfolio_exposure_v2.economic_exposure",
+  "approval_checklist": {
+    "dry_run_reviewed": true,
+    "diff_manifest_reviewed": true,
+    "rollback_tested": false,
+    "human_approved": true,
+    "approved_by": "user_via_task_BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-2",
+    "approved_at_utc": "2026-05-10T17:24:00+00:00"
+  },
+  "write_guards": [
+    "Re-read doc immediately before write",
+    "Assert current economic_exposure matches snapshot",
+    "Assert proposed sum between 95-105",
+    "Abort entire batch if any guard fails",
+    "Log before/after for each write"
+  ]
+}

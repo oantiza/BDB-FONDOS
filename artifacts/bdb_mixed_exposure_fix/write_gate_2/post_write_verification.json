@@ -1,0 +1,460 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-2",
+  "generated_at_utc": "2026-05-10T18:07:35.974728+00:00",
+  "write_executed": true,
+  "all_pass": true,
+  "write_log": [
+    {
+      "isin": "ES0116567035",
+      "name": "Cartesio X FI",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 23.3,
+          "bond": 76.7,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "ES0162949012",
+      "name": "Abante Índice Selección A FI",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 47.3,
+          "bond": 44.2,
+          "cash": 2.7,
+          "other": 5.8
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "FR0010041822",
+      "name": "Edmond de Rothschild Patrimoine A",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 17.7,
+          "bond": 68.6,
+          "cash": 8.7,
+          "other": 5.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU0093503737",
+      "name": "BlackRock Global Funds - ESG Multi-Asset Fund E2",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 51.2,
+          "bond": 37.0,
+          "cash": 0.0,
+          "other": 11.8
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU0352312184",
+      "name": "Allianz Strategy 50 CT EUR",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 47.7,
+          "bond": 52.3,
+          "cash": 0.0,
+          "other": 0.1
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU0565136552",
+      "name": "First Eagle Amundi International Fund Class FE-C Shares",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 80.5,
+          "bond": 1.5,
+          "cash": 8.0,
+          "other": 10.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU1276000236",
+      "name": "Edmond de Rothschild Fund - Income Europe R EUR",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 17.5,
+          "bond": 69.3,
+          "cash": 8.1,
+          "other": 5.1
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU1298174530",
+      "name": "CT (Lux) - Global Multi Asset Income Class AE (EUR Accumulation Shares)",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 52.5,
+          "bond": 42.0,
+          "cash": 5.4,
+          "other": 0.1
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU1304666057",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 CT EUR",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 81.2,
+          "bond": 17.6,
+          "cash": 0.0,
+          "other": 1.2
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    },
+    {
+      "isin": "LU1740985814",
+      "name": "DWS Strategic Allocation Dynamic LD",
+      "payload": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 78.7,
+          "bond": 18.1,
+          "cash": 0.9,
+          "other": 2.3
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.85,
+        "portfolio_exposure_v2.warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ],
+        "portfolio_exposure_v2.computed_at": "2026-05-10T18:07:35.974728+00:00"
+      },
+      "ts": "2026-05-10T18:07:35.974728+00:00"
+    }
+  ],
+  "verification": [
+    {
+      "isin": "ES0116567035",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 23.3,
+        "bond": 76.7,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "actual_economic_exposure": {
+        "equity": 23.3,
+        "bond": 76.7,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "ES0162949012",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 47.3,
+        "bond": 44.2,
+        "cash": 2.7,
+        "other": 5.8
+      },
+      "actual_economic_exposure": {
+        "equity": 47.3,
+        "bond": 44.2,
+        "cash": 2.7,
+        "other": 5.8
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "FR0010041822",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 17.7,
+        "bond": 68.6,
+        "cash": 8.7,
+        "other": 5.0
+      },
+      "actual_economic_exposure": {
+        "equity": 17.7,
+        "bond": 68.6,
+        "cash": 8.7,
+        "other": 5.0
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU0093503737",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 51.2,
+        "bond": 37.0,
+        "cash": 0.0,
+        "other": 11.8
+      },
+      "actual_economic_exposure": {
+        "equity": 51.2,
+        "bond": 37.0,
+        "cash": 0.0,
+        "other": 11.8
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU0352312184",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 47.7,
+        "bond": 52.3,
+        "cash": 0.0,
+        "other": 0.1
+      },
+      "actual_economic_exposure": {
+        "equity": 47.7,
+        "bond": 52.3,
+        "cash": 0.0,
+        "other": 0.1
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU0565136552",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 80.5,
+        "bond": 1.5,
+        "cash": 8.0,
+        "other": 10.0
+      },
+      "actual_economic_exposure": {
+        "equity": 80.5,
+        "bond": 1.5,
+        "cash": 8.0,
+        "other": 10.0
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1276000236",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 17.5,
+        "bond": 69.3,
+        "cash": 8.1,
+        "other": 5.1
+      },
+      "actual_economic_exposure": {
+        "equity": 17.5,
+        "bond": 69.3,
+        "cash": 8.1,
+        "other": 5.1
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1298174530",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 52.5,
+        "bond": 42.0,
+        "cash": 5.4,
+        "other": 0.1
+      },
+      "actual_economic_exposure": {
+        "equity": 52.5,
+        "bond": 42.0,
+        "cash": 5.4,
+        "other": 0.1
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1304666057",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 81.2,
+        "bond": 17.6,
+        "cash": 0.0,
+        "other": 1.2
+      },
+      "actual_economic_exposure": {
+        "equity": 81.2,
+        "bond": 17.6,
+        "cash": 0.0,
+        "other": 1.2
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1740985814",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 78.7,
+        "bond": 18.1,
+        "cash": 0.9,
+        "other": 2.3
+      },
+      "actual_economic_exposure": {
+        "equity": 78.7,
+        "bond": 18.1,
+        "cash": 0.9,
+        "other": 2.3
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "expected_confidence": 0.85,
+      "forbidden_fields_unchanged": {
+        "manual": "unchanged",
+        "classification_v2": "unchanged",
+        "ms": "unchanged",
+        "derived": "unchanged",
+        "std_perf": "unchanged"
+      },
+      "status": "PASS"
+    }
+  ]
+}
