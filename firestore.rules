@@ -29,7 +29,7 @@ service cloud.firestore {
     }
 
     match /system_settings/{document=**} {
-      allow read: if true; // Temporarily public for verification
+      allow read: if isAuthenticated();
       allow write: if isAdmin();
     }
     
