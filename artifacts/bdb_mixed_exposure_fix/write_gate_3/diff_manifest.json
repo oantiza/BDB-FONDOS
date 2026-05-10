@@ -1,0 +1,653 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-3",
+  "generated_at_utc": "2026-05-10T18:12:30.657069+00:00",
+  "mode": "dry-run",
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "ES0173323009",
+      "name": "Renta 4 Wertefinder FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 46.3,
+        "bond": 48.4,
+        "cash": 5.3,
+        "other": 0.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0175604034",
+      "name": "Gesconsult León Valores Mixto Flexible A FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 45.4,
+        "bond": 47.3,
+        "cash": 7.3,
+        "other": 0.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1245470593",
+      "name": "Flossbach von Storch - Multi Asset Defensive ET",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 24.6,
+        "bond": 57.4,
+        "cash": 11.1,
+        "other": 6.9
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "DE0005318406",
+      "name": "DWS ESG Stiftungsfonds LD",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 25.2,
+        "bond": 70.5,
+        "cash": 1.4,
+        "other": 3.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0148181003",
+      "name": "Indexa RV mixta internacional 75 FI",
+      "old_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 74.8,
+        "bond": 22.7,
+        "cash": 2.4,
+        "other": 0.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0251131362",
+      "name": "Fidelity Funds - Fidelity Target™ 2030 Fund A-Acc-EUR",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 44.8,
+        "bond": 42.2,
+        "cash": 10.1,
+        "other": 3.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 44.4,
+        "bond": 50.3,
+        "cash": 4.2,
+        "other": 1.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0171283459",
+      "name": "BlackRock Global Funds - Global Allocation Fund A2 (EUR)",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 55.8,
+        "bond": 40.8,
+        "cash": 0.0,
+        "other": 3.4
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1899018953",
+      "name": "Sigma Investment House FCP - Best Blackrock Class A EUR Accumulation",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 43.6,
+        "bond": 45.2,
+        "cash": 2.7,
+        "other": 8.6
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1697017256",
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 41.9,
+        "bond": 50.3,
+        "cash": 7.4,
+        "other": 0.4
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0142046038",
+      "name": "Gesem Agresivo Flexible FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 58.8,
+        "bond": 12.0,
+        "cash": 4.0,
+        "other": 25.1
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0162946034",
+      "name": "Abante Selección FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 41.2,
+        "bond": 47.1,
+        "cash": 1.5,
+        "other": 10.2
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1697018494",
+      "name": "Sigma Investment House FCP - Best JP Morgan Class A EUR",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 59.6,
+        "bond": 35.6,
+        "cash": 4.6,
+        "other": 0.3
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1882475392",
+      "name": "Amundi Funds - Euro Multi-Asset Target Income A2 EUR (C)",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 29.8,
+        "bond": 42.3,
+        "cash": 21.2,
+        "other": 6.7
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU2278574715",
+      "name": "Buy & Hold Luxembourg B&H Flexible Class 2",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 40.0,
+        "bond": 53.0,
+        "cash": 7.0,
+        "other": 0.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    }
+  ]
+}

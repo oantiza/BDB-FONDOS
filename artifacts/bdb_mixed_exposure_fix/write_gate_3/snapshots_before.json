@@ -1,0 +1,720 @@
+{
+  "generated_at_utc": "2026-05-10T18:12:30.657069+00:00",
+  "snapshots": {
+    "ES0173323009": {
+      "name": "Renta 4 Wertefinder FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {},
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.938528+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 20.93,
+          "healthcare": 14.96,
+          "financials": 9.15
+        },
+        "equity_regions": {
+          "us": 36.14,
+          "europe": 45.98,
+          "asia_dev": 14.07,
+          "emerging": 0.0,
+          "japan": 3.81
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "ES0175604034": {
+      "name": "Gesconsult León Valores Mixto Flexible A FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.945503+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 21.88,
+          "healthcare": 5.16,
+          "financials": 23.54
+        },
+        "equity_regions": {
+          "us": 1.0,
+          "europe": 99.0,
+          "asia_dev": 0.0,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU1245470593": {
+      "name": "Flossbach von Storch - Multi Asset Defensive ET",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.562615+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 24.42,
+          "healthcare": 17.09,
+          "financials": 13.45
+        },
+        "equity_regions": {
+          "us": 56.14,
+          "europe": 40.58,
+          "asia_dev": 1.55,
+          "emerging": 0.15,
+          "japan": 1.58
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    },
+    "DE0005318406": {
+      "name": "DWS ESG Stiftungsfonds LD",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.782246+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 20.68,
+          "healthcare": 14.77,
+          "financials": 16.67
+        },
+        "equity_regions": {
+          "us": 27.17,
+          "europe": 60.4,
+          "asia_dev": 7.14,
+          "emerging": 0.0,
+          "japan": 5.3
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    },
+    "ES0148181003": {
+      "name": "Indexa RV mixta internacional 75 FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 80.0,
+          "bond": 20.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.890384+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 26.41,
+          "healthcare": 9.19,
+          "financials": 16.12
+        },
+        "equity_regions": {
+          "us": 52.4,
+          "europe": 23.38,
+          "asia_dev": 12.0,
+          "emerging": 0.72,
+          "japan": 11.5
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "AGGRESSIVE_ALLOCATION"
+    },
+    "LU0251131362": {
+      "name": "Fidelity Funds - Fidelity Target™ 2030 Fund A-Acc-EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.300267+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 29.92,
+          "healthcare": 7.66,
+          "financials": 16.15
+        },
+        "equity_regions": {
+          "us": 0.0,
+          "europe": 14.64,
+          "asia_dev": 16.78,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "LU0404220724": {
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.385733+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 24.09,
+          "healthcare": 7.79,
+          "financials": 16.27
+        },
+        "equity_regions": {
+          "us": 57.55,
+          "europe": 27.16,
+          "asia_dev": 6.62,
+          "emerging": 5.18,
+          "japan": 3.49
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU0171283459": {
+      "name": "BlackRock Global Funds - Global Allocation Fund A2 (EUR)",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.214136+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 29.6,
+          "healthcare": 9.88,
+          "financials": 14.77
+        },
+        "equity_regions": {
+          "us": 78.37,
+          "europe": 14.25,
+          "asia_dev": 2.94,
+          "emerging": 2.15,
+          "japan": 2.28
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU1899018953": {
+      "name": "Sigma Investment House FCP - Best Blackrock Class A EUR Accumulation",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.699062+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 27.76,
+          "healthcare": 7.84,
+          "financials": 15.87
+        },
+        "equity_regions": {
+          "us": 69.65,
+          "europe": 14.01,
+          "asia_dev": 10.49,
+          "emerging": 0.84,
+          "japan": 5.02
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "LU1697017256": {
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.647956+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 13.69,
+          "healthcare": 13.46,
+          "financials": 14.69
+        },
+        "equity_regions": {
+          "us": 53.55,
+          "europe": 27.1,
+          "asia_dev": 4.25,
+          "emerging": 7.82,
+          "japan": 7.29
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "ES0142046038": {
+      "name": "Gesem Agresivo Flexible FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.885857+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 11.28,
+          "healthcare": 6.98,
+          "financials": 16.16
+        },
+        "equity_regions": {
+          "us": 65.65,
+          "europe": 32.47,
+          "asia_dev": 0.91,
+          "emerging": 0.31,
+          "japan": 0.66
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "ES0162946034": {
+      "name": "Abante Selección FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.915360+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 23.98,
+          "healthcare": 9.54,
+          "financials": 20.44
+        },
+        "equity_regions": {
+          "us": 55.96,
+          "europe": 27.92,
+          "asia_dev": 7.99,
+          "emerging": 1.26,
+          "japan": 6.87
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU1697018494": {
+      "name": "Sigma Investment House FCP - Best JP Morgan Class A EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.653687+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 24.99,
+          "healthcare": 8.36,
+          "financials": 16.47
+        },
+        "equity_regions": {
+          "us": 54.41,
+          "europe": 20.7,
+          "asia_dev": 11.06,
+          "emerging": 1.61,
+          "japan": 12.21
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "LU1882475392": {
+      "name": "Amundi Funds - Euro Multi-Asset Target Income A2 EUR (C)",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 20.0,
+          "bond": 80.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {},
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.679956+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 26.36,
+          "healthcare": 8.17,
+          "financials": 13.88
+        },
+        "equity_regions": {
+          "us": 51.51,
+          "europe": 39.26,
+          "asia_dev": 7.93,
+          "emerging": 1.1,
+          "japan": 0.21
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "CONSERVATIVE_ALLOCATION"
+    },
+    "LU2278574715": {
+      "name": "Buy & Hold Luxembourg B&H Flexible Class 2",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.749186+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 22.18,
+          "healthcare": 16.92,
+          "financials": 19.96
+        },
+        "equity_regions": {
+          "us": 59.25,
+          "europe": 36.43,
+          "asia_dev": 2.49,
+          "emerging": 1.82,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    }
+  }
+}

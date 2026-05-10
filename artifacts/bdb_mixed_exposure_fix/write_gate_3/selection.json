@@ -1,0 +1,189 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-3",
+  "generated_at_utc": "2026-05-10T18:12:30.657069+00:00",
+  "batch_number": 3,
+  "selection_criteria": {
+    "write_recommended": true,
+    "review_required": false,
+    "source_used": "ms_portfolio_asset_allocation",
+    "excluded_already_written": [
+      "LU1276000236",
+      "LU1298174530",
+      "LU0352312184",
+      "FR0010041822",
+      "LU1740985814",
+      "LU1961009468",
+      "ES0116567035",
+      "IE00BYYPF474",
+      "ES0128067008",
+      "LU1883327816",
+      "LU1304666057",
+      "ES0162949012",
+      "LU0565136552",
+      "LU0093503737",
+      "LU0512121004"
+    ]
+  },
+  "selected_isins": [
+    {
+      "isin": "ES0173323009",
+      "name": "Renta 4 Wertefinder FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -3.7,
+      "delta_bond": -1.6,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "ES0175604034",
+      "name": "Gesconsult León Valores Mixto Flexible A FI",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": -4.6,
+      "delta_bond": -2.7,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU1245470593",
+      "name": "Flossbach von Storch - Multi Asset Defensive ET",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "delta_equity": 4.6,
+      "delta_bond": -22.6,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "DE0005318406",
+      "name": "DWS ESG Stiftungsfonds LD",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "delta_equity": 5.2,
+      "delta_bond": -9.5,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "ES0148181003",
+      "name": "Indexa RV mixta internacional 75 FI",
+      "subtype": "AGGRESSIVE_ALLOCATION",
+      "delta_equity": -5.2,
+      "delta_bond": 2.7,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU0251131362",
+      "name": "Fidelity Funds - Fidelity Target™ 2030 Fund A-Acc-EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -5.2,
+      "delta_bond": -7.8,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": -5.6,
+      "delta_bond": 0.3,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU0171283459",
+      "name": "BlackRock Global Funds - Global Allocation Fund A2 (EUR)",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 5.8,
+      "delta_bond": -9.2,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU1899018953",
+      "name": "Sigma Investment House FCP - Best Blackrock Class A EUR Accumulation",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -6.4,
+      "delta_bond": -4.8,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU1697017256",
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": -8.1,
+      "delta_bond": 0.3,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "ES0142046038",
+      "name": "Gesem Agresivo Flexible FI",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 8.8,
+      "delta_bond": -38.0,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "ES0162946034",
+      "name": "Abante Selección FI",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": -8.8,
+      "delta_bond": -2.9,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU1697018494",
+      "name": "Sigma Investment House FCP - Best JP Morgan Class A EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 9.6,
+      "delta_bond": -14.4,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU1882475392",
+      "name": "Amundi Funds - Euro Multi-Asset Target Income A2 EUR (C)",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "delta_equity": 9.8,
+      "delta_bond": -37.7,
+      "risk_level": "LOW"
+    },
+    {
+      "isin": "LU2278574715",
+      "name": "Buy & Hold Luxembourg B&H Flexible Class 2",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -10.0,
+      "delta_bond": 3.0,
+      "risk_level": "LOW"
+    }
+  ],
+  "rejected_high_delta_isins": [
+    "LU1594335520",
+    "ES0116848005",
+    "LU0251119078",
+    "LU1899019175",
+    "ES0162305033",
+    "ES0131462022",
+    "ES0110407006",
+    "LU1697018064",
+    "ES0114904008",
+    "LU1899018870",
+    "ES0118537002",
+    "LU2050544563",
+    "FR0013219243",
+    "LU0121216526",
+    "LU0284394821",
+    "LU0352312853",
+    "FR0010306142",
+    "LU0048293368",
+    "LU1697016365",
+    "LU1894680757",
+    "DE000A0X7541",
+    "LU1095739733",
+    "ES0138930005",
+    "LU1883330521",
+    "LU1883340322",
+    "LU0119195963",
+    "DE000DWS17J0",
+    "LU1868537090",
+    "LU1548496022"
+  ],
+  "skipped_no_ms_data_isins": [
+    "LU3038481936"
+  ],
+  "counts": {
+    "selected": 15,
+    "already_written": 15,
+    "rejected_high_delta": 29,
+    "skipped_no_ms": 1
+  }
+}

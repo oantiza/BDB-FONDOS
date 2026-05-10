@@ -1,0 +1,216 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-3",
+  "generated_at_utc": "2026-05-10T18:12:30.657069+00:00",
+  "rollback_entries": [
+    {
+      "isin": "ES0173323009",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0175604034",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1245470593",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "DE0005318406",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0148181003",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 80.0,
+          "bond": 20.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0251131362",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0404220724",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0171283459",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1899018953",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1697017256",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0142046038",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0162946034",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1697018494",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1882475392",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 20.0,
+          "bond": 80.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU2278574715",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    }
+  ]
+}
