@@ -122,13 +122,9 @@ class TestKeepWeightBehavior:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" not in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P2: BLOCK_LOCKS_INCOMPATIBLE_BUCKET not implemented yet",
-    )
     def test_a2_keep_weight_exceeds_bucket_max(self, uni10, exp10):
         """A2: lock 30% equity but equity.max=20%. Pure math contradiction.
-        Decision P2: BLOCK."""
+        Decision P2: BLOCK. Implemented in BLOCK-7."""
         bounds = {"equity": {"min": 0.0, "max": 0.20},
                   "bond": {"min": 0.40, "max": 1.0}}
         result = run_feasibility_precheck(
@@ -163,14 +159,9 @@ class TestKeepWeightBehavior:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR" in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P2: BLOCK_LOCKS_INCOMPATIBLE_BUCKET not implemented yet. "
-               "keep_money equivalent to keep_weight after conversion.",
-    )
     def test_a4_keep_money_equivalent_to_keep_weight(self, uni10, exp10):
         """A4: keep_money treated same as keep_weight once converted.
-        Decision P2: same BLOCK behavior. Both produce w[i]==fw in solver."""
+        Decision P2: same BLOCK behavior. Implemented in BLOCK-7."""
         bounds = {"equity": {"min": 0.0, "max": 0.20},
                   "bond": {"min": 0.40, "max": 1.0}}
         result = run_feasibility_precheck(
@@ -207,14 +198,9 @@ class TestMinKeepBehavior:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" not in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P3: min_keep floor exceeds bucket max. "
-               "BLOCK_LOCKS_INCOMPATIBLE_BUCKET not implemented yet.",
-    )
     def test_b6_min_keep_exceeds_bucket_max(self, uni10, exp10):
         """B6: min_keep 40% bond but bond.max=20%. Floor>ceiling.
-        Decision P3: BLOCK."""
+        Decision P3: BLOCK. Implemented in BLOCK-7."""
         bounds = {"equity": {"min": 0.70, "max": 1.0},
                   "bond": {"min": 0.0, "max": 0.20}}
         result = run_feasibility_precheck(
@@ -229,13 +215,9 @@ class TestMinKeepBehavior:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P3: WARNING_LOCKS_HIGH_CONCENTRATION not implemented yet.",
-    )
     def test_b7_min_keep_reduces_margin_warning(self, uni10, exp10):
         """B7: min_keep 65% total. Doesn't break math but reduces margin.
-        Decision P3: WARNING, not BLOCK."""
+        Decision P3: WARNING, not BLOCK. Implemented."""
         result = run_feasibility_precheck(
             universe=uni10, max_weight=0.20,
             active_bounds=MODERATE_BOUNDS,
@@ -350,14 +332,9 @@ class TestEquityFloorBehavior:
 class TestBoundsSourceBehavior:
     """P5: precheck uses same effective source as solver."""
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P5+P2: BLOCK_LOCKS_INCOMPATIBLE_BUCKET not implemented. "
-               "Test verifies precheck uses effective bounds.",
-    )
     def test_e11_precheck_uses_effective_bounds(self, uni10, exp10):
         """E11: precheck receives effective bounds (same as solver will use).
-        Decision P5: validate against the same source the solver will use.
+        Decision P5: validate against the same source the solver will use. Implemented in BLOCK-7.
         If bucket_bounds_v1 says equity.max=20% and lock=30%, BLOCK."""
         bounds_v1 = {"equity": {"min": 0.0, "max": 0.20},
                      "bond": {"min": 0.40, "max": 1.0}}
@@ -399,15 +376,10 @@ class TestBoundsSourceBehavior:
 class TestMixtoBehavior:
     """P5 note: Mixto only validated if it has defined bounds."""
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P5: BLOCK_LOCKS_INCOMPATIBLE_BUCKET not implemented. "
-               "Mixto with defined bounds should be validated like any bucket.",
-    )
     def test_f13a_mixto_with_bounds_validated(
         self, uni12_with_mixto, exp12_with_mixto,
     ):
-        """F13a: Mixto has bounds (max=20%). Lock 35% in Mixto. BLOCK.
+        """F13a: Mixto has bounds (max=20%). Lock 35% in Mixto. BLOCK. Implemented in BLOCK-7.
         Decision P5 note: if Mixto has bounds, validate like any bucket."""
         bounds = {
             "equity": {"min": 0.40, "max": 0.60},

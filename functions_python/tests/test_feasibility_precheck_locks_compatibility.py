@@ -95,11 +95,6 @@ class TestLocksIncompatibleBucket:
     that the RV (equity) minimum cannot be reached, or vice versa.
     """
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="GAP-H1 pending runtime implementation: "
-               "BLOCK_LOCKS_INCOMPATIBLE_BUCKET not yet in feasibility_precheck.py",
-    )
     def test_case_a_lock_60_rf_aggressive_profile(
         self, ten_asset_universe, ten_asset_exposure,
     ):
@@ -107,8 +102,8 @@ class TestLocksIncompatibleBucket:
         Case A: lock 60% in RF + aggressive profile requiring RV min=85%.
 
         Lock consumes 60% budget in bond → only 40% left for equity.
-        But equity.min = 85% → impossible.
-        Expected future: BLOCK_LOCKS_INCOMPATIBLE_BUCKET.
+        bond.max = 20% but locked = 60% → exceeds bucket max.
+        Expected: BLOCK_LOCKS_INCOMPATIBLE_BUCKET. Implemented in BLOCK-7.
         """
         bounds = {
             "equity": {"min": 0.85, "max": 1.0},
@@ -131,11 +126,6 @@ class TestLocksIncompatibleBucket:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="GAP-H1 pending runtime implementation: "
-               "BLOCK_LOCKS_INCOMPATIBLE_BUCKET not yet in feasibility_precheck.py",
-    )
     def test_case_b_lock_30_equity_max_20(
         self, six_asset_universe, six_asset_exposure,
     ):
@@ -143,7 +133,7 @@ class TestLocksIncompatibleBucket:
         Case B: lock 30% in equity but bucket equity.max = 20%.
 
         The lock itself (30%) exceeds the bucket maximum (20%).
-        Expected future: BLOCK_LOCKS_INCOMPATIBLE_BUCKET.
+        Expected: BLOCK_LOCKS_INCOMPATIBLE_BUCKET. Implemented in BLOCK-7.
         """
         bounds = {
             "equity": {"min": 0.0, "max": 0.20},
@@ -228,24 +218,36 @@ class TestLocksIncompatibleBucket:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" not in codes
 
-    def test_case_e_lock_mode_min_keep_decision_pending(
+    def test_case_e_lock_mode_min_keep_exceeds_bucket(
         self, six_asset_universe, six_asset_exposure,
     ):
         """
-        Case E: lock_mode="min_keep" semantics are ambiguous.
+        Case E: lock_mode="min_keep" with locked weight exceeding bucket max.
 
-        Does min_keep count against the bucket ceiling (max) or only
-        enforce a floor (min)? This changes whether the lock can make
-        a bucket incompatible.
-
-        DECISION PENDING: min_keep semantics must be clarified by user.
+        Decision P3 (closed): min_keep counts against bucket ceiling.
+        min_keep 60% in bond but bond.max = 20% → BLOCK.
+        Implemented in BLOCK-7.
         """
-        pytest.skip(
-            "decision pending: does lock_mode='min_keep' count against "
-            "bucket max (ceiling) or only enforce a floor? "
-            "This determines whether min_keep locks can trigger "
-            "BLOCK_LOCKS_INCOMPATIBLE_BUCKET."
+        bounds = {
+            "equity": {"min": 0.70, "max": 1.0},
+            "bond":   {"min": 0.0,  "max": 0.20},
+        }
+        # BD0=30%, BD1=30% → 60% locked in bond, but max bond = 20%
+        fixed_weights = {"BD0": 0.30, "BD1": 0.30}
+
+        result = run_feasibility_precheck(
+            universe=six_asset_universe,
+            max_weight=0.50,
+            active_bounds=bounds,
+            exposure_vectors=six_asset_exposure,
+            fixed_weights=fixed_weights,
+            lock_mode="min_keep",
+            _read_bound_fn=_test_read_bound,
         )
+
+        assert result["is_feasible"] is False
+        codes = [b["code"] for b in result["blocks"]]
+        assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" in codes
 
 
 # =========================================================================

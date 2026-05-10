@@ -176,6 +176,109 @@ def _check_bucket_not_representable(
 
 
 # =========================================================================
+# LOCK COMPATIBILITY CHECKS (Phase 1.5 — approved P2/P3/P5)
+# =========================================================================
+
+def _check_locks_incompatible_bucket(
+    universe: List[str],
+    active_bounds: Dict[str, Any],
+    exposure_vectors: Dict[str, np.ndarray],
+    fixed_weights: Dict[str, float],
+    lock_mode: str,
+    _read_bound_fn,
+) -> Optional[dict]:
+    """BLOCK-7: Locked weights in a bucket exceed the bucket's maximum.
+
+    Covers GAP-H1 from precheck audit. Approved in P2 (keep_weight),
+    P3 (min_keep), P5 (effective bounds + Mixto).
+    lock_mode='free' is excluded (P4).
+    Tolerance: 1e-4 (business-level, per approved decision).
+    """
+    if lock_mode not in ("keep_weight", "keep_money", "min_keep"):
+        return None
+    if not fixed_weights or not active_bounds:
+        return None
+
+    bucket_labels = {
+        "equity": "Renta Variable",
+        "bond": "Renta Fija",
+        "cash": "Monetario",
+        "alternative": "Alternativos",
+        "real_asset": "Activos Reales",
+        "mixto": "Mixto",
+        "other": "Otros",
+    }
+
+    isin_to_idx = {isin: i for i, isin in enumerate(universe)}
+
+    for bucket_key, raw in active_bounds.items():
+        _, b_max = _read_bound_fn(raw)
+        if b_max is None:
+            continue
+
+        vec = exposure_vectors.get(bucket_key)
+        if vec is None:
+            continue
+
+        locked_in_bucket = 0.0
+        for isin, fw in fixed_weights.items():
+            idx = isin_to_idx.get(isin)
+            if idx is not None and idx < len(vec) and vec[idx] > 0.5:
+                locked_in_bucket += max(0.0, float(fw))
+
+        if locked_in_bucket > b_max + 1e-4:
+            label = bucket_labels.get(bucket_key, bucket_key)
+            return _issue(
+                "BLOCK_LOCKS_INCOMPATIBLE_BUCKET",
+                "block",
+                f"Las posiciones bloqueadas ({locked_in_bucket*100:.1f}% en {label}) "
+                f"superan el máximo permitido ({b_max*100:.1f}%) para ese tipo de activo. "
+                f"Desbloquee o reduzca las posiciones en {label} para poder optimizar.",
+                {
+                    "bucket": bucket_key,
+                    "label": label,
+                    "locked_sum": round(locked_in_bucket, 4),
+                    "bucket_max": round(b_max, 4),
+                },
+            )
+
+    return None
+
+
+def _check_locks_high_concentration(
+    fixed_weights: Dict[str, float],
+    lock_mode: str,
+) -> Optional[dict]:
+    """WARNING: More than 60% of capital is locked.
+
+    Approved in P3 (min_keep) and semantic decision doc.
+    Threshold: 60% (approved by user).
+    lock_mode='free' is excluded (P4).
+    """
+    if lock_mode not in ("keep_weight", "keep_money", "min_keep"):
+        return None
+    if not fixed_weights:
+        return None
+
+    total_locked = sum(max(0.0, float(v)) for v in fixed_weights.values())
+    if total_locked > 0.60 + 1e-4:
+        free_pct = (1.0 - total_locked) * 100
+        return _issue(
+            "WARNING_LOCKS_HIGH_CONCENTRATION",
+            "warning",
+            f"Tiene el {total_locked*100:.1f}% del capital bloqueado. "
+            f"El optimizador solo puede actuar sobre el {free_pct:.1f}% restante, "
+            f"lo que puede limitar la diversificación.",
+            {
+                "total_locked": round(total_locked, 4),
+                "free_budget": round(1.0 - total_locked, 4),
+            },
+        )
+
+    return None
+
+
+# =========================================================================
 # MAIN PUBLIC API
 # =========================================================================
 
@@ -249,6 +352,19 @@ def run_feasibility_precheck(
         if issue:
             blocks.append(issue)
 
+        # BLOCK-7: Locks incompatible with bucket bounds (GAP-H1)
+        issue = _check_locks_incompatible_bucket(
+            universe, active_bounds, exposure_vectors,
+            fixed_weights, lock_mode, _read_bound_fn,
+        )
+        if issue:
+            blocks.append(issue)
+
+    # --- WARNINGS (non-blocking) ---
+    issue = _check_locks_high_concentration(fixed_weights, lock_mode)
+    if issue:
+        warnings.append(issue)
+
     is_feasible = len(blocks) == 0
 
     if blocks:
@@ -258,6 +374,11 @@ def run_feasibility_precheck(
         )
     else:
         logger.info("✅ [FeasibilityPrecheck] All Phase 1 checks passed.")
+    if warnings:
+        logger.info(
+            f"⚠️ [FeasibilityPrecheck] {len(warnings)} warning(s): "
+            f"{[w['code'] for w in warnings]}"
+        )
 
     return {
         "is_feasible": is_feasible,
