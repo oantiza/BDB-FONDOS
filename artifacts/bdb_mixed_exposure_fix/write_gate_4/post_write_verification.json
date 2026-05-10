@@ -1,0 +1,160 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-4",
+  "generated_at_utc": "2026-05-10T19:50:59.727580+00:00",
+  "write_executed": true,
+  "all_pass": true,
+  "write_log": [
+    {
+      "isin": "DE000DWS17J0",
+      "name": "DWS ESG Dynamic Opportunities LC",
+      "proposed": {
+        "equity": 68.8,
+        "bond": 18.8,
+        "cash": 3.1,
+        "other": 9.2
+      },
+      "ts": "2026-05-10T19:50:59.727580+00:00"
+    },
+    {
+      "isin": "ES0138930005",
+      "name": "Fonvalcem B FI",
+      "proposed": {
+        "equity": 91.8,
+        "bond": 0.0,
+        "cash": 6.2,
+        "other": 2.1
+      },
+      "ts": "2026-05-10T19:50:59.727580+00:00"
+    },
+    {
+      "isin": "LU0048293368",
+      "name": "BL-Global 75 B EUR Acc",
+      "proposed": {
+        "equity": 59.1,
+        "bond": 8.2,
+        "cash": 10.1,
+        "other": 22.6
+      },
+      "ts": "2026-05-10T19:50:59.727580+00:00"
+    },
+    {
+      "isin": "LU1697016365",
+      "name": "Sigma Investment House FCP - Selection Defensive Class A EUR",
+      "proposed": {
+        "equity": 0.1,
+        "bond": 92.5,
+        "cash": 6.7,
+        "other": 0.7
+      },
+      "ts": "2026-05-10T19:50:59.727580+00:00"
+    },
+    {
+      "isin": "LU1868537090",
+      "name": "DWS Invest ESG Dynamic Opportunities LC",
+      "proposed": {
+        "equity": 69.0,
+        "bond": 18.8,
+        "cash": 3.2,
+        "other": 9.0
+      },
+      "ts": "2026-05-10T19:50:59.727580+00:00"
+    }
+  ],
+  "verification": [
+    {
+      "isin": "DE000DWS17J0",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 68.8,
+        "bond": 18.8,
+        "cash": 3.1,
+        "other": 9.2
+      },
+      "actual_economic_exposure": {
+        "equity": 68.8,
+        "bond": 18.8,
+        "cash": 3.1,
+        "other": 9.2
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "ES0138930005",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 91.8,
+        "bond": 0.0,
+        "cash": 6.2,
+        "other": 2.1
+      },
+      "actual_economic_exposure": {
+        "equity": 91.8,
+        "bond": 0.0,
+        "cash": 6.2,
+        "other": 2.1
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU0048293368",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 59.1,
+        "bond": 8.2,
+        "cash": 10.1,
+        "other": 22.6
+      },
+      "actual_economic_exposure": {
+        "equity": 59.1,
+        "bond": 8.2,
+        "cash": 10.1,
+        "other": 22.6
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1697016365",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 0.1,
+        "bond": 92.5,
+        "cash": 6.7,
+        "other": 0.7
+      },
+      "actual_economic_exposure": {
+        "equity": 0.1,
+        "bond": 92.5,
+        "cash": 6.7,
+        "other": 0.7
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1868537090",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 69.0,
+        "bond": 18.8,
+        "cash": 3.2,
+        "other": 9.0
+      },
+      "actual_economic_exposure": {
+        "equity": 69.0,
+        "bond": 18.8,
+        "cash": 3.2,
+        "other": 9.0
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    }
+  ]
+}
