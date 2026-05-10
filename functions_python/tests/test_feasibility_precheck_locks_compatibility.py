@@ -270,12 +270,6 @@ class TestLocksIncompatibleEquityFloor:
     run_feasibility_precheck() — which is a contract extension.
     """
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="GAP-H2 pending runtime implementation: "
-               "BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR not yet in feasibility_precheck.py "
-               "(also requires equity_floor parameter addition)",
-    )
     def test_case_a_rf_cash_locks_35_equity_floor_75(
         self, ten_asset_universe, ten_asset_exposure,
     ):
@@ -285,7 +279,7 @@ class TestLocksIncompatibleEquityFloor:
         Budget consumed by non-equity locks: 35%.
         Maximum achievable equity: 100% - 35% = 65%.
         equity_floor = 75% → 65% < 75% → incompatible.
-        Expected future: BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR.
+        Expected: BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR. Implemented in BLOCK-8.
         """
         bounds = {
             "equity": {"min": 0.70, "max": 1.0},
@@ -294,10 +288,6 @@ class TestLocksIncompatibleEquityFloor:
         }
         # BD0=15%, BD1=10%, BD2=10% → 35% locked in bond/cash
         fixed_weights = {"BD0": 0.15, "BD1": 0.10, "BD2": 0.10}
-        # equity_floor would be 0.75 (derived from profile)
-        # NOTE: This test assumes equity_floor will be passed as a
-        # parameter to run_feasibility_precheck in the future.
-        # For now, we test against current API which lacks equity_floor.
 
         result = run_feasibility_precheck(
             universe=ten_asset_universe,
@@ -307,6 +297,7 @@ class TestLocksIncompatibleEquityFloor:
             fixed_weights=fixed_weights,
             lock_mode="keep_weight",
             _read_bound_fn=_test_read_bound,
+            equity_floor=0.75,
         )
 
         assert result["is_feasible"] is False

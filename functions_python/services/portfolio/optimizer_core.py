@@ -1127,6 +1127,7 @@ def run_optimization(
             fixed_weights=fixed_weights or {},
             lock_mode=lock_mode,
             _read_bound_fn=_read_bound,
+            equity_floor=equity_floor,
         )
 
         if not precheck_result["is_feasible"]:

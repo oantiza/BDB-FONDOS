@@ -139,14 +139,9 @@ class TestKeepWeightBehavior:
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" in codes
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P2+P1: BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR not implemented "
-               "(also requires equity_floor parameter)",
-    )
     def test_a3_keep_weight_blocks_equity_floor(self, uni10, exp10):
         """A3: lock 40% in bond, equity_floor=75%. Max equity=60%<75%.
-        Decision P1+P2: BLOCK in standard mode."""
+        Decision P1+P2: BLOCK in standard mode. Implemented in BLOCK-8."""
         result = run_feasibility_precheck(
             universe=uni10, max_weight=0.20,
             active_bounds=AGGRESSIVE_BOUNDS,
@@ -154,6 +149,7 @@ class TestKeepWeightBehavior:
             fixed_weights={"BD0": 0.15, "BD1": 0.15, "BD2": 0.10},
             lock_mode="keep_weight",
             _read_bound_fn=_read_bound,
+            equity_floor=0.75,
         )
         assert result["is_feasible"] is False
         codes = [b["code"] for b in result["blocks"]]
@@ -276,14 +272,9 @@ class TestFreeBehavior:
 class TestEquityFloorBehavior:
     """P1: equity_floor HARD in standard. Future legacy exception."""
 
-    @pytest.mark.xfail(
-        strict=True,
-        reason="P1: BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR not implemented "
-               "(requires equity_floor parameter in run_feasibility_precheck)",
-    )
     def test_d9_equity_floor_hard_standard(self, uni10, exp10):
         """D9: 35% locked non-equity, equity_floor=75%. Max equity=65%<75%.
-        Decision P1: BLOCK in standard optimization."""
+        Decision P1: BLOCK in standard optimization. Implemented in BLOCK-8."""
         bounds = {"equity": {"min": 0.70, "max": 1.0},
                   "bond": {"min": 0.0, "max": 0.30},
                   "cash": {"min": 0.0, "max": 0.10}}
@@ -294,6 +285,7 @@ class TestEquityFloorBehavior:
             fixed_weights={"BD0": 0.15, "BD1": 0.10, "BD2": 0.10},
             lock_mode="keep_weight",
             _read_bound_fn=_read_bound,
+            equity_floor=0.75,
         )
         assert result["is_feasible"] is False
         codes = [b["code"] for b in result["blocks"]]

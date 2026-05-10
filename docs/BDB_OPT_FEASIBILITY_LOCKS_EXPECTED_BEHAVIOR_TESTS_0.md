@@ -12,11 +12,11 @@ de forma ejecutable. Los tests para lógica no implementada están marcados
 como `xfail(strict=True)`. Los tests para comportamiento ya soportado
 pasan (`PASSED`).
 
-**ESTADO: `BDB_OPT_FEASIBILITY_LOCKS_EXPECTED_BEHAVIOR_TESTS_0_IMPLEMENTED_PARTIAL`**
+**ESTADO: `BDB_OPT_FEASIBILITY_LOCKS_EXPECTED_BEHAVIOR_TESTS_0_IMPLEMENTED_COMPLETE`**
 
-> BLOCK_LOCKS_INCOMPATIBLE_BUCKET (BLOCK-7) y WARNING_LOCKS_HIGH_CONCENTRATION
-> implementados en feasibility_precheck.py.
-> BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR pendiente (requiere parámetro equity_floor).
+> BLOCK_LOCKS_INCOMPATIBLE_BUCKET (BLOCK-7), WARNING_LOCKS_HIGH_CONCENTRATION
+> y BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR (BLOCK-8) implementados en
+> feasibility_precheck.py. Todos los xfail resueltos.
 
 ---
 
@@ -36,9 +36,9 @@ pasan (`PASSED`).
 
 | Resultado | Cantidad |
 |---|---|
-| PASSED | 11 |
+| PASSED | 13 |
 | SKIPPED | 2 |
-| XFAILED | 2 |
+| XFAILED | 0 |
 | FAILED | 0 |
 | UNEXPECTED PASS | 0 |
 
@@ -46,9 +46,9 @@ pasan (`PASSED`).
 
 | Resultado | Cantidad |
 |---|---|
-| PASSED | 8 |
+| PASSED | 9 |
 | SKIPPED | 0 |
-| XFAILED | 1 |
+| XFAILED | 0 |
 | FAILED | 0 |
 | UNEXPECTED PASS | 0 |
 
@@ -60,14 +60,14 @@ pasan (`PASSED`).
 |---|---|---|---|---|
 | A1 | P2 | PASSED | Ya soportado | keep_weight compatible, no BLOCK |
 | A2 | P2 | PASSED | **Implementado (BLOCK-7)** | keep_weight excede bucket max → BLOCK |
-| A3 | P1+P2 | XFAIL | No implementado | keep_weight impide equity_floor → BLOCK |
+| A3 | P1+P2 | PASSED | **Implementado (BLOCK-8)** | keep_weight impide equity_floor → BLOCK |
 | A4 | P2 | PASSED | **Implementado (BLOCK-7)** | keep_money equivalente a keep_weight → BLOCK |
 | B5 | P3 | PASSED | Ya soportado | min_keep compatible, no BLOCK |
 | B6 | P3 | PASSED | **Implementado (BLOCK-7)** | min_keep excede bucket max → BLOCK |
 | B7 | P3 | PASSED | **Implementado** | min_keep reduce margen → WARNING |
 | C8 | P4 | PASSED | Ya soportado | free nunca bloquea |
 | C8b | P4 | PASSED | Ya soportado | free no cuenta para EXCEED_100 |
-| D9 | P1 | XFAIL | No implementado | equity_floor HARD estándar → BLOCK |
+| D9 | P1 | PASSED | **Implementado (BLOCK-8)** | equity_floor HARD estándar → BLOCK |
 | D10 | P1 | SKIP | No implementado | Modo heredado futuro (documental) |
 | E11 | P5+P2 | PASSED | **Implementado (BLOCK-7)** | precheck usa bounds efectivos → BLOCK |
 | E12 | P5 | SKIP | No implementado | No cross-source (documental) |
@@ -78,7 +78,7 @@ pasan (`PASSED`).
 
 ## Interpretación
 
-### Tests que PASAN (19 totales: 11 expected + 8 compatibility)
+### Tests que PASAN (22 totales: 13 expected + 9 compatibility)
 
 Estos validan comportamiento que el runtime **ya soporta**:
 
@@ -86,19 +86,15 @@ Estos validan comportamiento que el runtime **ya soporta**:
 - **C8, C8b**: `lock_mode="free"` correctamente excluido de cálculos.
 - **F13b**: Bounds abiertos no pueden generar incompatibilidad.
 - **A2, A4, B6, E11, F13a**: `BLOCK_LOCKS_INCOMPATIBLE_BUCKET` (BLOCK-7) implementado.
+- **A3, D9**: `BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR` (BLOCK-8) implementado.
 - **B7**: `WARNING_LOCKS_HIGH_CONCENTRATION` implementado.
-- **compatibility case_a, case_b, case_e**: BLOCK-7 implementado.
+- **compatibility case_a–e bucket**: BLOCK-7 implementado.
+- **compatibility case_a equity_floor**: BLOCK-8 implementado.
+- **compatibility case_b–d equity_floor**: Ya soportados (compatible/zero/equal).
 
-### Tests XFAIL (3: 2 expected + 1 compatibility)
+### Tests XFAIL (0)
 
-Estos representan comportamiento **aprobado pero no implementado**:
-
-- **A3, D9**: `BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR` (GAP-H2).
-  Requiere parámetro `equity_floor` en `run_feasibility_precheck()`.
-- **compatibility::case_a_rf_cash_locks_35_equity_floor_75**: Mismo motivo.
-
-Cuando se implemente cada check, el xfail correspondiente empezará a
-pasar y deberá removerse el decorador.
+Todos los checks de diseño están implementados.
 
 ### Tests SKIP (2)
 
@@ -142,9 +138,11 @@ Cuando se implemente el runtime, ambos conjuntos deben pasar.
 
 ## Próximo bloque recomendado
 
-`BDB-OPT-FEASIBILITY-LOCKS-EQUITY-FLOOR-IMPL-0`:
-Añadir parámetro `equity_floor` a `run_feasibility_precheck()` e
-implementar `_check_locks_incompatible_equity_floor` (GAP-H2).
-Requiere cambio mínimo en `optimizer_core.py` para pasar el parámetro.
+Todos los checks de feasibility precheck para locks están implementados.
+Próximos pasos posibles:
 
-Fecha actualización: 2026-05-10T06:18:00+02:00
+- `BDB-OPT-UX-PRECHECK-MESSAGES-0`: Implementar manejo de códigos BLOCK/WARNING en frontend.
+- `BDB-OPT-LEGACY-OVERRIDE-0`: Implementar modo cartera heredada (D10).
+- `BDB-OPT-CROSS-SOURCE-VALIDATION-0`: Validar coherencia entre fuentes de bounds (E12).
+
+Fecha actualización: 2026-05-10T06:36:00+02:00

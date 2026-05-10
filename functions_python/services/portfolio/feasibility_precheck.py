@@ -278,6 +278,86 @@ def _check_locks_high_concentration(
     return None
 
 
+def _check_locks_incompatible_equity_floor(
+    universe: List[str],
+    exposure_vectors: Dict[str, np.ndarray],
+    fixed_weights: Dict[str, float],
+    lock_mode: str,
+    equity_floor: Optional[float],
+    max_weight: float,
+) -> Optional[dict]:
+    """BLOCK-8: Locked non-equity positions make equity_floor unreachable.
+
+    Covers GAP-H2 from precheck audit. Approved in P1 (equity_floor HARD).
+    Calculates the maximum achievable equity considering:
+    - Equity already guaranteed by locked positions
+    - Best-case equity from free budget (greedy allocation)
+    lock_mode='free' is excluded (P4).
+    Tolerance: 1e-4 (business-level, per approved decision).
+    """
+    if equity_floor is None or equity_floor <= 0:
+        return None
+    if lock_mode not in ("keep_weight", "keep_money", "min_keep"):
+        return None
+    if not fixed_weights:
+        return None
+
+    eq_vec = exposure_vectors.get("equity")
+    if eq_vec is None:
+        return None
+
+    # Budget consumed by locks
+    total_locked = sum(max(0.0, float(v)) for v in fixed_weights.values())
+
+    # Equity already guaranteed by locked positions
+    isin_to_idx = {isin: i for i, isin in enumerate(universe)}
+    locked_equity = 0.0
+    for isin, fw in fixed_weights.items():
+        idx = isin_to_idx.get(isin)
+        if idx is not None and idx < len(eq_vec):
+            locked_equity += max(0.0, float(fw)) * eq_vec[idx]
+
+    # Maximum additional equity from free budget
+    free_budget = max(0.0, 1.0 - total_locked)
+
+    # Best-case: allocate free budget to highest-equity assets first
+    locked_isins = set(fixed_weights.keys())
+    free_eq_exposures = []
+    for i, isin in enumerate(universe):
+        if isin not in locked_isins and i < len(eq_vec):
+            free_eq_exposures.append(eq_vec[i])
+    free_eq_exposures.sort(reverse=True)
+
+    remaining = free_budget
+    additional_equity = 0.0
+    for eq_exp in free_eq_exposures:
+        alloc = min(max_weight, remaining)
+        if alloc <= 1e-6:
+            break
+        additional_equity += alloc * eq_exp
+        remaining -= alloc
+
+    max_achievable_equity = locked_equity + additional_equity
+
+    if max_achievable_equity < equity_floor - 1e-4:
+        return _issue(
+            "BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR",
+            "block",
+            f"Las posiciones bloqueadas limitan la renta variable alcanzable "
+            f"al {max_achievable_equity*100:.1f}%, pero el perfil requiere "
+            f"al menos {equity_floor*100:.1f}%.",
+            {
+                "max_achievable_equity": round(max_achievable_equity, 4),
+                "equity_floor": round(equity_floor, 4),
+                "locked_equity": round(locked_equity, 4),
+                "free_budget": round(free_budget, 4),
+                "total_locked": round(total_locked, 4),
+            },
+        )
+
+    return None
+
+
 # =========================================================================
 # MAIN PUBLIC API
 # =========================================================================
@@ -290,6 +370,7 @@ def run_feasibility_precheck(
     fixed_weights: Dict[str, float],
     lock_mode: str,
     _read_bound_fn,
+    equity_floor: Optional[float] = None,
 ) -> dict:
     """
     Run Phase 1 feasibility pre-checks before invoking the solver.
@@ -359,6 +440,14 @@ def run_feasibility_precheck(
         )
         if issue:
             blocks.append(issue)
+
+    # BLOCK-8: Locks incompatible with equity_floor (GAP-H2)
+    issue = _check_locks_incompatible_equity_floor(
+        universe, exposure_vectors, fixed_weights,
+        lock_mode, equity_floor, max_weight,
+    )
+    if issue:
+        blocks.append(issue)
 
     # --- WARNINGS (non-blocking) ---
     issue = _check_locks_high_concentration(fixed_weights, lock_mode)
