@@ -1,0 +1,160 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-5",
+  "generated_at_utc": "2026-05-10T21:23:23.155986+00:00",
+  "write_executed": true,
+  "all_pass": true,
+  "write_log": [
+    {
+      "isin": "DE000A0X7541",
+      "name": "Acatis Value Event Fonds A",
+      "proposed": {
+        "equity": 63.9,
+        "bond": 19.6,
+        "cash": 16.0,
+        "other": 0.6
+      },
+      "ts": "2026-05-10T21:23:23.155986+00:00"
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "proposed": {
+        "equity": 61.9,
+        "bond": 20.9,
+        "cash": 2.0,
+        "other": 15.3
+      },
+      "ts": "2026-05-10T21:23:23.155986+00:00"
+    },
+    {
+      "isin": "LU1883330521",
+      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)",
+      "proposed": {
+        "equity": 31.7,
+        "bond": 50.5,
+        "cash": 10.9,
+        "other": 6.9
+      },
+      "ts": "2026-05-10T21:23:23.155986+00:00"
+    },
+    {
+      "isin": "LU1883340322",
+      "name": "Amundi Funds - Pioneer Flexible Opportunities A EUR (C)",
+      "proposed": {
+        "equity": 61.6,
+        "bond": 23.3,
+        "cash": 1.5,
+        "other": 13.6
+      },
+      "ts": "2026-05-10T21:23:23.155986+00:00"
+    },
+    {
+      "isin": "LU1894680757",
+      "name": "Amundi Funds - Income Opportunities A2 EUR (C)",
+      "proposed": {
+        "equity": 30.3,
+        "bond": 37.3,
+        "cash": 21.7,
+        "other": 10.7
+      },
+      "ts": "2026-05-10T21:23:23.155986+00:00"
+    }
+  ],
+  "verification": [
+    {
+      "isin": "DE000A0X7541",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 63.9,
+        "bond": 19.6,
+        "cash": 16.0,
+        "other": 0.6
+      },
+      "actual_economic_exposure": {
+        "equity": 63.9,
+        "bond": 19.6,
+        "cash": 16.0,
+        "other": 0.6
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1095739733",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 61.9,
+        "bond": 20.9,
+        "cash": 2.0,
+        "other": 15.3
+      },
+      "actual_economic_exposure": {
+        "equity": 61.9,
+        "bond": 20.9,
+        "cash": 2.0,
+        "other": 15.3
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1883330521",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 31.7,
+        "bond": 50.5,
+        "cash": 10.9,
+        "other": 6.9
+      },
+      "actual_economic_exposure": {
+        "equity": 31.7,
+        "bond": 50.5,
+        "cash": 10.9,
+        "other": 6.9
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1883340322",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 61.6,
+        "bond": 23.3,
+        "cash": 1.5,
+        "other": 13.6
+      },
+      "actual_economic_exposure": {
+        "equity": 61.6,
+        "bond": 23.3,
+        "cash": 1.5,
+        "other": 13.6
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    },
+    {
+      "isin": "LU1894680757",
+      "exists": true,
+      "expected_economic_exposure": {
+        "equity": 30.3,
+        "bond": 37.3,
+        "cash": 21.7,
+        "other": 10.7
+      },
+      "actual_economic_exposure": {
+        "equity": 30.3,
+        "bond": 37.3,
+        "cash": 21.7,
+        "other": 10.7
+      },
+      "match": true,
+      "actual_confidence": 0.85,
+      "status": "PASS"
+    }
+  ]
+}
