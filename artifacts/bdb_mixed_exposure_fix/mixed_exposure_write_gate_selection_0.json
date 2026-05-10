@@ -1,0 +1,99 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-0",
+  "generated_at_utc": "2026-05-10T16:09:41.587971+00:00",
+  "selection_criteria": {
+    "max_abs_delta_equity": 10.0,
+    "max_abs_delta_bond": 10.0,
+    "write_recommended": true,
+    "review_required": false,
+    "source_used": "ms_portfolio_asset_allocation",
+    "max_selected": 5
+  },
+  "selected_isins": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 0.8,
+      "delta_bond": -6.1,
+      "risk_level": "LOW",
+      "selection_reason": "|d_eq|=0.8pp, |d_bd|=6.1pp, MS sum=100.0, review_required=false"
+    },
+    {
+      "isin": "ES0128067008",
+      "name": "Dux Mixto Variable FI",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 0.9,
+      "delta_bond": -5.2,
+      "risk_level": "LOW",
+      "selection_reason": "|d_eq|=0.9pp, |d_bd|=5.2pp, MS sum=100.0, review_required=false"
+    },
+    {
+      "isin": "LU0512121004",
+      "name": "DNCA Invest Eurose Class B shares EUR",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "delta_equity": -0.9,
+      "delta_bond": -3.1,
+      "risk_level": "LOW",
+      "selection_reason": "|d_eq|=0.9pp, |d_bd|=3.1pp, MS sum=102.38, review_required=false"
+    },
+    {
+      "isin": "LU1883327816",
+      "name": "Amundi Funds - Global Multi-Asset A EUR (C)",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 1.1,
+      "delta_bond": -6.7,
+      "risk_level": "LOW",
+      "selection_reason": "|d_eq|=1.1pp, |d_bd|=6.7pp, MS sum=99.99, review_required=false"
+    },
+    {
+      "isin": "LU1961009468",
+      "name": "DWS Strategic Allocation Balance NC",
+      "subtype": "MODERATE_ALLOCATION",
+      "delta_equity": 1.1,
+      "delta_bond": -7.0,
+      "risk_level": "LOW",
+      "selection_reason": "|d_eq|=1.1pp, |d_bd|=7.0pp, MS sum=100.0, review_required=false"
+    }
+  ],
+  "rejected_high_delta_isins": [
+    "LU1594335520",
+    "ES0116848005",
+    "LU0251119078",
+    "LU1899019175",
+    "ES0162305033",
+    "ES0131462022",
+    "ES0110407006",
+    "LU1697018064",
+    "ES0114904008",
+    "LU1899018870",
+    "ES0118537002",
+    "LU2050544563",
+    "FR0013219243",
+    "LU0121216526",
+    "LU0284394821",
+    "LU0352312853",
+    "FR0010306142",
+    "LU0048293368",
+    "LU1697016365",
+    "LU1894680757",
+    "DE000A0X7541",
+    "LU1095739733",
+    "ES0138930005",
+    "LU1883330521",
+    "LU1883340322",
+    "LU0119195963",
+    "DE000DWS17J0",
+    "LU1868537090",
+    "LU1548496022"
+  ],
+  "skipped_no_ms_data_isins": [
+    "LU3038481936"
+  ],
+  "counts": {
+    "selected": 5,
+    "rejected_high_delta": 29,
+    "skipped_no_ms_data": 1,
+    "remaining_low_risk": 25
+  }
+}

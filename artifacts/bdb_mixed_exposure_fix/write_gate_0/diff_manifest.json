@@ -1,0 +1,273 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-0",
+  "generated_at_utc": "2026-05-10T16:09:41.587971+00:00",
+  "mode": "dry-run",
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 50.8,
+        "bond": 43.9,
+        "cash": 2.7,
+        "other": 2.6
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf",
+        "portfolio_exposure_v2.asset_mix",
+        "portfolio_exposure_v2.equity_regions",
+        "portfolio_exposure_v2.equity_styles",
+        "portfolio_exposure_v2.sectors",
+        "portfolio_exposure_v2.risk_flags",
+        "portfolio_exposure_v2.fi_credit",
+        "portfolio_exposure_v2.fi_duration",
+        "portfolio_exposure_v2.fi_types",
+        "portfolio_exposure_v2.alternatives",
+        "portfolio_exposure_v2.concentration_metrics"
+      ]
+    },
+    {
+      "isin": "ES0128067008",
+      "name": "Dux Mixto Variable FI",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 50.9,
+        "bond": 44.8,
+        "cash": 4.2,
+        "other": 0.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf",
+        "portfolio_exposure_v2.asset_mix",
+        "portfolio_exposure_v2.equity_regions",
+        "portfolio_exposure_v2.equity_styles",
+        "portfolio_exposure_v2.sectors",
+        "portfolio_exposure_v2.risk_flags",
+        "portfolio_exposure_v2.fi_credit",
+        "portfolio_exposure_v2.fi_duration",
+        "portfolio_exposure_v2.fi_types",
+        "portfolio_exposure_v2.alternatives",
+        "portfolio_exposure_v2.concentration_metrics"
+      ]
+    },
+    {
+      "isin": "LU0512121004",
+      "name": "DNCA Invest Eurose Class B shares EUR",
+      "old_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 19.1,
+        "bond": 76.9,
+        "cash": 0.0,
+        "other": 4.0
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf",
+        "portfolio_exposure_v2.asset_mix",
+        "portfolio_exposure_v2.equity_regions",
+        "portfolio_exposure_v2.equity_styles",
+        "portfolio_exposure_v2.sectors",
+        "portfolio_exposure_v2.risk_flags",
+        "portfolio_exposure_v2.fi_credit",
+        "portfolio_exposure_v2.fi_duration",
+        "portfolio_exposure_v2.fi_types",
+        "portfolio_exposure_v2.alternatives",
+        "portfolio_exposure_v2.concentration_metrics"
+      ]
+    },
+    {
+      "isin": "LU1883327816",
+      "name": "Amundi Funds - Global Multi-Asset A EUR (C)",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 51.1,
+        "bond": 43.3,
+        "cash": 4.7,
+        "other": 0.9
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf",
+        "portfolio_exposure_v2.asset_mix",
+        "portfolio_exposure_v2.equity_regions",
+        "portfolio_exposure_v2.equity_styles",
+        "portfolio_exposure_v2.sectors",
+        "portfolio_exposure_v2.risk_flags",
+        "portfolio_exposure_v2.fi_credit",
+        "portfolio_exposure_v2.fi_duration",
+        "portfolio_exposure_v2.fi_types",
+        "portfolio_exposure_v2.alternatives",
+        "portfolio_exposure_v2.concentration_metrics"
+      ]
+    },
+    {
+      "isin": "LU1961009468",
+      "name": "DWS Strategic Allocation Balance NC",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 51.1,
+        "bond": 43.0,
+        "cash": 3.6,
+        "other": 2.3
+      },
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "proposed_warnings_add": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "proposed_warnings_remove": [
+        "EXPOSURE_INFERRED_FROM_CLASSIFICATION"
+      ],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf",
+        "portfolio_exposure_v2.asset_mix",
+        "portfolio_exposure_v2.equity_regions",
+        "portfolio_exposure_v2.equity_styles",
+        "portfolio_exposure_v2.sectors",
+        "portfolio_exposure_v2.risk_flags",
+        "portfolio_exposure_v2.fi_credit",
+        "portfolio_exposure_v2.fi_duration",
+        "portfolio_exposure_v2.fi_types",
+        "portfolio_exposure_v2.alternatives",
+        "portfolio_exposure_v2.concentration_metrics"
+      ]
+    }
+  ]
+}

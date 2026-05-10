@@ -218,12 +218,12 @@ def main():
         if result["review_required"]:
             stats["review_required"] += 1
 
-        flag = "⚠️ WRITE" if result["write_recommended"] else "  ✅ OK  "
+        flag = ">> WRITE" if result["write_recommended"] else "   OK   "
         print(
             f"  [{flag}] {doc.id} | "
-            f"old_eq={result['old_economic_exposure']['equity']:5.1f} → "
+            f"old_eq={result['old_economic_exposure']['equity']:5.1f} -> "
             f"new_eq={result['proposed_economic_exposure']['equity']:5.1f} | "
-            f"Δeq={result['delta_equity']:+6.1f} | "
+            f"d_eq={result['delta_equity']:+6.1f} | "
             f"source={result['source_used']}"
         )
 
