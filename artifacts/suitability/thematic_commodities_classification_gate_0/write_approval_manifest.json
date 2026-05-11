@@ -1,6 +1,6 @@
 {
   "gate_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-GATE-0",
-  "generated_at": "2026-05-11T14:35:14.946316+00:00",
+  "generated_at": "2026-05-11T15:08:18.001573+00:00",
   "authorized": false,
   "can_write": false,
   "requires_human_approval": true,
@@ -8,7 +8,7 @@
   "approved_by_human": false,
   "approval_reason": null,
   "approved_at": null,
-  "human_approval_required_reason": "Set authorized=true and can_write=true ONLY after human review of diff_manifest.json. Then run write controlled script.",
+  "human_approval_required_reason": "This manifest controls Firestore writes to classification_v2 fields. Set authorized=true and can_write=true ONLY after human review of diff_manifest.json and snapshots_before.json. Then create BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-CONTROLLED-0.",
   "selected_isins": [
     "IE00BYVJR916",
     "LU0090845842",
@@ -36,6 +36,8 @@
     "classification_v2.compatible_profiles",
     "portfolio_exposure_v2",
     "manual",
+    "manual.costs",
+    "manual.costs.retrocession",
     "ms",
     "derived",
     "std_perf",
@@ -54,6 +56,6 @@
     "Re-run bdb_compatible_profiles_regen_dry_run.py — must show 0 STALE for these 14 ISINs",
     "Run test_suitability_thematic_commodities_contract.py — TestOptionBClassificationFix must PASS",
     "Run full suitability test suite",
-    "Compatible profiles re-check via dry-run (classification is corrected but compatible_profiles field is NOT changed by this gate)"
+    "Verify compatible_profiles regeneration needed (separate gate)"
   ]
 }

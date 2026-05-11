@@ -1,6 +1,6 @@
 {
   "gate_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-GATE-0",
-  "generated_at": "2026-05-11T14:35:14.946316+00:00",
+  "generated_at": "2026-05-11T15:08:18.001573+00:00",
   "collection": "funds_v3",
   "total_selected": 14,
   "selected_isins": [
@@ -27,6 +27,8 @@
     "classification_v2.compatible_profiles",
     "portfolio_exposure_v2",
     "manual",
+    "manual.costs",
+    "manual.costs.retrocession",
     "ms",
     "derived",
     "std_perf",
@@ -36,8 +38,7 @@
     "classification_v2.asset_subtype",
     "classification_v2.is_suitable_low_risk"
   ],
-  "rationale": "14 THEMATIC_EQUITY gold/mining/precious-metals HOLD funds. Setting is_sector_fund=True + sector_focus enables existing engine rule L61 to correctly exclude profiles 1-4. No engine code change required.",
-  "snapshot_source": "compatible_profiles_sector_equity_verify_0.json + audit findings",
+  "rationale": "14 THEMATIC_EQUITY gold/mining/precious-metals funds with is_sector_fund=False. Setting is_sector_fund=True + sector_focus enables the existing engine rule (L61) to correctly exclude profiles 1-4. No engine code change required. Post-write, compatible_profiles must be regenerated to apply new classification.",
   "write_executed": false,
   "deploy_executed": false
 }
