@@ -1,0 +1,302 @@
+{
+  "gate_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-GATE-0",
+  "generated_at": "2026-05-11T14:35:14.946316+00:00",
+  "collection": "funds_v3",
+  "total": 14,
+  "snapshots": [
+    {
+      "isin": "IE00BYVJR916",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0090845842",
+      "name": "BlackRock Global Funds - World Mining Fund E2",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0171306680",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0172157280",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0172157363",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0273148055",
+      "name": "DWS Invest Gold and Precious Metals Equities NC",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0273159177",
+      "name": "DWS Invest Gold and Precious Metals Equities LC",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0326425351",
+      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0496368142",
+      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0496369389",
+      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU0604766674",
+      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU1223083087",
+      "name": "Schroder ISF Global Gold A Accumulation EUR Hedged",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU1223084051",
+      "name": "Schroder ISF Global Gold A Accumulation PLN Hedged",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    },
+    {
+      "isin": "LU1578889864",
+      "name": "Ninety One GSF - Global Gold Fund A Acc EUR Hedged",
+      "snapshotted_at": "FROM_PREVIOUS_ARTIFACT_2026-05-11T14:21:28Z",
+      "snapshot_source": "compatible_profiles_sector_equity_verify_0.json",
+      "classification_v2": {
+        "is_sector_fund": false,
+        "sector_focus": null,
+        "asset_subtype": "THEMATIC_EQUITY",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "already_correct": false,
+      "note": "is_sector_fund/sector_focus sourced from audit findings. Must be verified live before write."
+    }
+  ]
+}

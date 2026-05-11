@@ -1,0 +1,120 @@
+{
+  "gate_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-GATE-0",
+  "generated_at": "2026-05-11T14:35:14.946316+00:00",
+  "rollback_count": 14,
+  "rollbacks": [
+    {
+      "isin": "IE00BYVJR916",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0090845842",
+      "name": "BlackRock Global Funds - World Mining Fund E2",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0171306680",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0172157280",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0172157363",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0273148055",
+      "name": "DWS Invest Gold and Precious Metals Equities NC",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0273159177",
+      "name": "DWS Invest Gold and Precious Metals Equities LC",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0326425351",
+      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0496368142",
+      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0496369389",
+      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU0604766674",
+      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU1223083087",
+      "name": "Schroder ISF Global Gold A Accumulation EUR Hedged",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU1223084051",
+      "name": "Schroder ISF Global Gold A Accumulation PLN Hedged",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    },
+    {
+      "isin": "LU1578889864",
+      "name": "Ninety One GSF - Global Gold Fund A Acc EUR Hedged",
+      "restore": {
+        "classification_v2.is_sector_fund": false,
+        "classification_v2.sector_focus": null
+      }
+    }
+  ],
+  "warning": "DO NOT EXECUTE rollback unless explicitly instructed. Rollback restores is_sector_fund=False which is the gap state."
+}
