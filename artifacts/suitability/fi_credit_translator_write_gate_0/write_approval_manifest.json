@@ -1,8 +1,8 @@
 {
   "gate_id": "BDB-FI-CREDIT-TRANSLATOR-WRITE-GATE-0",
   "generated_at": "2026-05-11T18:05:16.485831+00:00",
-  "authorized": false,
-  "can_write": false,
+  "authorized": true,
+  "can_write": true,
   "requires_human_approval": true,
   "selected_count": 130,
   "write_recommended_count": 130,
@@ -29,5 +29,8 @@
   "suitability_engine_update": false,
   "deploy_executed": false,
   "write_executed": false,
-  "approval_instructions": "To authorize the write, a human approver must set authorized=true and can_write=true in this file, then execute BDB-FI-CREDIT-TRANSLATOR-WRITE-CONTROLLED-0. FE-9 activation is a SEPARATE block and must NOT be combined with this write."
+  "approval_instructions": "To authorize the write, a human approver must set authorized=true and can_write=true in this file, then execute BDB-FI-CREDIT-TRANSLATOR-WRITE-CONTROLLED-0. FE-9 activation is a SEPARATE block and must NOT be combined with this write.",
+  "approved_by_human": true,
+  "approval_reason": "User explicitly approved controlled write to populate portfolio_exposure_v2.fi_credit for 130 funds",
+  "approved_at": "2026-05-11T18:08:52.127192+00:00"
 }
