@@ -1,0 +1,1048 @@
+{
+  "gate_id": "BDB-FI-CREDIT-TRANSLATOR-WRITE-GATE-0",
+  "generated_at": "2026-05-11T18:05:16.485831+00:00",
+  "rollback_count": 130,
+  "warning": "Rollback must NOT be executed unless explicitly instructed by a human approver.",
+  "per_fund": [
+    {
+      "isin": "ES0127795005",
+      "name": "EDM Renta R FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0160873008",
+      "name": "March Pagarés A FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0161032034",
+      "name": "March Renta Fija Corto Plazo A FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0165142003",
+      "name": "Mutuafondo Corto Plazo D FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0165142037",
+      "name": "Mutuafondo Corto Plazo A FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0165237001",
+      "name": "Mutuafondo D FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0168673038",
+      "name": "EDM Ahorro R FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0170138038",
+      "name": "Santalucía Renta Fija B FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0170156030",
+      "name": "Santalucía Renta Fija Corto Plazo Euro B FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "ES0182631004",
+      "name": "Polar Renta Fija A FI",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FI0008800511",
+      "name": "Evli Short Corporate Bond B",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FI0008801097",
+      "name": "Evli Corporate Bond B",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FI0008803929",
+      "name": "Evli European High Yield B",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FI0008804463",
+      "name": "Evli Euro Liquidity B",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FI0008811997",
+      "name": "Evli Nordic Corporate Bond B",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0007008750",
+      "name": "R-co Conviction Credit Euro C EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0010149120",
+      "name": "Carmignac Sécurité AW EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0011288513",
+      "name": "Sycomore Sélection Crédit R",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0011365212",
+      "name": "Amundi Ultra Short Term Bond Responsible E C",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0011387299",
+      "name": "Allianz Euro Oblig Court Terme ISR RC",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0013231453",
+      "name": "Ostrum Credit Ultra Short Plus I-C EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0013346079",
+      "name": "Groupama Ultra Short Term NC",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "FR0050000860",
+      "name": "Amundi Ultra Short Term Bond Responsible P C",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE000MI53C66",
+      "name": "Man Funds plc - Man Global Investment Grade Opportunities D H EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE0032722484",
+      "name": "BNY Mellon Euroland Bond Fund EUR C Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B11XYW43",
+      "name": "PIMCO GIS Emerging Markets Bond Fund E Class EUR (Hedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B11XZ871",
+      "name": "PIMCO GIS US High Yield Bond Fund E Class Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B11YFH93",
+      "name": "BNY Mellon Emerging Markets Debt Local Currency Fund EUR A Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B18GC888",
+      "name": "Vanguard Global Bond Index Fund EUR Hedged Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B3RW6Z61",
+      "name": "Nomura Funds Ireland plc - US High Yield Bond Fund Class A EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B53H0P79",
+      "name": "PIMCO GIS Global Advantage Fund E Class EUR (Partially Hedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B5ZW6Z28",
+      "name": "PIMCO GIS Emerging Local Bond Fund E Class EUR (Unhedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B84J9L26",
+      "name": "PIMCO GIS Income Fund E Class EUR (Hedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B8J38129",
+      "name": "Algebris UCITS Funds plc - Algebris Financial Credit Fund R EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B90VC092",
+      "name": "PIMCO European Short-Term Opportunities Fund E EUR Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00B986FT65",
+      "name": "Neuberger Berman Emerging Market Debt - Hard Currency Fund EUR A Accumulating Class",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BD2ZKT29",
+      "name": "Principal Global Investors Funds - Finisterre Unconstrained Emerging Market Fxd Inc Fd A Hdg Acc EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BD5CTX77",
+      "name": "BNY Mellon Global Short-Dated High Yield Bond Fund EUR H Acc Hedged",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BDTYYP61",
+      "name": "Man Funds VI plc - Man High Yield Opportunities D EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BDZRWZ54",
+      "name": "Neuberger Berman Short Duration Emerging Market Debt Fund EUR A Accumulating Class",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BF2FJG67",
+      "name": "PIMCO GIS Low Duration Opportunities Fund E Class EUR (Hedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BJ7B9456",
+      "name": "PIMCO GIS Global Low Duration Real Return Fund E Class EUR (Hedged) Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "IE00BNG2T811",
+      "name": "Neuberger Berman Short Duration Euro Bond Fund EUR A Accumulating Class",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0034353002",
+      "name": "DWS Floating Rate Notes LC",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0073235904",
+      "name": "Morgan Stanley Investment Funds - Short Maturity Euro Bond Fund A",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0077500055",
+      "name": "Candriam Bonds Euro Long Term Class C EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0086177085",
+      "name": "UBS (Lux) Bond Fund - Euro High Yield (EUR) P-acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0113257694",
+      "name": "Schroder International Selection Fund EURO Corporate Bond A Accumulation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0132601682",
+      "name": "Morgan Stanley Investment Funds - Euro Corporate Bond Fund A",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0133717503",
+      "name": "Schroder International Selection Fund EURO Corporate Bond A1 Accumulation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0137009238",
+      "name": "Vontobel Fund - Euro Short Term Bond C EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0144751095",
+      "name": "Candriam Bonds Euro High Yield Class N EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0151324935",
+      "name": "Candriam Bonds Credit Opportunities Class N EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0162660350",
+      "name": "BlackRock Global Funds - Euro Corporate Bond Fund A1",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0165520114",
+      "name": "Candriam Bonds Global Inflation Short Duration Class C EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0169250635",
+      "name": "Generali Investments SICAV - Euro Bond Fund EX",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0170293632",
+      "name": "Candriam Bonds Global High Yield Class N EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0170473374",
+      "name": "Franklin European Total Return Fund A(acc)EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0173779223",
+      "name": "Nordea 1 - Danish Covered Bond Fund BP EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0177497491",
+      "name": "abrdn SICAV II-Euro Corporate Bond Fund A Acc EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0189895229",
+      "name": "Schroder International Selection Fund Global High Yield B Accumulation EUR Hedged",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0200684180",
+      "name": "BlackRock Global Funds - Emerging Markets Bond Fund E2 (EUR)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0243958393",
+      "name": "Invesco Funds - Invesco Euro Corporate Bond Fund E Accumulation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0251660279",
+      "name": "AXA World Funds - Euro Strategic Bonds E Capitalisation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0251661590",
+      "name": "AXA World Funds - Euro Long Duration Bonds E Capitalisation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0252500524",
+      "name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) - EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0267388220",
+      "name": "Fidelity Funds - Euro Short Term Bond Fund A-Acc-EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0336084032",
+      "name": "Carmignac Pf Flexible Bond A EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0353649352",
+      "name": "Fidelity Funds - Global Inflation-linked Bond Fund E-Acc-EUR (hedged)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0413376566",
+      "name": "BlackRock Global Funds - Emerging Markets Bond Fund A2 Hedged",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0425308169",
+      "name": "BlackRock Global Funds - Global Inflation Linked Bond Fund A2 EUR Hedged",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0430492750",
+      "name": "JPMorgan Funds - Euro Aggregate Bond Fund C (acc) - EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0438336694",
+      "name": "BlackRock ESG Fixed Income Strategies Fund E2 EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0455556406",
+      "name": "UBS (Lux) Bond SICAV - Global Inflation-linked (USD) (EUR hedged) P-acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0569862609",
+      "name": "UBAM - Global High Yield Solution AHC EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0571101558",
+      "name": "Groupama Euro High Yield NC",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0594539719",
+      "name": "Candriam Bonds Emerging Markets Class C EUR Hedged Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0637302547",
+      "name": "Nordea 1 - Emerging Market Corporate Bond Fund BP EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0658026512",
+      "name": "AXA IM Fixed Income Investment Strategies - Europe Short Duration High Yield E Capitalisation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0706127809",
+      "name": "UBS (Lux) Bond SICAV - Global Short Term Flexible (USD) (EUR hedged) P-acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0712123511",
+      "name": "Morgan Stanley Investment Funds - Global Fixed Income Opportunities Fund AH (EUR)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0733673288",
+      "name": "Nordea 1 - European Cross Credit Fund BP EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0795636256",
+      "name": "Schroder International Selection Fund Emerging Markets Hard Currency A Accumulation EUR Hedged",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0849399786",
+      "name": "Schroder International Selection Fund EURO High Yield A Accumulation",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0910636546",
+      "name": "Goldman Sachs Emerging Markets Debt Blend Portfolio Other Currency Acc EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0910636892",
+      "name": "Goldman Sachs Emerging Markets Debt Blend Portfolio E Acc EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0926439992",
+      "name": "Vontobel Fund - Emerging Markets Debt H (hedged) EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0935222900",
+      "name": "Natixis AM Funds - Ostrum Euro Inflation R/A (EUR)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0940719098",
+      "name": "UBAM - Global High Yield Solution RHC EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0995119665",
+      "name": "Schroder International Selection Fund EURO Credit Conviction A Accumulation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU0995119749",
+      "name": "Schroder International Selection Fund EURO Credit Conviction B Accumulation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1021288268",
+      "name": "AB - Mortgage Income Portfolio A2 EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1022658667",
+      "name": "Franklin Euro Short Duration Bond Fund A(acc)EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1061675168",
+      "name": "Goldman Sachs Frontier Markets Debt (Hard Currency) - X Cap EUR (hedged i)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1079477284",
+      "name": "Allianz Emerging Markets Short Duration Bond AT (H2-EUR)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1089088741",
+      "name": "Allianz Global Investors Fund - Allianz Floating Rate Notes Plus VarioZins AT EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1164219682",
+      "name": "AXA World Funds - Euro Credit Total Return A Capitalisation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1164220854",
+      "name": "AXA World Funds - Euro Credit Total Return E Capitalisation EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1191877379",
+      "name": "BlackRock Global Funds - European High Yield Bond Fund A2",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1254412460",
+      "name": "abrdn SICAV I - Indian Bond Fund A Acc EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1299306321",
+      "name": "Carmignac Portfolio Sécurité AW EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1340702932",
+      "name": "MFS Meridian Funds - Global Opportunistic Bond Fund A1 EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1353951376",
+      "name": "AXA World Funds - Global Inflation Short Duration Bonds E Capitalisation EUR (Hedged)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1362999481",
+      "name": "Robeco High Yield Bonds D €",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1383852487",
+      "name": "Allianz Global Investors Fund - Allianz Floating Rate Notes Plus VarioZins AT2 EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1481583711",
+      "name": "Flossbach von Storch - Bond Opportunities RT",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1486845537",
+      "name": "ODDO BHF Euro Credit Short Duration CR-EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1529955046",
+      "name": "Eurizon Fund - Bond Aggregate RMB Class R EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1582984149",
+      "name": "M&G (Lux) European Inflation Linked Corporate Bond Fund EUR A Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1623762843",
+      "name": "Carmignac Pf Credit A EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1670631016",
+      "name": "M&G (Lux) Emerging Markets Bond Fund EUR A Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1670631289",
+      "name": "M&G (Lux) Emerging Markets Bond Fund EUR A-H Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1670718219",
+      "name": "M&G (Lux) Short Dated Corporate Bond Fund EUR A Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1679113404",
+      "name": "UBS (Lux) Bond SICAV - Floating Rate Income (USD) (EUR hedged) P-acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1694212348",
+      "name": "Nordea 1 - Low Duration European Covered Bond Fund BP EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1694789451",
+      "name": "DNCA Invest Alpha Bonds A EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1717592262",
+      "name": "Groupama Global Inflation Short Duration NC",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1738492658",
+      "name": "Aviva Investors - Short Duration Global High Yield Bond Fund Ah EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1832969650",
+      "name": "Morgan Stanley Investment Funds - Euro Corporate Bond - Duration Hedged Fund A",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1838941372",
+      "name": "Candriam Bonds Floating Rate Notes C EUR Cap",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1915690918",
+      "name": "Nordea 1 - Active Rates Opportunities Fund Fund E EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1919971074",
+      "name": "abrdn SICAV I - Frontier Markets Bond Fund A Acc Hedged EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU1951921383",
+      "name": "Allianz Global Investors Fund - Allianz Credit Opportunities AT EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2002383896",
+      "name": "Allianz Global Investors Fund - Allianz Credit Opportunities Plus AT EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2098772366",
+      "name": "Candriam Bonds Credit Alpha C EUR",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2267099674",
+      "name": "BlackRock Global Funds - China Bond Fund Class A2 USD (EUR)",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2482630162",
+      "name": "European Specialist Investment Funds - M&G European Credit Investment Fund Class P EUR Acc",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2697545163",
+      "name": "BlackRock Global Funds - Euro High Yield Fixed Maturity Bond Fund 2027 Class A2",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2697545247",
+      "name": "BGF Euro Investment Grade Fixed Maturity Bond Fund 2028 A2",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    },
+    {
+      "isin": "LU2784406998",
+      "name": "Morgan Stanley Investment Funds - Emerging Markets Debt Opportunities Fund A",
+      "restore": {
+        "portfolio_exposure_v2.fi_credit": {}
+      },
+      "rollback_action": "RESTORE_VALUE"
+    }
+  ]
+}
