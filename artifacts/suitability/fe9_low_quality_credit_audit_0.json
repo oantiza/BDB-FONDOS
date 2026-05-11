@@ -1,0 +1,42 @@
+{
+  "audit_id": "BDB-SUITABILITY-FE9-LOW_QUALITY_CREDIT-AUDIT-0",
+  "generated_at": "2026-05-11T16:22:08.818847+00:00",
+  "dry_run": true,
+  "write_executed": false,
+  "deploy_executed": false,
+  "core_modified": false,
+  "collection": "funds_v3",
+  "fe9_rule": {
+    "description": "Frontend blocks funds with low_quality >= 35% for profiles <= 4",
+    "threshold_pct": 35.0,
+    "applies_to_profiles_le": 4,
+    "data_paths_checked": [
+      "portfolio_exposure_v2.fi_credit.low_quality",
+      "portfolio_exposure_v2.credit.low_quality"
+    ],
+    "backend_has_rule": false,
+    "divergence_id": "FE-9",
+    "divergence_status": "KNOWN_DIVERGENCE_FRONTEND_ONLY"
+  },
+  "stats": {
+    "total_scanned": 670,
+    "funds_with_low_quality_field": 0,
+    "funds_missing_field": 670,
+    "funds_over_35": 0,
+    "over_35_profile_le_4_count": 0
+  },
+  "data_paths_found": {},
+  "funds_over_threshold": [],
+  "examples_missing_field": [
+    "BE0943877671",
+    "BE0946564383",
+    "BE0947853660",
+    "BE6213829094",
+    "DE0005318406",
+    "DE0008490962",
+    "DE000A0X7541",
+    "DE000DWS17J0",
+    "ES0110407006",
+    "ES0111166031"
+  ]
+}
