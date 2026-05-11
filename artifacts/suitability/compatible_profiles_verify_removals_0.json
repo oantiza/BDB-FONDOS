@@ -1,0 +1,256 @@
+{
+  "audit_id": "BDB-COMPATIBLE-PROFILES-VERIFY-REMOVALS-0",
+  "generated_at": "2026-05-11T13:39:08.756977+00:00",
+  "dry_run": true,
+  "write_executed": false,
+  "firestore_read_executed": true,
+  "firestore_write_executed": false,
+  "deploy_executed": false,
+  "core_modified": false,
+  "suitability_engine_modified": false,
+  "frontend_modified": false,
+  "source_artifact": "artifacts/suitability/compatible_profiles_regen_dry_run_0.json",
+  "source_commit": "11d18e9",
+  "suitability_engine_version": "d565abb",
+  "total_reviewed": 2,
+  "confirmed_removal_count": 2,
+  "hold_manual_count": 0,
+  "safe_to_regen_count": 2,
+  "write_gate_candidates_after_review": [
+    "LU1883330521",
+    "LU1095739733"
+  ],
+  "per_fund_results": [
+    {
+      "isin": "LU1883330521",
+      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)",
+      "asset_class": "MIXED",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "risk_bucket": "LOW",
+      "is_sector_fund": false,
+      "sector_focus": "UNKNOWN",
+      "is_suitable_low_risk": true,
+      "ms_category": "Mixtos Defensivos USD",
+      "economic_exposure": {
+        "equity": 31.7,
+        "bond": 50.5,
+        "cash": 10.9,
+        "other": 6.9
+      },
+      "exposure_confidence": 0.85,
+      "exposure_warnings": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "current_compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles_from_previous_dryrun": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles_live": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "profiles_to_remove": [
+        1,
+        2
+      ],
+      "profiles_to_add": [],
+      "removal_reason_by_profile": {
+        "1": "Hard exclusion: Real economic equity exposure is 31.7% (>30%).",
+        "2": "Hard exclusion: Real economic equity exposure is 31.7% (>30%)."
+      },
+      "addition_context_by_profile": {},
+      "per_profile_analysis": {
+        "1": {
+          "eligible": false,
+          "reason": "Hard exclusion: Real economic equity exposure is 31.7% (>30%)."
+        },
+        "2": {
+          "eligible": false,
+          "reason": "Hard exclusion: Real economic equity exposure is 31.7% (>30%)."
+        },
+        "3": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "4": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "5": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "6": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "7": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "8": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "9": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "10": {
+          "eligible": true,
+          "reason": "Eligible"
+        }
+      },
+      "is_removal_justified": true,
+      "justification_detail": "equity=31.7% exceeds the 30% hard cap for profiles 1-2. Rule: risk_profile<=2 AND real_eq>30 → BLOCKED. The stored [1..10] appears to have been generated when equity was lower or the rule did not exist. Current stored value overstates eligibility.",
+      "recommendation": "SAFE_TO_REGEN_REMOVE_PROFILES",
+      "write_recommended": true,
+      "reason": "equity=31.7% exceeds the 30% hard cap for profiles 1-2. Rule: risk_profile<=2 AND real_eq>30 → BLOCKED. The stored [1..10] appears to have been generated when equity was lower or the rule did not exist. Current stored value overstates eligibility."
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "risk_bucket": "MEDIUM",
+      "is_sector_fund": false,
+      "sector_focus": "UNKNOWN",
+      "is_suitable_low_risk": false,
+      "ms_category": "Mixtos Moderados USD",
+      "economic_exposure": {
+        "equity": 61.9,
+        "bond": 20.9,
+        "cash": 2.0,
+        "other": 15.3
+      },
+      "exposure_confidence": 0.85,
+      "exposure_warnings": [
+        "EXPOSURE_SOURCE_MS_PORTFOLIO"
+      ],
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles_from_previous_dryrun": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles_live": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "profiles_to_remove": [
+        4
+      ],
+      "profiles_to_add": [],
+      "removal_reason_by_profile": {
+        "4": "Real equity 61.9% exceeds limit for profile 4 (>60%)."
+      },
+      "addition_context_by_profile": {},
+      "per_profile_analysis": {
+        "1": {
+          "eligible": false,
+          "reason": "Fund flagged as not suitable for low risk. Type: allocation, Subtype: MODERATE_ALLOCATION"
+        },
+        "2": {
+          "eligible": false,
+          "reason": "Fund flagged as not suitable for low risk. Type: allocation, Subtype: MODERATE_ALLOCATION"
+        },
+        "3": {
+          "eligible": false,
+          "reason": "Real equity 61.9% exceeds limit for profile 3 (>45%)."
+        },
+        "4": {
+          "eligible": false,
+          "reason": "Real equity 61.9% exceeds limit for profile 4 (>60%)."
+        },
+        "5": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "6": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "7": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "8": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "9": {
+          "eligible": true,
+          "reason": "Eligible"
+        },
+        "10": {
+          "eligible": true,
+          "reason": "Eligible"
+        }
+      },
+      "is_removal_justified": true,
+      "justification_detail": "equity=61.9% exceeds the 60% hard cap for profile 4. Rule: risk_profile==4 AND real_eq>60 → BLOCKED. The stored [4..10] appears to have been generated when equity was lower (possible pre-MIXED remediation value near 58-60%) or the cap boundary was different. Current stored value overstates eligibility.",
+      "recommendation": "SAFE_TO_REGEN_REMOVE_PROFILES",
+      "write_recommended": true,
+      "reason": "equity=61.9% exceeds the 60% hard cap for profile 4. Rule: risk_profile==4 AND real_eq>60 → BLOCKED. The stored [4..10] appears to have been generated when equity was lower (possible pre-MIXED remediation value near 58-60%) or the cap boundary was different. Current stored value overstates eligibility."
+    }
+  ],
+  "write_gate_implication": {
+    "total_stale_original": 24,
+    "held_commodities": 14,
+    "removal_cases_safe_to_regen": 2,
+    "removal_cases_hold": 0,
+    "remaining_for_write_gate": 10,
+    "always_excluded": [
+      "LU3038481936 (Hamco)"
+    ],
+    "commodities_excluded": "14 funds — see compatible_profiles_sector_equity_verify_0.json"
+  },
+  "forbidden_contexts": {
+    "firestore_write_executed": false,
+    "deploy_executed": false,
+    "core_used": false,
+    "optimizer_modified": false,
+    "suitability_modified": false,
+    "frontend_modified": false,
+    "migrate_suitability_v2_executed": false
+  }
+}
