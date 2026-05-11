@@ -51,6 +51,8 @@ class _Upload:
 
 class _Request:
     method = "POST"
+    # headers dict required by the JWT auth guard in the endpoint
+    headers: dict = {"Authorization": "Bearer test-token-bypass"}
     def __init__(self, content, form):
         self.files = {"file": _Upload(content)}
         self.form = form
@@ -97,6 +99,16 @@ def _patch_macro(monkeypatch):
     monkeypatch.setattr(xray, "get_ine_inflation_map", _inflation_map)
     monkeypatch.setattr(xray, "get_bde_tbills_series", _tbills_series)
     monkeypatch.setattr(xray, "get_official_letras_12m_series", _official_letras)
+
+
+@pytest.fixture(autouse=True)
+def _bypass_auth(monkeypatch):
+    """Bypass Firebase JWT verification for local test harness."""
+    fake_decoded = {"uid": "test-uid", "email": "test@test.com"}
+    monkeypatch.setattr(
+        "firebase_admin.auth.verify_id_token",
+        lambda token, **kw: fake_decoded,
+    )
 
 
 # ─── Helpers ──────────────────────────────────────────────

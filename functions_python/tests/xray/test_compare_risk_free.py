@@ -3,7 +3,9 @@ from __future__ import annotations
 import io
 import json
 import sys
+import types
 from pathlib import Path
+from unittest.mock import patch
 
 import pandas as pd
 import pytest
@@ -47,6 +49,7 @@ EXPECTED_RESPONSE_KEYS = [
     "depositos_xirr_nominal",
     "chart_data",
     "letras_rates_used",
+    "xirr_warnings",
 ]
 
 
@@ -59,6 +62,8 @@ class _Upload:
 
 class _Request:
     method = "POST"
+    # headers dict required by the JWT auth guard in the endpoint
+    headers: dict[str, str] = {"Authorization": "Bearer test-token-bypass"}
 
     def __init__(self, content: bytes, form: dict[str, str]):
         self.files = {"file": _Upload(content)}
@@ -153,6 +158,20 @@ def _macro_data(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setattr(xray, "get_ine_inflation_map", _inflation_map)
     monkeypatch.setattr(xray, "get_bde_tbills_series", _tbills_series)
     monkeypatch.setattr(xray, "get_official_letras_12m_series", _official_letras)
+
+
+@pytest.fixture(autouse=True)
+def _bypass_auth(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Bypass Firebase JWT verification for local test harness.
+    The endpoint auth guard is production-only; tests invoke the endpoint
+    directly via __wrapped__ with a synthetic request that carries a dummy
+    Bearer token.  We patch verify_id_token so no real Firebase call occurs.
+    """
+    fake_decoded = {"uid": "test-uid", "email": "test@test.com"}
+    monkeypatch.setattr(
+        "firebase_admin.auth.verify_id_token",
+        lambda token, **kw: fake_decoded,
+    )
 
 
 def _call_compare_risk_free(
