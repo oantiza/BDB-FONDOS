@@ -1,0 +1,198 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-8-OFFICIAL-FACTSHEET",
+  "verified_at_utc": "2026-05-11T07:02:05.671741+00:00",
+  "source_used": "official_factsheet",
+  "overall_status": "PASS",
+  "results": [
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "status": "PASS",
+      "post_write_values": {
+        "equity": 35.4,
+        "bond": 46.8,
+        "cash": 5.1,
+        "other": 12.7,
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "expected_values": {
+        "equity": 35.4,
+        "bond": 46.8,
+        "cash": 5.1,
+        "other": 12.7
+      },
+      "value_checks": {
+        "econ_equity": true,
+        "econ_bond": true,
+        "econ_cash": true,
+        "econ_other": true,
+        "confidence": true,
+        "warnings": true
+      },
+      "prohibited_field_checks": {
+        "manual": true,
+        "classification_v2": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "manual.costs": true,
+        "manual.costs.retrocession": true
+      }
+    },
+    {
+      "isin": "LU0121216526",
+      "name": "Goldman Sachs Patrimonial Aggressive - X Cap EUR",
+      "status": "PASS",
+      "post_write_values": {
+        "equity": 75.2,
+        "bond": 24.9,
+        "cash": 0.0,
+        "other": 0.0,
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "expected_values": {
+        "equity": 75.2,
+        "bond": 24.9,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "value_checks": {
+        "econ_equity": true,
+        "econ_bond": true,
+        "econ_cash": true,
+        "econ_other": true,
+        "confidence": true,
+        "warnings": true
+      },
+      "prohibited_field_checks": {
+        "manual": true,
+        "classification_v2": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "manual.costs": true,
+        "manual.costs.retrocession": true
+      }
+    },
+    {
+      "isin": "LU0352312853",
+      "name": "Allianz Strategy 75 CT EUR",
+      "status": "PASS",
+      "post_write_values": {
+        "equity": 86.0,
+        "bond": 14.0,
+        "cash": 0.0,
+        "other": 0.0,
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "expected_values": {
+        "equity": 86.0,
+        "bond": 14.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "value_checks": {
+        "econ_equity": true,
+        "econ_bond": true,
+        "econ_cash": true,
+        "econ_other": true,
+        "confidence": true,
+        "warnings": true
+      },
+      "prohibited_field_checks": {
+        "manual": true,
+        "classification_v2": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "manual.costs": true,
+        "manual.costs.retrocession": true
+      }
+    },
+    {
+      "isin": "LU1594335520",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 AT EUR",
+      "status": "PASS",
+      "post_write_values": {
+        "equity": 79.1,
+        "bond": 10.2,
+        "cash": 0.0,
+        "other": 10.7,
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "expected_values": {
+        "equity": 79.1,
+        "bond": 10.2,
+        "cash": 0.0,
+        "other": 10.7
+      },
+      "value_checks": {
+        "econ_equity": true,
+        "econ_bond": true,
+        "econ_cash": true,
+        "econ_other": true,
+        "confidence": true,
+        "warnings": true
+      },
+      "prohibited_field_checks": {
+        "manual": true,
+        "classification_v2": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "manual.costs": true,
+        "manual.costs.retrocession": true
+      }
+    },
+    {
+      "isin": "LU1548496022",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 15 AT EUR",
+      "status": "PASS",
+      "post_write_values": {
+        "equity": 24.6,
+        "bond": 64.4,
+        "cash": 0.0,
+        "other": 11.0,
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "expected_values": {
+        "equity": 24.6,
+        "bond": 64.4,
+        "cash": 0.0,
+        "other": 11.0
+      },
+      "value_checks": {
+        "econ_equity": true,
+        "econ_bond": true,
+        "econ_cash": true,
+        "econ_other": true,
+        "confidence": true,
+        "warnings": true
+      },
+      "prohibited_field_checks": {
+        "manual": true,
+        "classification_v2": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "manual.costs": true,
+        "manual.costs.retrocession": true
+      }
+    }
+  ]
+}
