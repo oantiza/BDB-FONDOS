@@ -1,4 +1,11 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
+# ---------------------------------------------------------------------------
+# DO NOT RUN -- HISTORICAL SCRIPT
+# This script was used once during BDB MIXED exposure remediation 2026-05.
+# It is retained only for auditability and rollback traceability.
+# Re-execution may write to production Firestore (funds_v3).
+# See docs/BDB_REMEDIATION_SCRIPTS_ARCHIVE_PLAN_0.md
+# ---------------------------------------------------------------------------
 """
 BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-7
 Controlled write for 9 approved review_required MIXED funds.

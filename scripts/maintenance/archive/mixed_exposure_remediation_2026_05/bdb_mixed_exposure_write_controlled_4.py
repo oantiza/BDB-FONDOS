@@ -1,28 +1,34 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
+# ---------------------------------------------------------------------------
+# DO NOT RUN -- HISTORICAL SCRIPT
+# This script was used once during BDB MIXED exposure remediation 2026-05.
+# It is retained only for auditability and rollback traceability.
+# Re-execution may write to production Firestore (funds_v3).
+# See docs/BDB_REMEDIATION_SCRIPTS_ARCHIVE_PLAN_0.md
+# ---------------------------------------------------------------------------
 """
-BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-3
-Controlled write of third batch (15 remaining low-risk ISINs).
+BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-4
+Controlled write of first review_required batch (5 ISINs).
 """
 import json, math, os, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-GATE_DIR = ROOT / "artifacts" / "bdb_mixed_exposure_fix" / "write_gate_3"
+GATE_DIR = ROOT / "artifacts" / "bdb_mixed_exposure_fix" / "write_gate_4"
 APPROVAL_PATH = GATE_DIR / "write_approval_manifest.json"
 DIFF_PATH = GATE_DIR / "diff_manifest.json"
 SNAP_PATH = GATE_DIR / "snapshots_before.json"
 VERIFY_PATH = GATE_DIR / "post_write_verification.json"
 
-EXPECTED_ISINS = {
-    "ES0173323009", "ES0175604034", "LU1245470593", "DE0005318406", "ES0148181003",
-    "LU0251131362", "LU0404220724", "LU0171283459", "LU1899018953", "LU1697017256",
-    "ES0142046038", "ES0162946034", "LU1697018494", "LU1882475392", "LU2278574715",
-}
+EXPECTED_ISINS = {"ES0138930005", "DE000DWS17J0", "LU1868537090", "LU0048293368", "LU1697016365"}
 PREV_ISINS = {
-    "IE00BYYPF474", "ES0128067008", "LU0512121004", "LU1883327816", "LU1961009468",
-    "ES0116567035", "ES0162949012", "FR0010041822", "LU0093503737", "LU0352312184",
-    "LU0565136552", "LU1276000236", "LU1298174530", "LU1304666057", "LU1740985814",
+    "IE00BYYPF474","ES0128067008","LU0512121004","LU1883327816","LU1961009468",
+    "ES0116567035","ES0162949012","FR0010041822","LU0093503737","LU0352312184",
+    "LU0565136552","LU1276000236","LU1298174530","LU1304666057","LU1740985814",
+    "ES0173323009","ES0175604034","LU1245470593","DE0005318406","ES0148181003",
+    "LU0251131362","LU0404220724","LU0171283459","LU1899018953","LU1697017256",
+    "ES0142046038","ES0162946034","LU1697018494","LU1882475392","LU2278574715",
 }
 ALLOWED_FIELDS = {
     "portfolio_exposure_v2.economic_exposure", "portfolio_exposure_v2.economic_exposure.equity",
@@ -56,7 +62,7 @@ def abort(msg):
 def main():
     gen = datetime.now(timezone.utc).isoformat()
     print("=" * 60)
-    print("  BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-3")
+    print("  BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-4")
     print(f"  {gen}")
     print("=" * 60)
 
@@ -64,13 +70,13 @@ def main():
     approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
     if not approval.get("authorized") or not approval.get("can_write"):
         abort("Not authorized")
-    if approval.get("selected_count") != 15:
+    if approval.get("selected_count") != 5:
         abort(f"selected_count={approval.get('selected_count')}")
     if set(approval.get("selected_isins", [])) != EXPECTED_ISINS:
         abort("ISINs mismatch")
     if EXPECTED_ISINS & PREV_ISINS:
-        abort(f"Overlap with previous lotes")
-    print("\n[OK] Approval: authorized=true, 15 ISINs, no overlap")
+        abort("Overlap with previous lotes")
+    print("\n[OK] Approval: authorized=true, 5 ISINs, no overlap")
 
     # GUARD 2: Diff manifest
     diff = json.loads(DIFF_PATH.read_text(encoding="utf-8"))
@@ -79,6 +85,8 @@ def main():
         for f in entry.get("fields_to_update", []):
             if f not in ALLOWED_FIELDS:
                 abort(f"{isin}: '{f}' not allowed")
+        if not entry.get("rationale_for_approve"):
+            abort(f"{isin}: no rationale")
         prop = entry["proposed_economic_exposure"]
         for k in ["equity", "bond", "cash", "other"]:
             v = prop.get(k)
@@ -87,9 +95,9 @@ def main():
         s = sum(prop.get(k, 0) for k in ["equity", "bond", "cash", "other"])
         if not (95.0 <= s <= 105.0):
             abort(f"{isin}: sum={s}")
-    print("[OK] Diff: fields valid, values sane")
+    print("[OK] Diff: fields valid, rationales present, values sane")
 
-    # GUARD 3: Snapshot drift
+    # GUARD 3: Snapshots
     snapshots = json.loads(SNAP_PATH.read_text(encoding="utf-8"))["snapshots"]
     db = init_firebase()
     print("\n--- PRE-WRITE VALIDATION ---")
@@ -151,13 +159,13 @@ def main():
               f"ca={actual.get('cash',0)} ot={actual.get('other',0)} conf={conf}")
 
     VERIFY_PATH.write_text(json.dumps({
-        "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-3", "generated_at_utc": gen,
+        "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-4", "generated_at_utc": gen,
         "write_executed": True, "all_pass": all_pass,
         "write_log": write_log, "verification": verification,
     }, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
 
     print(f"\n{'='*60}")
-    print(f"  WRITE CONTROLLED-3 {'COMPLETE' if all_pass else 'FAILED'}")
+    print(f"  WRITE CONTROLLED-4 {'COMPLETE' if all_pass else 'FAILED'}")
     print(f"{'='*60}")
     print(f"  ISINs written: {len(write_log)}")
     print(f"  All verified:  {all_pass}")

@@ -1,38 +1,41 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
+# ---------------------------------------------------------------------------
+# DO NOT RUN -- HISTORICAL SCRIPT
+# This script was used once during BDB MIXED exposure remediation 2026-05.
+# It is retained only for auditability and rollback traceability.
+# Re-execution may write to production Firestore (funds_v3).
+# See docs/BDB_REMEDIATION_SCRIPTS_ARCHIVE_PLAN_0.md
+# ---------------------------------------------------------------------------
 """
-BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-2
-Controlled write of second low-risk batch (10 ISINs).
-Same guard structure as CONTROLLED-1.
+BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-5
+Controlled write of second review_required batch (5 ISINs).
 """
 import json, math, os, sys
 from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
-GATE_DIR = ROOT / "artifacts" / "bdb_mixed_exposure_fix" / "write_gate_2"
+GATE_DIR = ROOT / "artifacts" / "bdb_mixed_exposure_fix" / "write_gate_5"
 APPROVAL_PATH = GATE_DIR / "write_approval_manifest.json"
 DIFF_PATH = GATE_DIR / "diff_manifest.json"
 SNAP_PATH = GATE_DIR / "snapshots_before.json"
 VERIFY_PATH = GATE_DIR / "post_write_verification.json"
 
-EXPECTED_ISINS = {
-    "LU0565136552", "LU0093503737", "LU1304666057", "LU1740985814",
-    "FR0010041822", "LU0352312184", "LU1276000236", "LU1298174530",
-    "ES0162949012", "ES0116567035",
+EXPECTED_ISINS = {"LU1883330521", "LU1883340322", "LU1095739733", "DE000A0X7541", "LU1894680757"}
+PREV_ISINS = {
+    "IE00BYYPF474","ES0128067008","LU0512121004","LU1883327816","LU1961009468",
+    "ES0116567035","ES0162949012","FR0010041822","LU0093503737","LU0352312184",
+    "LU0565136552","LU1276000236","LU1298174530","LU1304666057","LU1740985814",
+    "ES0173323009","ES0175604034","LU1245470593","DE0005318406","ES0148181003",
+    "LU0251131362","LU0404220724","LU0171283459","LU1899018953","LU1697017256",
+    "ES0142046038","ES0162946034","LU1697018494","LU1882475392","LU2278574715",
+    "ES0138930005","DE000DWS17J0","LU1868537090","LU0048293368","LU1697016365",
 }
-LOTE1_ISINS = {"IE00BYYPF474", "ES0128067008", "LU0512121004", "LU1883327816", "LU1961009468"}
-
-FORBIDDEN_FIELDS = ["manual", "manual.costs", "manual.costs.retrocession",
-                    "classification_v2", "ms", "derived", "std_perf"]
 ALLOWED_FIELDS = {
-    "portfolio_exposure_v2.economic_exposure",
-    "portfolio_exposure_v2.economic_exposure.equity",
-    "portfolio_exposure_v2.economic_exposure.bond",
-    "portfolio_exposure_v2.economic_exposure.cash",
-    "portfolio_exposure_v2.economic_exposure.other",
-    "portfolio_exposure_v2.exposure_confidence",
-    "portfolio_exposure_v2.warnings",
-    "portfolio_exposure_v2.computed_at",
+    "portfolio_exposure_v2.economic_exposure", "portfolio_exposure_v2.economic_exposure.equity",
+    "portfolio_exposure_v2.economic_exposure.bond", "portfolio_exposure_v2.economic_exposure.cash",
+    "portfolio_exposure_v2.economic_exposure.other", "portfolio_exposure_v2.exposure_confidence",
+    "portfolio_exposure_v2.warnings", "portfolio_exposure_v2.computed_at",
 }
 
 
@@ -54,71 +57,59 @@ def init_firebase():
 
 def abort(msg):
     print(f"\n[ABORT] {msg}")
-    print("No writes executed.")
     sys.exit(1)
 
 
 def main():
     gen = datetime.now(timezone.utc).isoformat()
     print("=" * 60)
-    print("  BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-2")
+    print("  BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-5")
     print(f"  {gen}")
     print("=" * 60)
 
-    # GUARD 1: Approval
     approval = json.loads(APPROVAL_PATH.read_text(encoding="utf-8"))
-    if not approval.get("authorized"):
-        abort("authorized is not true")
-    if not approval.get("can_write"):
-        abort("can_write is not true")
-    if approval.get("selected_count") != 10:
-        abort(f"selected_count={approval.get('selected_count')}, expected 10")
+    if not approval.get("authorized") or not approval.get("can_write"):
+        abort("Not authorized")
+    if approval.get("selected_count") != 5:
+        abort(f"selected_count={approval.get('selected_count')}")
     if set(approval.get("selected_isins", [])) != EXPECTED_ISINS:
-        abort("selected_isins mismatch")
-    print("\n[OK] Approval: authorized=true, can_write=true, 10 ISINs")
+        abort("ISINs mismatch")
+    if EXPECTED_ISINS & PREV_ISINS:
+        abort("Overlap with previous lotes")
+    print("\n[OK] Approval: authorized=true, 5 ISINs, no overlap")
 
-    # GUARD 2: No lote 1 overlap
-    if EXPECTED_ISINS & LOTE1_ISINS:
-        abort(f"Overlap with lote 1: {EXPECTED_ISINS & LOTE1_ISINS}")
-    print("[OK] No overlap with lote 1")
-
-    # GUARD 3: Diff manifest
     diff = json.loads(DIFF_PATH.read_text(encoding="utf-8"))
     diff_entries = {e["isin"]: e for e in diff["entries"]}
-    if set(diff_entries.keys()) != EXPECTED_ISINS:
-        abort("diff_manifest ISINs mismatch")
     for isin, entry in diff_entries.items():
         for f in entry.get("fields_to_update", []):
             if f not in ALLOWED_FIELDS:
                 abort(f"{isin}: '{f}' not allowed")
+        if not entry.get("rationale_for_approve"):
+            abort(f"{isin}: no rationale")
         prop = entry["proposed_economic_exposure"]
         for k in ["equity", "bond", "cash", "other"]:
             v = prop.get(k)
             if v is None or (isinstance(v, float) and math.isnan(v)) or v < 0:
-                abort(f"{isin}: proposed {k}={v} invalid")
+                abort(f"{isin}: {k}={v} invalid")
         s = sum(prop.get(k, 0) for k in ["equity", "bond", "cash", "other"])
         if not (95.0 <= s <= 105.0):
-            abort(f"{isin}: proposed sum={s} out of [95,105]")
-    print("[OK] Diff manifest: all fields allowed, values valid")
+            abort(f"{isin}: sum={s}")
+    print("[OK] Diff: fields valid, rationales present, values sane")
 
-    # GUARD 4: Snapshots
     snapshots = json.loads(SNAP_PATH.read_text(encoding="utf-8"))["snapshots"]
     db = init_firebase()
-
     print("\n--- PRE-WRITE VALIDATION ---")
     for isin in sorted(EXPECTED_ISINS):
         doc = db.collection("funds_v3").document(isin).get()
         if not doc.exists:
             abort(f"{isin}: not found")
-        curr = doc.to_dict()
-        curr_econ = (curr.get("portfolio_exposure_v2") or {}).get("economic_exposure", {})
+        curr_econ = (doc.to_dict().get("portfolio_exposure_v2") or {}).get("economic_exposure", {})
         snap_econ = (snapshots.get(isin, {}).get("portfolio_exposure_v2") or {}).get("economic_exposure", {})
         for k in ["equity", "bond", "cash", "other"]:
             if abs(float(curr_econ.get(k, 0)) - float(snap_econ.get(k, 0))) > 0.5:
-                abort(f"{isin}: drift on {k}: current={curr_econ.get(k)} snapshot={snap_econ.get(k)}")
+                abort(f"{isin}: drift on {k}")
         print(f"  [OK] {isin}: no drift")
 
-    # EXECUTE WRITES
     print("\n--- EXECUTING WRITES ---")
     write_log = []
     for isin in sorted(EXPECTED_ISINS):
@@ -128,7 +119,6 @@ def main():
         new_warnings = [w for w in old_warnings if w != "EXPOSURE_INFERRED_FROM_CLASSIFICATION"]
         if "EXPOSURE_SOURCE_MS_PORTFOLIO" not in new_warnings:
             new_warnings.append("EXPOSURE_SOURCE_MS_PORTFOLIO")
-
         payload = {
             "portfolio_exposure_v2.economic_exposure": proposed,
             "portfolio_exposure_v2.exposure_confidence": 0.85,
@@ -136,12 +126,10 @@ def main():
             "portfolio_exposure_v2.computed_at": gen,
         }
         db.collection("funds_v3").document(isin).update(payload)
-        write_log.append({"isin": isin, "name": entry["name"],
-                          "payload": {k: v for k, v in payload.items()}, "ts": gen})
+        write_log.append({"isin": isin, "name": entry["name"], "proposed": proposed, "ts": gen})
         print(f"  [WRITE] {isin} | eq={proposed['equity']} bd={proposed['bond']} "
-              f"ca={proposed['cash']} ot={proposed['other']} | conf=0.85")
+              f"ca={proposed['cash']} ot={proposed['other']}")
 
-    # POST-WRITE VERIFICATION
     print("\n--- POST-WRITE VERIFICATION ---")
     verification = []
     all_pass = True
@@ -152,42 +140,31 @@ def main():
         expected = entry["proposed_economic_exposure"]
         match = all(abs(float(actual.get(k, 0)) - float(expected.get(k, 0))) < 0.5
                     for k in ["equity", "bond", "cash", "other"])
-        conf_ok = abs(float((dd.get("portfolio_exposure_v2") or {}).get("exposure_confidence", 0)) - 0.85) < 0.01
-
-        forbidden_checks = {}
-        snap = snapshots.get(isin, {})
-        for field in ["manual", "classification_v2", "ms", "derived", "std_perf"]:
-            forbidden_checks[field] = "unchanged" if field not in snap else "unchanged"
-
+        conf = (dd.get("portfolio_exposure_v2") or {}).get("exposure_confidence", 0)
+        conf_ok = abs(float(conf) - 0.85) < 0.01
         status = "PASS" if (match and conf_ok) else "FAIL"
         if status == "FAIL":
             all_pass = False
-
         verification.append({
             "isin": isin, "exists": True,
             "expected_economic_exposure": expected,
             "actual_economic_exposure": {k: actual.get(k, 0) for k in ["equity", "bond", "cash", "other"]},
-            "match": match,
-            "actual_confidence": (dd.get("portfolio_exposure_v2") or {}).get("exposure_confidence"),
-            "expected_confidence": 0.85,
-            "forbidden_fields_unchanged": forbidden_checks,
-            "status": status,
+            "match": match, "actual_confidence": conf, "status": status,
         })
         print(f"  [{status}] {isin} | eq={actual.get('equity',0)} bd={actual.get('bond',0)} "
-              f"ca={actual.get('cash',0)} ot={actual.get('other',0)} conf={dd.get('portfolio_exposure_v2',{}).get('exposure_confidence')}")
+              f"ca={actual.get('cash',0)} ot={actual.get('other',0)} conf={conf}")
 
     VERIFY_PATH.write_text(json.dumps({
-        "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-2",
-        "generated_at_utc": gen, "write_executed": True,
-        "all_pass": all_pass, "write_log": write_log, "verification": verification,
+        "audit_id": "BDB-MIXED-EXPOSURE-WRITE-CONTROLLED-5", "generated_at_utc": gen,
+        "write_executed": True, "all_pass": all_pass,
+        "write_log": write_log, "verification": verification,
     }, ensure_ascii=False, indent=2, default=str), encoding="utf-8")
 
     print(f"\n{'='*60}")
-    print(f"  WRITE CONTROLLED-2 {'COMPLETE' if all_pass else 'FAILED'}")
+    print(f"  WRITE CONTROLLED-5 {'COMPLETE' if all_pass else 'FAILED'}")
     print(f"{'='*60}")
-    print(f"  ISINs written:  {len(write_log)}")
-    print(f"  All verified:   {all_pass}")
-    print(f"  Verification:   {VERIFY_PATH.relative_to(ROOT)}")
+    print(f"  ISINs written: {len(write_log)}")
+    print(f"  All verified:  {all_pass}")
     return 0 if all_pass else 1
 
 if __name__ == "__main__":
