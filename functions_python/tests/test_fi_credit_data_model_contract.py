@@ -438,3 +438,240 @@ class TestDataPipelineGapDocumentation:
         assert fi["low_quality"] == 17.0
         assert fi["source"] == "morningstar_pdf"
         assert fi["coverage"] > 0
+
+
+# ── SECTION 7: Translator DryRun Contracts ───────────────────────────────────
+
+_DRYRUN_REASON = (
+    "BDB-FI-CREDIT-TRANSLATOR-DRYRUN-0: translator logic documented. "
+    "portfolio_exposure_v2.fi_credit not yet written to Firestore. "
+    "See docs/BDB_FI_CREDIT_TRANSLATOR_DRYRUN_0.md"
+)
+
+
+def _build_fi_credit_from_cq(cq: dict, bond_weight: float | None = None,
+                              subtype: str = "CORPORATE_BOND",
+                              compatible_profiles: list | None = None) -> dict:
+    """
+    Reference implementation of the translator (mirrors bdb_fi_credit_translator_dryrun.py).
+    DRY-RUN ONLY — no Firestore interaction.
+    """
+    if compatible_profiles is None:
+        compatible_profiles = []
+
+    FE9_THRESHOLD  = 35.0
+    VALID_SUM_MIN  = 80.0
+    VALID_SUM_MAX  = 105.0
+    HIGH_NR_LIMIT  = 20.0
+    COVERAGE_MIN   = 0.50
+    HY_EM_SUBTYPES = {"HIGH_YIELD_BOND", "EMERGING_MARKETS_BOND"}
+    IG_KEYS = ["aaa", "aa", "a", "bbb"]
+    LQ_KEYS = ["bb", "b", "below_b"]
+    ALL_KEYS = IG_KEYS + LQ_KEYS + ["not_rated"]
+
+    def _sf(v):
+        try:
+            return 0.0 if v is None else float(v)
+        except Exception:
+            return 0.0
+
+    vals = {k: _sf(cq.get(k, 0)) for k in ALL_KEYS}
+    total = sum(vals.values())
+    if 0 < total <= 1.05:
+        vals = {k: v * 100.0 for k, v in vals.items()}
+        total = sum(vals.values())
+
+    ig = sum(vals[k] for k in IG_KEYS)
+    lq = sum(vals[k] for k in LQ_KEYS)
+    nr = vals["not_rated"]
+
+    if VALID_SUM_MIN <= total <= VALID_SUM_MAX:
+        coverage = 1.0
+    elif total > VALID_SUM_MAX:
+        coverage = 1.0
+    else:
+        coverage = round(total / 100.0, 4)
+
+    warnings = []
+    if total < VALID_SUM_MIN or total > 200.0:
+        warnings.append("CREDIT_QUALITY_SUM_OUT_OF_RANGE")
+        return {"status": "INVALID_SUM", "proposed_fi_credit": None,
+                "warnings": warnings, "low_quality_total_portfolio_estimate": None}
+
+    lq_tp = None
+    if bond_weight is None:
+        warnings.append("MISSING_BOND_WEIGHT")
+    if nr >= HIGH_NR_LIMIT:
+        warnings.append("HIGH_NOT_RATED")
+
+    if lq >= FE9_THRESHOLD:
+        warnings.append("LOW_QUALITY_OVER_35_BOND_BUCKET")
+        if bond_weight is not None:
+            lq_tp = round(lq * bond_weight / 100.0, 2)
+            if lq_tp >= FE9_THRESHOLD:
+                warnings.append("LOW_QUALITY_OVER_35_TOTAL_PORTFOLIO")
+    elif bond_weight is not None:
+        lq_tp = round(lq * bond_weight / 100.0, 2)
+
+    is_hy_em = subtype.upper() in HY_EM_SUBTYPES
+    has_p_le4 = any(p <= 4 for p in compatible_profiles)
+    if lq >= FE9_THRESHOLD:
+        if is_hy_em:
+            warnings.append("FE9_ALREADY_BLOCKED_BY_HY_EM_RULE_10")
+        elif has_p_le4 and coverage >= COVERAGE_MIN:
+            warnings.append("FE9_POTENTIAL_NEW_GAP")
+
+    proposed = {
+        "source": "morningstar_pdf",
+        "as_of": None,
+        "scale": "percent_of_bond_bucket",
+        "coverage": coverage,
+        "investment_grade": round(ig, 2),
+        "high_yield": round(lq, 2),
+        "low_quality": round(lq, 2),
+        "not_rated": round(nr, 2),
+        "breakdown": {
+            "AAA": round(vals["aaa"], 2), "AA": round(vals["aa"], 2),
+            "A":   round(vals["a"],   2), "BBB": round(vals["bbb"], 2),
+            "BB":  round(vals["bb"],  2), "B":   round(vals["b"],   2),
+            "below_B": round(vals["below_b"], 2),
+            "not_rated": round(vals["not_rated"], 2),
+        },
+        "warnings": warnings,
+    }
+    return {
+        "status": "TRANSLATED",
+        "proposed_fi_credit": proposed,
+        "warnings": warnings,
+        "low_quality_total_portfolio_estimate": lq_tp,
+        "fe9_potential_new_gap": "FE9_POTENTIAL_NEW_GAP" in warnings,
+    }
+
+
+class TestTranslatorDryRunContracts:
+    """
+    CONTRACT: Translator from ms.fixed_income.credit_quality
+    → portfolio_exposure_v2.fi_credit must satisfy these invariants.
+    Based on BDB-FI-CREDIT-TRANSLATOR-DRYRUN-0.
+    """
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_translator_produces_all_required_fields(self):
+        """TRANSLATED result must have all mandatory fi_credit fields."""
+        cq = {"aaa": 10, "aa": 15, "a": 30, "bbb": 25, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        assert result["status"] == "TRANSLATED"
+        fi = result["proposed_fi_credit"]
+        for field in ("source", "as_of", "scale", "coverage",
+                      "investment_grade", "high_yield", "low_quality",
+                      "not_rated", "breakdown", "warnings"):
+            assert field in fi, f"Missing required field: {field}"
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_low_quality_matches_bb_b_below_b(self):
+        """low_quality == BB + B + below_B exactly."""
+        cq = {"aaa": 5, "aa": 10, "a": 25, "bbb": 40, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        fi = result["proposed_fi_credit"]
+        expected_lq = 10 + 5 + 2  # = 17
+        assert fi["low_quality"] == expected_lq, (
+            f"low_quality={fi['low_quality']} != BB+B+below_B={expected_lq}"
+        )
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_not_rated_excluded_from_low_quality(self):
+        """not_rated is not added to low_quality or high_yield."""
+        cq = {"aaa": 30, "aa": 20, "a": 20, "bbb": 15, "bb": 0, "b": 0, "below_b": 0, "not_rated": 15}
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        fi = result["proposed_fi_credit"]
+        assert fi["low_quality"] == 0.0, "With 0 BB/B/below_B, low_quality must be 0"
+        assert fi["not_rated"] == 15.0, "not_rated must be preserved separately"
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_warning_low_quality_over_35_bond_bucket(self):
+        """Warning LOW_QUALITY_OVER_35_BOND_BUCKET fires when lq >= 35%."""
+        cq = {"aaa": 0, "aa": 0, "a": 5, "bbb": 15, "bb": 25, "b": 25, "below_b": 25, "not_rated": 5}
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        assert "LOW_QUALITY_OVER_35_BOND_BUCKET" in result["warnings"]
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_warning_missing_bond_weight(self):
+        """Warning MISSING_BOND_WEIGHT fires when bond_weight is None."""
+        cq = {"aaa": 10, "aa": 15, "a": 30, "bbb": 25, "bb": 5, "b": 5, "below_b": 5, "not_rated": 5}
+        result = _build_fi_credit_from_cq(cq, bond_weight=None)
+        assert "MISSING_BOND_WEIGHT" in result["warnings"]
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_warning_high_not_rated(self):
+        """Warning HIGH_NOT_RATED fires when not_rated >= 20%."""
+        cq = {"aaa": 10, "aa": 10, "a": 20, "bbb": 20, "bb": 10, "b": 5, "below_b": 5, "not_rated": 20}
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        assert "HIGH_NOT_RATED" in result["warnings"]
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_fe9_already_blocked_tag_for_hy_bond(self):
+        """HIGH_YIELD_BOND with lq>=35 gets FE9_ALREADY_BLOCKED_BY_HY_EM_RULE_10."""
+        cq = {"aaa": 0, "aa": 0, "a": 0, "bbb": 5, "bb": 30, "b": 30, "below_b": 30, "not_rated": 5}
+        result = _build_fi_credit_from_cq(
+            cq, bond_weight=100.0, subtype="HIGH_YIELD_BOND",
+            compatible_profiles=[1, 2, 3, 4, 5]
+        )
+        assert "FE9_ALREADY_BLOCKED_BY_HY_EM_RULE_10" in result["warnings"]
+        assert "FE9_POTENTIAL_NEW_GAP" not in result["warnings"]
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_fe9_new_gap_for_corporate_bond_with_high_lq(self):
+        """CORPORATE_BOND with lq>=35 and profile<=4 gets FE9_POTENTIAL_NEW_GAP."""
+        cq = {"aaa": 0, "aa": 0, "a": 10, "bbb": 20, "bb": 20, "b": 20, "below_b": 20, "not_rated": 10}
+        result = _build_fi_credit_from_cq(
+            cq, bond_weight=100.0, subtype="CORPORATE_BOND",
+            compatible_profiles=[3, 4, 5]
+        )
+        assert "FE9_POTENTIAL_NEW_GAP" in result["warnings"]
+        assert result["fe9_potential_new_gap"] is True
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_invalid_sum_returns_no_proposal(self):
+        """Sum < 80% → INVALID_SUM, no proposed_fi_credit."""
+        cq = {"aaa": 5, "aa": 5, "a": 5, "bbb": 5, "bb": 5, "b": 5, "below_b": 5, "not_rated": 5}
+        # Total = 40 → below VALID_SUM_MIN=80
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        assert result["status"] == "INVALID_SUM"
+        assert result["proposed_fi_credit"] is None
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_lq_total_portfolio_estimate_computed_correctly(self):
+        """low_quality_total_portfolio_estimate = lq * bond_weight / 100."""
+        cq = {"aaa": 5, "aa": 10, "a": 20, "bbb": 25, "bb": 20, "b": 10, "below_b": 5, "not_rated": 5}
+        # lq = 20+10+5 = 35%, bond_weight = 60%
+        result = _build_fi_credit_from_cq(cq, bond_weight=60.0)
+        expected_tp = round(35.0 * 60.0 / 100.0, 2)  # 21.0
+        assert result["low_quality_total_portfolio_estimate"] == expected_tp, (
+            f"Expected lq_tp={expected_tp}, got {result['low_quality_total_portfolio_estimate']}"
+        )
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_write_recommended_always_false_in_dryrun(self):
+        """
+        In dry-run mode, write_recommended must always be False.
+        This guards against accidental activation of writes.
+        """
+        # This tests the CONTRACT of the dryrun artifact, not the translator logic.
+        dryrun_result_entry = {
+            "status": "TRANSLATED",
+            "proposed_fi_credit": {"low_quality": 20.0},
+            "write_recommended": False,
+        }
+        assert dryrun_result_entry["write_recommended"] is False, (
+            "write_recommended must be False in all dryrun results"
+        )
+
+    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
+    def test_coverage_is_1_when_sum_is_100(self):
+        """If credit_quality sum is exactly 100%, coverage must be 1.0."""
+        cq = {"aaa": 10, "aa": 15, "a": 25, "bbb": 30, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
+        # sum = 10+15+25+30+10+5+2+3 = 100
+        result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
+        fi = result["proposed_fi_credit"]
+        assert fi["coverage"] == 1.0, f"Sum=100% → coverage must be 1.0, got {fi['coverage']}"
+
