@@ -1,0 +1,67 @@
+{
+  "gate_id": "write_gate_8_official_factsheet",
+  "generated_at_utc": "2026-05-11T06:44:34.681212+00:00",
+  "purpose": "Rollback to pre-gate-8 values if write fails or is reverted",
+  "entries": [
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure.equity": 50.0,
+        "portfolio_exposure_v2.economic_exposure.bond": 50.0,
+        "portfolio_exposure_v2.economic_exposure.cash": 0.0,
+        "portfolio_exposure_v2.economic_exposure.other": 0.0,
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0121216526",
+      "name": "Goldman Sachs Patrimonial Aggressive - X Cap EUR",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure.equity": 80.0,
+        "portfolio_exposure_v2.economic_exposure.bond": 20.0,
+        "portfolio_exposure_v2.economic_exposure.cash": 0.0,
+        "portfolio_exposure_v2.economic_exposure.other": 0.0,
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0352312853",
+      "name": "Allianz Strategy 75 CT EUR",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure.equity": 80.0,
+        "portfolio_exposure_v2.economic_exposure.bond": 20.0,
+        "portfolio_exposure_v2.economic_exposure.cash": 0.0,
+        "portfolio_exposure_v2.economic_exposure.other": 0.0,
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1594335520",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 AT EUR",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure.equity": 80.0,
+        "portfolio_exposure_v2.economic_exposure.bond": 20.0,
+        "portfolio_exposure_v2.economic_exposure.cash": 0.0,
+        "portfolio_exposure_v2.economic_exposure.other": 0.0,
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU1548496022",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 15 AT EUR",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure.equity": 20.0,
+        "portfolio_exposure_v2.economic_exposure.bond": 80.0,
+        "portfolio_exposure_v2.economic_exposure.cash": 0.0,
+        "portfolio_exposure_v2.economic_exposure.other": 0.0,
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,228 @@
+{
+  "gate_id": "write_gate_8_official_factsheet",
+  "generated_at_utc": "2026-05-11T06:44:34.681212+00:00",
+  "source_type": "official_factsheet",
+  "entry_count": 5,
+  "entries": [
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "current_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 35.4,
+        "bond": 46.8,
+        "cash": 5.1,
+        "other": 12.7
+      },
+      "official_factsheet_source_file": "MR_ES_es_FR0010306142_RES_2026-03-31.pdf",
+      "source_used": "official_factsheet",
+      "confidence_before": 0.45,
+      "confidence_after": 0.9,
+      "delta_equity": -14.6,
+      "rationale": "Ficha oficial de Carmignac a 31/03/2026. Mixto patrimonial clásico. MS data claramente defectuosa (bond=0, cash=100). La ficha confirma ~35% RV, ~47% RF, ~5% monetario. Dato de gestora es la fuente más fiable.",
+      "normalization_applied": true,
+      "normalization_reason": "Suma ficha ~96.6%. Se asigna efectivo/tesorería/derivados (9.3%) parcialmente a cash (5.1% monetario) y el resto (12.7% = derivados+otros ajustes) a other. Total normalizado a 100.0.",
+      "suitability_impact": "eq 50.0 -> 35.4 (-14.6pp). Moderado. El fondo pasa de 50/50 a un perfil más defensivo, coherente con 'Patrimoine'.",
+      "recommendation": "APPROVE_OFFICIAL_FACTSHEET",
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0121216526",
+      "name": "Goldman Sachs Patrimonial Aggressive - X Cap EUR",
+      "current_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 75.2,
+        "bond": 24.9,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "official_factsheet_source_file": "MR_ES_es_LU0121216526_YES_2026-03-31.pdf",
+      "source_used": "official_factsheet",
+      "confidence_before": 0.45,
+      "confidence_after": 0.9,
+      "delta_equity": -4.8,
+      "rationale": "Ficha oficial GS a 31/03/2026. Benchmark 75/25. La ficha confirma 75.15% RV / 24.89% RF. MS data discrepante (60.49% eq, 21% other). La ficha de gestora es más fiable que la lectura MS para este fondo apalancado.",
+      "normalization_applied": true,
+      "normalization_reason": "Efectivo sintético -1.92% se netea con liquidez 1.88%, resultado cash≈0. Se usa equity=75.15 y bond=24.89 normalizados a 100.1 → 75.2/24.9/0/0.",
+      "suitability_impact": "eq 80.0 -> 75.2 (-4.8pp). Bajo. El fondo se confirma como agresivo, ligeramente por debajo del fallback 80/20 pero alineado con su benchmark 75/25.",
+      "recommendation": "APPROVE_OFFICIAL_FACTSHEET",
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0352312853",
+      "name": "Allianz Strategy 75 CT EUR",
+      "current_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 86.0,
+        "bond": 14.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "official_factsheet_source_file": "MR_ES_en_LU0352312853_RES_2026-03-31.pdf",
+      "source_used": "official_factsheet",
+      "confidence_before": 0.45,
+      "confidence_after": 0.9,
+      "delta_equity": 6.0,
+      "rationale": "Ficha oficial Allianz a 31/03/2026. Strategy 75 = objetivo ~75% equity. Asignación actual 86.12% equity / 14.03% RF. MS data inservible (sum=170.81). La propuesta automática anterior (58.5/41.5) era incorrecta. La ficha confirma perfil agresivo, más equity que el 75% objetivo.",
+      "normalization_applied": true,
+      "normalization_reason": "Ficha dice 86.12/14.03 (sum=100.15). Se redondea a 86.0/14.0 (sum=100.0). Se ignora MS data apalancada (sum=170.81).",
+      "suitability_impact": "eq 80.0 -> 86.0 (+6.0pp). Bajo. El fondo se confirma como más agresivo que el fallback 80/20, coherente con la sobre-ponderación de equity actual vs benchmark 75%.",
+      "recommendation": "APPROVE_OFFICIAL_FACTSHEET",
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1594335520",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 AT EUR",
+      "current_economic_exposure": {
+        "equity": 80.0,
+        "bond": 20.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 79.1,
+        "bond": 10.2,
+        "cash": 0.0,
+        "other": 10.7
+      },
+      "official_factsheet_source_file": "MR_ES_es_LU1594335520_YES_2026-03-31.pdf",
+      "source_used": "official_factsheet",
+      "confidence_before": 0.45,
+      "confidence_after": 0.9,
+      "delta_equity": -0.9,
+      "rationale": "Ficha oficial Allianz a 31/03/2026. Dynamic MA SRI 75 = objetivo 75% equity. Ficha confirma 91.10% RV actual (sobre-ponderado). MS data INVERTIDA (eq=0, bond=100) — error grave de clasificación MS. La propuesta automática (eq=0) habría sido catastrófica. La ficha oficial resuelve la anomalía: el fondo SÍ es agresivo como indica su nombre.",
+      "normalization_applied": true,
+      "normalization_reason": "Suma bruta ficha = 115.16%. Se normaliza proporcionalmente: eq=91.10/115.16*100=79.1, bond=11.71/115.16*100=10.2, other=(10.19+2.16)/115.16*100=10.7. El fondo tiene exposición económica real a RV vía derivados, no RF.",
+      "suitability_impact": "eq 80.0 -> 79.1 (-0.9pp). Mínimo. El fondo se confirma como agresivo, casi idéntico al fallback 80/20. La corrección principal es reclasificar correctamente como equity-dominated en lugar del error MS bond-dominated.",
+      "recommendation": "APPROVE_OFFICIAL_FACTSHEET",
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1548496022",
+      "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 15 AT EUR",
+      "current_economic_exposure": {
+        "equity": 20.0,
+        "bond": 80.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 24.6,
+        "bond": 64.4,
+        "cash": 0.0,
+        "other": 11.0
+      },
+      "official_factsheet_source_file": "MR_ES_es_LU1548496022_YES_2026-03-31.pdf",
+      "source_used": "official_factsheet",
+      "confidence_before": 0.45,
+      "confidence_after": 0.9,
+      "delta_equity": 4.6,
+      "rationale": "Ficha oficial Allianz a 31/03/2026. Dynamic MA SRI 15 = objetivo 15% equity / 85% bond. Ficha confirma 25.89% RV actual (sobre-ponderado vs objetivo). MS data sesgada (eq=34.78) por clasificación incorrecta de derivados. La ficha es más fiable. El perfil conservador se confirma con equity real ~25%.",
+      "normalization_applied": true,
+      "normalization_reason": "Suma bruta ficha = 105.21%. Se normaliza proporcionalmente: eq=25.89/105.21*100=24.6, bond=67.79/105.21*100=64.4, other=(8.76+2.77)/105.21*100=11.0.",
+      "suitability_impact": "eq 20.0 -> 24.6 (+4.6pp). Bajo. El fondo se confirma como conservador, ligeramente por encima del fallback 20/80 pero coherente con sobre-ponderación actual de RV vs objetivo.",
+      "recommendation": "APPROVE_OFFICIAL_FACTSHEET",
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    }
+  ]
+}

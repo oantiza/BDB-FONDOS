@@ -1,0 +1,17 @@
+{
+  "gate_id": "write_gate_8_official_factsheet",
+  "generated_at_utc": "2026-05-11T06:44:34.681212+00:00",
+  "source_type": "official_factsheet",
+  "selected_count": 5,
+  "selected_isins": [
+    "FR0010306142",
+    "LU0121216526",
+    "LU0352312853",
+    "LU1594335520",
+    "LU1548496022"
+  ],
+  "excluded_isins": [
+    "LU3038481936"
+  ],
+  "previous_batches_count": 54
+}
