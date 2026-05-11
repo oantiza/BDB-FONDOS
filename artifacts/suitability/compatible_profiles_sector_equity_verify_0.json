@@ -1,0 +1,240 @@
+{
+  "audit_id": "BDB-COMPATIBLE-PROFILES-VERIFY-SECTOR-EQUITY-0",
+  "generated_at": "2026-05-11T12:44:33Z",
+  "dry_run": true,
+  "write_executed": false,
+  "firestore_read_executed": false,
+  "firestore_write_executed": false,
+  "deploy_executed": false,
+  "core_modified": false,
+  "suitability_engine_modified": false,
+  "frontend_modified": false,
+  "human_decision_applied": true,
+  "human_decision": "ALL_LISTED_FUNDS_ARE_COMMODITIES_PRECIOUS_METALS_DO_NOT_ADD_P3_P4",
+  "human_decision_detail": "User confirmed that all 14 STALE EQUITY funds identified in the previous dry-run are gold / mining / precious-metals funds. Per regulatory and product suitability policy, these funds must NOT be made available for conservative profiles 3 and 4. The stored compatible_profiles ([5,6,7,8,9,10]) are CORRECT from a product perspective, even though the backend suitability engine computed [3,4,5,6,7,8,9,10] due to a classification gap: these funds have asset_subtype=THEMATIC_EQUITY with economic_exposure.equity=0.0, causing all equity-cap rules to pass. The engine lacks a specific rule for precious-metals/commodities-thematic equity exclusion from p3-p4.",
+  "root_cause_analysis": {
+    "asset_subtype_in_firestore": "THEMATIC_EQUITY",
+    "economic_exposure_equity": 0.0,
+    "engine_behavior": "With real_eq=0%, all equity-cap rules (>30%, >45%, >60%) are not triggered. is_sector_fund=false in Firestore (or engine does not detect THEMATIC_EQUITY as sector). No rule explicitly blocks gold/mining/precious-metals for p<=4.",
+    "missing_rule": "The suitability engine has no explicit rule for THEMATIC_EQUITY subtype with commodities/precious-metals exposure. Backend engine gap — not a data error.",
+    "implication": "The computed [3,4,5,6,7,8,9,10] is technically correct per the current engine rules but incorrect per product policy. The stored [5,6,7,8,9,10] reflects the intended product behavior.",
+    "future_fix": "BDB-SUITABILITY-THEMATIC-EQUITY-COMMODITIES-RULE-0: add explicit rule or classification for gold/mining/precious-metals thematic equity funds to block p3-p4."
+  },
+  "source_artifact": "artifacts/suitability/compatible_profiles_regen_dry_run_0.json",
+  "source_commit": "98e2143",
+  "discrepancy_resolved": {
+    "previous_doc_said": 13,
+    "actual_count": 14,
+    "resolution": "Document BDB_COMPATIBLE_PROFILES_REGEN_DRYRUN_0.md incorrectly stated '13 fondos' in narrative text. The artifact JSON and the table in the same document correctly listed 14 ISINs. Artifact is source of truth: 14 funds confirmed."
+  },
+  "summary": {
+    "total_reviewed": 14,
+    "hold_do_not_add_p3_p4_count": 14,
+    "safe_to_regen_count": 0,
+    "needs_manual_review_count": 0
+  },
+  "per_fund_results": [
+    {
+      "isin": "IE00BYVJR916",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold/silver precious metals fund. Stored [5..10] is correct per product policy. Engine gap: THEMATIC_EQUITY with eq=0% passes all equity-cap rules."
+    },
+    {
+      "isin": "LU0090845842",
+      "name": "BlackRock Global Funds - World Mining Fund E2",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as mining fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0171306680",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0172157280",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as mining fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0172157363",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as mining fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0273148055",
+      "name": "DWS Invest Gold and Precious Metals Equities NC",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold/precious metals fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0273159177",
+      "name": "DWS Invest Gold and Precious Metals Equities LC",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold/precious metals fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0326425351",
+      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as mining fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0496368142",
+      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold/precious metals fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0496369389",
+      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold/precious metals fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU0604766674",
+      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as metals/mining fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU1223083087",
+      "name": "Schroder ISF Global Gold A Accumulation EUR Hedged",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU1223084051",
+      "name": "Schroder ISF Global Gold A Accumulation PLN Hedged",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold fund. Stored [5..10] is correct per product policy."
+    },
+    {
+      "isin": "LU1578889864",
+      "name": "Ninety One GSF - Global Gold Fund A Acc EUR Hedged",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure_equity": 0.0,
+      "current_compatible_profiles": [5, 6, 7, 8, 9, 10],
+      "computed_compatible_profiles_from_previous_dryrun": [3, 4, 5, 6, 7, 8, 9, 10],
+      "recommendation": "HOLD_DO_NOT_ADD_P3_P4",
+      "write_recommended": false,
+      "reason": "Confirmed by user as gold fund. Stored [5..10] is correct per product policy."
+    }
+  ],
+  "write_gate_implication": {
+    "exclude_from_regen_write_gate": true,
+    "exclude_reason": "Human decision: all 14 funds are gold/mining/precious-metals. Do NOT add p3/p4. Stored compatible_profiles must remain unchanged.",
+    "remaining_stale_after_hold": {
+      "total_stale_in_previous_dryrun": 24,
+      "held_funds": 14,
+      "remaining_for_write_gate": 10,
+      "remaining_isins": [
+        "ES0118537002",
+        "ES0162946034",
+        "FR0010306142",
+        "LU0119195963",
+        "LU0404220724",
+        "LU1095739733",
+        "LU1697017256",
+        "LU1883330521",
+        "LU1883334275",
+        "LU1894680757"
+      ]
+    }
+  },
+  "future_blocks": {
+    "classification_fix": "BDB-SUITABILITY-THEMATIC-EQUITY-COMMODITIES-RULE-0: add explicit engine rule to block THEMATIC_EQUITY with precious-metals/mining/commodities exposure from p3-p4. Requires: defining detection criteria (sector_focus, sector_theme, or new flag in classification_v2).",
+    "write_gate": "BDB-COMPATIBLE-PROFILES-REGEN-WRITE-GATE-0: after resolving the 2 high-risk removal cases (LU1883330521, LU1095739733), proceed with write gate for remaining 10 stale funds excluding Hamco and the 14 HOLD funds."
+  },
+  "forbidden_contexts": {
+    "firestore_write_executed": false,
+    "deploy_executed": false,
+    "core_used": false,
+    "optimizer_modified": false,
+    "suitability_modified": false,
+    "frontend_modified": false,
+    "migrate_suitability_v2_executed": false
+  }
+}
