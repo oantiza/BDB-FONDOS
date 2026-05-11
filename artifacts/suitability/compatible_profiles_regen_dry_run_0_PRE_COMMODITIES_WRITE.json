@@ -1,6 +1,6 @@
 {
   "audit_id": "BDB-COMPATIBLE-PROFILES-REGEN-DRY-RUN-0",
-  "generated_at": "2026-05-11T15:21:53.932667+00:00",
+  "generated_at": "2026-05-11T11:54:44.312764+00:00",
   "dry_run": true,
   "write_executed": false,
   "firestore_read_executed": true,
@@ -26,20 +26,1149 @@
     "total_funds_scanned": 670,
     "with_compatible_profiles": 670,
     "without_compatible_profiles": 0,
-    "matching_count": 669,
-    "stale_count": 0,
+    "matching_count": 645,
+    "stale_count": 24,
     "missing_count": 0,
     "schema_invalid_count": 0,
     "skipped_count": 1,
     "mixed_total": 60,
-    "mixed_stale_count": 0,
+    "mixed_stale_count": 9,
     "mixed_missing_count": 0
   },
   "hamco_status": "Hamco fund — insufficient historical data, no portfolio_exposure_v2. Excluded from regen.",
-  "top_stale_examples": [],
-  "recommendation": "NO_ACTION_REQUIRED",
-  "recommendation_detail": "All compatible_profiles values are current and correct, or the field is absent from all funds (meaning frontend falls through to rule-based check).",
+  "top_stale_examples": [
+    {
+      "isin": "ES0118537002",
+      "name": "Olea Neutral FI",
+      "current": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "ES0162946034",
+      "name": "Abante Selección FI",
+      "current": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "current": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0090845842",
+      "name": "BlackRock Global Funds - World Mining Fund E2",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0119195963",
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+      "current": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0171306680",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0172157280",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0172157363",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    },
+    {
+      "isin": "LU0273148055",
+      "name": "DWS Invest Gold and Precious Metals Equities NC",
+      "current": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)"
+    }
+  ],
+  "recommendation": "REGEN_WRITE_GATE_NEEDED",
+  "recommendation_detail": "24 fund(s) have stale compatible_profiles (stored != computed). Of these, 9 are MIXED funds likely affected by the MIXED exposure remediation (gates 1-8, May 2026). Next: BDB-COMPATIBLE-PROFILES-REGEN-WRITE-GATE-0 with explicit diff manifest approval.",
   "per_fund_results": [
+    {
+      "isin": "ES0118537002",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 15.5,
+        "bond": 64.9,
+        "cash": 13.8,
+        "other": 5.8
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Olea Neutral FI"
+    },
+    {
+      "isin": "ES0162946034",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 41.2,
+        "bond": 47.1,
+        "cash": 1.5,
+        "other": 10.2
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Abante Selección FI"
+    },
+    {
+      "isin": "FR0010306142",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 35.4,
+        "bond": 46.8,
+        "cash": 5.1,
+        "other": 12.7
+      },
+      "exposure_confidence": 0.9,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Carmignac Patrimoine E EUR Acc"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc"
+    },
+    {
+      "isin": "LU0090845842",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "BlackRock Global Funds - World Mining Fund E2"
+    },
+    {
+      "isin": "LU0119195963",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 38.7,
+        "bond": 49.2,
+        "cash": 0.0,
+        "other": 12.1
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR"
+    },
+    {
+      "isin": "LU0171306680",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)"
+    },
+    {
+      "isin": "LU0172157280",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)"
+    },
+    {
+      "isin": "LU0172157363",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)"
+    },
+    {
+      "isin": "LU0273148055",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "DWS Invest Gold and Precious Metals Equities NC"
+    },
+    {
+      "isin": "LU0273159177",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "DWS Invest Gold and Precious Metals Equities LC"
+    },
+    {
+      "isin": "LU0326425351",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged"
+    },
+    {
+      "isin": "LU0404220724",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 44.4,
+        "bond": 50.3,
+        "cash": 4.2,
+        "other": 1.1
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR"
+    },
+    {
+      "isin": "LU0496368142",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1"
+    },
+    {
+      "isin": "LU0496369389",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR"
+    },
+    {
+      "isin": "LU0604766674",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR"
+    },
+    {
+      "isin": "LU1095739733",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 61.9,
+        "bond": 20.9,
+        "cash": 2.0,
+        "other": 15.3
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [4] would be REMOVED (fund now ineligible)",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares"
+    },
+    {
+      "isin": "LU1223083087",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Schroder International Selection Fund Global Gold A Accumulation EUR Hedged"
+    },
+    {
+      "isin": "LU1223084051",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Schroder International Selection Fund Global Gold A Accumulation PLN Hedged"
+    },
+    {
+      "isin": "LU1578889864",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "EQUITY",
+      "subtype": "THEMATIC_EQUITY",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 100.0
+      },
+      "exposure_confidence": 0.99,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Ninety One Global Strategy Fund - Global Gold Fund A Acc EUR Hedged(Reference)"
+    },
+    {
+      "isin": "LU1697017256",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 41.9,
+        "bond": 50.3,
+        "cash": 7.4,
+        "other": 0.4
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR"
+    },
+    {
+      "isin": "LU1883330521",
+      "current_compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "CONSERVATIVE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 31.7,
+        "bond": 50.5,
+        "cash": 10.9,
+        "other": 6.9
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [1, 2] would be REMOVED (fund now ineligible)",
+      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)"
+    },
+    {
+      "isin": "LU1883334275",
+      "current_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "FIXED_INCOME",
+      "subtype": "CORPORATE_BOND",
+      "economic_exposure": {
+        "equity": 0.0,
+        "bond": 100.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "exposure_confidence": 0.9000000000000001,
+      "is_mixed": false,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3, 4] would be ADDED (fund now eligible)",
+      "name": "Amundi Funds - Global Subordinated Bond A EUR (C)"
+    },
+    {
+      "isin": "LU1894680757",
+      "current_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "computed_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "status": "STALE",
+      "asset_class": "MIXED",
+      "subtype": "MODERATE_ALLOCATION",
+      "economic_exposure": {
+        "equity": 30.3,
+        "bond": 37.3,
+        "cash": 21.7,
+        "other": 10.7
+      },
+      "exposure_confidence": 0.85,
+      "is_mixed": true,
+      "likely_post_mixed_impact": false,
+      "write_recommended": true,
+      "reason": "profiles [3] would be ADDED (fund now eligible)",
+      "name": "Amundi Funds - Income Opportunities A2 EUR (C)"
+    },
     {
       "isin": "BE0943877671",
       "current_compatible_profiles": [
@@ -657,44 +1786,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Global Allocation R FI"
-    },
-    {
-      "isin": "ES0118537002",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 15.5,
-        "bond": 64.9,
-        "cash": 13.8,
-        "other": 5.8
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Olea Neutral FI"
     },
     {
       "isin": "ES0124880032",
@@ -2407,44 +3498,6 @@
       "name": "Metavalor Internacional I FI"
     },
     {
-      "isin": "ES0162946034",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 41.2,
-        "bond": 47.1,
-        "cash": 1.5,
-        "other": 10.2
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Abante Selección FI"
-    },
-    {
       "isin": "ES0162949012",
       "current_compatible_profiles": [
         4,
@@ -4133,44 +5186,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Groupama Avenir Euro NC"
-    },
-    {
-      "isin": "FR0010306142",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 35.4,
-        "bond": 46.8,
-        "cash": 5.1,
-        "other": 12.7
-      },
-      "exposure_confidence": 0.9,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Carmignac Patrimoine E EUR Acc"
     },
     {
       "isin": "FR0010312660",
@@ -7077,40 +8092,6 @@
       "name": "Jupiter Merian World Equity Fund L EUR Acc"
     },
     {
-      "isin": "IE00BYVJR916",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Jupiter Gold & Silver Fund L EUR Acc"
-    },
-    {
       "isin": "IE00BYX5NX33",
       "current_compatible_profiles": [
         5,
@@ -7799,40 +8780,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "DWS Concept DJE Alpha Renten Global LC"
-    },
-    {
-      "isin": "LU0090845842",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "BlackRock Global Funds - World Mining Fund E2"
     },
     {
       "isin": "LU0093503497",
@@ -8787,44 +9734,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "JPMorgan Funds - Europe Dynamic Fund D (acc) - EUR"
-    },
-    {
-      "isin": "LU0119195963",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 38.7,
-        "bond": 49.2,
-        "cash": 0.0,
-        "other": 12.1
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR"
     },
     {
       "isin": "LU0119620416",
@@ -10189,40 +11098,6 @@
       "name": "BlackRock Global Funds - World Financials Fund E2 (EUR)"
     },
     {
-      "isin": "LU0171306680",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)"
-    },
-    {
       "isin": "LU0171307068",
       "current_compatible_profiles": [
         6,
@@ -10285,74 +11160,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "BlackRock Global Funds - World Healthscience Fund E2 (EUR)"
-    },
-    {
-      "isin": "LU0172157280",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)"
-    },
-    {
-      "isin": "LU0172157363",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)"
     },
     {
       "isin": "LU0173779223",
@@ -12577,74 +13384,6 @@
       "name": "Pictet-Security R EUR"
     },
     {
-      "isin": "LU0273148055",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "DWS Invest Gold and Precious Metals Equities NC"
-    },
-    {
-      "isin": "LU0273159177",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "DWS Invest Gold and Precious Metals Equities LC"
-    },
-    {
       "isin": "LU0273690064",
       "current_compatible_profiles": [
         5,
@@ -13493,40 +14232,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Digital Funds Stars Europe R"
-    },
-    {
-      "isin": "LU0326425351",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged"
     },
     {
       "isin": "LU0329070915",
@@ -14495,44 +15200,6 @@
       "name": "DWS Invest Latin American Equities LC"
     },
     {
-      "isin": "LU0404220724",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 44.4,
-        "bond": 50.3,
-        "cash": 4.2,
-        "other": 1.1
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR"
-    },
-    {
       "isin": "LU0413376566",
       "current_compatible_profiles": [
         3,
@@ -14913,74 +15580,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Robeco Indian Equities D €"
-    },
-    {
-      "isin": "LU0496368142",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1"
-    },
-    {
-      "isin": "LU0496369389",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR"
     },
     {
       "isin": "LU0501220429",
@@ -16017,40 +16616,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Nordea 1 - Emerging Sustainable Stars Equity Fund BP EUR"
-    },
-    {
-      "isin": "LU0604766674",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR"
     },
     {
       "isin": "LU0607225447",
@@ -18199,40 +18764,6 @@
       "name": "Allianz Global Investors Fund - Allianz Floating Rate Notes Plus VarioZins AT EUR"
     },
     {
-      "isin": "LU1095739733",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 61.9,
-        "bond": 20.9,
-        "cash": 2.0,
-        "other": 15.3
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares"
-    },
-    {
       "isin": "LU1103303167",
       "current_compatible_profiles": [
         5,
@@ -18693,74 +19224,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Fidelity Funds - Global Technology Fund A-Acc-EUR"
-    },
-    {
-      "isin": "LU1223083087",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Schroder International Selection Fund Global Gold A Accumulation EUR Hedged"
-    },
-    {
-      "isin": "LU1223084051",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Schroder International Selection Fund Global Gold A Accumulation PLN Hedged"
     },
     {
       "isin": "LU1244893696",
@@ -20109,40 +20572,6 @@
       "name": "Allianz Global Investors Fund - Allianz Global Artificial Intelligence AT EUR"
     },
     {
-      "isin": "LU1578889864",
-      "current_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "EQUITY",
-      "subtype": "THEMATIC_EQUITY",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 0.0,
-        "cash": 0.0,
-        "other": 100.0
-      },
-      "exposure_confidence": 0.99,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Ninety One Global Strategy Fund - Global Gold Fund A Acc EUR Hedged(Reference)"
-    },
-    {
       "isin": "LU1582984149",
       "current_compatible_profiles": [
         1,
@@ -21033,44 +21462,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Sigma Investment House FCP - Selection Conservative Class A EUR"
-    },
-    {
-      "isin": "LU1697017256",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 41.9,
-        "bond": 50.3,
-        "cash": 7.4,
-        "other": 0.4
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR"
     },
     {
       "isin": "LU1697017686",
@@ -22023,82 +22414,6 @@
       "name": "Amundi Funds - Global Multi-Asset Conservative A EUR (C)"
     },
     {
-      "isin": "LU1883330521",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "CONSERVATIVE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 31.7,
-        "bond": 50.5,
-        "cash": 10.9,
-        "other": 6.9
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)"
-    },
-    {
-      "isin": "LU1883334275",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "FIXED_INCOME",
-      "subtype": "CORPORATE_BOND",
-      "economic_exposure": {
-        "equity": 0.0,
-        "bond": 100.0,
-        "cash": 0.0,
-        "other": 0.0
-      },
-      "exposure_confidence": 0.9000000000000001,
-      "is_mixed": false,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Amundi Funds - Global Subordinated Bond A EUR (C)"
-    },
-    {
       "isin": "LU1883340322",
       "current_compatible_profiles": [
         5,
@@ -22199,44 +22514,6 @@
       "write_recommended": false,
       "reason": "Stored compatible_profiles matches computed value.",
       "name": "Amundi Funds - Global Equity C EUR (C)"
-    },
-    {
-      "isin": "LU1894680757",
-      "current_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "computed_compatible_profiles": [
-        3,
-        4,
-        5,
-        6,
-        7,
-        8,
-        9,
-        10
-      ],
-      "status": "MATCH",
-      "asset_class": "MIXED",
-      "subtype": "MODERATE_ALLOCATION",
-      "economic_exposure": {
-        "equity": 30.3,
-        "bond": 37.3,
-        "cash": 21.7,
-        "other": 10.7
-      },
-      "exposure_confidence": 0.85,
-      "is_mixed": true,
-      "likely_post_mixed_impact": false,
-      "write_recommended": false,
-      "reason": "Stored compatible_profiles matches computed value.",
-      "name": "Amundi Funds - Income Opportunities A2 EUR (C)"
     },
     {
       "isin": "LU1897556517",

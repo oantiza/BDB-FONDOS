@@ -71,7 +71,7 @@ def _load_json(path: Path) -> dict:
     if not path.exists():
         print(f"[ABORT] Required artifact not found: {path}")
         sys.exit(1)
-    with open(path, encoding="utf-8") as f:
+    with open(path, encoding="utf-8-sig") as f:
         return json.load(f)
 
 
@@ -170,6 +170,10 @@ def main():
     total_written = 0
     pass_count = 0
     fail_count = 0
+    drift_count = 0
+    compatible_profiles_changed_count = 0
+    forbidden_fields_changed_count = 0
+    EXPECTED_CP = sorted([5, 6, 7, 8, 9, 10])
 
     for isin in ALLOWED_ISINS:
         print(f"\n{'-' * 60}")
@@ -200,12 +204,28 @@ def main():
         name        = live_data.get("name", "")
         live_is_sf  = live_class.get("is_sector_fund")
         live_sf_foc = live_class.get("sector_focus")
+        live_cp_raw = live_class.get("compatible_profiles", [])
+        live_cp     = sorted(int(x) for x in live_cp_raw) if live_cp_raw else []
 
         print(f"  name: {name}")
         print(f"  live: is_sector_fund={live_is_sf} | sector_focus={live_sf_foc}")
+        print(f"  live: compatible_profiles={live_cp}")
         print(f"  propose: is_sector_fund={proposed_is_sector_fund} | sector_focus={proposed_sector_focus}")
 
-        # Drift check: if already correct, skip with OK
+        # Pre-write: verify compatible_profiles is [5..10] — ABORT if drifted
+        if live_cp != EXPECTED_CP:
+            print(f"  [ABORT] compatible_profiles DRIFT detected! live={live_cp} expected={EXPECTED_CP}")
+            print(f"          Aborting entire write operation. No writes executed.")
+            drift_count += 1
+            per_fund_results.append({
+                "isin": isin, "name": name, "status": "ABORTED_CP_DRIFT",
+                "write_executed": False,
+                "before_compatible_profiles": live_cp,
+                "expected_compatible_profiles": EXPECTED_CP,
+            })
+            break
+
+        # Drift check: if is_sector_fund already correct, skip with OK
         if live_is_sf is True and live_sf_foc == proposed_sector_focus:
             print(f"  [INFO] Already correct — skipping write")
             per_fund_results.append({
@@ -213,6 +233,8 @@ def main():
                 "write_executed": False,
                 "is_sector_fund_before": live_is_sf, "is_sector_fund_after": live_is_sf,
                 "sector_focus_before": live_sf_foc, "sector_focus_after": live_sf_foc,
+                "before_compatible_profiles": live_cp, "after_compatible_profiles": live_cp,
+                "compatible_profiles_intact": True,
             })
             pass_count += 1
             continue
@@ -241,8 +263,14 @@ def main():
         post_class   = _safe_dict(post_data.get("classification_v2"))
         actual_is_sf = post_class.get("is_sector_fund")
         actual_sf    = post_class.get("sector_focus")
+        post_cp_raw  = post_class.get("compatible_profiles", [])
+        post_cp      = sorted(int(x) for x in post_cp_raw) if post_cp_raw else []
 
         write_ok = (actual_is_sf is True and actual_sf == proposed_sector_focus)
+        cp_intact = (post_cp == live_cp)
+        if not cp_intact:
+            compatible_profiles_changed_count += 1
+            print(f"  [CRITICAL] compatible_profiles CHANGED! before={live_cp} after={post_cp}")
 
         # Forbidden field integrity check
         forbidden_after  = _snapshot_forbidden_values(post_data)
@@ -254,16 +282,21 @@ def main():
                 forbidden_intact = False
                 forbidden_issues.append(fk)
                 print(f"  [WARN] Forbidden field changed: {fk}")
+        if not forbidden_intact:
+            forbidden_fields_changed_count += 1
 
-        status = "PASS" if (write_ok and forbidden_intact) else "FAIL"
+        status = "PASS" if (write_ok and forbidden_intact and cp_intact) else "FAIL"
         if status == "PASS":
             pass_count += 1
             print(f"  [VERIFY] OK: is_sector_fund={actual_is_sf}, sector_focus={actual_sf!r}")
+            print(f"  [VERIFY] OK: compatible_profiles={post_cp} unchanged")
             print(f"  [VERIFY] OK: Forbidden fields intact")
         else:
             fail_count += 1
             if not write_ok:
                 print(f"  [VERIFY] FAIL: actual is_sector_fund={actual_is_sf}, sector_focus={actual_sf!r}")
+            if not cp_intact:
+                print(f"  [VERIFY] FAIL: compatible_profiles changed: {live_cp} -> {post_cp}")
             if not forbidden_intact:
                 print(f"  [VERIFY] FAIL: Forbidden field issues: {forbidden_issues}")
 
@@ -272,6 +305,10 @@ def main():
             "write_executed": True,
             "is_sector_fund_before": live_is_sf, "is_sector_fund_after": actual_is_sf,
             "sector_focus_before": live_sf_foc, "sector_focus_after": actual_sf,
+            "expected_sector_focus": proposed_sector_focus,
+            "before_compatible_profiles": live_cp,
+            "after_compatible_profiles": post_cp,
+            "compatible_profiles_intact": cp_intact,
             "write_ok": write_ok,
             "forbidden_fields_intact": forbidden_intact,
             "forbidden_field_issues": forbidden_issues,
@@ -286,15 +323,20 @@ def main():
         "write_executed": total_written > 0,
         "total_selected": len(ALLOWED_ISINS),
         "total_written": total_written,
+        "total_verified": pass_count + fail_count,
         "pass_count": pass_count,
         "fail_count": fail_count,
-        "all_pass": fail_count == 0,
+        "drift_count": drift_count,
+        "compatible_profiles_changed_count": compatible_profiles_changed_count,
+        "forbidden_fields_changed_count": forbidden_fields_changed_count,
+        "all_pass": fail_count == 0 and drift_count == 0 and compatible_profiles_changed_count == 0,
         "fields_updated": ALLOWED_FIELDS,
         "collection": COLLECTION,
         "deploy_executed": False,
         "core_modified": False,
         "suitability_engine_modified": False,
-        "compatible_profiles_modified": False,
+        "compatible_profiles_modified": compatible_profiles_changed_count > 0,
+        "migrate_suitability_executed": False,
         "rollback_available": str(ROLLBACK_PATH),
         "per_fund_results": per_fund_results,
     }

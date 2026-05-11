@@ -1,0 +1,518 @@
+{
+  "audit_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-CONTROLLED-0",
+  "gate_id": "BDB-SUITABILITY-THEMATIC-COMMODITIES-CLASSIFICATION-WRITE-GATE-0",
+  "executed_at": "2026-05-11T15:21:33.305410+00:00",
+  "write_executed": true,
+  "total_selected": 14,
+  "total_written": 14,
+  "total_verified": 14,
+  "pass_count": 14,
+  "fail_count": 0,
+  "drift_count": 0,
+  "compatible_profiles_changed_count": 0,
+  "forbidden_fields_changed_count": 0,
+  "all_pass": true,
+  "fields_updated": [
+    "classification_v2.is_sector_fund",
+    "classification_v2.sector_focus"
+  ],
+  "collection": "funds_v3",
+  "deploy_executed": false,
+  "core_modified": false,
+  "suitability_engine_modified": false,
+  "compatible_profiles_modified": false,
+  "migrate_suitability_executed": false,
+  "rollback_available": "C:\\Users\\oanti\\Documents\\BDB-FONDOS\\artifacts\\suitability\\thematic_commodities_classification_gate_0\\rollback_manifest.json",
+  "per_fund_results": [
+    {
+      "isin": "IE00BYVJR916",
+      "name": "Jupiter Gold & Silver Fund L EUR Acc",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0090845842",
+      "name": "BlackRock Global Funds - World Mining Fund E2",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "MINING",
+      "expected_sector_focus": "MINING",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0171306680",
+      "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0172157280",
+      "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "MINING",
+      "expected_sector_focus": "MINING",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0172157363",
+      "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "MINING",
+      "expected_sector_focus": "MINING",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0273148055",
+      "name": "DWS Invest Gold and Precious Metals Equities NC",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0273159177",
+      "name": "DWS Invest Gold and Precious Metals Equities LC",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0326425351",
+      "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "MINING",
+      "expected_sector_focus": "MINING",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0496368142",
+      "name": "Franklin Gold & Precious Metals Fund A(acc)EUR-H1",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0496369389",
+      "name": "Franklin Gold & Precious Metals Fund N(acc)EUR",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU0604766674",
+      "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "MINING",
+      "expected_sector_focus": "MINING",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU1223083087",
+      "name": "Schroder International Selection Fund Global Gold A Accumulation EUR Hedged",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU1223084051",
+      "name": "Schroder International Selection Fund Global Gold A Accumulation PLN Hedged",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    },
+    {
+      "isin": "LU1578889864",
+      "name": "Ninety One Global Strategy Fund - Global Gold Fund A Acc EUR Hedged(Reference)",
+      "status": "PASS",
+      "write_executed": true,
+      "is_sector_fund_before": false,
+      "is_sector_fund_after": true,
+      "sector_focus_before": "UNKNOWN",
+      "sector_focus_after": "PRECIOUS_METALS",
+      "expected_sector_focus": "PRECIOUS_METALS",
+      "before_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "after_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_intact": true,
+      "write_ok": true,
+      "forbidden_fields_intact": true,
+      "forbidden_field_issues": [],
+      "fields_updated": [
+        "classification_v2.is_sector_fund",
+        "classification_v2.sector_focus"
+      ]
+    }
+  ]
+}
