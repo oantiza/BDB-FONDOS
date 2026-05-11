@@ -1,3 +1,35 @@
+# =============================================================================
+# !! DO NOT RUN DIRECTLY — HISTORICAL MIGRATION SCRIPT !!
+# =============================================================================
+# STATUS:       HISTORICAL — NOT SAFE TO EXECUTE WITHOUT EXPLICIT GATE
+# RISK LEVEL:   HIGH — Writes to Firestore production collection (funds_v3)
+#
+# REASON FOR GUARD:
+#   This script populates `classification_v2.compatible_profiles` by running
+#   is_fund_eligible_for_profile() against ALL funds in funds_v3.
+#
+#   CRITICAL: After the MIXED exposure remediation (commit 2db5a24, May 2026),
+#   portfolio_exposure_v2.economic_exposure was corrected for 59/60 MIXED funds.
+#   Any `compatible_profiles` values written BEFORE that remediation are STALE
+#   because they were computed from incorrect real_eq values (fallback 50/50).
+#
+# BEFORE RUNNING:
+#   1. Perform a DRY-RUN that logs proposed changes WITHOUT writing.
+#   2. Generate a DIFF MANIFEST and review all profile changes.
+#   3. Obtain explicit approval from the responsible engineer.
+#   4. Run on a SUBSET first and verify in production.
+#   5. POST-VERIFICATION: confirm frontend suitability matches backend engine.
+#
+# DEPENDENCY:
+#   - `portfolio_exposure_v2.economic_exposure` must be current and correct.
+#   - Hamco (LU3038481936) has no exposure data — skip or handle explicitly.
+#   - `suitability_version` field written is informational only (not read by any runtime code).
+#
+# REFERENCE:
+#   docs/BDB_SUITABILITY_HARDCODED_CONTRACT_AUDIT_0.md
+#   docs/BDB_SUITABILITY_CONTRACT_TESTS_0.md
+# =============================================================================
+
 import os
 import sys
 
