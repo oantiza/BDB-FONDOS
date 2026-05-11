@@ -1,0 +1,467 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-7",
+  "generated_at_utc": "2026-05-11T05:06:02.871529+00:00",
+  "mode": "dry-run",
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "ES0116848005",
+      "name": "Global Allocation R FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 0.0,
+        "bond": 100.0,
+        "cash": 0.0,
+        "other": 0.0,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 0.0,
+        "bond": 100.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "delta_equity": -50.0,
+      "delta_bond": 50.0,
+      "delta_cash": 0.0,
+      "delta_other": 0.0,
+      "rationale_for_approve": "Flexible Allocation 50->0.0%. MS sum=100.0. Global Allocation R FI. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=-50.0pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0251119078",
+      "name": "Fidelity Funds - Fidelity Target™ 2035 Fund A-Acc-EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 98.8,
+        "bond": 0.07,
+        "cash": 0.76,
+        "other": 0.37,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 98.8,
+        "bond": 0.1,
+        "cash": 0.8,
+        "other": 0.4
+      },
+      "delta_equity": 48.8,
+      "delta_bond": -49.9,
+      "delta_cash": 0.8,
+      "delta_other": 0.4,
+      "rationale_for_approve": "Flexible Allocation 50->98.8%. MS sum=100.0. Fidelity Funds - Fidelity Target™ 2035 Fund A-Acc-EUR. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+48.8pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1899019175",
+      "name": "Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 96.14,
+        "bond": 1.65,
+        "cash": 2.19,
+        "other": 0.01,
+        "sum": 99.99
+      },
+      "proposed_economic_exposure": {
+        "equity": 96.1,
+        "bond": 1.7,
+        "cash": 2.2,
+        "other": 0.0
+      },
+      "delta_equity": 46.1,
+      "delta_bond": -48.3,
+      "delta_cash": 2.2,
+      "delta_other": 0.0,
+      "rationale_for_approve": "Flexible Allocation 50->96.1%. MS sum=99.99. Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+46.1pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0162305033",
+      "name": "Merch-Oportunidades FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 100.0,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 7.17,
+        "sum": 107.17
+      },
+      "proposed_economic_exposure": {
+        "equity": 93.3,
+        "bond": 0.0,
+        "cash": 0.0,
+        "other": 6.7
+      },
+      "delta_equity": 43.3,
+      "delta_bond": -50.0,
+      "delta_cash": 0.0,
+      "delta_other": 6.7,
+      "rationale_for_approve": "Flexible Allocation 50->93.3%. MS sum=107.17. Merch-Oportunidades FI. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+43.3pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0131462022",
+      "name": "Gestion Boutique V Robotics R FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 89.75,
+        "bond": 0.0,
+        "cash": 8.23,
+        "other": 2.03,
+        "sum": 100.01
+      },
+      "proposed_economic_exposure": {
+        "equity": 89.7,
+        "bond": 0.0,
+        "cash": 8.2,
+        "other": 2.0
+      },
+      "delta_equity": 39.7,
+      "delta_bond": -50.0,
+      "delta_cash": 8.2,
+      "delta_other": 2.0,
+      "rationale_for_approve": "Flexible Allocation 50->89.7%. MS sum=100.01. Gestion Boutique V Robotics R FI. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+39.7pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0110407006",
+      "name": "Gestión Boutique VI Argos FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 87.79,
+        "bond": 4.5,
+        "cash": 0.0,
+        "other": 7.72,
+        "sum": 100.01
+      },
+      "proposed_economic_exposure": {
+        "equity": 87.8,
+        "bond": 4.5,
+        "cash": 0.0,
+        "other": 7.7
+      },
+      "delta_equity": 37.8,
+      "delta_bond": -45.5,
+      "delta_cash": 0.0,
+      "delta_other": 7.7,
+      "rationale_for_approve": "Flexible Allocation 50->87.8%. MS sum=100.01. Gestión Boutique VI Argos FI. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+37.8pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1697018064",
+      "name": "Sigma Investment House FCP - Best Morgan Stanley Class A EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 86.62,
+        "bond": 6.91,
+        "cash": 4.38,
+        "other": 2.09,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 86.6,
+        "bond": 6.9,
+        "cash": 4.4,
+        "other": 2.1
+      },
+      "delta_equity": 36.6,
+      "delta_bond": -43.1,
+      "delta_cash": 4.4,
+      "delta_other": 2.1,
+      "rationale_for_approve": "Flexible Allocation 50->86.6%. MS sum=100.0. Sigma Investment House FCP - Best Morgan Stanley Class A EUR. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+36.6pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU1899018870",
+      "name": "Sigma Investment House FCP - Best M&G Class A EUR Accumulation",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 14.82,
+        "bond": 74.14,
+        "cash": 10.94,
+        "other": 0.1,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 14.8,
+        "bond": 74.1,
+        "cash": 10.9,
+        "other": 0.1
+      },
+      "delta_equity": -35.2,
+      "delta_bond": 24.1,
+      "delta_cash": 10.9,
+      "delta_other": 0.1,
+      "rationale_for_approve": "Flexible Allocation 50->14.8%. MS sum=100.0. Sigma Investment House FCP - Best M&G Class A EUR Accumulation. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=-35.2pp. Alto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "FR0013219243",
+      "name": "EdR SICAV - Equity Euro Solve A EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 75.46,
+        "bond": 0.0,
+        "cash": 25.07,
+        "other": 0.02,
+        "sum": 100.55
+      },
+      "proposed_economic_exposure": {
+        "equity": 75.0,
+        "bond": 0.0,
+        "cash": 24.9,
+        "other": 0.0
+      },
+      "delta_equity": 25.0,
+      "delta_bond": -50.0,
+      "delta_cash": 24.9,
+      "delta_other": 0.0,
+      "rationale_for_approve": "Flexible Allocation 50->75.0%. MS sum=100.55. EdR SICAV - Equity Euro Solve A EUR. Coherent with strategy.",
+      "potential_suitability_impact": "eq delta=+25.0pp. Moderado.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,87 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-7",
+  "generated_at_utc": "2026-05-11T05:06:02.871529+00:00",
+  "batch_number": 7,
+  "batch_type": "review_required_all_remaining_approve",
+  "selected_isins": [
+    {
+      "isin": "ES0116848005",
+      "name": "Global Allocation R FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -50.0,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->0.0%. MS sum=100.0. Global Allocation R FI. Coherent with strategy."
+    },
+    {
+      "isin": "LU0251119078",
+      "name": "Fidelity Funds - Fidelity Target™ 2035 Fund A-Acc-EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 48.8,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->98.8%. MS sum=100.0. Fidelity Funds - Fidelity Target™ 2035 Fund A-Acc-EUR. Coherent with strategy."
+    },
+    {
+      "isin": "LU1899019175",
+      "name": "Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 46.1,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->96.1%. MS sum=99.99. Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation. Coherent with strategy."
+    },
+    {
+      "isin": "ES0162305033",
+      "name": "Merch-Oportunidades FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 43.3,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->93.3%. MS sum=107.17. Merch-Oportunidades FI. Coherent with strategy."
+    },
+    {
+      "isin": "ES0131462022",
+      "name": "Gestion Boutique V Robotics R FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 39.7,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->89.7%. MS sum=100.01. Gestion Boutique V Robotics R FI. Coherent with strategy."
+    },
+    {
+      "isin": "ES0110407006",
+      "name": "Gestión Boutique VI Argos FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 37.8,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->87.8%. MS sum=100.01. Gestión Boutique VI Argos FI. Coherent with strategy."
+    },
+    {
+      "isin": "LU1697018064",
+      "name": "Sigma Investment House FCP - Best Morgan Stanley Class A EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 36.6,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->86.6%. MS sum=100.0. Sigma Investment House FCP - Best Morgan Stanley Class A EUR. Coherent with strategy."
+    },
+    {
+      "isin": "LU1899018870",
+      "name": "Sigma Investment House FCP - Best M&G Class A EUR Accumulation",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": -35.2,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->14.8%. MS sum=100.0. Sigma Investment House FCP - Best M&G Class A EUR Accumulation. Coherent with strategy."
+    },
+    {
+      "isin": "FR0013219243",
+      "name": "EdR SICAV - Equity Euro Solve A EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "delta_equity": 25.0,
+      "risk_level": "HIGH",
+      "rationale": "Flexible Allocation 50->75.0%. MS sum=100.55. EdR SICAV - Equity Euro Solve A EUR. Coherent with strategy."
+    }
+  ],
+  "counts": {
+    "selected": 9,
+    "remaining_approve": 0,
+    "hold_block": 2,
+    "review_manual": 3,
+    "no_ms_data": 1
+  }
+}
