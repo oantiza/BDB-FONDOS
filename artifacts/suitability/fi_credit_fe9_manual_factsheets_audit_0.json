@@ -1,0 +1,314 @@
+{
+  "audit_id": "BDB-FI-CREDIT-FE9-MANUAL-FACTSHEETS-0",
+  "generated_at": "2026-05-11T19:07:18.611793+00:00",
+  "dry_run": true,
+  "write_executed": false,
+  "fe9_activation": false,
+  "deploy_executed": false,
+  "collection": "funds_v3",
+  "total_reviewed": 3,
+  "per_fund_results": [
+    {
+      "isin": "LU1919971074",
+      "name": "abrdn SICAV I - Frontier Markets Bond Fund A Acc Hedged EUR",
+      "prior_status": "NEEDS_MANUAL_FACTSHEET",
+      "current_subtype": "CORPORATE_BOND",
+      "asset_type": "fixed_income",
+      "compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "affected_profiles_if_warning_le4": [
+        3,
+        4
+      ],
+      "affected_profiles_if_hard_block_le4": [
+        3,
+        4
+      ],
+      "risk_bucket": "MEDIUM",
+      "fi_credit_bucket": "LOW_QUALITY",
+      "fi_credit": {
+        "scale": "percent_of_bond_bucket",
+        "investment_grade": 6.81,
+        "breakdown": {
+          "B": 40.76,
+          "AA": 0.0,
+          "BB": 10.96,
+          "A": 3.65,
+          "BBB": 3.08,
+          "not_rated": 6.28,
+          "below_B": 35.19,
+          "AAA": 0.08
+        },
+        "warnings": [],
+        "source": "morningstar_pdf",
+        "low_quality": 86.91,
+        "high_yield": 86.91,
+        "not_rated": 6.28,
+        "as_of": null,
+        "coverage": 1.0
+      },
+      "low_quality_bond_bucket": 86.91,
+      "investment_grade": 6.81,
+      "not_rated": 6.28,
+      "coverage": 1.0,
+      "scale": "percent_of_bond_bucket",
+      "source": "morningstar_pdf",
+      "as_of": null,
+      "bond_weight": 100.0,
+      "low_quality_total_portfolio_estimate": 86.91,
+      "economic_exposure": {
+        "other": 0.0,
+        "cash": 0.0,
+        "equity": 0.0,
+        "bond": 100.0
+      },
+      "exposure_confidence": 0.9300000000000002,
+      "ms_category": "RF Global Emergente - Sesgo EUR",
+      "average_credit_quality": null,
+      "ms_credit_quality_breakdown": {
+        "b": 40.76,
+        "below_b": 35.19,
+        "aa": 0,
+        "bbb": 3.08,
+        "aaa": 0.08,
+        "not_rated": 6.28,
+        "a": 3.65,
+        "bb": 10.96
+      },
+      "std_perf_keys": [
+        "return",
+        "last_updated",
+        "rf_source",
+        "var95",
+        "sharpe",
+        "max_drawdown",
+        "volatility",
+        "cagr3y",
+        "cvar95",
+        "window_points",
+        "last_calculated_at"
+      ],
+      "manual_data_needed": {
+        "official_factsheet": true,
+        "average_credit_quality": true,
+        "duration": true,
+        "volatility": true,
+        "fund_category_confirmed": true,
+        "investment_objective": true,
+        "high_yield_or_subordinated_confirmed": true,
+        "frontier_or_em_confirmed": false
+      },
+      "proposed_decision_placeholder": "NEEDS_FACTSHEET",
+      "write_recommended": false,
+      "fe9_activation": false
+    },
+    {
+      "isin": "LU2002383896",
+      "name": "Allianz Global Investors Fund - Allianz Credit Opportunities Plus AT EUR",
+      "prior_status": "NEEDS_MANUAL_FACTSHEET",
+      "current_subtype": "CORPORATE_BOND",
+      "asset_type": "fixed_income",
+      "compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "affected_profiles_if_warning_le4": [
+        3,
+        4
+      ],
+      "affected_profiles_if_hard_block_le4": [
+        3,
+        4
+      ],
+      "risk_bucket": "MEDIUM",
+      "fi_credit_bucket": "LOW_QUALITY",
+      "fi_credit": {
+        "scale": "percent_of_bond_bucket",
+        "investment_grade": 15.3,
+        "breakdown": {
+          "B": 21.23,
+          "AA": 0.0,
+          "BB": 62.7,
+          "A": 1.92,
+          "BBB": 13.22,
+          "not_rated": 0.77,
+          "below_B": 0.0,
+          "AAA": 0.16
+        },
+        "warnings": [],
+        "source": "morningstar_pdf",
+        "low_quality": 83.93,
+        "high_yield": 83.93,
+        "not_rated": 0.77,
+        "as_of": null,
+        "coverage": 1.0
+      },
+      "low_quality_bond_bucket": 83.93,
+      "investment_grade": 15.3,
+      "not_rated": 0.77,
+      "coverage": 1.0,
+      "scale": "percent_of_bond_bucket",
+      "source": "morningstar_pdf",
+      "as_of": null,
+      "bond_weight": 100.0,
+      "low_quality_total_portfolio_estimate": 83.93,
+      "economic_exposure": {
+        "other": 0.0,
+        "cash": 0.0,
+        "equity": 0.0,
+        "bond": 100.0
+      },
+      "exposure_confidence": 0.9300000000000002,
+      "ms_category": "RF Flexible EUR",
+      "average_credit_quality": null,
+      "ms_credit_quality_breakdown": {
+        "b": 21.23,
+        "below_b": 0,
+        "aa": 0,
+        "bbb": 13.22,
+        "aaa": 0.16,
+        "not_rated": 0.77,
+        "a": 1.92,
+        "bb": 62.7
+      },
+      "std_perf_keys": [
+        "return",
+        "cvar95",
+        "var95",
+        "sharpe",
+        "last_updated",
+        "max_drawdown",
+        "volatility"
+      ],
+      "manual_data_needed": {
+        "official_factsheet": true,
+        "average_credit_quality": true,
+        "duration": true,
+        "volatility": true,
+        "fund_category_confirmed": true,
+        "investment_objective": true,
+        "high_yield_or_subordinated_confirmed": true,
+        "frontier_or_em_confirmed": false
+      },
+      "proposed_decision_placeholder": "NEEDS_FACTSHEET",
+      "write_recommended": false,
+      "fe9_activation": false
+    },
+    {
+      "isin": "LU0151324935",
+      "name": "Candriam Bonds Credit Opportunities Class N EUR Cap",
+      "prior_status": "NO_ACTION_SUBTYPE_REVIEW",
+      "current_subtype": "CORPORATE_BOND",
+      "asset_type": "fixed_income",
+      "compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "affected_profiles_if_warning_le4": [
+        3,
+        4
+      ],
+      "affected_profiles_if_hard_block_le4": [
+        3,
+        4
+      ],
+      "risk_bucket": "MEDIUM",
+      "fi_credit_bucket": "LOW_QUALITY",
+      "fi_credit": {
+        "scale": "percent_of_bond_bucket",
+        "investment_grade": 12.35,
+        "breakdown": {
+          "B": 20.01,
+          "AA": 0.0,
+          "BB": 59.42,
+          "A": 1.7,
+          "BBB": 10.65,
+          "not_rated": 8.22,
+          "below_B": 0.0,
+          "AAA": 0.0
+        },
+        "warnings": [],
+        "source": "morningstar_pdf",
+        "low_quality": 79.43,
+        "high_yield": 79.43,
+        "not_rated": 8.22,
+        "as_of": null,
+        "coverage": 1.0
+      },
+      "low_quality_bond_bucket": 79.43,
+      "investment_grade": 12.35,
+      "not_rated": 8.22,
+      "coverage": 1.0,
+      "scale": "percent_of_bond_bucket",
+      "source": "morningstar_pdf",
+      "as_of": null,
+      "bond_weight": 100.0,
+      "low_quality_total_portfolio_estimate": 79.43,
+      "economic_exposure": {
+        "other": 0.0,
+        "cash": 0.0,
+        "equity": 0.0,
+        "bond": 100.0
+      },
+      "exposure_confidence": 0.9000000000000001,
+      "ms_category": "Global Flexible Bond - EUR Hedged",
+      "average_credit_quality": null,
+      "ms_credit_quality_breakdown": {
+        "b": 20.01,
+        "below_b": 0,
+        "aa": 0,
+        "bbb": 10.65,
+        "aaa": 0,
+        "not_rated": 8.22,
+        "a": 1.7,
+        "bb": 59.42
+      },
+      "std_perf_keys": [
+        "return",
+        "last_updated",
+        "rf_source",
+        "var95",
+        "sharpe",
+        "max_drawdown",
+        "volatility",
+        "cagr3y",
+        "cvar95",
+        "window_points",
+        "last_calculated_at"
+      ],
+      "manual_data_needed": {
+        "official_factsheet": true,
+        "average_credit_quality": true,
+        "duration": true,
+        "volatility": true,
+        "fund_category_confirmed": true,
+        "investment_objective": true,
+        "high_yield_or_subordinated_confirmed": true,
+        "frontier_or_em_confirmed": false
+      },
+      "proposed_decision_placeholder": "SUBTYPE_REVIEW",
+      "write_recommended": false,
+      "fe9_activation": false
+    }
+  ]
+}
