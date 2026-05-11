@@ -1,0 +1,184 @@
+{
+  "gate_id": "BDB-COMPATIBLE-PROFILES-REGEN-WRITE-GATE-0",
+  "generated_at": "2026-05-11T13:54:53.104002+00:00",
+  "write_executed": false,
+  "purpose": "Restore classification_v2.compatible_profiles to pre-write values if rollback is needed.",
+  "rollback_field": "classification_v2.compatible_profiles",
+  "no_deletes": true,
+  "no_other_fields": true,
+  "rollback_count": 10,
+  "rollbacks": [
+    {
+      "isin": "ES0118537002",
+      "name": "Olea Neutral FI",
+      "document_path": "funds_v3/ES0118537002",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "ES0162946034",
+      "name": "Abante Selección FI",
+      "document_path": "funds_v3/ES0162946034",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "document_path": "funds_v3/FR0010306142",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU0119195963",
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+      "document_path": "funds_v3/LU0119195963",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "document_path": "funds_v3/LU0404220724",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU1697017256",
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+      "document_path": "funds_v3/LU1697017256",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU1894680757",
+      "name": "Amundi Funds - Income Opportunities A2 EUR (C)",
+      "document_path": "funds_v3/LU1894680757",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU1883334275",
+      "name": "Amundi Funds - Global Subordinated Bond A EUR (C)",
+      "document_path": "funds_v3/LU1883334275",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "document_path": "funds_v3/LU1095739733",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    },
+    {
+      "isin": "LU1883330521",
+      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)",
+      "document_path": "funds_v3/LU1883330521",
+      "restore_field": "classification_v2.compatible_profiles",
+      "restore_value": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "note": "Set classification_v2.compatible_profiles back to this value to undo write gate changes."
+    }
+  ]
+}

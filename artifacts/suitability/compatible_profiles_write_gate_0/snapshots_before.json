@@ -1,0 +1,363 @@
+{
+  "gate_id": "BDB-COMPATIBLE-PROFILES-REGEN-WRITE-GATE-0",
+  "generated_at": "2026-05-11T13:54:53.104002+00:00",
+  "write_executed": false,
+  "snapshot_count": 10,
+  "purpose": "Pre-write snapshot for audit and rollback reference.",
+  "snapshots": [
+    {
+      "isin": "ES0118537002",
+      "name": "Olea Neutral FI",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 15.5,
+          "bond": 64.9,
+          "cash": 13.8,
+          "other": 5.8
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "ES0162946034",
+      "name": "Abante Selección FI",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 41.2,
+          "bond": 47.1,
+          "cash": 1.5,
+          "other": 10.2
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 35.4,
+          "bond": 46.8,
+          "cash": 5.1,
+          "other": 12.7
+        },
+        "exposure_confidence": 0.9,
+        "warnings": [
+          "EXPOSURE_SOURCE_OFFICIAL_FACTSHEET"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "LU0119195963",
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 38.7,
+          "bond": 49.2,
+          "cash": 0.0,
+          "other": 12.1
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 44.4,
+          "bond": 50.3,
+          "cash": 4.2,
+          "other": 1.1
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "LU1697017256",
+      "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 41.9,
+          "bond": 50.3,
+          "cash": 7.4,
+          "other": 0.4
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados EUR",
+      "derived_present": true
+    },
+    {
+      "isin": "LU1894680757",
+      "name": "Amundi Funds - Income Opportunities A2 EUR (C)",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 30.3,
+          "bond": 37.3,
+          "cash": 21.7,
+          "other": 10.7
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados USD",
+      "derived_present": true
+    },
+    {
+      "isin": "LU1883334275",
+      "name": "Amundi Funds - Global Subordinated Bond A EUR (C)",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "fixed_income",
+        "asset_subtype": "CORPORATE_BOND",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 0.0,
+          "bond": 100.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "exposure_confidence": 0.9000000000000001,
+        "warnings": [
+          "asset_mix_guardrail:detected_scale_0_100_divided_by_100:max_component=87.14",
+          "credit_missing",
+          "region_incomplete"
+        ]
+      },
+      "ms_category": "QQQQ",
+      "derived_present": true
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION",
+        "risk_bucket": "MEDIUM",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 61.9,
+          "bond": 20.9,
+          "cash": 2.0,
+          "other": 15.3
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Moderados USD",
+      "derived_present": true
+    },
+    {
+      "isin": "LU1883330521",
+      "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)",
+      "snapshot_at": "2026-05-11T13:54:53.104002+00:00",
+      "classification_v2": {
+        "asset_type": "MIXED",
+        "asset_subtype": "CONSERVATIVE_ALLOCATION",
+        "risk_bucket": "LOW",
+        "is_sector_fund": false,
+        "sector_focus": "UNKNOWN",
+        "compatible_profiles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ]
+      },
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "equity": 31.7,
+          "bond": 50.5,
+          "cash": 10.9,
+          "other": 6.9
+        },
+        "exposure_confidence": 0.85,
+        "warnings": [
+          "EXPOSURE_SOURCE_MS_PORTFOLIO"
+        ]
+      },
+      "ms_category": "Mixtos Defensivos USD",
+      "derived_present": true
+    }
+  ]
+}
