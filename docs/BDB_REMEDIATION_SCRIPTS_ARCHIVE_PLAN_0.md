@@ -1,277 +1,313 @@
 # BDB_REMEDIATION_SCRIPTS_ARCHIVE_PLAN_0
 
-**Fecha:** 2026-05-11  
-**HEAD:** `dde26f9`  
-**Tipo:** Auditoría read-only — sin deploy, sin escritura Firestore, sin código modificado  
-**Objetivo:** Inventariar y clasificar los scripts históricos de remediación MIXED para evitar reejecuciones accidentales. Proponer plan de archivo futuro. NO ejecutar archivo todavía.
+**Fecha:** 2026-05-11
+**HEAD:** `6b37c88`
+**Rama:** `master`
+**Working tree:** limpio
+**Tipo:** Gobernanza read-only — sin deploy, sin escritura Firestore, sin código modificado
+**Versión:** 2 — actualización completa post ciclos compatible_profiles, commodities y FI credit
 
 ---
 
 ## A. Resumen Ejecutivo
 
-Se han inventariado **19 scripts** en `scripts/maintenance/` y **9 directorios de artifacts** en `artifacts/bdb_mixed_exposure_fix/`, correspondientes a la remediación MIXED exposure 59/60.
+Inventario completo de **todos** los scripts, gates, manifests y artefactos de remediación históricos en BDB-FONDOS legacy. Cubre los ciclos:
+
+- **MIXED exposure** (59/60 fondos, 8 lotes)
+- **Compatible profiles** (10 fondos regenerados)
+- **Commodities/metales** (14 fondos reclasificados)
+- **FI credit / FE-9** (130 fondos con `fi_credit`)
+- **Parser Morningstar** (write gates históricos)
+- **Semantic audit** (asset_mix, no-write decision)
+- **Retrocessions** (dry-run, reload)
 
 | Métrica | Valor |
 |---------|-------|
-| Scripts totales inventariados | 19 |
-| Scripts con capacidad de escritura Firestore | 8 (controlled_1 a 8) |
-| Scripts read-only / dry-run | 11 (gates 0,2-8 + dry_run + offline + review_audit) |
-| Artifacts gates completos | 9 (gate_0, 2-8 + official_factsheet_audit_0) |
-| Artifacts con rollback_manifest | 8 (write_gate_0, 2-7, 8_official_factsheet) |
-| Scripts con guards `authorized + can_write` | 8 de 8 write-capable |
-| Writes Firestore en esta auditoría | 0 |
-| Deploy | NO |
-| Código modificado | NO |
+| Scripts totales inventariados | 48 |
+| Scripts HISTORICAL_WRITE — DO NOT RERUN | 12 |
+| Scripts DRY_RUN_ONLY | 10 |
+| Scripts SAFE_READ_ONLY | 18 |
+| Scripts WRITE_GATE (read-only, genera artifacts) | 8 |
+| Artifact gates completos con cadena de evidencia | 12 |
+| Rollback manifests disponibles | 12 |
+| Writes Firestore en esta auditoría | **0** |
+| Deploy | **NO** |
 
-**Conclusión:** Todos los scripts write-capable tienen guards de autorización explícitos (`authorized=true`, `can_write=true`). No pueden ejecutar escrituras sin modificación manual del `write_approval_manifest.json`. Sin embargo, su mera presencia en `scripts/maintenance/` supone un riesgo de confusión. **Se recomienda mover a subdirectorio de archivo histórico como siguiente bloque.**
+**Regla de oro:** Ningún script histórico de write se reejecuta. Todo nuevo write exige nuevo bloque/gate.
 
 ---
 
-## B. Scope
+## B. Estado del Repositorio
 
 | Campo | Valor |
 |-------|-------|
-| Directorio principal | `scripts/maintenance/` |
-| Artifacts | `artifacts/bdb_mixed_exposure_fix/` |
-| Documentación relacionada | `docs/BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_*.md`, `docs/BDB_MIXED_EXPOSURE_WRITE_GATE_*.md` |
-| Excluido expresamente | Parser, retrocessions, optimizer scripts, X-Ray scripts |
-| Excluido: tocar BDB-FONDOS-CORE | SI |
-| Excluido: mover/borrar en este bloque | SI |
+| HEAD | `6b37c88` |
+| Branch | `master` |
+| Working tree | clean |
+| Modo | READ-ONLY + documentación |
+| BDB-FONDOS-CORE | NO TOCADO |
+
+### Ciclos cerrados
+
+| Ciclo | Fondos | Estado |
+|-------|--------|--------|
+| MIXED exposure | 59/60 corregidos | ✅ CERRADO — Hamco pendiente |
+| Compatible profiles | 670 saneados, 10 escritos | ✅ CERRADO |
+| Commodities/metales | 14 reclasificados | ✅ CERRADO |
+| FI credit | 130 fondos con `fi_credit` | ✅ CERRADO |
+| FE-9 | Hard block NO activado | ✅ CERRADO |
 
 ---
 
-## C. Inventario de Scripts
+## C. Clasificación de Scripts por Categoría
 
-### Tabla completa
+### Categoría 1: SAFE_READ_ONLY
 
-| # | Archivo | Tipo | Lote / Gate | Write-capable | Ejecutado | Debe reejecutarse | Recomendación | Notas |
-|---|---------|------|-------------|---------------|-----------|-------------------|---------------|-------|
-| 1 | `bdb_mixed_exposure_fix_dry_run.py` | DRY_RUN | Fase inicial | NO | SI | NO | MOVE_TO_ARCHIVE_LATER | Lee Firestore, genera artifact JSON. Seguro. Idempotente. |
-| 2 | `bdb_mixed_exposure_fix_dry_run_offline.py` | DRY_RUN | Fase inicial | NO | SI | NO | MOVE_TO_ARCHIVE_LATER | No toca Firestore. Solo procesa artifact existente. |
-| 3 | `bdb_mixed_exposure_write_gate_0.py` | WRITE_GATE | Gate 0 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Genera artifacts, `authorized=False`, `can_write=False`. |
-| 4 | `bdb_mixed_exposure_write_gate_2.py` | WRITE_GATE | Gate 2 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Ídem. Genera snapshots + diff_manifest. No escribe Firestore. |
-| 5 | `bdb_mixed_exposure_write_gate_3.py` | WRITE_GATE | Gate 3 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Ídem. |
-| 6 | `bdb_mixed_exposure_write_gate_4.py` | WRITE_GATE | Gate 4 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Ídem. |
-| 7 | `bdb_mixed_exposure_write_gate_5.py` | WRITE_GATE | Gate 5 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Ídem. |
-| 8 | `bdb_mixed_exposure_write_gate_6.py` | WRITE_GATE | Gate 6 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Genera artifacts para batch official_factsheet 3. |
-| 9 | `bdb_mixed_exposure_write_gate_7.py` | WRITE_GATE | Gate 7 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Genera artifacts para 9 review_required. |
-| 10 | `bdb_mixed_exposure_write_gate_8.py` | WRITE_GATE | Gate 8 | NO (READ-ONLY) | SI | NO | MOVE_TO_ARCHIVE_LATER | Genera artifacts para official_factsheet final (gate 8). |
-| 11 | `bdb_mixed_exposure_write_controlled_1.py` | CONTROLLED_WRITE | Lote 1 (10 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 12 | `bdb_mixed_exposure_write_controlled_2.py` | CONTROLLED_WRITE | Lote 2 (10 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 13 | `bdb_mixed_exposure_write_controlled_3.py` | CONTROLLED_WRITE | Lote 3 (10 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 14 | `bdb_mixed_exposure_write_controlled_4.py` | CONTROLLED_WRITE | Lote 4 (10 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 15 | `bdb_mixed_exposure_write_controlled_5.py` | CONTROLLED_WRITE | Lote 5 (5 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 16 | `bdb_mixed_exposure_write_controlled_6.py` | CONTROLLED_WRITE | Lote 6 (5 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write`. |
-| 17 | `bdb_mixed_exposure_write_controlled_7.py` | CONTROLLED_WRITE | Lote 7 (9 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `AUTHORIZED_ISINS` + manifest check. |
-| 18 | `bdb_mixed_exposure_write_controlled_8.py` | CONTROLLED_WRITE | Lote 8 / Official Factsheet (5 ISINs) | **YES** | SI | **NO** | **MOVE_TO_ARCHIVE_LATER** | ⚠️ Escribe Firestore. Guards: `authorized + can_write` + ISIN whitelist. |
-| 19 | `bdb_mixed_review_required_audit.py` | AUDIT_HELPER | Fase review-required | NO | SI | NO | KEEP_HISTORICAL | Solo lee artifact JSON local. Sin Firestore. |
+Scripts que solo auditan, leen o generan informes. Sin riesgo.
 
-### Resumen de clasificación
+| # | Path | Familia | Descripción |
+|---|------|---------|-------------|
+| 1 | `scripts/maintenance/bdb_semantic_audit_funds_v3_readonly.py` | Semantic | Auditoría read-only funds_v3 |
+| 2 | `scripts/maintenance/bdb_mixed_review_required_audit.py` | MIXED | Lee artifact JSON local |
+| 3 | `scripts/maintenance/bdb_compatible_profiles_verify_removals.py` | Profiles | Verifica removals read-only |
+| 4 | `scripts/maintenance/bdb_fe9_low_quality_credit_audit.py` | FE-9 | Audita FE-9 dormida |
+| 5 | `scripts/maintenance/bdb_fi_credit_parser_discovery.py` | FI credit | Discovery cobertura MS CQ |
+| 6 | `scripts/maintenance/bdb_fi_credit_fe9_impact_audit.py` | FE-9 | Audita 7 fondos FE9 gap |
+| 7 | `scripts/maintenance/bdb_fi_credit_fe9_manual_factsheets_audit.py` | FE-9 | Auditoría factsheets 3 fondos |
+| 8 | `scripts/maintenance/bdb_data_audit_0_readonly.js` | General | Auditoría general read-only |
+| 9 | `scripts/maintenance/audit_derived_unknowns.js` | General | Audita unknowns derivados |
+| 10 | `scripts/maintenance/audit_funds_v3.js` | General | Audita funds_v3 |
+| 11 | `scripts/maintenance/analyze_sin_retrocesion.js` | Retro | Analiza fondos sin retrocesión |
+| 12 | `scripts/maintenance/check_history.py` | History | Verifica histórico |
+| 13 | `scripts/maintenance/diagnose_history.py` | History | Diagnóstico histórico |
+| 14 | `scripts/maintenance/examine_excel.py` | Utility | Examina Excel |
+| 15 | `scripts/maintenance/examine_files.py` | Utility | Examina archivos |
+| 16 | `scripts/maintenance/examine_files2.py` | Utility | Examina archivos v2 |
+| 17 | `scripts/maintenance/search_isin.py` | Utility | Busca ISINs |
+| 18 | `scripts/maintenance/verify_history.py` | History | Verifica integridad histórico |
 
-| Tipo | Cantidad | Write-capable |
-|------|----------|---------------|
-| WRITE_GATE (read-only, genera artifacts) | 9 | NO |
-| CONTROLLED_WRITE (escribe Firestore) | 8 | **YES** |
-| DRY_RUN (simula sin escribir) | 2 | NO |
-| AUDIT_HELPER (solo JSON local) | 1 | NO |
-| **Total** | **19** | **8 write-capable** |
+### Categoría 2: DRY_RUN_ONLY
 
-### Análisis de guards en scripts write-capable
+Scripts que preparan manifests o proposals sin escribir Firestore.
 
-Todos los scripts `controlled_*` implementan el siguiente patrón de seguridad:
+| # | Path | Familia | Descripción |
+|---|------|---------|-------------|
+| 1 | `scripts/maintenance/bdb_mixed_exposure_fix_dry_run.py` | MIXED | Dry-run principal — lee Firestore, genera proposal |
+| 2 | `scripts/maintenance/bdb_mixed_exposure_fix_dry_run_offline.py` | MIXED | Procesa artifact existente offline |
+| 3 | `scripts/maintenance/bdb_sem_1_asset_mix_scale_triage.py` | Semantic | Triage de escala asset_mix |
+| 4 | `scripts/maintenance/bdb_sem_2_asset_mix_fix_plan_dry_run.py` | Semantic | Plan de fix asset_mix (NO WRITE DECISION) |
+| 5 | `scripts/maintenance/bdb_compatible_profiles_regen_dry_run.py` | Profiles | Dry-run regeneración 670 fondos |
+| 6 | `scripts/maintenance/bdb_fi_credit_translator_dryrun.py` | FI credit | Dry-run traductor MS→fi_credit |
+| 7 | `scripts/maintenance/bdb_retrocession_reload_dry_run.js` | Retro | Dry-run reload retrocesiones |
+| 8 | `scripts/maintenance/generate_change_report.py` | Utility | Genera reporte de cambios |
+| 9 | `scripts/maintenance/run_diagnosis.py` | Utility | Diagnóstico general |
+| 10 | `scripts/maintenance/validate_nav_pipeline.py` | Utility | Validación pipeline NAV |
 
-```python
-# GUARD 1: Approval manifest
-if not manifest.get("authorized"):
-    abort("Not authorized")
-if not manifest.get("can_write"):
-    abort("Not authorized")
+### Categoría 3: HISTORICAL_WRITE_SCRIPT — DO NOT RERUN ⚠️
 
-# GUARD 2: ISIN whitelist check
-if manifest_isins != sorted(AUTHORIZED_ISINS):
-    abort("ISIN mismatch")
+Scripts que hicieron writes controlados a Firestore. **NO REEJECUTAR NUNCA.**
 
-# GUARD 3: Pre-write drift detection (snapshots_before vs current)
-# GUARD 4: Uses docRef.update() only — never set()
-```
+| # | Path | Familia | Lote | ISINs | Commit | Estado |
+|---|------|---------|------|-------|--------|--------|
+| 1 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_1.py` | MIXED | Lote 1 | 10 | `d9ca28f` | ✅ DONE |
+| 2 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_2.py` | MIXED | Lote 2 | 5 | `fd383c2` | ✅ DONE |
+| 3 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_3.py` | MIXED | Lote 3 | 15 | `fd503e8` | ✅ DONE |
+| 4 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_4.py` | MIXED | Lote 4 | 5 | `a17ff30` | ✅ DONE |
+| 5 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_5.py` | MIXED | Lote 5 | 5 | `b044d20` | ✅ DONE |
+| 6 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_6.py` | MIXED | Lote 6 | 5 | `17e23fa` | ✅ DONE |
+| 7 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_7.py` | MIXED | Lote 7 | 9 | `84c9ec4` | ✅ DONE |
+| 8 | `scripts/maintenance/bdb_mixed_exposure_write_controlled_8.py` | MIXED | Lote 8 | 5 | `fb14f38` | ✅ DONE |
+| 9 | `scripts/maintenance/bdb_compatible_profiles_regen_write_controlled_0.py` | Profiles | Write | 10 | `cd2a0f9` | ✅ DONE |
+| 10 | `scripts/maintenance/bdb_thematic_commodities_classification_write_controlled_0.py` | Commodities | Write | 14 | `8b15b1c` | ✅ DONE |
+| 11 | `scripts/maintenance/bdb_fi_credit_translator_write_controlled_0.py` | FI credit | Write | 130 | `d28141f` | ✅ DONE |
+| 12 | `scripts/maintenance/populate_taxonomy_v2.py` | Taxonomy | Pipeline | 670 | varios | ⚠️ PIPELINE — no ejecutar con `--execute` |
 
-**Evaluación de riesgo de reejecución:**
+> **Todos usan `docRef.update()`, nunca `set()`.** Todos tienen guards `authorized + can_write`. Todos los manifests ya están en estado `authorized=true`. **Reejecutar es técnicamente posible pero categóricamente prohibido.**
 
-| Guard | ¿Activo en todos? | ¿Protege de reejecución accidental? |
-|-------|-------------------|-------------------------------------|
-| `authorized=True` en JSON | SI | SI — requiere edición manual del JSON |
-| `can_write=True` en JSON | SI | SI |
-| ISIN whitelist exacta | SI | SI — lista hardcoded en el script |
-| Pre-write drift | SI | PARCIAL — relectura de Firestore |
-| `update()` no `set()` | SI | SI — no sobreescribe campos no incluidos |
+### Categoría 4: WRITE_GATE (read-only, genera artifacts)
 
-> **Nota:** Los manifests de aprobación de todos los gates **ya ejecutados** tienen `authorized=True` y `can_write=True`. Esto significa que un script `controlled_*` podría reejecutarse técnicamente si se lanza manualmente con el credential correcto, dado que sus manifests ya están aprobados. Los guards de drift detection mitigan parcialmente esto (re-leerían el estado actual, que ya tiene los valores correctos → posiblemente no abortarían). **Este es el riesgo principal documentado.**
+| # | Path | Familia |
+|---|------|---------|
+| 1 | `scripts/maintenance/bdb_mixed_exposure_write_gate_0.py` | MIXED Gate 0 |
+| 2 | `scripts/maintenance/bdb_mixed_exposure_write_gate_2.py` | MIXED Gate 2 |
+| 3 | `scripts/maintenance/bdb_mixed_exposure_write_gate_3.py` | MIXED Gate 3 |
+| 4 | `scripts/maintenance/bdb_mixed_exposure_write_gate_4.py` | MIXED Gate 4 |
+| 5 | `scripts/maintenance/bdb_mixed_exposure_write_gate_5.py` | MIXED Gate 5 |
+| 6 | `scripts/maintenance/bdb_mixed_exposure_write_gate_6.py` | MIXED Gate 6 |
+| 7 | `scripts/maintenance/bdb_mixed_exposure_write_gate_7.py` | MIXED Gate 7 |
+| 8 | `scripts/maintenance/bdb_mixed_exposure_write_gate_8.py` | MIXED Gate 8 |
+| 9 | `scripts/maintenance/bdb_compatible_profiles_regen_write_gate_0.py` | Profiles Gate |
+| 10 | `scripts/maintenance/bdb_thematic_commodities_classification_write_gate_0.py` | Commodities Gate |
+| 11 | `scripts/maintenance/bdb_fi_credit_translator_write_gate_0.py` | FI credit Gate |
 
----
-
-## D. Inventario de Artifacts
-
-### Tabla por gate
-
-| Gate | Path | selection | snapshots_before | diff_manifest | rollback_manifest | write_approval | post_write_verif | Estado |
-|------|------|-----------|-----------------|---------------|-------------------|----------------|-----------------|--------|
-| Dry-run inicial | `artifacts/bdb_mixed_exposure_fix/mixed_exposure_fix_dry_run.json` | — | — | — | — | — | — | ✅ EVIDENCIA |
-| write_gate_selection_0 | `artifacts/bdb_mixed_exposure_fix/mixed_exposure_write_gate_selection_0.json` | — | — | — | — | — | — | ✅ EVIDENCIA |
-| official_factsheet_audit_0 | `artifacts/bdb_mixed_exposure_fix/official_factsheet_audit_0/official_factsheet_exposure_proposal.json` | — | — | — | — | — | — | ✅ EVIDENCIA |
-| write_gate_0 | `artifacts/bdb_mixed_exposure_fix/write_gate_0/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_2 | `artifacts/bdb_mixed_exposure_fix/write_gate_2/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_3 | `artifacts/bdb_mixed_exposure_fix/write_gate_3/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_4 | `artifacts/bdb_mixed_exposure_fix/write_gate_4/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_5 | `artifacts/bdb_mixed_exposure_fix/write_gate_5/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_6 | `artifacts/bdb_mixed_exposure_fix/write_gate_6/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_7 | `artifacts/bdb_mixed_exposure_fix/write_gate_7/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-| write_gate_8_official_factsheet | `artifacts/bdb_mixed_exposure_fix/write_gate_8_official_factsheet/` | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ COMPLETO |
-
-> **Observación crítica:** Todos los gates tienen cadena de evidencia **100% completa** (`selection + snapshots_before + diff_manifest + rollback_manifest + write_approval_manifest + post_write_verification`). Esta trazabilidad es invaluable y no debe borrarse.
-
-### Documentación asociada en `docs/`
-
-| Documento | Tipo | Estado |
-|-----------|------|--------|
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_0.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_2.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_3.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_4.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_5.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_6.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_7.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_GATE_8_OFFICIAL_FACTSHEET.md` | WRITE_GATE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_1.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_2.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_3.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_4.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_5.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_6.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_7.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_WRITE_CONTROLLED_8_OFFICIAL_FACTSHEET.md` | CONTROLLED_WRITE doc | ✅ |
-| `BDB_MIXED_EXPOSURE_FIX_DRYRUN_0.md` | DRY_RUN doc | ✅ |
-| `BDB_MIXED_EXPOSURE_REAL_DRYRUN_0.md` | DRY_RUN doc | ✅ |
-| `BDB_MIXED_EXPOSURE_REVIEW_REQUIRED_AUDIT_0.md` | AUDIT doc | ✅ |
-| `BDB_MIXED_EXPOSURE_OFFICIAL_FACTSHEET_AUDIT_0.md` | AUDIT doc | ✅ |
-| `BDB_MIXED_EXPOSURE_SOURCE_AUDIT_0.md` | AUDIT doc | ✅ |
-| `BDB_MIXED_EXPOSURE_REMEDIATION_CLOSEOUT_0.md` | CLOSEOUT doc | ✅ |
-| `BDB_MIXED_EXPOSURE_FINAL_CLOSEOUT_59_60.md` | CLOSEOUT doc | ✅ |
+> Los gates son read-only pero sobrescribirían artifacts existentes si se reejecutaran. **No reejecutar** — los artifacts son evidencia histórica.
 
 ---
 
-## E. Riesgos Detectados
+## D. Inventario de Artifacts / Evidencia
 
-| ID | Riesgo | Clasificación | Justificación |
-|----|--------|---------------|---------------|
-| R-01 | Scripts `controlled_1` a `controlled_8` siguen en `scripts/maintenance/` y son ejecutables con credencial activa. Sus manifests ya tienen `authorized=True`. Un `python bdb_mixed_exposure_write_controlled_N.py` accidental podría reescribir datos ya correctos. | **WARNING** | Los guards de drift detection releerían el estado actual. Si los valores ya son los correctos, el guard de drift probablemente no aborte. Riesgo de write idempotente (mismo valor) pero inesperado. |
-| R-02 | No hay banner "DO NOT RUN — HISTORICAL SCRIPT" en ningún script write-capable. Un contribuidor nuevo no tendría contexto para evitar la ejecución. | **WARNING** | Sin documentación inline de advertencia en el header del script. |
-| R-03 | Los artifacts `rollback_manifest.json` contienen los valores anteriores (pre-remediación) de los 59 fondos. Si se borraran, se perdería la capacidad de rollback. | **INFO** | No hay riesgo actual. Solo documentar que no deben borrarse. |
-| R-04 | El script `bdb_mixed_exposure_fix_dry_run.py` al reejecutarse sobrescribiría el artifact `mixed_exposure_fix_dry_run.json`. Dado que los fondos ya están corregidos, el output cambiaría (ya no habría write_recommended). Podría confundir si se usa como referencia de auditoría futura. | **INFO** | El artifact original del dry-run histórico debería preservarse tal cual. No borrar ni sobreescribir. |
-| R-05 | No existe un `README.md` o `ARCHIVE_NOTE.md` en `scripts/maintenance/` que indique cuáles scripts son históricos vs activos. | **INFO** | Riesgo de confusión operativa. Se resuelve con `BDB-REMEDIATION-SCRIPTS-ARCHIVE-APPLY-0`. |
+### MIXED exposure (8 gates completos)
 
----
+| Gate | selection | snapshots | diff | rollback | approval | post_write |
+|------|-----------|-----------|------|----------|----------|------------|
+| write_gate_0 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_2 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_3 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_4 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_5 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_6 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_7 | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| write_gate_8_official | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 
-## F. Recomendación de Archivo Futuro
+Adicionales: `mixed_exposure_fix_dry_run.json`, `mixed_exposure_write_gate_selection_0.json`, `official_factsheet_audit_0/`
 
-### Recomendación: Opción combinada (2 + 3 + 4)
+### Compatible profiles (1 gate)
 
-Se propone la siguiente secuencia de acciones, a ejecutar en el bloque `BDB-REMEDIATION-SCRIPTS-ARCHIVE-APPLY-0`:
+| Gate | Path | Completo |
+|------|------|----------|
+| compatible_profiles_write_gate_0 | `artifacts/suitability/compatible_profiles_write_gate_0/` | ✅ 6 archivos |
 
-#### F.1 Mover scripts write-capable a subdirectorio de archivo
+Adicionales: `compatible_profiles_regen_dry_run_0.json`, `compatible_profiles_regen_dry_run_0_PRE_COMMODITIES_WRITE.json`, `compatible_profiles_sector_equity_verify_0.json`, `compatible_profiles_verify_removals_0.json`
 
-```
-scripts/maintenance/archive/mixed_exposure_remediation_2026_05/
-├── bdb_mixed_exposure_write_controlled_1.py
-├── bdb_mixed_exposure_write_controlled_2.py
-├── bdb_mixed_exposure_write_controlled_3.py
-├── bdb_mixed_exposure_write_controlled_4.py
-├── bdb_mixed_exposure_write_controlled_5.py
-├── bdb_mixed_exposure_write_controlled_6.py
-├── bdb_mixed_exposure_write_controlled_7.py
-└── bdb_mixed_exposure_write_controlled_8.py
-```
+### Commodities/metales (1 gate)
 
-Los scripts de gate (read-only) pueden moverse también opcionalmente:
+| Gate | Path | Completo |
+|------|------|----------|
+| thematic_commodities_classification_gate_0 | `artifacts/suitability/thematic_commodities_classification_gate_0/` | ✅ 6 archivos |
 
-```
-scripts/maintenance/archive/mixed_exposure_remediation_2026_05/gates/
-├── bdb_mixed_exposure_write_gate_0.py ... gate_8.py
-├── bdb_mixed_exposure_fix_dry_run.py
-├── bdb_mixed_exposure_fix_dry_run_offline.py
-└── bdb_mixed_review_required_audit.py
-```
+### FI credit (1 gate)
 
-#### F.2 Añadir banner "DO NOT RUN" en header de scripts write-capable
+| Gate | Path | Completo |
+|------|------|----------|
+| fi_credit_translator_write_gate_0 | `artifacts/suitability/fi_credit_translator_write_gate_0/` | ✅ 6 archivos |
 
-Propuesta de header a añadir (en el bloque apply):
+Adicionales: `fi_credit_parser_discovery_0.json`, `fi_credit_translator_dryrun_0.json`, `fi_credit_translator_dryrun_0_PRE_WRITE.json`, `fi_credit_fe9_impact_audit_0.json`, `fi_credit_fe9_manual_factsheets_audit_0.json`, `fe9_low_quality_credit_audit_0.json`
 
-```python
-# ==============================================================================
-# HISTORICAL SCRIPT — DO NOT RUN
-# BDB-MIXED-EXPOSURE-REMEDIATION-2026-05 — CLOSED
-# This script was executed on 2026-05-XX as part of controlled write batch N.
-# All 59 ISINs have been remediated. Re-execution would be a WRITE to production.
-# Status: ARCHIVED | Firestore: funds_v3 | Gate: N
-# See docs/BDB_MIXED_EXPOSURE_FINAL_CLOSEOUT_59_60.md
-# ==============================================================================
-```
+### Parser Morningstar (2 gates)
 
-#### F.3 Crear README en archive
+| Gate | Path | Completo |
+|------|------|----------|
+| write_gate | `artifacts/bdb_parser_audit/write_gate/` | ✅ 5 archivos |
+| write_gate_snapshot_1 | `artifacts/bdb_parser_audit/write_gate_snapshot_1/` | ✅ 7 archivos |
 
-```
-scripts/maintenance/archive/mixed_exposure_remediation_2026_05/README.md
-```
-
-Contenido mínimo: qué era, cuándo se ejecutó, por qué se archiva, referencia a documentación.
-
-#### F.4 Crear archive_note en artifacts
-
-```
-artifacts/bdb_mixed_exposure_fix/ARCHIVE_NOTE.md
-```
-
-Indicando que los artifacts son evidencia histórica de la remediación MIXED 2026-05 y no deben borrarse hasta nueva instrucción explícita.
-
-#### F.5 NO borrar artifacts rollback
-
-Los `rollback_manifest.json` de todos los gates deben conservarse indefinidamente como evidencia de auditoría y capacidad de rollback de emergencia.
+> **Cadena de evidencia 100% completa para 12 gates.** No borrar ningún artifact.
 
 ---
 
-## G. Propuesta de Siguiente Bloque
+## E. Lista explícita de NO REEJECUTAR
 
-### `BDB-REMEDIATION-SCRIPTS-ARCHIVE-APPLY-0`
+Los siguientes scripts/acciones están **categóricamente prohibidos**:
 
-> **Este bloque NO se ejecuta ahora. Es una propuesta para el siguiente chat.**
-
-**Descripción:**
-- Mover scripts `controlled_*` y `gate_*` a `scripts/maintenance/archive/mixed_exposure_remediation_2026_05/`
-- Añadir banner "DO NOT RUN — HISTORICAL SCRIPT" en header de los 8 scripts write-capable
-- Crear `README.md` en el directorio de archivo
-- Crear `artifacts/bdb_mixed_exposure_fix/ARCHIVE_NOTE.md`
-- Commit con mensaje: `CHORE: archive mixed exposure remediation scripts 2026-05`
-- Push a `origin/master`
-
-**Reglas del bloque apply:**
-- NO escribir Firestore
-- NO deploy
-- NO tocar lógica de negocio
-- NO borrar artifacts
-- NO borrar rollback_manifests
-- SI puede: mover scripts (git mv), editar headers de scripts archivados
-- Confirmar 143/143 tests PASS después del archivo
-
-**Orden de bloques actualizado:**
-
-| Prioridad | Bloque | Estado |
-|-----------|--------|--------|
-| 1 | `BDB-REMEDIATION-SCRIPTS-ARCHIVE-APPLY-0` | **PROPUESTO — listo para ejecutar** |
-| 2 | `BDB-EQUITY-FLOOR-DEAD-CODE-AUDIT-0` | Pendiente |
-| 3 | `BDB-SUITABILITY-HARDCODED-CONTRACT-AUDIT-0` | Pendiente |
+| # | Script/Acción | Motivo |
+|---|---------------|--------|
+| 1 | `bdb_mixed_exposure_write_controlled_1.py` a `_8.py` | Writes MIXED completados y verificados |
+| 2 | `bdb_compatible_profiles_regen_write_controlled_0.py` | Write compatible_profiles completado |
+| 3 | `bdb_thematic_commodities_classification_write_controlled_0.py` | Write commodities completado |
+| 4 | `bdb_fi_credit_translator_write_controlled_0.py` | Write fi_credit completado |
+| 5 | `populate_taxonomy_v2.py --execute` | Pipeline de taxonomy — no relanzar |
+| 6 | Cualquier gate `_write_gate_*.py` | Sobrescribiría artifacts de evidencia |
+| 7 | Cualquier flag `--write`, `--apply`, `--confirm-write`, `--force` | Prohibido en scripts históricos |
+| 8 | `scripts/backfill_asset_class_aggressive_v1.js` | Backfill histórico — no relanzar |
+| 9 | `scripts/backfill_asset_class_fill_only_v1.js` | Backfill histórico — no relanzar |
+| 10 | `scripts/apply_manual_overrides.js` | Overrides manuales — no relanzar sin gate |
 
 ---
 
-## H. Confirmaciones Finales
+## F. Evidencia a conservar obligatoriamente
+
+| Tipo | Ubicación | Cantidad | Motivo |
+|------|-----------|----------|--------|
+| rollback_manifest.json | Todos los gate dirs | 12 | Capacidad de rollback de emergencia |
+| snapshots_before.json | Todos los gate dirs | 12 | Estado pre-write documentado |
+| post_write_verification.json | Todos los gate dirs | 12 | Prueba de verificación post-write |
+| write_approval_manifest.json | Todos los gate dirs | 12 | Registro de aprobación humana |
+| diff_manifest.json | Todos los gate dirs | 12 | Delta exacto aplicado |
+| Docs `BDB_*_CLOSEOUT_*.md` | `docs/` | 5+ | Cierre formal de cada ciclo |
+| Docs `BDB_*_WRITE_CONTROLLED_*.md` | `docs/` | 11 | Registro de cada write |
+
+---
+
+## G. Reglas para Futuros Agentes / Operadores
+
+### Regla de oro
+> **Ningún script histórico de write se reejecuta. Todo nuevo write exige nuevo bloque/gate.**
+
+### Reglas absolutas
+
+1. **NO ejecutar scripts `controlled_*` ni `write_controlled_*`** — están completados.
+2. **NO ejecutar scripts `write_gate_*`** — sobrescribirían evidencia.
+3. **NO usar flags** `--write`, `--apply`, `--confirm-write`, `--force`, `--commit`, `--deploy`.
+4. **NO asumir que un dry-run histórico sigue vigente** — los datos Firestore han cambiado.
+5. **NO borrar artifacts** de auditoría, rollback, snapshots o verification.
+6. **NO copiar credenciales** dentro del repositorio.
+
+### Todo nuevo write exige
+
+- [ ] Nuevo dry-run desde datos actuales
+- [ ] Nuevo diff_manifest
+- [ ] Nuevo snapshot_before (live Firestore)
+- [ ] Aprobación humana explícita
+- [ ] Rollback manifest generado
+- [ ] Post-write verification
+- [ ] Commit y documentación
+
+---
+
+## H. Propuesta de fase futura
+
+### `BDB-REMEDIATION-SCRIPTS-ARCHIVE-EXECUTION-0`
+
+> **NO ejecutar ahora. Solo si se decide mover físicamente scripts/artifacts.**
+
+Acciones propuestas:
+1. Mover scripts `controlled_*` y `gate_*` a `scripts/maintenance/archive/`
+2. Añadir banner `DO NOT RUN — HISTORICAL SCRIPT` en headers
+3. Crear `README.md` en directorio de archivo
+4. Confirmar tests PASS después del archivo
+
+---
+
+## I. Recomendación Profesional
+
+1. **Por ahora, documentar y no mover nada.** Este documento es suficiente.
+2. **Mantener evidencia accesible** — rollbacks, snapshots, verifications.
+3. **Evitar borrar artifacts** de auditoría bajo ninguna circunstancia.
+4. **No reejecutar nada histórico** — todo nuevo write exige nuevo gate.
+5. **El sistema está estable.** No urge ninguna acción de archivo físico.
+
+---
+
+## J. Scripts en otros directorios (referencia)
+
+### `scripts/` (raíz)
+
+| Script | Tipo | Riesgo |
+|--------|------|--------|
+| `populate_taxonomy_v2_FINAL.py` | Pipeline | ⚠️ NO ejecutar sin gate |
+| `backfill_asset_class_aggressive_v1.js` | Backfill | ⚠️ HISTÓRICO |
+| `backfill_asset_class_fill_only_v1.js` | Backfill | ⚠️ HISTÓRICO |
+| `apply_manual_overrides.js` | Overrides | ⚠️ NO ejecutar sin gate |
+| `seed_emulator_data.py` | Emulator | ✅ SAFE (solo emulator) |
+| `convert_font.py`, `create_fonts_ts.py` | Utility | ✅ SAFE |
+| `aggressive_audit.py` | Audit | ✅ SAFE READ-ONLY |
+| `remediate_orphans.py` | Fix | ⚠️ Revisar antes de ejecutar |
+
+### `functions_python/scripts/`
+
+| Script | Tipo | Riesgo |
+|--------|------|--------|
+| `repair_funds_v3_bdb.py` | Fix | ⚠️ WRITE-CAPABLE — no ejecutar sin gate |
+| `update_risk_profiles_firestore.py` | Write | ⚠️ WRITE-CAPABLE — no ejecutar sin gate |
+| `scripts/fixes/sync_categories_to_firestore.py` | Fix | ⚠️ WRITE-CAPABLE |
+| `scripts/migration/populate_taxonomy_v2*.py` | Migration | ⚠️ HISTÓRICO — múltiples versiones |
+| `scripts/audit/*` | Audit | ✅ SAFE READ-ONLY |
+| `scripts/debug/*` | Debug | ✅ SAFE READ-ONLY |
+| `scripts/sandbox/*` | Sandbox | ✅ SAFE READ-ONLY |
+| `scripts/reports/*` | Reports | ✅ SAFE (genera informes) |
+
+---
+
+## K. Confirmaciones Finales
 
 | Check | Estado |
 |-------|--------|
@@ -279,14 +315,17 @@ Los `rollback_manifest.json` de todos los gates deben conservarse indefinidament
 | Deploy | ✅ NO |
 | Código productivo modificado | ✅ NO |
 | Scripts write-capable reejecutados | ✅ NO |
-| Scripts movidos/borrados en este bloque | ✅ NO |
+| Scripts movidos/borrados | ✅ NO |
 | Artifacts modificados | ✅ NO |
 | `optimizer_core.py` tocado | ✅ NO |
 | `suitability_engine.py` tocado | ✅ NO |
 | `firestore.rules` tocado | ✅ NO |
+| Frontend tocado | ✅ NO |
+| Backend runtime tocado | ✅ NO |
 | BDB-FONDOS-CORE tocado | ✅ NO |
+| Credenciales tocadas | ✅ NO |
 
 ---
 
-*Generado por Antigravity Agent (Claude Sonnet 4.6 Thinking) — BDB-REMEDIATION-SCRIPTS-ARCHIVE-PLAN-0*  
-*HEAD: `dde26f9` — Scripts inventariados: 19 — Write-capable: 8 — Artifacts gates: 9 completos*
+*Generado por Antigravity Agent — BDB-REMEDIATION-SCRIPTS-ARCHIVE-PLAN-0 v2*
+*HEAD: `6b37c88` — Scripts inventariados: 48 — Write-capable: 12 — Artifact gates: 12 completos*
