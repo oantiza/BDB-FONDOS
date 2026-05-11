@@ -1,0 +1,76 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-6",
+  "generated_at_utc": "2026-05-10T21:27:36.609901+00:00",
+  "rollback_entries": [
+    {
+      "isin": "LU0119195963",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0118537002",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU2050544563",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "LU0284394821",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    },
+    {
+      "isin": "ES0114904008",
+      "collection": "funds_v3",
+      "restore_fields": {
+        "portfolio_exposure_v2.economic_exposure": {
+          "equity": 50.0,
+          "bond": 50.0,
+          "cash": 0.0,
+          "other": 0.0
+        },
+        "portfolio_exposure_v2.exposure_confidence": 0.45,
+        "portfolio_exposure_v2.warnings": []
+      }
+    }
+  ]
+}

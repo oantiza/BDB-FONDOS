@@ -1,0 +1,250 @@
+{
+  "generated_at_utc": "2026-05-10T21:27:36.609901+00:00",
+  "snapshots": {
+    "LU0119195963": {
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.170987+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 28.38,
+          "healthcare": 9.42,
+          "financials": 18.79
+        },
+        "equity_regions": {
+          "us": 61.25,
+          "europe": 17.65,
+          "asia_dev": 13.29,
+          "emerging": 1.01,
+          "japan": 6.79
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "ES0118537002": {
+      "name": "Olea Neutral FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.840771+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 11.65,
+          "healthcare": 0.91,
+          "financials": 25.15
+        },
+        "equity_regions": {
+          "us": 39.0,
+          "europe": 53.66,
+          "asia_dev": 7.33,
+          "emerging": 0.01,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "MODERATE_ALLOCATION"
+    },
+    "LU2050544563": {
+      "name": "DWS ESG Multi Asset Dynamic LC",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:11.723785+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 23.49,
+          "healthcare": 11.82,
+          "financials": 10.31
+        },
+        "equity_regions": {
+          "us": 41.69,
+          "europe": 38.59,
+          "asia_dev": 14.49,
+          "emerging": 0.0,
+          "japan": 5.24
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "LU0284394821": {
+      "name": "DNCA Invest Évolutif B EUR",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:09.341329+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 11.89,
+          "healthcare": 5.4,
+          "financials": 19.6
+        },
+        "equity_regions": {
+          "us": 38.87,
+          "europe": 55.54,
+          "asia_dev": 4.1,
+          "emerging": 1.49,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    },
+    "ES0114904008": {
+      "name": "Brightgate Focus A FI",
+      "portfolio_exposure_v2": {
+        "economic_exposure": {
+          "other": 0.0,
+          "cash": 0.0,
+          "equity": 50.0,
+          "bond": 50.0
+        },
+        "alternatives": {},
+        "concentration_metrics": {
+          "top_10_holdings_weight": 0.0,
+          "hhi_index": null
+        },
+        "warnings": [],
+        "equity_styles": {
+          "small_value": 0.0,
+          "mid_growth": 0.0,
+          "large_growth": 0.0,
+          "large_core": 0.0,
+          "small_core": 0.0,
+          "mid_core": 0.0,
+          "large_value": 0.0,
+          "mid_value": 0.0,
+          "small_growth": 0.0
+        },
+        "fi_credit": {},
+        "exposure_confidence": 0.45,
+        "risk_flags": [],
+        "computed_at": "2026-03-23T07:43:08.826086+00:00",
+        "fi_types": {},
+        "version": "2.0",
+        "sectors": {
+          "technology": 3.88,
+          "healthcare": 22.22,
+          "financials": 25.71
+        },
+        "equity_regions": {
+          "us": 72.77,
+          "europe": 23.35,
+          "asia_dev": 3.88,
+          "emerging": 0.0,
+          "japan": 0.0
+        },
+        "fi_duration": {}
+      },
+      "classification_v2_asset_type": "MIXED",
+      "classification_v2_asset_subtype": "FLEXIBLE_ALLOCATION"
+    }
+  }
+}

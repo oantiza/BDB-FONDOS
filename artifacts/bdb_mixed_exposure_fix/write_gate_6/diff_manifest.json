@@ -1,0 +1,263 @@
+{
+  "audit_id": "BDB-MIXED-EXPOSURE-WRITE-GATE-6",
+  "generated_at_utc": "2026-05-10T21:27:36.609901+00:00",
+  "mode": "dry-run",
+  "write_executed": false,
+  "entries": [
+    {
+      "isin": "LU0119195963",
+      "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+      "subtype": "MODERATE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 42.03,
+        "bond": 53.5,
+        "cash": 0.0,
+        "other": 13.19,
+        "sum": 108.72
+      },
+      "proposed_economic_exposure": {
+        "equity": 38.7,
+        "bond": 49.2,
+        "cash": 0.0,
+        "other": 12.1
+      },
+      "delta_equity": -11.3,
+      "delta_bond": -0.8,
+      "delta_cash": 0.0,
+      "delta_other": 12.1,
+      "rationale_for_approve": "MODERATE 50->38.7%. MS sum=108.7 (slight leverage). GS Patrimonial Balanced, genuinely more defensive than 50/50. Bond=49.2, other=12.1 (alternatives). Coherent.",
+      "potential_suitability_impact": "Moderado. eq baja 11.3pp. Se vuelve mas defensivo, beneficia perfiles conservadores.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0118537002",
+      "name": "Olea Neutral FI",
+      "subtype": "MODERATE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 15.48,
+        "bond": 64.88,
+        "cash": 13.85,
+        "other": 5.79,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 15.5,
+        "bond": 64.9,
+        "cash": 13.8,
+        "other": 5.8
+      },
+      "delta_equity": -34.5,
+      "delta_bond": 14.9,
+      "delta_cash": 13.8,
+      "delta_other": 5.8,
+      "rationale_for_approve": "MODERATE 50->15.5%. MS sum=100.0. Olea Neutral, market-neutral strategy. Very low net equity. Name confirms 'Neutral'. Coherent.",
+      "potential_suitability_impact": "Alto pero correcto. eq baja 34.5pp. Market-neutral genuino, exposicion neta muy baja. Suitability debe reflejar esto.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU2050544563",
+      "name": "DWS ESG Multi Asset Dynamic LC",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 76.06,
+        "bond": 17.95,
+        "cash": 5.99,
+        "other": 0.01,
+        "sum": 100.01
+      },
+      "proposed_economic_exposure": {
+        "equity": 76.1,
+        "bond": 17.9,
+        "cash": 6.0,
+        "other": 0.0
+      },
+      "delta_equity": 26.1,
+      "delta_bond": -32.1,
+      "delta_cash": 6.0,
+      "delta_other": 0.0,
+      "rationale_for_approve": "FLEXIBLE 50->76.1%. MS sum=100.0. DWS ESG Multi Asset Dynamic. 'Dynamic' signals high-equity tilt. Coherent with name.",
+      "potential_suitability_impact": "Moderado. eq sube 26.1pp. De balanced a dinamico. Podria cambiar bucket suitability.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "LU0284394821",
+      "name": "DNCA Invest Évolutif B EUR",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 76.06,
+        "bond": 30.36,
+        "cash": 0.0,
+        "other": 0.0,
+        "sum": 106.42
+      },
+      "proposed_economic_exposure": {
+        "equity": 71.5,
+        "bond": 28.5,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "delta_equity": 21.5,
+      "delta_bond": -21.5,
+      "delta_cash": 0.0,
+      "delta_other": 0.0,
+      "rationale_for_approve": "FLEXIBLE 50->71.5%. MS sum=106.4 (minor leverage). DNCA Invest Evolutif, flexible with equity tilt. Coherent.",
+      "potential_suitability_impact": "Moderado. eq sube 21.5pp. De balanced a growth-tilted flexible. Coherente con 'Evolutif'.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    },
+    {
+      "isin": "ES0114904008",
+      "name": "Brightgate Focus A FI",
+      "subtype": "FLEXIBLE_ALLOCATION",
+      "old_economic_exposure": {
+        "equity": 50.0,
+        "bond": 50.0,
+        "cash": 0.0,
+        "other": 0.0
+      },
+      "ms_portfolio_asset_allocation": {
+        "equity": 85.58,
+        "bond": 0.0,
+        "cash": 10.94,
+        "other": 3.48,
+        "sum": 100.0
+      },
+      "proposed_economic_exposure": {
+        "equity": 85.6,
+        "bond": 0.0,
+        "cash": 10.9,
+        "other": 3.5
+      },
+      "delta_equity": 35.6,
+      "delta_bond": -50.0,
+      "delta_cash": 10.9,
+      "delta_other": 3.5,
+      "rationale_for_approve": "FLEXIBLE 50->85.6%. MS sum=100.0. Brightgate Focus A FI. Concentrated equity strategy. Known as high-conviction equity fund. Coherent.",
+      "potential_suitability_impact": "Alto pero correcto. eq sube 35.6pp. Fondo de acciones concentrado clasificado como flexible. Suitability debe reflejar RV real.",
+      "old_exposure_confidence": 0.45,
+      "proposed_exposure_confidence": 0.85,
+      "old_warnings": [],
+      "fields_to_update": [
+        "portfolio_exposure_v2.economic_exposure.equity",
+        "portfolio_exposure_v2.economic_exposure.bond",
+        "portfolio_exposure_v2.economic_exposure.cash",
+        "portfolio_exposure_v2.economic_exposure.other",
+        "portfolio_exposure_v2.exposure_confidence",
+        "portfolio_exposure_v2.warnings",
+        "portfolio_exposure_v2.computed_at"
+      ],
+      "fields_explicitly_not_touched": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession",
+        "classification_v2",
+        "ms",
+        "derived",
+        "std_perf"
+      ]
+    }
+  ]
+}
