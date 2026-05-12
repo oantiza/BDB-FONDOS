@@ -48,7 +48,7 @@ FALLBACK_CANDIDATES_DEFAULT = [
 
 def _sanitize_fraction(value, default=0.0):
     """
-    Normaliza valores de exposiciÃ³n a escala 0..1.
+    Normaliza valores de exposición a escala 0..1.
     Acepta tanto decimal (0..1) como porcentaje (0..100).
     """
     val = _to_float(value, default)
@@ -286,8 +286,8 @@ def _validate_optimizer_result(
 
 def _build_optimization_context(db, constraints):
     """
-    FASE 1: ConstrucciÃ³n de contexto y polÃ­ticas base.
-    [PRECEDENCIA]: Firestore (risk_profiles) manda sobre todo lo demÃ¡s.
+    FASE 1: Construcción de contexto y políticas base.
+    [PRECEDENCIA]: Firestore (risk_profiles) manda sobre todo lo demás.
     """
     apply_profile = constraints.get("apply_profile", True)
     optimization_mode = constraints.get("optimization_mode", "rebalance_to_profile")
@@ -302,14 +302,14 @@ def _build_optimization_context(db, constraints):
         if risk_profile_doc.exists:
             raw_dic = risk_profile_doc.to_dict()
             current_risk_buckets = {int(k): v for k, v in raw_dic.items()}
-            logger.info("âš¡ [Optimizer] Cargados perfiles de riesgo desde Firestore")
+            logger.info("⚡ [Optimizer] Cargados perfiles de riesgo desde Firestore")
         else:
-            logger.info("âš ï¸ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
+            logger.info("⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
             db_save = {str(k): v for k, v in RISK_BUCKETS_LABELS.items()}
             db.collection("system_settings").document("risk_profiles").set(db_save)
             current_risk_buckets = RISK_BUCKETS_LABELS
     except Exception as e:
-        logger.info(f"âš ï¸ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales.")
+        logger.info(f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales.")
         current_risk_buckets = RISK_BUCKETS_LABELS
 
     equity_floor = float(constraints.get("equity_floor", 0.0))
@@ -322,8 +322,8 @@ def _build_optimization_context(db, constraints):
 def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets):
     """
     FASE 2: Suitability Hard Filter.
-    [PRECEDENCIA CANÃ“NICA] Nivel 2: Filtro Regulador Excluyente.
-    [CORRECCIÃ“N DE PRECEDENCIA]: El Nivel 1 (Locked Assets) prevalece explÃ­citamente.
+    [PRECEDENCIA CANÓNICA] Nivel 2: Filtro Regulador Excluyente.
+    [CORRECCIÓN DE PRECEDENCIA]: El Nivel 1 (Locked Assets) prevalece explícitamente.
     Si el usuario fuerza/bloquea un activo manual, se salta el filtro de idoneidad local.
     """
     if not apply_profile:
@@ -342,13 +342,13 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
         if eligible:
             filtered_list.append(isin)
         else:
-            logger.info(f"ðŸš« [Suitability Excluded] {isin}: {reason}")
+            logger.info(f"🚫 [Suitability Excluded] {isin}: {reason}")
     return filtered_list
 
 def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None, locked_assets=None):
     """
-    FASE 3: Historico de Datos y ExpansiÃ³n BÃ¡sica.
-    [LEGADO]: Incluye lÃ³gica de auto-expandir basada en base de datos si fallan historiales.
+    FASE 3: Historico de Datos y Expansión Básica.
+    [LEGADO]: Incluye lógica de auto-expandir basada en base de datos si fallan historiales.
     """
     fetcher = DataFetcher(db)
     price_data, synthetic_used = fetcher.get_price_data(
@@ -380,7 +380,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
                     to_drop.append(col)
 
         if to_drop:
-            logger.warning(f"âš ï¸ [Optimizer] Excluyendo activos por historial insuficiente (auto<{min_obs_auto}, locked<{min_obs_locked}): {to_drop}")
+            logger.warning(f"⚠️ [Optimizer] Excluyendo activos por historial insuficiente (auto<{min_obs_auto}, locked<{min_obs_locked}): {to_drop}")
             df = df.drop(columns=to_drop)
 
         first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
@@ -403,7 +403,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
             for col in df.columns:
                 missing_count = df[col].isnull().sum()
                 if missing_count > gap_threshold:
-                    logger.warning(f"âš ï¸ [Optimizer] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
+                    logger.warning(f"⚠️ [Optimizer] Excluyendo serie {col} por {missing_count} huecos internos (>{gap_threshold:.0f}) tras suavizado.")
                     cols_to_drop.append(col)
                     
             if cols_to_drop:
@@ -412,7 +412,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
         df = df.dropna()
     else:
         logger.info(
-            "âš ï¸ No valid data found for any asset. Falling back to strict inner join..."
+            "⚠️ No valid data found for any asset. Falling back to strict inner join..."
         )
         df = df.dropna()
 
@@ -421,7 +421,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
 
         if not auto_expand:
             logger.info(
-                "âš ï¸ Insufficient history. Aborting and returning recovery candidates..."
+                "⚠️ Insufficient history. Aborting and returning recovery candidates..."
             )
             if candidate_funds:
                 candidates_list = list(candidate_funds.keys())
@@ -430,7 +430,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
 
             raise ValueError(f"INFEASIBLE_HISTORY:{','.join(candidates_list[:5])}")
 
-        logger.info("âš ï¸ Auto-expanding due to missing history...")
+        logger.info("⚠️ Auto-expanding due to missing history...")
         if candidate_funds:
             candidates_list = list(candidate_funds.keys())
         else:
@@ -443,7 +443,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
                 price_data[isin] = p_series
 
         if not price_data:
-            raise Exception("No se encontraron suficientes datos histÃ³ricos ni siquiera auto-expandiendo el universo.")
+            raise Exception("No se encontraron suficientes datos históricos ni siquiera auto-expandiendo el universo.")
 
         df = pd.DataFrame(price_data)
         df.index = pd.to_datetime(df.index)
@@ -457,7 +457,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
             df = df[df.index >= final_start_date]
             df = df.sort_index().ffill(limit=5).dropna()
         else:
-            raise Exception("No fue posible alinear un tramo histÃ³rico comÃºn vÃ¡lido tras la expansiÃ³n del universo.")
+            raise Exception("No fue posible alinear un tramo histórico común válido tras la expansión del universo.")
 
     universe = list(df.columns)
     missing_assets = [a for a in assets_list if a not in universe]
@@ -467,9 +467,9 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
 
 def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views):
     """
-    FASE 4: CÃ¡lculos Cuantitativos Base (Markowitz & Black-Litterman).
-    [PRECEDENCIA CANÃ“NICA] Nivel 5: Tactical Views.
-    Altera los expected returns y la covarianza estÃ¡tica segÃºn convicciones cualitativas activas.
+    FASE 4: Cálculos Cuantitativos Base (Markowitz & Black-Litterman).
+    [PRECEDENCIA CANÓNICA] Nivel 5: Tactical Views.
+    Altera los expected returns y la covarianza estática según convicciones cualitativas activas.
     """
     mcaps = {}
     for t in universe:
@@ -489,7 +489,7 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
             else:
                 raise Exception("Valid views empty")
         except Exception as e_bl:
-            logger.info(f"âš ï¸ Black-Litterman Failed: {e_bl}. Fallback to Pairwise Mean/Covariance.")
+            logger.info(f"⚠️ Black-Litterman Failed: {e_bl}. Fallback to Pairwise Mean/Covariance.")
             mu = get_expected_returns(df, method="mean")
             S = get_covariance_matrix(df)
     else:
@@ -501,7 +501,7 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
 
 def _build_frontier_curve(mu, S):
     """
-    FASE 5: GeneraciÃ³n de la Frontera Eficiente TeÃ³rica (para pintado en UI).
+    FASE 5: Generación de la Frontera Eficiente Teórica (para pintado en UI).
     """
     frontier_points = []
     try:
@@ -523,7 +523,7 @@ def _build_frontier_curve(mu, S):
                     current_max_x = max(current_max_x, p["x"])
             frontier_points = efficient_only
     except Exception as e_cla:
-        logger.info(f"âš ï¸ Frontier gen warning: {e_cla}")
+        logger.info(f"⚠️ Frontier gen warning: {e_cla}")
         
     return frontier_points
 
@@ -604,12 +604,12 @@ def _apply_standard_constraints(
     bucket_bounds_v1=None,
 ):
     """
-    FASE 6: InyecciÃ³n de Restricciones Efectivas al Solver (PyPortfolioOpt).
+    FASE 6: Inyección de Restricciones Efectivas al Solver (PyPortfolioOpt).
     [PRECEDENCIA EFECTIVA EN SOLVER]:
-    Toda restricciÃ³n inyectada aquÃ­ es matemÃ¡ticamente 'dura'. Si hay conflicto, el solver fallarÃ¡.
-    JerarquÃ­a de construcciÃ³n de constraints:
-    - Nivel 1: Locked Assets & Lock Mode (Bloqueos de peso por isin dictan lÃ­mites precisos)
-    - Nivel 4: Restricciones adicionales (GeografÃ­as y grupos custom)
+    Toda restricción inyectada aquí es matemáticamente 'dura'. Si hay conflicto, el solver fallará.
+    Jerarquía de construcción de constraints:
+    - Nivel 1: Locked Assets & Lock Mode (Bloqueos de peso por isin dictan límites precisos)
+    - Nivel 4: Restricciones adicionales (Geografías y grupos custom)
     - Nivel 3: Risk Profile Buckets (Bandas permitidas por tipo de activo base)
     """
     universe = ef_inst.tickers
@@ -670,7 +670,7 @@ def _apply_standard_constraints(
                 em_vec_np = _build_group_vector(universe, asset_metadata, "regions", "emerging")
                 ef_inst.add_constraint(lambda w: w @ em_vec_np <= emerging_cap)
         except Exception as e_geo:
-            logger.info(f"âš ï¸ Geo Constraint Warning: {e_geo}")
+            logger.info(f"⚠️ Geo Constraint Warning: {e_geo}")
 
     group_limits = constraints.get("group_limits", {})
     if group_limits and asset_metadata:
@@ -684,7 +684,7 @@ def _apply_standard_constraints(
                     if max_val is not None and max_val < 0.999:
                         ef_inst.add_constraint(lambda w, v=vec_np, m=max_val: w @ v <= m)
         except Exception as e_grp:
-            logger.info(f"âš ï¸ Generic Group Constraint Warning: {e_grp}")
+            logger.info(f"⚠️ Generic Group Constraint Warning: {e_grp}")
 
     if apply_profile and risk_level_i in current_risk_buckets and not _v1_has_active_bounds:
         bucket_cfg = current_risk_buckets[risk_level_i]
@@ -705,8 +705,8 @@ def _check_feasibility_and_autoexpand(
     candidate_funds=None, bucket_bounds_v1=None
 ):
     """
-    FASE 7: PredicciÃ³n de Factibilidad (Floor Checks).
-    [LEGADO]: Incluye lÃ³gica de inyecciÃ³n de fondos de alta RV si no se cumple el equity floor.
+    FASE 7: Predicción de Factibilidad (Floor Checks).
+    [LEGADO]: Incluye lógica de inyección de fondos de alta RV si no se cumple el equity floor.
     """
     added_assets = []
     solver_path = None
@@ -749,7 +749,7 @@ def _check_feasibility_and_autoexpand(
                     "warnings": [f"Equity Floor {equity_floor} Unachievable"],
                 }, None, None, None, None, None, None, None, None, None, None, None, None
 
-            logger.info("âš ï¸ Auto-Expanding Universe...")
+            logger.info("⚠️ Auto-Expanding Universe...")
             if candidate_funds:
                 candidates_list = list(candidate_funds.keys())
             else:
@@ -935,10 +935,10 @@ def _run_solver(
 
 def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights):
     """
-    FASE 9: Limpieza, DegradaciÃ³n Graciosa y AsignaciÃ³n Final.
-    [PRECEDENCIA CANÃ“NICA] Nivel 7: Fallbacks / Degradaciones.
-    Si fallÃ³ el solver, entramos en fallback asumiendo pesos equitativos PONDERADOS:
-    - Conserva Nivel 3 (Filtro por Risk Buckets lÃ³gicos).
+    FASE 9: Limpieza, Degradación Graciosa y Asignación Final.
+    [PRECEDENCIA CANÓNICA] Nivel 7: Fallbacks / Degradaciones.
+    Si falló el solver, entramos en fallback asumiendo pesos equitativos PONDERADOS:
+    - Conserva Nivel 3 (Filtro por Risk Buckets lógicos).
     - Conserva Nivel 1 (Locked Assets mantienen su peso hardcoded).
     - Se pierden Nivel 4 y Nivel 5.
     """
@@ -955,7 +955,7 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             cleaned_weights[t] = max(0.0, value)
         weights = _normalize(cleaned_weights)
     else:
-        logger.info("âš ï¸ Applying Graceful Degradation (Filtered Equal-Weight)")
+        logger.info("⚠️ Applying Graceful Degradation (Filtered Equal-Weight)")
         allowed_universe = []
         score_by_isin = {}
 
@@ -1039,7 +1039,7 @@ def run_optimization(
     constraints_v1 = constraints_v1 or constraints.get("constraints_v1") or {}
     asset_metadata = asset_metadata or {}
     locked_assets = locked_assets or []
-    logger.info(f"ðŸ“¥ [Optimizer] Risk: {risk_level}, Assets: {len(assets_list)}, Meta: {len(asset_metadata)}")
+    logger.info(f"📥 [Optimizer] Risk: {risk_level}, Assets: {len(assets_list)}, Meta: {len(asset_metadata)}")
 
     try:
         # FASE 1: Contexto Global
@@ -1081,7 +1081,7 @@ def run_optimization(
             return {
                 "api_version": "optimizer_v4",
                 "status": "error",
-                "message": f"El tramo comÃºn estricto encontrado es demasiado corto ({len(df)} dÃ­as). Se requieren al menos 60 dÃ­as laborables para optimizar.",
+                "message": f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para optimizar.",
                 "effective_start_date": actual_start_str,
                 "observations": len(df)
             }
@@ -1304,9 +1304,9 @@ def run_optimization(
             # --- STRUCTURED EXPLAINABILITY (Phase 5) ---
             "solver_path": solver_path,
             "applied_constraints": binding_constraints,
-            "relaxed_constraints": ["Objetivo matemÃ¡tico principal relajado"] if solver_path and "fallback" in solver_path else [],
-            "locked_assets_impact": "Pesos forzados de manera determinista (sin optimizaciÃ³n) para los %d activos indicados" % len(locked_assets) if locked_assets else "Ninguno",
-            "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vÃ­a Black-Litterman posteriori" if tactical_views else "Ninguno",
+            "relaxed_constraints": ["Objetivo matemático principal relajado"] if solver_path and "fallback" in solver_path else [],
+            "locked_assets_impact": "Pesos forzados de manera determinista (sin optimización) para los %d activos indicados" % len(locked_assets) if locked_assets else "Ninguno",
+            "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
 
         final_validation = _validate_optimizer_result(
