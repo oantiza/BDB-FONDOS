@@ -1,4 +1,5 @@
 import logging
+import re
 logger = logging.getLogger(__name__)
 import json
 import os
@@ -10,18 +11,51 @@ from services.admin import restore_historico_logic
 from services.data_fetcher import DataFetcher
 from services.daily_service import refresh_daily_logic
 
+ALLOWED_ORIGINS = [
+    "https://bdb-fondos.web.app",
+    "https://bdb-fondos.firebaseapp.com",
+    "http://localhost:5173",
+    "http://localhost:3000",
+]
+
 cors_config = options.CorsOptions(
-    cors_origins="*", cors_methods=["GET", "POST", "OPTIONS"]
+    cors_origins=["http://localhost:5173", "http://localhost:3000", r"https://.*\.web\.app", r"https://.*\.firebaseapp\.com"],
+    cors_methods=["GET", "POST", "OPTIONS"]
 )
 
 
-def get_cors_headers():
-    return {
-        "Access-Control-Allow-Origin": "*",
+def _is_origin_allowed(origin: str) -> bool:
+    """Check if origin matches the CORS allowlist (exact or regex)."""
+    if not origin:
+        return False
+    for allowed in ALLOWED_ORIGINS:
+        if origin == allowed:
+            return True
+    # Also match any *.web.app / *.firebaseapp.com subdomain
+    if re.match(r"https://.*\.web\.app$", origin):
+        return True
+    if re.match(r"https://.*\.firebaseapp\.com$", origin):
+        return True
+    return False
+
+
+def get_cors_headers(request=None):
+    """Return CORS headers with origin validated against allowlist.
+
+    If the request Origin is not in the allowlist, the
+    Access-Control-Allow-Origin header is omitted entirely.
+    """
+    headers = {
         "Access-Control-Allow-Methods": "POST, GET, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type",
+        "Access-Control-Allow-Headers": "Content-Type, Authorization",
         "Access-Control-Max-Age": "3600",
     }
+    origin = None
+    if request is not None:
+        origin = request.headers.get("Origin")
+    if origin and _is_origin_allowed(origin):
+        headers["Access-Control-Allow-Origin"] = origin
+    return headers
 
 
 @https_fn.on_request(
@@ -60,19 +94,19 @@ def force_weekly_research(req: https_fn.Request) -> https_fn.Response:
                     {"success": True, "message": "Nuevo informe generado con éxito."}
                 ),
                 status=200,
-                headers=get_cors_headers(),
+                headers=get_cors_headers(req),
             )
         else:
             return https_fn.Response(
                 json.dumps({"success": False, "error": result.get("error")}),
                 status=500,
-                headers=get_cors_headers(),
+                headers=get_cors_headers(req),
             )
     except Exception as e:
         return https_fn.Response(
             json.dumps({"success": False, "error": str(e)}),
             status=500,
-            headers=get_cors_headers(),
+            headers=get_cors_headers(req),
         )
 
 
