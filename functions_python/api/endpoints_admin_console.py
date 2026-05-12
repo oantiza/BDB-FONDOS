@@ -22,7 +22,13 @@ from services.admin_auth import (
 logger = logging.getLogger(__name__)
 
 cors_config = options.CorsOptions(
-    cors_origins="*", cors_methods=["GET", "POST", "OPTIONS"]
+    cors_origins=[
+        "http://localhost:5173",
+        "http://localhost:3000",
+        r"https://.*\.web\.app",
+        r"https://.*\.firebaseapp\.com",
+    ],
+    cors_methods=["GET", "POST", "OPTIONS"],
 )
 
 # ---------------------------------------------------------------------------
