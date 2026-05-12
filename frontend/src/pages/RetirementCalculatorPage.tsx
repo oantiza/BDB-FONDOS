@@ -16,8 +16,6 @@ import { FiscalBreakdownCard } from '../components/retirement/FiscalBreakdownCar
 import { RetirementProjectionChart } from '../components/retirement/RetirementProjectionChart';
 import type { RetirementFormState } from '../components/retirement/types';
 
-import fondoImg from '../assets/fondo_v1.png';
-
 interface RetirementCalculatorPageProps {
     onBack?: () => void;
 }
@@ -296,7 +294,7 @@ export default function RetirementCalculatorPage({ onBack }: RetirementCalculato
     };
 
     return (
-        <div className="block h-[calc(100vh-64px)] w-full overflow-y-auto bg-[#F4F7FB] bg-cover bg-center bg-fixed bg-no-repeat font-sans text-[#0D1B2A] antialiased selection:bg-[#E67E5F] selection:text-white" style={{ backgroundImage: `url(${fondoImg})` }}>
+        <div className="block h-[calc(100vh-64px)] w-full overflow-y-auto bg-[#F4F7FB] font-sans text-[#0D1B2A] antialiased selection:bg-[#E67E5F] selection:text-white">
             <div className="relative flex min-h-full w-full flex-col pb-20 bg-white/20">
                 {step === 'setup' ? (
                     <div className="mx-auto w-full max-w-[1080px] px-4 pb-6 pt-12 sm:px-6 lg:px-8 lg:py-16">
