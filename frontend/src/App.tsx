@@ -26,7 +26,7 @@ import { isAdminEmail } from './hooks/useAdminAuth'
 function App() {
   const [isAuthenticatedLocal, setIsAuthenticatedLocal] = useState(false)
   const [activeView, setActiveView] = useState<'DASHBOARD' | 'MIBOUTIQUE' | 'XRAY' | 'POSITIONS' | 'RETIREMENT' | 'COMPARATOR' | 'ANALYTICS' | 'ADMIN'>('DASHBOARD')
-  const [configError, setConfigError] = useState<string | null>(null)
+
   const [isSyncingRiskProfiles, setIsSyncingRiskProfiles] = useState(true)
 
   // Lifted State
@@ -39,8 +39,14 @@ function App() {
     return () => unsubscribe()
   }, [])
 
-  // Sync Dynamic Risk Profiles
+  // Sync Dynamic Risk Profiles — only after auth confirms a user
   useEffect(() => {
+    // Skip Firestore read if user is not authenticated yet (local seed is safe)
+    if (!isAuthenticatedLocal) {
+      setIsSyncingRiskProfiles(false);
+      return;
+    }
+
     const fetchRiskProfiles = async () => {
       try {
         const docRef = doc(db, 'system_settings', 'risk_profiles');
@@ -55,14 +61,14 @@ function App() {
           syncRiskProfilesFromDB(profiles);
         }
       } catch (error: any) {
-        console.error("⚠️ [App] Error fetching risk profiles from DB:", error);
-        setConfigError(error.message || "No se pudieron cargar los perfiles de riesgo del sistema.");
+        // Log for dev visibility but don't block the app — local seed is a safe fallback
+        console.warn("⚠️ [App] Risk profiles Firestore sync failed, using local seed:", error?.code || error?.message);
       } finally {
         setIsSyncingRiskProfiles(false);
       }
     };
     fetchRiskProfiles();
-  }, []);
+  }, [isAuthenticatedLocal]);
 
   const handleLogin = async (email: string, pass: string) => {
     try {
@@ -75,19 +81,6 @@ function App() {
   };
 
   const getPageContent = () => {
-    if (configError) {
-      return (
-        <div className="h-screen w-full flex items-center justify-center bg-slate-50">
-          <div className="max-w-md p-8 bg-white border-l-4 border-red-500 shadow-lg rounded-xl flex flex-col items-center">
-            <h2 className="text-xl font-bold text-slate-800 mb-2">Error Crítico del Sistema</h2>
-            <p className="text-sm text-slate-600 text-center mb-6">{configError}</p>
-            <button onClick={() => window.location.reload()} className="px-6 py-2 bg-red-50 text-red-600 font-medium rounded-full hover:bg-red-100 transition-colors">
-              Reintentar
-            </button>
-          </div>
-        </div>
-      )
-    }
 
     if (!isAuthenticatedLocal) {
       return <Login key="login" onLogin={handleLogin} />
