@@ -653,30 +653,3 @@ export function syncRiskProfilesFromDB(profilesDB: Record<number, any>) {
     console.warn("⚠️ [RulesEngine] Firestore risk_profiles payload invalid or empty. Keeping local presentation seed.");
   }
 }
-
-// NOTE: Endpoint oficial para hidratar configuración desde Backend (FASE 1)
-export async function syncBusinessRulesFromBackend(functionsInstance: any) {
-  try {
-    const { httpsCallable } = await import('firebase/functions');
-    const getRules = httpsCallable(functionsInstance, 'get_business_rules');
-    const response = await getRules();
-    const data = response.data as any;
-    const applied = applyCanonicalRiskProfiles(
-      data?.risk_profiles,
-      "backend",
-      `backend business rules (${data?.config_source || "unknown"})`
-    );
-
-    if (!data || data.api_version !== "business_rules_v1" || !data.risk_profiles) {
-      console.warn("⚠️ [RulesEngine] Payload de reglas de negocio inválido, usando RISK_PROFILES local");
-      return;
-    }
-
-    if (applied === 0) {
-      console.warn("⚠️ [RulesEngine] Payload de backend sin perfiles utilizables. Se mantiene la seed local.");
-    }
-  } catch (error) {
-    console.error("⚠️ [RulesEngine] Error consultando business rules al backend:", error);
-    // Fallback silencioso para no romper la UX
-  }
-}
