@@ -1,3 +1,7 @@
+// HISTORICAL ONLY -- DO NOT RUN
+// This script belongs to a historical BDB-FONDOS remediation/migration.
+// Do not re-execute without explicit gate, dry-run, approved diff and rollback plan.
+
 /**
  * REPAIR COSTS FUNDS_V3
  * Limpieza de inconsistencias en costes (TER, Retrocesiones)
