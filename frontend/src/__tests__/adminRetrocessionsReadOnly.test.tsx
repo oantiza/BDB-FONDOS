@@ -181,15 +181,15 @@ describe('RetrocessionPanel source security', () => {
 describe('AdminLayout retrocessions integration', () => {
   const source = readSource('components/admin/AdminLayout.tsx');
 
-  it('imports RetrocessionPanel', () => {
-    expect(source).toContain("import RetrocessionPanel from './RetrocessionPanel'");
+  it('imports RetrocessionManager', () => {
+    expect(source).toContain("import RetrocessionManager from './RetrocessionManager'");
   });
 
   it('marks retrocessions module as implemented', () => {
     expect(source).toMatch(/id:\s*'retrocessions'.*implemented:\s*true/);
   });
 
-  it('renders RetrocessionPanel for retrocessions module', () => {
-    expect(source).toContain('<RetrocessionPanel');
+  it('renders RetrocessionManager for retrocessions module', () => {
+    expect(source).toContain('<RetrocessionManager');
   });
 });
