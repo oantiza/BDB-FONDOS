@@ -50,10 +50,15 @@ from api.endpoints_admin import (
 from api.endpoints_xray_comparador import compare_risk_free
 
 # -----------------
-# ADMIN CONSOLE (READ-ONLY)
+# ADMIN CONSOLE
 # -----------------
+# Read-only endpoints: admin_health, admin_fund_search, admin_retro_dry_run.
+# Controlled-write endpoint: admin_retro_write (WRITE-MVP-0) — writes ONLY
+#   manual.costs.retrocession to funds_v3 with audit log, after admin auth +
+#   server-side re-classification + explicit confirm/reason/warning acks.
 from api.endpoints_admin_console import (
     admin_health,
     admin_fund_search,
     admin_retro_dry_run,
+    admin_retro_write,
 )

@@ -601,3 +601,525 @@ def admin_retro_dry_run(request: https_fn.CallableRequest):
         "manifest_expires_at": expires_at.isoformat(),
         "confirmation_phrase_expected": confirmation_phrase,
     }
+
+
+# ---------------------------------------------------------------------------
+# admin_retro_write — controlled real-write endpoint (WRITE-MVP-0)
+# ---------------------------------------------------------------------------
+#
+# This endpoint applies retrocession updates to funds_v3 after a successful
+# dry-run. It is the ONLY place where Firestore writes are produced for the
+# retrocession field. Invariants:
+#
+#   * Re-runs the SAME normalization + classification pipeline as
+#     admin_retro_dry_run on the rows provided by the client. The client's
+#     prior dry-run output is NOT trusted as authority (C.2 carries over):
+#     the backend re-derives every status from raw inputs.
+#   * BLOCKED rows present in the re-classified lote → abort, no writes.
+#   * WARNING rows must be explicitly acknowledged by ISIN in `warning_acks`
+#     (the client surfaces a checkbox per warning or "ack all").
+#   * Writes use Firestore .update() targeting EXCLUSIVELY the dotted path
+#     "manual.costs.retrocession". No other field is touched. No set().
+#     No create() — funds that don't exist are recorded as BLOCKED.
+#   * For each fund: read fund document immediately before write to verify
+#     existence and to capture the freshest `previous` value. If the current
+#     retrocession in Firestore drifted from the manifest's `current_retro`
+#     beyond tolerance (1e-6), the row is skipped with STALE_CURRENT and
+#     recorded in audit. Other rows proceed.
+#   * One audit document is created in `admin_audit_log` per write operation
+#     with all entries (PASS / FAIL / SKIPPED) so manual rollback is feasible
+#     using before/after values stored there.
+#
+# Audit log collection. The `audit_id` is returned to the client so the admin
+# can reference the operation later.
+AUDIT_COLLECTION = "admin_audit_log"
+
+# Maximum length for the reason/comment field. Reasonable cap to prevent abuse.
+REASON_MIN_LEN = 3
+REASON_MAX_LEN = 2000
+
+
+def _re_classify_for_write(
+    rows: list[dict],
+    source_filename: str,
+    db,
+) -> tuple[list[dict], list[dict], int]:
+    """Re-run normalization + dedup + classification pipeline on rows.
+
+    Mirrors the phases of admin_retro_dry_run but is invoked from
+    admin_retro_write to ensure the write decisions are based on a fresh
+    server-side re-evaluation rather than the client's prior dry-run output.
+
+    Returns (classified_results, normalized_rows, client_server_mismatches).
+    """
+    from collections import defaultdict
+    from firebase_admin import firestore as fs_admin
+    _ = fs_admin  # silence unused; db is injected for testability
+
+    # Phase 1: normalize per row
+    normalized_rows: list[dict] = []
+    for row in rows:
+        isin = (row.get("isin") or "").strip().upper()
+        norm = _normalize_retrocession_backend(
+            retro_raw=row.get("retro_raw"),
+            cell_internal_value=row.get("cell_internal_value"),
+            cell_number_format=row.get("cell_number_format"),
+            source=row.get("source", "csv"),
+        )
+        normalized_rows.append({
+            "isin": isin,
+            "row": row,
+            "new_retro": norm["value"],
+            "norm_status": norm["status"],
+            "norm_reason": norm["reason"],
+        })
+
+    # Phase 2: server-side dedup (C.5)
+    isin_groups: dict[str, list[int]] = defaultdict(list)
+    for idx, nr in enumerate(normalized_rows):
+        if nr["isin"]:
+            isin_groups[nr["isin"]].append(idx)
+
+    dup_blocked_indices: set[int] = set()
+    dup_warning_indices: set[int] = set()
+    for isin, indices in isin_groups.items():
+        if len(indices) <= 1:
+            continue
+        values = [normalized_rows[i]["new_retro"] for i in indices]
+        non_none = [v for v in values if v is not None]
+        if len(non_none) <= 1:
+            for i in indices[1:]:
+                dup_warning_indices.add(i)
+            continue
+        first = non_none[0]
+        all_same = all(abs(v - first) < 1e-6 for v in non_none)
+        if all_same:
+            for i in indices[1:]:
+                dup_warning_indices.add(i)
+        else:
+            for i in indices:
+                dup_blocked_indices.add(i)
+
+    # Phase 3: fetch funds (READ-ONLY at this point)
+    unique_isins = set(
+        nr["isin"] for nr in normalized_rows
+        if nr["isin"] and ISIN_REGEX.match(nr["isin"])
+    )
+    fund_docs: dict[str, dict | None] = {}
+    for isin in unique_isins:
+        doc = db.collection("funds_v3").document(isin).get()
+        fund_docs[isin] = doc.to_dict() if doc.exists else None
+
+    # Phase 4: classify
+    results: list[dict] = []
+    client_server_mismatches = 0
+    for idx, nr in enumerate(normalized_rows):
+        isin = nr["isin"]
+        row = nr["row"]
+        new_retro = nr["new_retro"]
+        norm_status = nr["norm_status"]
+        norm_reason = nr["norm_reason"]
+
+        if idx in dup_blocked_indices:
+            norm_status = "INVALID"
+            norm_reason = "DUP_CONFLICT"
+
+        classified = _classify_row(
+            row=row,
+            fund_doc=fund_docs.get(isin),
+            fund_isin=isin,
+            new_retro=new_retro,
+            norm_status=norm_status,
+            norm_reason=norm_reason,
+            source_filename=source_filename,
+        )
+
+        if idx in dup_warning_indices and classified["status"] not in ("BLOCKED",):
+            classified["status"] = "WARNING"
+            existing_reason = classified.get("reason", "")
+            classified["reason"] = (
+                f"DUP_SAME_VALUE; {existing_reason}" if existing_reason
+                else "DUP_SAME_VALUE"
+            )
+
+        client_parsed = row.get("retro_parsed_client")
+        if client_parsed is not None and new_retro is not None:
+            if abs(client_parsed - new_retro) >= 1e-6:
+                client_server_mismatches += 1
+        elif client_parsed is not None and new_retro is None:
+            client_server_mismatches += 1
+        elif client_parsed is None and new_retro is not None:
+            client_server_mismatches += 1
+
+        results.append(classified)
+
+    return results, normalized_rows, client_server_mismatches
+
+
+def _run_admin_retro_write_core(
+    admin_email: str,
+    actor_uid: str,
+    data: dict,
+    db,
+    server_timestamp,
+):
+    """Pure logic for admin_retro_write — testable without firebase_functions
+    runtime. Raises https_fn.HttpsError on validation failures, returns the
+    response dict on success. The decorated callable is a thin shim around
+    this function.
+    """
+    rows = data.get("rows") or []
+    reason = (data.get("reason") or "").strip()
+    confirm = bool(data.get("confirm"))
+    warning_acks_raw = data.get("warning_acks") or []
+    warning_acks: set[str] = set()
+    if isinstance(warning_acks_raw, list):
+        for v in warning_acks_raw:
+            if isinstance(v, str):
+                warning_acks.add(v.strip().upper())
+    source = (data.get("source") or "manual").lower()
+    source_filename = data.get("source_filename", "")
+    dry_run_manifest_id = data.get("dry_run_manifest_id", "")
+
+    # -----------------------------------------------------------------------
+    # Pre-flight validations
+    # -----------------------------------------------------------------------
+    if not confirm:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message="confirm flag must be true",
+        )
+    if len(reason) < REASON_MIN_LEN:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message=f"reason required (min {REASON_MIN_LEN} chars)",
+        )
+    if len(reason) > REASON_MAX_LEN:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message=f"reason too long (max {REASON_MAX_LEN} chars)",
+        )
+    if not rows:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message="No rows provided for write",
+        )
+    if len(rows) > 500:
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message=f"Too many rows: {len(rows)} (max 500)",
+        )
+    if source not in ("manual", "csv", "excel", "xlsx"):
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.INVALID_ARGUMENT,
+            message=f"Invalid source: {source}",
+        )
+
+    # -----------------------------------------------------------------------
+    # Re-classify every row server-side (do NOT trust client-side dry-run)
+    # -----------------------------------------------------------------------
+    results, _normalized, client_server_mismatches = _re_classify_for_write(
+        rows=rows,
+        source_filename=source_filename,
+        db=db,
+    )
+
+    # -----------------------------------------------------------------------
+    # Gate: any BLOCKED → abort without writes
+    # -----------------------------------------------------------------------
+    blocked_results = [r for r in results if r["status"] == "BLOCKED"]
+    if blocked_results:
+        logger.warning(
+            f"admin_retro_write aborted by {admin_email}: "
+            f"{len(blocked_results)} BLOCKED rows present"
+        )
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.FAILED_PRECONDITION,
+            message=(
+                f"Lote contiene {len(blocked_results)} filas BLOCKED; "
+                "el flujo MVP no acepta escritura parcial. Corrige el archivo "
+                "o re-ejecuta el dry-run."
+            ),
+            details={
+                "blocked_isins": [
+                    {"isin": r["isin"], "reason": r["reason"]}
+                    for r in blocked_results
+                ],
+            },
+        )
+
+    # -----------------------------------------------------------------------
+    # Gate: WARNING rows must be acknowledged by ISIN
+    # -----------------------------------------------------------------------
+    warning_results = [r for r in results if r["status"] == "WARNING"]
+    unacked = [r for r in warning_results if r["isin"] not in warning_acks]
+    if unacked:
+        logger.warning(
+            f"admin_retro_write aborted by {admin_email}: "
+            f"{len(unacked)} WARNING rows without ack"
+        )
+        raise https_fn.HttpsError(
+            code=https_fn.FunctionsErrorCode.FAILED_PRECONDITION,
+            message=(
+                f"{len(unacked)} filas con WARNING sin acuse explícito. "
+                "Marcar la confirmación de warnings antes de aplicar."
+            ),
+            details={
+                "unacked_warning_isins": [r["isin"] for r in unacked],
+            },
+        )
+
+    # -----------------------------------------------------------------------
+    # Apply writes — only OK and acknowledged WARNING rows
+    # -----------------------------------------------------------------------
+    writes_to_apply = [r for r in results if r["status"] in ("OK", "WARNING")]
+    unchanged_count = sum(1 for r in results if r["status"] == "UNCHANGED")
+
+    writes_executed = 0
+    writes_failed = 0
+    write_failures: list[dict] = []
+    audit_entries: list[dict] = []
+    isins_updated: list[str] = []
+
+    for r in writes_to_apply:
+        isin = r["isin"]
+        new_retro = r["new_retro"]
+        manifest_current = r["current_retro"]
+
+        # Anti-stale & no-create: re-read the doc immediately before update
+        doc_ref = db.collection("funds_v3").document(isin)
+        try:
+            doc_snap = doc_ref.get()
+        except Exception as e:
+            writes_failed += 1
+            write_failures.append({
+                "isin": isin,
+                "reason": "READ_BEFORE_WRITE_FAILED",
+                "error": str(e),
+            })
+            audit_entries.append({
+                "isin": isin,
+                "previous": manifest_current,
+                "new": new_retro,
+                "result": "FAIL",
+                "reason": "READ_BEFORE_WRITE_FAILED",
+                "error": str(e),
+            })
+            continue
+
+        if not doc_snap.exists:
+            writes_failed += 1
+            write_failures.append({
+                "isin": isin,
+                "reason": "FUND_NOT_FOUND_AT_WRITE_TIME",
+            })
+            audit_entries.append({
+                "isin": isin,
+                "previous": manifest_current,
+                "new": new_retro,
+                "result": "FAIL",
+                "reason": "FUND_NOT_FOUND_AT_WRITE_TIME",
+            })
+            continue
+
+        existing = doc_snap.to_dict() or {}
+        existing_manual = existing.get("manual") or {}
+        existing_costs = existing_manual.get("costs") or {}
+        existing_retro = existing_costs.get("retrocession")
+
+        # Stale guard (C.7): aborta esta fila si current cambió respecto al manifest
+        if (
+            existing_retro is not None
+            and manifest_current is not None
+            and abs(existing_retro - manifest_current) >= 1e-6
+        ):
+            writes_failed += 1
+            write_failures.append({
+                "isin": isin,
+                "reason": "STALE_CURRENT",
+                "manifest_current": manifest_current,
+                "firestore_current": existing_retro,
+            })
+            audit_entries.append({
+                "isin": isin,
+                "previous": existing_retro,
+                "new": new_retro,
+                "result": "SKIPPED",
+                "reason": "STALE_CURRENT",
+            })
+            continue
+
+        # No-op guard: if existing == new with tolerance, skip silently
+        if (
+            existing_retro is not None
+            and new_retro is not None
+            and abs(existing_retro - new_retro) < 1e-6
+        ):
+            audit_entries.append({
+                "isin": isin,
+                "previous": existing_retro,
+                "new": new_retro,
+                "result": "SKIPPED",
+                "reason": "NO_OP_EQUAL_VALUE",
+            })
+            continue
+
+        # Apply update — ONLY the retrocession dotted field. Preserves all else.
+        try:
+            doc_ref.update({"manual.costs.retrocession": round(float(new_retro), 4)})
+            writes_executed += 1
+            isins_updated.append(isin)
+            audit_entries.append({
+                "isin": isin,
+                "previous": existing_retro,
+                "new": round(float(new_retro), 4),
+                "result": "PASS",
+                "warning_acked": isin in warning_acks,
+            })
+
+            # Post-write verification (C.14): read-back and compare
+            try:
+                verify_snap = doc_ref.get()
+                if verify_snap.exists:
+                    verify_dict = verify_snap.to_dict() or {}
+                    verify_retro = (
+                        verify_dict.get("manual", {})
+                        .get("costs", {})
+                        .get("retrocession")
+                    )
+                    if (
+                        verify_retro is None
+                        or abs(verify_retro - new_retro) >= 1e-6
+                    ):
+                        audit_entries[-1]["post_write_verification"] = "FAIL"
+                        audit_entries[-1]["post_write_readback"] = verify_retro
+                    else:
+                        audit_entries[-1]["post_write_verification"] = "PASS"
+            except Exception as e:
+                audit_entries[-1]["post_write_verification"] = "ERROR"
+                audit_entries[-1]["post_write_error"] = str(e)
+        except Exception as e:
+            writes_failed += 1
+            write_failures.append({
+                "isin": isin,
+                "reason": "UPDATE_FAILED",
+                "error": str(e),
+            })
+            audit_entries.append({
+                "isin": isin,
+                "previous": existing_retro,
+                "new": new_retro,
+                "result": "FAIL",
+                "reason": "UPDATE_FAILED",
+                "error": str(e),
+            })
+
+    # -----------------------------------------------------------------------
+    # Persist audit document (always, even if 0 writes executed)
+    # -----------------------------------------------------------------------
+    audit_doc_ref = db.collection(AUDIT_COLLECTION).document()
+    audit_id = audit_doc_ref.id
+
+    audit_payload = {
+        "timestamp": server_timestamp,
+        "actor_email": admin_email,
+        "actor_uid": actor_uid,
+        "action": "admin_retro_write",
+        "source": source,
+        "source_filename": source_filename,
+        "dry_run_manifest_id": dry_run_manifest_id,
+        "reason": reason,
+        "total_rows": len(rows),
+        "writes_planned": len(writes_to_apply),
+        "writes_executed": writes_executed,
+        "writes_failed": writes_failed,
+        "unchanged_count": unchanged_count,
+        "warning_count": len(warning_results),
+        "warning_acks": sorted(warning_acks),
+        "client_server_normalization_mismatches": client_server_mismatches,
+        "isins_updated": isins_updated,
+        "entries": audit_entries,
+        "write_failures": write_failures,
+    }
+    try:
+        audit_doc_ref.set(audit_payload)
+    except Exception as e:
+        # If audit fails after writes, surface clearly but do not undo writes
+        logger.error(
+            f"admin_retro_write audit log write failed for audit_id={audit_id}: {e}"
+        )
+        # Return with audit_id but warn — the operation still happened
+        return {
+            "mode": "WRITE_EXECUTED_AUDIT_FAILED",
+            "audit_id": audit_id,
+            "writes_executed": writes_executed,
+            "writes_failed": writes_failed,
+            "writes_planned": len(writes_to_apply),
+            "unchanged_count": unchanged_count,
+            "isins_updated": isins_updated,
+            "write_failures": write_failures,
+            "audit_error": str(e),
+        }
+
+    logger.info(
+        f"admin_retro_write completed by {admin_email}: "
+        f"audit_id={audit_id}, executed={writes_executed}, "
+        f"failed={writes_failed}, planned={len(writes_to_apply)}, "
+        f"unchanged={unchanged_count}, source={source}"
+    )
+
+    return {
+        "mode": "WRITE_EXECUTED",
+        "audit_id": audit_id,
+        "writes_executed": writes_executed,
+        "writes_failed": writes_failed,
+        "writes_planned": len(writes_to_apply),
+        "unchanged_count": unchanged_count,
+        "warning_count": len(warning_results),
+        "isins_updated": isins_updated,
+        "write_failures": write_failures,
+    }
+
+
+# ---------------------------------------------------------------------------
+# admin_retro_write — Cloud Function callable (thin wrapper around core)
+# ---------------------------------------------------------------------------
+
+@https_fn.on_call(
+    region="europe-west1",
+    memory=options.MemoryOption.GB_1,
+    timeout_sec=180,
+    cors=cors_config,
+)
+def admin_retro_write(request: https_fn.CallableRequest):
+    """Apply real retrocession updates to funds_v3 after a successful dry-run.
+
+    Strictly bounded:
+      * update() of exactly `manual.costs.retrocession`. No other field.
+      * Never creates a fund. BLOCKED if doc missing at re-classification or
+        at write-time.
+      * BLOCKED rows in the lote → abort with FAILED_PRECONDITION before any
+        write.
+      * WARNING rows must be explicitly acknowledged in `warning_acks` (list
+        of ISIN strings). Unacknowledged warnings → abort.
+      * `reason` (operator comment) is required (≥3 chars).
+      * `confirm` must be true.
+      * Writes one audit document to `admin_audit_log` per call summarizing
+        every PASS/FAIL/SKIPPED ISIN with previous/new for manual rollback.
+
+    All testable logic lives in `_run_admin_retro_write_core`.
+    """
+    admin_email = extract_and_verify_admin_callable(request)
+    actor_uid = request.auth.uid if request.auth else ""
+
+    from firebase_admin import firestore as fs_admin
+    db = fs_admin.client()
+    server_timestamp = fs_admin.SERVER_TIMESTAMP
+
+    return _run_admin_retro_write_core(
+        admin_email=admin_email,
+        actor_uid=actor_uid,
+        data=request.data or {},
+        db=db,
+        server_timestamp=server_timestamp,
+    )

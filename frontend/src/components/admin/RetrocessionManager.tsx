@@ -26,7 +26,15 @@ import type {
   RetroDryRunResponse,
   RetroDryRunResult,
 } from '../../utils/retroParser';
-import { executeDryRun, searchFundByISIN } from '../../services/adminRetroService';
+import {
+  executeDryRun,
+  executeWrite,
+  searchFundByISIN,
+} from '../../services/adminRetroService';
+import type {
+  RetroWriteResponse,
+  RetroWriteSource,
+} from '../../services/adminRetroService';
 import RetroSummaryCards from './RetroSummaryCards';
 import RetroPreviewTable from './RetroPreviewTable';
 
@@ -43,6 +51,7 @@ function ManualTab() {
   const [searchError, setSearchError] = useState('');
   const [newRetroInput, setNewRetroInput] = useState('');
   const [dryRunResult, setDryRunResult] = useState<RetroDryRunResponse | null>(null);
+  const [dryRunRows, setDryRunRows] = useState<RetroRow[]>([]);
   const [dryRunning, setDryRunning] = useState(false);
   const [dryRunError, setDryRunError] = useState('');
 
@@ -100,6 +109,7 @@ function ManualTab() {
     try {
       const response = await executeDryRun([row], 'manual_entry');
       setDryRunResult(response);
+      setDryRunRows([row]);
     } catch (e) {
       setDryRunError(`Error en dry-run: ${e instanceof Error ? e.message : String(e)}`);
     } finally {
@@ -246,6 +256,12 @@ function ManualTab() {
             {' · '}Mode: {dryRunResult.mode}
             {' · '}Expira: {dryRunResult.manifest_expires_at}
           </div>
+          <WritePanel
+            dryRunResult={dryRunResult}
+            rows={dryRunRows}
+            source="manual"
+            sourceFilename="manual_entry"
+          />
         </div>
       )}
     </div>
@@ -508,7 +524,7 @@ function BulkTab() {
           )}
 
           {/* Dry-run results */}
-          {dryRunResult && (
+          {dryRunResult && parseResult && (
             <div className="space-y-4">
               <h3 className="text-xs font-bold uppercase tracking-widest text-slate-500 border-b border-slate-200 pb-2">
                 Resultados Dry-Run (backend autoritativo)
@@ -521,9 +537,417 @@ function BulkTab() {
                 <span>Expira: {dryRunResult.manifest_expires_at}</span>
                 <span>Frase: <span className="font-mono text-[10px]">{dryRunResult.confirmation_phrase_expected}</span></span>
               </div>
+              <WritePanel
+                dryRunResult={dryRunResult}
+                rows={parseResult.rows}
+                source={inferBulkSource(fileName)}
+                sourceFilename={fileName}
+              />
             </div>
           )}
         </>
+      )}
+    </div>
+  );
+}
+
+function inferBulkSource(fileName: string): RetroWriteSource {
+  const lower = fileName.toLowerCase();
+  if (lower.endsWith('.xlsx') || lower.endsWith('.xls')) return 'excel';
+  return 'csv';
+}
+
+// ---------------------------------------------------------------------------
+// WritePanel — Apply retrocesiones (WRITE-MVP-0)
+// ---------------------------------------------------------------------------
+//
+// Renders after a successful dry-run. Shows an "Aplicar retrocesiones" button
+// gated by:
+//   - dryRunResult exists
+//   - no BLOCKED results
+//   - at least one OK or WARNING result that would produce a write
+//   - no prior successful write for this dry-run (audit_id present locks it)
+//
+// Opens a confirmation modal with motivo (required), summary, retro=0 callouts,
+// big-change list, per-warning ack checkboxes, and a final confirmation checkbox.
+// After success: shows the audit_id banner and disables further writes.
+
+export interface WritePanelProps {
+  dryRunResult: RetroDryRunResponse;
+  rows: RetroRow[];
+  source: RetroWriteSource;
+  sourceFilename: string;
+}
+
+export function WritePanel({
+  dryRunResult,
+  rows,
+  source,
+  sourceFilename,
+}: WritePanelProps) {
+  const [showModal, setShowModal] = useState(false);
+  const [reason, setReason] = useState('');
+  const [confirmCheck, setConfirmCheck] = useState(false);
+  const [ackAllWarnings, setAckAllWarnings] = useState(false);
+  const [perIsinAck, setPerIsinAck] = useState<Set<string>>(new Set());
+  const [writing, setWriting] = useState(false);
+  const [writeError, setWriteError] = useState('');
+  const [writeResult, setWriteResult] = useState<RetroWriteResponse | null>(null);
+
+  const okResults = dryRunResult.results.filter((r) => r.status === 'OK');
+  const warningResults = dryRunResult.results.filter((r) => r.status === 'WARNING');
+  const blockedResults = dryRunResult.results.filter((r) => r.status === 'BLOCKED');
+  const unchangedResults = dryRunResult.results.filter((r) => r.status === 'UNCHANGED');
+  const writesPlanned = okResults.length + warningResults.length;
+
+  const zeroRetroIsins = [...okResults, ...warningResults].filter(
+    (r) => r.new_retro !== null && Math.abs(r.new_retro) < 1e-6
+  );
+  const bigChangeIsins = [...okResults, ...warningResults].filter(
+    (r) =>
+      r.delta !== null &&
+      Math.abs(r.delta) >= 0.5
+  );
+
+  const allWarningsAcked =
+    warningResults.length === 0 ||
+    ackAllWarnings ||
+    warningResults.every((r) => perIsinAck.has(r.isin));
+
+  const applyDisabled =
+    writing ||
+    writeResult !== null ||
+    blockedResults.length > 0 ||
+    writesPlanned === 0;
+
+  const submitDisabled =
+    writing ||
+    reason.trim().length < 3 ||
+    !confirmCheck ||
+    !allWarningsAcked;
+
+  const openModal = useCallback(() => {
+    setShowModal(true);
+    setWriteError('');
+  }, []);
+
+  const closeModal = useCallback(() => {
+    if (writing) return;
+    setShowModal(false);
+  }, [writing]);
+
+  const togglePerIsinAck = useCallback((isin: string) => {
+    setPerIsinAck((prev) => {
+      const next = new Set(prev);
+      if (next.has(isin)) next.delete(isin);
+      else next.add(isin);
+      return next;
+    });
+  }, []);
+
+  const handleApply = useCallback(async () => {
+    if (submitDisabled) return;
+
+    const warningAcks = ackAllWarnings
+      ? warningResults.map((r) => r.isin)
+      : Array.from(perIsinAck);
+
+    setWriting(true);
+    setWriteError('');
+    try {
+      const response = await executeWrite({
+        rows,
+        source,
+        sourceFilename,
+        dryRunManifestId: dryRunResult.manifest_id,
+        reason: reason.trim(),
+        warningAcks,
+      });
+      setWriteResult(response);
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      setWriteError(`Error al aplicar: ${msg}`);
+    } finally {
+      setWriting(false);
+    }
+  }, [
+    submitDisabled,
+    rows,
+    source,
+    sourceFilename,
+    dryRunResult.manifest_id,
+    reason,
+    ackAllWarnings,
+    perIsinAck,
+    warningResults,
+  ]);
+
+  return (
+    <div className="space-y-4">
+      {/* Apply button row */}
+      <div className="flex items-center gap-4 flex-wrap">
+        <button
+          type="button"
+          aria-label="Aplicar retrocesiones"
+          onClick={openModal}
+          disabled={applyDisabled}
+          className="px-6 py-3 bg-orange-600 text-white rounded-xl text-sm font-medium hover:bg-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm flex items-center gap-2"
+        >
+          {writeResult ? '✅ Escritura aplicada' : `💾 Aplicar retrocesiones (${writesPlanned})`}
+        </button>
+        {blockedResults.length > 0 && (
+          <span className="text-xs text-red-600 bg-red-50 border border-red-200 rounded-lg px-3 py-1.5">
+            🚫 {blockedResults.length} filas BLOCKED — corrige antes de aplicar
+          </span>
+        )}
+        {blockedResults.length === 0 && writesPlanned === 0 && !writeResult && (
+          <span className="text-xs text-slate-500">
+            No hay cambios aplicables ({unchangedResults.length} sin cambio)
+          </span>
+        )}
+      </div>
+
+      {/* Success banner */}
+      {writeResult && (
+        <div className="bg-emerald-50 border border-emerald-300 rounded-xl px-5 py-4 space-y-2">
+          <div className="flex items-center gap-2 text-emerald-800 font-medium text-sm">
+            <span className="text-lg">✅</span>
+            Escritura completada — modo: {writeResult.mode}
+          </div>
+          <div className="text-xs text-emerald-700 space-y-1 font-mono">
+            <div>
+              audit_id: <span className="font-bold">{writeResult.audit_id}</span>
+            </div>
+            <div>
+              Ejecutados: {writeResult.writes_executed} / {writeResult.writes_planned}
+              {writeResult.writes_failed > 0 && (
+                <> · Fallos: {writeResult.writes_failed}</>
+              )}
+              {writeResult.unchanged_count > 0 && (
+                <> · Sin cambio: {writeResult.unchanged_count}</>
+              )}
+            </div>
+            {writeResult.audit_error && (
+              <div className="text-amber-700">
+                ⚠️ Audit log error: {writeResult.audit_error}
+              </div>
+            )}
+          </div>
+          {writeResult.isins_updated.length > 0 && (
+            <details className="text-xs">
+              <summary className="cursor-pointer text-emerald-700 font-medium">
+                ISINs actualizados ({writeResult.isins_updated.length})
+              </summary>
+              <div className="mt-2 max-h-40 overflow-y-auto bg-white border border-emerald-200 rounded p-2 font-mono text-[11px] leading-relaxed">
+                {writeResult.isins_updated.join(', ')}
+              </div>
+            </details>
+          )}
+          {writeResult.write_failures.length > 0 && (
+            <details className="text-xs">
+              <summary className="cursor-pointer text-amber-700 font-medium">
+                Fallos por ISIN ({writeResult.write_failures.length})
+              </summary>
+              <div className="mt-2 max-h-40 overflow-y-auto bg-white border border-amber-200 rounded p-2 font-mono text-[11px] leading-relaxed">
+                {writeResult.write_failures.map((f, i) => (
+                  <div key={i}>
+                    {f.isin} — {f.reason}
+                    {f.error && <> ({f.error})</>}
+                  </div>
+                ))}
+              </div>
+            </details>
+          )}
+        </div>
+      )}
+
+      {/* Confirmation modal */}
+      {showModal && (
+        <div
+          role="dialog"
+          aria-modal="true"
+          aria-label="Confirmar aplicación de retrocesiones"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+          onClick={closeModal}
+        >
+          <div
+            className="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-y-auto"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div className="px-6 py-5 border-b border-slate-200 flex items-center justify-between sticky top-0 bg-white">
+              <h2 className="text-base font-semibold text-slate-800">
+                Confirmar aplicación de retrocesiones
+              </h2>
+              <button
+                type="button"
+                aria-label="Cerrar"
+                onClick={closeModal}
+                disabled={writing}
+                className="text-slate-400 hover:text-slate-700 disabled:opacity-50"
+              >
+                ✕
+              </button>
+            </div>
+
+            <div className="px-6 py-5 space-y-5">
+              {/* Summary */}
+              <div className="bg-slate-50 border border-slate-200 rounded-lg p-4 text-sm space-y-1">
+                <div className="font-medium text-slate-700">
+                  Resumen del lote
+                </div>
+                <div className="text-xs text-slate-600 grid grid-cols-2 gap-x-4 gap-y-1 font-mono">
+                  <div>Origen: {source}</div>
+                  <div>Archivo: {sourceFilename || '—'}</div>
+                  <div>OK: {okResults.length}</div>
+                  <div>WARNING: {warningResults.length}</div>
+                  <div>Sin cambio: {unchangedResults.length}</div>
+                  <div>BLOCKED: {blockedResults.length}</div>
+                  <div className="col-span-2 pt-1 border-t border-slate-200 mt-1">
+                    A escribir: <span className="font-bold text-slate-800">{writesPlanned}</span> filas
+                  </div>
+                </div>
+              </div>
+
+              {/* Zero retro callout */}
+              {zeroRetroIsins.length > 0 && (
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 text-xs">
+                  <div className="font-medium text-blue-800 mb-1">
+                    🟦 Retrocesiones a 0 ({zeroRetroIsins.length})
+                  </div>
+                  <div className="font-mono text-[11px] text-blue-700 max-h-20 overflow-y-auto">
+                    {zeroRetroIsins.map((r) => r.isin).join(', ')}
+                  </div>
+                </div>
+              )}
+
+              {/* Big changes */}
+              {bigChangeIsins.length > 0 && (
+                <div className="bg-amber-50 border border-amber-200 rounded-lg p-3 text-xs">
+                  <div className="font-medium text-amber-800 mb-1">
+                    ⚠️ Cambios grandes (|Δ| ≥ 0.50 pp): {bigChangeIsins.length}
+                  </div>
+                  <div className="font-mono text-[11px] text-amber-700 max-h-24 overflow-y-auto leading-relaxed">
+                    {bigChangeIsins.map((r) => (
+                      <div key={r.isin}>
+                        {r.isin}: {r.current_retro?.toFixed(4) ?? '—'} →{' '}
+                        {r.new_retro?.toFixed(4) ?? '—'} (Δ {r.delta?.toFixed(4)})
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Warning acks */}
+              {warningResults.length > 0 && (
+                <div className="bg-amber-50/40 border border-amber-200 rounded-lg p-3 text-xs space-y-2">
+                  <div className="font-medium text-amber-900">
+                    ⚠️ Filas con WARNING ({warningResults.length}) — acuse explícito requerido
+                  </div>
+                  <label className="flex items-center gap-2 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={ackAllWarnings}
+                      onChange={(e) => setAckAllWarnings(e.target.checked)}
+                      aria-label="Acepto todos los warnings"
+                    />
+                    <span className="text-amber-900 font-medium">
+                      Acepto todos los warnings
+                    </span>
+                  </label>
+                  {!ackAllWarnings && (
+                    <div className="space-y-1 max-h-40 overflow-y-auto pt-1">
+                      {warningResults.map((r) => (
+                        <label
+                          key={r.isin}
+                          className="flex items-start gap-2 cursor-pointer hover:bg-white/60 px-2 py-1 rounded"
+                        >
+                          <input
+                            type="checkbox"
+                            checked={perIsinAck.has(r.isin)}
+                            onChange={() => togglePerIsinAck(r.isin)}
+                            aria-label={`Acuse warning ${r.isin}`}
+                          />
+                          <span className="font-mono text-[11px]">
+                            <span className="font-bold">{r.isin}</span>
+                            {' — '}
+                            {r.reason}
+                          </span>
+                        </label>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Reason input */}
+              <div>
+                <label
+                  htmlFor="retro-write-reason"
+                  className="text-xs font-bold uppercase tracking-widest text-slate-500 mb-2 block"
+                >
+                  Motivo de la carga <span className="text-red-500">*</span>
+                </label>
+                <textarea
+                  id="retro-write-reason"
+                  value={reason}
+                  onChange={(e) => setReason(e.target.value)}
+                  placeholder="Ej: Actualización mensual mayo 2026 — fuente Morningstar"
+                  rows={2}
+                  className="w-full px-4 py-2.5 border border-slate-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent"
+                  maxLength={2000}
+                />
+                <div className="text-[10px] text-slate-400 mt-1">
+                  Mínimo 3 caracteres. Se guarda en el audit log junto a tu email y timestamp.
+                </div>
+              </div>
+
+              {/* Final confirmation */}
+              <label className="flex items-start gap-2 cursor-pointer bg-red-50/60 border border-red-200 rounded-lg p-3">
+                <input
+                  type="checkbox"
+                  checked={confirmCheck}
+                  onChange={(e) => setConfirmCheck(e.target.checked)}
+                  aria-label="Confirmo aplicar retrocesiones"
+                  className="mt-1"
+                />
+                <span className="text-sm text-red-900">
+                  <span className="font-bold">Confirmo aplicar retrocesiones</span>
+                  <span className="block text-xs text-red-700 mt-0.5">
+                    Esta acción escribe en <code className="font-mono bg-white px-1 rounded">funds_v3</code>{' '}
+                    el campo <code className="font-mono bg-white px-1 rounded">manual.costs.retrocession</code>{' '}
+                    para los ISINs indicados. No se tocan otros campos. Se registra audit log.
+                  </span>
+                </span>
+              </label>
+
+              {writeError && (
+                <div className="text-sm text-red-700 bg-red-50 border border-red-200 rounded-lg px-4 py-2.5">
+                  {writeError}
+                </div>
+              )}
+            </div>
+
+            <div className="px-6 py-4 border-t border-slate-200 flex justify-end gap-3 bg-slate-50 sticky bottom-0">
+              <button
+                type="button"
+                onClick={closeModal}
+                disabled={writing}
+                className="px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100 rounded-lg transition-all disabled:opacity-50"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={handleApply}
+                disabled={submitDisabled}
+                aria-label="Confirmar y aplicar"
+                className="px-5 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+              >
+                {writing ? '⏳ Aplicando...' : `Aplicar (${writesPlanned})`}
+              </button>
+            </div>
+          </div>
+        </div>
       )}
     </div>
   );
@@ -543,17 +967,20 @@ export default function RetrocessionManager() {
 
   return (
     <div className="space-y-6 max-w-6xl mx-auto">
-      {/* Dry-run banner */}
+      {/* Module banner */}
       <div className="bg-blue-50/50 border border-blue-200 rounded-lg p-5 flex items-start gap-4 shadow-sm">
         <div className="text-blue-500 text-2xl mt-0.5">🔬</div>
         <div>
           <h2 className="text-sm font-bold text-blue-900 tracking-wide uppercase mb-1">
-            Módulo Dry-Run
+            Módulo Retrocesiones (Dry-Run + Aplicar)
           </h2>
           <p className="text-sm text-blue-800/80 leading-relaxed max-w-3xl">
-            Este módulo permite previsualizar cambios de retrocesión antes de escribir.
-            Todas las operaciones son <strong>read-only</strong> — el backend normaliza
-            autoritativamente y cruza contra funds_v3 sin modificar datos.
+            Flujo en dos fases: primero ejecuta un <strong>dry-run</strong> read-only
+            (backend normaliza y clasifica contra funds_v3). Después, si no hay filas
+            BLOCKED, puedes pulsar <strong>Aplicar retrocesiones</strong> con motivo,
+            acuse de warnings y confirmación explícita; el backend escribe únicamente
+            <code className="font-mono bg-white/60 px-1 rounded">manual.costs.retrocession</code>
+            {' '}y registra audit log con before/after.
           </p>
         </div>
       </div>
@@ -581,10 +1008,11 @@ export default function RetrocessionManager() {
 
       {/* Security footer */}
       <div className="flex flex-wrap gap-3">
-        <SecurityBadge icon="🔒" label="Read-only — 0 writes" />
         <SecurityBadge icon="🔬" label="Backend autoritativo (C.2)" />
         <SecurityBadge icon="📊" label="Canon: % directo, 0 válido" />
-        <SecurityBadge icon="🚫" label="No setDoc / updateDoc" />
+        <SecurityBadge icon="🚫" label="FE no escribe Firestore directo" />
+        <SecurityBadge icon="📋" label="Audit log por escritura" />
+        <SecurityBadge icon="🛡️" label="Solo campo manual.costs.retrocession" />
       </div>
     </div>
   );
