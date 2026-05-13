@@ -55,4 +55,5 @@ from api.endpoints_xray_comparador import compare_risk_free
 from api.endpoints_admin_console import (
     admin_health,
     admin_fund_search,
+    admin_retro_dry_run,
 )

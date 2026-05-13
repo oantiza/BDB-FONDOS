@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import AdminDashboard from './AdminDashboard';
 import FundAuditor from './FundAuditor';
-import RetrocessionPanel from './RetrocessionPanel';
+import RetrocessionManager from './RetrocessionManager';
 import ArtifactsPanel from './ArtifactsPanel';
 import ReviewQueuePanel from './ReviewQueuePanel';
 import OptimizerConstraintsPanel from './OptimizerConstraintsPanel';
@@ -103,7 +103,7 @@ export default function AdminLayout() {
         ) : currentModule.id === 'funds' ? (
           <FundAuditor />
         ) : currentModule.id === 'retrocessions' ? (
-          <RetrocessionPanel />
+          <RetrocessionManager />
         ) : currentModule.id === 'logs' ? (
           <ArtifactsPanel />
         ) : currentModule.id === 'review' ? (
