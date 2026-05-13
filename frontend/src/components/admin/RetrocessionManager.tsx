@@ -9,12 +9,12 @@
  * - Masiva: Upload CSV/XLSX, parse locally, preview table, dry-run via backend
  *
  * SECURITY:
- * - NO Firestore writes (no setDoc, updateDoc, deleteDoc, writeBatch)
+ * - NO Firestore writes
  * - NO direct Firestore access — all data via callable endpoints
  * - Backend is authoritative for normalization (C.2)
  * - Frontend parser is informational only
  */
-import React, { useState, useCallback, useRef } from 'react';
+import React, { useState, useCallback, useRef, useMemo } from 'react';
 import {
   parseFile,
   normalizeRetrocession,
@@ -35,6 +35,13 @@ import type {
   RetroWriteResponse,
   RetroWriteSource,
 } from '../../services/adminRetroService';
+import {
+  buildRetrocessionDryRunCsv,
+  downloadCsv,
+  getRetrocessionExportFilename,
+  getRetrocessionIssueRows,
+} from '../../utils/retroExportCsv';
+import type { RetrocessionDryRunExportRow } from '../../utils/retroExportCsv';
 import RetroSummaryCards from './RetroSummaryCards';
 import RetroPreviewTable from './RetroPreviewTable';
 
@@ -250,6 +257,7 @@ function ManualTab() {
       {dryRunResult && (
         <div className="space-y-4">
           <RetroSummaryCards summary={dryRunResult.summary} />
+          <RetroExportCsvButtons dryRunResult={dryRunResult} rows={dryRunRows} />
           <RetroPreviewTable results={dryRunResult.results} />
           <div className="text-xs text-slate-400 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5">
             Manifest ID: <span className="font-mono">{dryRunResult.manifest_id}</span>
@@ -530,6 +538,7 @@ function BulkTab() {
                 Resultados Dry-Run (backend autoritativo)
               </h3>
               <RetroSummaryCards summary={dryRunResult.summary} />
+              <RetroExportCsvButtons dryRunResult={dryRunResult} rows={parseResult.rows} />
               <RetroPreviewTable results={dryRunResult.results} />
               <div className="text-xs text-slate-400 bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 flex flex-wrap gap-x-4 gap-y-1">
                 <span>Manifest: <span className="font-mono">{dryRunResult.manifest_id}</span></span>
@@ -555,6 +564,86 @@ function inferBulkSource(fileName: string): RetroWriteSource {
   const lower = fileName.toLowerCase();
   if (lower.endsWith('.xlsx') || lower.endsWith('.xls')) return 'excel';
   return 'csv';
+}
+
+function enrichDryRunResultsForExport(
+  results: RetroDryRunResult[],
+  rows: RetroRow[]
+): RetrocessionDryRunExportRow[] {
+  const rowsByKey = new Map<string, RetroRow>();
+
+  rows.forEach((row) => {
+    rowsByKey.set(`${row.source_filename}:${row.row_number}:${row.isin}`, row);
+    rowsByKey.set(`${row.row_number}:${row.isin}`, row);
+  });
+
+  return results.map((result) => {
+    const sourceRow =
+      rowsByKey.get(`${result.source_filename}:${result.row_number}:${result.isin}`) ||
+      rowsByKey.get(`${result.row_number}:${result.isin}`);
+
+    return {
+      ...result,
+      nombre: sourceRow?.nombre,
+      retro_raw: sourceRow?.retro_raw,
+      retro_parsed_client: sourceRow?.retro_parsed_client,
+      source: sourceRow?.source,
+      cell_internal_value: sourceRow?.cell_internal_value,
+      cell_number_format: sourceRow?.cell_number_format,
+    };
+  });
+}
+
+function RetroExportCsvButtons({
+  dryRunResult,
+  rows,
+}: {
+  dryRunResult: RetroDryRunResponse;
+  rows: RetroRow[];
+}) {
+  const exportRows = useMemo(
+    () => enrichDryRunResultsForExport(dryRunResult.results, rows),
+    [dryRunResult.results, rows]
+  );
+  const issueRows = useMemo(() => getRetrocessionIssueRows(exportRows), [exportRows]);
+  const issueCount =
+    dryRunResult.summary.warning +
+    dryRunResult.summary.blocked +
+    dryRunResult.summary.client_server_normalization_mismatches;
+
+  const handleExportAll = useCallback(() => {
+    downloadCsv(
+      getRetrocessionExportFilename('all'),
+      buildRetrocessionDryRunCsv(exportRows, 'all')
+    );
+  }, [exportRows]);
+
+  const handleExportIssues = useCallback(() => {
+    downloadCsv(
+      getRetrocessionExportFilename('issues'),
+      buildRetrocessionDryRunCsv(exportRows, 'issues')
+    );
+  }, [exportRows]);
+
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <button
+        type="button"
+        onClick={handleExportAll}
+        className="px-4 py-2 bg-slate-800 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-slate-700 transition-all shadow-sm"
+      >
+        Exportar todos CSV ({dryRunResult.summary.total})
+      </button>
+      <button
+        type="button"
+        onClick={handleExportIssues}
+        disabled={issueRows.length === 0}
+        className="px-4 py-2 bg-amber-600 text-white rounded-lg text-xs font-bold uppercase tracking-wider hover:bg-amber-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-sm"
+      >
+        {issueRows.length === 0 ? 'Sin incidencias' : `Exportar incidencias CSV (${issueCount})`}
+      </button>
+    </div>
+  );
 }
 
 // ---------------------------------------------------------------------------
