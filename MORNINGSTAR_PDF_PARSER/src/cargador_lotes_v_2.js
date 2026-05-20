@@ -1,4 +1,4 @@
-﻿/**
+/**
  * Reparse Morningstar PDFs -> Firestore funds_v3 (Gemini 2.5 Flash por defecto)
  * - Escribe SOLO fuente (ms.*) + quality.* + identity
  * - Calcula derived.* (asset_class, asset_subtype, primary_region, subcategories por sectores+tokens)
@@ -456,6 +456,34 @@ function decidePipelineStatus({ schemaValidation, canonicalValidation, classific
     if (classification_v2?.asset_type === "equity") {
       const rfWarnings = ["credit_missing", "duration_missing", "duration_inferred_weak", "fi_type_inference_weak"];
       if (rfWarnings.some(rfw => wStr.includes(rfw))) return false;
+    }
+
+    // 1b. Ignorar warnings de RF en asset types no-crediticios (alternative, real_asset, other)
+    //     cuando bond exposure es residual (<=25%).  Fondos L/S, real estate, commodity, etc.
+    //     no dependen de credit_quality para suitability.
+    const NON_CREDIT_ASSET_TYPES = new Set(["alternative", "real_asset", "other"]);
+    if (NON_CREDIT_ASSET_TYPES.has(classification_v2?.asset_type)) {
+      const bondPct = portfolio_exposure_v2?.asset_mix?.bond ?? 0;
+      if (bondPct <= 0.25) {
+        const rfWarnings = ["credit_missing", "duration_missing", "duration_inferred_weak", "fi_type_inference_weak"];
+        if (rfWarnings.some(rfw => wStr.includes(rfw))) return false;
+      }
+    }
+
+    // 1c. Ignorar warnings de RF en allocation (mixtos) cuando bond exposure es negligible (<=5%)
+    //     Ej: fondos clasificados "Mixtos Flexibles" que realmente son equity puro con 0% bonds.
+    if (classification_v2?.asset_type === "allocation") {
+      const bondPct = portfolio_exposure_v2?.asset_mix?.bond ?? 0;
+      if (bondPct <= 0.05) {
+        const rfWarnings = ["credit_missing", "duration_missing", "duration_inferred_weak", "fi_type_inference_weak"];
+        if (rfWarnings.some(rfw => wStr.includes(rfw))) return false;
+      }
+    }
+
+    // 1d. Relajar region_incomplete en non-credit asset types (commodity, real_estate sin region, etc.)
+    if (NON_CREDIT_ASSET_TYPES.has(classification_v2?.asset_type)) {
+      const bondPct = portfolio_exposure_v2?.asset_mix?.bond ?? 0;
+      if (bondPct <= 0.25 && wStr.includes("region_incomplete")) return false;
     }
 
     // 2. Relajar credit_missing en Renta Fija coherente
