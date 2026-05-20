@@ -1,0 +1,825 @@
+{
+  "generated_at": "2026-05-20T17:08:25.520Z",
+  "task": "BDB-MORNINGSTAR-PDF-UPDATED-BATCH-WRITE-CONTROLLED-100-1",
+  "batch_size": 100,
+  "batch_index": 1,
+  "batch_offset": 25,
+  "fields_to_write": [
+    "classification_v2",
+    "currency",
+    "derived",
+    "isin",
+    "ms",
+    "name",
+    "portfolio_exposure_v2",
+    "quality",
+    "updatedAt"
+  ],
+  "fields_preserved": [
+    "manual",
+    "manual.costs",
+    "manual.costs.retrocession"
+  ],
+  "entries": [
+    {
+      "isin": "ES0141113037",
+      "name": "GVC Gaesco Japón A FI",
+      "payload_hash": "3cab6e0a39b403af",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Japón"
+    },
+    {
+      "isin": "ES0141580037",
+      "name": "SIH Ahorro A FI",
+      "payload_hash": "c9c4f895149d005e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0141991002",
+      "name": "Gestión Talento FI",
+      "payload_hash": "074a0a17ae4bfc16",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0142167032",
+      "name": "SIH Renta Fija A FI",
+      "payload_hash": "94164e8a48526cb2",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0146309002",
+      "name": "Horos Value Internacional FI",
+      "payload_hash": "9e3f6c3933c0ac6a",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0155142005",
+      "name": "Intermoney Variable Euro A FI",
+      "payload_hash": "847a624673be9e0c",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "ES0155598008",
+      "name": "UBS Corto Plazo A FI",
+      "payload_hash": "186ccfa6ddc80aaa",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0155598032",
+      "name": "UBS Corto Plazo B FI",
+      "payload_hash": "ccce9ca80ddc8283",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0156873004",
+      "name": "A&G Renta Fija Corto Plazo FI",
+      "payload_hash": "44017c021ed5e47e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0159201013",
+      "name": "Magallanes Iberian Equity M FI",
+      "payload_hash": "b16e637756134406",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "ES0159259011",
+      "name": "Magallanes European Equity M FI",
+      "payload_hash": "d1f9ea3bd8397add",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "ES0160873008",
+      "name": "March Pagarés A FI",
+      "payload_hash": "639c0b3e9d645bd4",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0161032034",
+      "name": "March Renta Fija Corto Plazo A FI",
+      "payload_hash": "84127a2205e3d7a3",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0162295002",
+      "name": "Cartera Renta Fija Horizonte 2027 FI",
+      "payload_hash": "56e3abd8112072ff",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0162333035",
+      "name": "Merchrenta FI",
+      "payload_hash": "82155eb67d080f22",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0162368007",
+      "name": "Metavalor Internacional I FI",
+      "payload_hash": "f2e28505042ee98e",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0165142003",
+      "name": "Mutuafondo Corto Plazo D FI",
+      "payload_hash": "80d262773bbcfc10",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0165142037",
+      "name": "Mutuafondo Corto Plazo A FI",
+      "payload_hash": "a80f178c0a02fadf",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0165242001",
+      "name": "Myinvestor S&P500 Equiponderado FI",
+      "payload_hash": "683743954a3a3398",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "ES0167238023",
+      "name": "Estela Global Equities R FI",
+      "payload_hash": "9ccb860efcceb8a0",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0168662031",
+      "name": "Trea Renta Fija FI",
+      "payload_hash": "c29b88937ed942a4",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0168673038",
+      "name": "EDM Ahorro R FI",
+      "payload_hash": "c2dd012685460959",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0168799056",
+      "name": "Gestión Boutique IV Alclam US Equities FI",
+      "payload_hash": "9d3c7f0981375f72",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "ES0170138038",
+      "name": "Santalucía Renta Fija B FI",
+      "payload_hash": "3b161ce7afb0b82e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0170141008",
+      "name": "Santalucía Quality Acciones Europeas B FI",
+      "payload_hash": "b7c06c15d9f7ddf1",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "ES0176954008",
+      "name": "Renta 4 Renta Fija R FI",
+      "payload_hash": "4d2ab833e7dc9879",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0182631004",
+      "name": "Polar Renta Fija A FI",
+      "payload_hash": "ba0386b8cb6c097d",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0182769002",
+      "name": "Valentum E FI",
+      "payload_hash": "4584fb52ddad0a61",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "ES0184949008",
+      "name": "Sigma Investment House Megatrends A FI",
+      "payload_hash": "bdef401b4e6ab7d4",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "ES0184949016",
+      "name": "Sigma Investment House Megatrends B FI",
+      "payload_hash": "db5abbefef665e5a",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FI0008800511",
+      "name": "Evli Short Corporate Bond B",
+      "payload_hash": "635ef856a72937ac",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FI0008811997",
+      "name": "Evli Nordic Corporate Bond B",
+      "payload_hash": "e77e2c98396c9ebf",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0000174310",
+      "name": "Lazard Small Caps Euro SRI I",
+      "payload_hash": "cfc40f6c66e0e0a3",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "FR0000989626",
+      "name": "Groupama Trésorerie IC",
+      "payload_hash": "7db6df8ebb2333b6",
+      "asset_class": "Monetario",
+      "asset_type_v2": "money_market",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0000989899",
+      "name": "Oddo BHF Avenir CR-EUR",
+      "payload_hash": "1b455b2436725779",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "FR0007008750",
+      "name": "R-co Conviction Credit Euro C EUR",
+      "payload_hash": "67d4555467112f0f",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010148981",
+      "name": "Carmignac Investissement A EUR Acc",
+      "payload_hash": "d22e7d4578163552",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010149120",
+      "name": "Carmignac Sécurité AW EUR Acc",
+      "payload_hash": "5393d3d04158eed2",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010172767",
+      "name": "EdR SICAV - Euro Sustainable Credit A EUR",
+      "payload_hash": "a51505723cb77330",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010230490",
+      "name": "Lazard Credit Opportunities RC EUR",
+      "payload_hash": "00c90dcd89de1afd",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010288308",
+      "name": "Groupama Avenir Euro NC",
+      "payload_hash": "87f0c4c819250488",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "FR0010306142",
+      "name": "Carmignac Patrimoine E EUR Acc",
+      "payload_hash": "f82129c11d70756e",
+      "asset_class": "Mixto",
+      "asset_type_v2": "allocation",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "FR0010312660",
+      "name": "Carmignac Investissement E EUR Acc",
+      "payload_hash": "edf54c10c8adb480",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010321810",
+      "name": "Echiquier Agenor Mid Cap Europe A",
+      "payload_hash": "def44a0441bb32cc",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "FR0010547869",
+      "name": "Sextant PME A",
+      "payload_hash": "254de21745d5b8dd",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "FR0010722348",
+      "name": "Groupama Global Active Equity NC",
+      "payload_hash": "056353d850f6bb14",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010829697",
+      "name": "AMUNDI TRESO 12 MOIS DP",
+      "payload_hash": "5cb7b70b1b083358",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010839282",
+      "name": "Echiquier Short Term Credit SRI A",
+      "payload_hash": "18654c289273397e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010859769",
+      "name": "Echiquier World Equity Growth A",
+      "payload_hash": "1882837ade578e5b",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0010950055",
+      "name": "AXA IM Euro 6M E",
+      "payload_hash": "a5d852c7a8a28c22",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0011288513",
+      "name": "Sycomore Sélection Crédit R",
+      "payload_hash": "77b2961bfb733b3c",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0011365212",
+      "name": "Amundi Ultra Short Term Bond Responsible E C",
+      "payload_hash": "089e198f5baf6c6b",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0011387299",
+      "name": "Allianz Euro Oblig Court Terme ISR RC",
+      "payload_hash": "9bf1dd713fb16372",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0013201001",
+      "name": "EdR SICAV - Euro Sustainable Credit R EUR",
+      "payload_hash": "c70dbcd9dc4c3aef",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0013231453",
+      "name": "Ostrum Credit Ultra Short Plus I-C EUR",
+      "payload_hash": "aadd81e4d2dccc5b",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "FR0013346079",
+      "name": "Groupama Ultra Short Term NC",
+      "payload_hash": "f4c136bf1725b36d",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0013460920",
+      "name": "EdR SICAV - Short Duration Credit A EUR",
+      "payload_hash": "37c77087e141a943",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0013460961",
+      "name": "EdR SICAV - Short Duration Credit B EUR",
+      "payload_hash": "e1324a2fb1539737",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0014008W22",
+      "name": "EdR SICAV - Millesima World 2028 A EUR",
+      "payload_hash": "0b3e9bbd404f1fc3",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR001400JGB5",
+      "name": "EdR SICAV Millesima Select 2028 A Eur",
+      "payload_hash": "6464bde2893b8368",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR001400NTN5",
+      "name": "Lazard High Yield 2029 EC EUR",
+      "payload_hash": "e7dda0f8bac84626",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "FR0050000860",
+      "name": "Amundi Ultra Short Term Bond Responsible P C",
+      "payload_hash": "44c1002e00e5ce6d",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE0003867441",
+      "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+      "payload_hash": "51e7c806a78eb30e",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE0004766675",
+      "name": "Comgest Growth Europe EUR Acc",
+      "payload_hash": "efc0a88ed774a290",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE000MI53C66",
+      "name": "Man Funds plc - Man Global Investment Grade Opportunities D H EUR",
+      "payload_hash": "3acded427ade49bf",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE0031069499",
+      "name": "AXA IM Equity Trust - AXA IM All Country Asia Pacific Ex-Japan Small Cap Equity QI",
+      "payload_hash": "583ad958cabdacfb",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Asia"
+    },
+    {
+      "isin": "IE0031333341",
+      "name": "Jupiter Asia Pacific Income Fund C USD Acc",
+      "payload_hash": "0f32c2658945c27e",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Asia"
+    },
+    {
+      "isin": "IE0031573904",
+      "name": "Brandes Global Value Fund A Euro Acc",
+      "payload_hash": "c04cca0d30395f63",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE0031574647",
+      "name": "Brandes European Value Fund A Euro Acc",
+      "payload_hash": "68a03713a1006ac4",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE0031575271",
+      "name": "Brandes US Value Fund A Euro Acc",
+      "payload_hash": "b9342fffea2be8ff",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "IE0032722484",
+      "name": "BNY Mellon Euroland Bond Fund EUR C Acc",
+      "payload_hash": "7d251dca32b613ad",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE0034277479",
+      "name": "AXA IM Equity Trust - AXA IM All Country Asia Pacific Ex-Japan Small Cap Equity QI",
+      "payload_hash": "6f38c331b1b6e230",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Asia"
+    },
+    {
+      "isin": "IE00B03HCZ61",
+      "name": "Vanguard Global Stock Index Fund Investor EUR Accumulation",
+      "payload_hash": "f2d1f42b48fd3fab",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B03HD191",
+      "name": "Vanguard Global Stock Index Fund EUR Acc",
+      "payload_hash": "d237306031edb884",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B11XYW43",
+      "name": "PIMCO GIS Emerging Markets Bond Fund E Class EUR (Hedged) Accumulation",
+      "payload_hash": "9dddc0bd3987f18d",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Emergentes"
+    },
+    {
+      "isin": "IE00B11XZ103",
+      "name": "PIMCO GIS Global Bond Fund E Class EUR (Hedged) Accumulation",
+      "payload_hash": "4b6c9f19d5633347",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B11XZ871",
+      "name": "PIMCO GIS US High Yield Bond Fund E Class Accumulation",
+      "payload_hash": "22cbd01a668c9d2d",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "IE00B11YFH93",
+      "name": "BNY Mellon Emerging Markets Debt Local Currency Fund EUR A Acc",
+      "payload_hash": "595d42350247586e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Emergentes"
+    },
+    {
+      "isin": "IE00B18GC888",
+      "name": "Vanguard Global Bond Index Fund EUR Hedged Acc",
+      "payload_hash": "c14f69e953a00fb7",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B23S7K36",
+      "name": "BNY Mellon Brazil Equity Fund EUR A Acc",
+      "payload_hash": "1b4543caaeec4685",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Emergentes"
+    },
+    {
+      "isin": "IE00B28YJQ65",
+      "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities Fund Inc (EUR)",
+      "payload_hash": "5061aa127c56530c",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B2NXKW18",
+      "name": "Seilern World Growth EUR U R",
+      "payload_hash": "7972ed2c31704abe",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B3NLSS43",
+      "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities Fund R Inc (EUR)",
+      "payload_hash": "ac3e3c9b492979a2",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B3RW6Z61",
+      "name": "Nomura Funds Ireland plc - US High Yield Bond Fund Class A EUR",
+      "payload_hash": "3ed9f20bcaef835e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "IE00B3V93F27",
+      "name": "BNY Mellon Global Equity Income Fund EUR A Acc",
+      "payload_hash": "87000a5a5f277022",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B3VXGD32",
+      "name": "Polar Capital Funds PLC - Biotechnology Fund R Inc (EUR)",
+      "payload_hash": "f18bdc047c4596e4",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "IE00B4M05337",
+      "name": "Brown Advisory US Equity Growth $ P",
+      "payload_hash": "7ecbf0f2156f954d",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "USA"
+    },
+    {
+      "isin": "IE00B4Z6MP99",
+      "name": "BNY Mellon Global Real Return Fund (EUR) C Acc",
+      "payload_hash": "1282051e8363f213",
+      "asset_class": "Mixto",
+      "asset_type_v2": "allocation",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B4ZJ4188",
+      "name": "Comgest Growth Europe Opportunities EUR Acc",
+      "payload_hash": "eb68862601b4783b",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE00B52VLZ70",
+      "name": "Polar Capital Funds PLC - Polar Capital Global Insurance Fund R Acc (EUR)",
+      "payload_hash": "f73ae9b678d7d059",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B53H0P79",
+      "name": "PIMCO GIS Global Advantage Fund E Class EUR (Partially Hedged) Accumulation",
+      "payload_hash": "ca004a51eca03570",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B5ZW6Z28",
+      "name": "PIMCO GIS Emerging Local Bond Fund E Class EUR (Unhedged) Accumulation",
+      "payload_hash": "1513baaa2cfd21b9",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Emergentes"
+    },
+    {
+      "isin": "IE00B84J9L26",
+      "name": "PIMCO GIS Income Fund E Class EUR (Hedged) Accumulation",
+      "payload_hash": "207025f51d949edf",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B87MS887",
+      "name": "Liontrust GF Special Situations Fund A1 Acc EUR",
+      "payload_hash": "e149ef6af098de1b",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE00B88WFS66",
+      "name": "Federated Hermes Asia ex-Japan Equity Fund Class R EUR Accumulating",
+      "payload_hash": "990706139baa75aa",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Asia"
+    },
+    {
+      "isin": "IE00B8BPMF80",
+      "name": "Wellington Strategic European Equity Fund EUR D Ac",
+      "payload_hash": "7add40ddb427bd03",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE00B8J38129",
+      "name": "Algebris UCITS Funds plc - Algebris Financial Credit Fund R EUR Acc",
+      "payload_hash": "1dec8979e469a4b4",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Global"
+    },
+    {
+      "isin": "IE00B90VC092",
+      "name": "PIMCO European Short-Term Opportunities Fund E EUR Accumulation",
+      "payload_hash": "d1fc72446ceab6a9",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Europa"
+    },
+    {
+      "isin": "IE00BD2ZKT29",
+      "name": "Principal Global Investors Funds - Finisterre Unconstrained Emerging Market Fxd Inc Fd A Hdg Acc EUR",
+      "payload_hash": "fe8bdc5e9873b63e",
+      "asset_class": "RF",
+      "asset_type_v2": "fixed_income",
+      "region_primary": "Emergentes"
+    },
+    {
+      "isin": "IE00BD4GTQ32",
+      "name": "FTGF ClearBridge Infrastructure Value Fund Class A Euro Accumulating",
+      "payload_hash": "599ae2ae52357c28",
+      "asset_class": "RV",
+      "asset_type_v2": "equity",
+      "region_primary": "Global"
+    }
+  ]
+}

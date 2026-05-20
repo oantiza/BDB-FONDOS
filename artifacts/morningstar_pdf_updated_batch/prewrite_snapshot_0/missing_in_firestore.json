@@ -1,0 +1,9 @@
+{
+  "generated_at": "2026-05-20T16:58:23.971Z",
+  "total_missing": 2,
+  "isins": [
+    "LU0171281750",
+    "LU0171282212"
+  ],
+  "action": "EXCLUDE from write gate until manually reviewed and created in funds_v3"
+}

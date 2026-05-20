@@ -1,0 +1,2612 @@
+[
+  {
+    "isin": "BE0943877671",
+    "name": "DPAM B - Bonds Eur Government B Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "BE0946564383",
+    "name": "DPAM B - Equities NewGems Sustainable B Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "BE0947853660",
+    "name": "DPAM B - Equities US Dividend Sustainable B EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "DE0008490962",
+    "name": "DWS Deutschland LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0111166031",
+    "name": "Atl Capital Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0112602000",
+    "name": "Azvalor Managers FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0114633003",
+    "name": "Panda Agriculture & Water Fund FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0114904008",
+    "name": "Brightgate Focus A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0116419005",
+    "name": "Cartera Renta Fija Horizonte 2026 FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0116567035",
+    "name": "Cartesio X FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0116848005",
+    "name": "Global Allocation R FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0124880032",
+    "name": "UBS Renta Fija 0-5 B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0125240038",
+    "name": "Trea Renta Fija Ahorro S FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0125323008",
+    "name": "Gestión Value A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0126542036",
+    "name": "Amundi Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0126547035",
+    "name": "UBS Duración 0-2 B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0127097030",
+    "name": "Dux Rentinver Renta Fija FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0127795005",
+    "name": "EDM Renta R FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0137381036",
+    "name": "Gesconsult Renta Variable Iberia A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0138217031",
+    "name": "Gesconsult Renta Fija Flexible A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0138911039",
+    "name": "Gesconsult Renta Variable Eurozona FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0138922002",
+    "name": "Gesconsult Horizonte 2027 FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0138922036",
+    "name": "Gesconsult Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0140643034",
+    "name": "GVC Gaesco Europa FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0140986011",
+    "name": "Gesconsult Oportunidad Renta Fija A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0141113037",
+    "name": "GVC Gaesco Japón A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0141580037",
+    "name": "SIH Ahorro A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0141991002",
+    "name": "Gestión Talento FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0142167032",
+    "name": "SIH Renta Fija A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0146309002",
+    "name": "Horos Value Internacional FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0155142005",
+    "name": "Intermoney Variable Euro A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0155598008",
+    "name": "UBS Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0155598032",
+    "name": "UBS Corto Plazo B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0156873004",
+    "name": "A&G Renta Fija Corto Plazo FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0159201013",
+    "name": "Magallanes Iberian Equity M FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0159259011",
+    "name": "Magallanes European Equity M FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0160873008",
+    "name": "March Pagarés A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0161032034",
+    "name": "March Renta Fija Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0162295002",
+    "name": "Cartera Renta Fija Horizonte 2027 FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0162333035",
+    "name": "Merchrenta FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0162368007",
+    "name": "Metavalor Internacional I FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0165142003",
+    "name": "Mutuafondo Corto Plazo D FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0165142037",
+    "name": "Mutuafondo Corto Plazo A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0165242001",
+    "name": "Myinvestor S&P500 Equiponderado FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0167238023",
+    "name": "Estela Global Equities R FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0168662031",
+    "name": "Trea Renta Fija FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0168673038",
+    "name": "EDM Ahorro R FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0168799056",
+    "name": "Gestión Boutique IV Alclam US Equities FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0170138038",
+    "name": "Santalucía Renta Fija B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0170141008",
+    "name": "Santalucía Quality Acciones Europeas B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0176954008",
+    "name": "Renta 4 Renta Fija R FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0182631004",
+    "name": "Polar Renta Fija A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0182769002",
+    "name": "Valentum E FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0184949008",
+    "name": "Sigma Investment House Megatrends A FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "ES0184949016",
+    "name": "Sigma Investment House Megatrends B FI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FI0008800511",
+    "name": "Evli Short Corporate Bond B",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FI0008811997",
+    "name": "Evli Nordic Corporate Bond B",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0000174310",
+    "name": "Lazard Small Caps Euro SRI I",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0000989626",
+    "name": "Groupama Trésorerie IC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0000989899",
+    "name": "Oddo BHF Avenir CR-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0007008750",
+    "name": "R-co Conviction Credit Euro C EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010148981",
+    "name": "Carmignac Investissement A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010149120",
+    "name": "Carmignac Sécurité AW EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010172767",
+    "name": "EdR SICAV - Euro Sustainable Credit A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010230490",
+    "name": "Lazard Credit Opportunities RC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010288308",
+    "name": "Groupama Avenir Euro NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010306142",
+    "name": "Carmignac Patrimoine E EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010312660",
+    "name": "Carmignac Investissement E EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010321810",
+    "name": "Echiquier Agenor Mid Cap Europe A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010547869",
+    "name": "Sextant PME A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010722348",
+    "name": "Groupama Global Active Equity NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010829697",
+    "name": "AMUNDI TRESO 12 MOIS DP",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010839282",
+    "name": "Echiquier Short Term Credit SRI A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010859769",
+    "name": "Echiquier World Equity Growth A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0010950055",
+    "name": "AXA IM Euro 6M E",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0011288513",
+    "name": "Sycomore Sélection Crédit R",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0011365212",
+    "name": "Amundi Ultra Short Term Bond Responsible E C",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0011387299",
+    "name": "Allianz Euro Oblig Court Terme ISR RC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0013201001",
+    "name": "EdR SICAV - Euro Sustainable Credit R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0013231453",
+    "name": "Ostrum Credit Ultra Short Plus I-C EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0013346079",
+    "name": "Groupama Ultra Short Term NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0013460920",
+    "name": "EdR SICAV - Short Duration Credit A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0013460961",
+    "name": "EdR SICAV - Short Duration Credit B EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0014008W22",
+    "name": "EdR SICAV - Millesima World 2028 A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR001400JGB5",
+    "name": "EdR SICAV Millesima Select 2028 A Eur",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR001400NTN5",
+    "name": "Lazard High Yield 2029 EC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "FR0050000860",
+    "name": "Amundi Ultra Short Term Bond Responsible P C",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0003867441",
+    "name": "BNY Mellon Small Cap Euroland Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0004766675",
+    "name": "Comgest Growth Europe EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE000MI53C66",
+    "name": "Man Funds plc - Man Global Investment Grade Opportunities D H EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0031069499",
+    "name": "AXA IM Equity Trust - AXA IM All Country Asia Pacific Ex-Japan Small Cap Equity QI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0031333341",
+    "name": "Jupiter Asia Pacific Income Fund C USD Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0031573904",
+    "name": "Brandes Global Value Fund A Euro Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0031574647",
+    "name": "Brandes European Value Fund A Euro Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0031575271",
+    "name": "Brandes US Value Fund A Euro Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0032722484",
+    "name": "BNY Mellon Euroland Bond Fund EUR C Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE0034277479",
+    "name": "AXA IM Equity Trust - AXA IM All Country Asia Pacific Ex-Japan Small Cap Equity QI",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B03HCZ61",
+    "name": "Vanguard Global Stock Index Fund Investor EUR Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B03HD191",
+    "name": "Vanguard Global Stock Index Fund EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B11XYW43",
+    "name": "PIMCO GIS Emerging Markets Bond Fund E Class EUR (Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B11XZ103",
+    "name": "PIMCO GIS Global Bond Fund E Class EUR (Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B11XZ871",
+    "name": "PIMCO GIS US High Yield Bond Fund E Class Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B11YFH93",
+    "name": "BNY Mellon Emerging Markets Debt Local Currency Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B18GC888",
+    "name": "Vanguard Global Bond Index Fund EUR Hedged Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B23S7K36",
+    "name": "BNY Mellon Brazil Equity Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B28YJQ65",
+    "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities Fund Inc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B2NXKW18",
+    "name": "Seilern World Growth EUR U R",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B3NLSS43",
+    "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities Fund R Inc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B3RW6Z61",
+    "name": "Nomura Funds Ireland plc - US High Yield Bond Fund Class A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B3V93F27",
+    "name": "BNY Mellon Global Equity Income Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B3VXGD32",
+    "name": "Polar Capital Funds PLC - Biotechnology Fund R Inc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B4M05337",
+    "name": "Brown Advisory US Equity Growth $ P",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B4Z6MP99",
+    "name": "BNY Mellon Global Real Return Fund (EUR) C Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B4ZJ4188",
+    "name": "Comgest Growth Europe Opportunities EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B52VLZ70",
+    "name": "Polar Capital Funds PLC - Polar Capital Global Insurance Fund R Acc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B53H0P79",
+    "name": "PIMCO GIS Global Advantage Fund E Class EUR (Partially Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B5ZW6Z28",
+    "name": "PIMCO GIS Emerging Local Bond Fund E Class EUR (Unhedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B84J9L26",
+    "name": "PIMCO GIS Income Fund E Class EUR (Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B87MS887",
+    "name": "Liontrust GF Special Situations Fund A1 Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B88WFS66",
+    "name": "Federated Hermes Asia ex-Japan Equity Fund Class R EUR Accumulating",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B8BPMF80",
+    "name": "Wellington Strategic European Equity Fund EUR D Ac",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B8J38129",
+    "name": "Algebris UCITS Funds plc - Algebris Financial Credit Fund R EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00B90VC092",
+    "name": "PIMCO European Short-Term Opportunities Fund E EUR Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BD2ZKT29",
+    "name": "Principal Global Investors Funds - Finisterre Unconstrained Emerging Market Fxd Inc Fd A Hdg Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BD4GTQ32",
+    "name": "FTGF ClearBridge Infrastructure Value Fund Class A Euro Accumulating",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BD5CTX77",
+    "name": "BNY Mellon Global Short-Dated High Yield Bond Fund EUR H Acc Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BDH6RQ67",
+    "name": "UTI India Dynamic Equity EURO Retail",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BDTYYP61",
+    "name": "Man Funds VI plc - Man High Yield Opportunities D EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BDZRWZ54",
+    "name": "Neuberger Berman Short Duration Emerging Market Debt Fund EUR A Accumulating Class",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BF0GL212",
+    "name": "Polar Capital Funds PLC - Artificial Intelligence Fund R USD Acc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BF2FJG67",
+    "name": "PIMCO GIS Low Duration Opportunities Fund E Class EUR (Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BJ7B9456",
+    "name": "PIMCO GIS Global Low Duration Real Return Fund E Class EUR (Hedged) Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BKSBDB61",
+    "name": "Polar Capital Funds PLC - Polar Capital Healthcare Opportunities R Acc (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BM95B621",
+    "name": "Polar Capital Funds PLC - Polar Capital Global Technology Fund R Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BMD7ZB71",
+    "name": "Neuberger Berman Next Generation Connectivity Fund EUR A Accumulating Class - Unhedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BNG2T811",
+    "name": "Neuberger Berman Short Duration Euro Bond Fund EUR A Accumulating Class",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BYR8H148",
+    "name": "Jupiter Merian World Equity Fund L EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BYVJR916",
+    "name": "Jupiter Gold & Silver Fund L EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BYX5NX33",
+    "name": "Fidelity MSCI World Index Fund EUR P Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BYX5P602",
+    "name": "Fidelity MSCI World Index Fund EUR P Acc (Hedged)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BZ18VT34",
+    "name": "BNY Mellon Global Infrastructure Income Fund EUR A Inc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "IE00BZ4D7648",
+    "name": "Polar Capital Funds PLC - Polar Capital Global Technology Fund R EUR Hedged Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0011889846",
+    "name": "Janus Henderson Horizon Euroland Fund A2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0028119013",
+    "name": "Invesco Funds - Invesco Pan European Small Cap Equity Fund A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0034353002",
+    "name": "DWS Floating Rate Notes LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0072462186",
+    "name": "BlackRock Global Funds - European Value Fund A2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0073229253",
+    "name": "Morgan Stanley Investment Funds - Asia Equity Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0073235904",
+    "name": "Morgan Stanley Investment Funds - Short Maturity Euro Bond Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0077500055",
+    "name": "Candriam Bonds Euro Corporate 2036 Class C EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0080237943",
+    "name": "DWS Euro Ultra Short Fixed Income Fund NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0084617165",
+    "name": "Robeco Asia-Pacific Equities D €",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0086177085",
+    "name": "UBS (Lux) Bond Fund - Euro High Yield (EUR) P-acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0090845842",
+    "name": "BlackRock Global Funds - World Mining Fund E2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0093583077",
+    "name": "Candriam Money Market Euro C Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0094557526",
+    "name": "MFS Meridian Funds - European Research Fund A1 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0102219945",
+    "name": "Goldman Sachs Europe CORE Equity Portfolio Base Inc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0102737730",
+    "name": "Invesco Funds - Invesco Euro Ultra-Short Term Debt Fund A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0102737904",
+    "name": "Invesco Funds - Invesco Euro Ultra-Short Term Debt Fund C Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0112467450",
+    "name": "Nordea 1 - Global Stable Equity Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0113257694",
+    "name": "Schroder International Selection Fund EURO Corporate Bond A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0114722738",
+    "name": "Fidelity Funds - Global Financial Services Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0114723033",
+    "name": "Fidelity Funds - Global Industrials Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115139569",
+    "name": "Invesco Funds - Invesco Global Consumer Trends Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115141201",
+    "name": "Invesco Funds - Invesco Pan European Equity Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115143082",
+    "name": "Invesco Funds - Invesco Asia Opportunities Equity Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115759606",
+    "name": "Fidelity Funds - America Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115765678",
+    "name": "Fidelity Funds - Iberia Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115769746",
+    "name": "Fidelity Funds - World Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0115773425",
+    "name": "Fidelity Funds - Global Technology Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117843481",
+    "name": "JPMorgan Funds - Taiwan Fund A (dist) USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117843721",
+    "name": "JPMorgan Funds - Taiwan Fund D (acc) USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117858596",
+    "name": "JPMorgan Funds - Europe Equity Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117858679",
+    "name": "JPMorgan Funds - Europe Strategic Growth Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117858752",
+    "name": "JPMorgan Funds - Europe Strategic Value Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117859560",
+    "name": "JPMorgan Funds - Europe Small Cap Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0117884675",
+    "name": "JPMorgan Funds - Europe Dynamic Technologies Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0119063039",
+    "name": "JPMorgan Funds - Europe Dynamic Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0119620416",
+    "name": "Morgan Stanley Investment Funds - Global Brands Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0119750205",
+    "name": "Invesco Funds - Invesco Sustainable Pan European Systematic Equity Fund A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0119753308",
+    "name": "Invesco Funds - Invesco Sustainable Pan European Systematic Equity Fund E Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0121204431",
+    "name": "Goldman Sachs Global Sustainable Equity - X Cap EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0125951151",
+    "name": "MFS Meridian Funds - European Value Fund A1 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0127786431",
+    "name": "Goldman Sachs Eurozone Equity Income - P Cap EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0128521001",
+    "name": "Templeton European Insights Fund Class N (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0132601682",
+    "name": "Morgan Stanley Investment Funds - Euro Corporate Bond Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0133264522",
+    "name": "Goldman Sachs Global Equity Income Portfolio E Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0133267202",
+    "name": "Goldman Sachs Emerging Markets Equity Portfolio E Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0133717503",
+    "name": "Schroder International Selection Fund EURO Corporate Bond A1 Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0137009238",
+    "name": "Vontobel Fund - TwentyFour Euro Short Term Bond C EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0144751095",
+    "name": "Candriam Bonds Euro High Yield Class N EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0145656715",
+    "name": "DWS Invest ESG Euro Bonds (Short) NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0151324935",
+    "name": "Candriam Bonds Credit Opportunities Class N EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0153585137",
+    "name": "Vontobel Fund - European Equity B EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0153925689",
+    "name": "UBS (Lux) Key Selection SICAV - European Equity Value Opportunity (EUR) P-acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0157179127",
+    "name": "JPMorgan Investment Funds - Global Select Equity Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0161304786",
+    "name": "Schroder International Selection Fund European Value A1 Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0161305163",
+    "name": "Schroder International Selection Fund European Value A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0161305593",
+    "name": "Schroder International Selection Fund European Value B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0162660350",
+    "name": "BlackRock Global Funds - Euro Corporate Bond Fund A1",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0165074666",
+    "name": "HSBC Global Investment Funds - Euroland Value AC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0165081950",
+    "name": "HSBC Global Investment Funds - Euroland Value EC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0165520114",
+    "name": "Candriam Bonds Global Inflation Short Duration Class C EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0169250635",
+    "name": "Generali Investments SICAV - Euro Bond Fund EX",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0170293632",
+    "name": "Candriam Bonds Global High Yield Class N EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0170473374",
+    "name": "Franklin European Total Return Fund A(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171275786",
+    "name": "BlackRock Global Funds - Emerging Markets Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171281750",
+    "name": "BlackRock Global Funds - European Value Fund A2 (USD)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171282212",
+    "name": "BlackRock Global Funds - European Value Fund A2 (GBP)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171285587",
+    "name": "BlackRock Global Funds - Global Long-Horizon Equity Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171289902",
+    "name": "BlackRock Global Funds - Sustainable Energy Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171290074",
+    "name": "BlackRock Global Funds - Sustainable Energy Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171296949",
+    "name": "BlackRock Global Funds - US Flexible Equity Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171304552",
+    "name": "BlackRock Global Funds - World Energy Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171304719",
+    "name": "BlackRock Global Funds - World Financials Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171305443",
+    "name": "BlackRock Global Funds - World Financials Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171306680",
+    "name": "BlackRock Global Funds - World Gold Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171307068",
+    "name": "BlackRock Global Funds - World Healthscience Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0171309270",
+    "name": "BlackRock Global Funds - World Healthscience Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0172157280",
+    "name": "BlackRock Global Funds - World Mining Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0172157363",
+    "name": "BlackRock Global Funds - World Mining Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0173779223",
+    "name": "Nordea 1 - Danish Covered Bond Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0173782102",
+    "name": "Nordea 1 - Asia ex Japan Equity Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0177497491",
+    "name": "abrdn SICAV II-Euro Corporate Bond Fund A Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0181496216",
+    "name": "Schroder International Selection Fund Emerging Asia A1 Accumulation USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0184627536",
+    "name": "AXA World Funds - Switzerland Equity A Capitalisation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0187079347",
+    "name": "Robeco Global Consumer Trends D EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0188151921",
+    "name": "Templeton Emerging Markets Fund N(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0200684180",
+    "name": "BlackRock Global Funds - Emerging Markets Bond Fund E2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0201075453",
+    "name": "Janus Henderson Pan European Fund A2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0202403266",
+    "name": "Fidelity Active Strategy - FAST - Europe Fund A-ACC-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0203975437",
+    "name": "Robeco BP Global Premium Equities D EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0208853944",
+    "name": "JPMorgan Funds - Global Natural Resources Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0210531983",
+    "name": "JPMorgan Funds - Europe Strategic Value Fund A (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0210536198",
+    "name": "JPMorgan Funds - US Growth Fund A (acc) - USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0212178916",
+    "name": "BNP Paribas Funds Europe Small Cap Classic Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0217139020",
+    "name": "Pictet-Premium Brands P EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0217576833",
+    "name": "JPMorgan Funds - Emerging Markets Equity Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0224105477",
+    "name": "BlackRock Global Funds - Continental European Flexible Fund Class A2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0224105980",
+    "name": "BlackRock Global Funds - Continental European Flexible Fund E2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0227385266",
+    "name": "Nordea 1 - Stable Return Fund E EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0229084990",
+    "name": "BlackRock Global Funds - European Equity Transition Fund A2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0231205856",
+    "name": "Franklin India Fund N(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0231490524",
+    "name": "abrdn SICAV I - Indian Equity Fund A Acc USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0232524495",
+    "name": "AB SICAV I - American Growth Portfolio A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0235308482",
+    "name": "Alken Fund - European Opportunities Class R",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0236738190",
+    "name": "Schroder International Selection Fund Japanese Equity B Accumulation EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0243958393",
+    "name": "Invesco Funds - Invesco Euro Corporate Bond Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248167537",
+    "name": "Schroder International Selection Fund Global Equity Alpha A1 Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248168261",
+    "name": "Schroder International Selection Fund Global Equity Alpha B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248168428",
+    "name": "Schroder International Selection Fund Global Equity Alpha A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248172537",
+    "name": "Schroder International Selection Fund Emerging Asia A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248173006",
+    "name": "Schroder International Selection Fund Emerging Asia B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248174152",
+    "name": "Schroder International Selection Fund Emerging Asia A1 Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248181363",
+    "name": "Schroder International Selection Fund Latin American A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248183815",
+    "name": "Schroder International Selection Fund Latin American B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248183906",
+    "name": "Schroder International Selection Fund Asian Opportunities B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248184383",
+    "name": "Schroder International Selection Fund Latin American A1 Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0248184466",
+    "name": "Schroder International Selection Fund Asian Opportunities A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0251119078",
+    "name": "Fidelity Funds - Fidelity Target™ 2035 Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0251660279",
+    "name": "AXA World Funds - Euro Strategic Bonds E Capitalisation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0251661590",
+    "name": "AXA World Funds - Euro Long Duration Bonds E Capitalisation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0251807987",
+    "name": "BNP Paribas Funds Japan Small Cap Classic EUR Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0251853072",
+    "name": "AB SICAV I - International Health Care Portfolio Class A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0252500524",
+    "name": "JPMorgan Funds - EUR Money Market VNAV Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0252970834",
+    "name": "BlackRock Global Funds - European Equity Transition Fund A2 (USD)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0254836850",
+    "name": "Robeco Capital Growth Funds - Robeco Emerging Stars Equities D EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0256839860",
+    "name": "Allianz Global Investors Fund - Allianz Europe Equity Growth CT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0260085492",
+    "name": "Jupiter European Select Class L EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0260869739",
+    "name": "Franklin U.S. Opportunities Fund A(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0261948227",
+    "name": "Fidelity Funds - Germany Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0261951957",
+    "name": "FF - Global Dividend Plus Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0261952682",
+    "name": "Fidelity Funds - Euro 50 Index Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0267388220",
+    "name": "Fidelity Funds - Euro Short Term Bond Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0267984697",
+    "name": "Invesco Funds - Invesco India Equity Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0270905242",
+    "name": "Pictet-Security R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0273148055",
+    "name": "DWS Invest Gold and Precious Metals Equities NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0273159177",
+    "name": "DWS Invest Gold and Precious Metals Equities LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0273690064",
+    "name": "Goldman Sachs Asia Equity Growth & Income - P Cap EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0275692696",
+    "name": "Fidelity Funds - US Equity Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0279459456",
+    "name": "Schroder International Selection Fund Global Emerging Market Opportunities A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0279460892",
+    "name": "Schroder International Selection Fund Global Smaller Companies A1 Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0280435388",
+    "name": "Pictet - Clean Energy Transition P EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0280435461",
+    "name": "Pictet-Clean Energy Transition R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0282719219",
+    "name": "CT (Lux) - Pan European Small Cap Opportunities Class AE (EUR Accumulation Shares)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0289089384",
+    "name": "JPMorgan Funds - Europe Equity Plus Fund A (perf) (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0289214628",
+    "name": "JPMorgan Funds - Europe Equity Plus Fund D (perf) (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0293313325",
+    "name": "Allianz Global Investors Fund - Allianz GEM Equity High Dividend AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0293313671",
+    "name": "Allianz Global Investors Fund - Allianz GEM Equity High Dividend CT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0294249692",
+    "name": "Carmignac Portfolio Grande Europe E EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0300507208",
+    "name": "Generali Investments SICAV - Euro Future Leaders EX",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0300741732",
+    "name": "Franklin Natural Resources Fund A(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0302445910",
+    "name": "Schroder International Selection Fund Global Climate Change Equity A Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0302446645",
+    "name": "Schroder International Selection Fund Global Climate Change Equity A Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0302446991",
+    "name": "Schroder International Selection Fund Global Climate Change Equity B Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0309468980",
+    "name": "Nordea 1 - Latin American Equity Fund E EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0313923228",
+    "name": "BlackRock Strategic Funds - European Opportunities Extension Fund A2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0318931192",
+    "name": "Fidelity Funds - China Focus Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0320896664",
+    "name": "Robeco BP US Premium Equities DH €",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0321373184",
+    "name": "Schroder International Selection Fund European Dividend Maximiser B Distribution",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0323041763",
+    "name": "Chahine Funds - Equity Europe R",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0326425351",
+    "name": "BlackRock Global Funds - World Mining Fund E2 EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329070915",
+    "name": "Jupiter India Select Class L EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329203656",
+    "name": "JPMorgan Investment Funds - Global Dividend Fund D (acc) EUR (hedged)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329206832",
+    "name": "JPMorgan Investment Funds - Japan Strategic Value Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329355670",
+    "name": "Robeco QI Emerging Markets Active Equities D €",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329430986",
+    "name": "GAM Multistock - Luxury Brands Equity EUR E",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0329678410",
+    "name": "Fidelity Funds - Emerging Asia Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0331286574",
+    "name": "BlackRock Global Funds - Sustainable Energy Fund C2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0333810850",
+    "name": "Goldman Sachs India Equity Portfolio E Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0340559557",
+    "name": "Pictet-Timber P EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0345361124",
+    "name": "Fidelity Funds - Asia Pacific Opportunities Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0348529792",
+    "name": "Fidelity Active Strategy - FAST - Europe Fund E-ACC-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0348784041",
+    "name": "Allianz Global Investors Fund - Allianz Oriental Income AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0348926287",
+    "name": "Nordea 1 - Global Climate and Environment Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0348927251",
+    "name": "Nordea 1 - Global Climate and Environment Fund E EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0353647737",
+    "name": "Fidelity Funds - European Dividend Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0353649352",
+    "name": "Fidelity Funds - Global Inflation-linked Bond Fund E-Acc-EUR (hedged)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0365089902",
+    "name": "Jupiter India Select Class L USD A Inc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0365775922",
+    "name": "Schroder International Selection Fund Greater China A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0368678339",
+    "name": "Fidelity Funds - Pacific Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0384381660",
+    "name": "Morgan Stanley Investment Funds - QuantActive Global Infrastructure Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0387754996",
+    "name": "Robeco Global Stars Equities D EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0391944815",
+    "name": "Pictet-Global Megatrend Selection R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0399356780",
+    "name": "DWS Invest Latin American Equities LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0413376566",
+    "name": "BlackRock Global Funds - Emerging Markets Bond Fund A2 Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0413543058",
+    "name": "Fidelity Funds - Japan Value Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0415391431",
+    "name": "Bellevue Funds (Lux) - Bellevue Medtech & Services B EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0425308169",
+    "name": "BlackRock Global Funds - Global Inflation Linked Bond Fund A2 EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0430492750",
+    "name": "JPMorgan Funds - Euro Aggregate Bond Fund C (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0438336694",
+    "name": "BlackRock ESG Fixed Income Strategies Fund E2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0447425785",
+    "name": "SIH FCP - Short Term EUR A Classic",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0455556406",
+    "name": "UBS (Lux) Bond SICAV - Global Inflation-linked (USD) (EUR hedged) P-acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0469270010",
+    "name": "AB FCP I - Asia Ex-Japan Equity Portfolio C EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0491217419",
+    "name": "Robeco Indian Equities D €",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0496368142",
+    "name": "Franklin Gold and Precious Metals Fund A(acc)EUR-H1",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0496369389",
+    "name": "Franklin Gold and Precious Metals Fund N(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0501220429",
+    "name": "Global Evolution Funds - Frontier Markets R EUR H",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0503631714",
+    "name": "Pictet - Global Environmental Opportunities P EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0522352516",
+    "name": "JPMorgan Funds - India Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0524465548",
+    "name": "Alken Fund - Small Cap Europe Class A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0524465977",
+    "name": "Alken Fund - European Opportunities Class A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0546917344",
+    "name": "Goldman Sachs Euro Long Duration Bond - P Cap EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0552029406",
+    "name": "Amundi Funds - Latin America Equity A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0552029661",
+    "name": "Amundi Funds - Latin America Equity G EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0552385295",
+    "name": "Morgan Stanley Investment Funds - Global Opportunity Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0554840230",
+    "name": "Robeco Global Consumer Trends Equities M",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0563745743",
+    "name": "Bestinver Tordesillas SICAV Iberia A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0565136552",
+    "name": "First Eagle Amundi International Fund Class FE-C Shares",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0568583420",
+    "name": "Amundi Funds - Equity Japan Target A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0568620727",
+    "name": "Amundi Funds - Cash EUR G2 EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0569862609",
+    "name": "UBAM - Global High Yield Solution AHC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0570870567",
+    "name": "CT (Lux) - Global Smaller Companies AE (EUR Accumulation Shares)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0571101558",
+    "name": "Groupama Euro High Yield NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0594300096",
+    "name": "Fidelity Funds - China Consumer Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0594539719",
+    "name": "Candriam Bonds Emerging Markets Class C EUR Hedged Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0602539867",
+    "name": "Nordea 1 - Emerging Sustainable Stars Equity Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0604766674",
+    "name": "Allianz Global Investors Fund - Allianz Global Metals and Mining AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0607512935",
+    "name": "Invesco Funds - Invesco Developed Small and Mid-Cap Equity Fund E Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0607513586",
+    "name": "Invesco Funds - Invesco Global Equity Income Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0616839501",
+    "name": "DWS Invest Euro High Yield Corporates LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0616856935",
+    "name": "DWS Invest Brazilian Equities LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0616857313",
+    "name": "DWS Invest Brazilian Equities NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0628612748",
+    "name": "BlackRock Global Funds - European Equity Income Fund E2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0630951415",
+    "name": "Fidelity Funds - Emerging Asia Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0631859229",
+    "name": "Bellevue Funds (Lux) - Bellevue Entrepreneur Europe Small B EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0637302547",
+    "name": "Nordea 1 - Emerging Market Corporate Bond Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0637335638",
+    "name": "Nordea 1 - Indian Equity Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0658026512",
+    "name": "AXA IM Fixed Income Investment Strategies - Europe Short Duration High Yield E",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0661986348",
+    "name": "JPMorgan Funds - Euroland Dynamic Fund D (perf) (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0690375182",
+    "name": "Fundsmith Equity Fund T EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0702159772",
+    "name": "Fidelity Funds - Asian Smaller Companies Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0704154706",
+    "name": "RAM (Lux) Systematic Funds - Emerging Markets Equities O EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0706127809",
+    "name": "UBS (Lux) Bond SICAV - Global Short Term Flexible (USD) (EUR hedged) P-acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0712123511",
+    "name": "Morgan Stanley Investment Funds - Global Fixed Income Opportunities Fund AH (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0733673288",
+    "name": "Nordea 1 - European Cross Credit Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0766123821",
+    "name": "Fidelity Funds - China Focus Fund E-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0769137737",
+    "name": "BlackRock Global Funds - Continental European Flexible Fund Class A2 (USD)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0772958525",
+    "name": "Nordea 1 - North American Sustainable Stars Equity Fund BP USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0795636256",
+    "name": "Schroder International Selection Fund Emerging Markets Hard Currency A Accumulation EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0813337002",
+    "name": "DWS Invest Latin American Equities NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0815263628",
+    "name": "Morgan Stanley Investment Funds - Emerging Leaders Equity Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0823411706",
+    "name": "BNP Paribas Funds Consumer InnovatorsClassic Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0823421689",
+    "name": "BNP Paribas Funds Disruptive Technology Classic Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0826452848",
+    "name": "DWS Invest II Global Equity High Conviction Fund LC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0826453226",
+    "name": "DWS Invest II Global Equity High Conviction Fund NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0849399786",
+    "name": "Schroder International Selection Fund EURO High Yield A Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0857700040",
+    "name": "Fidelity Funds - European Dividend Fund A-MINCOME(G)-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0861897477",
+    "name": "Abante Global Funds Spanish Opportunities Class B",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0862450516",
+    "name": "JPMorgan Funds - Emerging Markets Dividend Fund D (acc) EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0910636546",
+    "name": "Goldman Sachs Emerging Markets Debt Blend Portfolio Other Currency Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0910636892",
+    "name": "Goldman Sachs Emerging Markets Debt Blend Portfolio E Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0918140210",
+    "name": "T. Rowe Price Funds SICAV - US Smaller Companies Equity Fund A (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0922333322",
+    "name": "Fidelity Funds - Italy Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0926439992",
+    "name": "Vontobel Fund - Emerging Markets Debt H (hedged) EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0933684101",
+    "name": "Incometric Equam Global Value A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0935222900",
+    "name": "Natixis AM Funds - Ostrum Euro Inflation R/A (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0935230242",
+    "name": "Natixis AM Funds - Ostrum Europe MinVol RE/A (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0940719098",
+    "name": "UBAM - Global High Yield Solution RHC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0986194024",
+    "name": "SIH FCP - Equity Europe A Classic",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0995119665",
+    "name": "Schroder International Selection Fund EURO Credit Conviction A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU0995119749",
+    "name": "Schroder International Selection Fund EURO Credit Conviction B Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1021288268",
+    "name": "AB FCP I - Mortgage Income Portfolio A2 EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1022658667",
+    "name": "Franklin Euro Short Duration Bond Fund A(acc)EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1066281574",
+    "name": "SIH FCP - Equity Spain A Classic",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1079477284",
+    "name": "Allianz Emerging Markets Short Duration Bond AT (H2-EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1080015693",
+    "name": "Edmond de Rothschild Fund - Emerging Credit A EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1088692675",
+    "name": "UBAM - Global Equity AC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1089088741",
+    "name": "Allianz Global Investors Fund - Allianz Floating Rate Notes Plus VarioZins AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1103303167",
+    "name": "Edmond de Rothschild Fund - US Value A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1111642820",
+    "name": "Eleva European Selection A2 EUR acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1120766388",
+    "name": "Candriam Equities L Biotechnology Class C EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1161086159",
+    "name": "Amundi Funds - Emerging Markets Blended Bond A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1161526576",
+    "name": "Edmond de Rothschild Fund - Bond Allocation R EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1164219682",
+    "name": "AXA World Funds - Euro Credit Total Return A Capitalisation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1164220854",
+    "name": "AXA World Funds - Euro Credit Total Return E Capitalisation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1165644672",
+    "name": "IVO Funds - IVO Emerging Markets Corporate Debt EUR R Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1206943596",
+    "name": "Fidelity Active Strategy - FAST - Emerging Markets Fund A-ACC-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1213836080",
+    "name": "Fidelity Funds - Global Technology Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1223083087",
+    "name": "Schroder International Selection Fund Global Gold A Accumulation EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1223084051",
+    "name": "Schroder International Selection Fund Global Gold A Accumulation PLN Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1244893696",
+    "name": "Edmond de Rothschild Fund - Big Data A-EUR accumulating",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1244895394",
+    "name": "Edmond de Rothschild Fund - Big Data R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1254412460",
+    "name": "abrdn SICAV I - Indian Bond Fund A Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1279334483",
+    "name": "Pictet - Robotics R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1295551144",
+    "name": "Capital Group New Perspective Fund (LUX) B (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1298174530",
+    "name": "CT (Lux) - Global Multi Asset Income Class AE (EUR Accumulation Shares)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1299306321",
+    "name": "Carmignac Portfolio Sécurité AW EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1299311164",
+    "name": "Carmignac Portfolio Investissement A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1299311834",
+    "name": "Carmignac Portfolio Investissement E EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1301026388",
+    "name": "Sycomore Fund SICAV - Sycomore Europe Happy@Work RC EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1321847805",
+    "name": "BlackRock Strategic Funds - Emerging Markets Equity Strategies Fund E2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1330191542",
+    "name": "Magallanes Value Investors UCITS European Equity R EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1333148903",
+    "name": "Azvalor Lux SICAV Azvalor International R",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1340702932",
+    "name": "MFS Meridian Funds - Global Opportunistic Bond Fund A1 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1353951376",
+    "name": "AXA World Funds - Global Inflation Short Duration Bonds E Capitalisation EUR (Hedged)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1362999481",
+    "name": "Robeco High Yield Bonds D €",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1372006947",
+    "name": "Cobas LUX SICAV - Cobas Selection Fund Class P Acc EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1373035234",
+    "name": "BlackRock Strategic Funds - BSF Systematic Style Factor Fund E2 EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1378878430",
+    "name": "Morgan Stanley Investment Funds - Asia Opportunity Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1383852487",
+    "name": "Allianz Global Investors Fund - Allianz Floating Rate Notes Plus VarioZins AT2 EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1391767586",
+    "name": "Fidelity Funds - Global Financial Services Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1481179858",
+    "name": "Capital Group New World Fund (LUX) B (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1481583711",
+    "name": "Flossbach von Storch - Bond Opportunities RT",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1486845537",
+    "name": "Oddo BHF Euro Credit Short Duration CR-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1499628912",
+    "name": "Amundi S.F. - Diversified Short-Term Bond Select E EUR ND",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1529955046",
+    "name": "Eurizon Fund - Bond Aggregate RMB Class R EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1542714578",
+    "name": "Goldman Sachs Europe Sustainable Equity - X Cap EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1548496022",
+    "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 15 AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1548497699",
+    "name": "Allianz Global Investors Fund - Allianz Global Artificial Intelligence AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1578889864",
+    "name": "Ninety One Global Strategy Fund - Global Gold Fund A Acc EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1582984149",
+    "name": "M&G (Lux) European Inflation Linked Corporate Bond Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1582988306",
+    "name": "M&G (Lux) Dynamic Allocation Fund EUR B Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1623762843",
+    "name": "Carmignac Pf Credit A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1665237704",
+    "name": "M&G (Lux) Global Listed Infrastructure Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670618187",
+    "name": "M&G (Lux) Asian Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670618690",
+    "name": "M&G (Lux) Global Emerging Markets Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670626446",
+    "name": "M&G (Lux) Japan Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670631016",
+    "name": "M&G (Lux) Emerging Markets Bond Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670631289",
+    "name": "M&G (Lux) Emerging Markets Bond Fund EUR A-H Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670707527",
+    "name": "M&G (Lux) European Strategic Value Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670710075",
+    "name": "M&G (Lux) Global Dividend Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670715975",
+    "name": "M&G (Lux) Japan Smaller Companies Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670718219",
+    "name": "M&G (Lux) Short Dated Corporate Bond Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670722161",
+    "name": "M&G (Lux) Global Floating Rate High Yield Fund EUR A-H Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1670724373",
+    "name": "M&G (Lux) Optimal Income Fund EUR A Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1679113404",
+    "name": "UBS (Lux) Bond SICAV - Floating Rate Income (USD) (EUR hedged) P-acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1694212348",
+    "name": "Nordea 1 - Low Duration European Covered Bond Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1694789451",
+    "name": "DNCA Invest Alpha Bonds A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1697013008",
+    "name": "SIH FCP - Flexible Fixed Income USD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1697016365",
+    "name": "Sigma Investment House FCP - Selection Defensive Class A EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1706854152",
+    "name": "Amundi S.F. - Diversified Short-Term Bond Select A EUR ND",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1717592262",
+    "name": "Groupama Global Inflation Short Duration NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1738492658",
+    "name": "Aviva Investors - Short Duration Global High Yield Bond Fund Ah EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1740985814",
+    "name": "DWS Strategic Allocation Dynamic LD",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1762221155",
+    "name": "Invesco Funds - Invesco Global Founders & Owners Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1775950477",
+    "name": "Invesco Funds - Invesco Asian Equity Fund E Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1819480192",
+    "name": "Echiquier Artificial Intelligence B EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1829329819",
+    "name": "CT (Lux) - Pan European Smaller Companies 1E (EUR Accumulation Shares)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1838941372",
+    "name": "Candriam Bonds Floating Rate Notes C EUR Cap",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1873127366",
+    "name": "JPMorgan Liquidity Funds - EUR Liquidity LVNAV Fund A (acc)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1882457143",
+    "name": "Amundi Funds - Emerging Markets Corporate High Yield Bond A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1882462655",
+    "name": "Amundi Funds - Emerging Markets Short Term Bond A2 EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1882462739",
+    "name": "Amundi Funds - Emerging Markets Short Term Bond A2 EUR Hgd (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1883318740",
+    "name": "Amundi Funds - Global Equity Responsible A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1883334275",
+    "name": "Amundi Funds - Global Subordinated Bond A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1883342377",
+    "name": "Amundi Funds - Global Equity A EUR (C)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1897556517",
+    "name": "Groupama Global Disruption NC",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1902444584",
+    "name": "CPR Invest - Climate Bonds Euro - A EUR - Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1915690918",
+    "name": "Nordea 1 - Active Rates Opportunities Fund Fund E EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1919971074",
+    "name": "abrdn SICAV I - Frontier Markets Bond Fund A Acc Hedged EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1931535931",
+    "name": "Allianz Pet and Animal Wellbeing AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1939214695",
+    "name": "Nordea 1 - Global Diversity Engagement Fund BP EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1951921383",
+    "name": "Allianz Global Investors Fund - Allianz Credit Opportunities AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU1983299162",
+    "name": "Schroder International Selection Fund Global Alternative Energy A Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2002383896",
+    "name": "Allianz Global Investors Fund - Allianz Credit Opportunities Plus AT EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2016064201",
+    "name": "Schroder International Selection Fund Global Alternative Energy A Accumulation EUR Hedged",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2050411763",
+    "name": "BlackRock Global Funds - Emerging Markets Equity Income Fund A2 (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2050860480",
+    "name": "Fidelity Funds - UK Special Situations Fund A-ACC-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2050929277",
+    "name": "Capital Group New Economy Fund (LUX) B (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2092176515",
+    "name": "BlueBox Funds - BlueBox Global Technology Fund Class C EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2094235707",
+    "name": "Goldman Sachs Global Future Technology Leaders Equity Portfolio Class E Shares",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2098772366",
+    "name": "Candriam Bonds Credit Alpha C EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2131365186",
+    "name": "UBS (Lux) Equity Fund - China Opportunity (USD) P EUR acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2133220793",
+    "name": "Robeco Sustainable Asian Stars Equities DL EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2145461757",
+    "name": "Robeco Smart Energy D-EUR Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2145463373",
+    "name": "Robeco Smart Energy M2-EUR Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2146190835",
+    "name": "Robeco Sustainable Water D-EUR Capitalisation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2210151341",
+    "name": "Fidelity Funds - Absolute Return Global Equity Fund A-PF-Acc-Euro (Euro/USD hedged)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2222028099",
+    "name": "Merchbanc FCP Renta Fija Flex A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2267099674",
+    "name": "BlackRock Global Funds - China Bond Fund Class A2 USD (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2278574558",
+    "name": "Buy & Hold Luxembourg B&H Equity Class 2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2278574988",
+    "name": "Buy & Hold Luxembourg B&H Bond Class 2",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2295319300",
+    "name": "Morgan Stanley Investment Funds - Global Brands Fund A (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2295320068",
+    "name": "Morgan Stanley Investment Funds - Global Insight Fund A (EUR)",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2337806421",
+    "name": "Morgan Stanley Investment Funds - Global Endurance Fund A EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2357235493",
+    "name": "Incometric Fund Nartex Equity Fund A Cap EUR Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2357235576",
+    "name": "Incometric Fund Nartex Equity Fund R Cap EUR Accumulation",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2482630162",
+    "name": "M&G European Credit Investment Fund Class P EUR Acc",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2504555777",
+    "name": "Fidelity Funds - Global Industrials Fund A-Acc-EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2601038578",
+    "name": "Invesco Funds - Invesco Global Founders & Owners Fund A Accumulation EUR",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU2784406998",
+    "name": "Morgan Stanley Investment Funds - Emerging Markets Debt Opportunities Fund A",
+    "status": "ACCEPT"
+  },
+  {
+    "isin": "LU3038481936",
+    "name": "Hamco SICAV - Global Value R EUR Acc",
+    "status": "ACCEPT"
+  }
+]

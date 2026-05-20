@@ -1,0 +1,5015 @@
+{
+  "generated_at": "2026-05-20T17:10:28.438Z",
+  "task": "BDB-MORNINGSTAR-PDF-UPDATED-BATCH-WRITE-CONTROLLED-200-2",
+  "batch_size": 200,
+  "writes_executed": 200,
+  "write_results": [
+    {
+      "isin": "IE00BD5CTX77",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BDH6RQ67",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BDTYYP61",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BDZRWZ54",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BF0GL212",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BF2FJG67",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BJ7B9456",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BKSBDB61",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BM95B621",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BMD7ZB71",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BNG2T811",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BYR8H148",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BYX5NX33",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BYX5P602",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BZ18VT34",
+      "status": "OK"
+    },
+    {
+      "isin": "IE00BZ4D7648",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0011889846",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0028119013",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0034353002",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0072462186",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0073229253",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0073235904",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0077500055",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0080237943",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0084617165",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0086177085",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0090845842",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0093583077",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0094557526",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0102219945",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0102737730",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0102737904",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0112467450",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0113257694",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0114722738",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0114723033",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115139569",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115141201",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115143082",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115759606",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115765678",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115769746",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0115773425",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117843481",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117843721",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117858596",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117858679",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117858752",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117859560",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0117884675",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0119063039",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0119620416",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0119750205",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0119753308",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0121204431",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0125951151",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0127786431",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0128521001",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0132601682",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0133264522",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0133267202",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0133717503",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0137009238",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0144751095",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0145656715",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0151324935",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0153585137",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0153925689",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0157179127",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0161304786",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0161305163",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0161305593",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0162660350",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0165074666",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0165081950",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0165520114",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0169250635",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0170293632",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0170473374",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171275786",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171285587",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171289902",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171290074",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171296949",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171304552",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171304719",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171305443",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171306680",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171307068",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0171309270",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0172157280",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0172157363",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0173779223",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0173782102",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0177497491",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0181496216",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0184627536",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0187079347",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0188151921",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0200684180",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0201075453",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0202403266",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0203975437",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0208853944",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0210531983",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0210536198",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0212178916",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0217139020",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0217576833",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0224105477",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0224105980",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0227385266",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0229084990",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0231205856",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0231490524",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0232524495",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0235308482",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0236738190",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0243958393",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248167537",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248168261",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248168428",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248172537",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248173006",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248174152",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248181363",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248183815",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248183906",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248184383",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0248184466",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0251119078",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0251660279",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0251661590",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0251807987",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0251853072",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0252500524",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0252970834",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0254836850",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0256839860",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0260085492",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0260869739",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0261948227",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0261951957",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0261952682",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0267388220",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0267984697",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0270905242",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0273148055",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0273159177",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0273690064",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0275692696",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0279459456",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0279460892",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0280435388",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0280435461",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0282719219",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0289089384",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0289214628",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0293313325",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0293313671",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0294249692",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0300507208",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0300741732",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0302445910",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0302446645",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0302446991",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0309468980",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0313923228",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0318931192",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0320896664",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0321373184",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0323041763",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0326425351",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329070915",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329203656",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329206832",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329355670",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329430986",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0329678410",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0331286574",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0333810850",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0340559557",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0345361124",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0348529792",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0348784041",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0348926287",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0348927251",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0353647737",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0353649352",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0365089902",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0365775922",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0368678339",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0384381660",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0387754996",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0391944815",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0399356780",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0413376566",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0413543058",
+      "status": "OK"
+    },
+    {
+      "isin": "LU0415391431",
+      "status": "OK"
+    }
+  ],
+  "verification_results": [
+    {
+      "isin": "IE00BD5CTX77",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BDH6RQ67",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BDTYYP61",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BDZRWZ54",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BF0GL212",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BF2FJG67",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BJ7B9456",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BKSBDB61",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BM95B621",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BMD7ZB71",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BNG2T811",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BYR8H148",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BYX5NX33",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BYX5P602",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BZ18VT34",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "IE00BZ4D7648",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0011889846",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0028119013",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0034353002",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0072462186",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0073229253",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0073235904",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0077500055",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0080237943",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0084617165",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0086177085",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0090845842",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0093583077",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0094557526",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0102219945",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0102737730",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0102737904",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0112467450",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0113257694",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0114722738",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0114723033",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115139569",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115141201",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115143082",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115759606",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115765678",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115769746",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0115773425",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117843481",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117843721",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117858596",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117858679",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117858752",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117859560",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0117884675",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0119063039",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0119620416",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0119750205",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0119753308",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0121204431",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0125951151",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0127786431",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0128521001",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0132601682",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0133264522",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0133267202",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0133717503",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0137009238",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0144751095",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0145656715",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0151324935",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0153585137",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0153925689",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0157179127",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0161304786",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0161305163",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0161305593",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0162660350",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0165074666",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0165081950",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0165520114",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0169250635",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0170293632",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0170473374",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171275786",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171285587",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171289902",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171290074",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171296949",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171304552",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171304719",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171305443",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171306680",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171307068",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0171309270",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0172157280",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0172157363",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0173779223",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0173782102",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0177497491",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0181496216",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0184627536",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0187079347",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0188151921",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0200684180",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0201075453",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0202403266",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0203975437",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0208853944",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0210531983",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0210536198",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0212178916",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0217139020",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0217576833",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0224105477",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0224105980",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0227385266",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0229084990",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0231205856",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0231490524",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0232524495",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0235308482",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0236738190",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0243958393",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248167537",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248168261",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248168428",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248172537",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248173006",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248174152",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248181363",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248183815",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248183906",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248184383",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0248184466",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0251119078",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0251660279",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0251661590",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0251807987",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0251853072",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0252500524",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0252970834",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0254836850",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0256839860",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0260085492",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0260869739",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0261948227",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0261951957",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0261952682",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0267388220",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0267984697",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0270905242",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0273148055",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0273159177",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0273690064",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0275692696",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0279459456",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0279460892",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0280435388",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0280435461",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0282719219",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0289089384",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0289214628",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0293313325",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0293313671",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0294249692",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0300507208",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0300741732",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0302445910",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0302446645",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0302446991",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0309468980",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0313923228",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0318931192",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0320896664",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0321373184",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0323041763",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0326425351",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329070915",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329203656",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329206832",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329355670",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329430986",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0329678410",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0331286574",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0333810850",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0340559557",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0345361124",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0348529792",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0348784041",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0348926287",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0348927251",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0353647737",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0353649352",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0365089902",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0365775922",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0368678339",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0384381660",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0387754996",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0391944815",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0399356780",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0413376566",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0413543058",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    },
+    {
+      "isin": "LU0415391431",
+      "status": "OK",
+      "fields_updated": [
+        "classification_v2",
+        "currency",
+        "derived",
+        "isin",
+        "ms",
+        "name",
+        "portfolio_exposure_v2",
+        "quality",
+        "updatedAt"
+      ],
+      "fields_preserved": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "issues": []
+    }
+  ],
+  "summary": {
+    "ok": 200,
+    "warnings": 0,
+    "critical_failures": 0
+  }
+}

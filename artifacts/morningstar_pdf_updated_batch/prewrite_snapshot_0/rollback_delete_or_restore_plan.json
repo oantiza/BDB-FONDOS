@@ -1,0 +1,6253 @@
+{
+  "generated_at": "2026-05-20T16:58:23.971Z",
+  "task": "BDB-MORNINGSTAR-PDF-UPDATED-BATCH-PREWRITE-SNAPSHOT-0",
+  "total_restorable": 520,
+  "total_missing_not_restorable": 2,
+  "missing_isins": [
+    "LU0171281750",
+    "LU0171282212"
+  ],
+  "strategy": "Full document restore from snapshot. Fields in fields_preserved_always are NEVER modified by write gate and do not require rollback. For missing ISINs, no rollback is possible as they did not exist before.",
+  "entries": [
+    {
+      "isin": "BE0943877671",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "33b82927b94246bb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "BE0946564383",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b14e722c81894ade",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "BE0947853660",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5bac1f4fd4d66daa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "DE0008490962",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "86e0863998371848",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0111166031",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "461268b7ee75d8f8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0112602000",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1736a7a7c6f754cf",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0114633003",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d3edb193d1c196e2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0114904008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "48a88b4da490c182",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0116419005",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "38ad5f0cbcc40c03",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0116567035",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bab27edad3eeffce",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0116848005",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b70e4ace76ce901c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0124880032",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fda09aa639885215",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0125240038",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9b5ca4597597f87f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0125323008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7c8b118b9e66cd31",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0126542036",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5c3ed82a72df122a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0126547035",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9546fbdddb39f480",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0127097030",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9a61ed8f18e25082",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0127795005",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4c97b9bbac2f5477",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0137381036",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "47b8ef8de10c0cb3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0138217031",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "50441ca09c647814",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0138911039",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a2907d6812de17f2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0138922002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c560734b8870ef35",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0138922036",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "26513820c2c7e31e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0140643034",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "acbd126586dc93eb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0140986011",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1268d28f3e1bfe1b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0141113037",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "989744fa54ea5e4c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0141580037",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "729846107122edc5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0141991002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c35e07c5d15635b1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0142167032",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "618401df39c6bb33",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0146309002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ecdda64311b6d6cd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0155142005",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "64b5ac61a611191f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0155598008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "af4cc3c67a9f6e8d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0155598032",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "010dafba862d5da9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0156873004",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0215aa1fa5dddda8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0159201013",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "22faba64e283082b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0159259011",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a90d7639b2183605",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0160873008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d45af188667128d8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0161032034",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5c091f08210f493d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0162295002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bc91baff7781f742",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0162333035",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2d021ee88357a43b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0162368007",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "eb4a3f45f64ae119",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0165142003",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "67e5f5ad3fb49368",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0165142037",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f5b8c68d74b6380f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0165242001",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "21d804c1dbb86d80",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0167238023",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "44853f7c89a11f5a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0168662031",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2a73d8bd0ed2f416",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0168673038",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e18051a2a409b646",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0168799056",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4b77525367902f28",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0170138038",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1cc953737d432c80",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0170141008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cb0b95db1b98c849",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0176954008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5dcd93e3e9475129",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0182631004",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a00540741ed5e0a1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0182769002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "583ade1b2a952762",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0184949008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0a0bda685e184f2c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "ES0184949016",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e833745e85688cb1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FI0008800511",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5197a72d62ad3f39",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FI0008811997",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e21d4766b51d3356",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0000174310",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7b31d78b9f3d9732",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0000989626",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b1d8c8f4f38fe1fb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0000989899",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "277dcd0c5e1c5bd1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0007008750",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ecb76020c715f455",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010148981",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0a766400673edd00",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010149120",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "db8ea60c3b3267a3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010172767",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "132eedb03284d625",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010230490",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5d016a13c2a73be6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010288308",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c99fa44fcff2ed0c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010306142",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0a27fef8c26993d9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010312660",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8584a9d915e75881",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010321810",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3817c754650953fb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010547869",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6a898a0471bdc42a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010722348",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bdf3313f9d049447",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010829697",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3a027f8f44b60ea3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010839282",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c23cef6a28687486",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010859769",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "45c171c63e2e5d79",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0010950055",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a5015ebc43bfa97d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0011288513",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "89d05f55dddb5307",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0011365212",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e47afa1be50b63a5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0011387299",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "94091c2a5cdbb3d4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0013201001",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2bc31fc5fed99372",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0013231453",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ce528c240b36060d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0013346079",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c42b3d41142d80d4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0013460920",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "02f361b4eadaddd4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0013460961",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fce1674e259d4c7a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0014008W22",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9b3f4b8cf776711b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR001400JGB5",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5c2cb09e65f53c95",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR001400NTN5",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ffabf3ae98eec8f5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "FR0050000860",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a47e759a3d266f5a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0003867441",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c319bdb20518b605",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0004766675",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a3149db2ff811c3f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE000MI53C66",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fc5de17be6d5b493",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0031069499",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "148f81fb167c0b06",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0031333341",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7a01a13751f97d59",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0031573904",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ecac51816c6952a4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0031574647",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f231bf7a00cfa234",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0031575271",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c381773c1a52709c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0032722484",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7559730c9f064ed3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE0034277479",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7b02877921683b95",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B03HCZ61",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a41d6b92f6bb83cd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B03HD191",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b2a4692230cc1040",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B11XYW43",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "39cdce3d7097f9c9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B11XZ103",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "01c23744e370adec",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B11XZ871",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "928270881fb6abac",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B11YFH93",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9a5226be711dd20f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B18GC888",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bc561f1d6a3a3611",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B23S7K36",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "79282ec9f517ef94",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B28YJQ65",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "87b6162301ee4b63",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B2NXKW18",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "be8a08a66f7a8dcb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B3NLSS43",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d999ca241c3932bb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B3RW6Z61",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3fdcf9e9a42e75b1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B3V93F27",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9a1e9a7f1e7461c9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B3VXGD32",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "39be5aff56f3b2bb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B4M05337",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0402345db980164f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B4Z6MP99",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e12267c19fb2a3b5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B4ZJ4188",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "438e3d07dcea8964",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B52VLZ70",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3ab245aaf80a1775",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B53H0P79",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a12005e0e1bbbdde",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B5ZW6Z28",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "185aa0e957773577",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B84J9L26",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0b93f92ad478163c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B87MS887",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d8f5ac4d419b8900",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B88WFS66",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ad747f130c4e9ba2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B8BPMF80",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "88bdee4e37f0f3b7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B8J38129",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6d254c7ceb8f85e4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00B90VC092",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1ef0853901608aae",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BD2ZKT29",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6e02c0039f4e0443",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BD4GTQ32",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "88be78a68aaa1b2c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BD5CTX77",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "10c771e60d72ce18",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BDH6RQ67",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3e8bfe5a8dcaf91a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BDTYYP61",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "97c555b56de162ba",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BDZRWZ54",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9cc454a1678c91e6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BF0GL212",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "063b20e50591adbd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BF2FJG67",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7c2062a74f7f0a8c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BJ7B9456",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e506a056e009a98b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BKSBDB61",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4c82f142e4608cc6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BM95B621",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "73716092bf6cda7c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BMD7ZB71",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ec3f711275bbf5f4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BNG2T811",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "872f3ffbda8f43f4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BYR8H148",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "feda1a6d2afd7ce7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BYVJR916",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "45a5db9d3199f573",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BYX5NX33",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8beba946b98daccf",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BYX5P602",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "eb11328d8dfee731",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BZ18VT34",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "696bc3afd1b5a033",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "IE00BZ4D7648",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "43b0b645f014c8d2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0011889846",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "caa74bcd3e12dd39",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0028119013",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9f11b213a88f3eb9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0034353002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7137991e140afdb3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0072462186",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "624ce4eea61a72df",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0073229253",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "45f9e46acb6620a9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0073235904",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cf402cd825bd607f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0077500055",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "277587b949fb5072",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0080237943",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "75332f8971a7f4f2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0084617165",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2fa04361d5bd69fa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0086177085",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5429a1c7778ec62c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0090845842",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "da1ccf35e3f2c577",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0093583077",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "64ee801e442305b2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0094557526",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "87eecf6375ce2ce3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0102219945",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e9f1480110a6d562",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0102737730",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "da6f51c2255ce4bb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0102737904",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "55539f1524dc7ba9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0112467450",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4e21c04abd00d42d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0113257694",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8c756ddb867d7098",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0114722738",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5403e860bfce83bb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0114723033",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a3de47032ad7abfc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115139569",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d7059c37d67aa61a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115141201",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bb3cf9e47d95115b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115143082",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6d28e2ff4ee0910a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115759606",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "431095f14a6baaae",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115765678",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ac119e0efef6db26",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115769746",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3b4c76a41dbc0b6e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0115773425",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6fecb11a1a038ac6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117843481",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6be60d6b9a4f6276",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117843721",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b0ab8eded04bc852",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117858596",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "818920006326772a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117858679",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e560535fbae06dc6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117858752",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a9fc9d12b9cfd477",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117859560",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f8c778b0ef0fb975",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0117884675",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "40f9ccaa8558ab19",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0119063039",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9bb3f7ab1c8ada75",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0119620416",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e8b051d5f3ebd51a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0119750205",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "50ac75d103a2a3b8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0119753308",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "21349b0677ec0b19",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0121204431",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ad07fa916827b67b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0125951151",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "138904f125bc703a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0127786431",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "65cbd9524d6fe7a8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0128521001",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c12c4dc2691b54e0",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0132601682",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9292bdebdae90d0d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0133264522",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "38e315e68df83363",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0133267202",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "599bd3a11d7c07e2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0133717503",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2b4c8bd06dfd34a6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0137009238",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "82adc75935bf156c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0144751095",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a6a8ae4ec1d8d646",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0145656715",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5a8716ed6aec5d76",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0151324935",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d24394a6eee6ecf9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0153585137",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0b9a7fbac5aaeab6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0153925689",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9b73eb4479b13b6a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0157179127",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "050bd1e683b8f946",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0161304786",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5bcf1e6863345cd4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0161305163",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "328355bd7f94949d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0161305593",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "359ab92740f6d0a6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0162660350",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "741ea90ce563c9e1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0165074666",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ffc2f2b3c7664015",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0165081950",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c6277bb3d6c31b1a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0165520114",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "890c9c40a8261d3d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0169250635",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "185bd1179ae50512",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0170293632",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "43355f694c504f6a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0170473374",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bf49722d249a5220",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171275786",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7143f7eeb4e70760",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171285587",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ffb05686d93bfe30",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171289902",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fdece264f53d546e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171290074",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "871cc8034ce61957",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171296949",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "226fa431f9d2d97b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171304552",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0f92395f29a94c25",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171304719",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "de34b80548cbb052",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171305443",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6be9912bebee36fc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171306680",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "96eebc5397be3697",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171307068",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9882f4c977b6f4c2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0171309270",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0cdd8b5c51d45502",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0172157280",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f41641c63135b6c1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0172157363",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "67cdfe1dbe7488d2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0173779223",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "661f54d8e3e8cc00",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0173782102",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a784db74bff5c953",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0177497491",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "01a077aa88e6780b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0181496216",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "83bbc21feb4ddbf9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0184627536",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "60937a70683e4b09",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0187079347",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "462fc9bed06550e8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0188151921",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "67b5adacf404451b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0200684180",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "100cc9692a3df427",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0201075453",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "889ad4e893c8deac",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0202403266",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5ef4edff789dc1aa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0203975437",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0d8e4f03f8471eb3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0208853944",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3a4626c4a4193da1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0210531983",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "112938cb834f2e8c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0210536198",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e9c54cc1d2e0f559",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0212178916",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3e5a5c6d7fa424db",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0217139020",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b1b363a97bc5e204",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0217576833",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "53a53638e0f9aa01",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0224105477",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d1b8ad69a8f8a7cf",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0224105980",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1d757fbf3f53aa98",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0227385266",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5d762b243ff12224",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0229084990",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "19b70539b44616c4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0231205856",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8a1b49c8b89a091a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0231490524",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c90068ac39d695fc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0232524495",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "92739c9d8586bd19",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0235308482",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e4002a61d8a196cb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0236738190",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9e0f175da41b19a3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0243958393",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e009d309f40b767c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248167537",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f5c075f36ac62619",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248168261",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "77307a4301bc5b5a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248168428",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e594c25b5272c16c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248172537",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "311b2ae9963e4155",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248173006",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3a6b665afdba9cd1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248174152",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "78dd5f5c23008468",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248181363",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6cce4046192747c5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248183815",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "14528d9e43d5550a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248183906",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "49069a7b73f685da",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248184383",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a2885774915b0fec",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0248184466",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d04fb75d7a5924b0",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0251119078",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "48e93aab77de0499",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0251660279",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3f62921f8e52cdd5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0251661590",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9b1e1bd3feba6fc2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0251807987",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2fdfd5fc87bf2754",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0251853072",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d2e614ac492adf5b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0252500524",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "adc519a0a0c7ea17",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0252970834",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d7756f083a2e52c7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0254836850",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "50fafad631fcd5eb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0256839860",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4b9dce96d06fbb8e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0260085492",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b3117652aa938afe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0260869739",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6f7e4123cb7842aa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0261948227",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "29b7dee7ba8f85ac",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0261951957",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "70742805a051fedc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0261952682",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fa75966885f6f3ab",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0267388220",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7b1831e7e6848c2c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0267984697",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ac8cdca35df22935",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0270905242",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7d02e28ca090504c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0273148055",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fd805c7bf09929af",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0273159177",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0559cc8bc6084a87",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0273690064",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c9a1668990a1f845",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0275692696",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8d5ea126d0ab7156",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0279459456",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3b9da019799ce763",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0279460892",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e0548028469ccdbe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0280435388",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6387bd3e3a53e6c6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0280435461",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8938de58a542b587",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0282719219",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "98682c3674d2e796",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0289089384",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "23237fe88dbfaea6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0289214628",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b08866b5da998dec",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0293313325",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e8f87a3cb02070fe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0293313671",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6e85a40d00dd3a66",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0294249692",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "541c327c9f046340",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0300507208",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1e4e44fb7ed77e79",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0300741732",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a2a45db34f17f67f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0302445910",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1c5cf85118fdc85e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0302446645",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d2a698e92f13291c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0302446991",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9d28703806433790",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0309468980",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "996d6e66b8521622",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0313923228",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "61445599256a7064",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0318931192",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4ab5d17062bd3791",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0320896664",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "22ffaded7b5e5303",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0321373184",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "04dfc9dfb5b265c6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0323041763",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0ba41c840c56567b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0326425351",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ce75c4d3d90d7050",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329070915",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b85d48937a74dea7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329203656",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "52dc054c165bef0c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329206832",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "dd1fa1a731c3f223",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329355670",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4af178a1dcf221af",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329430986",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c63a913a3ae6727c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0329678410",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3462d860d138c098",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0331286574",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4d2651e75846bf15",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0333810850",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a32692714cc1c1d6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0340559557",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8816026b97b5cb5a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0345361124",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9c8709103b2a97cb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0348529792",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fb8a8eca3fd3f2ab",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0348784041",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8f0bd52103d40103",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0348926287",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cbc75a8481467e8d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0348927251",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0ff71d6de39958a5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0353647737",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "51c855704f534482",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0353649352",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "60972b84a5d70ac2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0365089902",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8ec10a88ceae23e6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0365775922",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bef1d0194e1d7817",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0368678339",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6c18c614aab386bf",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0384381660",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "16b5f127b78ff385",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0387754996",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "43bab859e356a2b7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0391944815",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cf87a94a3f59d6e9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0399356780",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ab1556f58f89bb5c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0413376566",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a9ebf0261bd4b9d2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0413543058",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0cc3795826e9e705",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0415391431",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9a57defa90150426",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0425308169",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "36413914ffdf1206",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0430492750",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "eec61e2c34b7c225",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0438336694",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "43990cc90b42f462",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0447425785",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fa41f0ab073c40b7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0455556406",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "98ab9985f201fb3c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0469270010",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e30dc3f07fcb0769",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0491217419",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1960590ed95607ba",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0496368142",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1222c2a4fbd73ef0",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0496369389",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "07d4de8f620ed7b4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0501220429",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "af7e1bb8b7ba7f03",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0503631714",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0f8e09d8c8b3c8fc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0522352516",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2a88c66709befe2b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0524465548",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2d6cab9cf58b2a78",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0524465977",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "28683556021d9542",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0546917344",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6bfd99ffdbf732e5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0552029406",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d76e198b3d985c4e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0552029661",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bcd1075feb751e01",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0552385295",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "36e5dd3fcdabb351",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0554840230",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "32014e22bb1e570b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0563745743",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2eb4d4ff03ec1002",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0565136552",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cbad97fd2f378731",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0568583420",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "81beaa0b197f3621",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0568620727",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2b853cf4f0ab8c3b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0569862609",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "19fed34f0e6fe714",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0570870567",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6ae05d8017d112e6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0571101558",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "01821e0503619aab",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0594300096",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7e58e2c49ee8c9a9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0594539719",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1864bb0e119e129e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0602539867",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "29f6bf3577a63f6b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0604766674",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "386473fa4fefc33d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0607512935",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c137f93bbf40f9a9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0607513586",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6f09e34c6f9c610d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0616839501",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "58e680cc90c92068",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0616856935",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8a27a59d4c5f372b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0616857313",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "847f5546b88c2cd3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0628612748",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7d42da27b03b7c06",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0630951415",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ae61d6663176c331",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0631859229",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "20abf33db7803e35",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0637302547",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1c26924b5617a5f1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0637335638",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "31160468948e134a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0658026512",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "de9d9f8cd6d71ca8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0661986348",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "997c3406e6bdde76",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0690375182",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d12674ab08b2f132",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0702159772",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8b30344ac945c9b1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0704154706",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e0d8f60245be057a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0706127809",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4846e5ea8e9d61d1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0712123511",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b589ebb18ff76849",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0733673288",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ce0eb9b1c11b233b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0766123821",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9ef0b65b3528d39a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0769137737",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5075d50c04f8a905",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0772958525",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "58afb787ce2f0807",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0795636256",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "13782075769d3228",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0813337002",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "187b486d72d8235b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0815263628",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "98f450680e83014c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0823411706",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6d37b8f589bf0d32",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0823421689",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "42b68b254e8b3fe6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0826452848",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bfe746c3347fefde",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0826453226",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f0844b861719ad42",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0849399786",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f370109b6236dcda",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0857700040",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "141e77c579332967",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0861897477",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "10d51b1399556dfa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0862450516",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fffffcd4683f6787",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0910636546",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5126c19dde0af8ef",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0910636892",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "98b8f0fb454fd8a8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0918140210",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a923f8a49fa48330",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0922333322",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7ba792982bdee84a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0926439992",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2c05b8fdfe9b7fa1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0933684101",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "55b8cff5f940005c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0935222900",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "5f69aa6d2695470e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0935230242",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3fcd627233c6061a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0940719098",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0795519af7d993a3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0986194024",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9b59895724145c7a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0995119665",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9ace7270aa8492df",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU0995119749",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "de7af98078142259",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1021288268",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4e34475d03d3a4a7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1022658667",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1819fbd7007db324",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1066281574",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2c560de288db57b1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1079477284",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "79eed1ce4780e7ea",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1080015693",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "66e3a4940b90d079",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1088692675",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6df57e20f553059f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1089088741",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e55e36b8ca8dec56",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1103303167",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "35565254b302ea23",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1111642820",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b28885c14a4a9ecb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1120766388",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "deccade53cabd99f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1161086159",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8845f5e8d263960e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1161526576",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e58fd35ec8aa15c9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1164219682",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "36eba22e26a2e9ed",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1164220854",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "74da46baa6608c63",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1165644672",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "21b11e927e112764",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1206943596",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2b489605cf133dad",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1213836080",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "eda28cf9a67dfa18",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1223083087",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "07d4d5abd6311a62",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1223084051",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "58db00119fa3c8d6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1244893696",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "41ebca8d5a5c267a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1244895394",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "acbd773ca0c65183",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1254412460",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "02c45aee46871caa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1279334483",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d39f10848f0b1bb1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1295551144",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e9ec2064f7ab53d1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1298174530",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e02d468534eabcbb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1299306321",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9844c60404619c7f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1299311164",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b6d0e371e3b3f178",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1299311834",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6736bf9bf2b415a8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1301026388",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "e1ea24deeefe9029",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1321847805",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "42f35128179e0415",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1330191542",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "1047edc793c98e01",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1333148903",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7b29b185fc8ffaae",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1340702932",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "cce94f51f881fdf3",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1353951376",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "25870c1ef041e1d8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1362999481",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4368cf4aa04bfa80",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1372006947",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "099508984a463b2d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1373035234",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b04a06078778d3f5",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1378878430",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c1fb804211e3fa7b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1383852487",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "57c4a076a2cf9c9d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1391767586",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "68f1d72c90ebc51c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1481179858",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "11457897ff303b9d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1481583711",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "12542ad10da29cc7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1486845537",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "acb4c5ef559e47cc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1499628912",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "717538e6d89d472f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1529955046",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f2fa30ca209e0e8f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1542714578",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d7c52741c9b59909",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1548496022",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4e9bb0e9e1d1cecc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1548497699",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "61464af6304089f9",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1578889864",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8b064e3c0f9d0d9b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1582984149",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2b864b877e6e2df7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1582988306",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6a9b970a91075016",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1623762843",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6575a97d1f05c415",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1665237704",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2d94daa257748d4d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670618187",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "48a3ca363dc74f7a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670618690",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "8fb7c62203c120f6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670626446",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b2ea67edd0f54de2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670631016",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "afbf9d16d30c2a98",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670631289",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ee7f84766080a16a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670707527",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "03b644b53fe4982f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670710075",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0ec8cd29db357778",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670715975",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f195825d364e16fe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670718219",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9c40e47aff6c4cef",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670722161",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4533b54517e72c45",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1670724373",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4fa95ad6de5a56b6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1679113404",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "86c613f6a08474cd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1694212348",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "ae37580cb7ecf7cc",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1694789451",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "183d7efdc84cbe9a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1697013008",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a81ce525f615037a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1697016365",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d6cca067b2e19ed2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1706854152",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fa1edbc30a1fd924",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1717592262",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f3dba59944a9ffb2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1738492658",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "36066bc452e7ea81",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1740985814",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "377805d3ba523ff6",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1762221155",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f09e12e6fdace1f7",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1775950477",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7c985fc72fef188f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1819480192",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "995300f1a406dfa1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1829329819",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "32835c8cb25fa8b1",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1838941372",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0569357ce084298c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1873127366",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7260d6250c646b57",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1882457143",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9c8be89473755129",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1882462655",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b9b02cae4e383319",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1882462739",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7ded51872ff4185d",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1883318740",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a5fbc589c9a688f2",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1883334275",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "22b5f6d722b72d11",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1883342377",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "dfb368eddd60b882",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1897556517",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c53900ddc19dcc4e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1902444584",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4cebabf5a860c99c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1915690918",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "d787ab16db520b2e",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1919971074",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6ff55001b02c8e04",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1931535931",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "a83543f087987067",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1939214695",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "665342bce22cdd82",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1951921383",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "166faedf79f16684",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU1983299162",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "62d2013fe351355f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2002383896",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "15bf920a2bad7d38",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2016064201",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7260fcdba2eaeb68",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2050411763",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "57a0aacdbfccfbdd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2050860480",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "fe0b226e5e68aa98",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2050929277",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "98b13614814fab11",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2092176515",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c1b2ddab09f90b42",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2094235707",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "dfcd339450a7f37f",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2098772366",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f02a165d5b4dc370",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2131365186",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "534ca87a3053a8cd",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2133220793",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "f9861cedc5242d2b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2145461757",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "3415814629a001b0",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2145463373",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "2b342510c6c5e57a",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2146190835",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "6f5008e6316fd9f4",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2210151341",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "4e345b065edd25c0",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2222028099",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0f23430c0010bc6c",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2267099674",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "75f14c3581039989",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2278574558",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "b05ad0f0e7785db8",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2278574988",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "c48e5aea8d758efa",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2295319300",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "7f11bf7fe6bc815b",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2295320068",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "bb424facdbaab756",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2337806421",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "9406704ad85dacdb",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2357235493",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "731ce6e0cd7e3247",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2357235576",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "02019b6055dea9fe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2482630162",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "41fbe2f26d873c19",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2504555777",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "931c518e82e8f3fe",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2601038578",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "0ea65e096a5dba57",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU2784406998",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "aa92ba3f32531815",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    },
+    {
+      "isin": "LU3038481936",
+      "action": "RESTORE",
+      "source": "snapshot_funds_v3_before_write.json",
+      "doc_hash_before": "15eec6db1def3560",
+      "fields_preserved_always": [
+        "manual",
+        "manual.costs",
+        "manual.costs.retrocession"
+      ],
+      "note": "Restore full document to pre-write state from snapshot"
+    }
+  ]
+}

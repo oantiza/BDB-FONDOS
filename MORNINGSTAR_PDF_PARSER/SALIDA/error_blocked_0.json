@@ -1,0 +1,194 @@
+[
+  {
+    "fileName": "DE000A0X7541-Acatis Value Event Fonds A.pdf",
+    "isin": "DE000A0X7541",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "IE00B986FT65-Neuberger Berman Emerging Market Debt - Hard Currency Fund EUR A Accumulating Class.pdf",
+    "isin": "IE00B986FT65",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0117858166-JPMorgan Funds - Euroland Equity Fund D (acc) EUR.pdf",
+    "isin": "LU0117858166",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0189895229-Schroder International Selection Fund Global High Yield B Accumulation EUR Hedged.pdf",
+    "isin": "LU0189895229",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0284396289-DNCA Invest Value Europe Class B shares EUR.pdf",
+    "isin": "LU0284396289",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0352312184-Allianz Strategy 50 CT EUR.pdf",
+    "isin": "LU0352312184",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0512121004-DNCA Invest Eurose Class B shares EUR.pdf",
+    "isin": "LU0512121004",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0568620560-Amundi Funds - Cash EUR A2 EUR (C).pdf",
+    "isin": "LU0568620560",
+    "reason": "portfolio_exposure_v2_missing",
+    "action": "Verificar consistencia matemática de la cartera y recalcular portfolio_exposure_v2"
+  },
+  {
+    "fileName": "LU0778324086-Fidelity Funds - Asian Special Situations Fund E-Acc-EUR.pdf",
+    "isin": "LU0778324086",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0920839429-Allianz Global Investors Fund - Allianz Europe Equity Growth Select CT EUR.pdf",
+    "isin": "LU0920839429",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU0995386439-EDM InversionSpanish Equity R EUR.pdf",
+    "isin": "LU0995386439",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1061675168-Goldman Sachs Frontier Markets Debt (Hard Currency) - X Cap EUR (hedged i).pdf",
+    "isin": "LU1061675168",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1103307408-Goldman Sachs Absolute Return Tracker Portfolio Other Currency Acc EUR-Hedged.pdf",
+    "isin": "LU1103307408",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1191877379-BlackRock Global Funds - European High Yield Bond Fund A2.pdf",
+    "isin": "LU1191877379",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1278917452-DWS Invest CROCI Sectors Plus LC.pdf",
+    "isin": "LU1278917452",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1278917536-DWS Invest CROCI Sectors Plus NC.pdf",
+    "isin": "LU1278917536",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1769941003-DWS Invest CROCI World Value LC.pdf",
+    "isin": "LU1769941003",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1814994353-Azvalor Lux SICAV Altum Faith - Consistent Equity R.pdf",
+    "isin": "LU1814994353",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1899018870-Sigma Investment House FCP - Best M&G Class A EUR Accumulation.pdf",
+    "isin": "LU1899018870",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1917163617-BlackRock Global Funds - FinTech Fund E2.pdf",
+    "isin": "LU1917163617",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1951204046-Natixis International Funds (Lux) I - Mirova Thematic Meta RA (EUR).pdf",
+    "isin": "LU1951204046",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1965927921-DWS Invest ESG Floating Rate Notes LC.pdf",
+    "isin": "LU1965927921",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU1982200609-DWS Invest Corporate Green Bonds LC.pdf",
+    "isin": "LU1982200609",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2240056015-Lonvia Mid-Cap Europe Retail.pdf",
+    "isin": "LU2240056015",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2240056445-Lonvia Mid-Cap Euro Retail.pdf",
+    "isin": "LU2240056445",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2338974699-Natixis International Funds (Lux) I - WCM Select Global Growth Equity Fund FA (EUR).pdf",
+    "isin": "LU2338974699",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2348336004-FF - Climate Solutions Fund E-ACC-EUR.pdf",
+    "isin": "LU2348336004",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2375689580-Sigma Investment House FCP - Global Equity A EUR Income.pdf",
+    "isin": "LU2375689580",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2376061086-FF - Climate Solutions Fund A-Acc-EUR.pdf",
+    "isin": "LU2376061086",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2697545163-BlackRock Global Funds - Euro High Yield Fixed Maturity Bond Fund 2027 Class A2.pdf",
+    "isin": "LU2697545163",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2697545247-BGF Euro Investment Grade Fixed Maturity Bond Fund 2028 A2.pdf",
+    "isin": "LU2697545247",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  },
+  {
+    "fileName": "LU2743151057-Natixis International Funds (Lux) I - Ossiam Shiller Barclays CAPE® US Fund RA (EUR).pdf",
+    "isin": "LU2743151057",
+    "reason": "Gemini no devolviÃƒÂ³ un JSON objeto parseable",
+    "action": "Re-ejecución aislada de la llamada a la API de Gemini o proveer override manual si el formato del informe Morningstar es inusual"
+  }
+]

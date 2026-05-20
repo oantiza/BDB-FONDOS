@@ -1,0 +1,572 @@
+[
+  {
+    "isin": "BE6213829094",
+    "name": "DPAM B - Real Estate Europe Dividend Sustainable B Cap",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "DE0005318406",
+    "name": "DWS ESG Stiftungsfonds LD",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "DE000DWS17J0",
+    "name": "DWS ESG Dynamic Opportunities LC",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0110407006",
+    "name": "Gestión Boutique VI Argos FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0112231016",
+    "name": "Avantage Fund B FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0118537002",
+    "name": "Olea Neutral FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0128067008",
+    "name": "Dux Mixto Variable FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0131462022",
+    "name": "Gestion Boutique V Robotics R FI",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "ES0138914033",
+    "name": "Merch-Fontemar FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0138930005",
+    "name": "Fonvalcem B FI",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "ES0138936036",
+    "name": "Fondibas FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0142046038",
+    "name": "Gesem Agresivo Flexible FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0148181003",
+    "name": "Indexa RV mixta internacional 75 FI",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "ES0158600033",
+    "name": "Sigma Invesment House Flexible Global FI",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "ES0161992005",
+    "name": "Sigma Investment House Capital FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0162211033",
+    "name": "Merch-Eurounión FI",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "ES0162305033",
+    "name": "Merch-Oportunidades FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0162946034",
+    "name": "Abante Selección FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0162949012",
+    "name": "Abante Índice Selección A FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0173323009",
+    "name": "Renta 4 Wertefinder FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0175316019",
+    "name": "Dunas Valor Flexible R FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0175414012",
+    "name": "Dunas Valor Equilibrado R FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0175437005",
+    "name": "Dunas Valor Prudente R FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "ES0175604000",
+    "name": "Gesconsult León Valores Mixto Flexible B FI",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0000989915",
+    "name": "Oddo BHF Immobilier CR-EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0010041822",
+    "name": "Edmond de Rothschild Patrimoine A",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0010286013",
+    "name": "Sextant Grand Large A",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0010794792",
+    "name": "Candriam Diversified Futures Classique",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0011170182",
+    "name": "Ofi Invest Precious Metals R",
+    "reason": "credit_missing|region_incomplete",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "FR0011253624",
+    "name": "R-co Valor C EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "FR0011261197",
+    "name": "R-co Valor F EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "FR0013219243",
+    "name": "EdR SICAV - Equity Euro Solve A EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "IE00BLP5S460",
+    "name": "JupiterMerian Global Equity Absolute Return Fund L (EUR) Hedged Acc",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "IE00BMW2TK08",
+    "name": "Lazard Global Convertibles Recovery Fund BP Acc EUR Hedged",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0855",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "IE00BYYPF474",
+    "name": "Aegon Global Diversified Income Fund EUR A Acc",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "IE00BYYPF581",
+    "name": "Aegon Global Diversified Income Fund EUR A Inc",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU0048293368",
+    "name": "BL-Global 75 B EUR Acc",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU0087412390",
+    "name": "DWS Concept DJE Alpha Renten Global LC",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0093503497",
+    "name": "BlackRock Global Funds - ESG Multi-Asset Fund A2",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0093503737",
+    "name": "BlackRock Global Funds - ESG Multi-Asset Fund E2",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0119195963",
+    "name": "Goldman Sachs Patrimonial Balanced - P Cap EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0121216526",
+    "name": "Goldman Sachs Patrimonial Aggressive - X Cap EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0171283459",
+    "name": "BlackRock Global Funds - Global Allocation Fund A2 (EUR)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0181962126",
+    "name": "First Eagle Amundi International Fund Class FU-C Shares",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU0203937692",
+    "name": "UBS (Lux) Bond SICAV - Convert Global (EUR) P-acc",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0322",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0243957239",
+    "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0243957742",
+    "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0251131362",
+    "name": "Fidelity Funds - Fidelity Target™ 2030 Fund A-Acc-EUR",
+    "reason": "class_exposure_tension:equity_asset_type_with_equity_0.4105",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0264738294",
+    "name": "Janus Henderson Horizon Global Property Equities Fund A2 EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0284394821",
+    "name": "DNCA Invest Évolutif B EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0336084032",
+    "name": "Carmignac Pf Flexible Bond A EUR Acc",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0000",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0352312853",
+    "name": "Allianz Strategy 75 CT EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0360646680",
+    "name": "BNP Paribas Funds Euro Defensive Equity Classic Capitalisation",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0398684661",
+    "name": "Goldman Sachs Alternative Beta - P Cap EUR (hedged i)",
+    "reason": "credit_missing|region_incomplete",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0404220724",
+    "name": "JPMorgan Investment Funds - Global Income Fund D (div) EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0565135745",
+    "name": "First Eagle Amundi International Fund Class AE-C Shares",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0571100824",
+    "name": "Groupama Europe Convertible NC",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.1856|duration_missing",
+    "action": "Aportar valor de duración efectiva (fixed_income.effective_duration) y Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0583242994",
+    "name": "MFS Meridian Funds - Prudent Wealth Fund A1 EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0592699093",
+    "name": "Carmignac Portfolio Emerging Patrimoine E EUR Acc",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0599946893",
+    "name": "DWS Concept Kaldemorgen EUR LC",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU0599947198",
+    "name": "DWS Concept Kaldemorgen EUR NC",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU0607225447",
+    "name": "CT (Lux) Global Convertible Bond Fund A Acc EUR Hdg",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0943",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0607983896",
+    "name": "Nordea 1 - Alpha 15 MA Fund BP EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU0823394852",
+    "name": "BNP Paribas Funds Global Convertible Classic RH EUR Capitalisation",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.0212",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU0842066523",
+    "name": "SIH FCP - Balanced A Classic",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1095739733",
+    "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1162516717",
+    "name": "BlackRock Systematic Global Equity Absolute Return Fund A2 EUR Hedged",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1245469744",
+    "name": "Flossbach von Storch - Multiple Opportunities II ET",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1245470593",
+    "name": "Flossbach von Storch - Multi Asset Defensive ET",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1276000236",
+    "name": "Edmond de Rothschild Fund - Income Europe R EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1304666057",
+    "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 CT EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1317704135",
+    "name": "Carmignac Portfolio Long-Short European Equities E EUR Acc",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1442549025",
+    "name": "MFS Meridian Funds - Prudent Capital Fund A1 EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1594335520",
+    "name": "Allianz Global Investors Fund - Allianz Dynamic Multi Asset Strategy SRI 75 AT EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1670708764",
+    "name": "M&G (Lux) Global Convertibles Fund EUR B Acc",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.1153",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU1697016019",
+    "name": "Sigma Investment House FCP - Selection AggressiveClass A EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1697016878",
+    "name": "Sigma Investment House FCP - Selection Conservative Class A EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1697017256",
+    "name": "Sigma Investment House FCP - Selection Moderate Class A EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1697017686",
+    "name": "Sigma Investment House FCP - Selection Dynamic Class A EUR",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1697018064",
+    "name": "Sigma Investment House FCP - Best Morgan Stanley Class A EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1697018494",
+    "name": "Sigma Investment House FCP - Best JP Morgan Class A EUR",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1832969650",
+    "name": "Morgan Stanley Investment Funds - Euro Corporate Bond - Duration Hedged Fund A",
+    "reason": "class_exposure_tension:fixed_income_asset_type_with_bond_0.1651",
+    "action": "Revisar tensiones entre la clase de activo detectada y la exposición real en cartera"
+  },
+  {
+    "isin": "LU1868537090",
+    "name": "DWS Invest ESG Dynamic Opportunities LC",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1882475392",
+    "name": "Amundi Funds - Euro Multi-Asset Target Income A2 EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1883327816",
+    "name": "Amundi Funds - Global Multi-Asset A EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1883329432",
+    "name": "Amundi Funds - Global Multi-Asset Conservative A EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1883330521",
+    "name": "Amundi Funds - Global Multi-Asset Target Income A2 EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1883340322",
+    "name": "Amundi Funds - Pioneer Flexible Opportunities A EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1894680757",
+    "name": "Amundi Funds - Income Opportunities A2 EUR (C)",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1899018953",
+    "name": "Sigma Investment House FCP - Best Blackrock Class A EUR Accumulation",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1899019175",
+    "name": "Sigma Investment House FCP - Smart Horizon Class A EUR Accumulation",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU1961009468",
+    "name": "DWS Strategic Allocation Balance NC",
+    "reason": "credit_missing|duration_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija y Aportar valor de duración efectiva (fixed_income.effective_duration)"
+  },
+  {
+    "isin": "LU1966822956",
+    "name": "Cartesio Funds Income R",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU2050544563",
+    "name": "DWS ESG Multi Asset Dynamic LC",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  },
+  {
+    "isin": "LU2278574715",
+    "name": "Buy & Hold Luxembourg B&H Flexible Class 2",
+    "reason": "credit_missing",
+    "action": "Aportar matriz de rating de crédito para activos de Renta Fija"
+  }
+]

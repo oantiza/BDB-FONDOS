@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-05-20T17:10:28.448Z",
+  "task": "BDB-MORNINGSTAR-PDF-UPDATED-BATCH-WRITE-CONTROLLED-200-2",
+  "batch_size": 200,
+  "batch_index": 2,
+  "batch_offset": 125,
+  "writes_executed": 200,
+  "writes_expected": 200,
+  "docs_created": 0,
+  "missing_isins_touched": 0,
+  "review_touched": 0,
+  "error_touched": 0,
+  "manual_modified": 0,
+  "fields_written": [
+    "classification_v2",
+    "currency",
+    "derived",
+    "isin",
+    "ms",
+    "name",
+    "portfolio_exposure_v2",
+    "quality",
+    "updatedAt"
+  ],
+  "fields_preserved": [
+    "manual",
+    "manual.costs",
+    "manual.costs.retrocession"
+  ],
+  "verification": {
+    "ok": 200,
+    "warnings": 0,
+    "critical": 0
+  },
+  "cumulative": {
+    "total_written": 325,
+    "total_remaining": 195
+  },
+  "rollback_available": "rollback_batch_200_2.json",
+  "elapsed_ms": 13111
+}

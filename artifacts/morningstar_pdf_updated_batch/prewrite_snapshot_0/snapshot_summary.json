@@ -1,0 +1,26 @@
+{
+  "generated_at": "2026-05-20T16:58:23.973Z",
+  "task": "BDB-MORNINGSTAR-PDF-UPDATED-BATCH-PREWRITE-SNAPSHOT-0",
+  "mode": "READ_ONLY",
+  "firestore_writes": 0,
+  "total_isins_requested": 522,
+  "total_found_in_firestore": 520,
+  "total_missing_in_firestore": 2,
+  "missing_isins": [
+    "LU0171281750",
+    "LU0171282212"
+  ],
+  "snapshot_global_hash": "03ba51120fde0fb471fddbb4ba73917835637c34fe0f42e7cd2156cc569c1ce9",
+  "asset_class_distribution_current": {
+    "RF": 169,
+    "RV": 327,
+    "Mixto": 14,
+    "Monetario": 8,
+    "Alternativos": 2
+  },
+  "review_excluded": 95,
+  "error_excluded": 32,
+  "overlap_review": 0,
+  "overlap_error": 0,
+  "elapsed_ms": 6447
+}
