@@ -165,3 +165,16 @@ zip_project_script.py
 ############################################
 *.dataset
 *.model
+
+############################################
+# LIMPIEZA DE ARTEFACTOS Y TEMPORALES (IA / AUTOMATIZACIÓN)
+############################################
+artifacts/browser_session/
+artifacts/morningstar_captures/
+artifacts/raw_data/
+artifacts/exports/
+*.xlsx
+scratch/
+temp_popup.html
+tools/chrome_extensions/
+.venv-playwright/
