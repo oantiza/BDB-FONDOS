@@ -1,0 +1,92 @@
+{
+  "gate_id": "BDB-MORNINGSTAR-HIGH-FI-CREDIT-MANUAL-GATE-DRYRUN-0",
+  "generated_at": "2026-05-21T04:44:45.923Z",
+  "dry_run": true,
+  "firestore_writes": 0,
+  "write_executed": false,
+  "deploy_executed": false,
+  "push_executed": false,
+  "commit_created": false,
+  "core_modified": false,
+  "frontend_modified": false,
+  "compatibility_profiles_modified": false,
+  "suitability_engine_modified": false,
+  "fe9_runtime_activated": false,
+  "collection": "funds_v3",
+  "allowed_dotted_path": "portfolio_exposure_v2.fi_credit",
+  "rollback_strategy": "For each future write candidate, restore prior portfolio_exposure_v2.fi_credit only via the same dotted path. If prior value was empty/absent, delete/unset only that dotted field in the controlled rollback script.",
+  "rollback_count": 7,
+  "rollback_items": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/IE00BYYPF474",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "IE00BYYPF581",
+      "name": "Aegon Global Diversified Income Fund EUR A Inc",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/IE00BYYPF581",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "LU0087412390",
+      "name": "DWS Concept DJE Alpha Renten Global LC",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/LU0087412390",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "LU0243957239",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/LU0243957239",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "LU0243957742",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/LU0243957742",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/LU0404220724",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "status": "WRITE_CANDIDATE",
+      "document_path": "funds_v3/LU1095739733",
+      "rollback_dotted_path": "portfolio_exposure_v2.fi_credit",
+      "restore_value": {},
+      "prior_value_was_populated": false,
+      "rollback_action_if_future_write_happens": "DELETE_OR_UNSET_FI_CREDIT_ONLY"
+    }
+  ],
+  "artifact_sha256": "7829e4a3b4b7015917d0f410aa2e389236d7d11a7b92d7621a52de690ea836fe"
+}

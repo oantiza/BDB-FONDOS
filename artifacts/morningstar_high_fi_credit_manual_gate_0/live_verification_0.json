@@ -1,0 +1,538 @@
+{
+  "verification_id": "BDB-MORNINGSTAR-HIGH-FI-CREDIT-MANUAL-GATE-LIVE-VERIFY-0",
+  "generated_at": "2026-05-21T04:53:11.758Z",
+  "mode": "READ_ONLY_FIRESTORE_LIVE_VERIFY",
+  "collection": "funds_v3",
+  "service_account_configured": true,
+  "gate_dir": "artifacts/morningstar_high_fi_credit_manual_gate_0",
+  "firestore_writes": 0,
+  "write_executed": false,
+  "deploy_executed": false,
+  "push_executed": false,
+  "commit_created": false,
+  "core_modified": false,
+  "frontend_modified": false,
+  "compatible_profiles_modified": false,
+  "suitability_engine_modified": false,
+  "fe9_runtime_activated": false,
+  "approval_manifest": {
+    "authorized": false,
+    "can_write": false,
+    "write_executed": false
+  },
+  "git_context_expected_by_user": {
+    "pending_local_commit": "39698b9 DOCS: add Morningstar high credit screenshot mini evidence",
+    "report_created_uncommitted": "artifacts/morningstar_high_fi_credit_manual_gate_0/live_verification_0.json"
+  },
+  "summary": {
+    "selected_count": 7,
+    "exists_live_count": 7,
+    "already_has_fi_credit_count": 0,
+    "write_candidate_count": 7,
+    "blocked_for_suitability_review_count": 0,
+    "blocked_drift_review_count": 0,
+    "authorized_still_false": true,
+    "can_write_still_false": true
+  },
+  "rows": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 0,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 12.39,
+      "prewrite_low_quality_check_required": false,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "IE00BYYPF581",
+      "name": "Aegon Global Diversified Income Fund EUR A Inc",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 0,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 12.39,
+      "prewrite_low_quality_check_required": false,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0087412390",
+      "name": "DWS Concept DJE Alpha Renten Global LC",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 0,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 14.59,
+      "prewrite_low_quality_check_required": false,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0243957239",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 0.62,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 53.12,
+      "prewrite_low_quality_check_required": true,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0243957742",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 1.07,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 53.12,
+      "prewrite_low_quality_check_required": true,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 1.23,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 45.08,
+      "prewrite_low_quality_check_required": true,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "exists_live": true,
+      "already_has_fi_credit": false,
+      "fi_credit_live_value": {},
+      "classification_v2_exists": true,
+      "compatible_profiles_present": true,
+      "compatible_profiles_non_empty": true,
+      "compatible_profiles_live": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "compatible_profiles_snapshot": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "manual_costs_retrocession_live": 0,
+      "manual_costs_retrocession_read_only_observed": true,
+      "low_quality_proposed": 26.84,
+      "prewrite_low_quality_check_required": false,
+      "drift_vs_snapshot": false,
+      "drift_issues": [],
+      "final_status": "WRITE_CANDIDATE"
+    }
+  ],
+  "live_reads": [
+    {
+      "isin": "IE00BYYPF474",
+      "document_path": "funds_v3/IE00BYYPF474",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "Aegon Global Diversified Income Fund EUR A Acc",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "MIXED",
+          "asset_subtype": "MODERATE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 0
+          }
+        }
+      }
+    },
+    {
+      "isin": "IE00BYYPF581",
+      "document_path": "funds_v3/IE00BYYPF581",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "Aegon Global Diversified Income Fund EUR A Inc",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "allocation",
+          "asset_subtype": "FLEXIBLE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 0
+          }
+        }
+      }
+    },
+    {
+      "isin": "LU0087412390",
+      "document_path": "funds_v3/LU0087412390",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "DWS Concept DJE Alpha Renten Global LC",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "allocation",
+          "asset_subtype": "FLEXIBLE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 0
+          }
+        }
+      }
+    },
+    {
+      "isin": "LU0243957239",
+      "document_path": "funds_v3/LU0243957239",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "allocation",
+          "asset_subtype": "FLEXIBLE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 0.62
+          }
+        }
+      }
+    },
+    {
+      "isin": "LU0243957742",
+      "document_path": "funds_v3/LU0243957742",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            1,
+            2,
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "allocation",
+          "asset_subtype": "FLEXIBLE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 1.07
+          }
+        }
+      }
+    },
+    {
+      "isin": "LU0404220724",
+      "document_path": "funds_v3/LU0404220724",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            3,
+            4,
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "MIXED",
+          "asset_subtype": "MODERATE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 1.23
+          }
+        }
+      }
+    },
+    {
+      "isin": "LU1095739733",
+      "document_path": "funds_v3/LU1095739733",
+      "exists_live": true,
+      "read_at": "2026-05-21T04:53:11.758Z",
+      "selected_live_fields": {
+        "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+        "portfolio_exposure_v2": {
+          "fi_credit": {}
+        },
+        "classification_v2": {
+          "exists": true,
+          "compatible_profiles": [
+            5,
+            6,
+            7,
+            8,
+            9,
+            10
+          ],
+          "fi_credit_bucket": "UNKNOWN",
+          "asset_type": "MIXED",
+          "asset_subtype": "MODERATE_ALLOCATION"
+        },
+        "manual": {
+          "costs": {
+            "retrocession": 0
+          }
+        }
+      }
+    }
+  ],
+  "artifact_sha256": "f147df999a97d1369bb81dca1f7dd0cd186ef1279a52aed9c200f9ddca1b2cb9"
+}

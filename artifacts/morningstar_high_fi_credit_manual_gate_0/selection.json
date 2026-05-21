@@ -1,0 +1,180 @@
+{
+  "gate_id": "BDB-MORNINGSTAR-HIGH-FI-CREDIT-MANUAL-GATE-DRYRUN-0",
+  "generated_at": "2026-05-21T04:44:45.923Z",
+  "dry_run": true,
+  "firestore_writes": 0,
+  "write_executed": false,
+  "deploy_executed": false,
+  "push_executed": false,
+  "commit_created": false,
+  "core_modified": false,
+  "frontend_modified": false,
+  "compatibility_profiles_modified": false,
+  "suitability_engine_modified": false,
+  "fe9_runtime_activated": false,
+  "collection": "funds_v3",
+  "allowed_dotted_path": "portfolio_exposure_v2.fi_credit",
+  "objective": "Prepare a manual dry-run gate for a future update of only portfolio_exposure_v2.fi_credit on 7 HIGH funds.",
+  "selected_isins": [
+    "IE00BYYPF474",
+    "IE00BYYPF581",
+    "LU0087412390",
+    "LU0243957239",
+    "LU0243957742",
+    "LU0404220724",
+    "LU1095739733"
+  ],
+  "status_counts": {
+    "WRITE_CANDIDATE": 7,
+    "BLOCKED_FOR_SUITABILITY_REVIEW": 0,
+    "ALREADY_HAS_FI_CREDIT": 0
+  },
+  "write_candidate_isins": [
+    "IE00BYYPF474",
+    "IE00BYYPF581",
+    "LU0087412390",
+    "LU0243957239",
+    "LU0243957742",
+    "LU0404220724",
+    "LU1095739733"
+  ],
+  "blocked_isins": [],
+  "already_has_fi_credit_isins": [],
+  "prewrite_check_required_isins": [
+    "LU0243957239",
+    "LU0243957742",
+    "LU0404220724"
+  ],
+  "prewrite_check_result": "PASS_ALL_LOW_QUALITY_FUNDS_HAVE_NON_EMPTY_COMPATIBLE_PROFILES",
+  "per_fund": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 12.39,
+      "compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "IE00BYYPF581",
+      "name": "Aegon Global Diversified Income Fund EUR A Inc",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 12.39,
+      "compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "LU0087412390",
+      "name": "DWS Concept DJE Alpha Renten Global LC",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 14.59,
+      "compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "LU0243957239",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 53.12,
+      "compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "LU0243957742",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 53.12,
+      "compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 45.08,
+      "compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "status": "WRITE_CANDIDATE",
+      "low_quality": 26.84,
+      "compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "has_existing_fi_credit": false,
+      "write_candidate": true
+    }
+  ],
+  "artifact_sha256": "54ea2e41fcfe6925d709a27132d6725b19c617317d4e463c7c86578d64db611a"
+}

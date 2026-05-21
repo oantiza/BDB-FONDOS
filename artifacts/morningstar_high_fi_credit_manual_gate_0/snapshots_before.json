@@ -1,0 +1,262 @@
+{
+  "gate_id": "BDB-MORNINGSTAR-HIGH-FI-CREDIT-MANUAL-GATE-DRYRUN-0",
+  "generated_at": "2026-05-21T04:44:45.923Z",
+  "dry_run": true,
+  "firestore_writes": 0,
+  "write_executed": false,
+  "deploy_executed": false,
+  "push_executed": false,
+  "commit_created": false,
+  "core_modified": false,
+  "frontend_modified": false,
+  "compatibility_profiles_modified": false,
+  "suitability_engine_modified": false,
+  "fe9_runtime_activated": false,
+  "collection": "funds_v3",
+  "allowed_dotted_path": "portfolio_exposure_v2.fi_credit",
+  "purpose": "Pre-write dry-run snapshot material for rollback/audit. No Firestore writes were executed.",
+  "snapshot_count": 7,
+  "snapshot_source_policy": {
+    "primary_source": "docs/audits/legacy/funds_v3.json",
+    "compatibility_profiles_source": "artifacts/suitability/compatible_profiles_regen_dry_run_0.json",
+    "fi_credit_presence_crosscheck_source": "artifacts/suitability/fi_credit_parser_discovery_0.json",
+    "live_firestore_read_success": false,
+    "live_firestore_read_blocker": "Application-default credentials unavailable in this environment."
+  },
+  "snapshots": [
+    {
+      "isin": "IE00BYYPF474",
+      "name": "Aegon Global Diversified Income Fund EUR A Acc",
+      "document_path": "funds_v3/IE00BYYPF474",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "IE00BYYPF581",
+      "name": "Aegon Global Diversified Income Fund EUR A Inc",
+      "document_path": "funds_v3/IE00BYYPF581",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "ALLOCATION",
+        "asset_subtype": "FLEXIBLE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "LU0087412390",
+      "name": "DWS Concept DJE Alpha Renten Global LC",
+      "document_path": "funds_v3/LU0087412390",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "ALLOCATION",
+        "asset_subtype": "FLEXIBLE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "LU0243957239",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund A Accumulation EUR",
+      "document_path": "funds_v3/LU0243957239",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "ALLOCATION",
+        "asset_subtype": "FLEXIBLE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "LU0243957742",
+      "name": "Invesco Funds - Invesco Pan European High Income Fund E Accumulation EUR",
+      "document_path": "funds_v3/LU0243957742",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "ALLOCATION",
+        "asset_subtype": "FLEXIBLE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "LU0404220724",
+      "name": "JPMorgan Investment Funds - Global Income Fund D (div) - EUR",
+      "document_path": "funds_v3/LU0404220724",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    },
+    {
+      "isin": "LU1095739733",
+      "name": "First Eagle Amundi Income Builder Fund Class AE-QD Shares",
+      "document_path": "funds_v3/LU1095739733",
+      "snapshot_at": "2026-05-21T04:44:45.923Z",
+      "source_note": "docs/audits/legacy/funds_v3.json plus local readonly artifacts for latest compatible_profiles evidence",
+      "portfolio_exposure_v2": {
+        "fi_credit": {},
+        "fi_credit_present_populated": false
+      },
+      "classification_v2": {
+        "compatible_profiles": [
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        "fi_credit_bucket": "UNKNOWN",
+        "asset_type": "MIXED",
+        "asset_subtype": "MODERATE_ALLOCATION"
+      },
+      "untouched_context_present": {
+        "manual": true,
+        "ms": true,
+        "derived": true,
+        "std_perf": true,
+        "economic_exposure": true
+      }
+    }
+  ],
+  "artifact_sha256": "6c29abfb82be8dd806477e516641345bd0a8bb16d3da5433a1dcc97eb525590a"
+}

@@ -1,0 +1,43 @@
+{
+  "gate_id": "BDB-MORNINGSTAR-HIGH-FI-CREDIT-MANUAL-GATE-DRYRUN-0",
+  "generated_at": "2026-05-21T04:44:45.923Z",
+  "dry_run": true,
+  "firestore_writes": 0,
+  "write_executed": false,
+  "deploy_executed": false,
+  "push_executed": false,
+  "commit_created": false,
+  "core_modified": false,
+  "frontend_modified": false,
+  "compatibility_profiles_modified": false,
+  "suitability_engine_modified": false,
+  "fe9_runtime_activated": false,
+  "collection": "funds_v3",
+  "allowed_dotted_path": "portfolio_exposure_v2.fi_credit",
+  "purpose": "Plan only; no post-write verification executed because no write was executed.",
+  "post_write_verification_executed": false,
+  "required_checks_after_future_write": [
+    "Re-read each candidate document from funds_v3.",
+    "Verify portfolio_exposure_v2.fi_credit equals proposed object exactly for written candidates.",
+    "Verify source, as_of, scale, coverage, warnings, and breakdown keys.",
+    "Verify investment_grade + high_yield + not_rated is approximately 100 within Morningstar rounding tolerance.",
+    "Verify only portfolio_exposure_v2.fi_credit changed by comparing pre-write snapshot hash and forbidden paths.",
+    "Verify manual.*, manual.costs.retrocession, portfolio_exposure_v2.economic_exposure, classification_v2, ms, derived, and std_perf are intact.",
+    "Verify any skipped ALREADY_HAS_FI_CREDIT or BLOCKED_FOR_SUITABILITY_REVIEW documents remain untouched.",
+    "Verify write_approval_manifest authorized=true in the future execution gate before any write; this dry-run manifest remains authorized=false."
+  ],
+  "expected_written_isins_if_future_approved": [
+    "IE00BYYPF474",
+    "IE00BYYPF581",
+    "LU0087412390",
+    "LU0243957239",
+    "LU0243957742",
+    "LU0404220724",
+    "LU1095739733"
+  ],
+  "expected_skipped_isins_if_no_state_changes": [],
+  "verification_tolerance": {
+    "pct_sum_abs_tolerance": 0.15
+  },
+  "artifact_sha256": "45be9b4688c84787c2e17ae3b49d99cbb5805390cde607a7fd00a5d885169f55"
+}
