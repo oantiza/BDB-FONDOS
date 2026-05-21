@@ -2,6 +2,29 @@ import { query, collection, where, getDocs, limit } from 'firebase/firestore';
 import { db } from '../firebase';
 import { getCanonicalRegion } from './fundTaxonomy';
 
+// === CACHE DE SESIÓN ===
+// Cada llamada a findDirectAlternativesV3 lee hasta ~800 docs por asset_type
+// de Firestore. Sin cache, paginar 5 páginas re-lee ~8000 docs por la misma
+// combinación (assetClass + region). Esta caché en memoria evita esas re-lecturas
+// dentro de la misma sesión.
+//
+// Solo se cachean búsquedas "frías" (targetFund === null) y sin excludeIsins,
+// porque incluir esos parámetros en la clave complica la invalidación sin
+// gran beneficio (las búsquedas calientes son puntuales).
+const candidateCache = new Map<string, { candidates: any[]; ts: number }>();
+const CANDIDATE_CACHE_TTL_MS = 5 * 60 * 1000; // 5 min
+
+function getCandidateCacheKey(
+    targetFund: any | null,
+    assetClass: string | undefined,
+    region: string | undefined,
+    excludeIsins: string[]
+): string | null {
+    if (targetFund) return null;
+    if (excludeIsins && excludeIsins.length > 0) return null;
+    return `${(assetClass || '').toUpperCase()}|${(region || '').toUpperCase()}`;
+}
+
 function normalizeAssetTypeToken(value: string | null | undefined): string {
     return String(value || '').trim().replace(/\s+/g, '_').replace(/-/g, '_').toUpperCase();
 }
@@ -49,65 +72,84 @@ export async function findDirectAlternativesV3(
     const targetCategory = targetFund?.classification_v2?.asset_subtype;
 
     try {
-        const snaps = await Promise.all(
-            targetClassQueryValues.slice(0, 2).map((value) =>
-                getDocs(
-                    query(
-                        collection(db, 'funds_v3'),
-                        where("classification_v2.asset_type", "==", value),
-                        limit(800)
+        const cacheKey = getCandidateCacheKey(targetFund, assetClass, region, excludeIsins);
+        const cachedEntry = cacheKey ? candidateCache.get(cacheKey) : null;
+        const cacheIsFresh = cachedEntry && (Date.now() - cachedEntry.ts) < CANDIDATE_CACHE_TTL_MS;
+
+        let candidates: any[];
+
+        if (cacheIsFresh && cachedEntry) {
+            // Cache HIT: reutiliza los candidatos ya filtrados (sort y paginación
+            // se aplican abajo, por lo que cambios en `maximizeRetro` u `offset`
+            // no invalidan la entrada).
+            candidates = cachedEntry.candidates;
+        } else {
+            // Cache MISS: lecturas Firestore + filtrado en cliente.
+            const snaps = await Promise.all(
+                targetClassQueryValues.slice(0, 2).map((value) =>
+                    getDocs(
+                        query(
+                            collection(db, 'funds_v3'),
+                            where("classification_v2.asset_type", "==", value),
+                            limit(800)
+                        )
                     )
                 )
-            )
-        );
-
-        const candidates: any[] = [];
-        const seenIsins = new Set<string>();
-
-        const processDoc = (doc: any) => {
-            const data = doc.data();
-            const isin = doc.id;
-
-            if (isin === (targetFund?.isin || targetFund?.id)) return;
-            if (excludeIsins.includes(isin)) return;
-            if (seenIsins.has(isin)) return;
-
-            const skipRegionCheck = (
-                targetRegion === 'GLOBAL' ||
-                normalizedTargetClass === "MONEY_MARKET" ||
-                normalizedTargetClass === "MONETARY"
             );
 
-            if (!skipRegionCheck && targetRegion) {
-                const candRegion = getCanonicalRegion(data);
-                const normalizedTargetRegion = getCanonicalRegion({ classification_v2: { region_primary: targetRegion } });
-                if (!candRegion || candRegion !== normalizedTargetRegion) return;
+            candidates = [];
+            const seenIsins = new Set<string>();
+
+                const processDoc = (doc: any) => {
+                const data = doc.data();
+                const isin = doc.id;
+
+                if (isin === (targetFund?.isin || targetFund?.id)) return;
+                if (excludeIsins.includes(isin)) return;
+                if (seenIsins.has(isin)) return;
+
+                const skipRegionCheck = (
+                    targetRegion === 'GLOBAL' ||
+                    normalizedTargetClass === "MONEY_MARKET" ||
+                    normalizedTargetClass === "MONETARY"
+                );
+
+                if (!skipRegionCheck && targetRegion) {
+                    const candRegion = getCanonicalRegion(data);
+                    const normalizedTargetRegion = getCanonicalRegion({ classification_v2: { region_primary: targetRegion } });
+                    if (!candRegion || candRegion !== normalizedTargetRegion) return;
+                }
+
+                const candClass = normalizeAssetTypeToken(data.classification_v2?.asset_type);
+                if ((normalizedTargetClass === "MONEY_MARKET" || normalizedTargetClass === "MONETARY") && candClass === "FIXED_INCOME") {
+                    const cat = (data.classification_v2?.asset_subtype || "").toUpperCase();
+                    const name = (data.name || "").toUpperCase();
+                    const isUltraShort = cat.includes("ULTRA") || cat.includes("SHORT") || cat.includes("CORTO") ||
+                        name.includes("ULTRA") || name.includes("SHORT") || name.includes("CORTO");
+
+                    if (!isUltraShort) return;
+                }
+
+                seenIsins.add(isin);
+                candidates.push({ isin, ...data });
+            };
+
+            snaps.forEach((snap) => snap.forEach(processDoc));
+
+            if (normalizedTargetClass === "MONEY_MARKET" || normalizedTargetClass === "MONETARY") {
+                const qRF = query(
+                    collection(db, 'funds_v3'),
+                    where("classification_v2.asset_type", "==", "fixed_income"),
+                    limit(300)
+                );
+                const snapRF = await getDocs(qRF);
+                snapRF.forEach(processDoc);
             }
 
-            const candClass = normalizeAssetTypeToken(data.classification_v2?.asset_type);
-            if ((normalizedTargetClass === "MONEY_MARKET" || normalizedTargetClass === "MONETARY") && candClass === "FIXED_INCOME") {
-                const cat = (data.classification_v2?.asset_subtype || "").toUpperCase();
-                const name = (data.name || "").toUpperCase();
-                const isUltraShort = cat.includes("ULTRA") || cat.includes("SHORT") || cat.includes("CORTO") ||
-                    name.includes("ULTRA") || name.includes("SHORT") || name.includes("CORTO");
-
-                if (!isUltraShort) return;
+            // Guardar en cache para reusar en paginación / repetir búsqueda.
+            if (cacheKey) {
+                candidateCache.set(cacheKey, { candidates: [...candidates], ts: Date.now() });
             }
-
-            seenIsins.add(isin);
-            candidates.push({ isin, ...data });
-        };
-
-        snaps.forEach((snap) => snap.forEach(processDoc));
-
-        if (normalizedTargetClass === "MONEY_MARKET" || normalizedTargetClass === "MONETARY") {
-            const qRF = query(
-                collection(db, 'funds_v3'),
-                where("classification_v2.asset_type", "==", "fixed_income"),
-                limit(300)
-            );
-            const snapRF = await getDocs(qRF);
-            snapRF.forEach(processDoc);
         }
 
         let matchCat: any[] = [];

@@ -449,7 +449,7 @@ export default function DashboardPage({
                 {modals.tactical && <TacticalModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} onAccept={handleAcceptPortfolio} onClose={() => toggleModal('tactical', false)} onSwap={handleOpenSwap} />}
                 {modals.macro && <MacroTacticalModal portfolio={portfolio} allFunds={assets} numFunds={numFunds} onApply={handleMacroApply} onClose={() => toggleModal('macro', false)} />}
                 {modals.review && <OptimizationReviewModal currentPortfolio={portfolio} proposedPortfolio={proposedPortfolio} riskFreeRate={riskFreeRate} currentMetrics={xrayMetrics} explainabilityData={explainabilityData} onAccept={handleReviewAccept} onApplyDirect={handleApplyDirectly} onClose={() => toggleModal('review', false)} />}
-                {modals.sharpeMaximizer && <SharpeMaximizerModal isOpen={modals.sharpeMaximizer} onClose={() => toggleModal('sharpeMaximizer', false)} portfolio={portfolio} onAddFund={(fund) => { handleAddAsset(fund); toggleModal('sharpeMaximizer', false); }} currentSharpe={xrayMetrics?.metrics3y?.sharpe || 0} />}
+                {modals.sharpeMaximizer && <SharpeMaximizerModal isOpen={modals.sharpeMaximizer} onClose={() => toggleModal('sharpeMaximizer', false)} portfolio={portfolio} onAddFund={(fund) => { handleAddAsset(fund); toggleModal('sharpeMaximizer', false); }} currentSharpe={xrayMetrics?.metrics3y?.sharpe ?? null} />}
                 {modals.savedPortfolios && (
                     <SavedPortfoliosModal
                         isOpen={modals.savedPortfolios}
