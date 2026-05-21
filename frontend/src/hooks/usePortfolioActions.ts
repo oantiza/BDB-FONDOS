@@ -177,6 +177,38 @@ function buildOptimizationPayload(
     return { payload, finalSnapshotOpts };
 }
 
+// Reconcile rounding residual so that Σ weights === 100 exactly.
+// The largest non-locked position absorbs the residue (in pp).
+function reconcileWeightsToHundred(items: PortfolioItem[]): PortfolioItem[] {
+    if (items.length === 0) return items;
+    const sum = items.reduce((acc, p) => acc + (Number(p.weight) || 0), 0);
+    if (sum <= 0) return items;
+    const residual = Number((100 - sum).toFixed(2));
+    if (Math.abs(residual) < 0.005) return items;
+
+    // Prefer the largest non-locked position to absorb the residue.
+    let idx = -1;
+    let max = -Infinity;
+    items.forEach((p, i) => {
+        if (p.isLocked) return;
+        const w = Number(p.weight) || 0;
+        if (w > max) { max = w; idx = i; }
+    });
+    // Fallback: largest of all (even if locked) to avoid leaving the sum off.
+    if (idx === -1) {
+        items.forEach((p, i) => {
+            const w = Number(p.weight) || 0;
+            if (w > max) { max = w; idx = i; }
+        });
+    }
+    if (idx === -1) return items;
+
+    const adjusted = [...items];
+    const newW = Math.max(0, Number(((Number(adjusted[idx].weight) || 0) + residual).toFixed(2)));
+    adjusted[idx] = { ...adjusted[idx], weight: newW };
+    return adjusted;
+}
+
 function mapOptimizationResultWeights(
     portfolio: PortfolioItem[],
     weights: Record<string, number>,
@@ -207,6 +239,8 @@ function mapOptimizationResultWeights(
             });
         }
     }
+    // Reconcile rounding so the displayed Σ% is exactly 100.
+    optimized = reconcileWeightsToHundred(optimized);
     return { optimized, hasChanges };
 }
 
@@ -328,8 +362,13 @@ export function usePortfolioActions({
         toast.info("Fondo eliminado");
     }, [portfolio, setPortfolio, toast]);
 
-    const handleUpdateWeight = useCallback((isin: string, value: string) => {
-        const newWeight = parseFloat(value) || 0;
+    const handleUpdateWeight = useCallback((isin: string, value: string | number) => {
+        // Accept both numeric and string inputs (FastNumberInput sends numbers,
+        // legacy callers send strings). Clamp to [0, 100] so the table can't
+        // hold negative weights or absurd values that break the invariants.
+        const parsed = typeof value === 'number' ? value : parseFloat(String(value));
+        const safe = Number.isFinite(parsed) ? parsed : 0;
+        const newWeight = Math.min(100, Math.max(0, safe));
         setPortfolio(portfolio.map(p => p.isin === isin ? { ...p, weight: newWeight } : p));
     }, [portfolio, setPortfolio]);
 
@@ -419,6 +458,9 @@ export function usePortfolioActions({
         };
 
         try {
+            // findDirectAlternativesV3 uses excludeIsins as its only portfolio
+            // filter, so we pass every ISIN currently in the cartera (the target
+            // fund itself is also excluded internally by ISIN match).
             const excludeIsins = portfolio.map(p => p.isin);
             const rawAlts = await findDirectAlternativesV3(fund, {
                 excludeIsins,
@@ -458,19 +500,123 @@ export function usePortfolioActions({
         }
     }, [portfolio, toast]);
 
-    const performSwap = useCallback((newFund: Fund) => {
+    // Helper: extract currency / asset class / region from any fund-like object
+    // (defensive — different sources expose them at different paths).
+    const extractFundSignature = (f: any) => ({
+        currency: String(
+            f?.currency ||
+            f?.std_extra?.currency ||
+            f?.std_extra?.base_currency ||
+            f?.fund_currency ||
+            ''
+        ).toUpperCase(),
+        assetType: String(f?.classification_v2?.asset_type || '').toUpperCase(),
+        region: String(f?.classification_v2?.region_primary || '').toUpperCase(),
+    });
+
+    const applySwapNow = useCallback((newFund: Fund, mode: 'weight' | 'money' = 'weight') => {
         if (!swapper.fund) return;
         const updatedPortfolio = portfolio.map(item => {
             if (item.isin === swapper.fund?.isin) {
-                // Set manualSwap to TRUE to lock the selection
-                return { ...newFund, weight: item.weight, manualSwap: true };
+                // Preserve user-defined flags from the slot being replaced
+                // (weight, lock state). Force manualSwap=true so the optimizer
+                // respects the manual selection on the next run.
+                const next: any = {
+                    ...newFund,
+                    weight: item.weight,
+                    isLocked: item.isLocked ?? false,
+                    manualSwap: true,
+                };
+                if (mode === 'money' && totalCapital > 0) {
+                    // Lock the absolute € value at swap time so that any
+                    // future capital change recomputes weight to keep money
+                    // constant. The recompute lives in DashboardPage's
+                    // commitCapital handler.
+                    next.targetEuros = totalCapital * (Number(item.weight) || 0) / 100;
+                    next.keepEuros = true;
+                } else {
+                    // Explicit weight mode → clear any previous money lock so
+                    // re-swapping a previously money-locked slot doesn't keep
+                    // the stale target.
+                    next.targetEuros = undefined;
+                    next.keepEuros = false;
+                }
+                return next;
             }
             return item;
         });
         setPortfolio(updatedPortfolio);
         setSwapper(prev => ({ ...prev, isOpen: false, fund: null }));
-        toast.success("Fondo intercambiado con éxito");
-    }, [swapper.fund, portfolio, setPortfolio, toast]);
+        toast.success(
+            mode === 'money'
+                ? "Fondo intercambiado (manteniendo importe €)"
+                : "Fondo intercambiado (manteniendo peso %)"
+        );
+    }, [swapper.fund, portfolio, setPortfolio, toast, totalCapital]);
+
+    const performSwap = useCallback((newFund: Fund, mode: 'weight' | 'money' = 'weight') => {
+        if (!swapper.fund) return;
+
+        const original: any = swapper.fund;
+        const orig = extractFundSignature(original);
+        const next = extractFundSignature(newFund);
+
+        // Detect structural divergences worth surfacing to the user.
+        const divergences: string[] = [];
+        if (orig.currency && next.currency && orig.currency !== next.currency) {
+            divergences.push(`• Cambia de divisa: ${orig.currency} → ${next.currency}`);
+        }
+        if (orig.assetType && next.assetType && orig.assetType !== next.assetType) {
+            divergences.push(`• Cambia de clase de activo: ${orig.assetType} → ${next.assetType}`);
+        }
+        if (orig.region && next.region && orig.region !== next.region) {
+            divergences.push(`• Cambia de región: ${orig.region} → ${next.region}`);
+        }
+
+        const skipConfirm = typeof window !== 'undefined'
+            && window.localStorage?.getItem('ft_skipSwapConfirm') === 'true';
+
+        // Always ask when there are divergences (safety net). When clean and
+        // user has opted out of confirmations, swap silently.
+        if (divergences.length === 0 && skipConfirm) {
+            applySwapNow(newFund, mode);
+            return;
+        }
+
+        const weight = Number(original?.weight ?? 0);
+        const moneyEur = totalCapital * (weight / 100);
+        const fmtEur = (n: number) => n.toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+        const modeLine = mode === 'money'
+            ? `Modo: mantener importe (${fmtEur(moneyEur)} €). El peso se recalculará si cambia el capital.`
+            : `Modo: mantener peso (${weight.toFixed(2)} %).`;
+
+        const lines = [
+            `Vas a sustituir:`,
+            `  ${original?.name || '(sin nombre)'} (${original?.isin || '—'})`,
+            `por:`,
+            `  ${(newFund as any)?.name || '(sin nombre)'} (${(newFund as any)?.isin || '—'})`,
+            ``,
+            modeLine,
+        ];
+        if (divergences.length > 0) {
+            lines.push('', '⚠️ Atención:', ...divergences);
+        }
+
+        setConfirmDialog({
+            isOpen: true,
+            title: divergences.length > 0 ? 'Confirmar sustitución (con divergencias)' : 'Confirmar sustitución',
+            message: lines.join('\n'),
+            confirmLabel: 'Sustituir',
+            cancelLabel: 'Cancelar',
+            onConfirm: () => {
+                setConfirmDialog(null);
+                applySwapNow(newFund, mode);
+            },
+            onCancel: () => {
+                setConfirmDialog(null);
+            },
+        });
+    }, [swapper.fund, totalCapital, applySwapNow]);
 
     // 3. Generation & Optimization Handlers
     const handleManualGenerate = async () => {
@@ -558,9 +704,16 @@ export function usePortfolioActions({
                 console.warn("No hay fondos elegibles");
             }
             else {
-                // Redistribute weights roughly
+                // Redistribute weights evenly. Last item absorbs the rounding
+                // residue so that Σ weights === 100 exactly.
                 const count = generated.length;
-                generated = generated.map(p => ({ ...p, weight: Number((100 / count).toFixed(2)) }));
+                const baseW = Number((100 / count).toFixed(2));
+                generated = generated.map((p, i) => ({
+                    ...p,
+                    weight: i === count - 1
+                        ? Number((100 - baseW * (count - 1)).toFixed(2))
+                        : baseW,
+                }));
                 setPortfolio(generated);
                 toast.success(`Borrador generado. Requiere Optimización.`);
             }
@@ -600,8 +753,91 @@ export function usePortfolioActions({
         await proceedWithOptimization(uiViews, null, snapshotOpts);
     };
 
-    const handleProceedStrategy = async (strategy: 'add_capital' | 'redistribute', extraCapital: number) => {
+    const handleProceedStrategy = async (
+        strategy: 'add_capital' | 'redistribute' | 'proportional',
+        extraCapital: number
+    ) => {
         toggleModal('optimizationStrategy', false);
+
+        // 'proportional' = simple capital increase, no optimizer call. Each
+        // fund's weight stays the same so € grows proportionally. keepEuros
+        // funds are recomputed in the caller (DashboardPage.commitCapital).
+        // Here we don't have access to that helper, so we apply the same
+        // logic inline.
+        if (strategy === 'proportional') {
+            if (extraCapital <= 0) {
+                toast.info("Aportación 0 € — no se aplica nada.");
+                return;
+            }
+            const newCapital = totalCapital + extraCapital;
+
+            // Recompute keepEuros items inline (same algorithm as the
+            // commitCapital path in DashboardPage).
+            const keepEuros = portfolio.filter(p => (p as any).keepEuros && typeof (p as any).targetEuros === 'number' && (p as any).targetEuros > 0);
+            if (keepEuros.length === 0) {
+                setTotalCapital(newCapital);
+                toast.success(`+${extraCapital.toLocaleString('es-ES')} € añadidos · pesos sin cambios, cada € crece proporcionalmente`);
+            } else {
+                const flexible = portfolio.filter(p => !p.isLocked && !((p as any).keepEuros));
+                const newWeights: Record<string, number> = {};
+                let used = 0;
+                keepEuros.forEach(p => {
+                    const t = (p as any).targetEuros as number;
+                    const w = Math.max(0, (t / newCapital) * 100);
+                    newWeights[p.isin] = w;
+                    used += w;
+                });
+                portfolio.forEach(p => {
+                    if (p.isLocked && !((p as any).keepEuros)) {
+                        const w = Number(p.weight) || 0;
+                        newWeights[p.isin] = w;
+                        used += w;
+                    }
+                });
+                if (used > 100.01) {
+                    toast.error(`No se puede aplicar: bloqueados + mantener EUR suman ${used.toFixed(2)} %.`);
+                    return;
+                }
+                if (flexible.length === 0 && Math.abs(used - 100) > 0.01) {
+                    toast.error(`No se puede aplicar: no hay fondos flexibles para absorber ${Math.abs(100 - used).toFixed(2)} %.`);
+                    return;
+                }
+                const available = Math.max(0, 100 - used);
+                const flexSum = flexible.reduce((s, p) => s + (Number(p.weight) || 0), 0);
+                flexible.forEach(p => {
+                    const w = Number(p.weight) || 0;
+                    const share = flexSum > 0 ? w / flexSum : 1 / Math.max(flexible.length, 1);
+                    newWeights[p.isin] = available * share;
+                });
+                let adjusted = portfolio.map(p => ({
+                    ...p,
+                    weight: Math.round((newWeights[p.isin] ?? Number(p.weight) ?? 0) * 100) / 100,
+                }));
+                const sumNow = adjusted.reduce((s, p) => s + (Number(p.weight) || 0), 0);
+                const residue = Number((100 - sumNow).toFixed(2));
+                if (Math.abs(residue) >= 0.005 && flexible.length > 0) {
+                    let idx = -1;
+                    let max = -Infinity;
+                    adjusted.forEach((p, i) => {
+                        if (p.isLocked || (p as any).keepEuros) return;
+                        const w = Number(p.weight) || 0;
+                        if (w > max) { max = w; idx = i; }
+                    });
+                    if (idx >= 0) {
+                        adjusted = [...adjusted];
+                        adjusted[idx] = {
+                            ...adjusted[idx],
+                            weight: Math.max(0, Number(((Number(adjusted[idx].weight) || 0) + residue).toFixed(2))),
+                        };
+                    }
+                }
+                setPortfolio(adjusted);
+                setTotalCapital(newCapital);
+                toast.success(`+${extraCapital.toLocaleString('es-ES')} € añadidos · ${keepEuros.length} fondo(s) "mantener €" recalculado(s)`);
+            }
+            return;
+        }
+
         if (strategy === 'add_capital' && extraCapital > 0) {
             setTotalCapital(totalCapital + extraCapital);
         }
@@ -843,7 +1079,6 @@ export function usePortfolioActions({
                 portfolio: portfolio.map(p => ({ isin: p.isin, weight: p.weight }))
             });
             const result = unwrapResult<any>(response.data);
-
             if (result.error || result.status === 'error') {
                 const msg = result.message || result.error || "Error desconocido";
                 const obsStr = result.observations ? ` (${result.observations} días comunes)` : '';
@@ -889,12 +1124,9 @@ export function usePortfolioActions({
         toggleModal('tactical', true);
     };
 
-    // 5. CSV Import Handler
-    // We'll keep the ref in the component, but the logic here
     const handleImportCSV = async (text: string) => {
         const result = parsePortfolioCSV(text);
         if (result.error) { toast.error(result.error); return; }
-        
         setConfirmDialog({
             isOpen: true,
             title: "Importar Cartera",
@@ -915,43 +1147,23 @@ export function usePortfolioActions({
                 setTotalCapital(result.totalValue || 0);
                 toast.success("Cartera importada correctamente");
             },
-            onCancel: () => {
-                setConfirmDialog(null);
-            }
+            onCancel: () => { setConfirmDialog(null); }
         });
     };
 
     return {
-        isOptimizing,
-        modals,
-        toggleModal,
+        isOptimizing, modals, toggleModal,
         selectedFund, setSelectedFund,
         swapper, setSwapper,
-        // Handlers
-        handleAddAsset,
-        handleRemoveAsset,
-        handleUpdateWeight,
-        handleOpenSwap,
-        performSwap,
-        handleManualGenerate,
-        handleOptimize,
-
-        handleApplyDirectly,
-        handleReviewAccept,
-        handleAcceptPortfolio,
-        handleMacroApply,
-        handleImportCSV,
-        handleAnalyzePortfolio, // NEW
-        handleFetchInteractiveFrontier, // NEW
-        handleToggleLock,
-        handleAutoCompletePortfolio,
-        handleProceedStrategy,
-        analysisResult, // NEW
-        explainabilityData, // Export for OptimizationReviewModal
-        // Interactive Frontier State
-        interactiveMathData,
-        interactivePoint,
-        confirmDialog,
-        setConfirmDialog
+        handleAddAsset, handleRemoveAsset, handleUpdateWeight,
+        handleOpenSwap, performSwap,
+        handleManualGenerate, handleOptimize,
+        handleApplyDirectly, handleReviewAccept, handleAcceptPortfolio,
+        handleMacroApply, handleImportCSV,
+        handleAnalyzePortfolio, handleFetchInteractiveFrontier,
+        handleToggleLock, handleAutoCompletePortfolio, handleProceedStrategy,
+        analysisResult, explainabilityData,
+        interactiveMathData, interactivePoint,
+        confirmDialog, setConfirmDialog
     };
 }

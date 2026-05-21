@@ -9,13 +9,17 @@ function FastNumberInput({
     onChange,
     className,
     disabled = false,
-    step = "1"
+    step = "1",
+    min,
+    max,
 }: {
     value: number | string;
     onChange: (val: number) => void;
     className?: string;
     disabled?: boolean;
     step?: string;
+    min?: number;
+    max?: number;
 }) {
     const [localVal, setLocalVal] = useState(value.toString());
     const [isFocused, setIsFocused] = useState(false);
@@ -26,12 +30,21 @@ function FastNumberInput({
         }
     }, [value, isFocused]);
 
+    const clamp = (n: number) => {
+        let out = n;
+        if (typeof min === 'number') out = Math.max(min, out);
+        if (typeof max === 'number') out = Math.min(max, out);
+        return out;
+    };
+
     return (
         <input
             type="number"
             className={className}
             value={isFocused ? localVal : value}
             step={step}
+            min={min}
+            max={max}
             disabled={disabled}
             onClick={(e) => e.stopPropagation()}
             onFocus={() => {
@@ -41,21 +54,21 @@ function FastNumberInput({
             onBlur={() => {
                 setIsFocused(false);
                 const parsed = parseFloat(localVal);
-                // Si el input está vacío, asume 0 para onBlur
+                // Si el input esta vacio, asume 0 para onBlur
                 if (localVal === '') {
-                    onChange(0);
+                    onChange(clamp(0));
                 } else if (!isNaN(parsed)) {
-                    onChange(parsed);
+                    onChange(clamp(parsed));
                 }
             }}
             onChange={(e) => {
                 setLocalVal(e.target.value);
                 const parsed = parseFloat(e.target.value);
                 if (!isNaN(parsed)) {
-                    onChange(parsed);
+                    onChange(clamp(parsed));
                 } else if (e.target.value === '') {
                     // Update chart immediately to 0 if they delete everything
-                    onChange(0);
+                    onChange(clamp(0));
                 }
             }}
         />
@@ -70,6 +83,57 @@ interface PortfolioTableProps {
     onFundClick?: (asset: any) => void;
     onSwap?: (asset: any) => void;
     onToggleLock?: (isin: string) => void;
+}
+
+// Footer summary row with imbalance badge. Kept as a separate component so the
+// '<' / '<=' operators inside the calculations don't fight the TSX parser.
+function PortfolioFooterRow({ assets, totalCapital }: { assets: any[]; totalCapital: number }) {
+    const sumWeights = assets.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0);
+    const sumEuros = totalCapital * (sumWeights / 100);
+    const diffEuros = sumEuros - totalCapital;
+    const isBalanced = Math.abs(sumWeights - 100) <= 0.01;
+    const isOver = sumWeights > 100;
+
+    const weightClass = isBalanced
+        ? 'text-[#2C3E50]'
+        : (isOver ? 'text-rose-600' : 'text-amber-600');
+    const badgeClass = isBalanced
+        ? 'bg-emerald-50 text-emerald-700 border-emerald-100'
+        : (isOver
+            ? 'bg-rose-50 text-rose-700 border-rose-100'
+            : 'bg-amber-50 text-amber-700 border-amber-100');
+    const fmtEur = (n: number) => n.toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const badgeText = isBalanced
+        ? 'OK'
+        : (isOver ? 'Sobran ' + fmtEur(Math.abs(diffEuros)) + ' €' : 'Faltan ' + fmtEur(Math.abs(diffEuros)) + ' €');
+    const badgeTitle = isBalanced
+        ? 'La suma de pesos cuadra al 100 %'
+        : 'Suma de pesos = ' + sumWeights.toFixed(2) + ' % (debería ser 100 %)';
+    const eurosTitle = 'Capital del header: ' + fmtEur(totalCapital) + ' €';
+
+    return (
+        <tr>
+            <td className="py-5 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">
+                <div className="flex items-center justify-end gap-2">
+                    <span
+                        className={'text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border ' + badgeClass}
+                        title={badgeTitle}
+                    >
+                        {badgeText}
+                    </span>
+                    <span>TOTAL</span>
+                </div>
+            </td>
+            <td className={'py-5 p-3 text-right font-[550] text-sm tabular-nums ' + weightClass} title={badgeTitle}>
+                {sumWeights.toFixed(2)}%
+            </td>
+            <td className={'py-5 p-3 text-right font-[550] text-sm tabular-nums ' + weightClass} title={eurosTitle}>
+                {fmtEur(sumEuros)}
+            </td>
+            <td></td>
+            <td className="py-5 pl-3 pr-6"></td>
+        </tr>
+    );
 }
 
 export default function PortfolioTable({
@@ -102,26 +166,21 @@ export default function PortfolioTable({
             <table className="w-full text-left text-sm text-slate-600">
                 <tbody className="divide-y divide-slate-100">
                     {assets.map((asset, index) => {
-                        const val = (totalCapital * (asset.weight / 100))
-
-                        // Detectar si el fondo fue elegido manualmente
                         const isManual = asset.manualSwap;
-
                         return (
                             <tr
                                 key={asset.isin}
-                                className={`border-b border-slate-100 hover:bg-slate-50 transition-colors ${isManual ? 'bg-blue-50/20' : ''}`}
+                                className={'border-b border-slate-100 hover:bg-slate-50 transition-colors ' + (isManual ? 'bg-blue-50/20' : '')}
                             >
                                 <td className="py-4 pr-4 pl-6 w-[45%] max-w-[400px] align-middle" title={asset.name}>
                                     <div className="flex items-center gap-5 pl-2">
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onToggleLock && onToggleLock(asset.isin); }}
-                                            className={`text-sm shrink-0 transition-all ${asset.isLocked ? 'text-slate-700 opacity-100 scale-110' : 'text-slate-400 opacity-50 hover:opacity-100 hover:text-slate-600 hover:scale-110'}`}
+                                            className={'text-sm shrink-0 transition-all ' + (asset.isLocked ? 'text-slate-700 opacity-100 scale-110' : 'text-slate-400 opacity-50 hover:opacity-100 hover:text-slate-600 hover:scale-110')}
                                             title={asset.isLocked ? "Desbloquear fondo" : "Bloquear fondo"}
                                         >
                                             {asset.isLocked ? <Lock className="w-4 h-4 fill-slate-700/20" /> : <Unlock className="w-4 h-4" />}
                                         </button>
-
                                         <div className="flex flex-col gap-1">
                                             <div className="flex items-center gap-2">
                                                 <span
@@ -140,14 +199,15 @@ export default function PortfolioTable({
                                         </div>
                                     </div>
                                 </td>
-                                
                                 <td className="p-3 w-[15%] min-w-[100px] text-right align-middle">
                                     <div className="flex items-center justify-end">
-                                        <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                        <div className={'flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ' + (asset.isLocked ? 'opacity-50 cursor-not-allowed' : '')}>
                                             <FastNumberInput
                                                 className="w-[60px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={Math.round(asset.weight * 100) / 100}
                                                 step="0.01"
+                                                min={0}
+                                                max={100}
                                                 disabled={asset.isLocked}
                                                 onChange={(val) => {
                                                     onUpdateWeight && onUpdateWeight(asset.isin, val);
@@ -157,14 +217,15 @@ export default function PortfolioTable({
                                         </div>
                                     </div>
                                 </td>
-                                
                                 <td className="p-3 w-[20%] min-w-[140px] text-right align-middle">
                                     <div className="flex items-center justify-end">
-                                        <div className={`flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ${asset.isLocked ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                                        <div className={'flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ' + (asset.isLocked ? 'opacity-50 cursor-not-allowed' : '')}>
                                             <FastNumberInput
                                                 className="w-[90px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
                                                 value={(totalCapital * (asset.weight / 100)).toFixed(2)}
                                                 step="100"
+                                                min={0}
+                                                max={totalCapital}
                                                 disabled={asset.isLocked}
                                                 onChange={(newCapital) => {
                                                     if (totalCapital > 0) {
@@ -177,7 +238,6 @@ export default function PortfolioTable({
                                         </div>
                                     </div>
                                 </td>
-
                                 <td className="py-3 pr-3 w-[15%] text-right align-middle">
                                     <div className="flex items-center justify-end">
                                         <button
@@ -209,19 +269,9 @@ export default function PortfolioTable({
                             <div className="mx-6 border-t border-slate-200"></div>
                         </td>
                     </tr>
-                    <tr>
-                        <td className="py-5 pl-6 text-[#2C3E50] uppercase text-sm font-[550] text-right tracking-tight">TOTAL</td>
-                        <td className="py-5 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
-                            {assets.reduce((sum, a) => sum + (parseFloat(a.weight) || 0), 0).toFixed(2)}%
-                        </td>
-                        <td className="py-5 p-3 text-right text-[#2C3E50] font-[550] text-sm tabular-nums">
-                            {assets.reduce((sum, a) => sum + (totalCapital * ((parseFloat(a.weight) || 0) / 100)), 0).toLocaleString('es-DE', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
-                        </td>
-                        <td></td>
-                        <td className="py-5 pl-3 pr-6"></td>
-                    </tr>
+                    <PortfolioFooterRow assets={assets} totalCapital={totalCapital} />
                 </tfoot>
-            </table >
-        </div >
+            </table>
+        </div>
     )
 }

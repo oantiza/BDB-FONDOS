@@ -1,5 +1,5 @@
 // frontend/src/components/FundSwapModal.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { REGION_DISPLAY_LABELS } from '../utils/normalizer';
 import { translateAssetClass, translateRegion } from '../utils/fundTaxonomy';
 
@@ -38,11 +38,19 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
     const [region, setRegion] = useState('all');
     const [maximizeRetro, setMaximizeRetro] = useState(false);
     const [page, setPage] = useState(0);
-    const [isSearching, setIsSearching] = useState(false);
+    // 'weight' (default) keeps the % unchanged; 'money' marks the slot so its
+    // weight is recomputed whenever totalCapital changes, holding € constant.
+    const [preserveMode, setPreserveMode] = useState<'weight' | 'money'>('weight');
+
+    // Skip the auto-refresh effect on the very first render after opening,
+    // because the caller (handleOpenSwap) already triggered the initial search.
+    // We only want to auto-refresh when the user changes a filter.
+    const skipNextAutoSearch = useRef(true);
 
     // Sync filters with original fund when it changes or modal opens
     useEffect(() => {
         if (originalFund && isOpen) {
+            skipNextAutoSearch.current = true; // initial sync should not fire onRefresh
             setAssetClass(originalFund.classification_v2?.asset_type || 'EQUITY');
             setRegion(originalFund.classification_v2?.region_primary || 'GLOBAL');
             setMaximizeRetro(false);
@@ -50,19 +58,22 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
         }
     }, [originalFund, isOpen]);
 
-    if (!isOpen || !originalFund) return null;
+    // Debounced auto-search whenever the user tweaks any filter.
+    // page=0 is reset elsewhere (in the setters) so each filter change shows
+    // the top 3 candidates for the new filter set, not the next page.
+    useEffect(() => {
+        if (!isOpen || !originalFund) return;
+        if (skipNextAutoSearch.current) {
+            skipNextAutoSearch.current = false;
+            return;
+        }
+        const t = setTimeout(() => {
+            onRefresh?.(originalFund, { assetClass, region, maximizeRetro, offset: 0 });
+        }, 300);
+        return () => clearTimeout(t);
+    }, [assetClass, region, maximizeRetro, isOpen, originalFund, onRefresh]);
 
-    const handleSearch = async () => {
-        setIsSearching(true);
-        // We call the parent's handleOpenSwap which is exposed through context or props
-        // In this architecture, it's safer to use the onSelect pattern or expose a reload function.
-        // Assuming we can re-trigger the swap search via a parent-provided function.
-        // But the current props don't provide a 'reload' function. 
-        // Let's modify the props in DashboardPage/usePortfolioActions if needed, 
-        // or trigger it through a custom event if we want to avoid prop drilling.
-        // Looking at DashboardPage.tsx, it passes 'handleOpenSwap' to PortfolioTable.
-        // We might need to pass it here too.
-    };
+    if (!isOpen || !originalFund) return null;
 
     return (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-[100] p-4">
@@ -74,7 +85,26 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                         <h2 className="text-2xl font-bold text-gray-800">Intercambio de Activo</h2>
                         <p className="text-xs text-gray-500 uppercase tracking-widest font-black mt-1">Busca el mejor ALPHA para tu cartera</p>
                     </div>
-                    <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-4xl leading-none">&times;</button>
+                    <div className="flex items-center gap-4">
+                        {/* Toggle: mantener peso (%) vs importe (€) */}
+                        <div className="flex items-center gap-1 bg-slate-100 rounded-md p-0.5 border border-slate-200" title="Qué se conserva del fondo original al sustituir">
+                            <button
+                                type="button"
+                                onClick={() => setPreserveMode('weight')}
+                                className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded transition-colors ${preserveMode === 'weight' ? 'bg-white text-slate-800 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
+                            >
+                                Mantener %
+                            </button>
+                            <button
+                                type="button"
+                                onClick={() => setPreserveMode('money')}
+                                className={`text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded transition-colors ${preserveMode === 'money' ? 'bg-white text-slate-800 shadow-sm border border-slate-200' : 'text-slate-500 hover:text-slate-700'}`}
+                            >
+                                Mantener €
+                            </button>
+                        </div>
+                        <button onClick={onClose} className="text-gray-400 hover:text-gray-600 text-4xl leading-none">&times;</button>
+                    </div>
                 </div>
 
                 {/* FILTROS DE BÚSQUEDA */}
@@ -124,13 +154,17 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                     </div>
                     <button
                         onClick={() => {
+                            // Strictly paginate: filter changes auto-reset to page 0
+                            // via the useEffect above, so this button is now solely
+                            // "give me the NEXT batch with the same filters".
                             const newPage = page + 1;
                             setPage(newPage);
                             onRefresh?.(originalFund, { assetClass, region, maximizeRetro, offset: newPage * 3 });
                         }}
                         className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2.5 rounded-lg shadow-sm transition-all text-sm h-[42px] px-4 w-full"
+                        title="Mostrar los siguientes 3 candidatos con los mismos filtros"
                     >
-                        Siguientes Candidatos 🔎
+                        Más candidatos 🔎
                     </button>
                 </div>
 
@@ -255,7 +289,7 @@ export const FundSwapModal = ({ isOpen, originalFund, alternatives, onSelect, on
                                 </div>
 
                                 <button
-                                    onClick={() => onSelect(alt.fund)}
+                                    onClick={() => onSelect(alt.fund, preserveMode)}
                                     className={`w-full py-2.5 text-white rounded-lg font-bold shadow-sm transition-colors text-xs uppercase ${btnColor}`}
                                 >
                                     Sustituir Activo
