@@ -425,6 +425,73 @@ def _restore_cutoff_weights_for_bucket_mins(
 
     return restored
 
+
+def _postprocess_result_is_compliant(
+    weights,
+    universe,
+    apply_profile,
+    risk_level_i,
+    current_risk_buckets,
+    bucket_bounds_v1,
+    eq_vec,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ra_vec,
+    ot_vec,
+):
+    validation = _validate_optimizer_result(
+        weights,
+        universe,
+        apply_profile,
+        risk_level_i,
+        current_risk_buckets,
+        bucket_bounds_v1,
+        eq_vec,
+        bd_vec,
+        cs_vec,
+        al_vec,
+        ra_vec,
+        ot_vec,
+    )
+    return bool(validation.get("compliant"))
+
+
+def _format_final_constraint_message(final_validation):
+    violations = list((final_validation or {}).get("violations") or [])
+    if not violations:
+        return "La propuesta no cumple las restricciones finales y no puede aplicarse."
+
+    first = violations[0] or {}
+    code = first.get("code")
+    bucket = first.get("bucket")
+    bucket_labels = {
+        "equity": "Renta Variable",
+        "bond": "Renta Fija",
+        "cash": "Monetario",
+        "alternative": "Alternativos",
+        "real_asset": "Activos Reales",
+        "other": "Otros",
+        "RV": "Renta Variable",
+        "RF": "Renta Fija",
+        "Monetario": "Monetario",
+        "Alternativos": "Alternativos",
+        "Otros": "Otros",
+    }
+    if code == "BUCKET_MIN_VIOLATION" and bucket:
+        return (
+            f"La propuesta incumple el mínimo de {bucket_labels.get(bucket, bucket)}: "
+            f"{float(first.get('actual', 0.0)) * 100:.2f}% vs mínimo "
+            f"{float(first.get('min', 0.0)) * 100:.2f}%."
+        )
+    if code == "BUCKET_MAX_VIOLATION" and bucket:
+        return (
+            f"La propuesta supera el máximo de {bucket_labels.get(bucket, bucket)}: "
+            f"{float(first.get('actual', 0.0)) * 100:.2f}% vs máximo "
+            f"{float(first.get('max', 0.0)) * 100:.2f}%."
+        )
+    return f"La propuesta no cumple las restricciones finales ({code or 'violacion_final'})."
+
 # =========================================================================
 # INTERNAL PIPELINE HELPERS
 # =========================================================================
@@ -1115,6 +1182,36 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             ot_vec,
         )
         weights = _normalize(cleaned_weights)
+        if not _postprocess_result_is_compliant(
+            weights,
+            universe,
+            apply_profile,
+            risk_level_i,
+            current_risk_buckets,
+            bucket_bounds_v1,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ra_vec,
+            ot_vec,
+        ):
+            raw_weight_map = _normalize(_coerce_weights_for_universe(raw_weights, universe))
+            if _postprocess_result_is_compliant(
+                raw_weight_map,
+                universe,
+                apply_profile,
+                risk_level_i,
+                current_risk_buckets,
+                bucket_bounds_v1,
+                eq_vec,
+                bd_vec,
+                cs_vec,
+                al_vec,
+                ra_vec,
+                ot_vec,
+            ):
+                weights = raw_weight_map
     else:
         logger.info("⚠️ Applying Graceful Degradation (Filtered Equal-Weight)")
         allowed_universe = []
@@ -1521,6 +1618,7 @@ def run_optimization(
             "api_version": "optimizer_v4",
             "mode": "PROFILE_B_AGGRESSIVE" if apply_profile else "PROFILE_A",
             "status": final_status,
+            "message": None if is_compliant else _format_final_constraint_message(final_validation),
             "solver_path": solver_path,
             "applicable": applicable,
             "usable": applicable,

@@ -12,6 +12,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import services.portfolio.optimizer_core as optimizer_core  # noqa: E402
 from services.portfolio.optimizer_core import (  # noqa: E402
+    _format_final_constraint_message,
     _postprocess_weights,
     _restore_cutoff_weights_for_bucket_mins,
     _validate_optimizer_result,
@@ -29,6 +30,14 @@ class _CutoffCleaningEF:
             isin: 0.0 if abs(weight) < cutoff else weight
             for isin, weight in self._weights.items()
         }
+
+
+class _PartialCleaningEF:
+    def __init__(self, cleaned_weights: dict[str, float]):
+        self._cleaned_weights = cleaned_weights
+
+    def clean_weights(self, cutoff: float = 0.0) -> dict[str, float]:
+        return dict(self._cleaned_weights)
 
 
 def _validation(weights: dict[str, float]) -> dict:
@@ -221,6 +230,58 @@ def test_postprocess_does_not_create_bucket_max_violation():
 
     assert final_validation["compliant"] is True
     assert not any(v["code"] == "BUCKET_MAX_VIOLATION" for v in final_validation["violations"])
+
+
+def test_postprocess_uses_raw_when_cleaned_nonzero_weights_break_bucket_min():
+    universe = ["EQ_CORE", "EQ_SMALL", "BD"]
+    raw_weights = {"EQ_CORE": 0.3815, "EQ_SMALL": 0.0190, "BD": 0.5995}
+    cleaned_weights = {"EQ_CORE": 0.3815, "EQ_SMALL": 0.0050, "BD": 0.6135}
+    eq_vec = np.array([1.0, 1.0, 0.0])
+    bd_vec = np.array([0.0, 0.0, 1.0])
+    zero_vec = np.zeros(3)
+
+    assert _validation(_normalize(raw_weights))["compliant"] is True
+    assert _validation(_normalize(cleaned_weights))["compliant"] is False
+
+    postprocessed = _postprocess_weights(
+        ef=_PartialCleaningEF(cleaned_weights),
+        raw_weights=raw_weights,
+        cutoff=0.02,
+        universe=universe,
+        apply_profile=True,
+        risk_level_i=5,
+        current_risk_buckets={5: {"RV": {"min": 0.40, "max": 1.0}}},
+        eq_vec=eq_vec,
+        bd_vec=bd_vec,
+        cs_vec=zero_vec,
+        al_vec=zero_vec,
+        ra_vec=zero_vec,
+        ot_vec=zero_vec,
+        lock_mode="free",
+        locked_assets=[],
+        fixed_weights={},
+        bucket_bounds_v1={"equity": {"min": 0.40, "max": 1.0}},
+    )
+
+    _assert_weights_close(postprocessed, _normalize(raw_weights))
+    assert _validation(postprocessed)["compliant"] is True
+
+
+def test_final_constraint_message_includes_bucket_details():
+    validation = {
+        "violations": [
+            {
+                "code": "BUCKET_MIN_VIOLATION",
+                "bucket": "RF",
+                "actual": 0.0,
+                "min": 0.20,
+            }
+        ]
+    }
+
+    assert _format_final_constraint_message(validation) == (
+        "La propuesta incumple el mínimo de Renta Fija: 0.00% vs mínimo 20.00%."
+    )
 
 
 def _readonly_dummy_db() -> MagicMock:
