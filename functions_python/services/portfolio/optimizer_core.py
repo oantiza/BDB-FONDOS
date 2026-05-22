@@ -280,6 +280,151 @@ def _validate_optimizer_result(
         "warnings": warnings,
     }
 
+
+def _coerce_weights_for_universe(weights, universe):
+    coerced = {}
+    for idx, isin in enumerate(universe or []):
+        if hasattr(weights, "get"):
+            value = weights.get(isin, 0.0)
+        else:
+            try:
+                value = weights[idx]
+            except Exception:
+                value = 0.0
+        try:
+            value = float(value)
+        except Exception:
+            value = 0.0
+        if not np.isfinite(value) or value < 0.0:
+            value = 0.0
+        coerced[isin] = value
+    return coerced
+
+
+def _postprocess_active_bounds(apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1):
+    if isinstance(bucket_bounds_v1, dict) and bucket_bounds_v1:
+        return bucket_bounds_v1
+    if apply_profile and risk_level_i in (current_risk_buckets or {}):
+        return (current_risk_buckets or {}).get(risk_level_i, {}) or {}
+    return {}
+
+
+def _bucket_min_violations_for_postprocess(weights, universe, active_bounds, bucket_vectors):
+    if not active_bounds:
+        return []
+
+    normalized = _normalize(weights)
+    w_arr = _as_weight_array(normalized, universe)
+    violations = []
+    for bucket_key, raw_bound in active_bounds.items():
+        vec = bucket_vectors.get(bucket_key)
+        if vec is None:
+            continue
+        min_v, _ = _read_bound(raw_bound)
+        if min_v is None:
+            continue
+        exposure = float(w_arr @ vec)
+        if exposure < min_v - 1e-4:
+            violations.append({
+                "bucket": bucket_key,
+                "actual": exposure,
+                "min": min_v,
+            })
+    return violations
+
+
+def _restore_cutoff_weights_for_bucket_mins(
+    cleaned_weights,
+    raw_weights,
+    cutoff,
+    universe,
+    apply_profile,
+    risk_level_i,
+    current_risk_buckets,
+    bucket_bounds_v1,
+    eq_vec,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ra_vec,
+    ot_vec,
+):
+    if cutoff <= 0:
+        return cleaned_weights
+
+    active_bounds = _postprocess_active_bounds(
+        apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1
+    )
+    if not active_bounds:
+        return cleaned_weights
+
+    bucket_vectors = _active_bucket_vectors_for_bounds(
+        active_bounds, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec
+    )
+    active_min_bounds = {}
+    for bucket_key, raw_bound in active_bounds.items():
+        if bucket_vectors.get(bucket_key) is None:
+            continue
+        min_v, _ = _read_bound(raw_bound)
+        if min_v is not None:
+            active_min_bounds[bucket_key] = raw_bound
+
+    if not active_min_bounds:
+        return cleaned_weights
+
+    cleaned_violations = _bucket_min_violations_for_postprocess(
+        cleaned_weights, universe, active_min_bounds, bucket_vectors
+    )
+    if not cleaned_violations:
+        return cleaned_weights
+
+    raw_weight_map = _coerce_weights_for_universe(raw_weights, universe)
+    raw_violations = _bucket_min_violations_for_postprocess(
+        raw_weight_map, universe, active_min_bounds, bucket_vectors
+    )
+    if raw_violations:
+        return cleaned_weights
+
+    cutoff_limit = max(0.0, float(cutoff)) + 1e-9
+    removed_by_cutoff = {}
+    for idx, isin in enumerate(universe or []):
+        raw_weight = raw_weight_map.get(isin, 0.0)
+        cleaned_weight = float(cleaned_weights.get(isin, 0.0) or 0.0)
+        if raw_weight > 0.0 and cleaned_weight <= 1e-12 and raw_weight <= cutoff_limit:
+            removed_by_cutoff[isin] = (idx, raw_weight)
+
+    if not removed_by_cutoff:
+        return cleaned_weights
+
+    restored = dict(cleaned_weights)
+    while removed_by_cutoff:
+        violations = _bucket_min_violations_for_postprocess(
+            restored, universe, active_min_bounds, bucket_vectors
+        )
+        if not violations:
+            break
+
+        violated_buckets = {v["bucket"] for v in violations}
+        best_isin = None
+        best_score = 0.0
+        for isin, (idx, raw_weight) in removed_by_cutoff.items():
+            score = 0.0
+            for bucket_key in violated_buckets:
+                vec = bucket_vectors.get(bucket_key)
+                if vec is not None:
+                    score += max(0.0, float(vec[idx])) * raw_weight
+            if score > best_score:
+                best_isin = isin
+                best_score = score
+
+        if best_isin is None or best_score <= 1e-12:
+            break
+
+        _, raw_weight = removed_by_cutoff.pop(best_isin)
+        restored[best_isin] = raw_weight
+
+    return restored
+
 # =========================================================================
 # INTERNAL PIPELINE HELPERS
 # =========================================================================
@@ -933,7 +1078,7 @@ def _run_solver(
     return ef, raw_weights, solver_path, feasibility
 
 
-def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights):
+def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1=None):
     """
     FASE 9: Limpieza, Degradación Graciosa y Asignación Final.
     [PRECEDENCIA CANÓNICA] Nivel 7: Fallbacks / Degradaciones.
@@ -953,6 +1098,22 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             if value < -1e-8:
                 raise ValueError(f"NEGATIVE_WEIGHT:{t}:{value}")
             cleaned_weights[t] = max(0.0, value)
+        cleaned_weights = _restore_cutoff_weights_for_bucket_mins(
+            cleaned_weights,
+            raw_weights,
+            cutoff,
+            universe,
+            apply_profile,
+            risk_level_i,
+            current_risk_buckets,
+            bucket_bounds_v1,
+            eq_vec,
+            bd_vec,
+            cs_vec,
+            al_vec,
+            ra_vec,
+            ot_vec,
+        )
         weights = _normalize(cleaned_weights)
     else:
         logger.info("⚠️ Applying Graceful Degradation (Filtered Equal-Weight)")
@@ -1214,7 +1375,7 @@ def run_optimization(
         # FASE 9: Post-Processing & Normalization
         weights = _postprocess_weights(
             ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, 
-            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights
+            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1
         )
 
         # FASE 10: Formatting Metrics & Output
@@ -1332,7 +1493,7 @@ def run_optimization(
         elif is_compliant:
             final_status = "optimal_compliant"
         else:
-            final_status = "fallback_non_compliant"
+            final_status = "optimal_non_compliant"
         applicable = final_status in {"optimal_compliant", "optimal_with_warnings", "fallback_compliant"}
         final_warnings = list(final_validation.get("warnings") or [])
         if is_fallback and is_compliant:
