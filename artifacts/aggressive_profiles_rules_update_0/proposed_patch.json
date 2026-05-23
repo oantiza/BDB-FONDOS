@@ -1,0 +1,41 @@
+{
+  "task_id": "BDB-OPT-AGGRESSIVE-PROFILES-RISK-RULES-UPDATE-0",
+  "patch_kind": "firestore_document_overwrite_partial",
+  "target_document": "system_settings/risk_profiles",
+  "merge_semantics": "partial — keys '8', '9' y '10' se reemplazan completamente; las claves '1'..'7' permanecen tal cual estén en Firestore. Se aplica como db.collection('system_settings').document('risk_profiles').set(patch, merge=True) para no tocar perfiles 1-7. NO ejecutar este patch hasta que se reciba autorización explícita.",
+  "scope": "Solo claves '8', '9', '10' del documento.",
+  "bucket_label_convention": "legacy ES (RV, RF, Mixto, Monetario, Alternativos, Otros) — coincide con frontend rulesEngine.ts y con services.portfolio.constraints_builder_v1._resolve_bucket_bounds() que mapea RV→equity, RF→bond, Monetario→cash, Alternativos→alternative, Otros→other. Mixto se mantiene a 0/0 para no introducir exposición mixta en perfiles agresivos.",
+  "patch": {
+    "8": {
+      "RV":           [0.85, 1.00],
+      "RF":           [0.00, 0.10],
+      "Monetario":    [0.00, 0.08],
+      "Alternativos": [0.00, 0.10],
+      "Otros":        [0.00, 0.05],
+      "Mixto":        [0.00, 0.00]
+    },
+    "9": {
+      "RV":           [0.90, 1.00],
+      "RF":           [0.00, 0.07],
+      "Monetario":    [0.00, 0.06],
+      "Alternativos": [0.00, 0.05],
+      "Otros":        [0.00, 0.04],
+      "Mixto":        [0.00, 0.00]
+    },
+    "10": {
+      "RV":           [0.95, 1.00],
+      "RF":           [0.00, 0.03],
+      "Monetario":    [0.00, 0.05],
+      "Alternativos": [0.00, 0.03],
+      "Otros":        [0.00, 0.03],
+      "Mixto":        [0.00, 0.00]
+    }
+  },
+  "write_protocol_when_authorized": {
+    "step_1": "Re-leer Firestore system_settings/risk_profiles en read-only y volcarlo a artifacts/aggressive_profiles_rules_update_0/snapshot_firestore_live.json (no realizado todavía).",
+    "step_2": "Comparar contra snapshot_before.json y resolver discrepancias.",
+    "step_3": "Aplicar el patch con doc_ref.set(patch_payload, merge=True). NUNCA usar set sin merge para no perder perfiles 1-7.",
+    "step_4": "Re-leer y comparar contra proposed_patch.json para confirmar.",
+    "step_5": "Solo entonces actualizar el seed local services/config.py:RISK_BUCKETS_LABELS para mantenerlo en sincronía (commit separado, no en este dry-run)."
+  }
+}

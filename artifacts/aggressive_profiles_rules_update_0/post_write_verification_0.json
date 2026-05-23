@@ -1,0 +1,106 @@
+{
+  "task_id": "BDB-OPT-AGGRESSIVE-PROFILES-RULES-WRITE-CONTROLLED-0",
+  "verified_at_utc": "2026-05-22T19:26:10.413414Z",
+  "write_executed": true,
+  "target_document": "system_settings/risk_profiles",
+  "firestore_write_scope": [
+    "system_settings/risk_profiles"
+  ],
+  "update_mask_field_paths": [
+    "`8`",
+    "`9`",
+    "`10`"
+  ],
+  "profiles_modified": [
+    "8",
+    "9",
+    "10"
+  ],
+  "fields_modified": {
+    "10": [
+      "Alternativos",
+      "Mixto",
+      "Monetario",
+      "Otros",
+      "RF",
+      "RV"
+    ],
+    "8": [
+      "Alternativos",
+      "Mixto",
+      "Monetario",
+      "Otros",
+      "RF",
+      "RV"
+    ],
+    "9": [
+      "Alternativos",
+      "Mixto",
+      "Monetario",
+      "Otros",
+      "RF",
+      "RV"
+    ]
+  },
+  "profiles_1_7_unchanged": true,
+  "profiles_8_9_10_match_proposed_patch": true,
+  "post_write_verification_pass": true,
+  "forbidden_scopes_not_touched": {
+    "funds_v3": true,
+    "fondos_individuales": true,
+    "compatible_profiles": true,
+    "classification_v2": true,
+    "portfolio_exposure_v2": true,
+    "manual.costs": true,
+    "retrocesiones": true
+  },
+  "rollback_available": true,
+  "rollback_sources": {
+    "provided_rollback_manifest": "artifacts/aggressive_profiles_rules_update_0/rollback_manifest.json",
+    "live_snapshot_before_write": "artifacts/aggressive_profiles_rules_update_0/snapshot_firestore_live.json"
+  },
+  "functional_validation_p10": {
+    "actual_bucket_exposure": {
+      "equity": 0.975607,
+      "bond": 0.001692,
+      "cash": 0.020473,
+      "other": 0.002228,
+      "alternative": 0.0
+    },
+    "rules_after_write": {
+      "RV": [
+        0.95,
+        1.0
+      ],
+      "RF": [
+        0.0,
+        0.03
+      ],
+      "Monetario": [
+        0.0,
+        0.05
+      ],
+      "Alternativos": [
+        0.0,
+        0.03
+      ],
+      "Otros": [
+        0.0,
+        0.03
+      ],
+      "Mixto": [
+        0.0,
+        0.0
+      ]
+    },
+    "checks": {
+      "equity_97_5607_gte_95": true,
+      "bond_0_1692_lte_3": true,
+      "cash_2_0473_lte_5": true,
+      "other_0_2228_lte_3": true,
+      "alternative_0_lte_3": true
+    },
+    "compliant": true
+  },
+  "commit_response_write_results_count": 1
+}

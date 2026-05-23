@@ -1,0 +1,49 @@
+{
+  "task_id": "BDB-OPT-AGGRESSIVE-PROFILES-RISK-RULES-UPDATE-0",
+  "rollback_kind": "firestore_document_overwrite_partial",
+  "target_document": "system_settings/risk_profiles",
+  "rollback_strategy": "Restaurar las claves '8','9','10' al estado capturado ANTES del write. La rotación se realiza con doc_ref.set(rollback_payload, merge=True). El resto de claves no se tocan.",
+  "preconditions": [
+    "Antes de aplicar el patch principal, ejecutar un read live de system_settings/risk_profiles y guardar la respuesta cruda en artifacts/aggressive_profiles_rules_update_0/snapshot_firestore_live.json.",
+    "Si snapshot_firestore_live.json difiere de snapshot_before.json, REEMPLAZAR el bloque 'rollback_payload' de este manifest con los valores REALES antes del write."
+  ],
+  "rollback_payload_from_local_seed": {
+    "8": {
+      "RV":           [0.85, 1.00],
+      "RF":           [0.00, 0.05],
+      "Mixto":        [0.00, 0.10],
+      "Monetario":    [0.00, 0.05],
+      "Alternativos": [0.00, 0.10],
+      "Otros":        [0.00, 0.15]
+    },
+    "9": {
+      "RV":           [0.95, 1.00],
+      "RF":           [0.00, 0.05],
+      "Mixto":        [0.00, 0.05],
+      "Monetario":    [0.00, 0.00],
+      "Alternativos": [0.00, 0.05],
+      "Otros":        [0.00, 0.05]
+    },
+    "10": {
+      "RV":           [0.95, 1.00],
+      "RF":           [0.00, 0.05],
+      "Mixto":        [0.00, 0.05],
+      "Monetario":    [0.00, 0.05],
+      "Alternativos": [0.00, 0.05],
+      "Otros":        [0.00, 0.00]
+    }
+  },
+  "rollback_procedure": [
+    "1) Detener cualquier optimización en curso (front-end).",
+    "2) Cargar rollback_payload_from_local_seed (o snapshot_firestore_live.json si está disponible).",
+    "3) db.collection('system_settings').document('risk_profiles').set(rollback_payload, merge=True)",
+    "4) Re-leer documento y verificar igualdad campo a campo.",
+    "5) Anular el commit que actualice services/config.py si ya se hubiera mergeado."
+  ],
+  "verification_after_rollback": [
+    "Re-ejecutar tests: test_constraints_canonical_contract, test_bucket_constraints_dedup, test_optimizer_p0_contracts, test_optimizer_fallback_status_contract, test_optimizer_invariants, test_feasibility_precheck.",
+    "Solicitar al frontend que vuelva a llamar a 'optimize_portfolio_quant' con el caso real (eq=97.5607, bond=0.1692, cash=2.0473, other=0.2228) y comprobar que status vuelve al baseline previo."
+  ],
+  "rto_target_minutes": 5,
+  "rpo_target_writes_lost": 0
+}

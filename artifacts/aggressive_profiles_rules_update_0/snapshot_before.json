@@ -1,0 +1,97 @@
+{
+  "task_id": "BDB-OPT-AGGRESSIVE-PROFILES-RISK-RULES-UPDATE-0",
+  "captured_at_utc": "2026-05-22T00:00:00Z",
+  "scope": "system_settings/risk_profiles — aggressive tier P8/P9/P10",
+  "source_of_truth": {
+    "canonical": "Firestore document system_settings/risk_profiles",
+    "local_seed_fallback": "functions_python/services/config.py :: RISK_BUCKETS_LABELS",
+    "frontend_mirror": "frontend/src/utils/rulesEngine.ts :: DEFAULT_PROFILES (display-only fallback)"
+  },
+  "read_only_warning": "Este snapshot se captura desde el SEED local porque no se ejecuta read contra Firestore en dry-run. Antes de cualquier write debe verificarse el documento Firestore vivo y, si difiere del seed, regenerar este snapshot con el contenido real para garantizar rollback exacto. Causa por la que el usuario reporta P10 con equity min=100%/max=100% y otros buckets max=0% sugiere que el Firestore vivo es MÁS ESTRICTO que el seed local; documentar dicha discrepancia antes de escribir.",
+  "profiles": {
+    "8": {
+      "source": "config.py:RISK_BUCKETS_LABELS[8]",
+      "buckets_legacy_es": {
+        "RV":           {"min": 0.85, "max": 1.00},
+        "RF":           {"min": 0.00, "max": 0.05},
+        "Mixto":        {"min": 0.00, "max": 0.10},
+        "Monetario":    {"min": 0.00, "max": 0.05},
+        "Alternativos": {"min": 0.00, "max": 0.10},
+        "Otros":        {"min": 0.00, "max": 0.15}
+      },
+      "buckets_canonical_v1": {
+        "equity":      {"min": 0.85, "max": 1.00},
+        "bond":        {"min": 0.00, "max": 0.05},
+        "cash":        {"min": 0.00, "max": 0.05},
+        "alternative": {"min": 0.00, "max": 0.10},
+        "other":       {"min": 0.00, "max": 0.15}
+      }
+    },
+    "9": {
+      "source": "config.py:RISK_BUCKETS_LABELS[9]",
+      "buckets_legacy_es": {
+        "RV":           {"min": 0.95, "max": 1.00},
+        "RF":           {"min": 0.00, "max": 0.05},
+        "Mixto":        {"min": 0.00, "max": 0.05},
+        "Monetario":    {"min": 0.00, "max": 0.00},
+        "Alternativos": {"min": 0.00, "max": 0.05},
+        "Otros":        {"min": 0.00, "max": 0.05}
+      },
+      "buckets_canonical_v1": {
+        "equity":      {"min": 0.95, "max": 1.00},
+        "bond":        {"min": 0.00, "max": 0.05},
+        "cash":        {"min": 0.00, "max": 0.00},
+        "alternative": {"min": 0.00, "max": 0.05},
+        "other":       {"min": 0.00, "max": 0.05}
+      }
+    },
+    "10": {
+      "source": "config.py:RISK_BUCKETS_LABELS[10]",
+      "buckets_legacy_es": {
+        "RV":           {"min": 0.95, "max": 1.00},
+        "RF":           {"min": 0.00, "max": 0.05},
+        "Mixto":        {"min": 0.00, "max": 0.05},
+        "Monetario":    {"min": 0.00, "max": 0.05},
+        "Alternativos": {"min": 0.00, "max": 0.05},
+        "Otros":        {"min": 0.00, "max": 0.00}
+      },
+      "buckets_canonical_v1": {
+        "equity":      {"min": 0.95, "max": 1.00},
+        "bond":        {"min": 0.00, "max": 0.05},
+        "cash":        {"min": 0.00, "max": 0.05},
+        "alternative": {"min": 0.00, "max": 0.05},
+        "other":       {"min": 0.00, "max": 0.00}
+      },
+      "user_reported_runtime_state": {
+        "note": "Causa reportada por el usuario indica que en runtime P10 se está validando con equity min=1.00 y bond/cash/other/alternative max=0. Este snapshot refleja el SEED local; si el doc Firestore vivo está más restrictivo, debe re-capturarse antes de write. La propuesta de patch P10 (RV 0.95-1.00, RF 0-0.03, etc.) resuelve ambas situaciones porque relaja los máximos respecto al seed y respecto a la versión más estricta reportada."
+      }
+    }
+  },
+  "context_payload_that_fails_today": {
+    "profile_id": 10,
+    "actual_bucket_exposure": {
+      "equity": 0.975607,
+      "bond":   0.001692,
+      "cash":   0.020473,
+      "other":  0.002228
+    },
+    "observed_status": "fallback_non_compliant",
+    "observed_violations": [
+      {"code": "BUCKET_MIN_VIOLATION", "bucket": "equity"},
+      {"code": "BUCKET_MAX_VIOLATION", "bucket": "bond"},
+      {"code": "BUCKET_MAX_VIOLATION", "bucket": "cash"},
+      {"code": "BUCKET_MAX_VIOLATION", "bucket": "other"}
+    ]
+  },
+  "guardrails_observed": {
+    "BDB_FONDOS_CORE": "no tocado",
+    "funds_core_v1": "no tocado",
+    "suitability_engine_py": "no tocado",
+    "compatible_profiles": "no tocado",
+    "fondos_individuales": "no tocado",
+    "manual_costs_retrocesiones": "no tocado",
+    "hosting_deploy": "no ejecutado",
+    "firestore_writes": "no ejecutado",
+    "commits": "no ejecutados"
+  }
+}
