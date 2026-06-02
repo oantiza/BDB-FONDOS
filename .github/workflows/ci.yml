@@ -28,6 +28,7 @@ jobs:
           tests/test_bucket_vectors_single_source.py
           tests/test_unified_constraints_flag.py
           tests/test_constraints_builder_real_asset.py
+          tests/test_unified_constraints_contract.py
           tests/test_suitability_parity_golden.py
 
   frontend:

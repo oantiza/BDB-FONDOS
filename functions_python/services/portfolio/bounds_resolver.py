@@ -20,6 +20,15 @@ logger = logging.getLogger(__name__)
 # Vocabulario canónico (D3: alternative+real_asset -> Alternativos; D1a: Mixto via look-through).
 CANONICAL_BUCKETS = ("RV", "RF", "Monetario", "Alternativos", "Otros")
 
+V1_TO_CANONICAL_BUCKET = {
+    "equity": "RV",
+    "bond": "RF",
+    "cash": "Monetario",
+    "alternative": "Alternativos",
+    "real_asset": "Alternativos",
+    "other": "Otros",
+}
+
 
 class ConstraintError(ValueError):
     """Contradicción irreconciliable entre perfil y override (min > max)."""
@@ -85,6 +94,55 @@ def resolve_effective_bounds(profile_bounds, overrides=None):
         effective[bucket] = {"min": eff_min, "max": eff_max}
 
     return effective, ignored
+
+
+def canonicalize_bucket_bounds_v1(bucket_bounds_v1):
+    """Convierte bucket_bounds_v1 al vocabulario canonico.
+
+    alternative y real_asset se fusionan como Alternativos usando narrowing
+    restrictivo: mayor min y menor max. Asi no se descarta ninguna entrada V1.
+    """
+    if not isinstance(bucket_bounds_v1, dict):
+        return {}
+
+    overrides = {}
+    alternative_parts = []
+
+    for v1_key, canonical_bucket in V1_TO_CANONICAL_BUCKET.items():
+        raw_bound = bucket_bounds_v1.get(v1_key)
+        if raw_bound is None:
+            continue
+
+        min_v, max_v = _coerce_bound(raw_bound)
+        if min_v is None and max_v is None:
+            continue
+
+        if canonical_bucket == "Alternativos":
+            alternative_parts.append((v1_key, min_v, max_v))
+            continue
+
+        overrides[canonical_bucket] = {"min": min_v, "max": max_v}
+
+    if alternative_parts:
+        min_candidates = [min_v for _key, min_v, _max_v in alternative_parts if min_v is not None]
+        max_candidates = [max_v for _key, _min_v, max_v in alternative_parts if max_v is not None]
+        merged = {
+            "min": max(min_candidates) if min_candidates else None,
+            "max": min(max_candidates) if max_candidates else None,
+        }
+        if (
+            merged["min"] is not None
+            and merged["max"] is not None
+            and merged["min"] > merged["max"] + 1e-9
+        ):
+            sources = ", ".join(key for key, _min_v, _max_v in alternative_parts)
+            raise ConstraintError(
+                f"Bucket 'Alternativos': override V1 contradictorio ({sources}); "
+                f"min {merged['min']:.4f} > max {merged['max']:.4f}."
+            )
+        overrides["Alternativos"] = merged
+
+    return overrides
 
 
 def build_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v):

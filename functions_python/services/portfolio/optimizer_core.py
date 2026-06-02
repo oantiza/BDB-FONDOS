@@ -23,6 +23,7 @@ from services.feature_flags import resolve_risk_profiles_doc, unified_constraint
 from services.portfolio.bounds_resolver import (
     resolve_effective_bounds,
     build_bucket_vectors,
+    canonicalize_bucket_bounds_v1,
     ConstraintError,
 )
 
@@ -118,13 +119,7 @@ def _build_exposure_vectors(universe, asset_metadata):
 
 
 def _build_profile_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v):
-    return {
-        "RV": eq_v,
-        "RF": bd_v,
-        "Monetario": cs_v,
-        "Alternativos": al_v + ra_v,
-        "Otros": ot_v,
-    }
+    return build_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
 
 
 def _lookup_group_weight(group_data, group_name):
@@ -182,6 +177,31 @@ def _active_bucket_vectors_for_bounds(active_bounds, eq_v, bd_v, cs_v, al_v, ra_
     }
 
 
+def _build_unified_bounds_info(apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1):
+    profile_bounds = dict((current_risk_buckets or {}).get(risk_level_i, {})) if apply_profile else {}
+    canonical_overrides = canonicalize_bucket_bounds_v1(bucket_bounds_v1)
+    effective_bounds, ignored_overrides = resolve_effective_bounds(profile_bounds, canonical_overrides)
+    return {
+        "effective_bounds": effective_bounds,
+        "ignored_overrides": ignored_overrides,
+        "canonical_overrides": canonical_overrides,
+        "bucket_constraints_source": "unified_effective_bounds",
+    }
+
+
+def _unified_explainability_payload(unified_bounds_info):
+    if not unified_bounds_info:
+        return {}
+    return {
+        "effective_bounds": unified_bounds_info.get("effective_bounds") or {},
+        "ignored_overrides": unified_bounds_info.get("ignored_overrides") or [],
+        "canonical_overrides": unified_bounds_info.get("canonical_overrides") or {},
+        "bucket_constraints_source": unified_bounds_info.get(
+            "bucket_constraints_source", "unified_effective_bounds"
+        ),
+    }
+
+
 def _validate_optimizer_result(
     weights,
     universe,
@@ -196,6 +216,7 @@ def _validate_optimizer_result(
     ra_v,
     ot_v,
     tolerance=1e-6,
+    effective_bounds=None,
 ):
     violations = []
     warnings = []
@@ -247,16 +268,22 @@ def _validate_optimizer_result(
         })
 
     active_bounds = {}
-    if bucket_bounds_v1:
+    use_effective_bounds = effective_bounds is not None
+    if use_effective_bounds:
+        active_bounds = effective_bounds or {}
+    elif bucket_bounds_v1:
         active_bounds = bucket_bounds_v1
     elif apply_profile and risk_level_i in (current_risk_buckets or {}):
         active_bounds = current_risk_buckets.get(risk_level_i, {}) or {}
 
     if active_bounds and universe:
         w_arr = _as_weight_array(weights, universe)
-        bucket_vectors = _active_bucket_vectors_for_bounds(
-            active_bounds, eq_v, bd_v, cs_v, al_v, ra_v, ot_v
-        )
+        if use_effective_bounds:
+            bucket_vectors = build_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
+        else:
+            bucket_vectors = _active_bucket_vectors_for_bounds(
+                active_bounds, eq_v, bd_v, cs_v, al_v, ra_v, ot_v
+            )
         for bucket_key, raw_bound in active_bounds.items():
             vec = bucket_vectors.get(bucket_key)
             if vec is None:
@@ -307,7 +334,9 @@ def _coerce_weights_for_universe(weights, universe):
     return coerced
 
 
-def _postprocess_active_bounds(apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1):
+def _postprocess_active_bounds(apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1, effective_bounds=None):
+    if effective_bounds is not None:
+        return effective_bounds or {}
     if isinstance(bucket_bounds_v1, dict) and bucket_bounds_v1:
         return bucket_bounds_v1
     if apply_profile and risk_level_i in (current_risk_buckets or {}):
@@ -354,19 +383,23 @@ def _restore_cutoff_weights_for_bucket_mins(
     al_vec,
     ra_vec,
     ot_vec,
+    effective_bounds=None,
 ):
     if cutoff <= 0:
         return cleaned_weights
 
     active_bounds = _postprocess_active_bounds(
-        apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1
+        apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1, effective_bounds
     )
     if not active_bounds:
         return cleaned_weights
 
-    bucket_vectors = _active_bucket_vectors_for_bounds(
-        active_bounds, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec
-    )
+    if effective_bounds is not None:
+        bucket_vectors = build_bucket_vectors(eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec)
+    else:
+        bucket_vectors = _active_bucket_vectors_for_bounds(
+            active_bounds, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec
+        )
     active_min_bounds = {}
     for bucket_key, raw_bound in active_bounds.items():
         if bucket_vectors.get(bucket_key) is None:
@@ -445,6 +478,7 @@ def _postprocess_result_is_compliant(
     al_vec,
     ra_vec,
     ot_vec,
+    effective_bounds=None,
 ):
     validation = _validate_optimizer_result(
         weights,
@@ -459,6 +493,7 @@ def _postprocess_result_is_compliant(
         al_vec,
         ra_vec,
         ot_vec,
+        effective_bounds=effective_bounds,
     )
     return bool(validation.get("compliant"))
 
@@ -534,10 +569,8 @@ def _build_optimization_context(db, constraints):
         current_risk_buckets = RISK_BUCKETS_LABELS
 
     equity_floor = float(constraints.get("equity_floor", 0.0))
-    bond_cap = float(constraints.get("bond_cap", 1.0))
-    cash_cap = float(constraints.get("cash_cap", 1.0))
 
-    return apply_profile, optimization_mode, lock_mode, fixed_weights, current_risk_buckets, equity_floor, bond_cap, cash_cap
+    return apply_profile, optimization_mode, lock_mode, fixed_weights, current_risk_buckets, equity_floor
 
 
 def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets):
@@ -809,6 +842,7 @@ def _reconcile_bucket_vs_profile(bucket_bounds_v1, current_risk_buckets, risk_le
 def _inject_unified_bounds(
     ef_inst, apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1,
     eq_v, bd_v, cs_v, al_v, ra_v, ot_v,
+    unified_bounds_info=None,
 ):
     """REM-2 (flag `unified_constraints`): inyección ÚNICA de cotas de bucket.
 
@@ -817,20 +851,12 @@ def _inject_unified_bounds(
     a la lógica dual (V1 vs perfil) y a `_reconcile_bucket_vs_profile` cuando el flag
     está ON. Las ampliaciones se reportan en logs (ignored_overrides), nunca clamp mudo.
     """
-    profile_bounds = dict(current_risk_buckets.get(risk_level_i, {})) if apply_profile else {}
+    info = unified_bounds_info or _build_unified_bounds_info(
+        apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1
+    )
+    effective = info.get("effective_bounds") or {}
+    ignored = info.get("ignored_overrides") or []
 
-    # Mapear overrides V1 (equity/bond/cash/alternative/real_asset/other) al vocab canónico.
-    v1 = bucket_bounds_v1 if isinstance(bucket_bounds_v1, dict) else {}
-    _v1_to_canon = {
-        "equity": "RV", "bond": "RF", "cash": "Monetario",
-        "alternative": "Alternativos", "real_asset": "Alternativos", "other": "Otros",
-    }
-    overrides = {}
-    for v1_key, canon in _v1_to_canon.items():
-        if v1.get(v1_key) is not None and canon not in overrides:
-            overrides[canon] = v1.get(v1_key)
-
-    effective, ignored = resolve_effective_bounds(profile_bounds, overrides)
     if ignored:
         logger.warning("[Optimizer][unified] ignored_overrides (ampliaciones NO aplicadas): %s", ignored)
 
@@ -844,7 +870,7 @@ def _inject_unified_bounds(
             ef_inst.add_constraint(lambda w, v=vec, m=b_min: w @ v >= m)
         if b_max is not None and b_max < 1.0 - 1e-6:
             ef_inst.add_constraint(lambda w, v=vec, m=b_max: w @ v <= m)
-    return ignored
+    return info
 
 
 def _apply_standard_constraints(
@@ -865,6 +891,7 @@ def _apply_standard_constraints(
     ot_v,
     bucket_bounds_v1=None,
     unified=False,
+    unified_bounds_info=None,
 ):
     """
     FASE 6: Inyección de Restricciones Efectivas al Solver (PyPortfolioOpt).
@@ -876,6 +903,7 @@ def _apply_standard_constraints(
     - Nivel 3: Risk Profile Buckets (Bandas permitidas por tipo de activo base)
     """
     universe = ef_inst.tickers
+    constraint_info = None
     for isin in locked_assets or []:
         if isin in universe:
             idx = universe.index(isin)
@@ -896,9 +924,10 @@ def _apply_standard_constraints(
     # REM-2: ruta UNIFICADA (flag ON) — un único inyector que fusiona perfil + overrides
     # (narrowing-only, A5) vía build_bucket_vectors. Flag OFF -> ruta dual heredada (abajo).
     if unified:
-        _inject_unified_bounds(
+        constraint_info = _inject_unified_bounds(
             ef_inst, apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1,
             eq_v, bd_v, cs_v, al_v, ra_v, ot_v,
+            unified_bounds_info=unified_bounds_info,
         )
 
     # Canonical constraints_v1 bucket bounds (applied sobre exposure_v2 agregado).
@@ -969,11 +998,13 @@ def _apply_standard_constraints(
     elif apply_profile and _v1_has_active_bounds:
         logger.info("ℹ️ [Optimizer] Profile bucket constraints SKIPPED: bucket_bounds_v1 already active")
 
+    return constraint_info
+
 def _check_feasibility_and_autoexpand(
     db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
     eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
     bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
-    candidate_funds=None, bucket_bounds_v1=None
+    candidate_funds=None, bucket_bounds_v1=None, unified=False, unified_bounds_info=None
 ):
     """
     FASE 7: Predicción de Factibilidad (Floor Checks).
@@ -1077,7 +1108,8 @@ def _check_feasibility_and_autoexpand(
             
             _apply_standard_constraints(
                 ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets, 
-                fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1
+                fixed_weights, asset_metadata, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec,
+                bucket_bounds_v1, unified=unified, unified_bounds_info=unified_bounds_info
             )
             solver_path = "auto_expand_then_solve"
             
@@ -1108,6 +1140,8 @@ def _run_solver(
     bucket_bounds_v1=None,
     objective=None,
     risk_budget=None,
+    unified=False,
+    unified_bounds_info=None,
 ):
     """
     FASE 8: Ejecución Matemática Final.
@@ -1176,7 +1210,8 @@ def _run_solver(
             _apply_standard_constraints(
                 ef_relaxed, constraints, lock_mode, apply_profile, risk_level_i,
                 locked_assets, fixed_weights, asset_metadata, current_risk_buckets,
-                eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1
+                eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1,
+                unified=unified, unified_bounds_info=unified_bounds_info
             )
 
             raw_weights = ef_relaxed.max_sharpe(risk_free_rate=rf_rate)
@@ -1190,7 +1225,8 @@ def _run_solver(
                 _apply_standard_constraints(
                     ef_minvol, constraints, lock_mode, apply_profile, risk_level_i,
                     locked_assets, fixed_weights, asset_metadata, current_risk_buckets,
-                    eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1
+                    eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1,
+                    unified=unified, unified_bounds_info=unified_bounds_info
                 )
 
                 raw_weights = ef_minvol.min_volatility()
@@ -1204,7 +1240,7 @@ def _run_solver(
     return ef, raw_weights, solver_path, feasibility
 
 
-def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1=None):
+def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1=None, effective_bounds=None):
     """
     FASE 9: Limpieza, Degradación Graciosa y Asignación Final.
     [PRECEDENCIA CANÓNICA] Nivel 7: Fallbacks / Degradaciones.
@@ -1239,6 +1275,7 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             al_vec,
             ra_vec,
             ot_vec,
+            effective_bounds=effective_bounds,
         )
         weights = _normalize(cleaned_weights)
         if not _postprocess_result_is_compliant(
@@ -1254,6 +1291,7 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             al_vec,
             ra_vec,
             ot_vec,
+            effective_bounds=effective_bounds,
         ):
             raw_weight_map = _normalize(_coerce_weights_for_universe(raw_weights, universe))
             if _postprocess_result_is_compliant(
@@ -1269,6 +1307,7 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
                 al_vec,
                 ra_vec,
                 ot_vec,
+                effective_bounds=effective_bounds,
             ):
                 weights = raw_weight_map
     else:
@@ -1276,9 +1315,17 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
         allowed_universe = []
         score_by_isin = {}
 
-        if apply_profile and risk_level_i in current_risk_buckets:
+        if effective_bounds is not None and effective_bounds:
+            bucket_cfg = effective_bounds
+            profile_vectors = build_bucket_vectors(eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec)
+        elif apply_profile and risk_level_i in current_risk_buckets:
             bucket_cfg = current_risk_buckets[risk_level_i]
             profile_vectors = _build_profile_bucket_vectors(eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec)
+        else:
+            bucket_cfg = None
+            profile_vectors = None
+
+        if bucket_cfg and profile_vectors:
             bucket_midpoints = {}
             bucket_caps = {}
             for bucket_name in ["RV", "RF", "Monetario", "Alternativos", "Otros"]:
@@ -1361,7 +1408,7 @@ def run_optimization(
     try:
         # FASE 1: Contexto Global
         (apply_profile, optimization_mode, lock_mode, fixed_weights, 
-         current_risk_buckets, equity_floor, bond_cap, cash_cap) = _build_optimization_context(db, constraints)
+         current_risk_buckets, equity_floor) = _build_optimization_context(db, constraints)
         locks_v1 = (constraints_v1 or {}).get("locks", {}) or {}
         flags_v1 = (constraints_v1 or {}).get("flags", {}) or {}
         bucket_bounds_v1 = (constraints_v1 or {}).get("bucket_bounds", {}) or {}
@@ -1427,29 +1474,36 @@ def run_optimization(
         # REM-4 (C6): bajo el flag `unified_constraints`, el equity_floor TÉCNICO que alimentan el
         # precheck y el auto-expand se DERIVA del rv_min EFECTIVO (perfil RV ∩ override equity), no de
         # una constante separada (A2). Flag OFF -> se conserva el valor heredado (dormante, 0.0).
-        if unified_constraints_enabled(db) and apply_profile and risk_level_i in current_risk_buckets:
-            try:
-                _eff_rv, _ = resolve_effective_bounds(
-                    {"RV": current_risk_buckets[risk_level_i].get("RV")},
-                    {"RV": bucket_bounds_v1.get("equity")} if isinstance(bucket_bounds_v1, dict) else {},
-                )
-                _rv_min = (_eff_rv.get("RV") or {}).get("min")
-                if _rv_min:
-                    equity_floor = float(_rv_min)
-            except Exception as _e_ef:
-                logger.info("[Optimizer][unified] no se pudo derivar equity_floor de rv_min: %s", _e_ef)
+        unified = unified_constraints_enabled(db)
+        unified_bounds_info = (
+            _build_unified_bounds_info(apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1)
+            if unified
+            else None
+        )
+        unified_effective_bounds = (
+            (unified_bounds_info or {}).get("effective_bounds") if unified else None
+        )
+        if unified and unified_bounds_info:
+            _rv_min = ((unified_bounds_info.get("effective_bounds") or {}).get("RV") or {}).get("min")
+            if _rv_min is not None:
+                equity_floor = float(_rv_min)
 
         # FASE 5.5b: Feasibility Pre-Check (Phase 1 — deterministic BLOCK detection)
         _precheck_bounds = {}
-        if bucket_bounds_v1 and isinstance(bucket_bounds_v1, dict):
+        if unified:
+            _precheck_bounds = unified_effective_bounds or {}
+        elif bucket_bounds_v1 and isinstance(bucket_bounds_v1, dict):
             _precheck_bounds = bucket_bounds_v1
         elif apply_profile and risk_level_i in current_risk_buckets:
             _precheck_bounds = current_risk_buckets[risk_level_i]
 
-        _precheck_exposure = {
-            "equity": eq_vec, "bond": bd_vec, "cash": cs_vec,
-            "alternative": al_vec, "real_asset": ra_vec, "other": ot_vec,
-        }
+        if unified:
+            _precheck_exposure = build_bucket_vectors(eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec)
+        else:
+            _precheck_exposure = {
+                "equity": eq_vec, "bond": bd_vec, "cash": cs_vec,
+                "alternative": al_vec, "real_asset": ra_vec, "other": ot_vec,
+            }
 
         precheck_result = run_feasibility_precheck(
             universe=universe,
@@ -1464,6 +1518,12 @@ def run_optimization(
 
         if not precheck_result["is_feasible"]:
             first_block = precheck_result["blocks"][0]
+            precheck_explainability = {
+                "precheck_blocked": True,
+                "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
+            }
+            if unified:
+                precheck_explainability.update(_unified_explainability_payload(unified_bounds_info))
             return {
                 "api_version": "optimizer_v4",
                 "status": "infeasible",
@@ -1472,10 +1532,7 @@ def run_optimization(
                 "weights": {},
                 "metrics": {},
                 "frontier_points": frontier_points,
-                "explainability": {
-                    "precheck_blocked": True,
-                    "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
-                },
+                "explainability": precheck_explainability,
             }
 
         # Main Base Solver Instantiation
@@ -1484,7 +1541,7 @@ def run_optimization(
             ef.add_objective(objective_functions.L2_reg, gamma=gamma)
             
         # FASE 5.5: Reconcile bucket_bounds_v1 vs Risk Profile to avoid silent CVXPY infeasibility
-        if apply_profile and bucket_bounds_v1 and risk_level_i in current_risk_buckets:
+        if (not unified) and apply_profile and bucket_bounds_v1 and risk_level_i in current_risk_buckets:
             current_risk_buckets = _reconcile_bucket_vs_profile(
                 bucket_bounds_v1, current_risk_buckets, risk_level_i
             )
@@ -1492,11 +1549,11 @@ def run_optimization(
         # FASE 6: Constraints Injection
         # REM-2: bajo flag `unified_constraints` se usa el inyector ÚNICO (perfil + overrides
         # fusionados narrowing-only). Flag OFF -> ruta dual heredada (comportamiento actual).
-        unified = unified_constraints_enabled(db)
         _apply_standard_constraints(
             ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets,
             fixed_weights, asset_metadata, current_risk_buckets,
-            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1, unified=unified
+            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1,
+            unified=unified, unified_bounds_info=unified_bounds_info
         )
         
         # FASE 7: Feasibility & Auto-Expand Check
@@ -1506,7 +1563,8 @@ def run_optimization(
         ) = _check_feasibility_and_autoexpand(
             db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
             eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
-            bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets, candidate_funds, bucket_bounds_v1
+            bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
+            candidate_funds, bucket_bounds_v1, unified=unified, unified_bounds_info=unified_bounds_info
         )
         
         if not is_feasible:
@@ -1529,13 +1587,15 @@ def run_optimization(
             ef, raw_weights, solver_path, solver_feasibility = _run_solver(
                 ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe,
                 lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets,
-                eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1, objective, risk_budget_v1
+                eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1, objective, risk_budget_v1,
+                unified=unified, unified_bounds_info=unified_bounds_info
             )
         else:
             raw_weights = None
             solver_feasibility = {}
 
         if solver_path == "infeasible_efficient_risk":
+            solver_explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
             return {
                 "api_version": "optimizer_v4",
                 "status": "infeasible_constraints",
@@ -1544,12 +1604,14 @@ def run_optimization(
                 "feasibility": solver_feasibility,
                 "weights": {},
                 "warnings": [solver_feasibility.get("reason", "efficient_risk infeasible")],
+                "explainability": solver_explainability,
             }
 
         # FASE 9: Post-Processing & Normalization
         weights = _postprocess_weights(
             ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, 
-            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1
+            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights,
+            bucket_bounds_v1, effective_bounds=unified_effective_bounds if unified else None
         )
 
         # FASE 10: Formatting Metrics & Output
@@ -1607,7 +1669,9 @@ def run_optimization(
             binding_constraints.append("Geographic limits applied on V2-first region exposure")
         if apply_profile and risk_level_i <= 3: binding_constraints.append("Emerging markets capped at 5%")
         _v1_bounds_active = any(isinstance(v, dict) and (v.get("min") is not None or v.get("max") is not None) for v in (bucket_bounds_v1 or {}).values())
-        if _v1_bounds_active:
+        if unified:
+            binding_constraints.append("unified effective bucket bounds applied on canonical portfolio_exposure_v2")
+        elif _v1_bounds_active:
             binding_constraints.append("constraints_v1 bucket_bounds applied on portfolio_exposure_v2 (canonical, profile buckets skipped)")
         elif apply_profile:
             binding_constraints.append("current_risk_buckets applied as legacy fallback (no bucket_bounds_v1)")
@@ -1627,7 +1691,11 @@ def run_optimization(
             "binding_constraints": binding_constraints,
             "constraints_v1_enabled": bool(constraints_v1),
             "constraints_v1_profile_id": constraints_v1.get("profile_id"),
-            "bucket_constraints_source": "bucket_bounds_v1" if _v1_bounds_active else "current_risk_buckets_legacy",
+            "bucket_constraints_source": (
+                "unified_effective_bounds"
+                if unified
+                else ("bucket_bounds_v1" if _v1_bounds_active else "current_risk_buckets_legacy")
+            ),
             "constraint_hierarchy": "portfolio_exposure_v2 > classification_v2 > seed/config > legacy",
             "data_readiness": {
                 "universe_size": len(universe),
@@ -1644,6 +1712,9 @@ def run_optimization(
             "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
 
+        if unified:
+            explainability.update(_unified_explainability_payload(unified_bounds_info))
+
         final_validation = _validate_optimizer_result(
             weights,
             universe,
@@ -1657,6 +1728,7 @@ def run_optimization(
             al_vec,
             ra_vec,
             ot_vec,
+            effective_bounds=unified_effective_bounds if unified else None,
         )
 
         # Status honesto: si el solver usó fallback, informar.
@@ -1721,6 +1793,7 @@ def run_optimization(
             "effective_start_date": effective_start_date,
             "observations": observations,
             "explainability": explainability,
+            "ignored_overrides": (unified_bounds_info or {}).get("ignored_overrides", []) if unified else [],
             "warnings": final_warnings,
         }
 

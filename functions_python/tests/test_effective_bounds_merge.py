@@ -7,6 +7,7 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 import pytest  # noqa: E402
 from services.portfolio.bounds_resolver import (  # noqa: E402
     resolve_effective_bounds,
+    canonicalize_bucket_bounds_v1,
     ConstraintError,
 )
 
@@ -59,3 +60,37 @@ def test_override_on_unbounded_bucket_applies():
     eff, ignored = resolve_effective_bounds(PROFILE, {"Alternativos": {"max": 0.10}})
     assert eff["Alternativos"]["max"] == 0.10
     assert ignored == []
+
+
+def test_v1_alternative_maps_to_alternativos():
+    overrides = canonicalize_bucket_bounds_v1({"alternative": {"min": 0.05, "max": 0.20}})
+    assert overrides == {"Alternativos": {"min": 0.05, "max": 0.20}}
+
+
+def test_v1_real_asset_maps_to_alternativos():
+    overrides = canonicalize_bucket_bounds_v1({"real_asset": {"min": 0.02, "max": 0.15}})
+    assert overrides == {"Alternativos": {"min": 0.02, "max": 0.15}}
+
+
+def test_v1_alternative_and_real_asset_merge_restrictively():
+    overrides = canonicalize_bucket_bounds_v1({
+        "alternative": {"min": 0.05, "max": 0.40},
+        "real_asset": {"min": 0.10, "max": 0.30},
+    })
+    assert overrides["Alternativos"] == {"min": 0.10, "max": 0.30}
+
+
+def test_v1_widening_after_canonical_mapping_is_reported():
+    overrides = canonicalize_bucket_bounds_v1({"alternative": {"min": 0.05, "max": 0.50}})
+    eff, ignored = resolve_effective_bounds(
+        {"Alternativos": {"min": 0.10, "max": 0.30}},
+        overrides,
+    )
+    assert eff["Alternativos"] == {"min": 0.10, "max": 0.30}
+    assert {
+        (entry["bucket"], entry["field"], entry["reason"])
+        for entry in ignored
+    } == {
+        ("Alternativos", "min", "widening_not_allowed"),
+        ("Alternativos", "max", "widening_not_allowed"),
+    }
