@@ -109,3 +109,14 @@ def get_economic_bucket(asset_meta: Dict[str, Any]) -> str:
         return "moderate_allocation"
 
     return "alternatives_limited"
+
+
+def compute_compatible_profiles(asset_meta: Dict[str, Any]) -> list:
+    """Lista canónica de perfiles (1-10) para los que el fondo es elegible.
+
+    FUENTE ÚNICA de `classification_v2.compatible_profiles`: la usan tanto la
+    migración (migrate_suitability_v2) como los tests de paridad y el monitor de
+    deriva (REM-1). Así la generación, la validación en CI y el chequeo en vivo
+    comparten exactamente la misma definición.
+    """
+    return [n for n in range(1, 11) if is_fund_eligible_for_profile(asset_meta, n)[0]]

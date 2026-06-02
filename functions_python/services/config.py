@@ -49,27 +49,15 @@ MIN_ASSETS_DEFAULT = 8
 # ==========================================
 # [PRECEDENCIA CANÓNICA]: Nivel 3 - Contornos de Negocio.
 # NOTA CRÍTICA: La ÚNICA FUENTE DE VERDAD REAL para la política de perfiles es FIRESTORE.
-# Estas variables (EQUITY_FLOOR, BOND_CAP, CASH_CAP, RISK_TARGETS) actúan SOLAMENTE COMO SEED 
-# (semilla estática) en caso de fallo de lectura o BD vacía. 
-# Ninguna decisión final de negocio debería depender de modificar estas líneas a largo plazo.
-
-# equity_floor define el % mínimo de renta variable (equity) ponderado por pesos. (SEED)
-EQUITY_FLOOR = {
-    1: 0.05,
-    2: 0.10,
-    3: 0.20,
-    4: 0.30,
-    5: 0.40,
-    6: 0.55,
-    7: 0.65,
-    8: 0.75,
-    9: 0.85,
-    10: 0.98,
-}
-
-# Caps opcionales sugeridos para perfiles altos. (SEED)
-BOND_CAP = {8: 0.25, 9: 0.18, 10: 0.00}
-CASH_CAP = {8: 0.12, 9: 0.10, 10: 0.02}
+# RISK_TARGETS actúa SOLAMENTE COMO SEED (semilla estática) en caso de fallo de lectura o BD vacía.
+#
+# REM-4 (A2/A3) — EQUITY_FLOOR, BOND_CAP y CASH_CAP ELIMINADAS:
+#   * EQUITY_FLOOR era redundante con la banda RV del perfil: ambos operan sobre la MISMA
+#     exposición económica (w·eq_v, look-through). El "equity floor técnico" para
+#     precheck/auto-expand se DERIVA del rv_min efectivo en optimizer_core, no de una
+#     constante separada (evita una 2ª política sobre el mismo eje).
+#   * BOND_CAP/CASH_CAP eran código muerto y CONTRADECÍAN los máximos de RF/Monetario de
+#     RISK_BUCKETS_LABELS. Los topes reales viven en los buckets del perfil.
 
 # Volatilidad anual explícita objetivo para cada perfil. (SEED)
 RISK_TARGETS = {
@@ -89,9 +77,6 @@ CANONICAL_RISK_PROFILE_DOC = "system_settings/risk_profiles"
 PROFILE_POLICY_SEED_VERSION = "risk_profiles_seed_v1"
 # Grouped fallback payload: useful for future canonical profile assembly without breaking legacy imports today.
 PROFILE_POLICY_SEED = {
-    "equity_floor": EQUITY_FLOOR,
-    "bond_cap": BOND_CAP,
-    "cash_cap": CASH_CAP,
     "risk_targets": RISK_TARGETS,
 }
 # Legacy module-level constants remain available for optimizer imports.

@@ -19,6 +19,12 @@ from services.config import (
     CUTOFF_DEFAULT,
     RISK_BUCKETS_LABELS,
 )
+from services.feature_flags import resolve_risk_profiles_doc, unified_constraints_enabled
+from services.portfolio.bounds_resolver import (
+    resolve_effective_bounds,
+    build_bucket_vectors,
+    ConstraintError,
+)
 
 from .utils import (
     _to_float,
@@ -510,11 +516,14 @@ def _build_optimization_context(db, constraints):
         apply_profile = False
 
     try:
-        risk_profile_doc = db.collection("system_settings").document("risk_profiles").get()
+        # REM-5A: lectura dual gobernada por el feature flag `unified_constraints`.
+        # Flag OFF (por defecto) -> doc canónico `risk_profiles` (idéntico al comportamiento actual).
+        # Flag ON -> `risk_profiles_staging` si existe; si no, canónico.
+        risk_profile_doc, _rp_source = resolve_risk_profiles_doc(db)
         if risk_profile_doc.exists:
             raw_dic = risk_profile_doc.to_dict()
             current_risk_buckets = {int(k): v for k, v in raw_dic.items()}
-            logger.info("⚡ [Optimizer] Cargados perfiles de riesgo desde Firestore")
+            logger.info("[Optimizer] Cargados perfiles de riesgo desde Firestore (%s)", _rp_source)
         else:
             logger.info("⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
             db_save = {str(k): v for k, v in RISK_BUCKETS_LABELS.items()}
@@ -797,6 +806,47 @@ def _reconcile_bucket_vs_profile(bucket_bounds_v1, current_risk_buckets, risk_le
     return buckets
 
 
+def _inject_unified_bounds(
+    ef_inst, apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1,
+    eq_v, bd_v, cs_v, al_v, ra_v, ot_v,
+):
+    """REM-2 (flag `unified_constraints`): inyección ÚNICA de cotas de bucket.
+
+    Fusiona la banda canónica del perfil con las cotas V1 (que SOLO estrechan; A5)
+    y las inyecta una sola vez vía el mapeo único `build_bucket_vectors`. Sustituye
+    a la lógica dual (V1 vs perfil) y a `_reconcile_bucket_vs_profile` cuando el flag
+    está ON. Las ampliaciones se reportan en logs (ignored_overrides), nunca clamp mudo.
+    """
+    profile_bounds = dict(current_risk_buckets.get(risk_level_i, {})) if apply_profile else {}
+
+    # Mapear overrides V1 (equity/bond/cash/alternative/real_asset/other) al vocab canónico.
+    v1 = bucket_bounds_v1 if isinstance(bucket_bounds_v1, dict) else {}
+    _v1_to_canon = {
+        "equity": "RV", "bond": "RF", "cash": "Monetario",
+        "alternative": "Alternativos", "real_asset": "Alternativos", "other": "Otros",
+    }
+    overrides = {}
+    for v1_key, canon in _v1_to_canon.items():
+        if v1.get(v1_key) is not None and canon not in overrides:
+            overrides[canon] = v1.get(v1_key)
+
+    effective, ignored = resolve_effective_bounds(profile_bounds, overrides)
+    if ignored:
+        logger.warning("[Optimizer][unified] ignored_overrides (ampliaciones NO aplicadas): %s", ignored)
+
+    vectors = build_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
+    for bucket, bnd in effective.items():
+        vec = vectors.get(bucket)
+        if vec is None:
+            continue
+        b_min, b_max = bnd.get("min"), bnd.get("max")
+        if b_min is not None and b_min > 1e-6:
+            ef_inst.add_constraint(lambda w, v=vec, m=b_min: w @ v >= m)
+        if b_max is not None and b_max < 1.0 - 1e-6:
+            ef_inst.add_constraint(lambda w, v=vec, m=b_max: w @ v <= m)
+    return ignored
+
+
 def _apply_standard_constraints(
     ef_inst,
     constraints,
@@ -814,6 +864,7 @@ def _apply_standard_constraints(
     ra_v,
     ot_v,
     bucket_bounds_v1=None,
+    unified=False,
 ):
     """
     FASE 6: Inyección de Restricciones Efectivas al Solver (PyPortfolioOpt).
@@ -842,9 +893,17 @@ def _apply_standard_constraints(
             else:
                 ef_inst.add_constraint(lambda w, i=idx: w[i] >= 0.01)
 
+    # REM-2: ruta UNIFICADA (flag ON) — un único inyector que fusiona perfil + overrides
+    # (narrowing-only, A5) vía build_bucket_vectors. Flag OFF -> ruta dual heredada (abajo).
+    if unified:
+        _inject_unified_bounds(
+            ef_inst, apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1,
+            eq_v, bd_v, cs_v, al_v, ra_v, ot_v,
+        )
+
     # Canonical constraints_v1 bucket bounds (applied sobre exposure_v2 agregado).
     _v1_has_active_bounds = False
-    if isinstance(bucket_bounds_v1, dict):
+    if (not unified) and isinstance(bucket_bounds_v1, dict):
         vector_map = {
             "equity": eq_v,
             "bond": bd_v,
@@ -898,7 +957,7 @@ def _apply_standard_constraints(
         except Exception as e_grp:
             logger.info(f"⚠️ Generic Group Constraint Warning: {e_grp}")
 
-    if apply_profile and risk_level_i in current_risk_buckets and not _v1_has_active_bounds:
+    if (not unified) and apply_profile and risk_level_i in current_risk_buckets and not _v1_has_active_bounds:
         bucket_cfg = current_risk_buckets[risk_level_i]
         profile_vectors = _build_profile_bucket_vectors(eq_v, bd_v, cs_v, al_v, ra_v, ot_v)
         for bucket_name, vec in profile_vectors.items():
@@ -1365,6 +1424,21 @@ def run_optimization(
             "efficient_risk" if apply_profile else "max_sharpe"
         )
 
+        # REM-4 (C6): bajo el flag `unified_constraints`, el equity_floor TÉCNICO que alimentan el
+        # precheck y el auto-expand se DERIVA del rv_min EFECTIVO (perfil RV ∩ override equity), no de
+        # una constante separada (A2). Flag OFF -> se conserva el valor heredado (dormante, 0.0).
+        if unified_constraints_enabled(db) and apply_profile and risk_level_i in current_risk_buckets:
+            try:
+                _eff_rv, _ = resolve_effective_bounds(
+                    {"RV": current_risk_buckets[risk_level_i].get("RV")},
+                    {"RV": bucket_bounds_v1.get("equity")} if isinstance(bucket_bounds_v1, dict) else {},
+                )
+                _rv_min = (_eff_rv.get("RV") or {}).get("min")
+                if _rv_min:
+                    equity_floor = float(_rv_min)
+            except Exception as _e_ef:
+                logger.info("[Optimizer][unified] no se pudo derivar equity_floor de rv_min: %s", _e_ef)
+
         # FASE 5.5b: Feasibility Pre-Check (Phase 1 — deterministic BLOCK detection)
         _precheck_bounds = {}
         if bucket_bounds_v1 and isinstance(bucket_bounds_v1, dict):
@@ -1416,10 +1490,13 @@ def run_optimization(
             )
 
         # FASE 6: Constraints Injection
+        # REM-2: bajo flag `unified_constraints` se usa el inyector ÚNICO (perfil + overrides
+        # fusionados narrowing-only). Flag OFF -> ruta dual heredada (comportamiento actual).
+        unified = unified_constraints_enabled(db)
         _apply_standard_constraints(
-            ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets, 
-            fixed_weights, asset_metadata, current_risk_buckets, 
-            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1
+            ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets,
+            fixed_weights, asset_metadata, current_risk_buckets,
+            eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1, unified=unified
         )
         
         # FASE 7: Feasibility & Auto-Expand Check

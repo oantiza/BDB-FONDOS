@@ -49,7 +49,24 @@ function App() {
 
     const fetchRiskProfiles = async () => {
       try {
-        const docRef = doc(db, 'system_settings', 'risk_profiles');
+        // REM-5A: lectura dual gobernada por el feature flag `unified_constraints`.
+        // Flag OFF (por defecto) -> doc canónico `risk_profiles` (idéntico al comportamiento actual).
+        // Flag ON -> `risk_profiles_staging` si existe; si no, canónico. Coordinado con el backend.
+        let profilesDocId = 'risk_profiles';
+        try {
+          const flagSnap = await getDoc(doc(db, 'system_settings', 'feature_flags'));
+          const unified = flagSnap.exists() && flagSnap.data()?.unified_constraints === true;
+          if (unified) {
+            const stagingSnap = await getDoc(doc(db, 'system_settings', 'risk_profiles_staging'));
+            if (stagingSnap.exists()) {
+              profilesDocId = 'risk_profiles_staging';
+            }
+          }
+        } catch {
+          // Si falla la lectura del flag, nos quedamos en el canónico (seguro).
+        }
+
+        const docRef = doc(db, 'system_settings', profilesDocId);
         const docSnap = await getDoc(docRef);
         if (docSnap.exists()) {
           const data = docSnap.data();
@@ -58,6 +75,7 @@ function App() {
           Object.keys(data).forEach(key => {
             profiles[Number(key)] = data[key];
           });
+          console.log(`[App] Risk profiles cargados desde '${profilesDocId}'.`);
           syncRiskProfilesFromDB(profiles);
         }
       } catch (error: any) {

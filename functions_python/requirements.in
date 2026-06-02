@@ -1,0 +1,37 @@
+# ============================================================================
+# BDB-FONDOS runtime deps (TOP-LEVEL). Fuente mantenible.
+# El lock (requirements.txt) se genera con:  pip-compile requirements.in
+# numpy<2.0.0 es CRÍTICO para compatibilidad con PyPortfolioOpt.
+# ============================================================================
+
+# Core Firebase & APIs
+firebase-functions>=0.2.3
+firebase-admin>=6.5.0
+flask-cors>=4.0.0
+google-genai>=0.1.0
+google-cloud-aiplatform>=1.55.0
+pydantic>=2.0.0
+
+# Data Science & Market Data
+numpy<2.0.0
+pandas>=2.2.0
+scipy>=1.13.0
+scikit-learn>=1.4.0
+yfinance>=0.2.40
+pandas-datareader>=0.10.0
+fredapi>=0.5.2
+
+# Optimización financiera (cvxpy se declara explícito: optimizer_core lo importa directo)
+PyPortfolioOpt>=1.5.5
+cvxpy>=1.4.0
+cvxopt>=1.3.2
+
+# Utilidades, web y PDFs
+requests>=2.31.0
+aiohttp>=3.9.5
+lxml>=5.2.0
+PyPDF2>=3.0.0
+fpdf2>=2.8.0
+matplotlib>=3.8.0
+pyxirr>=0.10.0
+openpyxl>=3.1.0

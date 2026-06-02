@@ -40,7 +40,7 @@ sys.path.append(functions_python_dir)
 
 import firebase_admin
 from firebase_admin import credentials, firestore
-from services.portfolio.suitability_engine import is_fund_eligible_for_profile
+from services.portfolio.suitability_engine import compute_compatible_profiles
 
 def migrate_suitability_v2():
     print("Starting Suitability Migration...")
@@ -62,12 +62,10 @@ def migrate_suitability_v2():
         if not classification_v2:
             continue
             
-        compatible_profiles = []
-        for profile in range(1, 11):
-            is_eligible, _ = is_fund_eligible_for_profile(fund_data, profile)
-            if is_eligible:
-                compatible_profiles.append(profile)
-                
+        # REM-1: fuente única — el mismo helper que validan los tests de paridad (golden)
+        # y el monitor de deriva. Evita que la generación divergir de la regla canónica.
+        compatible_profiles = compute_compatible_profiles(fund_data)
+
         doc_ref = funds_ref.document(doc.id)
         batch.update(doc_ref, {
             "classification_v2.compatible_profiles": compatible_profiles,
