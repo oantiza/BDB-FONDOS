@@ -5,6 +5,9 @@ import copy
 import csv
 import json
 import os
+import shutil
+import subprocess
+import sys
 from contextlib import contextmanager
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,6 +19,21 @@ VERDICT_PASS = "PASS"
 VERDICT_FAIL = "FAIL"
 VERDICT_EXPECTED = "EXPECTED"
 VERDICT_INVESTIGATE = "INVESTIGATE"
+
+FUNCTIONS_ROOT = Path(__file__).resolve().parents[2]
+if str(FUNCTIONS_ROOT) not in sys.path:
+    sys.path.insert(0, str(FUNCTIONS_ROOT))
+
+LIVE_DEFAULT_ASSETS = [
+    "LU0293313671",
+    "LU0117858752",
+    "ES0182105033",
+    "ES0161992005",
+    "ES0142167032",
+    "ES0138936036",
+    "LU0835722488",
+    "LU1066281574",
+]
 
 
 class _Snap:
@@ -95,6 +113,7 @@ def _production_weight_constraints(objective: str = "efficient_risk") -> dict:
 def _case(
     case_id: str,
     risk_level: int,
+    assets: list[str] | None = None,
     constraints: dict | None = None,
     constraints_v1: dict | None = None,
     notes: str = "",
@@ -102,7 +121,7 @@ def _case(
 ) -> dict:
     return {
         "id": case_id,
-        "assets": [
+        "assets": list(assets or [
             "EQ_GROWTH",
             "EQ_VALUE",
             "EQ_QUALITY",
@@ -116,7 +135,7 @@ def _case(
             "ALT_HEDGE",
             "REAL_ASSET",
             "OTHER_ABS",
-        ],
+        ]),
         "risk_level": risk_level,
         "constraints": constraints or _base_constraints(),
         "constraints_v1": constraints_v1 or {},
@@ -183,6 +202,72 @@ def build_cases() -> list[dict]:
             allow_equity_floor_status_diff=True,
         ),
     ])
+    return cases
+
+
+def build_live_cases(
+    assets: list[str],
+    risk_levels: list[int],
+    include_overrides: bool = True,
+    include_fallback: bool = True,
+) -> list[dict]:
+    cases = [
+        _case(
+            f"live_profile_{risk_level}_efficient_risk_no_override",
+            risk_level,
+            assets=assets,
+            constraints=_production_weight_constraints("efficient_risk"),
+            notes="live_neutrality_baseline_efficient_risk_max_weight_0.20",
+        )
+        for risk_level in risk_levels
+    ]
+
+    if include_overrides:
+        cases.extend([
+            _case(
+                "live_profile_5_override_equity_narrow",
+                5,
+                assets=assets,
+                constraints=_production_weight_constraints("efficient_risk"),
+                constraints_v1={"bucket_bounds": {"equity": {"min": 0.50}}},
+                notes="live override narrows RV min",
+            ),
+            _case(
+                "live_profile_5_override_equity_widen",
+                5,
+                assets=assets,
+                constraints=_production_weight_constraints("efficient_risk"),
+                constraints_v1={"bucket_bounds": {"equity": {"min": 0.10, "max": 0.90}}},
+                notes="live override attempts to widen RV bounds",
+            ),
+            _case(
+                "live_profile_5_override_alt_real_caps",
+                5,
+                assets=assets,
+                constraints=_production_weight_constraints("efficient_risk"),
+                constraints_v1={
+                    "bucket_bounds": {
+                        "alternative": {"max": 0.10},
+                        "real_asset": {"max": 0.15},
+                    }
+                },
+                notes="live alternative + real_asset merge into Alternativos",
+            ),
+        ])
+
+    if include_fallback:
+        cases.append(
+            _case(
+                "live_profile_5_no_override_low_vol_fallback",
+                5,
+                assets=assets,
+                constraints=_production_weight_constraints("efficient_risk"),
+                constraints_v1={"risk_budget": {"target_vol": 0.0001}},
+                notes="live fallback/status characterization without bucket overrides",
+                allow_equity_floor_status_diff=True,
+            )
+        )
+
     return cases
 
 
@@ -486,14 +571,26 @@ def _unified_flag(value: str):
             os.environ["UNIFIED_CONSTRAINTS"] = previous
 
 
-def _run_once(case: dict, flag_value: str) -> dict:
+@contextmanager
+def _fixed_live_risk_free_rate(rate: float):
+    from services.data_fetcher import DataFetcher
+
+    original = DataFetcher.get_dynamic_risk_free_rate
+    DataFetcher.get_dynamic_risk_free_rate = lambda self: float(rate)
+    try:
+        yield
+    finally:
+        DataFetcher.get_dynamic_risk_free_rate = original
+
+
+def _run_once(case: dict, flag_value: str, db=None) -> dict:
     import services.portfolio.optimizer_core as optimizer_core
 
     with _unified_flag(flag_value):
         return optimizer_core.run_optimization(
             assets_list=list(case["assets"]),
             risk_level=case["risk_level"],
-            db=_fake_db(),
+            db=db or _fake_db(),
             constraints=copy.deepcopy(case.get("constraints") or {}),
             asset_metadata=copy.deepcopy(case.get("asset_metadata") or {}),
             locked_assets=copy.deepcopy(case.get("locked_assets") or []),
@@ -510,6 +607,164 @@ def run_case(case: dict) -> dict:
     return compare_case_results(case, legacy, unified)
 
 
+def _split_csv(raw: str | None) -> list[str]:
+    if not raw:
+        return []
+    return [item.strip() for item in raw.replace("\n", ",").split(",") if item.strip()]
+
+
+def _load_assets(assets: str | None = None, assets_file: str | None = None) -> list[str]:
+    if assets_file:
+        path = Path(assets_file)
+        raw = path.read_text(encoding="utf-8-sig")
+        if path.suffix.lower() == ".json":
+            parsed = json.loads(raw)
+            if isinstance(parsed, dict):
+                parsed = parsed.get("assets") or parsed.get("isins") or []
+            return [str(item).strip() for item in parsed if str(item).strip()]
+        return _split_csv(raw)
+    parsed_assets = _split_csv(assets)
+    return parsed_assets or list(LIVE_DEFAULT_ASSETS)
+
+
+def _parse_risk_levels(raw: str | None) -> list[int]:
+    levels = [int(item) for item in _split_csv(raw or "1,2,3,4,5,6,7,8,9,10")]
+    invalid = [level for level in levels if level < 1 or level > 10]
+    if invalid:
+        raise ValueError(f"Risk levels must be between 1 and 10: {invalid}")
+    return levels
+
+
+def _stable_json(data: Any) -> str:
+    return json.dumps(data or {}, sort_keys=True, ensure_ascii=False, default=str)
+
+
+def _read_settings_doc(db, doc_id: str) -> tuple[bool, dict]:
+    snap = db.collection("system_settings").document(doc_id).get()
+    return bool(getattr(snap, "exists", False)), (snap.to_dict() or {})
+
+
+def check_live_preflight(db, allow_profile_drift: bool = False) -> dict:
+    canonical_exists, canonical = _read_settings_doc(db, "risk_profiles")
+    staging_exists, staging = _read_settings_doc(db, "risk_profiles_staging")
+    flags_exists, flags = _read_settings_doc(db, "feature_flags")
+    profiles_equal = canonical_exists and staging_exists and _stable_json(canonical) == _stable_json(staging)
+    failures = []
+
+    if not canonical_exists:
+        failures.append("missing_system_settings/risk_profiles")
+    if not staging_exists:
+        failures.append("missing_system_settings/risk_profiles_staging")
+    if canonical_exists and staging_exists and not profiles_equal and not allow_profile_drift:
+        failures.append("risk_profiles_and_staging_differ")
+
+    status = "pass"
+    if failures:
+        status = "fail"
+    elif canonical_exists and staging_exists and not profiles_equal:
+        status = "allowed_profile_drift"
+
+    return {
+        "status": status,
+        "canonical_exists": canonical_exists,
+        "staging_exists": staging_exists,
+        "profiles_equal": profiles_equal,
+        "feature_flags_exists": flags_exists,
+        "remote_unified_constraints": bool(flags.get("unified_constraints", False)) if flags_exists else None,
+        "allow_profile_drift": bool(allow_profile_drift),
+        "failures": failures,
+    }
+
+
+def init_firestore_client():
+    try:
+        import firebase_admin
+        from firebase_admin import credentials, firestore
+
+        if not firebase_admin._apps:
+            key_candidates = [
+                _repo_root() / "serviceAccountKey.json",
+                _repo_root() / "functions_python" / "serviceAccountKey.json",
+                _repo_root() / "functions_python" / "scripts" / "serviceAccountKey.json",
+            ]
+            if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("FIRESTORE_EMULATOR_HOST"):
+                firebase_admin.initialize_app()
+            else:
+                key_path = next((path for path in key_candidates if path.exists()), None)
+                if key_path:
+                    firebase_admin.initialize_app(credentials.Certificate(str(key_path)))
+                else:
+                    firebase_admin.initialize_app()
+        return firestore.client()
+    except Exception as admin_exc:
+        try:
+            return _init_firestore_client_from_gcloud()
+        except Exception as gcloud_exc:
+            raise RuntimeError(
+                f"Firebase Admin credentials failed ({admin_exc}); gcloud token fallback failed ({gcloud_exc})"
+            ) from gcloud_exc
+
+
+def _firebase_project_id() -> str | None:
+    for env_key in ("GOOGLE_CLOUD_PROJECT", "GCLOUD_PROJECT", "FIREBASE_PROJECT_ID"):
+        if os.environ.get(env_key):
+            return os.environ[env_key]
+
+    firebase_rc = _repo_root() / ".firebaserc"
+    if firebase_rc.exists():
+        try:
+            data = json.loads(firebase_rc.read_text(encoding="utf-8"))
+            return ((data.get("projects") or {}).get("default") or "").strip() or None
+        except Exception:
+            return None
+    return None
+
+
+def _gcloud_access_token() -> str | None:
+    executable = shutil.which("gcloud.cmd") or shutil.which("gcloud")
+    if not executable:
+        return None
+    result = subprocess.run(
+        [executable, "auth", "print-access-token"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    token = result.stdout.strip()
+    return token or None
+
+
+def _init_firestore_client_from_gcloud():
+    from google.cloud import firestore as google_firestore
+    from google.oauth2.credentials import Credentials
+
+    project_id = _firebase_project_id()
+    token = _gcloud_access_token()
+    if not project_id:
+        raise RuntimeError("missing Firebase project id")
+    if not token:
+        raise RuntimeError("missing gcloud access token")
+    return google_firestore.Client(project=project_id, credentials=Credentials(token=token))
+
+
+def _build_live_asset_metadata(db, assets: list[str]) -> dict:
+    try:
+        from api.endpoints_portfolio import _build_asset_metadata
+
+        return _build_asset_metadata(db, assets, {})
+    except Exception:
+        from services.data_fetcher import DataFetcher
+
+        return DataFetcher(db).get_asset_metadata(assets)
+
+
+def run_live_case(case: dict, db, risk_free_rate: float = 0.03) -> dict:
+    with _fixed_live_risk_free_rate(risk_free_rate):
+        legacy = _run_once(case, "0", db=db)
+        unified = _run_once(case, "1", db=db)
+    return compare_case_results(case, legacy, unified)
+
+
 def _manifest_path(mode: str) -> Path:
     timestamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
     out_dir = _repo_root() / "artifacts" / "shadow"
@@ -517,7 +772,7 @@ def _manifest_path(mode: str) -> Path:
     return out_dir / f"shadow_{mode}_{timestamp}.json"
 
 
-def write_manifest(case_results: list[dict], mode: str = "deterministic") -> Path:
+def write_manifest(case_results: list[dict], mode: str = "deterministic", metadata: dict | None = None) -> Path:
     summary = summarize(case_results)
     manifest = {
         "generated_at": datetime.now(timezone.utc).isoformat(),
@@ -525,6 +780,8 @@ def write_manifest(case_results: list[dict], mode: str = "deterministic") -> Pat
         "summary": summary,
         "cases": case_results,
     }
+    if metadata:
+        manifest.update(metadata)
     path = _manifest_path(mode)
     path.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     csv_path = path.with_suffix(".csv")
@@ -583,14 +840,94 @@ def run_deterministic() -> tuple[list[dict], Path]:
     return results, manifest_path
 
 
+def run_live(
+    assets: list[str],
+    risk_levels: list[int],
+    db=None,
+    include_overrides: bool = True,
+    include_fallback: bool = True,
+    allow_profile_drift: bool = False,
+    risk_free_rate: float = 0.03,
+) -> tuple[list[dict], Path, dict]:
+    if not assets:
+        raise ValueError("Live shadow requires at least one asset.")
+
+    db = db or init_firestore_client()
+    preflight = check_live_preflight(db, allow_profile_drift=allow_profile_drift)
+    manifest_metadata = {
+        "preflight": preflight,
+        "assets": assets,
+        "assets_count": len(assets),
+        "risk_levels": risk_levels,
+        "include_overrides": include_overrides,
+        "include_fallback": include_fallback,
+        "risk_free_rate": risk_free_rate,
+        "read_only_guards": {
+            "unified_constraints": "env_override_per_run",
+            "risk_free_rate": "fixed_in_harness",
+        },
+    }
+
+    if preflight["status"] == "fail":
+        manifest_path = write_manifest([], mode="live", metadata=manifest_metadata)
+        return [], manifest_path, preflight
+
+    asset_metadata = _build_live_asset_metadata(db, assets)
+    cases = build_live_cases(
+        assets,
+        risk_levels,
+        include_overrides=include_overrides,
+        include_fallback=include_fallback,
+    )
+    results = []
+    for case in cases:
+        case["asset_metadata"] = copy.deepcopy(asset_metadata)
+        results.append(run_live_case(case, db, risk_free_rate=risk_free_rate))
+
+    manifest_metadata.update({
+        "metadata_count": len(asset_metadata),
+        "metadata_missing": [asset for asset in assets if asset not in asset_metadata],
+    })
+    manifest_path = write_manifest(results, mode="live", metadata=manifest_metadata)
+    return results, manifest_path, preflight
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="REM-5B shadow comparator for optimizer unified constraints.")
-    parser.add_argument("--live", action="store_true", help="Reserved for emulator/staging live comparison.")
+    parser.add_argument("--live", action="store_true", help="Run the read-only Firestore/emulator live comparison.")
+    parser.add_argument("--assets", help="Comma-separated ISIN list for live mode.")
+    parser.add_argument("--assets-file", help="File with ISINs as JSON array/object or comma/newline text.")
+    parser.add_argument("--risk-levels", default="1,2,3,4,5,6,7,8,9,10", help="Comma-separated risk levels for live mode.")
+    parser.add_argument("--no-overrides", action="store_true", help="Live mode: skip override characterization cases.")
+    parser.add_argument("--no-fallback", action="store_true", help="Live mode: skip low-vol fallback characterization case.")
+    parser.add_argument("--allow-profile-drift", action="store_true", help="Live mode: run even if staging differs from canonical profiles.")
+    parser.add_argument("--risk-free-rate", type=float, default=0.03, help="Fixed risk-free rate used by live shadow runs.")
     args = parser.parse_args(argv)
 
     if args.live:
-        print("--live is reserved for emulator/staging wiring. Deterministic mode is the REM-5B gate.")
-        return 2
+        assets = _load_assets(args.assets, args.assets_file)
+        risk_levels = _parse_risk_levels(args.risk_levels)
+        try:
+            case_results, manifest_path, preflight = run_live(
+                assets=assets,
+                risk_levels=risk_levels,
+                include_overrides=not args.no_overrides,
+                include_fallback=not args.no_fallback,
+                allow_profile_drift=args.allow_profile_drift,
+                risk_free_rate=args.risk_free_rate,
+            )
+        except Exception as exc:
+            print(
+                "live shadow could not start or complete. Check GOOGLE_APPLICATION_CREDENTIALS, "
+                f"FIRESTORE_EMULATOR_HOST, and Firestore data. Details: {exc}"
+            )
+            return 2
+        print(f"preflight: {preflight['status']} {preflight.get('failures') or ''}")
+        print_summary(case_results, manifest_path)
+        summary = summarize(case_results)
+        if preflight["status"] == "fail":
+            return 2
+        return 1 if summary["fail"] > 0 or summary["investigate"] > 0 else 0
 
     case_results, manifest_path = run_deterministic()
     print_summary(case_results, manifest_path)
