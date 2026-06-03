@@ -12,6 +12,8 @@ sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import services.portfolio.optimizer_core as optimizer_core  # noqa: E402
 from services.portfolio.optimizer_core import (  # noqa: E402
+    _build_unified_bounds_info,
+    _check_feasibility_and_autoexpand,
     _inject_unified_bounds,
     _postprocess_weights,
     _validate_optimizer_result,
@@ -287,3 +289,49 @@ def test_run_optimization_flag_off_precheck_keeps_legacy_v1_bounds(monkeypatch):
     assert "equity" in captured["exposure_vectors"]
     assert "RV" not in captured["exposure_vectors"]
     assert "effective_bounds" not in result["explainability"]
+
+
+def test_unified_equity_floor_infeasible_keeps_explainability():
+    zero = np.zeros(2)
+    profile_bounds = {5: PROFILE_DOC["5"]}
+    unified_info = _build_unified_bounds_info(
+        apply_profile=True,
+        risk_level_i=5,
+        current_risk_buckets=profile_bounds,
+        bucket_bounds_v1={},
+    )
+
+    is_feasible, result, *_rest = _check_feasibility_and_autoexpand(
+        db=_db_with_profiles(),
+        fetcher=MagicMock(),
+        price_data={},
+        universe=["BD1", "BD2"],
+        assets_list=["BD1", "BD2"],
+        apply_profile=True,
+        equity_floor=0.40,
+        max_weight=0.20,
+        eq_vec=zero,
+        locked_assets=[],
+        constraints={"auto_expand_universe": False},
+        asset_metadata={},
+        min_weight=0.0,
+        gamma=1.0,
+        bd_vec=np.ones(2),
+        cs_vec=zero,
+        al_vec=zero,
+        ra_vec=zero,
+        ot_vec=zero,
+        lock_mode="free",
+        risk_level_i=5,
+        fixed_weights={},
+        current_risk_buckets=profile_bounds,
+        candidate_funds=None,
+        bucket_bounds_v1={},
+        unified=True,
+        unified_bounds_info=unified_info,
+    )
+
+    assert is_feasible is False
+    assert result["status"] == "infeasible_equity_floor"
+    assert result["explainability"]["bucket_constraints_source"] == "unified_effective_bounds"
+    assert result["explainability"]["effective_bounds"]["RV"] == {"min": 0.40, "max": 0.60}
