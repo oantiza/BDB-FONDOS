@@ -10,8 +10,8 @@
 - Fondos revisados: **671**
 - Fondos dentro del alcance `Otros`/alternativos/commodities/unknown: **313**
 - Fondos con revision recomendada: **0**
-- Fondos en vigilancia: **74**
-- Deriva `compatible_profiles` poblado vs motor vivo: **3**
+- Fondos en vigilancia: **73**
+- Deriva `compatible_profiles` poblado vs motor vivo: **0**
 - Fondos sin cache `compatible_profiles` poblado: **521**
 - Fondos con `Otros` >= 10%: **21**
 - Fondos con `Otros` >= 50%: **2**
@@ -38,14 +38,12 @@ Estos fondos tienen cache almacenado y difieren de la regla local auditada. No s
 
 | ISIN | Nombre | Tipo | Cache actual | Motor auditado | Motivo |
 | --- | --- | --- | --- | --- | --- |
-| IE00B4XYLM55 | Jupiter Emerging Market Debt Income Fund L EUR Acc | fixed_income | 3,4,5,6,7,8,9,10 | 5,6,7,8,9,10 | COMPATIBLE_PROFILES_POPULATED_DRIFT |
-| IE00B986FT65 | Neuberger Berman Emerging Market Debt - Hard Currency Fund EUR A Accum... | fixed_income | 3,4,5,6,7,8,9,10 | 5,6,7,8,9,10 | COMPATIBLE_PROFILES_POPULATED_DRIFT |
-| LU1061675168 | Goldman Sachs Frontier Markets Debt (Hard Currency) - X Cap EUR (hedge... | fixed_income | 3,4,5,6,7,8,9,10 | 5,6,7,8,9,10 | COMPATIBLE_PROFILES_POPULATED_DRIFT |
+| - | - | - | - | - | - |
 
 ## Artefactos
 
-- JSON: `artifacts\suitability\other_bucket_audit_20260603T162909Z.json`
-- CSV: `artifacts\suitability\other_bucket_audit_20260603T162909Z.csv`
+- JSON: `artifacts\suitability\other_bucket_audit_20260603T165116Z.json`
+- CSV: `artifacts\suitability\other_bucket_audit_20260603T165116Z.csv`
 
 ## Recomendacion
 
