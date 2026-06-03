@@ -1042,6 +1042,7 @@ def _check_feasibility_and_autoexpand(
         if achieved_equity + 0.005 < equity_floor:
             auto_expand = constraints.get("auto_expand_universe", False)
             if not auto_expand:
+                explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
                 return False, {
                     "api_version": "optimizer_v4",
                     "status": "infeasible_equity_floor",
@@ -1049,6 +1050,7 @@ def _check_feasibility_and_autoexpand(
                     "feasibility": {"requested": equity_floor, "achievable": round(achieved_equity, 4)},
                     "weights": {},
                     "warnings": [f"Equity Floor {equity_floor} Unachievable"],
+                    "explainability": explainability,
                 }, None, None, None, None, None, None, None, None, None, None, None, None
 
             logger.info("⚠️ Auto-Expanding Universe...")
@@ -1071,11 +1073,13 @@ def _check_feasibility_and_autoexpand(
                 valid_added = [isin for isin, _ in sorted(valid_added_with_len, key=lambda x: x[1], reverse=True)]
 
             if not valid_added:
+                explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
                 return False, {
                     "api_version": "optimizer_v4",
                     "status": "auto_expand_failed",
                     "message": "No se encontraron fondos válidos para expandir el universo. Pruebe con otros activos.",
                     "weights": {},
+                    "explainability": explainability,
                 }, None, None, None, None, None, None, None, None, None, None, None, None
 
             added_assets = valid_added[:6]
