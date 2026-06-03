@@ -85,6 +85,12 @@ describe('optimizer payload shape — main optimization path', () => {
     expect(source).toMatch(/asset_metadata: assetMetadata/);
   });
 
+  test('manualSwap is display/provenance only, not an optimizer lock', () => {
+    expect(source).toMatch(/const lockedSet = new Set\(portfolio\.filter\(p => p\.isLocked\)\.map\(p => p\.isin\)\)/);
+    expect(source).not.toMatch(/portfolio\.filter\(p => p\.manualSwap \|\| p\.isLocked\)/);
+    expect(source).not.toMatch(/locked_assets:\s*portfolio\.filter\(p => p\.manualSwap\)/);
+  });
+
   test('buildOptimizationPayload conditionally includes tactical_views', () => {
     expect(source).toMatch(/payload\.tactical_views = tacticalViews/);
   });
@@ -140,6 +146,34 @@ describe('optimizer retry path — contractual hardening (resolved known_contrac
     for (const block of retryBlocks) {
       expect(block).toMatch(/locked_assets:/);
     }
+  });
+
+  test('[resolved] infeasible retry expands the asset universe before retrying', () => {
+    const infeasibleIdx = source.indexOf("result.status === 'infeasible'");
+    expect(infeasibleIdx).toBeGreaterThanOrEqual(0);
+
+    const block = source.slice(infeasibleIdx, infeasibleIdx + 3600);
+    expect(block).toMatch(/getMinAssetsNeededFromResult\(result\)/);
+    expect(block).toMatch(/selectAutoExpandCandidates\(/);
+    expect(block).toMatch(/expandedAssets\.push\(candidate\.isin\)/);
+    expect(block).toMatch(/const newPortfolio\s*=/);
+    expect(block).toMatch(/setPortfolio\(newPortfolio\)/);
+    expect(block).toMatch(/auto_expand_universe:\s*true/);
+    expect(block).toMatch(/Hay que modificar la cartera/);
+  });
+
+  test('[resolved] equity-floor retry adds visible RV funds before retrying', () => {
+    const equityIdx = source.indexOf("result.status === 'infeasible_equity_floor'");
+    expect(equityIdx).toBeGreaterThanOrEqual(0);
+
+    const block = source.slice(equityIdx, equityIdx + 4200);
+    expect(block).toMatch(/selectAutoExpandCandidates\(/);
+    expect(block).toMatch(/preferEquity:\s*true/);
+    expect(block).toMatch(/const newPortfolio\s*=/);
+    expect(block).toMatch(/setPortfolio\(newPortfolio\)/);
+    expect(block).toMatch(/assets:\s*expandedAssets/);
+    expect(block).toMatch(/auto_expand_universe:\s*true/);
+    expect(block).toMatch(/He añadido .*fondo\(s\) de RV a la cartera/);
   });
 
   test('[resolved] contract fields preserved via spread: risk_level, profile_id, optimization_mode, constraints, locked_positions', () => {

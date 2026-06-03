@@ -93,6 +93,17 @@ export default function DashboardPage({
     const toast = useToast();
     const [isEditingCapital, setIsEditingCapital] = useState(false);
     const [capitalInputValue, setCapitalInputValue] = useState(totalCapital.toString());
+    const portfolioTableRef = useRef<HTMLDivElement>(null);
+    const [portfolioEditFocus, setPortfolioEditFocus] = useState(false);
+
+    const handleEditCurrentPortfolio = React.useCallback(() => {
+        setPortfolioEditFocus(true);
+        window.setTimeout(() => setPortfolioEditFocus(false), 2800);
+        window.requestAnimationFrame(() => {
+            portfolioTableRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            portfolioTableRef.current?.focus({ preventScroll: true });
+        });
+    }, []);
     // Edit mode for weight inputs. 'free' = current behaviour (others untouched).
     // 'proportional' = changing A by Δ shrinks/grows other unlocked positions
     // pro-rata so Σ pesos stays at 100.
@@ -264,7 +275,8 @@ export default function DashboardPage({
         setTotalCapital,
         proposedPortfolio,
         vipFunds,
-        totalCapital // NEW
+        totalCapital, // NEW
+        onEditPortfolio: handleEditCurrentPortfolio
     });
 
     // Removed global exposure hack
@@ -526,7 +538,12 @@ export default function DashboardPage({
                     )}
 
                     {/* Bottom Row: Portfolio Table */}
-                    <div className="flex-1 overflow-hidden flex flex-col relative rounded-xl border border-slate-100 shadow-sm transition-colors hover:border-slate-200 bg-white">
+                    <div
+                        ref={portfolioTableRef}
+                        tabIndex={-1}
+                        aria-label="Editor de cartera actual"
+                        className={`flex-1 overflow-hidden flex flex-col relative rounded-xl border shadow-sm transition-all duration-300 bg-white outline-none ${portfolioEditFocus ? 'border-blue-300 ring-4 ring-blue-100' : 'border-slate-100 hover:border-slate-200'}`}
+                    >
                         <div className="py-3.5 px-4 bg-[#F8FAFC] border-b border-slate-200/60 flex justify-between items-center z-10">
                             <div className="flex items-center gap-3">
                                 <h3 className="text-[11px] font-bold text-slate-800 uppercase tracking-[0.15em] flex items-center gap-2">
@@ -707,7 +724,7 @@ export default function DashboardPage({
                             </div>
                         </div>
                         <div className="flex-1 overflow-hidden relative">
-                            <PortfolioTable assets={portfolio} totalCapital={totalCapital} onRemove={handleRemoveAsset} onUpdateWeight={handleUpdateWeightSmart} onFundClick={setSelectedFund} onSwap={handleOpenSwap} onToggleLock={handleToggleLock} />
+                            <PortfolioTable assets={portfolio} totalCapital={totalCapital} onRemove={handleRemoveAsset} onUpdateWeight={handleUpdateWeightSmart} onFundClick={setSelectedFund} onSwap={handleOpenSwap} onToggleLock={handleToggleLock} highlightActions={portfolioEditFocus} />
                         </div>
                     </div>
 
@@ -766,6 +783,7 @@ export default function DashboardPage({
                     <ConfirmModal
                         isOpen={confirmDialog.isOpen}
                         title={confirmDialog.title}
+                        subtitle={confirmDialog.subtitle}
                         message={confirmDialog.message}
                         confirmLabel={confirmDialog.confirmLabel}
                         cancelLabel={confirmDialog.cancelLabel}

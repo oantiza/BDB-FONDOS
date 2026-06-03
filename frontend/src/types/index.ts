@@ -291,6 +291,18 @@ export interface SmartPortfolioResponse {
     usable?: boolean;
     message?: string;
     recovery_candidates?: string[];
+    feasibility_precheck?: {
+        blocks?: Array<{
+            code?: string;
+            message?: string;
+            details?: {
+                min_needed?: number;
+                max_weight?: number;
+                n_assets?: number;
+                [key: string]: any;
+            };
+        }>;
+    };
     weights?: Record<string, number>;
     error?: string;
     observations?: number;
