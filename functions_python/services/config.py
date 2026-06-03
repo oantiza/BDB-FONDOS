@@ -92,7 +92,6 @@ RISK_BUCKETS_LABELS = {
     1: {
         "RV": (0.0, 0.10),
         "RF": (0.20, 0.60),
-        "Mixto": (0.0, 0.20),
         "Monetario": (0.40, 0.80),
         "Alternativos": (0.0, 0.10),
         "Otros": (0.0, 0.10),
@@ -100,7 +99,6 @@ RISK_BUCKETS_LABELS = {
     2: {
         "RV": (0.0, 0.15),
         "RF": (0.40, 0.70),
-        "Mixto": (0.0, 0.20),
         "Monetario": (0.20, 0.50),
         "Alternativos": (0.0, 0.10),
         "Otros": (0.0, 0.10),
@@ -108,7 +106,6 @@ RISK_BUCKETS_LABELS = {
     3: {
         "RV": (0.10, 0.25),
         "RF": (0.40, 0.70),
-        "Mixto": (0.10, 0.30),
         "Monetario": (0.10, 0.30),
         "Alternativos": (0.0, 0.15),
         "Otros": (0.0, 0.20),
@@ -116,7 +113,6 @@ RISK_BUCKETS_LABELS = {
     4: {
         "RV": (0.20, 0.40),
         "RF": (0.30, 0.60),
-        "Mixto": (0.20, 0.40),
         "Monetario": (0.0, 0.20),
         "Alternativos": (0.0, 0.20),
         "Otros": (0.0, 0.30),
@@ -124,7 +120,6 @@ RISK_BUCKETS_LABELS = {
     5: {
         "RV": (0.40, 0.60),
         "RF": (0.20, 0.40),
-        "Mixto": (0.20, 0.50),
         "Monetario": (0.0, 0.10),
         "Alternativos": (0.0, 0.20),
         "Otros": (0.0, 0.25),
@@ -132,7 +127,6 @@ RISK_BUCKETS_LABELS = {
     6: {
         "RV": (0.50, 0.75),
         "RF": (0.10, 0.30),
-        "Mixto": (0.10, 0.40),
         "Monetario": (0.0, 0.10),
         "Alternativos": (0.0, 0.20),
         "Otros": (0.0, 0.20),
@@ -140,7 +134,6 @@ RISK_BUCKETS_LABELS = {
     7: {
         "RV": (0.70, 0.90),
         "RF": (0.0, 0.20),
-        "Mixto": (0.0, 0.20),
         "Monetario": (0.0, 0.05),
         "Alternativos": (0.0, 0.15),
         "Otros": (0.0, 0.20),
@@ -148,7 +141,6 @@ RISK_BUCKETS_LABELS = {
     8: {
         "RV": (0.85, 1.00),
         "RF": (0.0, 0.05),
-        "Mixto": (0.0, 0.10),
         "Monetario": (0.0, 0.05),
         "Alternativos": (0.0, 0.10),
         "Otros": (0.0, 0.15),
@@ -156,7 +148,6 @@ RISK_BUCKETS_LABELS = {
     9: {
         "RV": (0.95, 1.00),
         "RF": (0.0, 0.05),
-        "Mixto": (0.0, 0.05),
         "Monetario": (0.0, 0.0),
         "Alternativos": (0.0, 0.05),
         "Otros": (0.0, 0.05),
@@ -164,7 +155,6 @@ RISK_BUCKETS_LABELS = {
     10: {
         "RV": (0.95, 1.00),
         "RF": (0.0, 0.05),
-        "Mixto": (0.0, 0.05),
         "Monetario": (0.0, 0.05),
         "Alternativos": (0.0, 0.05),
         "Otros": (0.0, 0.0),

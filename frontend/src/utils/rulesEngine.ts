@@ -14,6 +14,7 @@ import {
 // ============================================================================
 
 export type AssetClass = "RV" | "RF" | "Monetario" | "Mixto" | "Alternativos" | "Otros";
+export type ConstraintBucket = Exclude<AssetClass, "Mixto">;
 export type Region = "Europe" | "USA" | "Emerging" | "Global";
 
 interface BucketConfig {
@@ -23,14 +24,16 @@ interface BucketConfig {
 
 interface RiskProfileConfig {
   name: string;
-  buckets: Record<AssetClass, BucketConfig>;
+  buckets: Record<ConstraintBucket, BucketConfig> & Partial<Record<"Mixto", BucketConfig>>;
   // Preferencia de estilo para el ranking dentro del bucket
   bias: "Safety" | "Balanced" | "Growth" | "Aggressive";
 }
 
 type RiskProfilesSource = "seed_local" | "firestore" | "backend";
 
-const ASSET_CLASS_ORDER: AssetClass[] = ["RV", "RF", "Monetario", "Mixto", "Alternativos", "Otros"];
+export const DISPLAY_ASSET_CLASS_ORDER: AssetClass[] = ["RV", "RF", "Monetario", "Mixto", "Alternativos", "Otros"];
+export const CONSTRAINT_BUCKET_ORDER: ConstraintBucket[] = ["RV", "RF", "Monetario", "Alternativos", "Otros"];
+const ASSET_CLASS_ORDER = DISPLAY_ASSET_CLASS_ORDER;
 const PROFILE_BIAS_VALUES = new Set<RiskProfileConfig["bias"]>(["Safety", "Balanced", "Growth", "Aggressive"]);
 
 // DEFINICIÓN DE ESTRUCTURAS POR RIESGO (PRESENTATION SEED)
@@ -42,7 +45,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 40, max: 80 },
       "RF": { min: 20, max: 60 },
-      "Mixto": { min: 0, max: 20 },
       "RV": { min: 0, max: 10 },
       "Alternativos": { min: 0, max: 10 },
       "Otros": { min: 0, max: 10 }
@@ -54,7 +56,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 20, max: 50 },
       "RF": { min: 40, max: 70 },
-      "Mixto": { min: 0, max: 20 },
       "RV": { min: 0, max: 15 },
       "Alternativos": { min: 0, max: 10 },
       "Otros": { min: 0, max: 10 }
@@ -66,7 +67,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 10, max: 30 },
       "RF": { min: 40, max: 70 },
-      "Mixto": { min: 10, max: 30 },
       "RV": { min: 10, max: 25 },
       "Alternativos": { min: 0, max: 15 },
       "Otros": { min: 0, max: 20 }
@@ -78,7 +78,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 20 },
       "RF": { min: 30, max: 60 },
-      "Mixto": { min: 20, max: 40 },
       "RV": { min: 20, max: 40 },
       "Alternativos": { min: 0, max: 20 },
       "Otros": { min: 0, max: 30 }
@@ -90,7 +89,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 10 },
       "RF": { min: 20, max: 40 },
-      "Mixto": { min: 20, max: 50 },
       "RV": { min: 40, max: 60 },
       "Alternativos": { min: 0, max: 20 },
       "Otros": { min: 0, max: 25 }
@@ -102,7 +100,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 10 },
       "RF": { min: 10, max: 30 },
-      "Mixto": { min: 10, max: 40 },
       "RV": { min: 50, max: 75 },
       "Alternativos": { min: 0, max: 20 },
       "Otros": { min: 0, max: 20 }
@@ -114,7 +111,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 5 },
       "RF": { min: 0, max: 20 },
-      "Mixto": { min: 0, max: 20 },
       "RV": { min: 70, max: 90 },
       "Alternativos": { min: 0, max: 15 },
       "Otros": { min: 0, max: 20 }
@@ -126,7 +122,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 5 },
       "RF": { min: 0, max: 5 },
-      "Mixto": { min: 0, max: 10 },
       "RV": { min: 85, max: 100 },
       "Alternativos": { min: 0, max: 10 },
       "Otros": { min: 0, max: 15 }
@@ -138,7 +133,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 0 },
       "RF": { min: 0, max: 5 },
-      "Mixto": { min: 0, max: 5 },
       "RV": { min: 95, max: 100 },
       "Alternativos": { min: 0, max: 5 },
       "Otros": { min: 0, max: 5 }
@@ -150,7 +144,6 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     buckets: {
       "Monetario": { min: 0, max: 5 },
       "RF": { min: 0, max: 5 },
-      "Mixto": { min: 0, max: 5 },
       "RV": { min: 95, max: 100 },
       "Alternativos": { min: 0, max: 5 },
       "Otros": { min: 0, max: 0 }
@@ -170,8 +163,8 @@ function cloneRiskProfiles(input: Record<number, RiskProfileConfig>): Record<num
       {
         ...profile,
         buckets: Object.fromEntries(
-          ASSET_CLASS_ORDER.map((assetClass) => [assetClass, { ...profile.buckets[assetClass] }])
-        ) as Record<AssetClass, BucketConfig>,
+          CONSTRAINT_BUCKET_ORDER.map((bucket) => [bucket, { ...profile.buckets[bucket] }])
+        ) as RiskProfileConfig["buckets"],
       },
     ])
   ) as Record<number, RiskProfileConfig>;
@@ -205,7 +198,7 @@ function normalizeRiskProfilePayload(raw: any, fallback: RiskProfileConfig): Ris
   const bucketSource = raw.buckets && typeof raw.buckets === "object" ? raw.buckets : raw;
   if (!bucketSource || typeof bucketSource !== "object") return null;
 
-  const hasKnownBucket = ASSET_CLASS_ORDER.some((assetClass) => bucketSource[assetClass] !== undefined);
+  const hasKnownBucket = CONSTRAINT_BUCKET_ORDER.some((bucket) => bucketSource[bucket] !== undefined);
   if (!hasKnownBucket) return null;
 
   const biasCandidate = typeof raw.bias === "string" && PROFILE_BIAS_VALUES.has(raw.bias as RiskProfileConfig["bias"])
@@ -216,11 +209,11 @@ function normalizeRiskProfilePayload(raw: any, fallback: RiskProfileConfig): Ris
     name: typeof raw.name === "string" && raw.name.trim() ? raw.name : fallback.name,
     bias: biasCandidate,
     buckets: Object.fromEntries(
-      ASSET_CLASS_ORDER.map((assetClass) => [
-        assetClass,
-        normalizeBucketConfig(bucketSource[assetClass], fallback.buckets[assetClass]),
+      CONSTRAINT_BUCKET_ORDER.map((bucket) => [
+        bucket,
+        normalizeBucketConfig(bucketSource[bucket], fallback.buckets[bucket]),
       ])
-    ) as Record<AssetClass, BucketConfig>,
+    ) as RiskProfileConfig["buckets"],
   };
 }
 
@@ -334,6 +327,10 @@ function getAssetClass(f: Fund): AssetClass {
 
   console.warn(`[RulesEngine] Fondo ${f.isin || 'Desconocido'} carece de classification_v2.asset_type. Se degrada a 'Otros' de forma defensiva.`);
   return "Otros";
+}
+
+export function mapDisplayAssetClassToConstraintBucket(assetClass: AssetClass): ConstraintBucket | null {
+  return assetClass === "Mixto" ? null : assetClass;
 }
 
 function getBaseName(name: string): string {
@@ -504,12 +501,12 @@ export function generateSmartPortfolioLocal(
 
 
   // 2. Definir Targets (% del portfolio)
-  let targetPcts: Record<AssetClass, number> = {
-    "RV": 0, "RF": 0, "Monetario": 0, "Mixto": 0, "Alternativos": 0, "Otros": 0
+  let targetPcts: Record<ConstraintBucket, number> = {
+    "RV": 0, "RF": 0, "Monetario": 0, "Alternativos": 0, "Otros": 0
   };
 
   let totalScore = 0;
-  (Object.keys(targetPcts) as AssetClass[]).forEach(cls => {
+  (Object.keys(targetPcts) as ConstraintBucket[]).forEach(cls => {
     // Definimos profile y obtenemos limits asegurando que no explote
     const limits = profile?.buckets?.[cls] || { min: 0, max: 0 };
     let target = (limits.min + limits.max) / 2;
@@ -519,17 +516,17 @@ export function generateSmartPortfolioLocal(
 
   if (totalScore === 0) targetPcts["RF"] = 100;
   else {
-    (Object.keys(targetPcts) as AssetClass[]).forEach(cls => {
+    (Object.keys(targetPcts) as ConstraintBucket[]).forEach(cls => {
       targetPcts[cls] = (targetPcts[cls] / totalScore) * 100;
     });
   }
 
   // 3. Asignar Slots
-  let slots: Record<AssetClass, number> = {
-    "RV": 0, "RF": 0, "Monetario": 0, "Mixto": 0, "Alternativos": 0, "Otros": 0
+  let slots: Record<ConstraintBucket, number> = {
+    "RV": 0, "RF": 0, "Monetario": 0, "Alternativos": 0, "Otros": 0
   };
   let assignedSlots = 0;
-  (Object.keys(slots) as AssetClass[]).forEach(cls => {
+  (Object.keys(slots) as ConstraintBucket[]).forEach(cls => {
     const w = targetPcts[cls];
     let n = Math.round((w / 100) * targetNumFunds);
     if (w > 10 && n === 0) n = 1;
@@ -539,7 +536,7 @@ export function generateSmartPortfolioLocal(
 
   if (assignedSlots !== targetNumFunds) {
     let diff = targetNumFunds - assignedSlots;
-    const dominant = (Object.keys(targetPcts) as AssetClass[]).reduce((a, b) => targetPcts[a] > targetPcts[b] ? a : b);
+    const dominant = (Object.keys(targetPcts) as ConstraintBucket[]).reduce((a, b) => targetPcts[a] > targetPcts[b] ? a : b);
     slots[dominant] += diff;
     if (slots[dominant] < 0) slots[dominant] = 0;
   }
@@ -549,7 +546,7 @@ export function generateSmartPortfolioLocal(
   const usedISINs = new Set<string>();
   const usedNames = new Set<string>();
 
-  (Object.keys(slots) as AssetClass[]).forEach(cls => {
+  (Object.keys(slots) as ConstraintBucket[]).forEach(cls => {
     const numSlots = slots[cls];
     if (numSlots <= 0) return;
 
@@ -592,15 +589,17 @@ export function generateSmartPortfolioLocal(
     // Si se generó por buckets
     let bucketBased = false;
     portfolio.forEach(item => {
-      const cls = getAssetClass(item);
-      if (targetPcts[cls] > 0) bucketBased = true;
+      const cls = mapDisplayAssetClassToConstraintBucket(getAssetClass(item));
+      if (cls && targetPcts[cls] > 0) bucketBased = true;
     });
 
     if (bucketBased) {
       portfolio.forEach(item => {
-        const cls = getAssetClass(item);
-        const fundsInClass = portfolio.filter(p => getAssetClass(p) === cls).length;
-        if (fundsInClass > 0 && targetPcts[cls] > 0) {
+        const cls = mapDisplayAssetClassToConstraintBucket(getAssetClass(item));
+        const fundsInClass = cls
+          ? portfolio.filter(p => mapDisplayAssetClassToConstraintBucket(getAssetClass(p)) === cls).length
+          : 0;
+        if (cls && fundsInClass > 0 && targetPcts[cls] > 0) {
           item.weight = targetPcts[cls] / fundsInClass;
         } else {
           // Fondo inyectado por el fallback Graceful Degradation:
