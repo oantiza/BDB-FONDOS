@@ -65,7 +65,7 @@ def _sanitize_fund_doc(doc_dict: dict) -> dict:
 
 @https_fn.on_call(
     region="europe-west1",
-    memory=options.MemoryOption.MB_256,
+    memory=options.MemoryOption.MB_512,
     cors=cors_config,
 )
 def admin_health(request: https_fn.CallableRequest):
