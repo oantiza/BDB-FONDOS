@@ -1,5 +1,10 @@
 import { describe, it, expect } from "vitest";
-import { generateSmartPortfolioLocal as generateSmartPortfolio } from "./rulesEngine";
+import {
+  CONSTRAINT_BUCKET_ORDER,
+  DISPLAY_ASSET_CLASS_ORDER,
+  generateSmartPortfolioLocal as generateSmartPortfolio,
+  mapDisplayAssetClassToConstraintBucket,
+} from "./rulesEngine";
 import { Fund } from "../types";
 
 describe("rulesEngine", () => {
@@ -35,6 +40,14 @@ describe("rulesEngine", () => {
   const weightsSum = (portfolio: any[]) =>
     portfolio.reduce((s, p) => s + (Number(p.weight) || 0), 0);
 
+  it("keeps Mixto as display-only, outside constraint buckets", () => {
+    expect(DISPLAY_ASSET_CLASS_ORDER).toContain("Mixto");
+    expect(CONSTRAINT_BUCKET_ORDER).not.toContain("Mixto" as any);
+    expect(mapDisplayAssetClassToConstraintBucket("Mixto")).toBeNull();
+    expect(mapDisplayAssetClassToConstraintBucket("RV")).toBe("RV");
+    expect(mapDisplayAssetClassToConstraintBucket("Alternativos")).toBe("Alternativos");
+  });
+
   it("returns exactly N funds when universe is sufficient (hard guarantee)", () => {
     const allRV: Fund[] = Array.from({ length: 200 }, (_, i) =>
       createFund(`RV${i + 1}`, "RV", 0.15, 1.0, 0.08)
@@ -69,12 +82,11 @@ describe("rulesEngine", () => {
     // Monetario min 40% => ceil(0.4*16)=7
     // RF min 20% => ceil(0.2*16)=4
     // RV max 10% => floor(0.1*16)=1
-    // Mixto max 20% => floor(0.2*16)=3
     // Alternativos max 10% => floor(0.1*16)=1
     expect(countByClass(p, "Monetario")).toBeGreaterThanOrEqual(7);
     expect(countByClass(p, "RF")).toBeGreaterThanOrEqual(4);
     expect(countByClass(p, "RV")).toBeLessThanOrEqual(1);
-    expect(countByClass(p, "Mixto")).toBeLessThanOrEqual(3);
+    expect(countByClass(p, "Mixto")).toBe(0);
     expect(countByClass(p, "Alternativos")).toBeLessThanOrEqual(1);
 
     expect(weightsSum(p)).toBeCloseTo(100, 0.5);

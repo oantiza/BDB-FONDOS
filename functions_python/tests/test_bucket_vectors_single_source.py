@@ -5,6 +5,7 @@ import sys
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 
 import numpy as np  # noqa: E402
+from services.config import RISK_BUCKETS_LABELS  # noqa: E402
 from services.portfolio.bounds_resolver import build_bucket_vectors  # noqa: E402
 
 
@@ -13,6 +14,12 @@ def test_keys_are_canonical_without_mixto():
     vecs = build_bucket_vectors(z, z, z, z, z, z)
     assert set(vecs.keys()) == {"RV", "RF", "Monetario", "Alternativos", "Otros"}
     assert "Mixto" not in vecs  # D1a: Mixto via look-through, no es cota
+
+
+def test_seed_profile_bounds_exclude_mixto():
+    for profile in RISK_BUCKETS_LABELS.values():
+        assert set(profile.keys()) == {"RV", "RF", "Monetario", "Alternativos", "Otros"}
+        assert "Mixto" not in profile
 
 
 def test_alternativos_combines_alternative_and_real_asset():
