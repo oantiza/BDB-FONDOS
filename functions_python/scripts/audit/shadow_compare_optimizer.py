@@ -5,6 +5,8 @@ import copy
 import csv
 import json
 import os
+import shutil
+import subprocess
 import sys
 from contextlib import contextmanager
 from datetime import datetime, timezone
@@ -675,24 +677,74 @@ def check_live_preflight(db, allow_profile_drift: bool = False) -> dict:
 
 
 def init_firestore_client():
-    import firebase_admin
-    from firebase_admin import credentials, firestore
+    try:
+        import firebase_admin
+        from firebase_admin import credentials, firestore
 
-    if not firebase_admin._apps:
-        key_candidates = [
-            _repo_root() / "serviceAccountKey.json",
-            _repo_root() / "functions_python" / "serviceAccountKey.json",
-            _repo_root() / "functions_python" / "scripts" / "serviceAccountKey.json",
-        ]
-        if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("FIRESTORE_EMULATOR_HOST"):
-            firebase_admin.initialize_app()
-        else:
-            key_path = next((path for path in key_candidates if path.exists()), None)
-            if key_path:
-                firebase_admin.initialize_app(credentials.Certificate(str(key_path)))
-            else:
+        if not firebase_admin._apps:
+            key_candidates = [
+                _repo_root() / "serviceAccountKey.json",
+                _repo_root() / "functions_python" / "serviceAccountKey.json",
+                _repo_root() / "functions_python" / "scripts" / "serviceAccountKey.json",
+            ]
+            if os.environ.get("GOOGLE_APPLICATION_CREDENTIALS") or os.environ.get("FIRESTORE_EMULATOR_HOST"):
                 firebase_admin.initialize_app()
-    return firestore.client()
+            else:
+                key_path = next((path for path in key_candidates if path.exists()), None)
+                if key_path:
+                    firebase_admin.initialize_app(credentials.Certificate(str(key_path)))
+                else:
+                    firebase_admin.initialize_app()
+        return firestore.client()
+    except Exception as admin_exc:
+        try:
+            return _init_firestore_client_from_gcloud()
+        except Exception as gcloud_exc:
+            raise RuntimeError(
+                f"Firebase Admin credentials failed ({admin_exc}); gcloud token fallback failed ({gcloud_exc})"
+            ) from gcloud_exc
+
+
+def _firebase_project_id() -> str | None:
+    for env_key in ("GOOGLE_CLOUD_PROJECT", "GCLOUD_PROJECT", "FIREBASE_PROJECT_ID"):
+        if os.environ.get(env_key):
+            return os.environ[env_key]
+
+    firebase_rc = _repo_root() / ".firebaserc"
+    if firebase_rc.exists():
+        try:
+            data = json.loads(firebase_rc.read_text(encoding="utf-8"))
+            return ((data.get("projects") or {}).get("default") or "").strip() or None
+        except Exception:
+            return None
+    return None
+
+
+def _gcloud_access_token() -> str | None:
+    executable = shutil.which("gcloud.cmd") or shutil.which("gcloud")
+    if not executable:
+        return None
+    result = subprocess.run(
+        [executable, "auth", "print-access-token"],
+        check=True,
+        capture_output=True,
+        text=True,
+    )
+    token = result.stdout.strip()
+    return token or None
+
+
+def _init_firestore_client_from_gcloud():
+    from google.cloud import firestore as google_firestore
+    from google.oauth2.credentials import Credentials
+
+    project_id = _firebase_project_id()
+    token = _gcloud_access_token()
+    if not project_id:
+        raise RuntimeError("missing Firebase project id")
+    if not token:
+        raise RuntimeError("missing gcloud access token")
+    return google_firestore.Client(project=project_id, credentials=Credentials(token=token))
 
 
 def _build_live_asset_metadata(db, assets: list[str]) -> dict:
