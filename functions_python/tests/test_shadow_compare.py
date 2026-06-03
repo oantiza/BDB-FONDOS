@@ -38,8 +38,8 @@ def _response(
         "solver_path": solver_path,
         "applicable": status.endswith("compliant"),
         "usable": status.endswith("compliant"),
-        "weights": weights or {"A": 0.5, "B": 0.5},
-        "portfolio_allocation": allocation or {"RV": 0.5, "RF": 0.5},
+        "weights": {"A": 0.5, "B": 0.5} if weights is None else weights,
+        "portfolio_allocation": {"RV": 0.5, "RF": 0.5} if allocation is None else allocation,
         "metrics": {"return": 0.05, "volatility": 0.10, "sharpe": 0.50},
         "violations": [],
         "explainability": explainability or {},
@@ -72,10 +72,26 @@ def test_weight_diff_with_override_is_expected():
 
 def test_status_diff_due_to_equity_floor_is_expected():
     legacy = _response(status="optimal_compliant", weights={"A": 0.5, "B": 0.5})
-    unified = _response(status="infeasible_equity_floor", weights={})
+    unified = _response(status="infeasible_equity_floor", weights={}, allocation={})
     result = compare_case_results(_case(allow_equity_floor_status_diff=True), legacy, unified)
     assert result["verdict"] == VERDICT_EXPECTED
     assert "equity_floor" in result["notes"]
+
+
+def test_status_diff_due_to_equity_floor_with_material_weight_diff_is_fail():
+    legacy = _response(
+        status="optimal_compliant",
+        weights={"A": 0.5, "B": 0.5},
+        allocation={"RV": 0.5, "RF": 0.5},
+    )
+    unified = _response(
+        status="fallback_compliant",
+        weights={"A": 0.8, "B": 0.2},
+        allocation={"RV": 0.8, "RF": 0.2},
+    )
+    result = compare_case_results(_case(allow_equity_floor_status_diff=True), legacy, unified)
+    assert result["verdict"] == VERDICT_FAIL
+    assert result["weights_max_abs_diff"] == 0.3
 
 
 def test_unexplained_status_diff_without_override_is_investigate():

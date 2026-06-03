@@ -86,6 +86,12 @@ def _base_constraints(objective: str = "min_vol") -> dict:
     }
 
 
+def _production_weight_constraints(objective: str = "efficient_risk") -> dict:
+    constraints = _base_constraints(objective)
+    constraints["max_weight"] = 0.20
+    return constraints
+
+
 def _case(
     case_id: str,
     risk_level: int,
@@ -99,8 +105,14 @@ def _case(
         "assets": [
             "EQ_GROWTH",
             "EQ_VALUE",
+            "EQ_QUALITY",
+            "EQ_SMALL",
+            "EQ_GLOBAL",
+            "MIX_60_40",
             "BOND_CORE",
+            "BOND_SHORT",
             "CASH_MM",
+            "CASH_TBILL",
             "ALT_HEDGE",
             "REAL_ASSET",
             "OTHER_ABS",
@@ -124,6 +136,14 @@ def build_cases() -> list[dict]:
                 risk_level,
                 constraints=_base_constraints(objective),
                 notes="neutrality_baseline",
+            )
+        )
+        cases.append(
+            _case(
+                f"profile_{risk_level}_efficient_risk_no_override",
+                risk_level,
+                constraints=_production_weight_constraints("efficient_risk"),
+                notes="neutrality_baseline_efficient_risk_max_weight_0.20",
             )
         )
 
@@ -214,6 +234,10 @@ def _is_error_result(result: dict | None) -> bool:
     return status == "error" or bool((result or {}).get("error"))
 
 
+def _has_material_weights(result: dict | None, tolerance: float = TOLERANCE) -> bool:
+    return any(abs(value) > tolerance for value in _as_float_map((result or {}).get("weights")).values())
+
+
 def _status_diff_due_to_equity_floor(case: dict, legacy: dict, unified: dict) -> bool:
     if not (_status(legacy) != _status(unified) or _solver_path(legacy) != _solver_path(unified)):
         return False
@@ -230,6 +254,15 @@ def compare_case_results(case: dict, legacy: dict, unified: dict, tolerance: flo
     metric_delta = metrics_diff(legacy.get("metrics"), unified.get("metrics"))
     status_changed = _status(legacy) != _status(unified)
     solver_changed = _solver_path(legacy) != _solver_path(unified)
+    equity_floor_status_diff = _status_diff_due_to_equity_floor(case, legacy, unified)
+    neutral_weight_or_allocation_diff = (
+        not has_overrides
+        and (weights_delta > tolerance or allocation_delta > tolerance)
+    )
+    both_runs_have_material_weights = (
+        _has_material_weights(legacy, tolerance)
+        and _has_material_weights(unified, tolerance)
+    )
     ignored_unified = ((unified.get("explainability") or {}).get("ignored_overrides") or [])
     effective_bounds_unified = ((unified.get("explainability") or {}).get("effective_bounds") or {})
     notes = []
@@ -237,12 +270,12 @@ def compare_case_results(case: dict, legacy: dict, unified: dict, tolerance: flo
     if _is_error_result(legacy) or _is_error_result(unified):
         verdict = VERDICT_INVESTIGATE
         notes.append("error_status_or_exception")
-    elif _status_diff_due_to_equity_floor(case, legacy, unified):
-        verdict = VERDICT_EXPECTED
-        notes.append("status_or_solver_path_diff_due_to_equity_floor")
-    elif (not has_overrides) and (weights_delta > tolerance or allocation_delta > tolerance):
+    elif neutral_weight_or_allocation_diff and (not equity_floor_status_diff or both_runs_have_material_weights):
         verdict = VERDICT_FAIL
         notes.append("neutral_case_weight_or_allocation_diff")
+    elif equity_floor_status_diff:
+        verdict = VERDICT_EXPECTED
+        notes.append("status_or_solver_path_diff_due_to_equity_floor")
     elif (not has_overrides) and (status_changed or solver_changed):
         verdict = VERDICT_INVESTIGATE
         notes.append("neutral_case_status_or_solver_path_diff")
@@ -314,8 +347,14 @@ def _price_frame(universe: list[str]):
     drifts = {
         "EQ_GROWTH": 1.00035,
         "EQ_VALUE": 1.00025,
+        "EQ_QUALITY": 1.00030,
+        "EQ_SMALL": 1.00028,
+        "EQ_GLOBAL": 1.00024,
+        "MIX_60_40": 1.00018,
         "BOND_CORE": 1.00008,
+        "BOND_SHORT": 1.00006,
         "CASH_MM": 1.00003,
+        "CASH_TBILL": 1.00002,
         "ALT_HEDGE": 1.00015,
         "REAL_ASSET": 1.00018,
         "OTHER_ABS": 1.00011,
@@ -332,8 +371,14 @@ def _expected_returns_and_cov(universe: list[str]):
     mu_values = {
         "EQ_GROWTH": 0.090,
         "EQ_VALUE": 0.075,
+        "EQ_QUALITY": 0.082,
+        "EQ_SMALL": 0.087,
+        "EQ_GLOBAL": 0.078,
+        "MIX_60_40": 0.055,
         "BOND_CORE": 0.030,
+        "BOND_SHORT": 0.024,
         "CASH_MM": 0.015,
+        "CASH_TBILL": 0.012,
         "ALT_HEDGE": 0.045,
         "REAL_ASSET": 0.050,
         "OTHER_ABS": 0.035,
@@ -341,8 +386,14 @@ def _expected_returns_and_cov(universe: list[str]):
     variances = {
         "EQ_GROWTH": 0.045,
         "EQ_VALUE": 0.035,
+        "EQ_QUALITY": 0.032,
+        "EQ_SMALL": 0.050,
+        "EQ_GLOBAL": 0.038,
+        "MIX_60_40": 0.018,
         "BOND_CORE": 0.006,
+        "BOND_SHORT": 0.003,
         "CASH_MM": 0.001,
+        "CASH_TBILL": 0.0005,
         "ALT_HEDGE": 0.020,
         "REAL_ASSET": 0.025,
         "OTHER_ABS": 0.015,
@@ -360,8 +411,14 @@ def _exposure_vectors(universe: list[str]):
     exposure = {
         "EQ_GROWTH": (1, 0, 0, 0, 0, 0),
         "EQ_VALUE": (1, 0, 0, 0, 0, 0),
+        "EQ_QUALITY": (1, 0, 0, 0, 0, 0),
+        "EQ_SMALL": (1, 0, 0, 0, 0, 0),
+        "EQ_GLOBAL": (1, 0, 0, 0, 0, 0),
+        "MIX_60_40": (0.6, 0.4, 0, 0, 0, 0),
         "BOND_CORE": (0, 1, 0, 0, 0, 0),
+        "BOND_SHORT": (0, 1, 0, 0, 0, 0),
         "CASH_MM": (0, 0, 1, 0, 0, 0),
+        "CASH_TBILL": (0, 0, 1, 0, 0, 0),
         "ALT_HEDGE": (0, 0, 0, 1, 0, 0),
         "REAL_ASSET": (0, 0, 0, 0, 1, 0),
         "OTHER_ABS": (0, 0, 0, 0, 0, 1),
