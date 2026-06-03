@@ -176,6 +176,93 @@
       ]
     },
     {
+      "id": "emerging_markets_bond",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "FIXED_INCOME",
+          "asset_subtype": "EMERGING_MARKETS_BOND",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false,
+          "is_suitable_low_risk": true
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 96,
+            "cash": 4,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "emerging_region_corporate_bond",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "FIXED_INCOME",
+          "asset_subtype": "CORPORATE_BOND",
+          "region_primary": "EMERGING",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false,
+          "is_suitable_low_risk": true
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 96,
+            "cash": 4,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "high_yield_metadata_corporate_bond",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "FIXED_INCOME",
+          "asset_subtype": "CORPORATE_BOND",
+          "fixed_income_type": "HIGH_YIELD",
+          "credit_bucket": "HIGH_YIELD",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false,
+          "is_suitable_low_risk": true
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 96,
+            "cash": 4,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
       "id": "mixed_50_50",
       "fund": {
         "classification_v2": {

@@ -438,6 +438,23 @@ class TestContractFE9BackendBaseline:
             or "high risk" in reason.lower()
         )
 
+    def test_emerging_markets_bond_blocked_by_subtype_p4(self):
+        """
+        Emerging-markets debt is treated like HY for conservative profiles.
+        It must not enter profiles <= 4 merely because its real equity is 0%.
+        """
+        fund = make_fund(
+            asset_type="FIXED_INCOME",
+            asset_subtype="EMERGING_MARKETS_BOND",
+            risk_bucket="MEDIUM",
+            is_suitable_low_risk=True,
+            real_eq=0.0,
+            real_bond=95.0,
+        )
+        eligible, reason = is_fund_eligible_for_profile(fund, 4)
+        assert eligible is False
+        assert "EMERGING_MARKETS_BOND" in reason or "excluded" in reason.lower()
+
     def test_backend_accepts_low_quality_credit_rf_fund_p4(self):
         """
         KNOWN_DIVERGENCE_FRONTEND_ONLY (FE-9):

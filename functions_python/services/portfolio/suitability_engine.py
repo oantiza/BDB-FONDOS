@@ -25,11 +25,15 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
 
     asset_type = identity.get("asset_type")
     asset_subtype = identity.get("asset_subtype")
+    region_primary = identity.get("region_primary")
+    fixed_income_type = identity.get("fixed_income_type")
+    credit_bucket = identity.get("credit_bucket")
     risk_bucket = identity.get("risk_bucket")
     is_sector_fund = bool(class_v2.get("is_sector_fund")) or str(asset_subtype or "").startswith("SECTOR_EQUITY_")
     sector_focus = str(class_v2.get("sector_focus") or "").upper()
     is_suitable_low_risk = class_v2.get("is_suitable_low_risk")
     real_eq = float(exposure.get("equity", 0.0) or 0.0)
+    strategy_tags = {str(tag).strip().lower() for tag in (class_v2.get("strategy_tags") or [])}
 
     if not has_v2_exposure:
         message = "Missing portfolio_exposure_v2/economic exposure: requires review, not treated as 0% equity."
@@ -61,7 +65,14 @@ def is_fund_eligible_for_profile(asset_meta: Dict[str, Any], risk_profile: int) 
         if is_sector_fund:
             return False, f"Sector funds ({class_v2.get('sector_focus')}) are excluded for profiles <= 4."
 
-        if asset_subtype in {"EMERGING_MARKETS_EQUITY", "HIGH_YIELD_BOND"} or asset_type == "commodities":
+        fixed_income_risk_signal = asset_type == "fixed_income" and (
+            asset_subtype in {"EMERGING_MARKETS_BOND", "HIGH_YIELD_BOND"}
+            or fixed_income_type == "HIGH_YIELD"
+            or credit_bucket == "low_quality"
+            or region_primary == "emerging"
+            or "theme:emerging_markets" in strategy_tags
+        )
+        if asset_subtype == "EMERGING_MARKETS_EQUITY" or fixed_income_risk_signal or asset_type == "commodities":
             return False, f"Asset Subtype {asset_subtype} is excluded for profiles <= 4."
 
     # 3. Moderate Profiles (5-7)

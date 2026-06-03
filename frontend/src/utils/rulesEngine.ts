@@ -412,9 +412,17 @@ export function isFundSuitableForProfile(fund: Fund, riskProfile: number): boole
 
   const assetType = classV2.asset_type;
   const assetSubtype = classV2.asset_subtype;
+  const regionPrimary = classV2.region_primary ? String(classV2.region_primary).toUpperCase() : null;
+  const fixedIncomeType = classV2.fixed_income_type ? String(classV2.fixed_income_type).toUpperCase() : null;
+  const creditBucket = (classV2.credit_bucket || classV2.fi_credit_bucket)
+    ? String(classV2.credit_bucket || classV2.fi_credit_bucket).toUpperCase()
+    : null;
   const riskBucket = classV2.risk_bucket ? String(classV2.risk_bucket).toUpperCase() : null;
   const isSectorFund = classV2.is_sector_fund;
   const sectorFocus = classV2.sector_focus ? String(classV2.sector_focus).toUpperCase() : null;
+  const strategyTags = Array.isArray(classV2.strategy_tags)
+    ? classV2.strategy_tags.map((tag: unknown) => String(tag).trim().toLowerCase())
+    : [];
   const realEq = Number(expV2?.economic_exposure?.equity || 0);
   const lowQualityCredit = Number(expV2?.fi_credit?.low_quality || expV2?.credit?.low_quality || 0);
 
@@ -431,9 +439,19 @@ export function isFundSuitableForProfile(fund: Fund, riskProfile: number): boole
     if (riskProfile === 3 && realEq > 45) return false;
     if (riskProfile === 4 && realEq > 60) return false;
     if (isSectorFund) return false;
+    const fixedIncomeRiskSignal = assetType === "FIXED_INCOME" && (
+      assetSubtype === "EMERGING_MARKETS_BOND" ||
+      assetSubtype === "HIGH_YIELD_BOND" ||
+      fixedIncomeType === "HIGH_YIELD" ||
+      creditBucket === "HIGH_YIELD" ||
+      creditBucket === "LOW_QUALITY" ||
+      regionPrimary === "EMERGING" ||
+      regionPrimary === "EMERGENTES" ||
+      strategyTags.includes("theme:emerging_markets")
+    );
     if (
       assetSubtype === "EMERGING_MARKETS_EQUITY" ||
-      assetSubtype === "HIGH_YIELD_BOND" ||
+      fixedIncomeRiskSignal ||
       lowQualityCredit >= 35 ||
       assetType === "COMMODITIES"
     ) {

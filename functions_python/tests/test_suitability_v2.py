@@ -94,6 +94,24 @@ MOCK_HIGH_YIELD = {
     },
 }
 
+MOCK_EMERGING_MARKETS_BOND = {
+    "isin": "LU0000000011",
+    "name": "Emerging Markets Bond Fund",
+    "classification_v2": {
+        "asset_type": "FIXED_INCOME",
+        "asset_subtype": "EMERGING_MARKETS_BOND",
+        "region_primary": "EMERGING",
+        "risk_bucket": "MEDIUM",
+        "is_thematic": False,
+        "is_sector_fund": False,
+        "is_suitable_low_risk": True,
+        "classification_confidence": 0.92,
+    },
+    "portfolio_exposure_v2": {
+        "economic_exposure": {"equity": 0, "bond": 95, "cash": 5, "other": 0},
+    },
+}
+
 MOCK_ALLOCATION_AGGRESSIVE = {
     "isin": "LU0000000005",
     "name": "BlackRock Global Allocation Aggressive",
@@ -264,6 +282,61 @@ class TestHighYield:
     def test_allowed_profile_5(self):
         eligible, _ = is_fund_eligible_for_profile(MOCK_HIGH_YIELD, 5)
         assert eligible is True
+
+
+class TestEmergingMarketsBond:
+    def test_blocked_profile_1(self):
+        eligible, _ = is_fund_eligible_for_profile(MOCK_EMERGING_MARKETS_BOND, 1)
+        assert eligible is False
+
+    def test_blocked_profile_2(self):
+        eligible, _ = is_fund_eligible_for_profile(MOCK_EMERGING_MARKETS_BOND, 2)
+        assert eligible is False
+
+    def test_blocked_profile_4(self):
+        eligible, _ = is_fund_eligible_for_profile(MOCK_EMERGING_MARKETS_BOND, 4)
+        assert eligible is False, "EM bond excluded for profile <= 4"
+
+    def test_allowed_profile_5(self):
+        eligible, _ = is_fund_eligible_for_profile(MOCK_EMERGING_MARKETS_BOND, 5)
+        assert eligible is True
+
+
+class TestFixedIncomeRiskSignals:
+    def test_emerging_region_corporate_bond_blocked_profile_4(self):
+        fund = {
+            "classification_v2": {
+                "asset_type": "FIXED_INCOME",
+                "asset_subtype": "CORPORATE_BOND",
+                "region_primary": "EMERGING",
+                "risk_bucket": "MEDIUM",
+                "is_sector_fund": False,
+                "is_suitable_low_risk": True,
+            },
+            "portfolio_exposure_v2": {
+                "economic_exposure": {"equity": 0, "bond": 95, "cash": 5, "other": 0},
+            },
+        }
+        eligible, _ = is_fund_eligible_for_profile(fund, 4)
+        assert eligible is False
+
+    def test_high_yield_metadata_corporate_bond_blocked_profile_4(self):
+        fund = {
+            "classification_v2": {
+                "asset_type": "FIXED_INCOME",
+                "asset_subtype": "CORPORATE_BOND",
+                "fixed_income_type": "HIGH_YIELD",
+                "credit_bucket": "HIGH_YIELD",
+                "risk_bucket": "MEDIUM",
+                "is_sector_fund": False,
+                "is_suitable_low_risk": True,
+            },
+            "portfolio_exposure_v2": {
+                "economic_exposure": {"equity": 0, "bond": 95, "cash": 5, "other": 0},
+            },
+        }
+        eligible, _ = is_fund_eligible_for_profile(fund, 4)
+        assert eligible is False
 
 
 class TestAllocationAggressive:
