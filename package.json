@@ -17,7 +17,10 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "npm run test:gate && npm run test:backend && npm run test:frontend",
+    "test:backend": "cd functions_python && python -m pytest -q",
+    "test:frontend": "cd frontend && npx vitest run",
+    "test:gate": "npm run manual-overrides:gate",
     "manual-overrides:test": "node tests/manual_overrides/test_validate_manual_overrides.js",
     "manual-overrides:validate": "node overrides/validate_manual_overrides.js",
     "manual-overrides:validate:strict": "node overrides/validate_manual_overrides.js --strict --fail-on-warning",

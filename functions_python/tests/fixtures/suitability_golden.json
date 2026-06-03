@@ -1,0 +1,279 @@
+{
+  "_meta": {
+    "generated_by": "services.portfolio.suitability_engine.compute_compatible_profiles",
+    "note": "Golden de paridad suitability (REM-1). Casos elegidos para que FE y BE COINCIDAN (sin caso FE-9 lowQualityCredit). Regenerar si cambian las reglas canonicas.",
+    "profiles_range": "1-10"
+  },
+  "cases": [
+    {
+      "id": "global_dm_equity",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "EQUITY",
+          "asset_subtype": "GLOBAL_EQUITY",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 98,
+            "bond": 2,
+            "cash": 0.0,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "ig_global_bond",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "FIXED_INCOME",
+          "asset_subtype": "GLOBAL_BOND",
+          "risk_bucket": "LOW",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 98,
+            "cash": 2,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "money_market",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "MONEY_MARKET",
+          "asset_subtype": "MONEY_MARKET",
+          "risk_bucket": "LOW",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 0,
+            "cash": 100,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "sector_healthcare",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "EQUITY",
+          "asset_subtype": "SECTOR_EQUITY_HEALTHCARE",
+          "risk_bucket": "HIGH",
+          "is_sector_fund": true,
+          "sector_focus": "HEALTHCARE"
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 99,
+            "bond": 0.0,
+            "cash": 0.0,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "em_equity",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "EQUITY",
+          "asset_subtype": "EMERGING_MARKETS_EQUITY",
+          "risk_bucket": "HIGH",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 98,
+            "bond": 0.0,
+            "cash": 0.0,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "high_yield_bond",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "FIXED_INCOME",
+          "asset_subtype": "HIGH_YIELD_BOND",
+          "risk_bucket": "HIGH",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 0,
+            "bond": 96,
+            "cash": 4,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "mixed_50_50",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "ALLOCATION",
+          "asset_subtype": "MODERATE_ALLOCATION",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 50,
+            "bond": 50,
+            "cash": 0.0,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "balanced_eq30",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "ALLOCATION",
+          "asset_subtype": "CONSERVATIVE_ALLOCATION",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 30,
+            "bond": 65,
+            "cash": 5,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "not_low_risk_flag",
+      "fund": {
+        "classification_v2": {
+          "asset_type": "EQUITY",
+          "asset_subtype": "GLOBAL_EQUITY",
+          "risk_bucket": "MEDIUM",
+          "is_sector_fund": false,
+          "is_suitable_low_risk": false
+        },
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 25,
+            "bond": 75,
+            "cash": 0.0,
+            "other": 0.0
+          }
+        }
+      },
+      "expected_compatible_profiles": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "id": "no_classification",
+      "fund": {
+        "portfolio_exposure_v2": {
+          "economic_exposure": {
+            "equity": 10
+          }
+        }
+      },
+      "expected_compatible_profiles": []
+    }
+  ]
+}

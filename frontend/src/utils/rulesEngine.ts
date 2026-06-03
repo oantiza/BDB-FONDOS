@@ -408,12 +408,9 @@ export function isFundSuitableForProfile(fund: Fund, riskProfile: number): boole
     return classV2.compatible_profiles.includes(riskProfile);
   }
 
-  // FALLBACK DEFENSIVO TEMPORAL
+  // Fallback prudente: sin classification_v2, el backend no puede acreditar suitability.
   if (!classV2) {
-    const eqMet = Number(expV2?.economic_exposure?.equity || (fund as any)?.metrics?.equity || 0);
-    if (riskProfile <= 2 && eqMet > 20) return false;
-    if (riskProfile <= 4 && eqMet > 50) return false;
-    return true;
+    return false;
   }
 
   const assetType = classV2.asset_type;

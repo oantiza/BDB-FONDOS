@@ -1,30 +1,436 @@
-# Core Firebase & APIs
-firebase-functions>=0.2.3
-firebase-admin>=6.5.0
-flask-cors>=4.0.0
-google-genai>=0.1.0
-google-cloud-aiplatform>=1.55.0
-pydantic>=2.0.0
+# ============================================================================
+# BDB-FONDOS — LOCK de dependencias (NO editar a mano).
+# Generado con pip-tools:
+#     python -m piptools compile --strip-extras requirements.in
+# Resuelto sobre Python 3.10; CI usa 3.11 (hay wheels para ambos).
+# Para regenerar tras editar requirements.in:  pip-compile requirements.in
+# numpy<2.0.0 es CRÍTICO para PyPortfolioOpt.
+# ============================================================================
+aiohappyeyeballs==2.6.2
+    # via aiohttp
+aiohttp==3.14.0
+    # via -r requirements.in
+aiosignal==1.4.0
+    # via aiohttp
+annotated-types==0.7.0
+    # via pydantic
+anyio==4.13.0
+    # via
+    #   google-genai
+    #   httpx
+    #   starlette
+async-timeout==5.0.1
+    # via aiohttp
+attrs==26.1.0
+    # via aiohttp
+beautifulsoup4==4.14.3
+    # via yfinance
+blinker==1.9.0
+    # via flask
+cachecontrol==0.14.4
+    # via firebase-admin
+certifi==2026.5.20
+    # via
+    #   curl-cffi
+    #   httpcore
+    #   httpx
+    #   requests
+cffi==2.0.0
+    # via
+    #   clarabel
+    #   cryptography
+    #   curl-cffi
+charset-normalizer==3.4.7
+    # via requests
+clarabel==0.11.1
+    # via cvxpy
+click==8.4.1
+    # via
+    #   flask
+    #   functions-framework
+    #   uvicorn
+cloudevents==1.12.0
+    # via
+    #   firebase-functions
+    #   functions-framework
+contourpy==1.3.2
+    # via matplotlib
+cryptography==48.0.0
+    # via
+    #   google-auth
+    #   pyjwt
+curl-cffi==0.15.0
+    # via yfinance
+cvxopt==1.3.3
+    # via -r requirements.in
+cvxpy==1.7.5
+    # via
+    #   -r requirements.in
+    #   pyportfolioopt
+cycler==0.12.1
+    # via matplotlib
+defusedxml==0.7.1
+    # via fpdf2
+deprecation==2.1.0
+    # via cloudevents
+distro==1.9.0
+    # via google-genai
+docstring-parser==0.18.0
+    # via google-cloud-aiplatform
+et-xmlfile==2.0.0
+    # via openpyxl
+exceptiongroup==1.3.1
+    # via anyio
+firebase-admin==7.4.0
+    # via
+    #   -r requirements.in
+    #   firebase-functions
+firebase-functions==0.5.0
+    # via -r requirements.in
+flask==3.1.3
+    # via
+    #   firebase-functions
+    #   flask-cors
+    #   functions-framework
+flask-cors==6.0.2
+    # via
+    #   -r requirements.in
+    #   firebase-functions
+fonttools==4.63.0
+    # via
+    #   fpdf2
+    #   matplotlib
+fpdf2==2.8.7
+    # via -r requirements.in
+fredapi==0.5.2
+    # via -r requirements.in
+frozenlist==1.8.0
+    # via
+    #   aiohttp
+    #   aiosignal
+functions-framework==3.10.1
+    # via firebase-functions
+google-api-core==2.30.3
+    # via
+    #   firebase-admin
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
+    #   google-cloud-core
+    #   google-cloud-firestore
+    #   google-cloud-resource-manager
+    #   google-cloud-storage
+google-auth==2.53.0
+    # via
+    #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
+    #   google-cloud-core
+    #   google-cloud-firestore
+    #   google-cloud-resource-manager
+    #   google-cloud-storage
+    #   google-genai
+google-cloud-aiplatform==1.154.0
+    # via -r requirements.in
+google-cloud-bigquery==3.41.0
+    # via google-cloud-aiplatform
+google-cloud-core==2.6.0
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-firestore
+    #   google-cloud-storage
+google-cloud-firestore==2.27.0
+    # via
+    #   firebase-admin
+    #   firebase-functions
+google-cloud-resource-manager==1.17.0
+    # via google-cloud-aiplatform
+google-cloud-storage==3.10.1
+    # via
+    #   firebase-admin
+    #   google-cloud-aiplatform
+google-crc32c==1.8.0
+    # via
+    #   google-cloud-storage
+    #   google-resumable-media
+google-events==0.5.0
+    # via firebase-functions
+google-genai==2.7.0
+    # via
+    #   -r requirements.in
+    #   google-cloud-aiplatform
+google-resumable-media==2.9.0
+    # via
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+googleapis-common-protos==1.75.0
+    # via
+    #   google-api-core
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpc-google-iam-v1==0.14.4
+    # via google-cloud-resource-manager
+grpcio==1.81.0
+    # via
+    #   google-api-core
+    #   google-cloud-firestore
+    #   google-cloud-resource-manager
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+grpcio-status==1.81.0
+    # via google-api-core
+gunicorn==26.0.0
+    # via
+    #   functions-framework
+    #   uvicorn-worker
+h11==0.16.0
+    # via
+    #   httpcore
+    #   uvicorn
+h2==4.3.0
+    # via httpx
+hpack==4.1.0
+    # via h2
+httpcore==1.0.9
+    # via httpx
+httpx==0.28.1
+    # via
+    #   firebase-admin
+    #   google-genai
+hyperframe==6.1.0
+    # via h2
+idna==3.17
+    # via
+    #   anyio
+    #   httpx
+    #   requests
+    #   yarl
+itsdangerous==2.2.0
+    # via flask
+jinja2==3.1.6
+    # via
+    #   flask
+    #   osqp
+joblib==1.5.3
+    # via
+    #   osqp
+    #   scikit-learn
+kiwisolver==1.5.0
+    # via matplotlib
+lxml==6.1.1
+    # via
+    #   -r requirements.in
+    #   pandas-datareader
+markdown-it-py==4.2.0
+    # via rich
+markupsafe==3.0.3
+    # via
+    #   flask
+    #   jinja2
+    #   werkzeug
+matplotlib==3.10.9
+    # via -r requirements.in
+mdurl==0.1.2
+    # via markdown-it-py
+msgpack==1.1.2
+    # via cachecontrol
+multidict==6.7.1
+    # via
+    #   aiohttp
+    #   yarl
+multitasking==0.0.13
+    # via yfinance
+numpy==1.26.4
+    # via
+    #   -r requirements.in
+    #   clarabel
+    #   contourpy
+    #   cvxpy
+    #   matplotlib
+    #   osqp
+    #   pandas
+    #   pyportfolioopt
+    #   scikit-learn
+    #   scipy
+    #   scs
+    #   yfinance
+openpyxl==3.1.5
+    # via -r requirements.in
+osqp==1.1.1
+    # via cvxpy
+packaging==26.2
+    # via
+    #   deprecation
+    #   google-cloud-aiplatform
+    #   google-cloud-bigquery
+    #   gunicorn
+    #   matplotlib
+pandas==2.3.3
+    # via
+    #   -r requirements.in
+    #   fredapi
+    #   pandas-datareader
+    #   pyportfolioopt
+    #   yfinance
+pandas-datareader==0.10.0
+    # via -r requirements.in
+peewee==4.0.6
+    # via yfinance
+pillow==12.2.0
+    # via
+    #   fpdf2
+    #   matplotlib
+platformdirs==4.10.0
+    # via yfinance
+propcache==0.5.2
+    # via
+    #   aiohttp
+    #   yarl
+proto-plus==1.28.0
+    # via
+    #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-firestore
+    #   google-cloud-resource-manager
+    #   google-events
+protobuf==6.33.6
+    # via
+    #   google-api-core
+    #   google-cloud-aiplatform
+    #   google-cloud-firestore
+    #   google-cloud-resource-manager
+    #   google-events
+    #   googleapis-common-protos
+    #   grpc-google-iam-v1
+    #   grpcio-status
+    #   proto-plus
+    #   yfinance
+pyasn1==0.6.3
+    # via pyasn1-modules
+pyasn1-modules==0.4.2
+    # via google-auth
+pycparser==3.0
+    # via cffi
+pydantic==2.13.4
+    # via
+    #   -r requirements.in
+    #   google-cloud-aiplatform
+    #   google-genai
+pydantic-core==2.46.4
+    # via pydantic
+pygments==2.20.0
+    # via rich
+pyjwt==2.13.0
+    # via
+    #   firebase-admin
+    #   firebase-functions
+pyparsing==3.3.2
+    # via matplotlib
+pypdf2==3.0.1
+    # via -r requirements.in
+pyportfolioopt==1.6.0
+    # via -r requirements.in
+python-dateutil==2.9.0.post0
+    # via
+    #   google-cloud-bigquery
+    #   matplotlib
+    #   pandas
+pytz==2026.2
+    # via
+    #   pandas
+    #   yfinance
+pyxirr==0.10.8
+    # via -r requirements.in
+pyyaml==6.0.3
+    # via firebase-functions
+requests==2.34.2
+    # via
+    #   -r requirements.in
+    #   cachecontrol
+    #   google-api-core
+    #   google-auth
+    #   google-cloud-bigquery
+    #   google-cloud-storage
+    #   google-genai
+    #   pandas-datareader
+    #   yfinance
+rich==15.0.0
+    # via curl-cffi
+scikit-base==0.13.2
+    # via pyportfolioopt
+scikit-learn==1.7.2
+    # via
+    #   -r requirements.in
+    #   pyportfolioopt
+scipy==1.15.3
+    # via
+    #   -r requirements.in
+    #   clarabel
+    #   cvxpy
+    #   osqp
+    #   pyportfolioopt
+    #   scikit-learn
+    #   scs
+scs==3.2.11
+    # via cvxpy
+six==1.17.0
+    # via python-dateutil
+sniffio==1.3.1
+    # via google-genai
+soupsieve==2.8.4
+    # via beautifulsoup4
+starlette==0.52.1
+    # via functions-framework
+tenacity==9.1.4
+    # via google-genai
+threadpoolctl==3.6.0
+    # via scikit-learn
+typing-extensions==4.15.0
+    # via
+    #   aiohttp
+    #   aiosignal
+    #   anyio
+    #   beautifulsoup4
+    #   cryptography
+    #   exceptiongroup
+    #   firebase-functions
+    #   google-cloud-aiplatform
+    #   google-genai
+    #   grpcio
+    #   multidict
+    #   pydantic
+    #   pydantic-core
+    #   pyjwt
+    #   starlette
+    #   typing-inspection
+    #   uvicorn
+typing-inspection==0.4.2
+    # via pydantic
+tzdata==2026.2
+    # via pandas
+urllib3==2.7.0
+    # via requests
+uvicorn==0.48.0
+    # via
+    #   functions-framework
+    #   uvicorn-worker
+uvicorn-worker==0.4.0
+    # via functions-framework
+watchdog==6.0.0
+    # via functions-framework
+websockets==16.0
+    # via
+    #   google-genai
+    #   yfinance
+werkzeug==3.1.8
+    # via
+    #   flask
+    #   flask-cors
+    #   functions-framework
+yarl==1.24.2
+    # via aiohttp
+yfinance==1.4.1
+    # via -r requirements.in
 
-# Data Science & Market Data (Numpy < 2.0.0 is CRITICAL for PyPortfolioOpt compatibility)
-numpy<2.0.0
-pandas>=2.2.0
-scipy>=1.13.0
-scikit-learn>=1.4.0
-yfinance>=0.2.40
-pandas-datareader>=0.10.0
-fredapi>=0.5.2
-
-# Optimización Financiera
-PyPortfolioOpt>=1.5.5
-cvxopt>=1.3.2
-
-# Utilidades, Web y PDFs
-requests>=2.31.0
-aiohttp>=3.9.5
-lxml>=5.2.0
-PyPDF2>=3.0.0
-fpdf2>=2.8.0
-matplotlib>=3.8.0
-pyxirr>=0.10.0
-openpyxl>=3.1.0
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

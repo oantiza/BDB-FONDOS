@@ -102,7 +102,10 @@ def _resolve_bucket_bounds(profile: Dict[str, Any], overrides: Dict[str, Any]) -
         real_asset=_read_bound(
             override_raw.get("real_asset")
             or canonical_raw.get("real_asset")
-            or legacy_raw.get("Inmobiliario")
+            # REM-2: eliminado el lookup de 'Inmobiliario' (clave inexistente en la
+            # taxonomía canónica RV/RF/Mixto/Monetario/Alternativos/Otros). Los activos
+            # reales se consolidan en 'Alternativos' (D3). Cambio NEUTRO: 'Inmobiliario'
+            # siempre devolvía None, así que el resultado del 'or' no varía.
             or legacy_raw.get("real_asset")
         ),
         other=_read_bound(
