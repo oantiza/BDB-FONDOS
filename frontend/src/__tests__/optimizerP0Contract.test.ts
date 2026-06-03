@@ -27,6 +27,16 @@ function usePortfolioActionsSource(): string {
   return readFileSync(resolve(here, '../hooks/usePortfolioActions.ts'), 'utf8');
 }
 
+function dashboardPageSource(): string {
+  const here = dirname(fileURLToPath(import.meta.url));
+  return readFileSync(resolve(here, '../pages/DashboardPage.tsx'), 'utf8');
+}
+
+function portfolioTableSource(): string {
+  const here = dirname(fileURLToPath(import.meta.url));
+  return readFileSync(resolve(here, '../components/PortfolioTable.tsx'), 'utf8');
+}
+
 function typesSource(): string {
   const here = dirname(fileURLToPath(import.meta.url));
   return readFileSync(resolve(here, '../types/index.ts'), 'utf8');
@@ -57,6 +67,42 @@ describe('OPT1-T006 frontend optimizer fallback gating contract', () => {
     expect(gateWindow).toMatch(/toast\.error|setConfirmDialog|return/);
     expect(gateWindow).not.toMatch(/setProposedPortfolio|toggleModal\([^)]*review/);
     expect(source).toMatch(/fallback_compliant/);
+  });
+
+  test('runtime hook opens an actionable portfolio edit dialog for non-applicable proposals', () => {
+    const source = usePortfolioActionsSource();
+    const nonCompliantIdx = source.indexOf("!isOptimizerResultApplicable(result)");
+    expect(nonCompliantIdx).toBeGreaterThanOrEqual(0);
+
+    const gateWindow = source.slice(nonCompliantIdx, nonCompliantIdx + 1600);
+    expect(gateWindow).toMatch(/setConfirmDialog\(\{/);
+    expect(gateWindow).toMatch(/title:\s*"Propuesta no aplicable"/);
+    expect(gateWindow).toMatch(/subtitle:\s*"Ajuste de cartera"/);
+    expect(gateWindow).toMatch(/confirmLabel:\s*"Modificar cartera"/);
+    expect(gateWindow).toMatch(/onEditPortfolio\(\)|onEditPortfolio\?\.\(\)/);
+    expect(gateWindow).not.toMatch(/onOpenPositions\(\)|onOpenPositions\?\.\(\)/);
+    expect(gateWindow).not.toMatch(/toast\.error\(result\.message/);
+  });
+
+  test('portfolio edit dialog targets the dashboard portfolio table, not the global positions page', () => {
+    const source = dashboardPageSource();
+
+    expect(source).toMatch(/portfolioTableRef/);
+    expect(source).toMatch(/handleEditCurrentPortfolio/);
+    expect(source).toMatch(/onEditPortfolio:\s*handleEditCurrentPortfolio/);
+    expect(source).toMatch(/aria-label="Editor de cartera actual"/);
+    expect(source).not.toMatch(/onEditPortfolio:\s*onOpenPositions/);
+  });
+
+  test('portfolio edit focus highlights the actionable fund rows and controls', () => {
+    const dashboard = dashboardPageSource();
+    const table = portfolioTableSource();
+
+    expect(dashboard).toMatch(/highlightActions={portfolioEditFocus}/);
+    expect(table).toMatch(/highlightActions\?: boolean/);
+    expect(table).toMatch(/rowFocusClass/);
+    expect(table).toMatch(/editableInputClass/);
+    expect(table).toMatch(/swapFocusClass/);
   });
 
   test('runtime hook extracts UX explainability metrics (target_vol, achieved_vol, warnings)', () => {

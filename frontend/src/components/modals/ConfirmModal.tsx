@@ -5,6 +5,7 @@ import { AlertCircle } from 'lucide-react';
 interface ConfirmModalProps {
     isOpen: boolean;
     title: string;
+    subtitle?: string;
     message: string;
     confirmLabel?: string;
     cancelLabel?: string;
@@ -15,6 +16,7 @@ interface ConfirmModalProps {
 export default function ConfirmModal({
     isOpen,
     title,
+    subtitle = "Confirmación necesaria",
     message,
     confirmLabel = "Confirmar",
     cancelLabel = "Cancelar",
@@ -28,7 +30,7 @@ export default function ConfirmModal({
             <div className="bg-white rounded-xl shadow-2xl w-full max-w-lg overflow-hidden transform transition-all flex flex-col border border-slate-100">
                 <ModalHeader
                     title={title}
-                    subtitle="Confirmación necesaria"
+                    subtitle={subtitle}
                     icon=""
                     onClose={onCancel}
                     compact={true}

@@ -6,7 +6,7 @@ import { useToast } from '../context/ToastContext';
 import { findAlternatives, Alternative } from '../utils/fundSwapper';
 import { findDirectAlternativesV3 } from '../utils/directSearch';
 import { normalizeFundData, adaptFundV3ToLegacy } from '../utils/normalizer';
-import { generateSmartPortfolioLocal } from '../utils/rulesEngine';
+import { generateSmartPortfolioLocal, isFundSuitableForProfile } from '../utils/rulesEngine';
 import { parsePortfolioCSV } from '../utils/csvImport';
 import { Fund, PortfolioItem, SmartPortfolioResponse, OptimizationRequest, OptimizationAsset } from '../types';
 import { calculatePortfolioPoint } from '../utils/portfolioAnalyticsEngine';
@@ -115,7 +115,7 @@ function buildOptimizationPayload(
     const assetUniverse = new Set(portfolio.map(p => p.isin));
     vipList.forEach(v => assetUniverse.add(v));
 
-    const lockedSet = new Set(portfolio.filter(p => p.manualSwap || p.isLocked).map(p => p.isin));
+    const lockedSet = new Set(portfolio.filter(p => p.isLocked).map(p => p.isin));
     vipList.forEach(v => lockedSet.add(v));
 
     const assetMetadata = buildAssetMetadata(portfolio, assets, assetUniverse);
@@ -244,6 +244,88 @@ function mapOptimizationResultWeights(
     return { optimized, hasChanges };
 }
 
+function getMinAssetsNeededFromResult(result: SmartPortfolioResponse, fallbackMaxWeight = 0.20): number {
+    const block = (result.feasibility_precheck?.blocks || []).find((b: any) => b?.code === 'UNIVERSE_TOO_SMALL');
+    const minNeeded = Number(block?.details?.min_needed);
+    if (Number.isFinite(minNeeded) && minNeeded > 0) return Math.ceil(minNeeded);
+
+    const message = String(result.message || '');
+    const match = message.match(/al menos\s+(\d+)\s+fondos/i);
+    if (match) return Number(match[1]);
+
+    return Math.ceil(1 / fallbackMaxWeight);
+}
+
+function rankAutoExpandFund(fund: Fund, riskLevel: number): number {
+    const perf = (fund as any).std_perf || {};
+    const sharpe = Number(perf.sharpe ?? 0);
+    const cagr = Number(perf.cagr3y ?? perf.return ?? perf.returns_3y ?? 0);
+    const vol = Number(perf.volatility ?? 0.08);
+    const type = String(fund.classification_v2?.asset_type || '').toUpperCase();
+    const eqPct = getEquityExposurePct(fund);
+
+    let score = (Number.isFinite(sharpe) ? sharpe : 0) * 100;
+    score += (Number.isFinite(cagr) ? cagr : 0) * 80;
+
+    if (riskLevel <= 3) {
+        if (type === 'MONEY_MARKET' || type === 'MONETARY') score += 35;
+        if (type === 'FIXED_INCOME' || type === 'RF') score += 25;
+        score -= Math.max(0, vol - 0.05) * 250;
+    } else if (riskLevel >= 8) {
+        if (type === 'EQUITY' || type === 'RV') score += 35;
+        score += eqPct;
+    } else {
+        if (type === 'ALLOCATION' || type === 'MIXED') score += 15;
+    }
+
+    return score;
+}
+
+function getEquityExposurePct(fund: Fund): number {
+    const exposure = (fund as any).portfolio_exposure_v2 || {};
+    const raw = Number(
+        exposure?.economic_exposure?.equity
+        ?? exposure?.asset_mix?.equity
+        ?? exposure?.lookthrough?.equity
+        ?? NaN
+    );
+    if (Number.isFinite(raw)) return raw <= 1.5 ? raw * 100 : raw;
+
+    const type = String(fund.classification_v2?.asset_type || '').toUpperCase();
+    if (type === 'EQUITY' || type === 'RV') return 100;
+    return 0;
+}
+
+function selectAutoExpandCandidates(
+    portfolio: PortfolioItem[],
+    assets: Fund[],
+    riskLevel: number,
+    neededCount: number,
+    recoveryCandidates?: string[],
+    options: { preferEquity?: boolean; minEquityPct?: number } = {}
+): Fund[] {
+    const currentIsins = new Set(portfolio.map(p => p.isin));
+    const preferred = new Set((recoveryCandidates || []).filter(Boolean));
+    const minEquityPct = options.minEquityPct ?? 60;
+
+    const candidates = assets.filter(a => {
+        if (!a?.isin || currentIsins.has(a.isin)) return false;
+        if (preferred.size > 0 && preferred.has(a.isin)) return true;
+        if (options.preferEquity && getEquityExposurePct(a) < minEquityPct) return false;
+        if (!isFundSuitableForProfile(a, riskLevel)) return false;
+        const perf = (a as any).std_perf || {};
+        return Number.isFinite(Number(perf.sharpe ?? perf.cagr3y ?? perf.return ?? perf.returns_3y));
+    });
+
+    candidates.sort((a, b) => {
+        const preferredDelta = Number(preferred.has(b.isin)) - Number(preferred.has(a.isin));
+        if (preferredDelta !== 0) return preferredDelta;
+        return rankAutoExpandFund(b, riskLevel) - rankAutoExpandFund(a, riskLevel);
+    });
+
+    return candidates.slice(0, Math.max(0, neededCount));
+}
+
 interface UsePortfolioActionsProps {
     portfolio: PortfolioItem[];
     setPortfolio: (p: PortfolioItem[]) => void;
@@ -255,6 +337,7 @@ interface UsePortfolioActionsProps {
     proposedPortfolio: PortfolioItem[];
     vipFunds: string;
     totalCapital: number;
+    onEditPortfolio?: () => void;
 }
 
 export function usePortfolioActions({
@@ -265,7 +348,8 @@ export function usePortfolioActions({
     setTotalCapital,
     proposedPortfolio,
     vipFunds,
-    totalCapital // ADDED
+    totalCapital, // ADDED
+    onEditPortfolio
 }: UsePortfolioActionsProps) {
     const toast = useToast();
     const [isOptimizing, setIsOptimizing] = useState(false);
@@ -274,6 +358,7 @@ export function usePortfolioActions({
     const [confirmDialog, setConfirmDialog] = useState<{
         isOpen: boolean;
         title: string;
+        subtitle?: string;
         message: string;
         confirmLabel?: string;
         cancelLabel?: string;
@@ -879,7 +964,28 @@ export function usePortfolioActions({
                 constraint_violations: result.constraint_violations || result.violations || []
             };
             setExplainabilityData(enhancedExplainability);
-            toast.error(result.message || "La propuesta no cumple las restricciones finales y no puede aplicarse.");
+            const reason = result.message || "La propuesta no cumple las restricciones finales y no puede aplicarse.";
+            const msg = `${reason}\n\nPuedes modificar la cartera: cambiar fondos, ajustar pesos o añadir fondos compatibles con el perfil. Después vuelve a optimizar.`;
+
+            setConfirmDialog({
+                isOpen: true,
+                title: "Propuesta no aplicable",
+                subtitle: "Ajuste de cartera",
+                message: msg,
+                confirmLabel: "Modificar cartera",
+                cancelLabel: "Seguir revisando",
+                onConfirm: () => {
+                    setConfirmDialog(null);
+                    if (onEditPortfolio) {
+                        onEditPortfolio();
+                    } else {
+                        toast.info("Modifica fondos o pesos y vuelve a optimizar.");
+                    }
+                },
+                onCancel: () => {
+                    setConfirmDialog(null);
+                }
+            });
             return;
         }
 
@@ -910,6 +1016,8 @@ export function usePortfolioActions({
             toggleModal(hasChanges ? 'review' : 'tactical', true);
         } else if (result.status === 'infeasible') {
             const msg = result.message || "Faltan datos para equilibrar la cartera matemáticamente.\n\n¿Quieres que el sistema añada automáticamente fondos globales válidos para intentar cuadrar el modelo?";
+            const minAssetsNeeded = getMinAssetsNeededFromResult(result);
+            const fundsToAdd = Math.max(0, minAssetsNeeded - portfolio.length);
 
             setConfirmDialog({
                 isOpen: true,
@@ -919,14 +1027,45 @@ export function usePortfolioActions({
                 cancelLabel: "Cancelar",
                 onConfirm: async () => {
                     setConfirmDialog(null);
-                    toast.info("🔄 Añadiendo fondos sugeridos y reintentando...");
-                    // Re-try manually injecting the recovery_candidates
+                    toast.info("Añadiendo fondos compatibles y reintentando...");
+
                     const expandedAssets = [...portfolio.map(p => p.isin)];
-                    if (result.recovery_candidates) {
-                        result.recovery_candidates.forEach((c: string) => {
-                            if (!expandedAssets.includes(c)) expandedAssets.push(c);
+                    const autoCandidates = selectAutoExpandCandidates(
+                        portfolio,
+                        assets,
+                        riskLevel,
+                        fundsToAdd || 2,
+                        result.recovery_candidates
+                    );
+
+                    autoCandidates.forEach((candidate) => {
+                        if (!expandedAssets.includes(candidate.isin)) expandedAssets.push(candidate.isin);
+                    });
+                    const newPortfolio = [
+                        ...portfolio,
+                        ...autoCandidates.map((candidate) => ({ ...candidate, weight: 0 }))
+                    ];
+
+                    if (expandedAssets.length <= portfolio.length) {
+                        setConfirmDialog({
+                            isOpen: true,
+                            title: "Hay que modificar la cartera",
+                            subtitle: "Acción necesaria",
+                            message: `${result.message || 'Con los fondos actuales no se puede optimizar.'}\n\nNo he encontrado fondos compatibles suficientes para añadir automáticamente. Cambia algún fondo, añade fondos desde el buscador o aumenta el número de fondos, y vuelve a optimizar.`,
+                            confirmLabel: "Modificar cartera",
+                            cancelLabel: "Cerrar",
+                            onConfirm: () => {
+                                setConfirmDialog(null);
+                                onEditPortfolio?.();
+                            },
+                            onCancel: () => setConfirmDialog(null)
                         });
+                        return;
                     }
+
+                    setPortfolio(newPortfolio);
+                    onEditPortfolio?.();
+                    toast.success(`He añadido ${autoCandidates.length} fondo(s) compatible(s) a la cartera.`);
 
                     // Contractual retry payload: preserve all contract fields from the
                     // primary optimization path, override only assets (expanded).
@@ -934,13 +1073,30 @@ export function usePortfolioActions({
                     const retryPayload: any = {
                         ...(lastPayloadRef.current || {}),
                         assets: expandedAssets,
-                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin)
+                        locked_assets: lastPayloadRef.current?.locked_assets || portfolio.filter(p => p.isLocked).map(p => p.isin),
+                        auto_expand_universe: true
                     };
                     if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
                     if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
 
                     const response2 = await optimizeFn(retryPayload);
                     const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
+                    if (result2.status === 'infeasible' && result2.message === result.message) {
+                        setConfirmDialog({
+                            isOpen: true,
+                            title: "Hay que modificar la cartera",
+                            subtitle: "Acción necesaria",
+                            message: `${result2.message || result.message}\n\nHe añadido ${autoCandidates.length} fondo(s) a la cartera, pero el optimizador sigue sin encontrar una propuesta válida. Revisa los fondos/pesos añadidos o sustituye alguno, y vuelve a optimizar.`,
+                            confirmLabel: "Modificar cartera",
+                            cancelLabel: "Cerrar",
+                            onConfirm: () => {
+                                setConfirmDialog(null);
+                                onEditPortfolio?.();
+                            },
+                            onCancel: () => setConfirmDialog(null)
+                        });
+                        return;
+                    }
                     processOptimizationResult(result2, optimizeFn, options);
                 },
                 onCancel: () => {
@@ -962,12 +1118,54 @@ export function usePortfolioActions({
                 cancelLabel: "Cancelar",
                 onConfirm: async () => {
                     setConfirmDialog(null);
-                    toast.info("🔄 Auto-completando cartera con fondos de RV...");
+                    toast.info("Auto-completando cartera con fondos de RV...");
+
+                    const rvGap = Math.max(0, requested - feasible);
+                    const fundsNeededForRv = Math.max(2, Math.ceil(rvGap / 0.20), numFunds - portfolio.length);
+                    const rvCandidates = selectAutoExpandCandidates(
+                        portfolio,
+                        assets,
+                        riskLevel,
+                        fundsNeededForRv,
+                        result.recovery_candidates,
+                        { preferEquity: true, minEquityPct: 70 }
+                    );
+
+                    if (rvCandidates.length === 0) {
+                        setConfirmDialog({
+                            isOpen: true,
+                            title: "Hay que modificar la cartera",
+                            subtitle: "Acción necesaria",
+                            message: `${msg}\n\nNo he encontrado fondos de Renta Variable compatibles suficientes para añadir automáticamente. Cambia algún fondo o añade fondos de RV desde el buscador, y vuelve a optimizar.`,
+                            confirmLabel: "Modificar cartera",
+                            cancelLabel: "Cerrar",
+                            onConfirm: () => {
+                                setConfirmDialog(null);
+                                onEditPortfolio?.();
+                            },
+                            onCancel: () => setConfirmDialog(null)
+                        });
+                        return;
+                    }
+
+                    const expandedAssets = [
+                        ...portfolio.map(p => p.isin),
+                        ...rvCandidates.map(candidate => candidate.isin)
+                    ];
+                    const newPortfolio = [
+                        ...portfolio,
+                        ...rvCandidates.map((candidate) => ({ ...candidate, weight: 0 }))
+                    ];
+
+                    setPortfolio(newPortfolio);
+                    onEditPortfolio?.();
+                    toast.success(`He añadido ${rvCandidates.length} fondo(s) de RV a la cartera.`);
+
                     // Contractual retry payload: preserve contract fields, add auto_expand.
                     const retryPayload: any = {
                         ...(lastPayloadRef.current || {}),
-                        assets: portfolio.map(p => p.isin),
-                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
+                        assets: expandedAssets,
+                        locked_assets: lastPayloadRef.current?.locked_assets || portfolio.filter(p => p.isLocked).map(p => p.isin),
                         auto_expand_universe: true
                     };
                     if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
@@ -975,6 +1173,22 @@ export function usePortfolioActions({
 
                     const response2 = await optimizeFn(retryPayload);
                     const result2 = unwrapResult<SmartPortfolioResponse>(response2.data);
+                    if (result2.status === 'infeasible_constraints' || result2.status === 'auto_expand_failed' || result2.status === 'infeasible_equity_floor') {
+                        setConfirmDialog({
+                            isOpen: true,
+                            title: "Hay que modificar la cartera",
+                            subtitle: "Acción necesaria",
+                            message: `${result2.message || 'No se ha podido encontrar una cartera óptima con las restricciones actuales.'}\n\nHe añadido ${rvCandidates.length} fondo(s) de RV a la cartera, pero el optimizador sigue sin encontrar una propuesta válida. Revisa los fondos/pesos añadidos o sustituye alguno, y vuelve a optimizar.`,
+                            confirmLabel: "Modificar cartera",
+                            cancelLabel: "Cerrar",
+                            onConfirm: () => {
+                                setConfirmDialog(null);
+                                onEditPortfolio?.();
+                            },
+                            onCancel: () => setConfirmDialog(null)
+                        });
+                        return;
+                    }
                     processOptimizationResult(result2, optimizeFn, options);
                 },
                 onCancel: () => {
@@ -1002,7 +1216,7 @@ export function usePortfolioActions({
                     const retryPayload: any = {
                         ...(lastPayloadRef.current || {}),
                         assets: portfolio.map(p => p.isin),
-                        locked_assets: portfolio.filter(p => p.manualSwap).map(p => p.isin),
+                        locked_assets: lastPayloadRef.current?.locked_assets || portfolio.filter(p => p.isLocked).map(p => p.isin),
                         auto_expand_universe: true
                     };
                     if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;

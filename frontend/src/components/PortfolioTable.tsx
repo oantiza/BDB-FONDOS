@@ -83,6 +83,7 @@ interface PortfolioTableProps {
     onFundClick?: (asset: any) => void;
     onSwap?: (asset: any) => void;
     onToggleLock?: (isin: string) => void;
+    highlightActions?: boolean;
 }
 
 // Footer summary row with imbalance badge. Kept as a separate component so the
@@ -143,7 +144,8 @@ export default function PortfolioTable({
     onUpdateWeight,
     onFundClick,
     onSwap,
-    onToggleLock
+    onToggleLock,
+    highlightActions = false
 }: PortfolioTableProps) {
     if (assets.length === 0) {
         return (
@@ -167,10 +169,20 @@ export default function PortfolioTable({
                 <tbody className="divide-y divide-slate-100">
                     {assets.map((asset, index) => {
                         const isManual = asset.manualSwap;
+                        const canEdit = !asset.isLocked;
+                        const rowFocusClass = highlightActions
+                            ? (canEdit ? ' bg-blue-50/60 ring-1 ring-inset ring-blue-100' : ' bg-slate-50/70')
+                            : '';
+                        const editableInputClass = highlightActions && canEdit
+                            ? ' bg-white rounded-md ring-2 ring-blue-200 px-1 shadow-sm'
+                            : '';
+                        const swapFocusClass = highlightActions
+                            ? ' bg-blue-50 text-blue-700 border border-blue-100 rounded-md px-2 py-1 shadow-sm'
+                            : '';
                         return (
                             <tr
                                 key={asset.isin}
-                                className={'border-b border-slate-100 hover:bg-slate-50 transition-colors ' + (isManual ? 'bg-blue-50/20' : '')}
+                                className={'border-b border-slate-100 hover:bg-slate-50 transition-all duration-300 ' + (isManual ? 'bg-blue-50/20' : '') + rowFocusClass}
                             >
                                 <td className="py-4 pr-4 pl-6 w-[45%] max-w-[400px] align-middle" title={asset.name}>
                                     <div className="flex items-center gap-5 pl-2">
@@ -203,7 +215,7 @@ export default function PortfolioTable({
                                     <div className="flex items-center justify-end">
                                         <div className={'flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ' + (asset.isLocked ? 'opacity-50 cursor-not-allowed' : '')}>
                                             <FastNumberInput
-                                                className="w-[60px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
+                                                className={'w-[60px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums transition-all duration-300 ' + editableInputClass}
                                                 value={Math.round(asset.weight * 100) / 100}
                                                 step="0.01"
                                                 min={0}
@@ -221,7 +233,7 @@ export default function PortfolioTable({
                                     <div className="flex items-center justify-end">
                                         <div className={'flex items-baseline justify-end gap-1 px-2 py-1 transition-colors ' + (asset.isLocked ? 'opacity-50 cursor-not-allowed' : '')}>
                                             <FastNumberInput
-                                                className="w-[90px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums"
+                                                className={'w-[90px] text-right bg-transparent outline-none font-[600] text-slate-800 text-[14px] tabular-nums transition-all duration-300 ' + editableInputClass}
                                                 value={(totalCapital * (asset.weight / 100)).toFixed(2)}
                                                 step="100"
                                                 min={0}
@@ -242,7 +254,7 @@ export default function PortfolioTable({
                                     <div className="flex items-center justify-end">
                                         <button
                                             onClick={(e) => { e.stopPropagation(); onSwap && onSwap(asset); }}
-                                            className="text-blue-500 hover:text-blue-600 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-colors"
+                                            className={'text-blue-500 hover:text-blue-600 text-[10px] font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all duration-300 ' + swapFocusClass}
                                             title="Sustituir fondo"
                                         >
                                             <ArrowLeftRight className="w-3.5 h-3.5" strokeWidth={2.5} />
