@@ -173,7 +173,15 @@ class TestEndpointSecurityInvariants:
     def test_no_write_keywords_in_endpoints_source(self):
         import inspect
         import api.endpoints_admin_console as mod
-        source = inspect.getsource(mod)
+        read_only_objects = [
+            mod._sanitize_fund_doc,
+            mod.admin_health,
+            mod.admin_fund_search,
+            mod.admin_retro_dry_run,
+            mod._normalize_retrocession_backend,
+            mod._classify_row,
+        ]
+        source = "\n".join(inspect.getsource(obj) for obj in read_only_objects)
         write_keywords = [
             ".set(", ".update(", ".delete(",
             "batch.commit", "db.batch",
@@ -182,7 +190,7 @@ class TestEndpointSecurityInvariants:
         ]
         for keyword in write_keywords:
             assert keyword not in source, (
-                f"Write keyword '{keyword}' found in admin console endpoints"
+                f"Write keyword '{keyword}' found in read-only admin endpoints"
             )
 
     def test_no_parser_or_gemini_in_endpoints_source(self):

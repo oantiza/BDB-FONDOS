@@ -444,17 +444,19 @@ class TestBucketConstraintsDedup:
         assert reconciled[5]["Mixto"] == current_risk_buckets[5]["Mixto"]
 
     def test_profile_3_5_not_infeasible_due_to_mixto_minimums(self):
-        """Active solver minima for profiles 3-5 exclude Mixto by contract."""
+        """Active solver minima for profiles 3-5 use only canonical buckets."""
         solver_bucket_names = {"RV", "RF", "Monetario", "Alternativos", "Otros"}
 
         for profile in (3, 4, 5):
             profile_cfg = RISK_BUCKETS_LABELS[profile]
+            assert set(profile_cfg) == solver_bucket_names
+            assert "Mixto" not in profile_cfg
+
             solver_min_sum = sum(profile_cfg[name][0] for name in solver_bucket_names)
             displayed_min_sum = sum(bounds[0] for bounds in profile_cfg.values())
 
             assert solver_min_sum <= 1.0
-            assert displayed_min_sum >= solver_min_sum
-            assert "Mixto" in profile_cfg
+            assert displayed_min_sum == pytest.approx(solver_min_sum)
 
     def test_validator_skips_mixto_profile_bound_gracefully(self):
         """Post-solver validation must not report false Mixto violations."""

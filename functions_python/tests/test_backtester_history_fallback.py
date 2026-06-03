@@ -75,7 +75,7 @@ def test_compute_metrics_keeps_calculating_with_reduced_history():
     assert result["effective_start_date"] == df.index[0].strftime("%Y-%m-%d")
 
 
-def test_compute_metrics_still_fails_with_too_few_observations():
+def test_compute_metrics_warns_with_short_but_usable_history():
     df = _build_prices(periods=40)
 
     result = _compute_metrics(
@@ -86,5 +86,21 @@ def test_compute_metrics_still_fails_with_too_few_observations():
         fetcher=_DummyFetcher(),
     )
 
+    assert "error" not in result
+    assert result["observations"] == 40
+    assert any("Short History Warning" in warning for warning in result["warnings"])
+
+
+def test_compute_metrics_still_fails_below_absolute_minimum_observations():
+    df = _build_prices(periods=4)
+
+    result = _compute_metrics(
+        df_master=df,
+        period="1y",
+        weights_map={"ASSET_A": 0.6, "ASSET_B": 0.4},
+        synthetic_used=[],
+        fetcher=_DummyFetcher(),
+    )
+
     assert "error" in result
-    assert "Needed at least 60 observations" in result["error"]
+    assert "Needed at least 5 observations" in result["error"]

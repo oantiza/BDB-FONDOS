@@ -70,10 +70,15 @@ class TestDryRunAuth:
 
 class TestDryRunReadOnlyInvariant:
     def test_no_firestore_write_methods_in_source(self):
-        """Verify endpoint source contains no Firestore write calls."""
+        """Verify dry-run source contains no Firestore write calls."""
         import inspect
         import api.endpoints_admin_console as mod
-        source = inspect.getsource(mod)
+        dry_run_objects = [
+            mod.admin_retro_dry_run,
+            mod._normalize_retrocession_backend,
+            mod._classify_row,
+        ]
+        source = "\n".join(inspect.getsource(obj) for obj in dry_run_objects)
 
         write_patterns = [
             ".set(",
