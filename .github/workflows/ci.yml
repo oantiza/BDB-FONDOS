@@ -21,21 +21,8 @@ jobs:
           cache-dependency-path: functions_python/requirements-dev.txt
       - name: Install deps (locked)
         run: pip install -r requirements-dev.txt
-      - name: Run backend remediation tests
-        run: >
-          python -m pytest -q
-          tests/test_effective_bounds_merge.py
-          tests/test_bucket_vectors_single_source.py
-          tests/test_unified_constraints_flag.py
-          tests/test_constraints_builder_real_asset.py
-          tests/test_unified_constraints_contract.py
-          tests/test_optimizer_autoexpand_consistency.py
-          tests/test_feasibility_precheck_fractional_locks.py
-          tests/test_feasibility_precheck_max_attainable.py
-          tests/test_optimizer_strict_feasibility.py
-          tests/test_optimizer_optional_constraint_diagnostics.py
-          tests/test_shadow_compare.py
-          tests/test_suitability_parity_golden.py
+      - name: Run full backend test suite
+        run: python -m pytest -q
 
   frontend:
     name: Frontend (vitest)
