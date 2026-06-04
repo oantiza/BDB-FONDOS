@@ -120,6 +120,7 @@ def _patch_run_until_precheck(monkeypatch, captured: dict):
         captured["active_bounds"] = kwargs["active_bounds"]
         captured["exposure_vectors"] = kwargs["exposure_vectors"]
         captured["equity_floor"] = kwargs["equity_floor"]
+        captured["min_weight"] = kwargs["min_weight"]
         return {
             "is_feasible": False,
             "blocks": [{"code": "TEST_BLOCK", "message": "blocked by test"}],
@@ -255,7 +256,10 @@ def test_run_optimization_flag_on_precheck_uses_effective_bounds_and_explainabil
         risk_level=5,
         db=_db_with_profiles(),
         constraints={"apply_profile": True, "objective": "min_vol", "max_weight": 1.0, "cutoff": 0.0},
-        constraints_v1={"bucket_bounds": {"equity": {"min": 0.10, "max": 0.90}}},
+        constraints_v1={
+            "bucket_bounds": {"equity": {"min": 0.10, "max": 0.90}},
+            "construction": {"min_weight": 0.15},
+        },
         asset_metadata={},
     )
 
@@ -265,6 +269,7 @@ def test_run_optimization_flag_on_precheck_uses_effective_bounds_and_explainabil
     assert "RV" in captured["exposure_vectors"]
     assert "equity" not in captured["exposure_vectors"]
     assert captured["equity_floor"] == pytest.approx(0.40)
+    assert captured["min_weight"] == pytest.approx(0.15)
     assert result["explainability"]["bucket_constraints_source"] == "unified_effective_bounds"
     assert result["explainability"]["effective_bounds"]["RV"] == {"min": 0.40, "max": 0.60}
     assert len(result["explainability"]["ignored_overrides"]) == 2

@@ -175,6 +175,143 @@ def _check_bucket_not_representable(
     return None
 
 
+def _maximum_achievable_exposure(
+    universe: List[str],
+    exposure_vector: np.ndarray,
+    max_weight: float,
+    min_weight: float,
+    fixed_weights: Dict[str, float],
+    lock_mode: str,
+) -> Optional[dict]:
+    """Return the exact single-bucket maximum under weight bounds and locks."""
+    n_assets = len(universe or [])
+    try:
+        vector = np.asarray(exposure_vector, dtype=float)
+    except Exception:
+        return None
+    if len(vector) != n_assets or not np.all(np.isfinite(vector)):
+        return None
+
+    # Negative exposures cannot improve a minimum. Preserve values above 1.0 so
+    # the precheck never understates what the solver could achieve with the same data.
+    vector = np.maximum(vector, 0.0)
+    max_weight = max(0.0, float(max_weight))
+    min_weight = max(0.0, min(float(min_weight or 0.0), max_weight))
+    lower = np.full(n_assets, min_weight, dtype=float)
+    upper = np.full(n_assets, max_weight, dtype=float)
+    isin_to_idx = {isin: idx for idx, isin in enumerate(universe)}
+
+    if lock_mode in ("keep_weight", "keep_money", "min_keep"):
+        for isin, raw_weight in (fixed_weights or {}).items():
+            idx = isin_to_idx.get(isin)
+            if idx is None:
+                continue
+            locked_weight = max(0.0, min(1.0, float(raw_weight)))
+            if lock_mode in ("keep_weight", "keep_money"):
+                lower[idx] = locked_weight
+                upper[idx] = locked_weight
+            else:
+                lower[idx] = max(lower[idx], locked_weight)
+                upper[idx] = max(upper[idx], lower[idx])
+
+    base_weight = float(np.sum(lower))
+    base_exposure = float(lower @ vector)
+    remaining_budget = max(0.0, 1.0 - base_weight)
+    capacities = np.maximum(0.0, upper - lower)
+
+    added_exposure = 0.0
+    allocated_budget = 0.0
+    for idx in np.argsort(-vector):
+        allocation = min(float(capacities[idx]), remaining_budget)
+        if allocation <= 1e-9:
+            continue
+        added_exposure += allocation * float(vector[idx])
+        allocated_budget += allocation
+        remaining_budget -= allocation
+        if remaining_budget <= 1e-9:
+            break
+
+    return {
+        "max_achievable_exposure": base_exposure + added_exposure,
+        "base_weight": base_weight,
+        "base_exposure": base_exposure,
+        "allocated_budget": allocated_budget,
+        "unallocated_budget": remaining_budget,
+    }
+
+
+def _check_bucket_min_attainable(
+    universe: List[str],
+    active_bounds: Dict[str, Any],
+    exposure_vectors: Dict[str, np.ndarray],
+    fixed_weights: Dict[str, float],
+    lock_mode: str,
+    max_weight: float,
+    min_weight: float,
+    _read_bound_fn,
+) -> Optional[dict]:
+    """BLOCK-9: A bucket minimum exceeds its best-case attainable exposure."""
+    bucket_labels = {
+        "equity": "Renta Variable",
+        "bond": "Renta Fija",
+        "cash": "Monetario",
+        "alternative": "Alternativos",
+        "real_asset": "Activos Reales",
+        "other": "Otros",
+        "RV": "Renta Variable",
+        "RF": "Renta Fija",
+        "Monetario": "Monetario",
+        "Alternativos": "Alternativos",
+        "Otros": "Otros",
+    }
+    for bucket_key, raw in active_bounds.items():
+        b_min, _ = _read_bound_fn(raw)
+        if b_min is None or b_min <= 1e-6:
+            continue
+        vec = exposure_vectors.get(bucket_key)
+        if vec is None:
+            continue
+        try:
+            if len(vec) != len(universe) or np.max(vec) < 1e-6:
+                continue
+        except Exception:
+            continue
+
+        attainable = _maximum_achievable_exposure(
+            universe,
+            vec,
+            max_weight,
+            min_weight,
+            fixed_weights,
+            lock_mode,
+        )
+        if not attainable:
+            continue
+        max_exposure = float(attainable["max_achievable_exposure"])
+        if max_exposure < b_min - 1e-4:
+            label = bucket_labels.get(bucket_key, bucket_key)
+            return _issue(
+                "BLOCK_BUCKET_MIN_UNATTAINABLE",
+                "block",
+                f"El universo solo puede alcanzar un {max_exposure*100:.1f}% de {label}, "
+                f"pero el perfil exige al menos un {b_min*100:.1f}%. "
+                f"Añada fondos con exposición a {label} o revise los límites.",
+                {
+                    "bucket": bucket_key,
+                    "label": label,
+                    "required_min": round(b_min, 4),
+                    "max_achievable_exposure": round(max_exposure, 4),
+                    "max_weight": round(float(max_weight), 4),
+                    "min_weight": round(float(min_weight or 0.0), 4),
+                    "lock_mode": lock_mode,
+                    "base_weight": round(float(attainable["base_weight"]), 4),
+                    "base_exposure": round(float(attainable["base_exposure"]), 4),
+                    "unallocated_budget": round(float(attainable["unallocated_budget"]), 4),
+                },
+            )
+    return None
+
+
 # =========================================================================
 # LOCK COMPATIBILITY CHECKS (Phase 1.5 — approved P2/P3/P5)
 # =========================================================================
@@ -388,6 +525,7 @@ def run_feasibility_precheck(
     lock_mode: str,
     _read_bound_fn,
     equity_floor: Optional[float] = None,
+    min_weight: float = 0.0,
 ) -> dict:
     """
     Run Phase 1 feasibility pre-checks before invoking the solver.
@@ -395,6 +533,7 @@ def run_feasibility_precheck(
     Args:
         universe: List of ISINs surviving data & suitability filters.
         max_weight: Maximum weight per asset (0..1).
+        min_weight: Minimum weight per asset (0..1).
         active_bounds: The effective bucket bounds dict (v1 or legacy).
             Keys are bucket names ("equity", "bond", etc.) with values
             being dicts {"min": float, "max": float} or tuples.
@@ -447,6 +586,20 @@ def run_feasibility_precheck(
 
         # BLOCK-6: Bucket not representable
         issue = _check_bucket_not_representable(active_bounds, exposure_vectors, _read_bound_fn)
+        if issue:
+            blocks.append(issue)
+
+        # BLOCK-9: Bucket minimum exists but cannot be reached under weight bounds/locks
+        issue = _check_bucket_min_attainable(
+            universe,
+            active_bounds,
+            exposure_vectors,
+            fixed_weights,
+            lock_mode,
+            max_weight,
+            min_weight,
+            _read_bound_fn,
+        )
         if issue:
             blocks.append(issue)
 
