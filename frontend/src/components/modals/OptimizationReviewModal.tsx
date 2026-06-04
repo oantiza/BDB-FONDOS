@@ -203,6 +203,25 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                                     </ul>
                                 </div>
                             )}
+
+                            {Array.isArray(explainabilityData?.locked_suitability_overrides) && explainabilityData.locked_suitability_overrides.length > 0 && (
+                                <div className="mt-4 border-t border-amber-200/50 pt-3">
+                                    <h5 className="text-[11px] font-bold uppercase tracking-wider text-amber-800 mb-2">
+                                        Posiciones bloqueadas fuera de idoneidad
+                                    </h5>
+                                    <ul className="space-y-2">
+                                        {explainabilityData.locked_suitability_overrides.map((item: any) => (
+                                            <li key={item.isin} className="text-xs text-amber-800">
+                                                <span className="font-bold">{item.isin}</span>
+                                                {item.final_weight !== null && item.final_weight !== undefined
+                                                    ? ` · Peso final ${(item.final_weight * 100).toFixed(2)}%`
+                                                    : ''}
+                                                <div className="text-amber-700 mt-0.5">{item.reason}</div>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            )}
                         </div>
                     )}
 

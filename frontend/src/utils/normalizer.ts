@@ -16,7 +16,8 @@ export const translateTechnicalWarning = (w: string) => {
         'mixed_missing_asset_mix': 'Faltan datos de exposición en fondos mixtos; usando modelo 50/50 de fallback.',
         'VOL_BAND_MIN_VIOLATION': 'La volatilidad lograda queda por debajo de la banda configurada.',
         'VOL_BAND_MAX_VIOLATION': 'La volatilidad lograda supera la banda configurada.',
-        'VOL_BAND_INVALID': 'La banda de volatilidad configurada no es válida.'
+        'VOL_BAND_INVALID': 'La banda de volatilidad configurada no es válida.',
+        'locked_suitability_override': 'Se mantienen posiciones bloqueadas que no son aptas para el perfil seleccionado.'
     };
     return map[w] || w;
 };
