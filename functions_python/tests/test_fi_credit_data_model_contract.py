@@ -1,20 +1,13 @@
 """
 BDB-SUITABILITY-FI-CREDIT-DATA-MODEL-0
 =======================================
-Design contract tests for the future fi_credit quantitative breakdown
+Contract tests for the fi_credit quantitative breakdown
 in portfolio_exposure_v2.
 
-STATUS: DESIGN-ONLY — Tests use xfail(strict=False) to document intended contracts.
-        The fi_credit quantitative field does NOT exist yet in Firestore
-        for any fund (0/670 confirmed by audit BDB-SUITABILITY-FE9-LOW_QUALITY_CREDIT-AUDIT-0).
-        xfail(strict=False) = contract is documented and logic is sound, but field not in Firestore.
-        xpassed tests confirm the reference implementation logic is correct.
-
-These tests document the INTENDED contract when the data model is implemented.
-They must NOT be un-xfail'd until:
-  1. ms.fixed_income.credit_quality is confirmed written to Firestore (via parser)
-  2. portfolio_exposure_v2.fi_credit.low_quality is populated by S3
-  3. Coverage is verified >= 50% of fixed_income + mixed funds
+STATUS: DATA MODEL IMPLEMENTED FOR THE AUDITED COHORT.
+        Executable derivation and translator contracts are normal regression
+        tests. Only schema-rejection cases remain xfail until a production
+        validator exists.
 
 Reference:
   docs/BDB_SUITABILITY_FI_CREDIT_DATA_MODEL_0.md
@@ -26,8 +19,8 @@ import pytest
 
 # ── XFAIL REASON ─────────────────────────────────────────────────────────────
 _REASON = (
-    "FI credit quantitative data model not implemented. "
-    "portfolio_exposure_v2.fi_credit.low_quality absent in 670/670 funds. "
+    "FI credit schema validator not implemented. "
+    "Invalid documents are not yet rejected by a shared production validator. "
     "See docs/BDB_SUITABILITY_FI_CREDIT_DATA_MODEL_0.md"
 )
 
@@ -52,7 +45,7 @@ def make_fi_credit(
     as_of: str = "2026-01-31",
     warnings: list | None = None,
 ) -> dict:
-    """Factory for a proposed fi_credit sub-document (future schema)."""
+    """Factory for a canonical fi_credit sub-document."""
     return {
         "source": source,
         "as_of": as_of,
@@ -135,7 +128,6 @@ class TestFiCreditSchemaContract:
         fi = make_fi_credit(coverage=0.0)
         assert fi.get("coverage", 0) > 0, "coverage=0 is invalid; fi_credit cannot be used"
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_low_quality_field_must_equal_breakdown_sum(self):
         """
         The top-level low_quality must equal BB + B + below_B from the breakdown.
@@ -164,13 +156,11 @@ class TestLowQualityDerivation:
     not_rated is treated separately and never auto-included in low_quality.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_bb_b_below_b_sum_is_low_quality(self):
         fi = make_fi_credit(bb=10.0, b=8.0, below_b=4.0)
         computed = _compute_low_quality(fi)
         assert computed == 22.0, f"BB+B+below_B should be 22%, got {computed}"
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_not_rated_excluded_from_low_quality(self):
         """
         not_rated is NOT automatically counted as low_quality.
@@ -185,7 +175,6 @@ class TestLowQualityDerivation:
             "Explicit flag `not_rated_treated_as_lq: true` required to change this."
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_high_yield_bond_subtype_still_requires_quantitative_field(self):
         """
         Even if asset_subtype == HIGH_YIELD_BOND (qualitative block, Rule 10),
@@ -196,7 +185,6 @@ class TestLowQualityDerivation:
         fi = make_fi_credit(bb=25.0, b=30.0, below_b=15.0, low_quality=70.0)
         assert fi["low_quality"] >= 35.0, "HY fund should have high low_quality value"
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_investment_grade_fund_low_quality_below_threshold(self):
         """
         A typical IG corporate bond fund should have low_quality < 35%.
@@ -216,7 +204,6 @@ class TestScaleAndMixedFundContracts:
     NOT 70%. If scale=percent_of_bond_bucket, the rule must be applied accordingly.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_bond_bucket_scale_vs_total_portfolio(self):
         """
         Mixed fund: bond_weight=40%, low_quality_of_bond=70%.
@@ -245,7 +232,6 @@ class TestScaleAndMixedFundContracts:
             "On total_portfolio scale: 40% bond * 70% LQ = 28% of total"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_mixed_fund_below_threshold_on_total_portfolio_scale(self):
         """
         A conservative mixed fund with 30% bonds, 50% low_quality of bonds.
@@ -266,7 +252,6 @@ class TestScaleAndMixedFundContracts:
             f"Got low_quality={fi['low_quality']}"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_pure_hy_fund_triggers_on_total_portfolio_scale(self):
         """A pure HY bond fund should trigger FE-9 on either scale."""
         fi = make_fi_credit(
@@ -287,7 +272,6 @@ class TestCoverageContracts:
     compute low_quality for the full fund.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_low_coverage_prevents_hard_block(self):
         """
         If coverage < 50%, FE-9 must not produce a hard block.
@@ -298,7 +282,6 @@ class TestCoverageContracts:
             "Low coverage (30%) must prevent hard block even if low_quality=80%"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_sufficient_coverage_enables_rule(self):
         """High coverage (>=50%) with low_quality >= 35% must trigger FE-9."""
         fi = make_fi_credit(low_quality=40.0, coverage=0.75)
@@ -306,7 +289,6 @@ class TestCoverageContracts:
             "Coverage=75% + low_quality=40% must trigger FE-9 block"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_missing_as_of_triggers_staleness_warning(self):
         """fi_credit without as_of must generate a staleness warning."""
         fi = make_fi_credit()
@@ -325,7 +307,6 @@ class TestFE9RuleScopeContracts:
     Hard blocks must be reserved for high-confidence, high-coverage cases.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fe9_does_not_apply_to_profiles_above_4(self):
         """FE-9 is scoped to profiles <= 4. Profiles 5+ must not be affected."""
         fi = make_fi_credit(low_quality=90.0, coverage=0.95)
@@ -339,7 +320,6 @@ class TestFE9RuleScopeContracts:
         # Rule fires for profiles in scope only
         assert _fe9_would_block(fi), "Rule fires for profiles <= 4 with sufficient data"
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fe9_not_applied_when_hy_subtype_already_blocks(self):
         """
         If asset_subtype == HIGH_YIELD_BOND, that rule already blocks profiles <= 4.
@@ -353,7 +333,6 @@ class TestFE9RuleScopeContracts:
         assert _fe9_would_block(fi), "FE-9 would also fire, but subtype rule is primary"
         # Implementation must ensure reason string references the PRIMARY rule
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fe9_boundary_exactly_35(self):
         """
         Boundary: low_quality == 35% must trigger the block (rule is >=).
@@ -363,7 +342,6 @@ class TestFE9RuleScopeContracts:
         fi = make_fi_credit(low_quality=35.0, coverage=0.85)
         assert _fe9_would_block(fi), "Exactly 35% low_quality must trigger FE-9 (>= is inclusive)"
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fe9_below_35_does_not_block(self):
         """34.9% must NOT trigger FE-9."""
         fi = make_fi_credit(low_quality=34.9, coverage=0.85)
@@ -374,19 +352,16 @@ class TestFE9RuleScopeContracts:
 
 class TestDataPipelineGapDocumentation:
     """
-    These tests document the MISSING PIPELINE STEPS needed before any implementation.
-    They serve as acceptance criteria for BDB-FI-CREDIT-PARSER-DISCOVERY-0.
+    These tests preserve the implemented translator mapping as regression
+    criteria for BDB-FI-CREDIT-PARSER-DISCOVERY-0.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_ms_fixed_income_credit_quality_exists_in_parser_output(self):
         """
         KNOWN: populate_taxonomy_v2.py reads ms.fixed_income.credit_quality.
-        MISSING: this data must be written to portfolio_exposure_v2.credit
-        (or portfolio_exposure_v2.fi_credit) by the S3 pipeline.
-        
-        Current state: parser READS the data but only uses it for fi_credit_bucket (categorical).
-        Required: translate the full breakdown dict → portfolio_exposure_v2.fi_credit quantitative.
+        The translator maps the full Morningstar credit-quality breakdown to
+        portfolio_exposure_v2.fi_credit while the parser also maintains the
+        categorical fi_credit_bucket.
         """
         # This test documents what S3 must do — not what it currently does.
         ms_fi_credit_quality = {
@@ -411,12 +386,11 @@ class TestDataPipelineGapDocumentation:
             f"BB+B+below_B = {computed_lq}%, expected {expected_fi_credit['low_quality']}%"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_credit_field_mapping_in_firestore_matches_parser_output(self):
         """
-        MISSING: The Firestore field portfolio_exposure_v2.credit (or fi_credit)
-        must match the structure defined in the schema proposal.
-        Currently 0/670 funds have this field populated.
+        The Firestore field portfolio_exposure_v2.fi_credit must match the
+        canonical structure. The audited cohort has 130 populated funds; wider
+        coverage remains constrained by source-data availability.
         """
         # Simulates what Firestore should contain after BDB-FI-CREDIT-DRYRUN-EXTRACTION-0
         firestore_doc = {
@@ -441,13 +415,6 @@ class TestDataPipelineGapDocumentation:
 
 
 # ── SECTION 7: Translator DryRun Contracts ───────────────────────────────────
-
-_DRYRUN_REASON = (
-    "BDB-FI-CREDIT-TRANSLATOR-DRYRUN-0: translator logic documented. "
-    "portfolio_exposure_v2.fi_credit not yet written to Firestore. "
-    "See docs/BDB_FI_CREDIT_TRANSLATOR_DRYRUN_0.md"
-)
-
 
 def _build_fi_credit_from_cq(cq: dict, bond_weight: float | None = None,
                               subtype: str = "CORPORATE_BOND",
@@ -555,7 +522,6 @@ class TestTranslatorDryRunContracts:
     Based on BDB-FI-CREDIT-TRANSLATOR-DRYRUN-0.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_translator_produces_all_required_fields(self):
         """TRANSLATED result must have all mandatory fi_credit fields."""
         cq = {"aaa": 10, "aa": 15, "a": 30, "bbb": 25, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
@@ -567,7 +533,6 @@ class TestTranslatorDryRunContracts:
                       "not_rated", "breakdown", "warnings"):
             assert field in fi, f"Missing required field: {field}"
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_low_quality_matches_bb_b_below_b(self):
         """low_quality == BB + B + below_B exactly."""
         cq = {"aaa": 5, "aa": 10, "a": 25, "bbb": 40, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
@@ -578,7 +543,6 @@ class TestTranslatorDryRunContracts:
             f"low_quality={fi['low_quality']} != BB+B+below_B={expected_lq}"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_not_rated_excluded_from_low_quality(self):
         """not_rated is not added to low_quality or high_yield."""
         cq = {"aaa": 30, "aa": 20, "a": 20, "bbb": 15, "bb": 0, "b": 0, "below_b": 0, "not_rated": 15}
@@ -587,28 +551,24 @@ class TestTranslatorDryRunContracts:
         assert fi["low_quality"] == 0.0, "With 0 BB/B/below_B, low_quality must be 0"
         assert fi["not_rated"] == 15.0, "not_rated must be preserved separately"
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_warning_low_quality_over_35_bond_bucket(self):
         """Warning LOW_QUALITY_OVER_35_BOND_BUCKET fires when lq >= 35%."""
         cq = {"aaa": 0, "aa": 0, "a": 5, "bbb": 15, "bb": 25, "b": 25, "below_b": 25, "not_rated": 5}
         result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
         assert "LOW_QUALITY_OVER_35_BOND_BUCKET" in result["warnings"]
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_warning_missing_bond_weight(self):
         """Warning MISSING_BOND_WEIGHT fires when bond_weight is None."""
         cq = {"aaa": 10, "aa": 15, "a": 30, "bbb": 25, "bb": 5, "b": 5, "below_b": 5, "not_rated": 5}
         result = _build_fi_credit_from_cq(cq, bond_weight=None)
         assert "MISSING_BOND_WEIGHT" in result["warnings"]
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_warning_high_not_rated(self):
         """Warning HIGH_NOT_RATED fires when not_rated >= 20%."""
         cq = {"aaa": 10, "aa": 10, "a": 20, "bbb": 20, "bb": 10, "b": 5, "below_b": 5, "not_rated": 20}
         result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
         assert "HIGH_NOT_RATED" in result["warnings"]
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_fe9_already_blocked_tag_for_hy_bond(self):
         """HIGH_YIELD_BOND with lq>=35 gets FE9_ALREADY_BLOCKED_BY_HY_EM_RULE_10."""
         cq = {"aaa": 0, "aa": 0, "a": 0, "bbb": 5, "bb": 30, "b": 30, "below_b": 30, "not_rated": 5}
@@ -619,7 +579,6 @@ class TestTranslatorDryRunContracts:
         assert "FE9_ALREADY_BLOCKED_BY_HY_EM_RULE_10" in result["warnings"]
         assert "FE9_POTENTIAL_NEW_GAP" not in result["warnings"]
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_fe9_new_gap_for_corporate_bond_with_high_lq(self):
         """CORPORATE_BOND with lq>=35 and profile<=4 gets FE9_POTENTIAL_NEW_GAP."""
         cq = {"aaa": 0, "aa": 0, "a": 10, "bbb": 20, "bb": 20, "b": 20, "below_b": 20, "not_rated": 10}
@@ -630,7 +589,6 @@ class TestTranslatorDryRunContracts:
         assert "FE9_POTENTIAL_NEW_GAP" in result["warnings"]
         assert result["fe9_potential_new_gap"] is True
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_invalid_sum_returns_no_proposal(self):
         """Sum < 80% → INVALID_SUM, no proposed_fi_credit."""
         cq = {"aaa": 5, "aa": 5, "a": 5, "bbb": 5, "bb": 5, "b": 5, "below_b": 5, "not_rated": 5}
@@ -639,7 +597,6 @@ class TestTranslatorDryRunContracts:
         assert result["status"] == "INVALID_SUM"
         assert result["proposed_fi_credit"] is None
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_lq_total_portfolio_estimate_computed_correctly(self):
         """low_quality_total_portfolio_estimate = lq * bond_weight / 100."""
         cq = {"aaa": 5, "aa": 10, "a": 20, "bbb": 25, "bb": 20, "b": 10, "below_b": 5, "not_rated": 5}
@@ -650,7 +607,6 @@ class TestTranslatorDryRunContracts:
             f"Expected lq_tp={expected_tp}, got {result['low_quality_total_portfolio_estimate']}"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_write_recommended_always_false_in_dryrun(self):
         """
         In dry-run mode, write_recommended must always be False.
@@ -666,7 +622,6 @@ class TestTranslatorDryRunContracts:
             "write_recommended must be False in all dryrun results"
         )
 
-    @pytest.mark.xfail(strict=False, reason=_DRYRUN_REASON)
     def test_coverage_is_1_when_sum_is_100(self):
         """If credit_quality sum is exactly 100%, coverage must be 1.0."""
         cq = {"aaa": 10, "aa": 15, "a": 25, "bbb": 30, "bb": 10, "b": 5, "below_b": 2, "not_rated": 3}
@@ -674,4 +629,3 @@ class TestTranslatorDryRunContracts:
         result = _build_fi_credit_from_cq(cq, bond_weight=100.0)
         fi = result["proposed_fi_credit"]
         assert fi["coverage"] == 1.0, f"Sum=100% → coverage must be 1.0, got {fi['coverage']}"
-
