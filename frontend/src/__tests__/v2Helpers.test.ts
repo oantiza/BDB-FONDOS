@@ -407,6 +407,9 @@ describe('translateTechnicalWarning', () => {
     expect(translateTechnicalWarning('mixed_legacy_50_50_fallback')).toContain('Se asume conservadoramente un 50%');
     expect(translateTechnicalWarning('requires_exposure_review')).toContain('revisar la exposición');
     expect(translateTechnicalWarning('mixed_missing_asset_mix')).toContain('50/50 de fallback');
+    expect(translateTechnicalWarning('VOL_BAND_MIN_VIOLATION')).toContain('por debajo');
+    expect(translateTechnicalWarning('VOL_BAND_MAX_VIOLATION')).toContain('supera');
+    expect(translateTechnicalWarning('VOL_BAND_INVALID')).toContain('no es válida');
   });
 
   it('returns original string if not mapped', () => {

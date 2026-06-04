@@ -396,6 +396,72 @@ def _validate_optimizer_result(
     }
 
 
+def _evaluate_vol_band(
+    achieved_vol,
+    risk_budget,
+    strict_feasibility=False,
+    tolerance=1e-6,
+):
+    """
+    Audit the configured volatility band against the final portfolio.
+
+    The lower volatility bound is non-convex, so the band is deliberately a
+    post-solve contract: soft warning by default, hard compliance check when
+    strict_feasibility is enabled.
+    """
+    risk_budget = risk_budget or {}
+    min_vol, max_vol = _read_bound(risk_budget.get("vol_band"))
+    target_vol = _to_float(risk_budget.get("target_vol"), None)
+    enforcement = "strict_postcheck" if strict_feasibility else "soft_warning"
+
+    result = {
+        "configured": min_vol is not None or max_vol is not None,
+        "compliant": True,
+        "enforcement": enforcement,
+        "achieved_vol": round(float(achieved_vol), 6),
+        "target_vol": round(float(target_vol), 6) if target_vol is not None else None,
+        "min": round(float(min_vol), 6) if min_vol is not None else None,
+        "max": round(float(max_vol), 6) if max_vol is not None else None,
+        "violations": [],
+        "warnings": [],
+    }
+    if not result["configured"]:
+        return result
+
+    diagnostic = None
+    if min_vol is not None and max_vol is not None and min_vol > max_vol + tolerance:
+        diagnostic = {
+            "code": "VOL_BAND_INVALID",
+            "severity": "HIGH" if strict_feasibility else "WARNING",
+            "min": round(float(min_vol), 6),
+            "max": round(float(max_vol), 6),
+        }
+    elif min_vol is not None and achieved_vol < min_vol - tolerance:
+        diagnostic = {
+            "code": "VOL_BAND_MIN_VIOLATION",
+            "severity": "HIGH" if strict_feasibility else "WARNING",
+            "actual": round(float(achieved_vol), 6),
+            "min": round(float(min_vol), 6),
+        }
+    elif max_vol is not None and achieved_vol > max_vol + tolerance:
+        diagnostic = {
+            "code": "VOL_BAND_MAX_VIOLATION",
+            "severity": "HIGH" if strict_feasibility else "WARNING",
+            "actual": round(float(achieved_vol), 6),
+            "max": round(float(max_vol), 6),
+        }
+
+    if diagnostic is None:
+        return result
+
+    result["compliant"] = False
+    if strict_feasibility:
+        result["violations"].append(diagnostic)
+    else:
+        result["warnings"].append(diagnostic["code"])
+    return result
+
+
 def _coerce_weights_for_universe(weights, universe):
     coerced = {}
     for idx, isin in enumerate(universe or []):
@@ -627,6 +693,20 @@ def _format_final_constraint_message(final_validation):
             f"{float(first.get('actual', 0.0)) * 100:.2f}% vs {comparator} "
             f"{float(bound or 0.0) * 100:.2f}%."
         )
+    if code == "VOL_BAND_MIN_VIOLATION":
+        return (
+            f"La propuesta queda por debajo de la volatilidad mínima configurada: "
+            f"{float(first.get('actual', 0.0)) * 100:.2f}% vs mínimo "
+            f"{float(first.get('min', 0.0)) * 100:.2f}%."
+        )
+    if code == "VOL_BAND_MAX_VIOLATION":
+        return (
+            f"La propuesta supera la volatilidad máxima configurada: "
+            f"{float(first.get('actual', 0.0)) * 100:.2f}% vs máximo "
+            f"{float(first.get('max', 0.0)) * 100:.2f}%."
+        )
+    if code == "VOL_BAND_INVALID":
+        return "La banda de volatilidad configurada no es válida."
     return f"La propuesta no cumple las restricciones finales ({code or 'violacion_final'})."
 
 # =========================================================================
@@ -1993,12 +2073,32 @@ def run_optimization(
         )
 
         # Status honesto: si el solver usó fallback, informar.
+        volatility_compliance = _evaluate_vol_band(
+            port_vol,
+            risk_budget_v1,
+            strict_feasibility=strict_feasibility,
+        )
+        final_validation["violations"].extend(volatility_compliance["violations"])
+        final_validation["warnings"].extend(volatility_compliance["warnings"])
+        final_validation["compliant"] = len(final_validation["violations"]) == 0
+        explainability["volatility_compliance"] = volatility_compliance
+        if volatility_compliance["configured"]:
+            binding_constraints.append(
+                "volatility band audited as "
+                + (
+                    "strict final compliance check"
+                    if strict_feasibility
+                    else "soft final warning"
+                )
+            )
+
         is_fallback = (solver_path or "").startswith("fallback_")
         is_compliant = bool(final_validation.get("compliant"))
+        has_warnings = bool(final_validation.get("warnings"))
         if is_fallback:
             final_status = "fallback_compliant" if is_compliant else "fallback_non_compliant"
         elif is_compliant:
-            final_status = "optimal_compliant"
+            final_status = "optimal_with_warnings" if has_warnings else "optimal_compliant"
         else:
             final_status = "optimal_non_compliant"
         applicable = final_status in {"optimal_compliant", "optimal_with_warnings", "fallback_compliant"}
@@ -2025,6 +2125,14 @@ def run_optimization(
             result_metrics["target_vol"] = round(_target_vol, 6)
             result_metrics["achieved_vol"] = round(_achieved_vol, 6)
             result_metrics["vol_deviation"] = _vol_deviation
+        if volatility_compliance["configured"]:
+            result_metrics["achieved_vol"] = round(_achieved_vol, 6)
+            result_metrics["vol_band"] = {
+                "min": volatility_compliance["min"],
+                "max": volatility_compliance["max"],
+            }
+            result_metrics["vol_band_compliant"] = volatility_compliance["compliant"]
+            result_metrics["vol_band_enforcement"] = volatility_compliance["enforcement"]
 
         return {
             "api_version": "optimizer_v4",

@@ -13,7 +13,10 @@ export const translateTechnicalWarning = (w: string) => {
     const map: Record<string, string> = {
         'mixed_legacy_50_50_fallback': 'Se han detectado fondos mixtos sin desglose actualizado de renta variable. Se asume conservadoramente un 50% de exposición.',
         'requires_exposure_review': 'Se recomienda revisar la exposición de los fondos mixtos para mayor precisión.',
-        'mixed_missing_asset_mix': 'Faltan datos de exposición en fondos mixtos; usando modelo 50/50 de fallback.'
+        'mixed_missing_asset_mix': 'Faltan datos de exposición en fondos mixtos; usando modelo 50/50 de fallback.',
+        'VOL_BAND_MIN_VIOLATION': 'La volatilidad lograda queda por debajo de la banda configurada.',
+        'VOL_BAND_MAX_VIOLATION': 'La volatilidad lograda supera la banda configurada.',
+        'VOL_BAND_INVALID': 'La banda de volatilidad configurada no es válida.'
     };
     return map[w] || w;
 };
