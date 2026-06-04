@@ -221,10 +221,24 @@ def _check_locks_incompatible_bucket(
             continue
 
         locked_in_bucket = 0.0
+        locked_contributions = {}
         for isin, fw in fixed_weights.items():
             idx = isin_to_idx.get(isin)
-            if idx is not None and idx < len(vec) and vec[idx] > 0.5:
-                locked_in_bucket += max(0.0, float(fw))
+            if idx is None or idx >= len(vec):
+                continue
+
+            locked_weight = max(0.0, float(fw))
+            bucket_exposure = float(vec[idx])
+            if not math.isfinite(bucket_exposure) or bucket_exposure <= 0.0:
+                continue
+
+            contribution = locked_weight * bucket_exposure
+            locked_in_bucket += contribution
+            locked_contributions[isin] = {
+                "locked_weight": round(locked_weight, 4),
+                "bucket_exposure": round(bucket_exposure, 4),
+                "contribution": round(contribution, 4),
+            }
 
         if locked_in_bucket > b_max + 1e-4:
             label = bucket_labels.get(bucket_key, bucket_key)
@@ -239,6 +253,7 @@ def _check_locks_incompatible_bucket(
                     "label": label,
                     "locked_sum": round(locked_in_bucket, 4),
                     "bucket_max": round(b_max, 4),
+                    "locked_contributions": locked_contributions,
                 },
             )
 
@@ -302,7 +317,9 @@ def _check_locks_incompatible_equity_floor(
     if not fixed_weights:
         return None
 
-    eq_vec = exposure_vectors.get("equity")
+    eq_vec = exposure_vectors.get("RV")
+    if eq_vec is None:
+        eq_vec = exposure_vectors.get("equity")
     if eq_vec is None:
         return None
 
