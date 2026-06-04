@@ -9,7 +9,7 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 | Area | Estado | Evidencia |
 | --- | --- | --- |
-| Suite backend completa | Cerrado | `589 passed, 2 skipped, 0 xfailed` en local; CI completa activa en `master`. |
+| Suite backend completa | Cerrado | `589 passed, 0 skipped, 0 xfailed` en local; CI completa activa en `master`. |
 | `compatible_profiles` poblado | Cerrado | Write gate de 3 fondos FI emergentes; auditoria posterior con drift `0`. |
 | Fondos `Otros` en perfiles conservadores | Cerrado para el estado actual | Revision `0`; commodities/keywords aptos P1-P2 `0`. |
 | `risk_profiles` canonico | Cerrado | `risk_profiles` y `risk_profiles_staging` identicos; `Mixto` ausente en ambos. |
