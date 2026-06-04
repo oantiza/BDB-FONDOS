@@ -25,8 +25,6 @@ Reference:
   docs/BDB_FI_CREDIT_FE9_IMPACT_AUDIT_0.md
   artifacts/suitability/fi_credit_fe9_impact_audit_0.json
 """
-import pytest
-
 from services.portfolio.fi_credit_warnings import compute_fi_credit_warnings
 
 
@@ -41,16 +39,31 @@ def _make_fi_credit(
     source: str = "morningstar_pdf",
     as_of: str | None = "2026-01-31",
 ) -> dict:
-    """Minimal fi_credit dict for warning contract tests."""
+    """Canonical fi_credit dict for warning contract tests."""
+    resolved_investment_grade = min(
+        investment_grade,
+        max(0.0, 100.0 - low_quality - not_rated),
+    )
     return {
         "source":           source,
         "as_of":            as_of,
         "scale":            scale,
         "coverage":         coverage,
-        "investment_grade": investment_grade,
+        "investment_grade": resolved_investment_grade,
         "low_quality":      low_quality,
         "high_yield":       low_quality,  # alias
         "not_rated":        not_rated,
+        "breakdown": {
+            "AAA": 0.0,
+            "AA": 0.0,
+            "A": 0.0,
+            "BBB": resolved_investment_grade,
+            "BB": low_quality,
+            "B": 0.0,
+            "below_B": 0.0,
+            "not_rated": not_rated,
+        },
+        "warnings": [],
     }
 
 
@@ -109,6 +122,13 @@ class TestFE9WarningInvariants:
         fi = _make_fi_credit(low_quality=60.0, coverage=1.0, scale="percent_of_total_portfolio")
         w  = _build_fe9_warning(fi)
         assert w is None, "Warning requires explicit percent_of_bond_bucket scale"
+
+    def test_no_warning_for_schema_inconsistent_breakdown(self):
+        """The warning engine must consume the shared schema validator."""
+        fi = _make_fi_credit(low_quality=60.0, coverage=1.0)
+        fi["breakdown"]["BB"] = 10.0
+        w = _build_fe9_warning(fi)
+        assert w is None, "Invalid canonical data must not emit a warning"
 
     def test_not_rated_excluded_from_low_quality_in_warning(self):
         """not_rated is NOT included in low_quality — it is reported separately."""

@@ -6,23 +6,14 @@ in portfolio_exposure_v2.
 
 STATUS: DATA MODEL IMPLEMENTED FOR THE AUDITED COHORT.
         Executable derivation and translator contracts are normal regression
-        tests. Only schema-rejection cases remain xfail until a production
-        validator exists.
+        tests. Schema-rejection cases exercise the shared production validator.
 
 Reference:
   docs/BDB_SUITABILITY_FI_CREDIT_DATA_MODEL_0.md
   docs/BDB_SUITABILITY_FE9_LOW_QUALITY_CREDIT_DECISION_0.md
   artifacts/suitability/fe9_low_quality_credit_audit_0.json
 """
-import pytest
-
-
-# ── XFAIL REASON ─────────────────────────────────────────────────────────────
-_REASON = (
-    "FI credit schema validator not implemented. "
-    "Invalid documents are not yet rejected by a shared production validator. "
-    "See docs/BDB_SUITABILITY_FI_CREDIT_DATA_MODEL_0.md"
-)
+from services.portfolio.fi_credit_schema import validate_fi_credit
 
 
 # ── HELPER: simulate the proposed fi_credit sub-document ─────────────────────
@@ -42,7 +33,7 @@ def make_fi_credit(
     coverage: float = 0.85,
     scale: str = "percent_of_bond_bucket",
     source: str = "morningstar_pdf",
-    as_of: str = "2026-01-31",
+    as_of: str | None = "2026-01-31",
     warnings: list | None = None,
 ) -> dict:
     """Factory for a canonical fi_credit sub-document."""
@@ -97,22 +88,18 @@ class TestFiCreditSchemaContract:
     before being consumed by any suitability rule.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fi_credit_requires_source_field(self):
         """fi_credit without 'source' must be rejected — provenance is mandatory."""
         fi = make_fi_credit()
         fi.pop("source")
-        # Future validator must raise or flag this
-        assert "source" in fi, "fi_credit must declare its data source"
+        assert "missing_source" in validate_fi_credit(fi)
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fi_credit_requires_as_of_field(self):
         """fi_credit without 'as_of' must be rejected — stale data is a risk."""
         fi = make_fi_credit()
         fi.pop("as_of")
-        assert "as_of" in fi, "fi_credit must declare data date (staleness guard)"
+        assert "missing_as_of" in validate_fi_credit(fi)
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fi_credit_requires_scale_field(self):
         """
         Scale ambiguity (bond_bucket vs total_portfolio) is a design risk.
@@ -120,13 +107,12 @@ class TestFiCreditSchemaContract:
         """
         fi = make_fi_credit()
         fi.pop("scale")
-        assert "scale" in fi, "fi_credit.scale must be declared to avoid denominator confusion"
+        assert "missing_scale" in validate_fi_credit(fi)
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
     def test_fi_credit_requires_coverage_above_zero(self):
         """Zero coverage makes low_quality meaningless — must be caught."""
         fi = make_fi_credit(coverage=0.0)
-        assert fi.get("coverage", 0) > 0, "coverage=0 is invalid; fi_credit cannot be used"
+        assert "invalid_coverage" in validate_fi_credit(fi)
 
     def test_low_quality_field_must_equal_breakdown_sum(self):
         """
@@ -134,18 +120,41 @@ class TestFiCreditSchemaContract:
         Inconsistency indicates a data normalization bug.
         """
         fi = make_fi_credit(bb=15.0, b=12.0, below_b=5.0, low_quality=32.0)
-        expected = _compute_low_quality(fi)
-        assert fi["low_quality"] == expected, (
-            f"fi_credit.low_quality ({fi['low_quality']}) != BB+B+below_B ({expected})"
-        )
+        assert validate_fi_credit(fi) == []
 
-    @pytest.mark.xfail(strict=False, reason=_REASON)
+        inconsistent = make_fi_credit(bb=15.0, b=12.0, below_b=5.0, low_quality=31.0)
+        assert "low_quality_mismatch" in validate_fi_credit(inconsistent)
+
     def test_breakdown_must_not_exceed_100(self):
-        """Sum of all breakdown bands must be <= 100%."""
+        """Material breakdown over-sums must be rejected after rounding tolerance."""
         fi = make_fi_credit(aaa=30, aa=20, a=25, bbb=30, bb=10)
-        bd = fi["breakdown"]
-        total = sum(float(v or 0) for v in bd.values())
-        assert total <= 100.0, f"Breakdown sums to {total}% — exceeds 100%"
+        assert "breakdown_total_exceeds_100" in validate_fi_credit(fi)
+
+    def test_as_of_none_is_valid_when_field_is_present(self):
+        """The current canonical Morningstar data may explicitly use as_of=None."""
+        fi = make_fi_credit(as_of=None)
+        assert validate_fi_credit(fi) == []
+
+    def test_unsupported_scale_is_rejected(self):
+        fi = make_fi_credit(scale="unknown_scale")
+        assert "invalid_scale" in validate_fi_credit(fi)
+
+    def test_both_documented_scales_are_schema_valid(self):
+        fi = make_fi_credit(scale="percent_of_total_portfolio")
+        assert validate_fi_credit(fi) == []
+
+    def test_breakdown_requires_all_canonical_bands(self):
+        fi = make_fi_credit()
+        fi["breakdown"].pop("below_B")
+        assert "missing_breakdown_band" in validate_fi_credit(fi)
+
+    def test_breakdown_values_must_be_finite_percentages(self):
+        fi = make_fi_credit()
+        fi["breakdown"]["AAA"] = float("nan")
+        assert "breakdown_value_invalid" in validate_fi_credit(fi)
+
+    def test_fi_credit_must_be_an_object(self):
+        assert validate_fi_credit(None) == ["fi_credit_not_object"]
 
 
 # ── SECTION 2: low_quality Derivation Contracts ───────────────────────────────
