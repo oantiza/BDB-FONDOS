@@ -410,6 +410,7 @@ describe('translateTechnicalWarning', () => {
     expect(translateTechnicalWarning('VOL_BAND_MIN_VIOLATION')).toContain('por debajo');
     expect(translateTechnicalWarning('VOL_BAND_MAX_VIOLATION')).toContain('supera');
     expect(translateTechnicalWarning('VOL_BAND_INVALID')).toContain('no es válida');
+    expect(translateTechnicalWarning('locked_suitability_override')).toContain('posiciones bloqueadas');
   });
 
   it('returns original string if not mapped', () => {

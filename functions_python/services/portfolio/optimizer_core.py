@@ -749,7 +749,14 @@ def _build_optimization_context(db, constraints):
     return apply_profile, optimization_mode, lock_mode, fixed_weights, current_risk_buckets, equity_floor
 
 
-def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets):
+def _apply_suitability_filter(
+    assets_list,
+    asset_metadata,
+    risk_level,
+    apply_profile,
+    locked_assets,
+    return_diagnostics=False,
+):
     """
     FASE 2: Suitability Hard Filter.
     [PRECEDENCIA CANÓNICA] Nivel 2: Filtro Regulador Excluyente.
@@ -757,23 +764,56 @@ def _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_pro
     Si el usuario fuerza/bloquea un activo manual, se salta el filtro de idoneidad local.
     """
     if not apply_profile:
-        return assets_list
+        return (assets_list, []) if return_diagnostics else assets_list
 
     filtered_list = []
+    locked_suitability_overrides = []
     locked_set = set(locked_assets or [])
     for isin in assets_list:
-        if isin in locked_set:
-            logger.info(f"ðŸ”“ [Suitability Override] {isin} mantenido por Nivel 1 (Locked Asset).")
-            filtered_list.append(isin)
-            continue
-            
         meta = asset_metadata.get(isin, {})
         eligible, reason = is_fund_eligible_for_profile(meta, int(risk_level))
+        if isin in locked_set:
+            logger.info(f"[Suitability Override] {isin} mantenido por Nivel 1 (Locked Asset).")
+            filtered_list.append(isin)
+            if not eligible:
+                locked_suitability_overrides.append({
+                    "isin": isin,
+                    "risk_profile": int(risk_level),
+                    "reason": reason,
+                    "override_source": "locked_asset",
+                })
+            continue
+
         if eligible:
             filtered_list.append(isin)
         else:
             logger.info(f"🚫 [Suitability Excluded] {isin}: {reason}")
+    if return_diagnostics:
+        return filtered_list, locked_suitability_overrides
     return filtered_list
+
+
+def _enrich_locked_suitability_overrides(overrides, weights, asset_metadata):
+    enriched = []
+    weights_available = weights is not None
+    weights = weights or {}
+    for raw_override in overrides or []:
+        item = dict(raw_override or {})
+        isin = item.get("isin")
+        final_weight = float(weights.get(isin, 0.0)) if weights_available else None
+        mix = get_effective_asset_mix((asset_metadata or {}).get(isin, {}))
+        item["final_weight"] = round(final_weight, 6) if final_weight is not None else None
+        item["exposure_contribution"] = (
+            {
+                bucket: round(final_weight * float(exposure), 6)
+                for bucket, exposure in (mix or {}).items()
+                if float(exposure) > 0.0
+            }
+            if final_weight is not None
+            else None
+        )
+        enriched.append(item)
+    return enriched
 
 def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None, locked_assets=None):
     """
@@ -1716,7 +1756,24 @@ def run_optimization(
             tactical_views = constraints_v1.get("views", {}).get("by_isin", {})
 
         # FASE 2: Suitability Filter
-        assets_list = _apply_suitability_filter(assets_list, asset_metadata, risk_level, apply_profile, locked_assets)
+        suitability_filter_result = _apply_suitability_filter(
+            assets_list,
+            asset_metadata,
+            risk_level,
+            apply_profile,
+            locked_assets,
+            True,
+        )
+        if isinstance(suitability_filter_result, tuple) and len(suitability_filter_result) == 2:
+            assets_list, locked_suitability_overrides_raw = suitability_filter_result
+        else:
+            assets_list = suitability_filter_result
+            locked_suitability_overrides_raw = []
+        pending_locked_suitability_overrides = _enrich_locked_suitability_overrides(
+            locked_suitability_overrides_raw,
+            None,
+            asset_metadata,
+        )
 
         # FASE 3: Universe Construction (Price Data & Expansions)
         (fetcher, price_data, synthetic_used, df, universe, missing_assets, 
@@ -1731,7 +1788,13 @@ def run_optimization(
                 "status": "error",
                 "message": f"El tramo común estricto encontrado es demasiado corto ({len(df)} días). Se requieren al menos 60 días laborables para optimizar.",
                 "effective_start_date": actual_start_str,
-                "observations": len(df)
+                "observations": len(df),
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
+                "warnings": (
+                    ["locked_suitability_override"]
+                    if pending_locked_suitability_overrides
+                    else []
+                ),
             }
 
         effective_start_date = df.index[0].strftime('%Y-%m-%d')
@@ -1807,6 +1870,7 @@ def run_optimization(
                 "precheck_blocked": True,
                 "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
                 "strict_feasibility": strict_feasibility,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
             }
             if unified:
                 precheck_explainability.update(_unified_explainability_payload(unified_bounds_info))
@@ -1819,6 +1883,12 @@ def run_optimization(
                 "metrics": {},
                 "frontier_points": frontier_points,
                 "explainability": precheck_explainability,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
+                "warnings": (
+                    ["locked_suitability_override"]
+                    if pending_locked_suitability_overrides
+                    else []
+                ),
             }
 
         # Main Base Solver Instantiation
@@ -1855,6 +1925,7 @@ def run_optimization(
                     (constraint_diagnostics or {}).get("applied_optional_constraints") or []
                 ),
                 "skipped_constraints": skipped_constraints,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
             })
             return {
                 "api_version": "optimizer_v4",
@@ -1870,8 +1941,12 @@ def run_optimization(
                 "weights": {},
                 "applicable": False,
                 "usable": False,
-                "warnings": ["optional_constraints_skipped"],
+                "warnings": [
+                    "optional_constraints_skipped",
+                    *(["locked_suitability_override"] if pending_locked_suitability_overrides else []),
+                ],
                 "explainability": strict_explainability,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
             }
         
         # FASE 7: Feasibility & Auto-Expand Check
@@ -1887,6 +1962,15 @@ def run_optimization(
         )
         
         if not is_feasible:
+            if isinstance(infeasible_ret_obj, dict):
+                infeasible_ret_obj["locked_suitability_overrides"] = pending_locked_suitability_overrides
+                infeasible_ret_obj["warnings"] = list(infeasible_ret_obj.get("warnings") or [])
+                if pending_locked_suitability_overrides:
+                    infeasible_ret_obj["warnings"].append("locked_suitability_override")
+                infeasible_ret_obj["explainability"] = dict(infeasible_ret_obj.get("explainability") or {})
+                infeasible_ret_obj["explainability"]["locked_suitability_overrides"] = (
+                    pending_locked_suitability_overrides
+                )
             return infeasible_ret_obj
             
         if solver_path_override:
@@ -1926,6 +2010,7 @@ def run_optimization(
                 "skipped_constraints": (
                     (constraint_diagnostics or {}).get("skipped_constraints") or []
                 ),
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
             })
             return {
                 "api_version": "optimizer_v4",
@@ -1936,8 +2021,12 @@ def run_optimization(
                 "weights": {},
                 "applicable": False,
                 "usable": False,
-                "warnings": [solver_feasibility.get("reason", "efficient_risk infeasible")],
+                "warnings": [
+                    solver_feasibility.get("reason", "efficient_risk infeasible"),
+                    *(["locked_suitability_override"] if pending_locked_suitability_overrides else []),
+                ],
                 "explainability": solver_explainability,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
             }
 
         # FASE 9: Post-Processing & Normalization
@@ -1996,10 +2085,19 @@ def run_optimization(
             if not ((asset_metadata or {}).get(t, {}) or {}).get("portfolio_exposure_v2")
             and extract_v2_identity((asset_metadata or {}).get(t, {}) or {}).get("asset_type") in {None, "unknown"}
         )
+        locked_suitability_overrides = _enrich_locked_suitability_overrides(
+            locked_suitability_overrides_raw,
+            weights,
+            asset_metadata,
+        )
 
         binding_constraints = []
         if apply_profile: binding_constraints.append(f"Risk Profile ({risk_level_i}) caps applied on aggregated exposure")
         if locked_assets: binding_constraints.append(f"{len(locked_assets)} locked assets maintained")
+        if locked_suitability_overrides:
+            binding_constraints.append(
+                f"{len(locked_suitability_overrides)} locked suitability override(s) disclosed"
+            )
         if any(item.get("scope") == "geo" for item in applied_optional_constraints):
             binding_constraints.append("Geographic limits applied on V2-first region exposure")
         if any(item.get("scope") == "group" for item in applied_optional_constraints):
@@ -2021,6 +2119,7 @@ def run_optimization(
             "profile_limits": profile_limits,
             "applied_views": bool(tactical_views),
             "locked_assets_count": len(locked_assets or []),
+            "locked_suitability_overrides": locked_suitability_overrides,
             "fixed_weights_applied": list(fixed_weights.keys()),
             "primary_objective": str(objective) if "objective" in locals() else "max_sharpe",
             "solver_fallback_used": solver_path.startswith("fallback_") if solver_path else False,
@@ -2080,6 +2179,8 @@ def run_optimization(
         )
         final_validation["violations"].extend(volatility_compliance["violations"])
         final_validation["warnings"].extend(volatility_compliance["warnings"])
+        if locked_suitability_overrides:
+            final_validation["warnings"].append("locked_suitability_override")
         final_validation["compliant"] = len(final_validation["violations"]) == 0
         explainability["volatility_compliance"] = volatility_compliance
         if volatility_compliance["configured"]:
@@ -2165,6 +2266,7 @@ def run_optimization(
             "observations": observations,
             "explainability": explainability,
             "ignored_overrides": (unified_bounds_info or {}).get("ignored_overrides", []) if unified else [],
+            "locked_suitability_overrides": locked_suitability_overrides,
             "warnings": final_warnings,
         }
 

@@ -167,6 +167,8 @@ describe('canonical optimizer constraints payload contract', () => {
     expect(source).toMatch(/const hasWarnings = Array\.isArray\(explainabilityData\?\.warnings\)/);
     expect(source).toMatch(/\{\(isFallback \|\| hasWarnings\) && \(/);
     expect(source).toMatch(/translateTechnicalWarning\(w\)/);
+    expect(source).toMatch(/locked_suitability_overrides\.map/);
+    expect(source).toMatch(/Posiciones bloqueadas fuera de idoneidad/);
   });
 
   test('frontend optimization metadata remains minimal and does not merge classification with exposure', () => {

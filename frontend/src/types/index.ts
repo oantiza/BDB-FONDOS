@@ -199,6 +199,15 @@ export interface BoundRange {
     max?: number;
 }
 
+export interface LockedSuitabilityOverride {
+    isin: string;
+    risk_profile: number;
+    reason: string;
+    override_source: 'locked_asset';
+    final_weight?: number | null;
+    exposure_contribution?: Record<string, number> | null;
+}
+
 export interface RiskBudgetV1 {
     target_vol?: number;
     vol_band?: BoundRange;
@@ -344,6 +353,7 @@ export interface SmartPortfolioResponse {
             warnings: string[];
             violations: any[];
         };
+        locked_suitability_overrides?: LockedSuitabilityOverride[];
     };
     target_vol?: number;
     achieved_vol?: number;
@@ -352,6 +362,7 @@ export interface SmartPortfolioResponse {
     solver_path?: string;
     constraint_violations?: any[];
     violations?: any[];
+    locked_suitability_overrides?: LockedSuitabilityOverride[];
 }
 
 export interface AllocationItem {
