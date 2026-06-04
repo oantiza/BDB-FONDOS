@@ -214,6 +214,65 @@ def _unified_explainability_payload(unified_bounds_info):
     }
 
 
+def _validate_applied_optional_constraints(
+    weights,
+    universe,
+    asset_metadata,
+    applied_optional_constraints,
+):
+    violations = []
+    if not universe or not applied_optional_constraints:
+        return violations
+
+    w_arr = _as_weight_array(weights, universe)
+    for constraint in applied_optional_constraints:
+        scope = str((constraint or {}).get("scope") or "group")
+        group_type = (constraint or {}).get("group_type")
+        group_name = (constraint or {}).get("group_name")
+        try:
+            if not group_type or not group_name:
+                raise ValueError("optional constraint is missing group_type or group_name")
+            vec = _build_group_vector(universe, asset_metadata, group_type, group_name)
+            exposure = float(w_arr @ vec)
+            if not np.isfinite(exposure):
+                raise ValueError("optional constraint exposure is not finite")
+        except Exception as exc:
+            violations.append({
+                "code": "OPTIONAL_CONSTRAINT_VALIDATION_FAILED",
+                "severity": "HIGH",
+                "scope": scope,
+                "group_type": group_type,
+                "group_name": group_name,
+                "reason": str(exc),
+            })
+            continue
+
+        min_v = (constraint or {}).get("min")
+        max_v = (constraint or {}).get("max")
+        if min_v is not None and exposure < float(min_v) - 1e-4:
+            violations.append({
+                "code": "OPTIONAL_CONSTRAINT_MIN_VIOLATION",
+                "severity": "HIGH",
+                "scope": scope,
+                "group_type": group_type,
+                "group_name": group_name,
+                "actual": round(exposure, 6),
+                "min": round(float(min_v), 6),
+            })
+        if max_v is not None and exposure > float(max_v) + 1e-4:
+            violations.append({
+                "code": "OPTIONAL_CONSTRAINT_MAX_VIOLATION",
+                "severity": "HIGH",
+                "scope": scope,
+                "group_type": group_type,
+                "group_name": group_name,
+                "actual": round(exposure, 6),
+                "max": round(float(max_v), 6),
+            })
+
+    return violations
+
+
 def _validate_optimizer_result(
     weights,
     universe,
@@ -229,6 +288,8 @@ def _validate_optimizer_result(
     ot_v,
     tolerance=1e-6,
     effective_bounds=None,
+    asset_metadata=None,
+    applied_optional_constraints=None,
 ):
     violations = []
     warnings = []
@@ -318,6 +379,15 @@ def _validate_optimizer_result(
                     "actual": round(exposure, 6),
                     "max": round(max_v, 6),
                 })
+
+    violations.extend(
+        _validate_applied_optional_constraints(
+            weights,
+            universe,
+            asset_metadata,
+            applied_optional_constraints,
+        )
+    )
 
     return {
         "compliant": len(violations) == 0,
@@ -491,6 +561,8 @@ def _postprocess_result_is_compliant(
     ra_vec,
     ot_vec,
     effective_bounds=None,
+    asset_metadata=None,
+    applied_optional_constraints=None,
 ):
     validation = _validate_optimizer_result(
         weights,
@@ -506,6 +578,8 @@ def _postprocess_result_is_compliant(
         ra_vec,
         ot_vec,
         effective_bounds=effective_bounds,
+        asset_metadata=asset_metadata,
+        applied_optional_constraints=applied_optional_constraints,
     )
     return bool(validation.get("compliant"))
 
@@ -542,6 +616,16 @@ def _format_final_constraint_message(final_validation):
             f"La propuesta supera el máximo de {bucket_labels.get(bucket, bucket)}: "
             f"{float(first.get('actual', 0.0)) * 100:.2f}% vs máximo "
             f"{float(first.get('max', 0.0)) * 100:.2f}%."
+        )
+    if code in {"OPTIONAL_CONSTRAINT_MIN_VIOLATION", "OPTIONAL_CONSTRAINT_MAX_VIOLATION"}:
+        group_name = first.get("group_name") or "grupo solicitado"
+        is_min = code == "OPTIONAL_CONSTRAINT_MIN_VIOLATION"
+        comparator = "mínimo" if is_min else "máximo"
+        bound = first.get("min") if is_min else first.get("max")
+        return (
+            f"La propuesta incumple el {comparator} de {group_name}: "
+            f"{float(first.get('actual', 0.0)) * 100:.2f}% vs {comparator} "
+            f"{float(bound or 0.0) * 100:.2f}%."
         )
     return f"La propuesta no cumple las restricciones finales ({code or 'violacion_final'})."
 
@@ -1334,7 +1418,28 @@ def _run_solver(
     return ef, raw_weights, solver_path, feasibility
 
 
-def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights, bucket_bounds_v1=None, effective_bounds=None):
+def _postprocess_weights(
+    ef,
+    raw_weights,
+    cutoff,
+    universe,
+    apply_profile,
+    risk_level_i,
+    current_risk_buckets,
+    eq_vec,
+    bd_vec,
+    cs_vec,
+    al_vec,
+    ra_vec,
+    ot_vec,
+    lock_mode,
+    locked_assets,
+    fixed_weights,
+    bucket_bounds_v1=None,
+    effective_bounds=None,
+    asset_metadata=None,
+    applied_optional_constraints=None,
+):
     """
     FASE 9: Limpieza, Degradación Graciosa y Asignación Final.
     [PRECEDENCIA CANÓNICA] Nivel 7: Fallbacks / Degradaciones.
@@ -1386,6 +1491,8 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
             ra_vec,
             ot_vec,
             effective_bounds=effective_bounds,
+            asset_metadata=asset_metadata,
+            applied_optional_constraints=applied_optional_constraints,
         ):
             raw_weight_map = _normalize(_coerce_weights_for_universe(raw_weights, universe))
             if _postprocess_result_is_compliant(
@@ -1402,6 +1509,8 @@ def _postprocess_weights(ef, raw_weights, cutoff, universe, apply_profile, risk_
                 ra_vec,
                 ot_vec,
                 effective_bounds=effective_bounds,
+                asset_metadata=asset_metadata,
+                applied_optional_constraints=applied_optional_constraints,
             ):
                 weights = raw_weight_map
     else:
@@ -1652,6 +1761,9 @@ def run_optimization(
             unified=unified, unified_bounds_info=unified_bounds_info
         )
 
+        applied_optional_constraints = list(
+            (constraint_diagnostics or {}).get("applied_optional_constraints") or []
+        )
         skipped_constraints = list((constraint_diagnostics or {}).get("skipped_constraints") or [])
         if strict_feasibility and skipped_constraints:
             strict_explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
@@ -1751,7 +1863,9 @@ def run_optimization(
         weights = _postprocess_weights(
             ef, raw_weights, cutoff, universe, apply_profile, risk_level_i, current_risk_buckets, 
             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, locked_assets, fixed_weights,
-            bucket_bounds_v1, effective_bounds=unified_effective_bounds if unified else None
+            bucket_bounds_v1, effective_bounds=unified_effective_bounds if unified else None,
+            asset_metadata=asset_metadata,
+            applied_optional_constraints=applied_optional_constraints,
         )
 
         # FASE 10: Formatting Metrics & Output
@@ -1805,10 +1919,6 @@ def run_optimization(
         binding_constraints = []
         if apply_profile: binding_constraints.append(f"Risk Profile ({risk_level_i}) caps applied on aggregated exposure")
         if locked_assets: binding_constraints.append(f"{len(locked_assets)} locked assets maintained")
-        applied_optional_constraints = list(
-            (constraint_diagnostics or {}).get("applied_optional_constraints") or []
-        )
-        skipped_constraints = list((constraint_diagnostics or {}).get("skipped_constraints") or [])
         if any(item.get("scope") == "geo" for item in applied_optional_constraints):
             binding_constraints.append("Geographic limits applied on V2-first region exposure")
         if any(item.get("scope") == "group" for item in applied_optional_constraints):
@@ -1877,6 +1987,8 @@ def run_optimization(
             ra_vec,
             ot_vec,
             effective_bounds=unified_effective_bounds if unified else None,
+            asset_metadata=asset_metadata,
+            applied_optional_constraints=applied_optional_constraints,
         )
 
         # Status honesto: si el solver usó fallback, informar.

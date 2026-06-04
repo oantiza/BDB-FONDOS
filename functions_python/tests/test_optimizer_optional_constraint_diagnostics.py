@@ -6,7 +6,12 @@ import numpy as np
 import pandas as pd
 
 import services.portfolio.optimizer_core as optimizer_core
-from services.portfolio.optimizer_core import _apply_standard_constraints, run_optimization
+from services.portfolio.optimizer_core import (
+    _apply_standard_constraints,
+    _postprocess_weights,
+    _validate_optimizer_result,
+    run_optimization,
+)
 
 
 def _constraint_args(ef, constraints):
@@ -235,3 +240,158 @@ def test_non_strict_mode_surfaces_skipped_constraints_as_warning(monkeypatch):
     assert result["applicable"] is True
     assert "optional_constraints_skipped" in result["warnings"]
     assert result["explainability"]["skipped_constraints"] == diagnostics["skipped_constraints"]
+
+
+def test_final_validation_rejects_applied_optional_constraint_violation(monkeypatch):
+    monkeypatch.setattr(
+        optimizer_core,
+        "_build_group_vector",
+        lambda *_args, **_kwargs: np.array([1.0, 0.0]),
+    )
+    zero = np.zeros(2)
+
+    validation = _validate_optimizer_result(
+        weights={"EU": 0.30, "US": 0.70},
+        universe=["EU", "US"],
+        apply_profile=False,
+        risk_level_i=5,
+        current_risk_buckets={},
+        bucket_bounds_v1={},
+        eq_v=zero,
+        bd_v=zero,
+        cs_v=zero,
+        al_v=zero,
+        ra_v=zero,
+        ot_v=zero,
+        asset_metadata={},
+        applied_optional_constraints=[{
+            "scope": "geo",
+            "group_type": "regions",
+            "group_name": "europe",
+            "min": 0.40,
+            "max": None,
+        }],
+    )
+
+    assert validation["compliant"] is False
+    assert validation["violations"] == [{
+        "code": "OPTIONAL_CONSTRAINT_MIN_VIOLATION",
+        "severity": "HIGH",
+        "scope": "geo",
+        "group_type": "regions",
+        "group_name": "europe",
+        "actual": 0.30,
+        "min": 0.40,
+    }]
+
+
+def test_final_validation_rejects_applied_group_max_violation(monkeypatch):
+    monkeypatch.setattr(
+        optimizer_core,
+        "_build_group_vector",
+        lambda *_args, **_kwargs: np.array([1.0, 0.0]),
+    )
+    zero = np.zeros(2)
+
+    validation = _validate_optimizer_result(
+        weights={"TECH": 0.50, "OTHER": 0.50},
+        universe=["TECH", "OTHER"],
+        apply_profile=False,
+        risk_level_i=5,
+        current_risk_buckets={},
+        bucket_bounds_v1={},
+        eq_v=zero,
+        bd_v=zero,
+        cs_v=zero,
+        al_v=zero,
+        ra_v=zero,
+        ot_v=zero,
+        asset_metadata={},
+        applied_optional_constraints=[{
+            "scope": "group",
+            "group_type": "sectors",
+            "group_name": "technology",
+            "min": None,
+            "max": 0.40,
+        }],
+    )
+
+    assert validation["compliant"] is False
+    assert validation["violations"][0]["code"] == "OPTIONAL_CONSTRAINT_MAX_VIOLATION"
+    assert validation["violations"][0]["scope"] == "group"
+    assert validation["violations"][0]["actual"] == 0.50
+    assert validation["violations"][0]["max"] == 0.40
+
+
+class _CutoffBreaksGeoConstraint:
+    def clean_weights(self, cutoff=0.0):
+        return {"EU": 0.0, "US": 1.0}
+
+
+def test_postprocess_restores_raw_weights_when_cutoff_breaks_optional_constraint(monkeypatch):
+    monkeypatch.setattr(
+        optimizer_core,
+        "_build_group_vector",
+        lambda *_args, **_kwargs: np.array([1.0, 0.0]),
+    )
+    zero = np.zeros(2)
+
+    weights = _postprocess_weights(
+        ef=_CutoffBreaksGeoConstraint(),
+        raw_weights={"EU": 0.50, "US": 0.50},
+        cutoff=0.60,
+        universe=["EU", "US"],
+        apply_profile=False,
+        risk_level_i=5,
+        current_risk_buckets={},
+        eq_vec=zero,
+        bd_vec=zero,
+        cs_vec=zero,
+        al_vec=zero,
+        ra_vec=zero,
+        ot_vec=zero,
+        lock_mode="free",
+        locked_assets=[],
+        fixed_weights={},
+        asset_metadata={},
+        applied_optional_constraints=[{
+            "scope": "geo",
+            "group_type": "regions",
+            "group_name": "europe",
+            "min": 0.40,
+            "max": None,
+        }],
+    )
+
+    assert weights == {"EU": 0.50, "US": 0.50}
+
+
+def test_equal_weight_fallback_that_loses_optional_constraint_is_non_applicable(monkeypatch):
+    diagnostics = {
+        "applied_optional_constraints": [{
+            "scope": "geo",
+            "group_type": "regions",
+            "group_name": "europe",
+            "min": 0.50,
+            "max": None,
+        }],
+        "skipped_constraints": [],
+    }
+    _patch_run_pipeline(monkeypatch, diagnostics)
+    monkeypatch.setattr(
+        optimizer_core,
+        "_build_group_vector",
+        lambda *_args, **_kwargs: np.zeros(1),
+    )
+    monkeypatch.setattr(
+        optimizer_core,
+        "_run_solver",
+        lambda *args, **kwargs: (MagicMock(), None, "fallback_equal_weight", {}),
+    )
+
+    result = _run_with_strict_flag(False)
+
+    assert result["status"] == "fallback_non_compliant"
+    assert result["applicable"] is False
+    assert result["usable"] is False
+    assert result["constraint_violations"][0]["code"] == "OPTIONAL_CONSTRAINT_MIN_VIOLATION"
