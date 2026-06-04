@@ -4,10 +4,9 @@ BDB-FI-CREDIT-FE9-SOFT-WARNING-DESIGN-0
 Design contract tests for the FE-9 soft warning:
   "FI_CREDIT_LOW_QUALITY_OVER_35_BOND_BUCKET"
 
-STATUS: DESIGN-ONLY — All tests are xfail(strict=False) documenting the
-        INTENDED warning contract. The warning is NOT implemented in
-        suitability_engine.py. These tests define what the implementation
-        MUST satisfy when it is built.
+STATUS: BACKEND SOURCE IMPLEMENTED — Tests exercise the pure backend warning
+        engine. It is intentionally not integrated with endpoints or frontend,
+        so activating presentation remains a separate compliance decision.
 
 Key contracts:
   1. Warning is informational only — blocking=False always.
@@ -28,18 +27,7 @@ Reference:
 """
 import pytest
 
-
-# ── XFAIL REASON ─────────────────────────────────────────────────────────────
-_REASON_UNIMPLEMENTED = (
-    "FE-9 soft warning not implemented in suitability_engine.py. "
-    "This test defines the INTENDED contract for BDB-FI-CREDIT-FE9-WARNING-RUNTIME-DESIGN-0. "
-    "See docs/BDB_FI_CREDIT_FE9_SOFT_WARNING_DESIGN_0.md"
-)
-
-_REASON_CONTRACT = (
-    "Design contract: blocking=False is an absolute invariant. "
-    "If this fails, the implementation is violating the approved contract."
-)
+from services.portfolio.fi_credit_warnings import compute_fi_credit_warnings
 
 
 # ── HELPERS: Warning reference implementations ────────────────────────────────
@@ -67,76 +55,12 @@ def _make_fi_credit(
 
 
 def _build_fe9_warning(fi_credit: dict, bond_weight: float = 100.0) -> dict | None:
-    """
-    Reference implementation of the FE-9 soft warning generator.
-
-    This is the PROPOSED logic for the future warning system.
-    It is used only in these contract tests — NOT in suitability_engine.py.
-
-    Returns a warning dict or None if the warning should not be emitted.
-    """
-    # Guard: fi_credit must exist and be a dict
-    if not isinstance(fi_credit, dict):
-        return None
-
-    # Guard: source must be present (provenance required)
-    if not fi_credit.get("source"):
-        return None
-
-    # Guard: scale must be declared and correct
-    if fi_credit.get("scale") != "percent_of_bond_bucket":
-        return None
-
-    # Guard: coverage must be sufficient to trust the data
-    coverage = float(fi_credit.get("coverage") or 0.0)
-    if coverage < 0.8:
-        return None
-
-    lq = float(fi_credit.get("low_quality") or 0.0)
-    nr = float(fi_credit.get("not_rated") or 0.0)
-    lq_tp = round(lq * bond_weight / 100.0, 2)
-
-    # Severity levels
-    if lq < 25.0:
-        return None  # below threshold, no warning
-    elif lq < 35.0:
-        severity = "INFO"
-        code     = "FI_CREDIT_LOW_QUALITY_OVER_25_BOND_BUCKET"
-    elif lq < 70.0:
-        severity = "WARNING"
-        code     = "FI_CREDIT_LOW_QUALITY_OVER_35_BOND_BUCKET"
-    else:
-        severity = "REVIEW"
-        code     = "FI_CREDIT_LOW_QUALITY_OVER_70_BOND_BUCKET"
-
-    return {
-        "code":                              code,
-        "severity":                          severity,
-        "blocking":                          False,   # INVARIANT: NEVER True
-        "low_quality":                       lq,
-        "not_rated":                         nr,
-        "scale":                             fi_credit["scale"],
-        "bond_weight":                       bond_weight,
-        "low_quality_total_portfolio_estimate": lq_tp,
-        "source":                            fi_credit["source"],
-        "as_of":                             fi_credit.get("as_of"),
-        "coverage":                          coverage,
-        "message_advisor":                   (
-            "Este fondo presenta una proporción relevante de crédito sub-investment grade "
-            "dentro de su cartera de renta fija. No implica bloqueo automático, pero "
-            "requiere revisión de idoneidad, duración, volatilidad y objetivo del cliente."
-        ),
-        "message_client":                    (
-            "El fondo incorpora exposición significativa a crédito de menor calidad crediticia. "
-            "Puede aumentar la sensibilidad a ampliaciones de diferenciales y episodios de "
-            "estrés de mercado."
-        ),
-        "message_technical":                 (
-            f"low_quality={lq:.1f}% = BB + B + below_B (percent_of_bond_bucket). "
-            f"not_rated={nr:.1f}% tratado separadamente. "
-            f"lq_total_portfolio_estimate={lq_tp:.1f}% (bond_weight={bond_weight:.0f}%)."
-        ),
-    }
+    """Adapt the historical single-warning contract to the production API."""
+    warnings = compute_fi_credit_warnings(
+        {"portfolio_exposure_v2": {"fi_credit": fi_credit}},
+        bond_weight=bond_weight,
+    )
+    return warnings[0] if warnings else None
 
 
 # ── SECTION 1: Core invariants (never xfail — these must always pass) ─────────
@@ -144,9 +68,8 @@ def _build_fe9_warning(fi_credit: dict, bond_weight: float = 100.0) -> dict | No
 class TestFE9WarningInvariants:
     """
     Core invariants of the FE-9 warning contract.
-    These tests use the local reference implementation only — no Firestore.
-    These test the HELPERS, not the production engine.
-    The helpers model what the future implementation MUST satisfy.
+    These tests use the pure backend implementation only — no Firestore.
+    They verify the warning source of truth without activating presentation.
     """
 
     def test_blocking_is_always_false_warning_case(self):
@@ -317,51 +240,68 @@ class TestFE9HardBlockProhibited:
     These tests document what must NOT happen in any implementation.
     """
 
-    @pytest.mark.xfail(strict=False, reason=_REASON_UNIMPLEMENTED)
     def test_fe9_warning_does_not_remove_compatible_profiles(self):
         """
         CRITICAL: FE-9 warning MUST NOT modify compatible_profiles.
         compatible_profiles is managed by the compatible_profiles regen cycle,
         not by fi_credit warning rules.
         """
-        compatible_profiles_before = [3, 4, 5, 6, 7, 8, 9, 10]
-        fi = _make_fi_credit(low_quality=60.0, coverage=1.0)
-        w  = _build_fe9_warning(fi)
-        # Simulate: warning does not alter profiles
-        compatible_profiles_after = compatible_profiles_before  # unchanged
-        assert compatible_profiles_before == compatible_profiles_after
-        assert w is not None
-        assert w["blocking"] is False
-        assert "compatible_profiles" not in w  # warning dict must not contain profiles
+        fund = {
+            "classification_v2": {
+                "asset_type": "FIXED_INCOME",
+                "compatible_profiles": [3, 4, 5, 6, 7, 8, 9, 10],
+            },
+            "portfolio_exposure_v2": {
+                "fi_credit": _make_fi_credit(low_quality=60.0, coverage=1.0),
+                "economic_exposure": {"bond": 100.0},
+            },
+        }
+        profiles_before = list(fund["classification_v2"]["compatible_profiles"])
+        warnings = compute_fi_credit_warnings(fund)
 
-    @pytest.mark.xfail(strict=False, reason=_REASON_UNIMPLEMENTED)
+        assert fund["classification_v2"]["compatible_profiles"] == profiles_before
+        assert warnings and warnings[0]["blocking"] is False
+        assert "compatible_profiles" not in warnings[0]
+
     def test_fe9_warning_is_not_in_suitability_engine(self):
         """
         FE-9 warning must NOT be implemented in suitability_engine.is_fund_eligible_for_profile().
         The engine's is_fund_eligible_for_profile returns (bool, str) — it cannot return warnings.
         A separate warning layer must be designed.
         """
-        # This test documents the architectural constraint:
-        # suitability_engine.py must not be modified for FE-9 warnings.
-        # A new function/module must be created (e.g. fi_credit_warnings.py).
-        assert True  # placeholder — actual test requires the new module
+        assert compute_fi_credit_warnings.__module__.endswith("fi_credit_warnings")
 
-    @pytest.mark.xfail(strict=False, reason=_REASON_UNIMPLEMENTED)
     def test_fe9_warning_location_is_not_frontend_only(self):
         """
         FE-9 warning must NOT live only in frontend rulesEngine.ts.
         Frontend-only is not acceptable as a permanent solution (divergence risk).
         The backend must be the source of truth.
         """
-        # This test documents the architectural requirement.
-        # Future implementation: backend computes warning, frontend displays it.
-        assert True  # placeholder
+        fi = _make_fi_credit(low_quality=60.0, coverage=1.0)
+        warnings = compute_fi_credit_warnings(
+            {"portfolio_exposure_v2": {"fi_credit": fi}},
+            bond_weight=100.0,
+        )
+        assert warnings and warnings[0]["blocking"] is False
 
 
 # ── SECTION 5: Schema contract for warning output ────────────────────────────
 
 class TestFE9WarningOutputSchema:
     """Contract tests for the warning dict schema."""
+
+    def test_bond_weight_is_derived_from_canonical_exposure(self):
+        fund = {
+            "classification_v2": {"asset_type": "ALLOCATION"},
+            "portfolio_exposure_v2": {
+                "fi_credit": _make_fi_credit(low_quality=50.0, coverage=1.0),
+                "economic_exposure": {"equity": 20.0, "bond": 80.0},
+            },
+        }
+        warnings = compute_fi_credit_warnings(fund)
+
+        assert warnings[0]["bond_weight"] == 80.0
+        assert warnings[0]["low_quality_total_portfolio_estimate"] == 40.0
 
     def test_warning_has_required_fields(self):
         """All required fields must be present in a warning dict."""
