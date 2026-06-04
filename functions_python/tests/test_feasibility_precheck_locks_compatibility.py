@@ -1,17 +1,11 @@
 """
-Design tests for future locks-compatibility checks in feasibility precheck.
+Regression tests for locks-compatibility checks in feasibility precheck.
 
-These tests define the EXPECTED FUTURE BEHAVIOR of two new BLOCK codes:
+These tests cover the implemented behavior of two BLOCK codes:
 - BLOCK_LOCKS_INCOMPATIBLE_BUCKET  (covers GAP-H1 from audit)
 - BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR  (covers GAP-H2 from audit)
 
-All tests are marked xfail(strict=True) because the runtime checks do NOT
-exist yet. They will start passing once the runtime is implemented.
-
-Tests marked with pytest.skip() have PENDING DESIGN DECISIONS that must be
-resolved with the user before implementation.
-
-NO runtime changes. NO imports of unwritten code. Test-only file.
+Every collected test in this module must pass.
 """
 
 import pytest
@@ -81,7 +75,7 @@ def ten_asset_exposure():
 
 
 # =========================================================================
-# BLOCK_LOCKS_INCOMPATIBLE_BUCKET — Design tests (GAP-H1)
+# BLOCK_LOCKS_INCOMPATIBLE_BUCKET — Regression tests (GAP-H1)
 #
 # Future check: detect when locked positions in one bucket make it
 # mathematically impossible to satisfy another bucket's minimum requirement.
@@ -89,7 +83,7 @@ def ten_asset_exposure():
 
 class TestLocksIncompatibleBucket:
     """
-    Design contract for BLOCK_LOCKS_INCOMPATIBLE_BUCKET.
+    Regression contract for BLOCK_LOCKS_INCOMPATIBLE_BUCKET.
 
     Scenario: user locks assets in RF (bond) that consume so much budget
     that the RV (equity) minimum cannot be reached, or vice versa.
@@ -195,8 +189,8 @@ class TestLocksIncompatibleBucket:
         optimizer is free to choose any weight. No bucket incompatibility.
         Expected: compatible (no BLOCK_LOCKS_INCOMPATIBLE_BUCKET).
 
-        NOTE: This test is NOT xfail because the current runtime already
-        skips lock checks when lock_mode="free" (see BLOCK-4 behavior).
+        The current runtime skips lock checks when lock_mode="free"
+        (see BLOCK-4 behavior).
         """
         bounds = {
             "equity": {"min": 0.85, "max": 1.0},

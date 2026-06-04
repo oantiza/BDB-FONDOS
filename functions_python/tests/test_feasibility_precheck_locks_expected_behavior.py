@@ -4,9 +4,9 @@ Expected behavior tests for locks + feasibility precheck.
 Based on user-approved decisions P1–P5 documented in:
 - docs/BDB_OPT_FEASIBILITY_LOCKS_USER_DECISIONS_0.md (84d7246)
 
-These tests define the APPROVED FUTURE BEHAVIOR. Tests for logic not yet
-implemented are marked xfail(strict=True). Tests for behavior already
-supported by the current runtime are NOT xfail and must PASS.
+These tests cover the approved behavior implemented by the current runtime.
+Future-only design notes remain in the decision document instead of appearing
+as executable placeholders. Every collected test in this module must pass.
 
 NO runtime changes. NO imports of unwritten code. Test-only file.
 
@@ -14,8 +14,8 @@ Coverage map:
   A1–A4: keep_weight / keep_money (P2)
   B5–B7: min_keep (P3)
   C8:    free (P4)
-  D9–D10: equity_floor hard + legacy mode (P1)
-  E11–E12: bounds source (P5)
+  D9:     equity_floor hard in standard mode (P1)
+  E11:    effective bounds source (P5)
   F13:   Mixto (P5 note)
 """
 
@@ -270,7 +270,7 @@ class TestFreeBehavior:
 # =========================================================================
 
 class TestEquityFloorBehavior:
-    """P1: equity_floor HARD in standard. Future legacy exception."""
+    """P1: equity_floor is HARD in standard mode."""
 
     def test_d9_equity_floor_hard_standard(self, uni10, exp10):
         """D9: 35% locked non-equity, equity_floor=75%. Max equity=65%<75%.
@@ -290,32 +290,6 @@ class TestEquityFloorBehavior:
         assert result["is_feasible"] is False
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR" in codes
-
-    def test_d10_legacy_mode_documental(self):
-        """D10: DOCUMENTAL — future legacy portfolio mode.
-
-        Decision P1 approved:
-        - Standard mode: equity_floor is HARD → BLOCK.
-        - Future legacy mode (allow_legacy_override):
-          - NOT optimized as profile-aligned.
-          - HIGH WARNING shown.
-          - Traced in log + response.
-          - Never activated silently.
-
-        This test documents the contract. NOT IMPLEMENTED YET.
-        No assertion — purely documental placeholder.
-        """
-        # Future signature (not implemented):
-        # run_feasibility_precheck(..., equity_floor=0.75,
-        #     allow_legacy_override=True)
-        # Expected: is_feasible=True, warnings contains
-        #   WARNING_LEGACY_OVERRIDE with high severity
-        pytest.skip(
-            "P1 legacy mode: approved for design, not implemented. "
-            "Standard=BLOCK, legacy=WARNING+trace. See "
-            "BDB_OPT_FEASIBILITY_LOCKS_USER_DECISIONS_0.md"
-        )
-
 
 # =========================================================================
 # E. Bounds source — Decision P5
@@ -341,25 +315,6 @@ class TestBoundsSourceBehavior:
         assert result["is_feasible"] is False
         codes = [b["code"] for b in result["blocks"]]
         assert "BLOCK_LOCKS_INCOMPATIBLE_BUCKET" in codes
-
-    def test_e12_no_cross_source_validation_documental(self):
-        """E12: DOCUMENTAL — never validate against one source and
-        resolve against another.
-
-        Decision P5 approved:
-        - Priority: bucket_bounds_v1 > legacy risk_buckets.
-        - If reconciliation modifies bounds, document which version
-          the precheck validates against.
-        - Preference: post-normalization, pre-solver.
-
-        No assertion — contract documentation only.
-        """
-        pytest.skip(
-            "P5 cross-source: approved rule, no runtime test possible "
-            "without integration. See "
-            "BDB_OPT_FEASIBILITY_LOCKS_USER_DECISIONS_0.md"
-        )
-
 
 # =========================================================================
 # F. Mixto — Decision P5 note
