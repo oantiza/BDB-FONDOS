@@ -915,7 +915,10 @@ def _apply_standard_constraints(
     - Nivel 3: Risk Profile Buckets (Bandas permitidas por tipo de activo base)
     """
     universe = ef_inst.tickers
-    constraint_info = None
+    constraint_info = {
+        "applied_optional_constraints": [],
+        "skipped_constraints": [],
+    }
     for isin in locked_assets or []:
         if isin in universe:
             idx = universe.index(isin)
@@ -936,11 +939,12 @@ def _apply_standard_constraints(
     # REM-2: ruta UNIFICADA (flag ON) — un único inyector que fusiona perfil + overrides
     # (narrowing-only, A5) vía build_bucket_vectors. Flag OFF -> ruta dual heredada (abajo).
     if unified:
-        constraint_info = _inject_unified_bounds(
+        unified_info = _inject_unified_bounds(
             ef_inst, apply_profile, risk_level_i, current_risk_buckets, bucket_bounds_v1,
             eq_v, bd_v, cs_v, al_v, ra_v, ot_v,
             unified_bounds_info=unified_bounds_info,
         )
+        constraint_info.update(unified_info or {})
 
     # Canonical constraints_v1 bucket bounds (applied sobre exposure_v2 agregado).
     _v1_has_active_bounds = False
@@ -962,41 +966,98 @@ def _apply_standard_constraints(
                 ef_inst.add_constraint(lambda w, v=vec, m=b_max: w @ v <= m)
                 _v1_has_active_bounds = True
 
-    if constraints and asset_metadata:
-        try:
-            eu_target = _sanitize_fraction((constraints.get("europe", 0.0) or 0.0))
-            us_cap = _sanitize_fraction((constraints.get("americas", 1.0) or 1.0), 1.0)
-            if eu_target > 0 or us_cap < 1.0:
-                eu_vec_np = _build_group_vector(universe, asset_metadata, "regions", "europe")
-                us_vec_np = _build_group_vector(universe, asset_metadata, "regions", "americas")
+    if constraints:
+        eu_target = _sanitize_fraction((constraints.get("europe", 0.0) or 0.0))
+        us_cap = _sanitize_fraction((constraints.get("americas", 1.0) or 1.0), 1.0)
+        emerging_cap = _sanitize_fraction((constraints.get("emerging", 1.0) or 1.0), 1.0)
+        if apply_profile and risk_level_i <= 3:
+            emerging_cap = min(emerging_cap, 0.05)
 
-                if eu_target > 0:
-                    ef_inst.add_constraint(lambda w: w @ eu_vec_np >= eu_target)
-                if us_cap < 1.0:
-                    ef_inst.add_constraint(lambda w: w @ us_vec_np <= us_cap)
-
-            emerging_cap = _sanitize_fraction((constraints.get("emerging", 1.0) or 1.0), 1.0)
-            if apply_profile and risk_level_i <= 3:
-                emerging_cap = min(emerging_cap, 0.05)
-            if emerging_cap < 1.0:
-                em_vec_np = _build_group_vector(universe, asset_metadata, "regions", "emerging")
-                ef_inst.add_constraint(lambda w: w @ em_vec_np <= emerging_cap)
-        except Exception as e_geo:
-            logger.info(f"⚠️ Geo Constraint Warning: {e_geo}")
+        geo_requests = [
+            ("europe", eu_target if eu_target > 0 else None, None),
+            ("americas", None, us_cap if us_cap < 1.0 else None),
+            ("emerging", None, emerging_cap if emerging_cap < 1.0 else None),
+        ]
+        for group_name, min_val, max_val in geo_requests:
+            if min_val is None and max_val is None:
+                continue
+            try:
+                if not asset_metadata:
+                    raise ValueError("asset_metadata unavailable")
+                vec_np = _build_group_vector(universe, asset_metadata, "regions", group_name)
+                if min_val is not None:
+                    ef_inst.add_constraint(lambda w, v=vec_np, m=min_val: w @ v >= m)
+                if max_val is not None:
+                    ef_inst.add_constraint(lambda w, v=vec_np, m=max_val: w @ v <= m)
+                constraint_info["applied_optional_constraints"].append({
+                    "scope": "geo",
+                    "group_type": "regions",
+                    "group_name": group_name,
+                    "min": min_val,
+                    "max": max_val,
+                })
+            except Exception as e_geo:
+                skipped = {
+                    "code": "GEO_CONSTRAINT_SKIPPED",
+                    "scope": "geo",
+                    "group_type": "regions",
+                    "group_name": group_name,
+                    "min": min_val,
+                    "max": max_val,
+                    "reason": str(e_geo),
+                }
+                constraint_info["skipped_constraints"].append(skipped)
+                logger.info("Geo Constraint Warning: %s", skipped)
 
     group_limits = constraints.get("group_limits", {})
-    if group_limits and asset_metadata:
-        try:
-            for group_type, limits in group_limits.items():
-                for group_name, bounds in limits.items():
+    if group_limits:
+        if not isinstance(group_limits, dict):
+            constraint_info["skipped_constraints"].append({
+                "code": "GROUP_CONSTRAINT_SKIPPED",
+                "scope": "group",
+                "reason": "group_limits must be a mapping",
+            })
+        iterable_group_limits = group_limits.items() if isinstance(group_limits, dict) else []
+        for group_type, limits in iterable_group_limits:
+            if not isinstance(limits, dict):
+                constraint_info["skipped_constraints"].append({
+                    "code": "GROUP_CONSTRAINT_SKIPPED",
+                    "scope": "group",
+                    "group_type": group_type,
+                    "reason": "group limits must be a mapping",
+                })
+                continue
+            for group_name, bounds in limits.items():
+                try:
                     min_val, max_val = _read_bound(bounds)
+                    min_active = min_val is not None and min_val > 0.001
+                    max_active = max_val is not None and max_val < 0.999
+                    if not min_active and not max_active:
+                        continue
+                    if not asset_metadata:
+                        raise ValueError("asset_metadata unavailable")
                     vec_np = _build_group_vector(universe, asset_metadata, group_type, group_name)
-                    if min_val is not None and min_val > 0.001:
+                    if min_active:
                         ef_inst.add_constraint(lambda w, v=vec_np, m=min_val: w @ v >= m)
-                    if max_val is not None and max_val < 0.999:
+                    if max_active:
                         ef_inst.add_constraint(lambda w, v=vec_np, m=max_val: w @ v <= m)
-        except Exception as e_grp:
-            logger.info(f"⚠️ Generic Group Constraint Warning: {e_grp}")
+                    constraint_info["applied_optional_constraints"].append({
+                        "scope": "group",
+                        "group_type": group_type,
+                        "group_name": group_name,
+                        "min": min_val,
+                        "max": max_val,
+                    })
+                except Exception as e_grp:
+                    skipped = {
+                        "code": "GROUP_CONSTRAINT_SKIPPED",
+                        "scope": "group",
+                        "group_type": group_type,
+                        "group_name": group_name,
+                        "reason": str(e_grp),
+                    }
+                    constraint_info["skipped_constraints"].append(skipped)
+                    logger.info("Generic Group Constraint Warning: %s", skipped)
 
     if (not unified) and apply_profile and risk_level_i in current_risk_buckets and not _v1_has_active_bounds:
         bucket_cfg = current_risk_buckets[risk_level_i]
@@ -1584,12 +1645,41 @@ def run_optimization(
         # FASE 6: Constraints Injection
         # REM-2: bajo flag `unified_constraints` se usa el inyector ÚNICO (perfil + overrides
         # fusionados narrowing-only). Flag OFF -> ruta dual heredada (comportamiento actual).
-        _apply_standard_constraints(
+        constraint_diagnostics = _apply_standard_constraints(
             ef, constraints, lock_mode, apply_profile, risk_level_i, locked_assets,
             fixed_weights, asset_metadata, current_risk_buckets,
             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1,
             unified=unified, unified_bounds_info=unified_bounds_info
         )
+
+        skipped_constraints = list((constraint_diagnostics or {}).get("skipped_constraints") or [])
+        if strict_feasibility and skipped_constraints:
+            strict_explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
+            strict_explainability.update({
+                "strict_feasibility": True,
+                "fallbacks_disabled": True,
+                "applied_optional_constraints": (
+                    (constraint_diagnostics or {}).get("applied_optional_constraints") or []
+                ),
+                "skipped_constraints": skipped_constraints,
+            })
+            return {
+                "api_version": "optimizer_v4",
+                "status": "infeasible_constraints",
+                "message": "No se pudieron aplicar todas las restricciones solicitadas en modo estricto.",
+                "solver_path": "blocked_skipped_constraints",
+                "feasibility": {
+                    "status": "infeasible",
+                    "reason": "optional_constraints_skipped",
+                    "strict_feasibility": True,
+                    "skipped_constraints": skipped_constraints,
+                },
+                "weights": {},
+                "applicable": False,
+                "usable": False,
+                "warnings": ["optional_constraints_skipped"],
+                "explainability": strict_explainability,
+            }
         
         # FASE 7: Feasibility & Auto-Expand Check
         (is_feasible, infeasible_ret_obj, added_assets, solver_path_override, 
@@ -1637,6 +1727,12 @@ def run_optimization(
             solver_explainability.update({
                 "strict_feasibility": strict_feasibility,
                 "fallbacks_disabled": strict_feasibility,
+                "applied_optional_constraints": (
+                    (constraint_diagnostics or {}).get("applied_optional_constraints") or []
+                ),
+                "skipped_constraints": (
+                    (constraint_diagnostics or {}).get("skipped_constraints") or []
+                ),
             })
             return {
                 "api_version": "optimizer_v4",
@@ -1709,9 +1805,14 @@ def run_optimization(
         binding_constraints = []
         if apply_profile: binding_constraints.append(f"Risk Profile ({risk_level_i}) caps applied on aggregated exposure")
         if locked_assets: binding_constraints.append(f"{len(locked_assets)} locked assets maintained")
-        if (constraints and (float(constraints.get("europe", 0.0) or 0.0) > 0 or float(constraints.get("americas", 1.0) or 1.0) < 1.0)):
+        applied_optional_constraints = list(
+            (constraint_diagnostics or {}).get("applied_optional_constraints") or []
+        )
+        skipped_constraints = list((constraint_diagnostics or {}).get("skipped_constraints") or [])
+        if any(item.get("scope") == "geo" for item in applied_optional_constraints):
             binding_constraints.append("Geographic limits applied on V2-first region exposure")
-        if apply_profile and risk_level_i <= 3: binding_constraints.append("Emerging markets capped at 5%")
+        if any(item.get("scope") == "group" for item in applied_optional_constraints):
+            binding_constraints.append("Custom group limits applied on V2-first group exposure")
         _v1_bounds_active = any(isinstance(v, dict) and (v.get("min") is not None or v.get("max") is not None) for v in (bucket_bounds_v1 or {}).values())
         if unified:
             binding_constraints.append("unified effective bucket bounds applied on canonical portfolio_exposure_v2")
@@ -1736,6 +1837,8 @@ def run_optimization(
             "constraints_v1_enabled": bool(constraints_v1),
             "constraints_v1_profile_id": constraints_v1.get("profile_id"),
             "strict_feasibility": strict_feasibility,
+            "applied_optional_constraints": applied_optional_constraints,
+            "skipped_constraints": skipped_constraints,
             "bucket_constraints_source": (
                 "unified_effective_bounds"
                 if unified
@@ -1791,6 +1894,8 @@ def run_optimization(
             final_warnings.append("solver_fallback_used")
         if not is_compliant:
             final_warnings.append("optimizer_result_non_compliant")
+        if skipped_constraints:
+            final_warnings.append("optional_constraints_skipped")
 
         # Transparencia: target_vol vs achieved_vol
         _target_vol = _to_float(risk_budget_v1.get("target_vol"), None)
