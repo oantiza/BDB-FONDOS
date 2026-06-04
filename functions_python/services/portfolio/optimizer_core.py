@@ -64,6 +64,18 @@ def _sanitize_fraction(value, default=0.0):
     return max(0.0, min(1.0, val))
 
 
+def _flag_enabled(value, default=False):
+    if value is None:
+        return bool(default)
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "on"}
+    if isinstance(value, (int, float)):
+        return value == 1
+    return bool(default)
+
+
 def _extract_bucket_exposure_from_meta(meta):
     """Delegated to V2-first implementation. Legacy body removed (was dead code)."""
     return _extract_bucket_exposure_from_meta_v2(meta)
@@ -1151,6 +1163,7 @@ def _run_solver(
     risk_budget=None,
     unified=False,
     unified_bounds_info=None,
+    strict_feasibility=False,
 ):
     """
     FASE 8: Ejecución Matemática Final.
@@ -1196,6 +1209,16 @@ def _run_solver(
             solver_path = "max_sharpe_default"
             raw_weights = ef.max_sharpe(risk_free_rate=rf_rate)
     except Exception as e1:
+        feasibility = {
+            "status": "infeasible",
+            "objective": objective,
+            "reason": str(e1),
+            "strict_feasibility": bool(strict_feasibility),
+        }
+        if strict_feasibility:
+            logger.info("Strict feasibility enabled; fallback chain disabled: %s", e1)
+            return ef, None, "infeasible_strict_feasibility", feasibility
+
         # Si efficient_risk falla, registrar diagnóstico pero permitir fallback.
         if objective == "efficient_risk":
             target_vol = _to_float(
@@ -1207,6 +1230,7 @@ def _run_solver(
                 "objective": "efficient_risk",
                 "target_vol": target_vol,
                 "reason": str(e1),
+                "strict_feasibility": False,
             }
             logger.info(f"⚠️ Efficient Risk infeasible (target_vol={target_vol}): {e1}. Intentando fallbacks...")
 
@@ -1420,6 +1444,7 @@ def run_optimization(
          current_risk_buckets, equity_floor) = _build_optimization_context(db, constraints)
         locks_v1 = (constraints_v1 or {}).get("locks", {}) or {}
         flags_v1 = (constraints_v1 or {}).get("flags", {}) or {}
+        strict_feasibility = _flag_enabled(flags_v1.get("strict_feasibility"), False)
         bucket_bounds_v1 = (constraints_v1 or {}).get("bucket_bounds", {}) or {}
         construction_v1 = (constraints_v1 or {}).get("construction", {}) or {}
         risk_budget_v1 = (constraints_v1 or {}).get("risk_budget", {}) or {}
@@ -1530,6 +1555,7 @@ def run_optimization(
             precheck_explainability = {
                 "precheck_blocked": True,
                 "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
+                "strict_feasibility": strict_feasibility,
             }
             if unified:
                 precheck_explainability.update(_unified_explainability_payload(unified_bounds_info))
@@ -1599,14 +1625,19 @@ def run_optimization(
                 ef, mu, S, constraints, risk_level_i, rf_rate, max_weight, gamma, apply_profile, universe,
                 lock_mode, locked_assets, fixed_weights, asset_metadata, current_risk_buckets,
                 eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec, bucket_bounds_v1, objective, risk_budget_v1,
-                unified=unified, unified_bounds_info=unified_bounds_info
+                unified=unified, unified_bounds_info=unified_bounds_info,
+                strict_feasibility=strict_feasibility,
             )
         else:
             raw_weights = None
             solver_feasibility = {}
 
-        if solver_path == "infeasible_efficient_risk":
+        if solver_path in {"infeasible_efficient_risk", "infeasible_strict_feasibility"}:
             solver_explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
+            solver_explainability.update({
+                "strict_feasibility": strict_feasibility,
+                "fallbacks_disabled": strict_feasibility,
+            })
             return {
                 "api_version": "optimizer_v4",
                 "status": "infeasible_constraints",
@@ -1614,6 +1645,8 @@ def run_optimization(
                 "solver_path": solver_path,
                 "feasibility": solver_feasibility,
                 "weights": {},
+                "applicable": False,
+                "usable": False,
                 "warnings": [solver_feasibility.get("reason", "efficient_risk infeasible")],
                 "explainability": solver_explainability,
             }
@@ -1702,6 +1735,7 @@ def run_optimization(
             "binding_constraints": binding_constraints,
             "constraints_v1_enabled": bool(constraints_v1),
             "constraints_v1_profile_id": constraints_v1.get("profile_id"),
+            "strict_feasibility": strict_feasibility,
             "bucket_constraints_source": (
                 "unified_effective_bounds"
                 if unified
