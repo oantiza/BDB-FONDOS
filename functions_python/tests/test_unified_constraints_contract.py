@@ -88,7 +88,12 @@ def _db_with_profiles():
     })
 
 
-def _patch_run_until_precheck(monkeypatch, captured: dict):
+def _patch_run_until_precheck(
+    monkeypatch,
+    captured: dict,
+    block: dict | None = None,
+    blocks: list[dict] | None = None,
+):
     dates = pd.date_range("2021-01-01", periods=120, freq="B")
     df = pd.DataFrame(
         {
@@ -123,7 +128,7 @@ def _patch_run_until_precheck(monkeypatch, captured: dict):
         captured["min_weight"] = kwargs["min_weight"]
         return {
             "is_feasible": False,
-            "blocks": [{"code": "TEST_BLOCK", "message": "blocked by test"}],
+            "blocks": blocks or [block or {"code": "TEST_BLOCK", "message": "blocked by test"}],
         }
 
     monkeypatch.setattr(optimizer_core, "_apply_suitability_filter", lambda assets, *_args: assets)
@@ -294,6 +299,68 @@ def test_run_optimization_flag_off_precheck_keeps_legacy_v1_bounds(monkeypatch):
     assert "equity" in captured["exposure_vectors"]
     assert "RV" not in captured["exposure_vectors"]
     assert "effective_bounds" not in result["explainability"]
+
+
+def test_unified_rv_unattainable_precheck_preserves_equity_floor_contract(monkeypatch):
+    monkeypatch.setenv("UNIFIED_CONSTRAINTS", "1")
+    captured = {}
+    _patch_run_until_precheck(
+        monkeypatch,
+        captured,
+        block={
+            "code": "BLOCK_BUCKET_MIN_UNATTAINABLE",
+            "message": "RV minimum cannot be reached",
+            "details": {"bucket": "RV", "required_min": 0.70, "max_achievable_exposure": 0.60},
+        },
+    )
+
+    result = run_optimization(
+        assets_list=["EQ", "BD"],
+        risk_level=5,
+        db=_db_with_profiles(),
+        constraints={"apply_profile": True, "objective": "min_vol", "max_weight": 1.0, "cutoff": 0.0},
+        asset_metadata={},
+    )
+
+    assert result["status"] == "infeasible_equity_floor"
+    assert result["solver_path"] == "blocked_infeasible"
+    assert result["applicable"] is False
+    assert result["usable"] is False
+    assert result["explainability"]["blocking_codes"] == ["BLOCK_BUCKET_MIN_UNATTAINABLE"]
+    assert result["explainability"]["bucket_constraints_source"] == "unified_effective_bounds"
+
+
+def test_precheck_status_and_message_follow_first_block(monkeypatch):
+    monkeypatch.setenv("UNIFIED_CONSTRAINTS", "1")
+    captured = {}
+    _patch_run_until_precheck(
+        monkeypatch,
+        captured,
+        blocks=[
+            {"code": "UNIVERSE_TOO_SMALL", "message": "Add more funds"},
+            {
+                "code": "BLOCK_BUCKET_MIN_UNATTAINABLE",
+                "message": "RV minimum cannot be reached",
+                "details": {"bucket": "RV"},
+            },
+        ],
+    )
+
+    result = run_optimization(
+        assets_list=["EQ", "BD"],
+        risk_level=5,
+        db=_db_with_profiles(),
+        constraints={"apply_profile": True, "objective": "min_vol", "max_weight": 1.0, "cutoff": 0.0},
+        asset_metadata={},
+    )
+
+    assert result["status"] == "infeasible"
+    assert result["solver_path"] == "blocked_precheck"
+    assert result["message"] == "Add more funds"
+    assert result["explainability"]["blocking_codes"] == [
+        "UNIVERSE_TOO_SMALL",
+        "BLOCK_BUCKET_MIN_UNATTAINABLE",
+    ]
 
 
 def test_unified_equity_floor_infeasible_keeps_explainability():
