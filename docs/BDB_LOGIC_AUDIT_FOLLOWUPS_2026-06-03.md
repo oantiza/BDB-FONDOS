@@ -1,6 +1,6 @@
 # BDB-FONDOS - seguimientos post auditoria
 
-**Fecha:** 2026-06-03  
+**Fecha:** 2026-06-04
 **Estado:** auditoria critica cerrada; quedan solo seguimientos de mantenimiento.
 
 Este documento separa lo que ya quedo cerrado durante la auditoria de lo que conviene vigilar en adelante. Nada de lo siguiente reabre el lote critico salvo que aparezca una incidencia real en produccion.
@@ -9,21 +9,23 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 | Area | Estado | Evidencia |
 | --- | --- | --- |
-| Suite backend completa | Cerrado | `496 passed, 2 skipped, 8 xfailed, 32 xpassed` en local; CI verde en `0e847d7`. |
+| Suite backend completa | Cerrado | `589 passed, 2 skipped, 0 xfailed` en local; CI completa activa en `master`. |
 | `compatible_profiles` poblado | Cerrado | Write gate de 3 fondos FI emergentes; auditoria posterior con drift `0`. |
 | Fondos `Otros` en perfiles conservadores | Cerrado para el estado actual | Revision `0`; commodities/keywords aptos P1-P2 `0`. |
 | `risk_profiles` canonico | Cerrado | `risk_profiles` y `risk_profiles_staging` identicos; `Mixto` ausente en ambos. |
+| Credito FI cuantitativo | Cerrado como dato y contrato | 130 fondos poblados; validador compartido y motor puro de avisos implementados. |
+| Contratos tematicos commodities | Cerrado | Regresiones activas para exposicion real, clasificacion sectorial y tipo commodities; Option A no adoptada retirada. |
 | Documentos de handoff junio | Cerrado en esta limpieza | Planes, PR handoff y specs intermedias archivados bajo `docs/audits/logic_2026_06_archive/`. |
 
 ## Pendientes no bloqueantes
 
-### 1. Credito FI cuantitativo
+### 1. Presentacion de avisos de credito FI
 
-**Objetivo:** decidir si se poblan campos cuantitativos de credito FI, especialmente `portfolio_exposure_v2.fi_credit.low_quality`, cobertura, escala y warnings FE-9.
+**Objetivo:** decidir si los avisos no bloqueantes de credito FI deben mostrarse en endpoints/frontend.
 
-**Por que queda:** la suite marca varios contratos futuros como `xfail`/`xpass`. No son regresiones de la auditoria; son una linea de mejora de datos.
+**Estado actual:** el dato cuantitativo, su esquema y el motor puro de avisos ya existen. Los avisos no modifican suitability ni `compatible_profiles` y todavia no se presentan al usuario.
 
-**Criterio de cierre:** dry-run con impacto, decision de negocio sobre warning/bloqueo y, si hay escritura, gate con rollback.
+**Criterio de cierre:** decision de negocio/compliance sobre copy, severidad y ubicacion visual; activacion separada y no bloqueante si se aprueba.
 
 ### 2. Revision periodica de `Otros`
 
@@ -51,5 +53,5 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 1. Dejar unos dias de uso real estable.
 2. Hacer el pulido UX si el usuario lo prioriza.
-3. Abrir credito FI cuantitativo como bloque independiente.
+3. Decidir por separado si se presentan los avisos FI-credit ya implementados.
 4. Mantener auditoria `Otros` y shadow/live como controles antes de futuros cambios.
