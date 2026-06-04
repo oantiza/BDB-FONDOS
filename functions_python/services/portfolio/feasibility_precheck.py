@@ -342,7 +342,6 @@ def _check_locks_incompatible_bucket(
         "cash": "Monetario",
         "alternative": "Alternativos",
         "real_asset": "Activos Reales",
-        "mixto": "Mixto",
         "other": "Otros",
     }
 

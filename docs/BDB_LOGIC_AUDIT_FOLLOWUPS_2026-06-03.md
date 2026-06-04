@@ -9,17 +9,27 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 | Area | Estado | Evidencia |
 | --- | --- | --- |
-| Suite backend completa | Cerrado | `591 passed, 0 skipped, 0 xfailed` en local con el mismo alcance de CI; CI completa activa en `master`. |
-| `compatible_profiles` poblado | Cerrado | Write gate de 3 fondos FI emergentes; auditoria posterior con drift `0`. |
+| Suite backend completa | Cerrado | `592 passed, 0 skipped, 0 xfailed` en local con el mismo alcance de CI; CI completa activa en `master`. |
+| Paridad de suitability FE/BE | Cerrado para el estado actual | Comparacion live de los 671 fondos: divergencias `0`, incluidos los 521 fondos que usan fallback por no tener `compatible_profiles` persistido. |
+| `compatible_profiles` persistido | Cobertura parcial controlada | 150 fondos poblados y 521 sin campo persistido; drift `0` entre los 150 poblados. El fallback actual tambien conserva paridad FE/BE. |
 | Fondos `Otros` en perfiles conservadores | Cerrado para el estado actual | Revision `0`; commodities/keywords aptos P1-P2 `0`. |
 | `risk_profiles` canonico | Cerrado | `risk_profiles` y `risk_profiles_staging` identicos; `Mixto` ausente en ambos. |
+| Precheck de locks fraccionales (B6) | Cerrado en `master`; pendiente de despliegue | PR #8 corrige el conteo de exposiciones positivas fraccionales y mantiene regresiones focalizadas. |
 | Credito FI cuantitativo | Contrato cerrado; cobertura live parcial | Lectura 2026-06-04: 20 documentos cuantitativos (19 validos, 1 invalido) y 130 placeholders legacy vacios; validador compartido y motor puro de avisos implementados. |
 | Contratos tematicos commodities | Cerrado | Regresiones activas para exposicion real, clasificacion sectorial y tipo commodities; Option A no adoptada retirada. |
 | Documentos de handoff junio | Cerrado en esta limpieza | Planes, PR handoff y specs intermedias archivados bajo `docs/audits/logic_2026_06_archive/`. |
 
 ## Pendientes no bloqueantes
 
-### 1. Calidad y cobertura live de credito FI
+### 1. Paridad entre `master` y la funcion desplegada
+
+**Objetivo:** desplegar de forma controlada la cadena ya integrada en `master`, manteniendo una frontera clara entre integracion y activacion.
+
+**Estado actual:** la funcion `optimize_portfolio_quant` desplegada corresponde exactamente al estado del PR #6 (`6542411`, revision `optimize-portfolio-quant-00038-tad`, actualizada el 2026-06-03). Los cambios integrados desde el PR #7, incluido B6 y los controles posteriores, todavia no estan desplegados.
+
+**Criterio de cierre:** pruebas y CI verdes, shadow/live sin FAIL bloqueante, autorizacion explicita de despliegue y verificacion posterior. Este documento no autoriza el despliegue.
+
+### 2. Calidad y cobertura live de credito FI
 
 **Objetivo:** separar definitivamente los placeholders legacy de los documentos cuantitativos y decidir si se repara el unico documento canonico invalido.
 
@@ -29,7 +39,7 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 **Criterio de cierre:** nueva decision y write gate explicito para limpiar placeholders o reparar el documento invalido; no hacer escrituras automaticas.
 
-### 2. Presentacion de avisos de credito FI
+### 3. Presentacion de avisos de credito FI
 
 **Objetivo:** decidir si los avisos no bloqueantes de credito FI deben mostrarse en endpoints/frontend.
 
@@ -37,7 +47,7 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 **Criterio de cierre:** decision de negocio/compliance sobre copy, severidad y ubicacion visual; activacion separada y no bloqueante si se aprueba.
 
-### 3. Revision periodica de `Otros`
+### 4. Revision periodica de `Otros`
 
 **Objetivo:** evitar que la relajacion de `Otros` se convierta con el tiempo en una via permisiva para perfiles conservadores.
 
@@ -45,7 +55,7 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 **Criterio de cierre recurrente:** revision `0`, commodities P1-P2 `0`, drift poblado `0`.
 
-### 4. Shadow/live antes de cambios grandes
+### 5. Shadow/live antes de cambios grandes
 
 **Objetivo:** usar el comparador como gate antes de tocar perfiles, constraints u overrides.
 
@@ -53,7 +63,15 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 **Criterio de cierre:** manifest shadow sin FAIL bloqueante, o decision explicita documentada.
 
-### 5. Pulido UX visual
+### 6. Override legacy P4
+
+**Objetivo:** mantener explicito que `allow_legacy_override` no forma parte del contrato vigente.
+
+**Estado actual:** los skips documentales antiguos se retiraron, pero el modo legacy futuro sigue aplazado de forma intencional. No debe considerarse implementado ni resuelto por esa limpieza.
+
+**Criterio de cierre:** decision contractual separada, implementacion explicita y pruebas propias si alguna vez se adopta.
+
+### 7. Pulido UX visual
 
 **Objetivo:** mejorar forma, copy y jerarquia visual de los flujos de recuperacion del optimizador.
 
@@ -61,7 +79,8 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 ## Orden recomendado
 
-1. Dejar unos dias de uso real estable.
-2. Hacer el pulido UX si el usuario lo prioriza.
-3. Decidir por separado si se limpia/amplia la cobertura FI-credit y si se presentan sus avisos.
-4. Mantener auditoria `Otros` y shadow/live como controles antes de futuros cambios.
+1. Validar y desplegar de forma controlada la diferencia acumulada entre `master` y la funcion actual.
+2. Dejar unos dias de uso real estable.
+3. Hacer el pulido UX si el usuario lo prioriza.
+4. Decidir por separado si se limpia/amplia la cobertura FI-credit y si se presentan sus avisos.
+5. Mantener auditoria `Otros` y shadow/live como controles antes de futuros cambios.

@@ -862,7 +862,7 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
             
         df = df[df.index >= final_start_date]
         logger.info(
-            f"â„¹ï¸ Optimization Strict Window: {final_start_date.date()} to {df.index[-1].date()} ({(df.index[-1] - final_start_date).days} days)"
+            f"[Optimizer] Strict Window: {final_start_date.date()} to {df.index[-1].date()} ({(df.index[-1] - final_start_date).days} days)"
         )
         df = df.ffill(limit=5)
         
@@ -947,7 +947,7 @@ def _build_expected_returns_and_cov(df, universe, asset_metadata, tactical_views
         mcaps[t] = float(mcap_val)
 
     if tactical_views:
-        logger.info("ðŸ‘ï¸ [Optimizer] Tactical Views Detected. Applying Black-Litterman...")
+        logger.info("[Optimizer] Tactical Views Detected. Applying Black-Litterman...")
         try:
             from services.quant_core import apply_black_litterman
             valid_views = {k: v for k, v in tactical_views.items() if k in universe}
@@ -1999,7 +1999,7 @@ def run_optimization(
             raw_weights = None
             solver_feasibility = {}
 
-        if solver_path in {"infeasible_efficient_risk", "infeasible_strict_feasibility"}:
+        if solver_path == "infeasible_strict_feasibility":
             solver_explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
             solver_explainability.update({
                 "strict_feasibility": strict_feasibility,
@@ -2271,6 +2271,5 @@ def run_optimization(
         }
 
     except Exception as e:
-        logger.info(f"âŒ Critical Error: {e}")
+        logger.info(f"[Critical Error] {e}")
         return {"api_version": "optimizer_v4", "status": "error", "message": str(e), "error": str(e)}
-
