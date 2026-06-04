@@ -5,10 +5,14 @@ from __future__ import annotations
 from math import isfinite
 from typing import Any
 
+from services.portfolio.fi_credit_schema import (
+    FI_CREDIT_BOND_BUCKET_SCALE,
+    validate_fi_credit,
+)
 from services.portfolio.utils import get_effective_asset_mix
 
 
-FI_CREDIT_SCALE = "percent_of_bond_bucket"
+FI_CREDIT_SCALE = FI_CREDIT_BOND_BUCKET_SCALE
 FI_CREDIT_MIN_COVERAGE = 0.8
 
 
@@ -50,7 +54,7 @@ def compute_fi_credit_warnings(
     """
 
     fi_credit = _canonical_fi_credit(fund_data)
-    if not fi_credit or not str(fi_credit.get("source") or "").strip():
+    if not fi_credit or validate_fi_credit(fi_credit):
         return []
     if fi_credit.get("scale") != FI_CREDIT_SCALE:
         return []
