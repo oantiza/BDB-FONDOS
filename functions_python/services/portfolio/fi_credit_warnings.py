@@ -25,10 +25,15 @@ def _to_float(value: Any, default: float = 0.0) -> float:
 
 
 def _canonical_fi_credit(fund_data: dict[str, Any]) -> dict[str, Any] | None:
+    """Return the first schema-valid quantitative FI-credit document.
+
+    Legacy funds may contain an empty ``fi_credit`` placeholder while a later
+    field carries usable data. Invalid candidates must not mask a valid one.
+    """
     exposure = (fund_data or {}).get("portfolio_exposure_v2", {}) or {}
     for field in ("fi_credit", "credit"):
         fi_credit = exposure.get(field)
-        if isinstance(fi_credit, dict):
+        if isinstance(fi_credit, dict) and not validate_fi_credit(fi_credit):
             return fi_credit
     return None
 
