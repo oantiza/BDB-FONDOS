@@ -32,6 +32,7 @@ jobs:
           tests/test_optimizer_autoexpand_consistency.py
           tests/test_feasibility_precheck_fractional_locks.py
           tests/test_optimizer_strict_feasibility.py
+          tests/test_optimizer_optional_constraint_diagnostics.py
           tests/test_shadow_compare.py
           tests/test_suitability_parity_golden.py
 
