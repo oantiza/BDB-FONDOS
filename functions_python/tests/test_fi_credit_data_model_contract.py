@@ -398,7 +398,8 @@ class TestDataPipelineGapDocumentation:
     def test_credit_field_mapping_in_firestore_matches_parser_output(self):
         """
         The Firestore field portfolio_exposure_v2.fi_credit must match the
-        canonical structure. The audited cohort has 130 populated funds; wider
+        canonical structure. The live read-only audit on 2026-06-04 found 20
+        quantitative documents and 130 legacy empty placeholders; wider
         coverage remains constrained by source-data availability.
         """
         # Simulates what Firestore should contain after BDB-FI-CREDIT-DRYRUN-EXTRACTION-0

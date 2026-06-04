@@ -130,6 +130,36 @@ class TestFE9WarningInvariants:
         w = _build_fe9_warning(fi)
         assert w is None, "Invalid canonical data must not emit a warning"
 
+    def test_empty_legacy_fi_credit_does_not_mask_valid_credit_fallback(self):
+        """An old empty placeholder must not hide a valid fallback field."""
+        valid_credit = _make_fi_credit(low_quality=60.0, coverage=1.0)
+        warnings = compute_fi_credit_warnings(
+            {
+                "portfolio_exposure_v2": {
+                    "fi_credit": {},
+                    "credit": valid_credit,
+                }
+            },
+            bond_weight=100.0,
+        )
+
+        assert warnings and warnings[0]["low_quality"] == 60.0
+
+    def test_invalid_fi_credit_does_not_mask_valid_credit_fallback(self):
+        """A malformed primary candidate must not hide valid canonical data."""
+        valid_credit = _make_fi_credit(low_quality=45.0, coverage=1.0)
+        warnings = compute_fi_credit_warnings(
+            {
+                "portfolio_exposure_v2": {
+                    "fi_credit": {"low_quality": 90.0},
+                    "credit": valid_credit,
+                }
+            },
+            bond_weight=100.0,
+        )
+
+        assert warnings and warnings[0]["low_quality"] == 45.0
+
     def test_not_rated_excluded_from_low_quality_in_warning(self):
         """not_rated is NOT included in low_quality — it is reported separately."""
         fi = _make_fi_credit(low_quality=30.0, not_rated=25.0, coverage=1.0)
