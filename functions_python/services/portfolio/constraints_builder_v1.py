@@ -54,6 +54,18 @@ def _sanitize_01(value: Any) -> float:
     return max(0.0, min(1.0, val))
 
 
+def _to_bool(value: Any, default: bool = False) -> bool:
+    if value is None:
+        return bool(default)
+    if isinstance(value, bool):
+        return value
+    if isinstance(value, str):
+        return value.strip().lower() in {"1", "true", "yes", "on"}
+    if isinstance(value, (int, float)):
+        return value == 1
+    return bool(default)
+
+
 def _read_bound(raw: Any) -> BoundRange:
     if isinstance(raw, (list, tuple)) and len(raw) >= 2:
         return BoundRange(min=_sanitize_01(raw[0]), max=_sanitize_01(raw[1]))
@@ -235,7 +247,7 @@ def build_constraints_v1(
 
     flags = ConstraintFlagsV1(
         apply_profile=bool(overrides.get("apply_profile", True)),
-        strict_feasibility=bool(overrides.get("strict_feasibility", True)),
+        strict_feasibility=_to_bool(overrides.get("strict_feasibility"), False),
     )
 
     return PortfolioConstraintsV1(

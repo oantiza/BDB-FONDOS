@@ -63,7 +63,7 @@ class TacticalViewsV1(BaseModel):
 
 class ConstraintFlagsV1(BaseModel):
     apply_profile: bool = True
-    strict_feasibility: bool = True
+    strict_feasibility: bool = False
 
 
 class PortfolioConstraintsV1(BaseModel):
