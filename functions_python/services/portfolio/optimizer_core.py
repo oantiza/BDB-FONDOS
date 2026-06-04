@@ -1004,7 +1004,8 @@ def _check_feasibility_and_autoexpand(
     db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
     eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
     bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
-    candidate_funds=None, bucket_bounds_v1=None, unified=False, unified_bounds_info=None
+    candidate_funds=None, bucket_bounds_v1=None, unified=False, unified_bounds_info=None,
+    tactical_views=None,
 ):
     """
     FASE 7: Predicción de Factibilidad (Floor Checks).
@@ -1102,8 +1103,12 @@ def _check_feasibility_and_autoexpand(
 
             df = pd.DataFrame(price_data).sort_index().ffill(limit=5)
             universe = list(df.columns)
-            mu = get_expected_returns(df, method="ema")
-            S = get_covariance_matrix(df)
+            mu, S = _build_expected_returns_and_cov(
+                df,
+                universe,
+                asset_metadata,
+                tactical_views,
+            )
             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec = _build_exposure_vectors(universe, asset_metadata)
 
             ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
@@ -1568,7 +1573,8 @@ def run_optimization(
             db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
             eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
             bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
-            candidate_funds, bucket_bounds_v1, unified=unified, unified_bounds_info=unified_bounds_info
+            candidate_funds, bucket_bounds_v1, unified=unified, unified_bounds_info=unified_bounds_info,
+            tactical_views=tactical_views,
         )
         
         if not is_feasible:
@@ -1583,6 +1589,7 @@ def run_optimization(
             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec = (
                 eq_vec_override, bd_vec_override, cs_vec_override, al_vec_override, ra_vec_override, ot_vec_override
             )
+            frontier_points = _build_frontier_curve(mu, S)
         else:
             solver_path = None
             
