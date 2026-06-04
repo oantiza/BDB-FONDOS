@@ -9,7 +9,7 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 
 | Area | Estado | Evidencia |
 | --- | --- | --- |
-| Suite backend completa | Cerrado | `592 passed, 0 skipped, 0 xfailed` en local con el mismo alcance de CI; CI completa activa en `master`. |
+| Suite backend completa | Cerrado | `594 passed, 0 skipped, 0 xfailed` en local con el mismo alcance de CI; CI completa activa en `master`. |
 | Paridad de suitability FE/BE | Cerrado para el estado actual | Comparacion live de los 671 fondos: divergencias `0`, incluidos los 521 fondos que usan fallback por no tener `compatible_profiles` persistido. |
 | `compatible_profiles` persistido | Cobertura parcial controlada | 150 fondos poblados y 521 sin campo persistido; drift `0` entre los 150 poblados. El fallback actual tambien conserva paridad FE/BE. |
 | Fondos `Otros` en perfiles conservadores | Cerrado para el estado actual | Revision `0`; commodities/keywords aptos P1-P2 `0`. |
@@ -26,6 +26,8 @@ Este documento separa lo que ya quedo cerrado durante la auditoria de lo que con
 **Objetivo:** desplegar de forma controlada la cadena ya integrada en `master`, manteniendo una frontera clara entre integracion y activacion.
 
 **Estado actual:** la funcion `optimize_portfolio_quant` desplegada corresponde exactamente al estado del PR #6 (`6542411`, revision `optimize-portfolio-quant-00038-tad`, actualizada el 2026-06-03). Los cambios integrados desde el PR #7, incluido B6 y los controles posteriores, todavia no estan desplegados.
+
+**Gate previo mas reciente:** shadow/live read-only de 2026-06-04 sobre la muestra de rollout: 14 casos, 7 PASS, 7 EXPECTED, 0 FAIL y 0 INVESTIGATE. Manifest local: `artifacts/shadow/shadow_live_20260604T075344Z.json`.
 
 **Criterio de cierre:** pruebas y CI verdes, shadow/live sin FAIL bloqueante, autorizacion explicita de despliegue y verificacion posterior. Este documento no autoriza el despliegue.
 

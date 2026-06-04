@@ -1866,9 +1866,17 @@ def run_optimization(
 
         if not precheck_result["is_feasible"]:
             first_block = precheck_result["blocks"][0]
+            blocking_codes = [b["code"] for b in precheck_result["blocks"]]
+            equity_floor_blocked = (
+                first_block.get("code") == "BLOCK_LOCKS_INCOMPATIBLE_EQUITY_FLOOR"
+                or (
+                    first_block.get("code") == "BLOCK_BUCKET_MIN_UNATTAINABLE"
+                    and (first_block.get("details") or {}).get("bucket") in {"RV", "equity"}
+                )
+            )
             precheck_explainability = {
                 "precheck_blocked": True,
-                "blocking_codes": [b["code"] for b in precheck_result["blocks"]],
+                "blocking_codes": blocking_codes,
                 "strict_feasibility": strict_feasibility,
                 "locked_suitability_overrides": pending_locked_suitability_overrides,
             }
@@ -1876,12 +1884,15 @@ def run_optimization(
                 precheck_explainability.update(_unified_explainability_payload(unified_bounds_info))
             return {
                 "api_version": "optimizer_v4",
-                "status": "infeasible",
+                "status": "infeasible_equity_floor" if equity_floor_blocked else "infeasible",
                 "message": first_block["message"],
+                "solver_path": "blocked_infeasible" if equity_floor_blocked else "blocked_precheck",
                 "feasibility_precheck": precheck_result,
                 "weights": {},
                 "metrics": {},
                 "frontier_points": frontier_points,
+                "applicable": False,
+                "usable": False,
                 "explainability": precheck_explainability,
                 "locked_suitability_overrides": pending_locked_suitability_overrides,
                 "warnings": (
