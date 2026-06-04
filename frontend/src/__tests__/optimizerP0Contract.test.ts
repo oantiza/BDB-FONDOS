@@ -37,6 +37,11 @@ function portfolioTableSource(): string {
   return readFileSync(resolve(here, '../components/PortfolioTable.tsx'), 'utf8');
 }
 
+function optimizationReviewModalSource(): string {
+  const here = dirname(fileURLToPath(import.meta.url));
+  return readFileSync(resolve(here, '../components/modals/OptimizationReviewModal.tsx'), 'utf8');
+}
+
 function typesSource(): string {
   const here = dirname(fileURLToPath(import.meta.url));
   return readFileSync(resolve(here, '../types/index.ts'), 'utf8');
@@ -151,7 +156,17 @@ describe('canonical optimizer constraints payload contract', () => {
     expect(types).toMatch(/target_vol\?: number/);
     expect(types).toMatch(/achieved_vol\?: number/);
     expect(types).toMatch(/vol_deviation\?: number/);
+    expect(types).toMatch(/vol_band_compliant\?: boolean/);
+    expect(types).toMatch(/vol_band_enforcement\?: 'soft_warning' \| 'strict_postcheck'/);
     expect(types).toMatch(/solver_path\?: string/);
+  });
+
+  test('review modal surfaces warnings even when the result is not a fallback', () => {
+    const source = optimizationReviewModalSource();
+
+    expect(source).toMatch(/const hasWarnings = Array\.isArray\(explainabilityData\?\.warnings\)/);
+    expect(source).toMatch(/\{\(isFallback \|\| hasWarnings\) && \(/);
+    expect(source).toMatch(/translateTechnicalWarning\(w\)/);
   });
 
   test('frontend optimization metadata remains minimal and does not merge classification with exposure', () => {

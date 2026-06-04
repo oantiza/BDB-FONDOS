@@ -48,6 +48,12 @@ export interface PortfolioMetrics {
     sharpe: number;
     maxDrawdown: number;
     rf_rate?: number;
+    target_vol?: number;
+    achieved_vol?: number;
+    vol_deviation?: number;
+    vol_band?: BoundRange;
+    vol_band_compliant?: boolean;
+    vol_band_enforcement?: 'soft_warning' | 'strict_postcheck';
     alpha?: number;
     beta?: number;
     sortino?: number;
@@ -327,6 +333,17 @@ export interface SmartPortfolioResponse {
         vol_deviation?: number;
         fallback_reason?: string;
         solver_path?: string;
+        volatility_compliance?: {
+            configured: boolean;
+            compliant: boolean;
+            enforcement: 'soft_warning' | 'strict_postcheck';
+            achieved_vol: number;
+            target_vol?: number;
+            min?: number;
+            max?: number;
+            warnings: string[];
+            violations: any[];
+        };
     };
     target_vol?: number;
     achieved_vol?: number;

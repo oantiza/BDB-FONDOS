@@ -133,6 +133,7 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
     }
 
     const isFallback = explainabilityData?.status === 'fallback' || explainabilityData?.solver_fallback_used;
+    const hasWarnings = Array.isArray(explainabilityData?.warnings) && explainabilityData.warnings.length > 0;
 
     return (
         <div className="fixed inset-0 bg-slate-900/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm animate-in fade-in duration-200">
@@ -152,14 +153,16 @@ export default function OptimizationReviewModal({ currentPortfolio, proposedPort
                 />
 
                 <div className="p-8 overflow-y-auto custom-scrollbar bg-white flex flex-col items-center">
-                    {/* Fallback Warning Box */}
-                    {isFallback && (
+                    {/* Fallback / compliance warning box */}
+                    {(isFallback || hasWarnings) && (
                         <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-6 w-full text-left">
                             <h4 className="text-sm font-bold text-amber-900 flex items-center gap-2 mb-2">
-                                <span>⚠️</span> Propuesta de Mejor Esfuerzo
+                                <span>⚠️</span> {isFallback ? "Propuesta de Mejor Esfuerzo" : "Propuesta con Advertencias"}
                             </h4>
                             <p className="text-sm text-amber-800 leading-relaxed">
-                                Dadas las restricciones seleccionadas y el universo disponible, no ha sido posible alcanzar exactamente el nivel de riesgo objetivo. Se muestra la mejor alternativa factible.
+                                {isFallback
+                                    ? "Dadas las restricciones seleccionadas y el universo disponible, no ha sido posible alcanzar exactamente el nivel de riesgo objetivo. Se muestra la mejor alternativa factible."
+                                    : "La propuesta es aplicable, pero conviene revisar las advertencias antes de aceptarla."}
                             </p>
                             {explainabilityData?.fallback_reason && (
                                 <p className="mt-2 text-xs text-amber-700 italic">
