@@ -128,6 +128,10 @@ class TestOptimizerCoreFieldUsage:
     def test_core_uses_current_risk_buckets(self):
         assert "current_risk_buckets" in self.core
 
+    def test_core_has_no_mojibake_markers(self):
+        for marker in ("\u00e2", "\u00f0", "\u00c3"):
+            assert marker not in self.core
+
     def test_builder_recognizes_locked_positions(self):
         assert "locked_positions" in self.builder
 
