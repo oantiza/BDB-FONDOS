@@ -276,7 +276,12 @@ def _compute_metrics(df_master, period, weights_map, synthetic_used, fetcher):
 
     # Slice Data
     if len(df_master) > 0:
-        start_date = df_master.index[-1] - timedelta(days=lookback)
+        # FIX H14 (auditoria 2026-06-09): 'ytd' no estaba mapeado y caia en
+        # silencio a la ventana por defecto de 3 anios.
+        if period == "ytd":
+            start_date = pd.Timestamp(year=df_master.index[-1].year, month=1, day=1)
+        else:
+            start_date = df_master.index[-1] - timedelta(days=lookback)
         df = df_master[df_master.index >= start_date].copy()
     else:
         df = df_master

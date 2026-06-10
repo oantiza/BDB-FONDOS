@@ -156,6 +156,12 @@ def _check_bucket_not_representable(
         "alternative": "Alternativos",
         "real_asset": "Activos Reales",
         "other": "Otros",
+        # FIX H9: la ruta legacy usa claves canonicas en los bounds del perfil.
+        "RV": "Renta Variable",
+        "RF": "Renta Fija",
+        "Monetario": "Monetario",
+        "Alternativos": "Alternativos",
+        "Otros": "Otros",
     }
     for bucket_key, raw in active_bounds.items():
         b_min, _ = _read_bound_fn(raw)
@@ -343,6 +349,12 @@ def _check_locks_incompatible_bucket(
         "alternative": "Alternativos",
         "real_asset": "Activos Reales",
         "other": "Otros",
+        # FIX H9: la ruta legacy usa claves canonicas en los bounds del perfil.
+        "RV": "Renta Variable",
+        "RF": "Renta Fija",
+        "Monetario": "Monetario",
+        "Alternativos": "Alternativos",
+        "Otros": "Otros",
     }
 
     isin_to_idx = {isin: i for i, isin in enumerate(universe)}

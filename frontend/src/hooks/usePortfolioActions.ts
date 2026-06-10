@@ -245,7 +245,11 @@ function mapOptimizationResultWeights(
 }
 
 function getMinAssetsNeededFromResult(result: SmartPortfolioResponse, fallbackMaxWeight = 0.20): number {
-    const block = (result.feasibility_precheck?.blocks || []).find((b: any) => b?.code === 'UNIVERSE_TOO_SMALL');
+    // FIX H11 (auditoria 2026-06-09): el backend emite 'BLOCK_UNIVERSE_TOO_SMALL';
+    // el codigo antiguo solo funcionaba de rebote por el regex del mensaje.
+    const block = (result.feasibility_precheck?.blocks || []).find(
+        (b: any) => b?.code === 'BLOCK_UNIVERSE_TOO_SMALL' || b?.code === 'UNIVERSE_TOO_SMALL'
+    );
     const minNeeded = Number(block?.details?.min_needed);
     if (Number.isFinite(minNeeded) && minNeeded > 0) return Math.ceil(minNeeded);
 
@@ -1197,39 +1201,10 @@ export function usePortfolioActions({
                 }
             });
 
-        } else if (result.status === 'fallback_no_history') {
-            const suggestion = result.suggestion || "Prueba a cambiar los fondos.";
-            const warnings = result.warnings?.join('\n') || "Insuficientes datos.";
-
-            const msg = `❌ Error de Datos Históricos\n\n${warnings}\n\nSugerencia: ${suggestion}\n\n¿Quieres intentar completar la cartera con fondos seguros?`;
-
-            setConfirmDialog({
-                isOpen: true,
-                title: "Histórico insuficiente",
-                message: msg,
-                confirmLabel: "Reintentar con fondos base",
-                cancelLabel: "Cancelar",
-                onConfirm: async () => {
-                    setConfirmDialog(null);
-                    toast.info("🔄 Reintentando con fondos base...");
-                    // Contractual retry payload: preserve contract fields, add auto_expand.
-                    const retryPayload: any = {
-                        ...(lastPayloadRef.current || {}),
-                        assets: portfolio.map(p => p.isin),
-                        locked_assets: lastPayloadRef.current?.locked_assets || portfolio.filter(p => p.isLocked).map(p => p.isin),
-                        auto_expand_universe: true
-                    };
-                    if (options?.snapshotOpts?.save_snapshot) retryPayload.save_snapshot = options.snapshotOpts.save_snapshot;
-                    if (options?.snapshotOpts?.snapshot_label) retryPayload.snapshot_label = options.snapshotOpts.snapshot_label;
-
-                    const response3 = await optimizeFn(retryPayload);
-                    const result3 = unwrapResult<SmartPortfolioResponse>(response3.data);
-                    processOptimizationResult(result3, optimizeFn, options);
-                },
-                onCancel: () => {
-                    setConfirmDialog(null);
-                }
-            });
+        // FIX H3 (auditoria 2026-06-09): se elimina el branch 'fallback_no_history'.
+        // El backend nunca emite ese status; el caso de historico insuficiente llega
+        // ahora como status 'infeasible' + recovery_candidates (solver_path
+        // 'blocked_insufficient_history') y lo gestiona el dialogo de recuperacion de arriba.
         } else if (result.status === 'infeasible_constraints' || result.status === 'auto_expand_failed') {
             toast.error("No se ha podido encontrar una cartera óptima con las restricciones actuales. Pruebe a reducir el nivel de riesgo, aumentar el número de fondos o ampliar el universo disponible.");
         } else {

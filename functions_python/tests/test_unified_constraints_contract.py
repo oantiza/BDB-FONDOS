@@ -297,7 +297,11 @@ def test_run_optimization_flag_off_precheck_keeps_legacy_v1_bounds(monkeypatch):
     assert result["status"] == "infeasible"
     assert captured["active_bounds"] == {"equity": {"min": 0.10, "max": 0.90}}
     assert "equity" in captured["exposure_vectors"]
-    assert "RV" not in captured["exposure_vectors"]
+    # FIX H9 (auditoria 2026-06-09): la ruta legacy expone AMBOS vocabularios
+    # (v1 y canonico) para que BLOCK-6/7/9 cubran tambien los bounds del perfil
+    # (claves RV/RF/...). La asercion anterior ('RV' ausente) fijaba justo el
+    # desalineamiento de claves que dejaba esos checks inertes.
+    assert "RV" in captured["exposure_vectors"]
     assert "effective_bounds" not in result["explainability"]
 
 

@@ -115,7 +115,13 @@ def analyze_portfolio(portfolio_weights: dict, db) -> dict:
     port_sharpe = metrics.get("sharpe", 0.0)
 
     # 3. Compute Correlation
-    corr_matrix = df.corr()
+    # FIX H4 (auditoria 2026-06-09): la correlacion se calcula sobre RETORNOS
+    # diarios, no sobre niveles de precio. Dos series con tendencia muestran
+    # correlacion de niveles ~1 aunque sus retornos sean independientes, lo que
+    # generaba alertas de concentracion espurias y sugerencias de sustitucion
+    # injustificadas. Misma convencion que backtester.py (returns.corr()).
+    returns_df = df.pct_change(fill_method=None)
+    corr_matrix = returns_df.corr()
 
     high_corr_pairs = []
     for i in range(len(corr_matrix.columns)):
