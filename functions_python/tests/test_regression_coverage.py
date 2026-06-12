@@ -165,10 +165,13 @@ def test_optimizer_short_history(mock_fetcher_class, short_history_fetcher, mock
         asset_metadata=metadata
     )
     
-    # Optimizer fallback early return mechanism
-    assert res.get("status") == "error"
-    assert "infeasible_history" in res.get("message", "").lower() or "too short" in res.get("message", "").lower()
-    assert "error" in res
+    # FIX H3 (auditoria 2026-06-09): el historico insuficiente ya no sale como
+    # status 'error' con el prefijo tecnico INFEASIBLE_HISTORY, sino como
+    # resultado estructurado 'infeasible' con recovery_candidates y mensaje de
+    # usuario (contrato en test_optimizer_infeasible_history_contract.py).
+    assert res.get("status") == "infeasible"
+    assert res.get("solver_path") == "blocked_insufficient_history"
+    assert "faltan datos hist" in res.get("message", "").lower()
 
 # ---------------------------------------------------------
 # Tests for Frontier Engine

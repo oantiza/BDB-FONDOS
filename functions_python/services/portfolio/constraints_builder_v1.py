@@ -170,14 +170,22 @@ def _resolve_risk_budget(
     )
     target_vol = max(0.0, min(1.0, target_vol))
 
-    raw_vol_band = (
-        overrides.get("vol_band")
-        or profile.get("vol_band")
-        or {
-            "min": max(0.0, target_vol - 0.02),
-            "max": min(1.0, target_vol + 0.02),
-        }
-    )
+    raw_vol_band = overrides.get("vol_band") or profile.get("vol_band")
+    if raw_vol_band is None:
+        # FIX H8 (auditoria 2026-06-09): para perfiles 8-10 el objetivo cambia a
+        # max_sharpe precisamente porque el target_vol del seed es inalcanzable
+        # (max_weight 20% + diversificacion). Sintetizar la banda +-2pp centrada
+        # en ese target garantizaba VOL_BAND_MIN_VIOLATION permanente (P10:
+        # minimo 28% vs vol realista 15-18%) y bloqueo en modo estricto. Sin
+        # banda EXPLICITA (override o perfil) no se inventa ninguna para 8-10;
+        # los perfiles 1-7 conservan el default +-2pp.
+        if profile_id_i is not None and profile_id_i >= 8:
+            raw_vol_band = {}
+        else:
+            raw_vol_band = {
+                "min": max(0.0, target_vol - 0.02),
+                "max": min(1.0, target_vol + 0.02),
+            }
     vol_band_bound = _read_bound(raw_vol_band)
     vol_band = VolBand(min=vol_band_bound.min, max=vol_band_bound.max)
 
@@ -188,6 +196,35 @@ def _resolve_risk_budget(
             target_return = _to_float(raw_tr, 0.0)
 
     return RiskBudgetV1(target_vol=target_vol, vol_band=vol_band, target_return=target_return)
+
+
+def merge_profile_vol_band(profile_payload, raw_profiles_doc, profile_id):
+    """DECISION 2026-06-09 (post-auditoria, H8): las bandas de volatilidad
+    explicitas viven en el campo PARALELO 'vol_bands' del doc canonico
+    system_settings/risk_profiles, manteniendo puro el vocabulario de buckets
+    de cada perfil (un 'vol_band' dentro del mapa del perfil contaminaria el
+    resolutor unificado y el precheck, que iteran todas sus claves).
+
+    Estructura esperada:
+        { "8": {RV: [...], ...}, ..., "vol_bands": {
+            "8": {"min": 0.08, "max": 0.28, "target_vol": 0.15}, ... } }
+
+    Devuelve una COPIA del payload con 'vol_band'/'target_vol' incorporados si
+    existen para ese perfil; si no, el payload original sin cambios.
+    """
+    payload = dict(profile_payload or {})
+    bands = (raw_profiles_doc or {}).get("vol_bands")
+    if not isinstance(bands, dict):
+        return payload
+    entry = bands.get(str(profile_id))
+    if not isinstance(entry, dict):
+        return payload
+    band = {k: entry.get(k) for k in ("min", "max") if entry.get(k) is not None}
+    if band and "vol_band" not in payload:
+        payload["vol_band"] = band
+    if entry.get("target_vol") is not None and "target_vol" not in payload:
+        payload["target_vol"] = entry.get("target_vol")
+    return payload
 
 
 def build_constraints_v1(

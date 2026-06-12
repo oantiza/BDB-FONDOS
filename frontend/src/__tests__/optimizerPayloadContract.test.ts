@@ -117,7 +117,9 @@ describe('optimizer retry path — contractual hardening (resolved known_contrac
 
   test('[resolved] all retry blocks spread lastPayloadRef.current', () => {
     const retryBlocks = source.match(/const retryPayload:\s*any\s*=\s*{[\s\S]*?};/g) || [];
-    expect(retryBlocks.length).toBeGreaterThanOrEqual(3);
+    // H3 removed the obsolete fallback_no_history branch; the remaining retry
+    // paths still have to preserve the full contractual payload.
+    expect(retryBlocks.length).toBeGreaterThanOrEqual(2);
 
     for (const block of retryBlocks) {
       expect(block).toMatch(/lastPayloadRef\.current/);

@@ -142,8 +142,13 @@ def normalize_v2_duration_bucket(value):
 
 
 def _as_fraction(value, default=0.0):
+    # FIX H5 parcial (auditoria 2026-06-09): umbral alineado con el resto del
+    # backend (_sanitize_fraction y bounds_resolver._coerce_bound usan > 1.0).
+    # Con el umbral anterior (1.5), un valor porcentual en (1.0, 1.5] —p.ej.
+    # 1.2 = 1.2%— se leia como 120% y se clampaba a 100%. Datos canonicos
+    # verificados en fraccion 0..1: sin impacto; corrige porcentajes legacy.
     val = _to_float(value, default)
-    if abs(val) > 1.5:
+    if abs(val) > 1.0:
         val = val / 100.0
     return max(0.0, min(1.0, val))
 

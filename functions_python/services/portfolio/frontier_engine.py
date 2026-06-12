@@ -47,8 +47,13 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                 "ytd": 252,
                 "max": 10000,
             }
-            lookback_days = period_days_map.get(period, 1095)
-            ideal_start = df.index[-1] - pd.Timedelta(days=lookback_days)
+            # FIX H14 (auditoria 2026-06-09): 'ytd' significa desde el 1 de
+            # enero del anio en curso, no una ventana fija de 252 dias.
+            if period == "ytd":
+                ideal_start = pd.Timestamp(year=df.index[-1].year, month=1, day=1)
+            else:
+                lookback_days = period_days_map.get(period, 1095)
+                ideal_start = df.index[-1] - pd.Timedelta(days=lookback_days)
 
             first_valid_indices = df.apply(lambda col: col.first_valid_index()).dropna()
             if not first_valid_indices.empty:
@@ -230,10 +235,17 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
             try:
                 from services.quant_core import calculate_portfolio_metrics
                 
-                # Normalize weights to sum exactly 1.0 before calculation
-                raw_total = sum(float(w) for w in portfolio_weights.values())
+                # FIX H13 (auditoria 2026-06-09): normalizar SOLO sobre los
+                # activos presentes en el dataframe. Antes se normalizaba sobre
+                # toda la cartera y los pesos de activos excluidos por historial
+                # se perdian despues, dejando un vector que no suma 1 y un punto
+                # (vol, ret) infraestimado.
+                present_weights = {
+                    k: float(v) for k, v in portfolio_weights.items() if k in df.columns
+                }
+                raw_total = sum(present_weights.values())
                 if raw_total > 0:
-                    norm_weights = {k: float(v)/raw_total for k, v in portfolio_weights.items()}
+                    norm_weights = {k: v / raw_total for k, v in present_weights.items()}
                     
                     # rf_rate relies on 0.0 for pure plot coordinates without excess return translation
                     metrics = calculate_portfolio_metrics(norm_weights, mu, S, rf_rate=0.0)

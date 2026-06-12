@@ -4,7 +4,8 @@ from firebase_functions import https_fn, options
 from firebase_admin import firestore
 
 from services.portfolio.optimizer_core import run_optimization
-from services.portfolio.constraints_builder_v1 import build_constraints_v1
+from services.portfolio.autoexpand_candidates import select_candidate_pool
+from services.portfolio.constraints_builder_v1 import build_constraints_v1, merge_profile_vol_band
 from services.portfolio.frontier_engine import generate_efficient_frontier
 from services.backtester import run_backtest, run_multi_period_backtest
 from services.portfolio.analyzer import analyze_portfolio
@@ -146,19 +147,33 @@ def _build_asset_metadata(db, assets_list: list, frontend_meta: dict) -> dict:
 
     return asset_metadata
 
-def _build_auto_expand_candidates(db) -> dict:
+def _build_auto_expand_candidates(db, risk_level=None) -> dict:
     """
     FASE 3.5: Helper P2 para precargar candidatos de auto-expand.
     Elimina el acceso a BD de optimizer_core manteniendo pura su rutina.
+
+    DECISION 2026-06-09 (post-auditoria, H2): pool por PERFIL con margen.
+    La elegibilidad del perfil es el unico gate duro; la afinidad de tramo
+    (defensivo <=2, mixtos 3-4, crecimiento 5-7, RV alta 8-10) solo ordena.
+    La consulta se amplia a top-150 por Sharpe (antes 50) y la seleccion vive
+    en services/portfolio/autoexpand_candidates.select_candidate_pool (pura).
     """
     candidates = {}
     fallback_isins = [
         "LU0340557775", "LU1135865084", "LU0690375182", "LU0203975437", "IE00B2NXKW18"
     ]
+    _tier_keys = {1: "defensive_isins", 2: "defensive_isins", 3: "moderate_isins",
+                  4: "moderate_isins", 5: "growth_isins", 6: "growth_isins",
+                  7: "growth_isins"}
     try:
         cfg = db.collection("config").document("auto_complete_candidates").get()
         if cfg.exists:
-            fallback_isins = cfg.to_dict().get("equity90_isins", fallback_isins)
+            cfg_d = cfg.to_dict() or {}
+            tier_key = _tier_keys.get(int(risk_level)) if risk_level else None
+            fallback_isins = (
+                (tier_key and cfg_d.get(tier_key))
+                or cfg_d.get("equity90_isins", fallback_isins)
+            )
     except Exception:
         pass
 
@@ -166,31 +181,11 @@ def _build_auto_expand_candidates(db) -> dict:
         docs = (
             db.collection("funds_v3")
             .order_by("std_perf.sharpe", direction=firestore.Query.DESCENDING)
-            .limit(50)
+            .limit(150)
             .stream()
         )
-        for d in docs:
-            dd = d.to_dict() or {}
-            meta_payload = {
-                "classification_v2": dd.get("classification_v2", {}) or {},
-                "portfolio_exposure_v2": dd.get("portfolio_exposure_v2", {}) or {},
-            }
-            eq_mix = get_v2_asset_mix(meta_payload, as_percent=True)
-            eq_val = (
-                eq_mix.get("equity", 0.0)
-                if has_usable_v2_exposure(meta_payload)
-                else _to_float(dd.get("metrics", {}).get("equity"), 0.0)
-            )
-            if eq_val >= 90.0:
-                candidates[d.id] = {
-                    "metrics": dd.get("metrics", {}),
-                    "asset_class": asset_type_to_bucket_label((dd.get("classification_v2", {}) or {}).get("asset_type")) or "UNKNOWN",
-                    "classification_v2": meta_payload["classification_v2"],
-                    "portfolio_exposure_v2": meta_payload["portfolio_exposure_v2"],
-                    "v2_identity": extract_v2_identity(meta_payload),
-                    "v2_exposure": eq_mix,
-                    "v2_quality": summarize_v2_quality(meta_payload),
-                }
+        rows = [(d.id, d.to_dict() or {}) for d in docs]
+        candidates = select_candidate_pool(rows, risk_level=risk_level)
     except Exception as e:
         logger.info(f"⚠️ Error dynamic candidates: {e}")
 
@@ -231,6 +226,9 @@ def _load_canonical_profile(db, profile_id: str) -> dict:
             if isinstance(profile, dict):
                 payload = dict(profile)
                 payload["profile_id"] = normalized_id
+                # DECISION 2026-06-09: bandas de vol explicitas en el campo
+                # paralelo 'vol_bands' (no contamina el vocabulario de buckets).
+                payload = merge_profile_vol_band(payload, raw, normalized_id)
                 return payload
     except Exception as e_prof:
         logger.info(f"⚠️ Error loading canonical profile {normalized_id}: {e_prof}")
@@ -403,7 +401,7 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
         # P2: Pre-fetch candidates para optimización matemática pura sin I/O
         candidate_funds = None
         if STRATEGY_CONSTRAINTS.get("auto_expand_universe") or float(STRATEGY_CONSTRAINTS.get("equity_floor", 0)) > 0:
-            candidate_funds = _build_auto_expand_candidates(db)
+            candidate_funds = _build_auto_expand_candidates(db, risk_level=risk_level)
 
         # =====================================================================
         # FASE 5: DELEGACIÓN AL MOTOR CÚANTITATIVO 
@@ -477,16 +475,11 @@ def optimize_portfolio_quant(request: https_fn.CallableRequest):
     except Exception as e:
         logger.exception(f"🔥 Error en optimize_portfolio_quant: {e}")
         error_msg = str(e)
-        if error_msg.startswith("INFEASIBLE_HISTORY:"):
-            candidates_str = error_msg.split(":")[1]
-            candidates = candidates_str.split(",") if candidates_str else []
-            return {
-                "status": "infeasible",
-                "message": "Faltan datos históricos o diversidad de activos para equilibrar matemáticamente la cartera. ¿Aceptas añadir fondos globales?",
-                "recovery_candidates": candidates,
-            }
+        # FIX H3 (auditoria 2026-06-09): el branch que parseaba "INFEASIBLE_HISTORY:"
+        # aqui era codigo muerto: run_optimization captura esa ValueError internamente
+        # y ahora devuelve {"status": "infeasible", "recovery_candidates": [...]}.
         raise https_fn.HttpsError(
-            code=https_fn.FunctionsErrorCode.INTERNAL, 
+            code=https_fn.FunctionsErrorCode.INTERNAL,
             message=f"Error interno del servidor: {error_msg}"
         )
 

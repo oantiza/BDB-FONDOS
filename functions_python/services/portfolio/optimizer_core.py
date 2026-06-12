@@ -733,20 +733,38 @@ def _build_optimization_context(db, constraints):
         risk_profile_doc, _rp_source = resolve_risk_profiles_doc(db)
         if risk_profile_doc.exists:
             raw_dic = risk_profile_doc.to_dict()
-            current_risk_buckets = {int(k): v for k, v in raw_dic.items()}
+            # FIX H17-b (auditoria 2026-06-09): solo claves numericas son
+            # perfiles; antes, UNA clave extra (p.ej. el campo paralelo
+            # 'vol_bands') rompia int(k) y degradaba TODO el doc a seeds.
+            _ignored_keys = [k for k in raw_dic if not str(k).isdigit()]
+            if _ignored_keys:
+                logger.info("[Optimizer] Claves no-perfil ignoradas en risk_profiles: %s", _ignored_keys)
+            current_risk_buckets = {int(k): v for k, v in raw_dic.items() if str(k).isdigit()}
+            risk_profiles_source = f"firestore:{_rp_source}"
             logger.info("[Optimizer] Cargados perfiles de riesgo desde Firestore (%s)", _rp_source)
         else:
             logger.info("⚠️ [Optimizer] Perfiles no encontrados en DB. Auto-inicializando...")
             db_save = {str(k): v for k, v in RISK_BUCKETS_LABELS.items()}
             db.collection("system_settings").document("risk_profiles").set(db_save)
             current_risk_buckets = RISK_BUCKETS_LABELS
+            risk_profiles_source = "seed_auto_initialized_write"
     except Exception as e:
-        logger.info(f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. Usando locales.")
+        # FIX H6 parcial (auditoria 2026-06-09): la caida a seeds locales aplica
+        # una politica potencialmente DISTINTA de la canonica viva (P8-P10
+        # divergen). Se hace visible via risk_profiles_source + warning.
+        logger.warning(
+            f"⚠️ [Optimizer] Fallo al leer perfiles de riesgo: {e}. "
+            "Usando seeds locales (politica potencialmente distinta de la canonica)."
+        )
         current_risk_buckets = RISK_BUCKETS_LABELS
+        risk_profiles_source = "seed_fallback_read_error"
 
     equity_floor = float(constraints.get("equity_floor", 0.0))
 
-    return apply_profile, optimization_mode, lock_mode, fixed_weights, current_risk_buckets, equity_floor
+    return (
+        apply_profile, optimization_mode, lock_mode, fixed_weights,
+        current_risk_buckets, equity_floor, risk_profiles_source,
+    )
 
 
 def _apply_suitability_filter(
@@ -815,7 +833,50 @@ def _enrich_locked_suitability_overrides(overrides, weights, asset_metadata):
         enriched.append(item)
     return enriched
 
-def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None, locked_assets=None):
+def _filter_autoexpand_candidates_by_suitability(
+    candidates_list,
+    candidate_funds,
+    asset_metadata,
+    risk_level,
+    apply_profile,
+):
+    """FIX H2 (auditoria 2026-06-09): los candidatos de auto-expand pasan el MISMO
+    filtro de idoneidad (Nivel 2) que el universo solicitado en FASE 2.
+
+    Antes, los fondos inyectados por auto-expand (FASE 3 historico y FASE 7 equity
+    floor) entraban al universo DESPUES del filtro de suitability, pudiendo colar
+    fondos vetados para el perfil (p.ej. RV emergente/sectorial en perfiles <=4).
+
+    Sin metadata utilizable el candidato se EXCLUYE (prudente): un fondo sin
+    classification_v2 no puede acreditar idoneidad y ademas computaria como 100%
+    'Otros' en los vectores de exposicion (no aporta al suelo de RV).
+    Devuelve (aptos, excluidos: [{"isin", "reason"}]).
+    """
+    candidates_list = list(candidates_list or [])
+    if not apply_profile or risk_level is None:
+        return candidates_list, []
+
+    eligible = []
+    excluded = []
+    for isin in candidates_list:
+        meta = (candidate_funds or {}).get(isin) or (asset_metadata or {}).get(isin) or {}
+        ok, reason = is_fund_eligible_for_profile(meta, int(risk_level))
+        if ok:
+            eligible.append(isin)
+        else:
+            excluded.append({"isin": isin, "reason": reason})
+
+    if excluded:
+        logger.info(
+            "🚫 [AutoExpand][Suitability] %d candidato(s) excluido(s) para perfil %s: %s",
+            len(excluded),
+            risk_level,
+            [item["isin"] for item in excluded],
+        )
+    return eligible, excluded
+
+
+def _build_candidate_universe(db, assets_list, asset_metadata, constraints, candidate_funds=None, locked_assets=None, risk_level=None, apply_profile=False, autoexpand_diagnostics=None):
     """
     FASE 3: Historico de Datos y Expansión Básica.
     [LEGADO]: Incluye lógica de auto-expandir basada en base de datos si fallan historiales.
@@ -898,6 +959,13 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
             else:
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
+            # FIX H2: los candidatos de recuperacion ofrecidos al usuario pasan
+            # tambien el filtro de idoneidad del perfil.
+            candidates_list, _excluded = _filter_autoexpand_candidates_by_suitability(
+                candidates_list, candidate_funds, asset_metadata, risk_level, apply_profile
+            )
+            if _excluded and autoexpand_diagnostics is not None:
+                autoexpand_diagnostics.setdefault("suitability_excluded", []).extend(_excluded)
             raise ValueError(f"INFEASIBLE_HISTORY:{','.join(candidates_list[:5])}")
 
         logger.info("⚠️ Auto-expanding due to missing history...")
@@ -906,11 +974,27 @@ def _build_candidate_universe(db, assets_list, asset_metadata, constraints, cand
         else:
             candidates_list = FALLBACK_CANDIDATES_DEFAULT
 
+        # FIX H2: filtro de idoneidad (Nivel 2) ANTES de inyectar candidatos.
+        candidates_list, _excluded = _filter_autoexpand_candidates_by_suitability(
+            candidates_list, candidate_funds, asset_metadata, risk_level, apply_profile
+        )
+        if _excluded and autoexpand_diagnostics is not None:
+            autoexpand_diagnostics.setdefault("suitability_excluded", []).extend(_excluded)
+        if not candidates_list:
+            logger.info(
+                "🚫 [AutoExpand] Sin candidatos aptos para el perfil tras el filtro de idoneidad."
+            )
+            raise ValueError("INFEASIBLE_HISTORY:")
+
         valid_cands, _ = fetcher.get_price_data(candidates_list, resample_freq="D", strict=True)
         valid_cands_sorted = sorted(valid_cands.items(), key=lambda x: len(x[1]), reverse=True)
         for isin, p_series in valid_cands_sorted:
             if len(p_series) >= 756:
                 price_data[isin] = p_series
+                # FIX H2 (anexo): el candidato anadido lleva su metadata real al
+                # universo; sin esto computaba como 100% 'Otros' en los vectores.
+                if candidate_funds and isin in candidate_funds and isin not in (asset_metadata or {}):
+                    asset_metadata[isin] = candidate_funds[isin]
 
         if not price_data:
             raise Exception("No se encontraron suficientes datos históricos ni siquiera auto-expandiendo el universo.")
@@ -1277,12 +1361,54 @@ def _apply_standard_constraints(
 
     return constraint_info
 
+def _resolve_weight_bounds(universe, min_weight, max_weight, lock_mode, locked_assets, fixed_weights):
+    """FIX H1 (auditoria 2026-06-09): cotas por activo cuando hay locks.
+
+    Antes, un peso bloqueado por encima de max_weight era una contradiccion dura
+    en el solver (igualdad w==fw vs bound global w<=max_weight): fallaban el
+    objetivo principal y los DOS fallbacks (re-aplicaban la misma contradiccion)
+    y el resultado degradaba en silencio a equal-weight. El precheck, en cambio,
+    ya modelaba los locks como excepcion del bound por activo
+    (_maximum_achievable_exposure). Esta funcion unifica la semantica en el
+    solver: el lock PISA el bound del activo bloqueado
+    (techo = max(max_weight, fw); suelo = min(min_weight, fw) para que la
+    igualdad/el minimo sean siempre interiores a las cotas).
+
+    Devuelve la tupla escalar original si no hay ajuste alguno, de modo que el
+    comportamiento sin locks (o con locks <= max_weight) es identico al previo.
+    """
+    base = (min_weight, max_weight)
+    if lock_mode not in ("keep_weight", "keep_money", "min_keep"):
+        return base
+    if not fixed_weights or not universe:
+        return base
+
+    locked_set = set(locked_assets or []) or set(fixed_weights.keys())
+    adjusted = False
+    bounds = []
+    for isin in universe:
+        lo, hi = float(min_weight), float(max_weight)
+        if isin in locked_set and isin in fixed_weights:
+            fw = min(max(float(fixed_weights[isin]), 0.0), 1.0)
+            new_lo = min(lo, fw)
+            new_hi = max(hi, fw)
+            if new_lo != lo or new_hi != hi:
+                adjusted = True
+            lo, hi = new_lo, new_hi
+        bounds.append((lo, hi))
+    if adjusted:
+        logger.info(
+            "🔓 [Bounds] Locks por encima de max_weight detectados: cotas por activo aplicadas."
+        )
+    return bounds if adjusted else base
+
+
 def _check_feasibility_and_autoexpand(
     db, fetcher, price_data, universe, assets_list, apply_profile, equity_floor, max_weight, 
     eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
     bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
     candidate_funds=None, bucket_bounds_v1=None, unified=False, unified_bounds_info=None,
-    tactical_views=None,
+    tactical_views=None, autoexpand_diagnostics=None,
 ):
     """
     FASE 7: Predicción de Factibilidad (Floor Checks).
@@ -1302,7 +1428,15 @@ def _check_feasibility_and_autoexpand(
         for isin in locked_assets:
             if isin in universe:
                 idx = universe.index(isin)
-                w = max(0.03, min(max_weight, 1.0))
+                # FIX H16 (auditoria 2026-06-09): usar el peso REAL del lock si
+                # existe. La estimacion anterior asumia max(0.03, max_weight)
+                # para cualquier lock, sobre-consumiendo presupuesto con locks
+                # pequenos (podia declarar inalcanzable un floor alcanzable) e
+                # infra-contando locks grandes.
+                if isin in (fixed_weights or {}):
+                    w = min(1.0, max(0.0, float(fixed_weights[isin])))
+                else:
+                    w = max(0.03, min(max_weight, 1.0))
                 achieved_equity += w * eq_vec[idx]
                 current_budget -= w
                 processed.add(idx)
@@ -1327,6 +1461,9 @@ def _check_feasibility_and_autoexpand(
                     "solver_path": "blocked_infeasible",
                     "feasibility": {"requested": equity_floor, "achievable": round(achieved_equity, 4)},
                     "weights": {},
+                    "metrics": {},
+                    "applicable": False,
+                    "usable": False,
                     "warnings": [f"Equity Floor {equity_floor} Unachievable"],
                     "explainability": explainability,
                 }, None, None, None, None, None, None, None, None, None, None, None, None
@@ -1336,6 +1473,28 @@ def _check_feasibility_and_autoexpand(
                 candidates_list = list(candidate_funds.keys())
             else:
                 candidates_list = FALLBACK_CANDIDATES_DEFAULT
+
+            # FIX H2: filtro de idoneidad (Nivel 2) ANTES de inyectar candidatos.
+            candidates_list, suitability_excluded = _filter_autoexpand_candidates_by_suitability(
+                candidates_list, candidate_funds, asset_metadata, risk_level_i, apply_profile
+            )
+            if suitability_excluded and autoexpand_diagnostics is not None:
+                autoexpand_diagnostics.setdefault("suitability_excluded", []).extend(suitability_excluded)
+            if not candidates_list:
+                explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
+                explainability["auto_expand_suitability_excluded"] = suitability_excluded
+                return False, {
+                    "api_version": "optimizer_v4",
+                    "status": "auto_expand_failed",
+                    "message": (
+                        "No hay fondos candidatos aptos para el perfil seleccionado con los que "
+                        "ampliar el universo. Añada fondos compatibles manualmente."
+                    ),
+                    "weights": {},
+                    "applicable": False,
+                    "usable": False,
+                    "explainability": explainability,
+                }, None, None, None, None, None, None, None, None, None, None, None, None
 
             valid_added = []
             seen = set(universe) | set(assets_list)
@@ -1352,11 +1511,15 @@ def _check_feasibility_and_autoexpand(
 
             if not valid_added:
                 explainability = _unified_explainability_payload(unified_bounds_info) if unified else {}
+                if suitability_excluded:
+                    explainability["auto_expand_suitability_excluded"] = suitability_excluded
                 return False, {
                     "api_version": "optimizer_v4",
                     "status": "auto_expand_failed",
                     "message": "No se encontraron fondos válidos para expandir el universo. Pruebe con otros activos.",
                     "weights": {},
+                    "applicable": False,
+                    "usable": False,
                     "explainability": explainability,
                 }, None, None, None, None, None, None, None, None, None, None, None, None
 
@@ -1388,7 +1551,14 @@ def _check_feasibility_and_autoexpand(
             )
             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec = _build_exposure_vectors(universe, asset_metadata)
 
-            ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
+            # FIX H1: cotas por activo tambien tras la expansion del universo.
+            ef = EfficientFrontier(
+                mu,
+                S,
+                weight_bounds=_resolve_weight_bounds(
+                    universe, min_weight, max_weight, lock_mode, locked_assets, fixed_weights
+                ),
+            )
             if constraints.get("objective") != "min_deviation":
                 ef.add_objective(objective_functions.L2_reg, gamma=gamma)
             
@@ -1502,7 +1672,14 @@ def _run_solver(
         logger.info(f"⚠️ Optimization Failed: {e1}. Trying Relaxed Fallbacks...")
         try:
             logger.info("⚠️ Fallback 1: Relaxed Sharpe")
-            ef_relaxed = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+            # FIX H1: el fallback conserva la excepcion de cotas para locks.
+            ef_relaxed = EfficientFrontier(
+                mu,
+                S,
+                weight_bounds=_resolve_weight_bounds(
+                    universe, 0.0, max_weight, lock_mode, locked_assets, fixed_weights
+                ),
+            )
             ef_relaxed.add_objective(objective_functions.L2_reg, gamma=gamma)
 
             _apply_standard_constraints(
@@ -1518,7 +1695,14 @@ def _run_solver(
         except Exception:
             try:
                 logger.info("⚠️ Fallback 2: Min Volatility")
-                ef_minvol = EfficientFrontier(mu, S, weight_bounds=(0.0, max_weight))
+                # FIX H1: idem para el segundo fallback.
+                ef_minvol = EfficientFrontier(
+                    mu,
+                    S,
+                    weight_bounds=_resolve_weight_bounds(
+                        universe, 0.0, max_weight, lock_mode, locked_assets, fixed_weights
+                    ),
+                )
 
                 _apply_standard_constraints(
                     ef_minvol, constraints, lock_mode, apply_profile, risk_level_i,
@@ -1730,8 +1914,8 @@ def run_optimization(
 
     try:
         # FASE 1: Contexto Global
-        (apply_profile, optimization_mode, lock_mode, fixed_weights, 
-         current_risk_buckets, equity_floor) = _build_optimization_context(db, constraints)
+        (apply_profile, optimization_mode, lock_mode, fixed_weights,
+         current_risk_buckets, equity_floor, risk_profiles_source) = _build_optimization_context(db, constraints)
         locks_v1 = (constraints_v1 or {}).get("locks", {}) or {}
         flags_v1 = (constraints_v1 or {}).get("flags", {}) or {}
         strict_feasibility = _flag_enabled(flags_v1.get("strict_feasibility"), False)
@@ -1776,10 +1960,61 @@ def run_optimization(
         )
 
         # FASE 3: Universe Construction (Price Data & Expansions)
-        (fetcher, price_data, synthetic_used, df, universe, missing_assets, 
-         eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec) = _build_candidate_universe(
-             db, assets_list, asset_metadata, constraints, candidate_funds, locked_assets
-         )
+        # FIX H3 (auditoria 2026-06-09): el caso INFEASIBLE_HISTORY se devuelve como
+        # resultado ESTRUCTURADO (status 'infeasible' + recovery_candidates) en vez de
+        # dejar que la ValueError caiga en el catch-all y salga como status 'error' con
+        # mensaje crudo. El frontend ya maneja 'infeasible' + recovery_candidates con el
+        # dialogo de recuperacion y reintento con auto_expand_universe.
+        autoexpand_diagnostics = {}
+        try:
+            (fetcher, price_data, synthetic_used, df, universe, missing_assets,
+             eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec) = _build_candidate_universe(
+                 db, assets_list, asset_metadata, constraints, candidate_funds, locked_assets,
+                 risk_level=risk_level, apply_profile=apply_profile,
+                 autoexpand_diagnostics=autoexpand_diagnostics,
+             )
+        except ValueError as e_hist:
+            msg_hist = str(e_hist)
+            if not msg_hist.startswith("INFEASIBLE_HISTORY:"):
+                raise
+            recovery_candidates = [c for c in msg_hist.split(":", 1)[1].split(",") if c]
+            return {
+                "api_version": "optimizer_v4",
+                "status": "infeasible",
+                "solver_path": "blocked_insufficient_history",
+                "message": (
+                    "Faltan datos históricos o diversidad de activos para equilibrar "
+                    "matemáticamente la cartera. ¿Aceptas añadir fondos globales?"
+                ),
+                "recovery_candidates": recovery_candidates,
+                "weights": {},
+                "metrics": {},
+                "applicable": False,
+                "usable": False,
+                "locked_suitability_overrides": pending_locked_suitability_overrides,
+                "warnings": [
+                    "insufficient_history",
+                    *(
+                        ["locked_suitability_override"]
+                        if pending_locked_suitability_overrides
+                        else []
+                    ),
+                ],
+                "explainability": {
+                    "history_blocked": True,
+                    "recovery_candidates": recovery_candidates,
+                    "locked_suitability_overrides": pending_locked_suitability_overrides,
+                    **(
+                        {
+                            "auto_expand_suitability_excluded": autoexpand_diagnostics[
+                                "suitability_excluded"
+                            ]
+                        }
+                        if autoexpand_diagnostics.get("suitability_excluded")
+                        else {}
+                    ),
+                },
+            }
 
         if df.empty or len(df) < 60:
             actual_start_str = df.index[0].strftime('%Y-%m-%d') if not df.empty else "N/A"
@@ -1851,6 +2086,14 @@ def run_optimization(
                 "equity": eq_vec, "bond": bd_vec, "cash": cs_vec,
                 "alternative": al_vec, "real_asset": ra_vec, "other": ot_vec,
             }
+            # FIX H9 (auditoria 2026-06-09): en la ruta legacy los bounds del
+            # perfil usan claves canonicas (RV/RF/Monetario/...) mientras los
+            # vectores usaban claves v1: BLOCK-6/7/9 quedaban INERTES en
+            # silencio. Se exponen AMBOS vocabularios (mismo criterio que el
+            # BLOCK-8, que ya contemplaba 'RV' o 'equity').
+            _precheck_exposure.update(
+                build_bucket_vectors(eq_vec, bd_vec, cs_vec, al_vec, ra_vec, ot_vec)
+            )
 
         precheck_result = run_feasibility_precheck(
             universe=universe,
@@ -1891,6 +2134,7 @@ def run_optimization(
                 "weights": {},
                 "metrics": {},
                 "frontier_points": frontier_points,
+                "frontier": frontier_points,
                 "applicable": False,
                 "usable": False,
                 "explainability": precheck_explainability,
@@ -1903,7 +2147,14 @@ def run_optimization(
             }
 
         # Main Base Solver Instantiation
-        ef = EfficientFrontier(mu, S, weight_bounds=(min_weight, max_weight))
+        # FIX H1: cotas por activo (los locks pisan max_weight; ver _resolve_weight_bounds).
+        ef = EfficientFrontier(
+            mu,
+            S,
+            weight_bounds=_resolve_weight_bounds(
+                universe, min_weight, max_weight, lock_mode, locked_assets, fixed_weights
+            ),
+        )
         if objective != "min_deviation":
             ef.add_objective(objective_functions.L2_reg, gamma=gamma)
             
@@ -1969,7 +2220,7 @@ def run_optimization(
             eq_vec, locked_assets, constraints, asset_metadata, min_weight, gamma,
             bd_vec, cs_vec, al_vec, ra_vec, ot_vec, lock_mode, risk_level_i, fixed_weights, current_risk_buckets,
             candidate_funds, bucket_bounds_v1, unified=unified, unified_bounds_info=unified_bounds_info,
-            tactical_views=tactical_views,
+            tactical_views=tactical_views, autoexpand_diagnostics=autoexpand_diagnostics,
         )
         
         if not is_feasible:
@@ -2146,6 +2397,7 @@ def run_optimization(
                 else ("bucket_bounds_v1" if _v1_bounds_active else "current_risk_buckets_legacy")
             ),
             "constraint_hierarchy": "portfolio_exposure_v2 > classification_v2 > seed/config > legacy",
+            "risk_profiles_source": risk_profiles_source,
             "data_readiness": {
                 "universe_size": len(universe),
                 "v2_exposure_assets": v2_exposure_assets,
@@ -2160,6 +2412,11 @@ def run_optimization(
             "locked_assets_impact": "Pesos forzados de manera determinista (sin optimización) para los %d activos indicados" % len(locked_assets) if locked_assets else "Ninguno",
             "tactical_views_impact": "Matriz de covarianza y rendimientos esperados ajustados vía Black-Litterman posteriori" if tactical_views else "Ninguno",
         }
+
+        if autoexpand_diagnostics.get("suitability_excluded"):
+            explainability["auto_expand_suitability_excluded"] = autoexpand_diagnostics[
+                "suitability_excluded"
+            ]
 
         if unified:
             explainability.update(_unified_explainability_payload(unified_bounds_info))
@@ -2221,6 +2478,8 @@ def run_optimization(
             final_warnings.append("optimizer_result_non_compliant")
         if skipped_constraints:
             final_warnings.append("optional_constraints_skipped")
+        if risk_profiles_source == "seed_fallback_read_error":
+            final_warnings.append("risk_profiles_seed_fallback")
 
         # Transparencia: target_vol vs achieved_vol
         _target_vol = _to_float(risk_budget_v1.get("target_vol"), None)

@@ -23,6 +23,19 @@ RISK_PROFILES_STAGING_DOC = "risk_profiles_staging"
 
 _TRUTHY = {"1", "true", "yes", "on"}
 
+# FIX H7 (auditoria 2026-06-09): last-known-good por proceso. Antes, CUALQUIER
+# fallo de lectura devolvia False ("flag OFF"), pero con el flag activado en
+# produccion OFF ya no es neutro: revierte la peticion a la ruta legacy (otra
+# semantica de buckets y precheck degradado). Con cache, un fallo transitorio
+# conserva la ultima lectura valida del proceso; sin lectura previa, OFF.
+_LAST_KNOWN_FLAG = None
+
+
+def reset_unified_constraints_cache():
+    """Solo para tests: limpia el last-known-good del proceso."""
+    global _LAST_KNOWN_FLAG
+    _LAST_KNOWN_FLAG = None
+
 
 def _env_override():
     """Devuelve True/False si UNIFIED_CONSTRAINTS está definida; None si no lo está."""
@@ -37,12 +50,23 @@ def unified_constraints_enabled(db) -> bool:
     env = _env_override()
     if env is not None:
         return env
+    global _LAST_KNOWN_FLAG
     try:
         snap = db.collection(SETTINGS_COLLECTION).document(FEATURE_FLAGS_DOC).get()
         if getattr(snap, "exists", False):
-            return bool((snap.to_dict() or {}).get("unified_constraints", False))
-    except Exception as e:  # noqa: BLE001 - cualquier fallo de lectura => flag OFF (seguro)
-        logger.info("[feature_flags] No se pudo leer feature_flags (%s). Flag OFF.", e)
+            value = bool((snap.to_dict() or {}).get("unified_constraints", False))
+            _LAST_KNOWN_FLAG = value
+            return value
+        _LAST_KNOWN_FLAG = False
+        return False
+    except Exception as e:  # noqa: BLE001
+        if _LAST_KNOWN_FLAG is not None:
+            logger.warning(
+                "[feature_flags] Fallo de lectura (%s). Usando last-known-good=%s.",
+                e, _LAST_KNOWN_FLAG,
+            )
+            return _LAST_KNOWN_FLAG
+        logger.info("[feature_flags] No se pudo leer feature_flags (%s) y sin cache. Flag OFF.", e)
     return False
 
 
