@@ -49,12 +49,13 @@ describe("rulesEngine", () => {
   });
 
   it("returns exactly N funds when universe is sufficient (hard guarantee)", () => {
-    const allRV: Fund[] = Array.from({ length: 200 }, (_, i) =>
-      createFund(`RV${i + 1}`, "RV", 0.15, 1.0, 0.08)
-    );
+    const sufficientUniverse: Fund[] = [
+      ...Array.from({ length: 200 }, (_, i) => createFund(`RV${i + 1}`, "RV", 0.15, 1.0, 0.08)),
+      ...Array.from({ length: 20 }, (_, i) => createFund(`OT${i + 1}`, "Otros", 0.10, 1.0, 0.04)),
+    ];
 
     const N = 16;
-    const portfolio = generateSmartPortfolio(10, allRV, N);
+    const portfolio = generateSmartPortfolio(10, sufficientUniverse, N);
 
     expect(portfolio.length).toBe(N);
     expect(weightsSum(portfolio)).toBeCloseTo(100, 0.5);

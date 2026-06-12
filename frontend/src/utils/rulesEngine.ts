@@ -69,7 +69,7 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
       "RF": { min: 40, max: 70 },
       "RV": { min: 10, max: 25 },
       "Alternativos": { min: 0, max: 15 },
-      "Otros": { min: 0, max: 20 }
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Balanced"
   },
@@ -80,7 +80,7 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
       "RF": { min: 30, max: 60 },
       "RV": { min: 20, max: 40 },
       "Alternativos": { min: 0, max: 20 },
-      "Otros": { min: 0, max: 30 }
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Balanced"
   },
@@ -90,8 +90,8 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
       "Monetario": { min: 0, max: 10 },
       "RF": { min: 20, max: 40 },
       "RV": { min: 40, max: 60 },
-      "Alternativos": { min: 0, max: 20 },
-      "Otros": { min: 0, max: 25 }
+      "Alternativos": { min: 0, max: 15 },
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Balanced"
   },
@@ -101,8 +101,8 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
       "Monetario": { min: 0, max: 10 },
       "RF": { min: 10, max: 30 },
       "RV": { min: 50, max: 75 },
-      "Alternativos": { min: 0, max: 20 },
-      "Otros": { min: 0, max: 20 }
+      "Alternativos": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Growth"
   },
@@ -112,30 +112,30 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
       "Monetario": { min: 0, max: 5 },
       "RF": { min: 0, max: 20 },
       "RV": { min: 70, max: 90 },
-      "Alternativos": { min: 0, max: 15 },
-      "Otros": { min: 0, max: 20 }
+      "Alternativos": { min: 0, max: 10 },
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Growth"
   },
   8: {
     name: "Crecimiento",
     buckets: {
-      "Monetario": { min: 0, max: 5 },
-      "RF": { min: 0, max: 5 },
+      "Monetario": { min: 0, max: 8 },
+      "RF": { min: 0, max: 10 },
       "RV": { min: 85, max: 100 },
       "Alternativos": { min: 0, max: 10 },
-      "Otros": { min: 0, max: 15 }
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Aggressive"
   },
   9: {
     name: "Agresivo",
     buckets: {
-      "Monetario": { min: 0, max: 0 },
-      "RF": { min: 0, max: 5 },
-      "RV": { min: 95, max: 100 },
+      "Monetario": { min: 0, max: 6 },
+      "RF": { min: 0, max: 7 },
+      "RV": { min: 90, max: 100 },
       "Alternativos": { min: 0, max: 5 },
-      "Otros": { min: 0, max: 5 }
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Aggressive"
   },
@@ -143,10 +143,10 @@ export let RISK_PROFILES: Record<number, RiskProfileConfig> = {
     name: "High Conviction",
     buckets: {
       "Monetario": { min: 0, max: 5 },
-      "RF": { min: 0, max: 5 },
+      "RF": { min: 0, max: 3 },
       "RV": { min: 95, max: 100 },
-      "Alternativos": { min: 0, max: 5 },
-      "Otros": { min: 0, max: 0 }
+      "Alternativos": { min: 0, max: 3 },
+      "Otros": { min: 0, max: 10 }
     },
     bias: "Aggressive"
   }

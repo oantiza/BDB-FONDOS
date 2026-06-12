@@ -14,8 +14,8 @@ def test_real_asset_neutral_without_inmobiliario():
     bb = c.bucket_bounds
     # real_asset no se puebla desde legacy (sin 'Inmobiliario' ni 'real_asset') -> sigue vacío.
     assert bb.real_asset.min is None and bb.real_asset.max is None
-    # alternative SÍ se puebla desde 'Alternativos' (nivel 5: 0.0-0.20).
-    assert bb.alternative.max == 0.20
+    # alternative SÍ se puebla desde 'Alternativos' del perfil 5 canónico.
+    assert bb.alternative.max == RISK_BUCKETS_LABELS[5]["Alternativos"][1]
     # equity desde 'RV' (0.40-0.60).
     assert bb.equity.min == 0.40 and bb.equity.max == 0.60
 

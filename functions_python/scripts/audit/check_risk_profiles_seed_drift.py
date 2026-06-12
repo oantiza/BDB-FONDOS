@@ -38,8 +38,8 @@ def compare_profiles(seed: dict, live: dict) -> list:
     """
     drifts = []
     profile_keys = sorted(
-        {str(k) for k in seed} | {str(k) for k in live},
-        key=lambda x: int(x) if x.isdigit() else 99,
+        {str(k) for k in seed} | {str(k) for k in live if str(k).isdigit()},
+        key=lambda x: int(x),
     )
     for pk in profile_keys:
         seed_p = seed.get(int(pk)) if int(pk) in seed else seed.get(pk, {})
