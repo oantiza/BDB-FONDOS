@@ -458,7 +458,7 @@ def compare_risk_free(req: https_fn.Request) -> https_fn.Response:
                 val_str = val_str.replace('.', '')
             try:
                 return float(val_str)
-            except:
+            except Exception:
                 return 0.0
 
         # --- DETECT COLUMNS ---

@@ -134,7 +134,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                         frontier_points.append(
                             {"x": round(v, 4), "y": round(r, 4)}
                         )
-                    except:
+                    except Exception:
                         continue
                 # Sort horizontally to avoid zigzag lines (now sorting by Return 'y' for Monotonic Frontier)
                 frontier_points = sorted(frontier_points, key=lambda p: p["y"])
@@ -170,7 +170,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                                 frontier_points.append(
                                     {"x": round(float(vol), 4), "y": round(float(ret), 4)}
                                 )
-                            except:
+                            except Exception:
                                 pass  # Infeasible segment of the frontier
                             finally:
                                 gc.collect()
@@ -226,7 +226,7 @@ def generate_efficient_frontier(assets_list, db, portfolio_weights=None, period=
                 asset_points.append(
                     {"label": ticker, "x": round(v, 4), "y": round(r, 4)}
                 )
-            except:
+            except Exception:
                 continue
 
         # 5. CURRENT PORTFOLIO POINT (Canonical Math Engine)

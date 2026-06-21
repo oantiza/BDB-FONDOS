@@ -35,7 +35,7 @@ def process_fund(db, isin, dry_run=False):
             try:
                 dates.append(pd.to_datetime(k))
                 prices.append(float(v))
-            except: pass
+            except Exception: pass
     elif isinstance(history, list):
          for item in history:
              try:
@@ -47,7 +47,7 @@ def process_fund(db, isin, dry_run=False):
                       if hasattr(d, 'isoformat'): d = d.isoformat()
                       dates.append(pd.to_datetime(d))
                       prices.append(float(item['price']))
-             except: pass
+             except Exception: pass
                  
     if not dates:
         return None
@@ -107,7 +107,7 @@ def process_fund(db, isin, dry_run=False):
                             parsed_date = pd.to_datetime(date_str)
                             if not anomaly_mask.get(parsed_date, False):
                                 new_history.append(item)
-                        except:
+                        except Exception:
                             new_history.append(item)
             
             field_to_update = 'history' if 'history' in data else 'points'

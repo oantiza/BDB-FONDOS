@@ -13,7 +13,7 @@ def _to_float(x):
         return 0.0
     try:
         return float(x)
-    except:
+    except Exception:
         return 0.0
 
 
@@ -45,7 +45,7 @@ def extract_history(h_data):
             if d_val and (n_val is not None):
                 try:
                     tuples.append((d_val, float(n_val)))
-                except:
+                except Exception:
                     pass
         if tuples:
             return list(sorted(tuples, key=lambda x: x[0]))
@@ -86,7 +86,7 @@ def extract_history(h_data):
             if len(k) == 10 and k[4] == "-" and k[7] == "-":
                 try:
                     tuples.append((k, float(v)))
-                except:
+                except Exception:
                     pass
 
     # Normalize Dates
@@ -98,7 +98,7 @@ def extract_history(h_data):
         elif isinstance(d_raw, str):
             try:
                 dt = datetime.fromisoformat(d_raw.replace("Z", ""))
-            except:
+            except Exception:
                 pass
 
         if dt:
@@ -119,7 +119,7 @@ def refresh_daily_logic(db, start_time):
         if rf_doc.exists:
             rf_rate = _to_float(rf_doc.to_dict().get("rate", 0.03))
             rf_source = "firestore"
-    except:
+    except Exception:
         pass
 
     # 2. Iterate Funds

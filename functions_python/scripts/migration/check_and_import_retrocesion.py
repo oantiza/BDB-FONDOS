@@ -61,7 +61,7 @@ def parse_retrocesion(val: str) -> float:
         # Si el valor estÃ¡ en formato > 1 (ej. 1.5 que significa 1.5%), lo dejamos asÃ­
         # La BD guarda los valores como porcentaje directo (ej. 1.5 = 1.5%)
         return round(pct, 4)
-    except:
+    except Exception:
         return 0.0
 
 

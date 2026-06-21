@@ -28,7 +28,7 @@ try:
             initialize_app(cred)
         else:
             initialize_app()
-except:
+except Exception:
     pass
 
 db = firestore.client()

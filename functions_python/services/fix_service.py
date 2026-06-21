@@ -11,7 +11,7 @@ def _to_float(x):
         if isinstance(x, str):
             c = x.strip().replace("%", "").replace(",", ".")
             return float(c)
-    except:
+    except Exception:
         return 0.0
     return 0.0
 
@@ -86,7 +86,7 @@ def run_db_fix(db, apply_changes=False):
                                         d_val.replace("Z", "")
                                     )
                                     dates.append(d_parsed)
-                                except:
+                                except Exception:
                                     pass
                             elif isinstance(d_val, datetime):
                                 dates.append(d_val)

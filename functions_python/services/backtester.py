@@ -226,7 +226,7 @@ def _calculate_allocations(portfolio, db, weights_map):
                             region_stats[target_key] += contribution
                             total_region_weight += contribution
                             found_any_region = True
-                        except:
+                        except Exception:
                             continue
 
                 if not found_any_region:
