@@ -395,7 +395,11 @@ export function normalizeFundData(docDataInput: any) {
   // 1. Asset Class & Region (Strict from adapter/docData)
   // [V2-FIRST INTENT] Attempt canonical fields first in case it bypassed adapter
   // [COMPATIBILITY FALLBACK] Read the fields injected or original legacy fields
-  let std_type = docData.classification_v2?.asset_type ?? docData.asset_class ?? null
+  // L-3 (auditoría 2026-06-21): std_type SIEMPRE en vocabulario legacy (RV/RF/Mixto/Monetario/...),
+  // coherente con `asset_class` (que ya usa mapV2ToLegacyAssetClass en adaptFundV3ToLegacy).
+  // Antes mezclaba V2 ("EQUITY") cuando había classification_v2 y legacy ("RV") en el fallback,
+  // dejando std_type / std_extra.assetClass con vocabulario inconsistente según la rama.
+  let std_type = mapV2ToLegacyAssetClass(docData.classification_v2?.asset_type) ?? docData.asset_class ?? null
   let std_region = docData.classification_v2?.region_primary ?? docData.primary_region ?? null
 
   // [FALLBACK] Region from MS Breakdown if missing
