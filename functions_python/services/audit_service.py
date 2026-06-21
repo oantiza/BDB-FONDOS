@@ -7,7 +7,7 @@ def _to_float(x):
         c = x.strip().replace("%", "").replace(",", ".")
         try:
             return float(c)
-        except:
+        except Exception:
             return 0.0
     return 0.0
 
@@ -70,7 +70,7 @@ def run_audit(db):
             # Just get().
             doc_snap = db.collection("historico_vl_v2").document(isin).get()
             has_history = doc_snap.exists
-        except:
+        except Exception:
             pass
 
         equity90_candidate = (eq >= 90.0) and has_history and (not is_hedged)
@@ -221,7 +221,7 @@ def update_years_span_logic(db, apply=False):
                                     d_val.replace("Z", "")
                                 )
                                 dates.append(dt)
-                            except:
+                            except Exception:
                                 pass
                         elif isinstance(d_val, datetime.datetime):
                             dates.append(d_val)

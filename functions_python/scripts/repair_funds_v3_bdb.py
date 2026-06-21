@@ -20,7 +20,7 @@ def normalize_value(v):
         if s.endswith("%"):
             try:
                 return float(s[:-1]) / 100.0
-            except:
+            except Exception:
                 return v
 
     if isinstance(v, (int, float)):

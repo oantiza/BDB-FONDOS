@@ -26,7 +26,7 @@ try:
     if not firebase_admin._apps:
         cred = credentials.Certificate(KEY_PATH)
         initialize_app(cred)
-except:
+except Exception:
     pass
 
 from services.portfolio.optimizer_core import run_optimization

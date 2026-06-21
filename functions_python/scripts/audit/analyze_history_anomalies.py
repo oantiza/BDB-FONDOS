@@ -35,7 +35,7 @@ except Exception as e:
     print(f"Error initializing Firebase: {e}")
     try:
         initialize_app()
-    except:
+    except Exception:
         pass
 
 db = firestore.client()
