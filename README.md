@@ -73,4 +73,4 @@ firebase deploy --only hosting
 ```
 
 ## 📄 Maintenance
-For deep maintenance on taxonomy, refer to `scripts/populate_taxonomy_v2_FINAL.py`. This script is the primary tool for mass-updating asset classifications and regions.
+For deep maintenance on taxonomy, refer to `functions_python/scripts/migration/populate_taxonomy_v2.py`. This script is the primary tool for mass-updating asset classifications and regions.
