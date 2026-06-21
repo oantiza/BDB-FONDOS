@@ -118,7 +118,7 @@ def print_data(doc, db):
             # Sort by date
             try:
                 raw_list.sort(key=lambda x: x.get("date", ""))
-            except:
+            except Exception:
                 pass
 
             print(f"First 3: {raw_list[:3]}")

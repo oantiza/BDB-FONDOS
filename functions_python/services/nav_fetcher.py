@@ -53,7 +53,7 @@ async def fetch_eodhd_data(session, ticker, from_date, to_date=None, max_retries
                                 f_val = float(val)
                                 if f_val > 0:
                                     clean_data.append({"date": item["date"], "nav": f_val})
-                            except:
+                            except Exception:
                                 pass
 
                     return ticker, clean_data

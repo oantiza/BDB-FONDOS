@@ -177,3 +177,12 @@ scratch/
 temp_popup.html
 tools/chrome_extensions/
 .venv-playwright/
+
+# Artefactos operativos (auditoría 2026-06-21)
+artifacts/
+
+# Auditoría 2026-06-21: archivos no deseados
+_archive/
+AGENTS.md
+_mockups/
+docs/BDB_MORNINGSTAR_ERROR32_REVIEW4_TRIAGE_0.md
