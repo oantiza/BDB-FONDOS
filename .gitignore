@@ -186,3 +186,9 @@ _archive/
 AGENTS.md
 _mockups/
 docs/BDB_MORNINGSTAR_ERROR32_REVIEW4_TRIAGE_0.md
+
+# Docs tidy 2026-06-21: volcados de datos pesados bajo docs/ (no son documentación).
+# Quedan en disco; desrastrear con: git rm --cached <fichero>
+docs/audits/legacy/funds_v3.json
+docs/audits/legacy/audit_funds_v3_details.jsonl
+docs/audits/legacy/funds_eligibility.json
